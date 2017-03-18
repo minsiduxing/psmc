@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:cache="http://www.springframework.org/schema/cache"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache-4.3.xsd">
+
+	<cache:annotation-driven cache-manager="cacheManager"/>  
+	
+	<bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">  
+        <property name="configLocation" value="classpath:/ehcache.xml" />  
+    </bean>  
+      
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">      
+        <property name="cacheManager"  ref="cacheManagerFactory"/>      
+        <property name="transactionAware" value="false"/>  
+    </bean>  
+    
+    <bean id="psmcCacheFactory" class="priv.guochun.psmc.system.framework.cache.PsmcCacheFactoryImpl">      
+    	<property name="cacheManager"  ref="cacheManager"/>      
+    	<property name="psmcInitCacheTool" ref="psmcInitCacheTool"></property>
+    </bean>
+    
+    <!--缓存数据加载接口 -->
+    <bean id="psmcInitCacheTool" class="priv.guochun.psmc.system.framework.cache.PsmcInitCacheToolImpl">
+		<property name="tabOperateService" ref="tabOperateService"></property>
+		<property name="psmcCacheFactory" ref="psmcCacheFactory"></property>
+	</bean>
+    
+    
+    <!--缓存定时加载 -->
+	<bean id="initCacheTask" class="priv.guochun.psmc.system.framework.cache.InitCacheTask">
+		<property name="psmcInitCacheTool" ref="psmcInitCacheTool"></property>
+	</bean>
+	
+	<!-- 调度业务 -->
+	 <bean id="cacheJobTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	 <property name="targetObject" ref="initCacheTask" />
+	 <property name="targetMethod">
+	 	<value>execute</value>
+	 </property>
+	</bean> 
+
+	
+	<bean id="cacheJobTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	 <property name="jobDetail" ref="cacheJobTask" />
+	 <!--每天-->
+	<property name="cronExpression" value="0 0 0 * * ?" />
+	</bean>
+
+    
+    
+	
+</beans>

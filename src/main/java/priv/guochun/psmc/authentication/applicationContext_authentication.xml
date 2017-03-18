@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/aop   
+    	http://www.springframework.org/schema/aop/spring-aop-4.3.xsd"
+	default-lazy-init="false" default-autowire="byName">
+
+	<bean id="loginService"
+		class="priv.guochun.psmc.authentication.login.service.impl.LoginServiceImpl" />
+
+
+	<bean id="tabAccountService"
+		class="priv.guochun.psmc.authentication.user.service.impl.TabAccountServiceImpl" />
+
+	<bean id="tabAccountDao"
+		class="priv.guochun.psmc.authentication.user.dao.impl.TabAccountDaoImplMybatis" />
+
+
+	<bean id="tabPersonService"
+		class="priv.guochun.psmc.authentication.user.service.impl.TabPersonServiceImpl" />
+
+	<bean id="tabPersonDao"
+		class="priv.guochun.psmc.authentication.user.dao.impl.TabPersonDaoImplMybatis" />
+
+	<bean id="tabRoleService"
+		class="priv.guochun.psmc.authentication.role.service.impl.TabRoleServiceImpl" />
+
+	<bean id="tabRoleDao"
+		class="priv.guochun.psmc.authentication.role.dao.impl.TabRoleDaoImplMybatis" />
+
+	<bean id="tabResourceService"
+		class="priv.guochun.psmc.authentication.resource.service.impl.TabResourceServiceImpl" />
+
+	<bean id="tabResourceDao"
+		class="priv.guochun.psmc.authentication.resource.dao.impl.TabResourceDaoImplMybatis" />
+		
+	<bean id="tabRoleResourceDao"
+		class="priv.guochun.psmc.authentication.resource.dao.impl.TabRoleResourceDaoImplMybatis" />
+
+	<bean id="tabOperateService"
+		class="priv.guochun.psmc.authentication.operate.service.impl.TabOperateServiceImpl" />
+
+	<bean id="tabOperateDao"
+		class="priv.guochun.psmc.authentication.operate.dao.impl.TabOperateDaoImplMybatis" />
+	
+	<bean id="tabRoleOperateDao"
+		class="priv.guochun.psmc.authentication.operate.dao.impl.TabRoleOperateDaoImplMybatis" />
+
+	<bean id="licenseReaderService"
+		class="priv.guochun.psmc.authentication.license.sevice.LicenseReaderService" />
+	<bean id="counterDao"
+		class="priv.guochun.psmc.authentication.license.dao.impl.CounterDaoImpl" />
+	
+	<bean id="authAdvice" class="priv.guochun.psmc.authentication.aop.advice.AuthAdviceImpl"/>
+	
+	<aop:config>
+		<aop:aspect id="authaop" ref="authAdvice">
+				<aop:pointcut id="authpointcut" expression="execution(public * priv.guochun.psmc..*ServiceImpl.*BusinessMethod(..))"/>
+				<aop:before method="beforeAdvice" pointcut-ref="authpointcut"/>
+				<!--aop:around method="aroundAdvice" pointcut-ref="authpointcut"/>
+				<aop:after method="afterAdvice" pointcut-ref="authpointcut"/>
+				<aop:after-returning  method="afterRetunAdvice" pointcut-ref="authpointcut"/ -->
+				
+		</aop:aspect>
+	</aop:config>
+	
+
+</beans>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.authentication.role.model.TabAccRole">  
+   
+    
+   	
+   	<delete id="deletesAccountsRoleRelationsByAccountUuids" parameterType="hashmap">
+    	DELETE FROM  TAB_ACC_ROLE where 1=1  and ACC_UUID in
+    	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+				  #{item}  
+		</foreach>  
+    </delete>
+    
+    <delete id="deletesAccountsRoleRelationsByRoleUuids" parameterType="hashmap">
+    	DELETE FROM  TAB_ACC_ROLE where 1=1  and ROLE_UUID in
+    	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+				  #{item}  
+		</foreach>  
+    </delete>
+    
+    
+    
+    
+    <insert id="saveAccRoleRelations"  parameterType="java.util.List">
+  		INSERT INTO TAB_ACC_ROLE(ACC_UUID,ROLE_UUID) VALUES
+  		<foreach collection="ids" item="item" index="index" separator="," >  
+        	(#{item.accUuid},#{item.roleUuid})  
+   		 </foreach> 
+  	</insert>
+   	
+</mapper>  

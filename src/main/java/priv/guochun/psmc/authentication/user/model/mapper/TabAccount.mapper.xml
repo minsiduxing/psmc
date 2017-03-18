@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.authentication.user.model.TabAccount">  
+   
+    
+   	<select id="getTabAccountByCondition" resultType="java.util.Map" parameterType="hashmap">
+   			SELECT * FROM  TAB_ACCOUNTS 
+   			<where>
+   				<if test="uuid !=null">
+   					and UUID = #{uuid}
+   				</if>
+   				<if test="accountName !=null">
+   					and ACCOUNT_NAME = #{accountName}
+   				</if>
+   				<if test="accountPass !=null">
+   					and account_pass = #{accountPass}
+   				</if>
+   			</where>
+   	</select>
+  	
+  	<select id="accountUniqueValidate" resultType="java.util.Map" parameterType="hashmap">
+   			SELECT * FROM  TAB_ACCOUNTS  
+   			<where>
+   				<if test="accountUuid !=null">
+   					and UUID != #{accountUuid}
+   				</if>
+   				<if test="username !=null">
+   					and ACCOUNT_NAME = #{username}
+   				</if>
+   			</where>
+   	</select>
+  
+
+   	<select id="getMyPageOfTabAccounts" resultType="java.util.Map" parameterType="hashmap">
+	   select a.uuid as acc_uuid,a.account_name,a.account_pass,a.is_locked, 
+    		b.uuid as person_id,b.person_name,b.sex,b.age,b.telephone,b.email,c.dict_name as sexName
+    		from tab_accounts a ,tab_person b
+    		left join tab_data_dict c on b.sex=c.dict_id
+    		and c.dict_no= #{dict_no}
+    		where a.uuid=b.acc_uuid 
+   	</select>
+ 
+  	
+  	<insert id="insertAccount">
+  		INSERT INTO TAB_ACCOUNTS(UUID,ACCOUNT_NAME,ACCOUNT_PASS,IS_LOCKED) VALUES
+  		(#{uuid},#{accountName},#{accountPass},#{isLocked})
+  	</insert>
+  	
+  	<update id="updateAccount" parameterType="priv.guochun.psmc.authentication.user.model.TabAccount">
+  		UPDATE TAB_ACCOUNTS 
+  		<trim prefix="set" suffixOverrides=",">
+	  		<if test="accountName != null">
+	  			ACCOUNT_NAME =#{accountName},
+	  		</if>
+	  		<if test="accountPass != null">
+	  			ACCOUNT_PASS =#{accountPass},
+	  		</if>
+	  		<if test="isLocked != null">
+	  			IS_LOCKED =#{isLocked},
+	  		</if>
+  		</trim>
+  		where UUID=#{uuid}
+  	</update>
+  	
+  	
+    <delete id="deletesAccounts" parameterType="hashmap">
+    	DELETE FROM  TAB_ACCOUNTS where 1=1  and UUID in
+    	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+				  #{item}  
+		</foreach>  
+    </delete>
+  
+   	
+</mapper>  

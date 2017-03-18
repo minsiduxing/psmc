@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.authentication.operate.model.TabRoleOperate">  
+   
+   	<delete id="deleteRoleOperateRelations" parameterType="hashmap">
+    	DELETE FROM  TAB_ROLE_OPERATE where 1=1 
+    	<if test="roleUuids !=null">
+	    	 and ROLE_UUID in
+	    	<foreach item="item" index="index" collection="roleUuids" open="(" separator="," close=")">  
+					  #{item}  
+			</foreach>  
+    	</if>
+    </delete>
+    
+    <insert id="saveRoleResourceOperateRelationsTwo" parameterType="hashmap">
+    		insert into TAB_ROLE_OPERATE 
+			select a.ROLE_ID,b.UUID from tab_role_resource a,tab_operate b where a.RESOURCE_ID = b.RESOURCE_UUID 
+			<if test="roleUuid !=null">
+					and a.role_id=#{roleUuid}
+			</if>
+			and b.RESOURCE_UUID  in
+			<foreach item="item" index="index" collection="resourceIds" open="(" separator="," close=")">  
+					  #{item}  
+			</foreach>  
+    </insert>
+    
+  
+  
+	  <select id="getPrivilegDataListByRoleAndResource" resultType="java.util.Map" parameterType="hashmap">
+	   			
+	   			SELECT a.ROLE_ID,a.RESOURCE_ID,b.UUID AS OPERATE_UUID,b.FUN_CLASS,b.FUN_METHOD,b.OPERATE_NAME,b.OPERATE_DESC,
+				(CASE WHEN c.OPERATE_UUID IS NOT NULL THEN 'true' ELSE 'false' END) AS CHECKED 
+				FROM tab_role_resource a,tab_operate b left join tab_role_operate c ON  b.UUID =c.OPERATE_UUID 
+				WHERE a.resource_id=b.resource_uuid
+				<if test="roleUuid !=null">
+	   					AND a.ROLE_ID = #{roleUuid}
+	   			</if>
+	   			<if test="resourceUuid !=null">
+	   					AND a.RESOURCE_ID = #{resourceUuid}
+	   			</if>
+				order by b.ordernum asc
+	   	</select>
+    
+    
+</mapper>  

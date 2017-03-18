@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.authentication.user.model.TabPerson">  
+   
+    
+   	<select id="getTabPersonByCondition" resultType="java.util.Map" parameterType="hashmap">
+
+   			SELECT uuid,a.person_name,
+   			   sex,age,telephone,email,a.acc_uuid,a.city_Id as cityId,b.city_name FROM  TAB_PERSON a,tab_city b where 1=1   and a.city_id=b.city_id
+   				<if test="uuid !=null">
+   					and UUID = #{uuid}
+   				</if>
+   				<if test="accUuid !=null">
+   					and acc_uuid = #{accUuid}
+   				</if>
+   	</select>
+  	
+  	 <delete id="deletesTabPersons" parameterType="hashmap">
+    	DELETE FROM  TAB_PERSON where ACC_UUID in
+    	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+				  #{item}  
+		</foreach>  
+    </delete>
+    
+    
+    <insert id="insertTabPerson">
+  		INSERT INTO TAB_PERSON(UUID,PERSON_NAME,SEX,AGE,TELEPHONE,EMAIL,ACC_UUID,CITY_ID) VALUES
+  		(#{uuid},#{personName},#{sex},#{age},#{telephone},#{email},#{accUuid},#{cityId})
+  	</insert>
+  	
+  	<update id="updateTabPerson">
+  		UPDATE TAB_PERSON 
+  		<trim prefix="set" suffixOverrides=",">
+	  		<if test="personName != null">
+	  			PERSON_NAME =#{personName},
+	  		</if>
+	  		<if test="sex != null">
+	  			SEX =#{sex},
+	  		</if>
+	  		<if test="age != null">
+	  			AGE =#{age},
+	  		</if>
+	  		<if test="telephone != null">
+	  			TELEPHONE =#{telephone},
+	  		</if>
+	  		<if test="email != null">
+	  			EMAIL =#{email},
+	  		</if>
+	  		<if test="accUuid != null">
+	  			ACC_UUID =#{accUuid},
+	  		</if>
+	  		<if test="cityId != null">
+	  			CITY_ID =#{cityId},
+	  		</if>
+  		</trim>
+  		where UUID=#{uuid}
+  	</update>
+  	
+   	
+</mapper>  

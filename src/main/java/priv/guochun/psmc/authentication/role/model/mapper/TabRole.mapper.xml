@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.authentication.role.model.TabRole">  
+   
+    <sql id="baseSelSql">
+   		SELECT UUID,ROLE_NO,ROLE_NAME,CREATOR,to_char(CREATE_TIME,'yyyy-mm-dd') CREATE_TIME,REMARK FROM  TAB_ROLE
+   	</sql>
+   	
+   	<select id="getTableRoleByCondition" resultType="java.util.Map" parameterType="hashmap">
+   			<include refid="baseSelSql"/>
+   			<where>
+   				<if test="uuid !=null">
+   					and uuid = #{uuid}
+   				</if>
+   				<if test="roleName !=null">
+   					and ROLE_NAME = #{roleName}
+   				</if>
+   				<if test="roleno !=null">
+   					and ROLE_NO = #{roleno}
+   				</if>
+   			</where>
+   	</select>
+   	
+   	
+   		<select id="roleUniqueValidate" resultType="java.util.Map" parameterType="hashmap">
+   			<include refid="baseSelSql"/>
+   			<where>
+   				<if test="uuid !=null">
+   					and uuid != #{uuid}
+   				</if>
+   				<if test="roleno !=null">
+   					and ROLE_NO = #{roleno}
+   				</if>
+   			</where>
+   	</select>
+   	
+   	
+   	<select id="getAccountUnionRoleByAccount" resultType="java.util.Map" parameterType="hashmap">
+   			SELECT UUID,ROLE_NO,ROLE_NAME,CREATOR,to_char(CREATE_TIME,'yyyy-mm-dd') CREATE_TIME,REMARK,b.ROLE_UUID FROM  TAB_ROLE
+   			 a,TAB_ACC_ROLE B where 1=1 and a.uuid=b.role_uuid
+   				<if test="accUuid !=null">
+   					and b.acc_uuid=#{accUuid}
+   				</if>	
+   	</select>
+   	
+   	
+   	<select id="getAccountUnionRoleByRoleUuids" resultType="java.util.Map" parameterType="hashmap">
+   			SELECT UUID,ROLE_NO,ROLE_NAME,CREATOR,to_char(CREATE_TIME,'yyyy-mm-dd') CREATE_TIME,REMARK,b.ROLE_UUID FROM  TAB_ROLE
+   			 a,TAB_ACC_ROLE B where 1=1 and a.uuid=b.role_uuid
+   				<if test="roleUuids !=null">
+   					and b.role_uuid in
+   					<foreach item="item" index="index" collection="roleUuids" open="(" separator="," close=")">  
+				  		 #{item}
+					</foreach>  
+   				</if>
+   				
+   	</select>
+   	
+   	
+   	
+   	<select id="getMyPageOfTabRoles" resultType="java.util.Map" parameterType="hashmap">
+	   		<include refid="baseSelSql"/> 
+	   			<where>
+	   				<if test="uuid !=null">
+	   					and uuid = #{uuid}
+	   				</if>
+	   			</where>
+   	</select>
+   	
+   	
+   	<delete id="deletesTabRole" parameterType="hashmap">
+    	DELETE FROM  TAB_ROLE where 1=1  and UUID in
+    	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+				  #{item}  
+		</foreach>  
+    </delete>
+   	
+   	<insert id="insertTabRole">
+  		INSERT INTO TAB_ROLE(UUID,ROLE_NO,ROLE_NAME,CREATOR,CREATE_TIME,REMARK) VALUES
+  		(#{uuid},#{roleNo},#{roleName},#{creator},#{createTime},#{remark})
+  	</insert>
+  	
+  	<update id="updateTabRole">
+  		UPDATE TAB_ROLE 
+  		<trim prefix="set" suffixOverrides=",">
+	  		<if test="roleNo != null">
+	  			ROLE_NO =#{roleNo},
+	  		</if>
+	  		<if test="roleName != null">
+	  			ROLE_NAME =#{roleName},
+	  		</if>
+	  		<if test="creator != null">
+	  			CREATOR =#{creator},
+	  		</if>
+	  		<if test="createTime != null">
+	  			CREATE_TIME =#{createTime},
+	  		</if>
+	  		<if test="remark != null">
+	  			REMARK =#{remark},
+	  		</if>
+  		</trim>
+  		where UUID=#{uuid}
+  	</update>
+   	
+</mapper>  

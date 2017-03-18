@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: psmc
+Bundle-SymbolicName: psmc
+Bundle-Version: 1.0.0.qualifier
+Export-Package: 
+ priv.guochun.psmc.system.framework.controller,
+ priv.guochun.psmc.system.framework.dao,
+ priv.guochun.psmc.system.framework.excel,
+ priv.guochun.psmc.system.framework.page,
+ priv.guochun.psmc.system.framework.page.taglib,
+ priv.guochun.psmc.system.framework.servletlistener,
+ priv.guochun.psmc.system.framework.upload.factory,
+ priv.guochun.psmc.system.framework.upload.model,
+ priv.guochun.psmc.system.framework.upload.service,
+ priv.guochun.psmc.system.framework.upload.service.impl,
+ priv.guochun.psmc.system.util

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.authentication.operate.model.TabOperate">  
+   
+    
+   	<select id="getTabOperatesByCondition" resultType="java.util.Map" parameterType="hashmap">
+   			SELECT * FROM  tab_operate a left join tab_role_operate B
+   			on a.uuid=b.operate_uuid
+   			<where>
+   				<if test="roleUuid !=null">
+   					and b.role_uuid = #{roleUuid}
+   				</if>
+   				<if test="resourceUuid !=null">
+   					and a.resource_uuid = #{resourceUuid}
+   				</if>
+   			</where>
+   	</select>
+   	
+   	<select id="getPermitOperatesByRoleUuid" resultType="java.util.Map" parameterType="hashmap">
+   				SELECT
+					D.ROLE_ID || '_' || B.FUN_CLASS || '_' || B.FUN_METHOD AS VISIT_KEY,
+					A.UUID AS RESOURCE_UUID,A.RESOURCE_NAME,A.RESOURCE_TYPE,B.UUID AS OPERATE_UUID,B.FUN_CLASS,B.FUN_METHOD,
+					C.PRIVILEGE_ID,C.PRIVILEGE_NAME,d.ROLE_ID FROM  TAB_RESOURCE A,TAB_OPERATE B,TAB_PRIVILEGE C ,TAB_ROLE_RESOURCE D,TAB_ROLE_OPERATE E
+					WHERE A.UUID=B.RESOURCE_UUID AND B.PRIVILEGE_UUID=C.UUID 
+					AND a.UUID = d.RESOURCE_ID AND d.ROLE_ID=e.ROLE_UUID 
+					AND b.UUID = e.OPERATE_UUID
+		 		<if  test="roleId != null">
+		 				AND D.ROLE_ID=#{roleId}		
+		 		</if>
+   	</select>
+   	
+   	
+   	<delete id="deleteTabOperatesByResourceUuid"  parameterType="hashmap">
+   			delete from TAB_OPERATE where 1=1
+   			<if test="resourceUuid != null">
+	  			and RESOURCE_UUID =#{resourceUuid}
+	  		</if>
+   	</delete>
+   	
+</mapper>  

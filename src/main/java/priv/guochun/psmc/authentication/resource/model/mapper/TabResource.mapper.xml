@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.authentication.resource.model.TabResource">  
+   
+    
+   	<select id="getSubResourcesByResourceId" resultType="java.util.Map" parameterType="hashmap">
+   		select * from (
+   				<choose>
+		 			<when  test="roleId != null">
+		 					<include refid="getResourceBaseSql"/>
+		 					and b.role_id=#{roleId}
+		 			</when>
+		 			<otherwise>
+		 				<include refid="getResourceBaseSqlNoRole"/>
+		 			</otherwise>
+		 		</choose>
+			<![CDATA[	
+		     	and a.parent_resource_uuid in ( 
+			     select uuid from(
+			]]> 
+			    
+			    <choose>
+		 			<when  test="roleId != null">
+		 					<include refid="getResourceBaseSql"/>
+		 			</when>
+		 			<otherwise>
+		 				<include refid="getResourceBaseSqlNoRole"/>
+		 			</otherwise>
+		 		</choose>
+		 		
+			    <if test="resourceId != null">
+			 		and a.uuid=#{resourceId}
+			 	</if>
+			 	<if test="resourceType != null">
+			 		and a.resource_type=#{resourceType}
+			 	</if>
+			 	<if test="roleId != null">
+			 		and b.role_id=#{roleId}
+			 	</if>
+			 	)
+			 )
+			 <if test="ContainSelf == true">
+			 	union
+			 	<choose>
+		 			<when  test="roleId != null">
+		 					<include refid="getResourceBaseSql"/>
+		 			</when>
+		 			<otherwise>
+		 				<include refid="getResourceBaseSqlNoRole"/>
+		 			</otherwise>
+		 		</choose>
+			 	<if test="resourceId != null">
+			 		and a.uuid=#{resourceId}
+			 	</if>
+			 	<if test="resourceType != null">
+			 		and a.resource_type=#{resourceType}
+			 	</if>
+			 	<if test="roleId != null">
+			 		and b.role_id=#{roleId}
+			 	</if>
+			 </if>
+		) a order by a.ordernum asc 
+   	</select>
+   	
+   	
+   	 
+   	<select id="getResource" resultType="java.util.Map" parameterType="hashmap">
+		 	<choose>
+		 			<when  test="roleId != null">
+		 					<include refid="getResourceBaseSql"/>
+		 			</when>
+		 			<otherwise>
+		 				<include refid="getResourceBaseSqlNoRole"/>
+		 			</otherwise>
+		 	</choose>
+		 	
+		 	<if test="resourceId != null">
+		 		and a.uuid=#{resourceId}
+		 	</if>
+		 	<if test="resourceType != null">
+		 		and a.resource_type=#{resourceType}
+		 	</if>
+		 	<if test="roleId != null">
+		 		and b.role_id=#{roleId}
+		 	</if>
+   	</select>
+   	
+   	
+   	<sql id="getResourceBaseSql">
+	   	<![CDATA[
+	   		 select distinct a.*,b.role_id, 
+		     (case when c.uuid is not null then 'true' else 'false' end) "isParent"
+		     FROM tab_resource a left join tab_resource c   
+		     on a.uuid=c.parent_resource_uuid , tab_role_resource b 
+		     where 1=1 and a.uuid=b.resource_id 
+		]]>   
+   	</sql>
+   	
+   	<sql id="getResourceBaseSqlNoRole">
+	   	<![CDATA[
+	   		 select distinct a.*,
+		     (case when c.uuid is not null then 'true' else 'false' end) "isParent"
+		     FROM tab_resource a left join tab_resource c   
+		     on a.uuid=c.parent_resource_uuid 
+		     where 1=1
+		]]>   
+   	</sql>
+   	
+   	
+   	
+   		<select id="getSystemAllResourcesBelongRole" resultType="java.util.Map"  parameterType="hashmap">
+   		<![CDATA[	
+	   			select distinct a.*,
+					(case when c.UUID is not null then 'true' else 'false' end) isParent,
+					(case when b.RESOURCE_ID is not null then 'true' else 'false' end) "checked"
+					from tab_resource a 
+					left join tab_role_resource b on a.UUID = b.RESOURCE_ID
+		]]> 
+					<if test="roleId != null">
+			 			and b.ROLE_ID=#{roleId}
+			 		</if>
+		<![CDATA[	
+					left join tab_resource c on a.UUID = c.PARENT_RESOURCE_UUID
+					where 1=1
+			]]> 
+			
+			    
+			 	  order by a.ordernum asc 
+   	</select>
+   	
+   	
+   	
+   	<select id="getResourcesBelongRole" resultType="java.util.Map"  parameterType="hashmap">
+   		<![CDATA[	
+	   			select distinct a.*,
+					(case when c.UUID is not null then 'true' else 'false' end) isParent
+					from tab_resource a left join tab_resource c on a.UUID = c.PARENT_RESOURCE_UUID  ,tab_role_resource b
+                    where 1=1 and  a.UUID = b.RESOURCE_ID 
+		]]> 
+					<if test="roleId != null">
+			 			and b.ROLE_ID=#{roleId}
+			 		</if>
+		<![CDATA[	
+					order by a.ordernum asc 
+			]]> 
+			
+   	</select>
+   	
+   	<select id="getTabResourceOrderNum" resultType="java.lang.Integer">
+   			select max(ordernum)+1 as ordernum from TAB_RESOURCE
+   	</select>
+   	
+   	<insert id="insertTabResource">
+  		INSERT INTO TAB_RESOURCE(UUID,RESOURCE_NAME,RESOURCE_TYPE,RESOURCE_URL,PARENT_RESOURCE_UUID,
+  		CREATOR_NAME,CREATE_TIME,REMARK,ORDERNUM) VALUES
+  		(#{id},#{resourceName},#{resourceType},#{resourceUrl},#{parentResourceUuid},#{creatorName},
+  		#{createTime},#{remark},#{ordernum})
+  	</insert>
+   	
+   	<update id="updateTabResource">
+  		UPDATE TAB_RESOURCE 
+  		<trim prefix="set" suffixOverrides=",">
+	  		<if test="resourceName != null">
+	  			RESOURCE_NAME =#{resourceName},
+	  		</if>
+	  		<if test="resourceType != null">
+	  			RESOURCE_TYPE =#{resourceType},
+	  		</if>
+	  		<if test="resourceUrl != null">
+	  			RESOURCE_URL =#{resourceUrl},
+	  		</if>
+	  		<if test="parentResourceUuid != null">
+	  			PARENT_RESOURCE_UUID =#{parentResourceUuid},
+	  		</if>
+	  		<if test="createTime != null">
+	  			CREATE_TIME =#{createTime},
+	  		</if>
+	  		<if test="creatorName != null">
+	  			CREATOR_NAME =#{creatorName},
+	  		</if>
+	  		<if test="remark != null">
+	  			REMARK =#{remark},
+	  		</if>
+	  		<if test="ordernum != null">
+	  			ORDERNUM =#{ordernum},
+	  		</if>
+  		</trim>
+  		where UUID=#{id}
+  	</update>
+  	
+  	<delete id="deleteResource"  parameterType="hashmap">
+   			delete from TAB_RESOURCE where 1=1
+   			<if test="resourceUuid != null">
+	  			and UUID =#{resourceUuid}
+	  		</if>
+   			
+   	</delete>
+   	
+   	
+   	<update id="updateResourceTheParentUuid">
+  		UPDATE TAB_RESOURCE SET  PARENT_RESOURCE_UUID =#{parentResourceUuid}
+  		where UUID=#{resourceUuid}
+  	</update>
+  	
+  	<update id="updateResourceTheName">
+  		UPDATE TAB_RESOURCE SET  RESOURCE_NAME =#{newName}
+  		where UUID=#{resourceUuid}
+  	</update>
+  	
+   	
+   	
+</mapper>  

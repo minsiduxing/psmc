@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.authentication.resource.model.TabRoleResource">  
+   
+    <delete id="deleteRoleResoureRelations" parameterType="hashmap">
+    		DELETE FROM TAB_ROLE_RESOURCE WHERE 1=1
+    		<if test="roleUuids !=null">
+	    	 and ROLE_ID in
+	    	<foreach item="item" index="index" collection="roleUuids" open="(" separator="," close=")">  
+					  #{item}  
+			</foreach>  
+    		</if>
+    </delete>
+   	
+   	 <insert id="saveResourcesRoleRelations" parameterType="hashmap">
+    		INSERT INTO TAB_ROLE_RESOURCE(ROLE_ID, RESOURCE_ID)
+    		<foreach collection="ids" item="item" index="index"  open="" separator=" union " close="">  
+        		 select  #{item.roleId},#{item.resourceId}  from dual
+   		 	</foreach> 
+    </insert>
+    
+    
+    <delete id="deleteRRORelationsByRoleUuidWithResourceUuid" parameterType="hashmap">
+    		delete from tab_role_operate where operate_uuid in(
+				select b.operate_uuid from tab_role_resource a,tab_role_operate b,TAB_OPERATE C where a.role_id = b.role_uuid 
+				AND B.OPERATE_UUID=C.UUID AND A.RESOURCE_ID=C.RESOURCE_UUID
+				<if test="roleUuid !=null">
+					and a.role_id=#{roleUuid}
+				</if>
+				<if test="resourceId !=null">
+					and a.resource_id=#{resourceId}
+				</if>
+			)
+			<if test="roleUuid !=null">
+					and role_UUID=#{roleUuid}
+			</if>
+    </delete>
+    
+    <insert id="saveRoleResourceOperateRelations" parameterType="hashmap">
+    		INSERT INTO TAB_ROLE_OPERATE(ROLE_UUID, OPERATE_UUID)
+    		<foreach collection="ids" item="item" index="index"  open="" separator=" union " close="">  
+        		 select  #{item.roleUuid},#{item.operateUuid}  from dual
+   		 	</foreach> 
+    </insert>
+    
+    
+    <select id="getRoleResourceRelations" resultType="java.util.Map" parameterType="hashmap">
+    		SELECT A.ROLE_NO,A.ROLE_NAME,B.ROLE_ID,B.RESOURCE_ID,C.RESOURCE_NAME,C.RESOURCE_TYPE,C.RESOURCE_URL FROM  TAB_ROLE A,TAB_ROLE_RESOURCE B,TAB_RESOURCE C
+			WHERE A.UUID=B.ROLE_ID AND B.RESOURCE_ID = C.UUID
+			<if test="resourceUuid !=null">
+					and C.UUID=#{resourceUuid}
+			</if>
+    </select>
+    
+   	
+</mapper>  

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.system.common.city.model.TabCity">  
+    
+    <select id="getAllCity"  resultType="java.util.Map">  
+       select city_id cityId,city_id cityName,parent_id parentId,
+       remark,ordernum,city_layer cityLayer from Tab_city
+    </select>  
+   
+   	<select id="getSubRegionByCityId" resultType="java.util.Map">  
+       select distinct a.city_id as id,a.city_name as name,a.parent_id as pid,
+       (case when b.city_id is not null then 'true' else 'false' end) "isParent" ,a.ordernum
+       from tab_city a left join tab_city b on a.city_id=b.parent_id
+       <where>
+       	<choose>
+       		<when test="containMySelf ==true and containSub==true"> 
+       			and ( a.city_id in
+	        	<foreach item="item" index="index" collection="cityIds" open="(" separator="," close=")">  
+				  #{item}  
+				</foreach>  
+	        	or a.parent_id in
+	        	<foreach item="item" index="index" collection="cityIds" open="(" separator="," close=")">  
+				  #{item}  
+				</foreach>
+	        	)
+       		</when>
+       		<when test="containMySelf ==true and containSub==false"> 
+       			and  a.city_id in
+       			<foreach item="item" index="index" collection="cityIds" open="(" separator="," close=")">  
+				  #{item}  
+				</foreach>
+       		</when>
+       		<when test="containMySelf ==false and containSub==true"> 
+       			and  a.parent_id in 
+       			<foreach item="item" index="index" collection="cityIds" open="(" separator="," close=")">  
+				  #{item}  
+				</foreach>
+       		</when>
+       		<otherwise>
+       			1=2
+       		</otherwise>
+       	</choose>
+       		order by a.ordernum asc
+       </where>
+       
+    </select> 
+   
+   	<insert id="insertTabCity" parameterType="priv.guochun.psmc.system.common.city.model.TabCity" >
+   		INSERT INTO TAB_CITY(CITY_ID,CITY_NAME,PARENT_ID,REMARK,ORDERNUM,CITY_LAYER)
+   		VALUES(#{cityId},#{cityName},#{parentId},#{remark},#{ordernum},#{cityLayer})
+   	</insert>
+   	
+   	<sql id="sqlReusing">select *  from Tab_city where city_id='00'</sql>
+   	
+   	<select id="testSqlReusing" parameterType="string" 
+    resultType="java.util.Map">  
+       select * from( <include refid="sqlReusing"/>)
+    </select> 
+   
+</mapper>  
