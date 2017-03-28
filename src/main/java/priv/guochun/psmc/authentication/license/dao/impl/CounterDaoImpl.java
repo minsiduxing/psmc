@@ -13,7 +13,7 @@ import priv.guochun.psmc.system.framework.dao.RootDao;
 public class CounterDaoImpl extends RootDao implements CounterDao {
 	protected static final Logger logger = LoggerFactory
 			.getLogger(CounterDaoImpl.class);
-
+	
 	@Override
 	public void setCount(int minutes) {
 	    this.getJdbcTemplate().execute( "delete from tab_count ");

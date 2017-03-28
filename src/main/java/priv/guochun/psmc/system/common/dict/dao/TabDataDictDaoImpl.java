@@ -23,10 +23,6 @@ public class TabDataDictDaoImpl extends RootDao implements TabDataDictDao {
 	private String getDictDataSql(Integer dict_type,String dict_no){
 		StringBuffer sb1 = new StringBuffer();
 		sb1.append("select dict_id as id,dict_name as name ");
-//		if(defaultValue!=null){
-//			sb1.append(",(case when dict_id='"+defaultValue+"' then 'true' else 'false' end )  as \"selected\" ");
-//		}
-		
 		sb1.append("  from tab_data_dict where 1=1 ");
 		if(dict_type!=null){
 			sb1.append(" and  dict_type = "+dict_type);

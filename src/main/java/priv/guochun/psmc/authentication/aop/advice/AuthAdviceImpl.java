@@ -48,7 +48,13 @@ public class AuthAdviceImpl implements BaseAdvice
         
     }
     
-    
+    /**
+     * 业务操作鉴权
+     * @param RoleUuid
+     * @param resourceName
+     * @param operate
+     * @return
+     */
     @SuppressWarnings({"unchecked" })
     private boolean authentication(String RoleUuid,String resourceName,String operate){
         StringBuffer visitKey = new StringBuffer();

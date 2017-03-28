@@ -3,7 +3,6 @@ package priv.guochun.psmc.system.framework.dao;
 import priv.guochun.psmc.system.framework.page.MyPage;
 
 
-
 public interface IDaoTemplate {
 
 	
@@ -15,6 +14,5 @@ public interface IDaoTemplate {
 	 * @return
 	 */
 	public MyPage getMyPage(MyPage mapage,String statement, Object parameter);
-	
 	
 }

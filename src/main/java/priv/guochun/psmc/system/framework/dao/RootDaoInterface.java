@@ -1,20 +1,11 @@
 package priv.guochun.psmc.system.framework.dao;
 
 import java.util.List;
-import java.util.Map;
 
 
 
 public interface RootDaoInterface {
-
-	
-	public void saveModel(Object obj) ;
-	
-	public void updateModel(Object obj);
-	
-	public void deleteModel(Object obj);
-	
-	public void saveOrUpdateModel(Object obj);
+    
 	/**
 	 * 获取分页数据
 	 * <p>Description:<p>
@@ -25,7 +16,7 @@ public interface RootDaoInterface {
 	 * @author guochun 2016-7-27
 	 */
 
-	public List getListdataByJdbc(String sql,int start_line, int end_line);
+	public List<?> getListdataByJdbc(String sql,int start_line, int end_line);
 	
 	/**
      * 包装获取分页数据

@@ -27,7 +27,7 @@ public class MyController
 
 	private String[] titles;
 	private String[] columns;
-	private List exportList;
+	private List<?> exportList;
 	private String fileName;
 	
 	/**
@@ -200,11 +200,11 @@ public class MyController
 		this.columns = columns;
 	}
 
-	public List getExportList() {
+	public List<?> getExportList() {
 		return exportList;
 	}
 
-	public void setExportList(List exportList) {
+	public void setExportList(List<?> exportList) {
 		this.exportList = exportList;
 	}
 

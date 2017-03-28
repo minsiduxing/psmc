@@ -49,8 +49,6 @@ public class LoginServlet extends HttpServlet {
 	            	User user = service.buildUser(username);
 	            	httpSession.removeAttribute("user");
 	                httpSession.setAttribute("user",user);
-	                
-	                //request.getServletContext().getRequestDispatcher("/authentication/loginController.do?method=entrance").forward(request, response);
 	                response.sendRedirect(request.getContextPath()+"/jsp/loginTransfer.jsp");
 	            }else{
                     request.setAttribute("msg", returnValue);

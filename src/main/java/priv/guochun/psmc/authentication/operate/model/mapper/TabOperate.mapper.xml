@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
 EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
 <mapper namespace="priv.guochun.psmc.authentication.operate.model.TabOperate">  
-   
+    
     
    	<select id="getTabOperatesByCondition" resultType="java.util.Map" parameterType="hashmap">
    			SELECT * FROM  tab_operate a left join tab_role_operate B

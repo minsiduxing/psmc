@@ -7,17 +7,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>psmc Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-<!-- 	<repositories> -->
-<!-- 		<repository> -->
-<!-- 			<snapshots> -->
-<!-- 				<enabled>false</enabled> -->
-<!-- 			</snapshots> -->
-<!-- 			<id>central</id> -->
-<!-- 			<name>Maven Repository Switchboard</name> -->
-<!-- 			<url>http://repo2.maven.org/maven2</url> -->
-<!-- 		</repository> -->
-<!-- 	</repositories> -->
-
 	<dependencies>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -29,7 +18,6 @@
 		    <artifactId>commons-io</artifactId>
 		    <version>2.4</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
 		<dependency>
 		    <groupId>commons-dbcp</groupId>
 		    <artifactId>commons-dbcp</artifactId>
@@ -55,13 +43,11 @@
 		    <artifactId>commons-collections</artifactId>
 		    <version>3.2.1</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc14</artifactId>
 			<version>10.2.0.4.0</version>
 		</dependency>
-		
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 		    <groupId>mysql</groupId>
@@ -85,8 +71,6 @@
 		    <artifactId>slf4j-api</artifactId>
 		    <version>1.7.5</version>
 		</dependency>
-		
-		
 		<!-- spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>

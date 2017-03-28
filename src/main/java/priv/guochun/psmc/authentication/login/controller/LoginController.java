@@ -28,8 +28,9 @@ import priv.guochun.psmc.system.util.JsonUtil;
 @RequestMapping("/authentication/loginController")
 public class LoginController  extends MyController {
     
-    protected static final  Logger logger  = LoggerFactory.getLogger(LoginController.class);
-	 @Autowired
+     protected static final  Logger logger  = LoggerFactory.getLogger(LoginController.class);
+	 
+     @Autowired
 	 private LoginService loginService;
 	 
 	 @RequestMapping(params="method=entrance")  
