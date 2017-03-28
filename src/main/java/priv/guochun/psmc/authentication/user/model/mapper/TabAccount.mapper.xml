@@ -5,7 +5,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    
     
    	<select id="getTabAccountByCondition" resultType="java.util.Map" parameterType="hashmap">
-   			SELECT * FROM  TAB_ACCOUNTS 
+   			SELECT UUID,ACCOUNT_NAME,ACCOUNT_PASS,IS_LOCKED FROM TAB_ACCOUNTS  
    			<where>
    				<if test="uuid !=null">
    					and UUID = #{uuid}
@@ -20,7 +20,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    	</select>
   	
   	<select id="accountUniqueValidate" resultType="java.util.Map" parameterType="hashmap">
-   			SELECT * FROM  TAB_ACCOUNTS  
+   			SELECT UUID,ACCOUNT_NAME,ACCOUNT_PASS,IS_LOCKED FROM TAB_ACCOUNTS 
    			<where>
    				<if test="accountUuid !=null">
    					and UUID != #{accountUuid}

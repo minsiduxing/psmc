@@ -19,7 +19,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    	
    	<select id="getPermitOperatesByRoleUuid" resultType="java.util.Map" parameterType="hashmap">
    				SELECT
-					D.ROLE_ID || '_' || B.FUN_CLASS || '_' || B.FUN_METHOD AS VISIT_KEY,
+					concat(D.ROLE_ID,'_',B.FUN_CLASS,'_',B.FUN_METHOD)  AS VISIT_KEY,
 					A.UUID AS RESOURCE_UUID,A.RESOURCE_NAME,A.RESOURCE_TYPE,B.UUID AS OPERATE_UUID,B.FUN_CLASS,B.FUN_METHOD,
 					C.PRIVILEGE_ID,C.PRIVILEGE_NAME,d.ROLE_ID FROM  TAB_RESOURCE A,TAB_OPERATE B,TAB_PRIVILEGE C ,TAB_ROLE_RESOURCE D,TAB_ROLE_OPERATE E
 					WHERE A.UUID=B.RESOURCE_UUID AND B.PRIVILEGE_UUID=C.UUID 

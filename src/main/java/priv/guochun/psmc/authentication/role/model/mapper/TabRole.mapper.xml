@@ -4,7 +4,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="priv.guochun.psmc.authentication.role.model.TabRole">  
    
     <sql id="baseSelSql">
-   		SELECT UUID,ROLE_NO,ROLE_NAME,CREATOR,to_char(CREATE_TIME,'yyyy-mm-dd') CREATE_TIME,REMARK FROM  TAB_ROLE
+   		SELECT UUID,ROLE_NO,ROLE_NAME,CREATOR,date_format(CREATE_TIME, '%Y-%m-%d') as CREATE_TIME,REMARK FROM  TAB_ROLE
    	</sql>
    	
    	<select id="getTableRoleByCondition" resultType="java.util.Map" parameterType="hashmap">
@@ -37,7 +37,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    	
    	
    	<select id="getAccountUnionRoleByAccount" resultType="java.util.Map" parameterType="hashmap">
-   			SELECT UUID,ROLE_NO,ROLE_NAME,CREATOR,to_char(CREATE_TIME,'yyyy-mm-dd') CREATE_TIME,REMARK,b.ROLE_UUID FROM  TAB_ROLE
+   			SELECT UUID,ROLE_NO,ROLE_NAME,CREATOR,date_format(CREATE_TIME, '%Y-%m-%d') as CREATE_TIME,REMARK,b.ROLE_UUID FROM  TAB_ROLE
    			 a,TAB_ACC_ROLE B where 1=1 and a.uuid=b.role_uuid
    				<if test="accUuid !=null">
    					and b.acc_uuid=#{accUuid}
@@ -46,7 +46,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    	
    	
    	<select id="getAccountUnionRoleByRoleUuids" resultType="java.util.Map" parameterType="hashmap">
-   			SELECT UUID,ROLE_NO,ROLE_NAME,CREATOR,to_char(CREATE_TIME,'yyyy-mm-dd') CREATE_TIME,REMARK,b.ROLE_UUID FROM  TAB_ROLE
+   			SELECT UUID,ROLE_NO,ROLE_NAME,CREATOR,date_format(CREATE_TIME, '%Y-%m-%d') as CREATE_TIME,REMARK,b.ROLE_UUID FROM  TAB_ROLE
    			 a,TAB_ACC_ROLE B where 1=1 and a.uuid=b.role_uuid
    				<if test="roleUuids !=null">
    					and b.role_uuid in

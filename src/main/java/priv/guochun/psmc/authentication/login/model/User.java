@@ -37,7 +37,7 @@ public class User
     	personTelephone = tabPerson.get("TELEPHONE").toString();
     	personEmail = tabPerson.get("EMAIL")!=null?
     					tabPerson.get("EMAIL").toString():"";
-    	personCityId = tabPerson.get("CITYID").toString();
+    	personCityId = tabPerson.get("cityId").toString();
 
     	roleUuid = tabRole.get("UUID").toString();
     	roleNo = tabRole.get("ROLE_NO").toString();

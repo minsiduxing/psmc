@@ -18,9 +18,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
-import priv.guochun.psmc.authentication.resource.controller.TabResourceController;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.util.JsonUtil;
 
@@ -37,9 +35,6 @@ public class LoginController  extends MyController {
 	 @RequestMapping(params="method=entrance")  
 	 public String entrance(HttpServletRequest request,
 			 	HttpServletResponse response,ModelMap modelMap){
-//		 User user = this.getUserBySeesion(request);
-//		 List navigationBarList = loginService.getNavigationBarResourcesByRoleUuid(user.getRoleUuid());
-//		 modelMap.put("navigationBarList", navigationBarList);
 		 return "/jindex";
 	 }
 	 
@@ -92,7 +87,6 @@ public class LoginController  extends MyController {
 	            String roleUuid,String resourceId) throws IOException {  
 	        List<Map<?,?>> list = loginService.getSubResources(resourceId, roleUuid,false);
 	        JSONArray returnJsonObj = JsonUtil.convertToJSONArray(list);
-	        logger.debug("getSubResoruces : "+returnJsonObj.toString());
 	        this.responseHtmltext(returnJsonObj.toString(), response);
 	    }
 	 

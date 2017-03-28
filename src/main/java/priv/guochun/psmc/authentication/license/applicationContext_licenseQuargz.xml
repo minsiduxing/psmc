@@ -28,7 +28,7 @@
 	<!-- 调度触发器 -->
 	 <bean id="lisenceCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 	 <property name="jobDetail" ref="licenseJobDetail" />
-<!-- 每分钟执行一次	  -->
+	<!-- 每分钟执行一次	  -->
 	<property name="cronExpression" value="0 */1 * * * ?" />
 	</bean>
 	

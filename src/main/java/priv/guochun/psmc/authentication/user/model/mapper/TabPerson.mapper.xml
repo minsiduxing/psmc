@@ -5,9 +5,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    
     
    	<select id="getTabPersonByCondition" resultType="java.util.Map" parameterType="hashmap">
-
-   			SELECT uuid,a.person_name,
-   			   sex,age,telephone,email,a.acc_uuid,a.city_Id as cityId,b.city_name FROM  TAB_PERSON a,tab_city b where 1=1   and a.city_id=b.city_id
+			
+   			SELECT UUID,a.PERSON_NAME,
+   			   SEX,AGE,TELEPHONE,EMAIL,a.ACC_UUID,a.city_Id as cityId,b.CITY_NAME FROM  TAB_PERSON a,tab_city b where 1=1   and a.city_id=b.city_id
    				<if test="uuid !=null">
    					and UUID = #{uuid}
    				</if>

@@ -51,13 +51,14 @@ public class AuthAdviceImpl implements BaseAdvice
     
     @SuppressWarnings({"unchecked" })
     private boolean authentication(String RoleUuid,String resourceName,String operate){
-        String visitKey = RoleUuid+"_"+resourceName+"_"+operate;
+        StringBuffer visitKey = new StringBuffer();
+        visitKey.append(RoleUuid+"_"+resourceName+"_"+operate);
         boolean isAuth = false;
         Cache cache = psmcCacheFactory.getCacheSystem();
         List<Map<?,?>> list = cache.get(CacheContants.CACHE_SYSTEM_RESOURCE_OPERATE, List.class);
         for(int i = 0;i<list.size();i++){
             Map<?,?> map = list.get(i);
-            if(visitKey.equals(map.get("VISIT_KEY").toString()))
+            if(visitKey.toString().equals(map.get("VISIT_KEY").toString()))
             {
                 isAuth =true;
                 break;

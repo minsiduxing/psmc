@@ -18,7 +18,7 @@ public class LicenseQuartzJob implements MyJob {
 	
 	@Override
 	public void execute() {
-	    Date currDate = new Date();
+	    //Date currDate = new Date();
 	    //logger.debug("开始计数系统运行时间.....");
 	    licenseReaderService.work();
 	    //logger.debug("结束计数系统运行时间.....");
