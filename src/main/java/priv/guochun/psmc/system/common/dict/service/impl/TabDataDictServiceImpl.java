@@ -1,46 +1,30 @@
 package priv.guochun.psmc.system.common.dict.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.cache.Cache;
 
 import priv.guochun.psmc.system.common.dict.dao.TabDataDictDao;
 import priv.guochun.psmc.system.common.dict.service.TabDataDictService;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 
 public class TabDataDictServiceImpl implements TabDataDictService {
 	
 	
-	TabDataDictDao tabDataDictDao;
-	private static final  Logger logger  = LoggerFactory.getLogger(TabDataDictServiceImpl.class.getName());
+	public TabDataDictDao tabDataDictDao;
+	private PsmcCacheFactory psmcCacheFactory;
+	
 	@Override
-	public List getDictDataList(int dict_type) {
-		try {
-			return tabDataDictDao.getDictDataList(dict_type);
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.warn(e.getMessage());
-			return null;
-		}
+	public List<Map<?,?>> getDictDataList(){
+	    List<Map<?,?>> list =  tabDataDictDao.getDictDataListByDictNo(null);
+        return list;
+	    
 	}
-	
-	
-	@Override
-    public Map getDictDataMapByIdAsKey(int dict_type)
-    {
-	    List list = getDictDataList(dict_type);
-        return ListToMap(list,0);
-    }
-	
-	@Override
-    public Map getDictDataMapByNameAsKey(int dict_type)
-    {
-        List list = getDictDataList(dict_type);
-        return ListToMap(list,1);
-    }
-
 
 	private Map ListToMap(List<Map> list,int flag){
         Map map = new HashMap();
@@ -58,15 +42,48 @@ public class TabDataDictServiceImpl implements TabDataDictService {
         return map;
     }
 	
-	public List getDictDataList(String dict_no){
-		try {
-			return tabDataDictDao.getDictDataList(dict_no);
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.warn(e.getMessage());
-			return null;
-		}
+	@SuppressWarnings("unchecked")
+    public List<Map<?,?>> getDictDataList(String dict_no){
+	    Cache cache = psmcCacheFactory.getCacheSystem();
+        List<Map<?,?>> list = cache.get(CacheContants.CACHE_SYSTEM_DATA_DICT, List.class);
+        if(StringUtils.isBlank(dict_no) || list == null || list.size()<1)
+            return null;
+        else{
+            List<Map<?,?>> newList = new ArrayList<>();
+            for(int i=0;i<list.size();i++){
+                Map<?,?> map = list.get(i);
+                String DICT_NO = map.get("DICT_NO").toString();
+                if(DICT_NO.equals(dict_no))
+                newList.add(map);
+            }
+            return newList;
+        }
 	}
+	
+
+	@SuppressWarnings("unchecked")
+    public Map<?,?> getDictDataById(String id,String dict_no){
+	    Cache cache = psmcCacheFactory.getCacheSystem();
+        List<Map<?,?>> list = cache.get(CacheContants.CACHE_SYSTEM_DATA_DICT, List.class);
+        if(StringUtils.isBlank(id) ||StringUtils.isBlank(dict_no) ||
+                list == null || list.size()<1)
+            return null;
+        else{
+            Map<?,?> returnObj = null;
+            for(int i=0;i<list.size();i++){
+                Map<?,?> map = list.get(i);
+                String ID = map.get("ID").toString();
+                String DICT_NO = map.get("DICT_NO").toString();
+                if(DICT_NO.equals(dict_no) && ID.equals(id))
+                {
+                    returnObj = map;
+                    break;
+                }
+            }
+            return returnObj;
+        }
+	}
+	
 
     public TabDataDictDao getTabDataDictDao() {
 		return tabDataDictDao;
@@ -74,6 +91,16 @@ public class TabDataDictServiceImpl implements TabDataDictService {
 	public void setTabDataDictDao(TabDataDictDao tabDataDictDao) {
 		this.tabDataDictDao = tabDataDictDao;
 	}
+
+    public PsmcCacheFactory getPsmcCacheFactory()
+    {
+        return psmcCacheFactory;
+    }
+
+    public void setPsmcCacheFactory(PsmcCacheFactory psmcCacheFactory)
+    {
+        this.psmcCacheFactory = psmcCacheFactory;
+    }
 	
 
 }

@@ -8,13 +8,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
 
 import priv.guochun.psmc.authentication.operate.service.TabOperateService;
+import priv.guochun.psmc.system.common.dict.service.TabDataDictService;
 
 public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
 {
     protected static final  Logger logger  = LoggerFactory.getLogger(PsmcInitCacheToolImpl.class);
 
-    private TabOperateService tabOperateService;
     private PsmcCacheFactory psmcCacheFactory;
+    private TabOperateService tabOperateService;
+    private TabDataDictService tabDataDictService;
     
     public void resourcePermitOperatesInit(){
         
@@ -26,6 +28,15 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
         
     }
     
+    public void dataDictInit(){
+        logger.debug("开始加载缓存[系统数据字典]start!!!!!!!!!!!!!!");
+        List<Map<?,?>> sysResourcePermitOperates = tabDataDictService.getDictDataList();
+        Cache cache = psmcCacheFactory.getCacheSystem();
+        cache.put(CacheContants.CACHE_SYSTEM_DATA_DICT, sysResourcePermitOperates);
+        logger.debug("开始加载缓存[系统数据字典]end!!!!!!!!!!!!!!");
+    }
+    
+    
     public void initCache(Object key){
         if(key == null)
             return;
@@ -33,6 +44,8 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
         if(cacheKey.equals(CacheContants.CACHE_SYSTEM_RESOURCE_OPERATE))
         {
             resourcePermitOperatesInit();
+        }else if(cacheKey.equals(CacheContants.CACHE_SYSTEM_DATA_DICT)){
+            dataDictInit();
         }
     }
     
@@ -58,6 +71,16 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
         this.psmcCacheFactory = psmcCacheFactory;
     }
 
+    public TabDataDictService getTabDataDictService()
+    {
+        return tabDataDictService;
+    }
+
+    public void setTabDataDictService(TabDataDictService tabDataDictService)
+    {
+        this.tabDataDictService = tabDataDictService;
+    }
+    
     
 
     

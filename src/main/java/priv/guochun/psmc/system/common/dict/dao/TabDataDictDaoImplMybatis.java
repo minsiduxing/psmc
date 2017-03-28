@@ -17,18 +17,11 @@ public class TabDataDictDaoImplMybatis   implements TabDataDictDao {
     
     private SqlSessionTemplate sqlSession;
 	
-	@Override
-	public List getDictDataList(Integer dict_type)throws Exception{
-	    Map<String,Object> condition = new HashMap<String,Object>();
-        condition.put("dictType", dict_type);
-        List list = sqlSession.selectList(getDictDataList, condition);
-        return list;
-	}
 	
-	public List getDictDataList(String dict_no)throws Exception{
+	public List<Map<?, ?>> getDictDataListByDictNo(String dict_no){
 	    Map<String,Object> condition = new HashMap<String,Object>();
         condition.put("dictNo", dict_no);
-        List list = sqlSession.selectList(getDictDataList, condition);
+        List<Map<?, ?>> list = sqlSession.selectList(getDictDataList, condition);
         return list;
 	}
 	 

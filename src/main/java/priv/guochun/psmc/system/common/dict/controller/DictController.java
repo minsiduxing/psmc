@@ -2,6 +2,7 @@ package priv.guochun.psmc.system.common.dict.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +34,7 @@ public class DictController extends MyController {
 	    @ResponseBody
 	    public void loadDict(HttpServletRequest request,
 	            HttpServletResponse response,String dictNo) throws IOException{
-		 	List list = tabDataDictService.getDictDataList(dictNo);
+	        List<Map<?,?>> list = tabDataDictService.getDictDataList(dictNo);
 	        JSONArray ja = JsonUtil.convertToJSONArray(list);
 	        super.responseJson(ja, response);
 	    } 

@@ -28,7 +28,7 @@ public class PsmcCreateExcelDataFile implements CreateExcelDataFileInterface {
 	protected static final  Logger logger  = LoggerFactory.getLogger(PsmcCreateExcelDataFile.class);
 
 	@Override
-	public File getExcelFile(String fileName, List dataList,
+	public File getExcelFile(String fileName, List<?> dataList,
 			String[] dataColumns, String[] dataTitles) {
 		String fileUrl = SystemPropertiesUtil.getDownloadTempPathPropertyValue()+new Date().getTime()+fileName;
 		
@@ -38,12 +38,12 @@ public class PsmcCreateExcelDataFile implements CreateExcelDataFileInterface {
         FileOutputStream fos;
         
 		File file = new File(fileUrl);
-		ExcelUtil eutil = null;
+
 		try {
 				fos = new FileOutputStream(file);
 	            wwb = Workbook.createWorkbook(fos);
 	            
-				Iterator it = dataList.iterator();
+				Iterator<?> it = dataList.iterator();
 				
 				int rows = 0;
 				
@@ -67,7 +67,7 @@ public class PsmcCreateExcelDataFile implements CreateExcelDataFileInterface {
 				cellFormat.setAlignment(Alignment.CENTRE);  
 				//设置自动换行;  
 				cellFormat.setWrap(true);  
-				jxl.write.NumberFormat nf = new jxl.write.NumberFormat("#.##");
+				//jxl.write.NumberFormat nf = new jxl.write.NumberFormat("#.##");
 				
 				
 				Date fileWriteStartDate = new Date();
@@ -75,7 +75,7 @@ public class PsmcCreateExcelDataFile implements CreateExcelDataFileInterface {
 				
 				
 				while(it.hasNext()){
-					Map map = (Map)it.next();
+					Map<?,?> map = (Map<?,?>)it.next();
 					int avglength = rows / dataLength;
 					if( avglength == k ){
 					    ws =wwb.createSheet("sheet"+k, k);

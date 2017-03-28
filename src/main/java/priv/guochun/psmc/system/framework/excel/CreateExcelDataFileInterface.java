@@ -16,7 +16,7 @@ public interface CreateExcelDataFileInterface {
 	 * @return
 	 */
 
-	public File getExcelFile(String fileName,List dataList,String[] dataColumns,String[] dataTitles);
+	public File getExcelFile(String fileName,List<?> dataList,String[] dataColumns,String[] dataTitles);
 	
 	
 }

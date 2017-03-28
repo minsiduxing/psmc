@@ -20,6 +20,11 @@ public interface PsmcInitCacheTool
     public void resourcePermitOperatesInit();
     
     /**
+     * 数据字典缓存数据初始化
+     */
+    public void dataDictInit();
+    
+    /**
      * 统一缓存数据初始化入口,根据缓存数据的key进行数据初始化
      * <p>Description:<p>
      * @param key
