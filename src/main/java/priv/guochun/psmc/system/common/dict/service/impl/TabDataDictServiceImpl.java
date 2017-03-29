@@ -41,6 +41,7 @@ public class TabDataDictServiceImpl implements TabDataDictService {
 //        return map;
 //    }
 	
+	
 	@SuppressWarnings("unchecked")
     public List<Map<?,?>> getDictDataList(String dict_no){
 	    Cache cache = psmcCacheFactory.getCacheSystem();
@@ -48,7 +49,7 @@ public class TabDataDictServiceImpl implements TabDataDictService {
         if(StringUtils.isBlank(dict_no) || list == null || list.size()<1)
             return null;
         else{
-            List<Map<?,?>> newList = new ArrayList<>();
+            List<Map<?,?>> newList = new ArrayList<Map<?,?>>();
             for(int i=0;i<list.size();i++){
                 Map<?,?> map = list.get(i);
                 String DICT_NO = map.get("DICT_NO").toString();
