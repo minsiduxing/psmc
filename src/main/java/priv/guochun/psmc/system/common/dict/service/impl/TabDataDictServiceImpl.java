@@ -41,7 +41,6 @@ public class TabDataDictServiceImpl implements TabDataDictService {
 //        return map;
 //    }
 	
-	
 	@SuppressWarnings("unchecked")
     public List<Map<?,?>> getDictDataList(String dict_no){
 	    Cache cache = psmcCacheFactory.getCacheSystem();
