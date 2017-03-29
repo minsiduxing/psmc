@@ -30,8 +30,21 @@
 		 设置"LW",则表示在本月的最后一个工作日触发；周字段的设置，若使用英文字母是不区分大小写的，即MON与mon相同
 	-->
 
+	<!-- 缓存调度任务 -->
+	 <bean id="cacheJobTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	 <property name="targetObject" ref="initCacheTask" />
+	 <property name="targetMethod">
+	 	<value>execute</value>
+	 </property>
+	</bean> 
 	
- 
+	<!-- 缓存调度任务执行频率 -->
+	<bean id="cacheJobTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	 <property name="jobDetail" ref="cacheJobTask" />
+	 <!--每天-->
+	<property name="cronExpression" value="0 0 0 * * ?" />
+	</bean>
+	
 	<!-- 设置调度 -->
 	 <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 	 <property name="startupDelay" value="10000"/>
@@ -43,6 +56,5 @@
 	 </property>
 	 <property name="taskExecutor" ref="executor" />
 	</bean> 
-	
 	
 </beans>

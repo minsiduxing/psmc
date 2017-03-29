@@ -118,6 +118,9 @@ commonObj.initDictCombobox = function(id,dictNo,defaultValue,validate){
  */
 commonObj.showResponse = function(data){
 	try{
+		if(allowedAlert(data)){
+			return;
+		};
 		data = JSON.parse(data);
 		if(data.res=='success'){
 			commonObj.alert("操作成功!","info");
@@ -157,15 +160,19 @@ commonObj.showError = function(XMLHttpRequest, textStatus, errorThrown){
 	var status  = XMLHttpRequest.status;
 	if(status == 500){
 		var responseText = XMLHttpRequest.responseText;
-		if(responseText.indexOf("priv.guochun.psmc.authentication.aop.exception.NotAllowedException") !=-1){
-			commonObj.alert("用户无权限进行该操作,请联系管理员进行授权!","warning");
-			return;
-		}
+		allowedAlert(responseText);
+		return;
 	}
-	
-	console.info("XMLHttpRequest.responseText "+XMLHttpRequest.responseText);
-	console.info("XMLHttpRequest.status "+XMLHttpRequest.status);
 
 	commonObj.alert("系统错误,请联系管理员!","error");
 };
+
+function allowedAlert(text){
+	if(text.indexOf("priv.guochun.psmc.authentication.aop.exception.NotAllowedException") !=-1){
+		commonObj.alert("用户无权限进行该操作,请联系管理员进行授权!","warning");
+		console.info(text);
+		return true;
+	}
+	return false;
+}
 

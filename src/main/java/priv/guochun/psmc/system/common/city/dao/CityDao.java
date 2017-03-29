@@ -5,12 +5,7 @@ import java.util.Map;
 
 public interface CityDao {
 
-	/**
-	 * 获取所有属地的集合
-	 * @return
-	 */
 	
-	public List<Map<?,?>> getAllCity();
 	
 	/**
 	 * 获取某一个/一群属地的信息

@@ -17,11 +17,5 @@ public interface TabDataDictService {
      * @return
      */
 	public List<Map<?,?>> getDictDataList(String dict_no);
-	/**
-	 * 根据数据字典id和类型获取某个数据字典对象
-	 * @param id
-	 * @return
-	 */
-	public Map<?,?> getDictDataById(String id,String dict_no);
 	
 }

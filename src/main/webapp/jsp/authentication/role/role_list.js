@@ -42,6 +42,7 @@ function initDialog() {
                     success: function(data) {
                         successCallback(data);
                     }
+
                 });
                 $('#editForm').submit();
             }

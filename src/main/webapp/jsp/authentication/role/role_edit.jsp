@@ -3,11 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <%@ include file="../../../common.jsp"%>
 
 <title>角色编辑页面</title>
 </head>
 <body>
+
 <input type="hidden" id="oper" name="oper" value="<c:out value="${oper}"/>"/>
 	<form id="editForm" method="POST">
 		
@@ -31,13 +33,11 @@
 	</form>
 	<script type="text/javascript">
 		$(function() {
-		    var oper = $('#oper').val();
 		    $('#roleNo').textbox({
 		        value: '<c:out value="${role.ROLE_NO}"/>',
 		        type: "text",
 		        required: true,
-		        delay:500,
-				validType:['rules_roleUnique']
+		        delay:500
 		    });
 		    
 		    $('#roleName').textbox({

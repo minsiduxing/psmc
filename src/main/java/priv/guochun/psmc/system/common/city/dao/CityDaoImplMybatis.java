@@ -17,12 +17,7 @@ public class CityDaoImplMybatis implements CityDao {
     
     private SqlSessionTemplate sqlSession;
     
-    @Override
-    public List<Map<?, ?>> getAllCity() {
-        List<Map<?, ?>> list = sqlSession.selectList(getAllCity);
-        return list;
-    }
-
+    
     @Override
     public List<Map<?, ?>> getSubRegionByCityId(String[] ids,
             boolean containMySelf, boolean containSub) throws Exception {

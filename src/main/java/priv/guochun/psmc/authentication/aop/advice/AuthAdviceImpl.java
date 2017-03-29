@@ -40,12 +40,19 @@ public class AuthAdviceImpl implements BaseAdvice
         String  whatClassName = signature.getDeclaringTypeName();
         String  whatMethodName = signature.getName();
         boolean isAuth = authentication(roleUuid,whatClassName,whatMethodName);
+        logger.debug("beforeAdvice result"+"["+isAuth+"]:"+jionpoint.getStaticPart());
         if(!isAuth){
-            logger.warn("用户"+user.getAccountName()+"无权限进行资源操作["+whatClassName+"."+whatMethodName+"]");
-            throw new NotAllowedException("用户"+user.getAccountName()+"无权限进行该操作,请联系管理员进行授权!");
+            StringBuffer sBuffer = new StringBuffer();
+            sBuffer.append("用户");
+            sBuffer.append(user.getAccountName());
+            sBuffer.append("无权限进行资源操作[");
+            sBuffer.append(whatClassName);
+            sBuffer.append(".");
+            sBuffer.append(whatMethodName);
+            sBuffer.append("]");
+            logger.warn(sBuffer.toString());
+            //throw new NotAllowedException(sBuffer.toString());
         }
-        logger.debug("beforeAdvice "+jionpoint.getStaticPart());
-        
     }
     
     /**

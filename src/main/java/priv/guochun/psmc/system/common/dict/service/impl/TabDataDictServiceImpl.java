@@ -1,7 +1,6 @@
 package priv.guochun.psmc.system.common.dict.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,22 +24,22 @@ public class TabDataDictServiceImpl implements TabDataDictService {
         return list;
 	    
 	}
-
-	private Map ListToMap(List<Map> list,int flag){
-        Map map = new HashMap();
-        if(list !=null && list.size()>0){
-            for(int i=0;i<list.size();i++){  
-                Map mapObj = (Map)list.get(i);
-                if(1==flag)
-                    map.put(mapObj.get("NAME")!=null?mapObj.get("NAME").toString():"",
-                            mapObj.get("ID")!=null?mapObj.get("ID").toString():"");
-                else
-                    map.put(mapObj.get("ID")!=null?mapObj.get("ID").toString():"",
-                            mapObj.get("NAME")!=null?mapObj.get("NAME").toString():"");
-            }
-        }
-        return map;
-    }
+//
+//	private Map ListToMap(List<Map> list,int flag){
+//        Map map = new HashMap();
+//        if(list !=null && list.size()>0){
+//            for(int i=0;i<list.size();i++){  
+//                Map mapObj = (Map)list.get(i);
+//                if(1==flag)
+//                    map.put(mapObj.get("NAME")!=null?mapObj.get("NAME").toString():"",
+//                            mapObj.get("ID")!=null?mapObj.get("ID").toString():"");
+//                else
+//                    map.put(mapObj.get("ID")!=null?mapObj.get("ID").toString():"",
+//                            mapObj.get("NAME")!=null?mapObj.get("NAME").toString():"");
+//            }
+//        }
+//        return map;
+//    }
 	
 	@SuppressWarnings("unchecked")
     public List<Map<?,?>> getDictDataList(String dict_no){
@@ -61,28 +60,6 @@ public class TabDataDictServiceImpl implements TabDataDictService {
 	}
 	
 
-	@SuppressWarnings("unchecked")
-    public Map<?,?> getDictDataById(String id,String dict_no){
-	    Cache cache = psmcCacheFactory.getCacheSystem();
-        List<Map<?,?>> list = cache.get(CacheContants.CACHE_SYSTEM_DATA_DICT, List.class);
-        if(StringUtils.isBlank(id) ||StringUtils.isBlank(dict_no) ||
-                list == null || list.size()<1)
-            return null;
-        else{
-            Map<?,?> returnObj = null;
-            for(int i=0;i<list.size();i++){
-                Map<?,?> map = list.get(i);
-                String ID = map.get("ID").toString();
-                String DICT_NO = map.get("DICT_NO").toString();
-                if(DICT_NO.equals(dict_no) && ID.equals(id))
-                {
-                    returnObj = map;
-                    break;
-                }
-            }
-            return returnObj;
-        }
-	}
 	
 
     public TabDataDictDao getTabDataDictDao() {
