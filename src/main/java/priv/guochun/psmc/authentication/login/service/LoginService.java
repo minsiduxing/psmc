@@ -42,7 +42,7 @@ public interface LoginService
      * @param roleUuid
      * @return
      */
-    public Map getResource (String resourceId,String roleUuid);
+    public Map<?, ?> getResource (String resourceId,String roleUuid);
     
     
     /**

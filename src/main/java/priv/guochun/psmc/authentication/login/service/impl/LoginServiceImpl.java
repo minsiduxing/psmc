@@ -30,7 +30,7 @@ public class LoginServiceImpl implements LoginService
     public String isVaild(String username, String password)
     {
         String returnValue = "success";
-        Map accMap = tabAccountDao.getTabAccount(username, password);
+        Map<?, ?> accMap = tabAccountDao.getTabAccount(username, password);
         if(accMap == null){
             returnValue="账号或密码在系统中不存在!";
             return returnValue;
@@ -47,14 +47,14 @@ public class LoginServiceImpl implements LoginService
     public User buildUser(String username)
     {
         logger.debug("username "+username+" buildUser start");
-    	Map accountMap = tabAccountDao.getTabAccount(username, null);
+    	Map<?,?> accountMap = tabAccountDao.getTabAccount(username, null);
     	String accountId = accountMap.get("UUID").toString();
-    	Map personMap = tabPersonDao.getTabPersonByAccountId(accountId);
-    	List accRoleLits = tabRoleDao.getAccountUnionRoleByAccount(accountId);
-    	Map accRoleMap = (Map<?, ?>)accRoleLits.get(0);
+    	Map<?,?> personMap = tabPersonDao.getTabPersonByAccountId(accountId);
+    	List<?> accRoleLits = tabRoleDao.getAccountUnionRoleByAccount(accountId);
+    	Map<?,?> accRoleMap = (Map<?, ?>)accRoleLits.get(0);
     	String roleUuid = accRoleMap.get("UUID").toString();
-    	Map roleMap = tabRoleDao.getTableRoleByUuid(roleUuid);
-    	List operrateMap = tabOperateDao.getPermitOperatesByRoleUuid(roleUuid);
+    	Map<?, ?> roleMap = tabRoleDao.getTableRoleByUuid(roleUuid);
+    	List<Map<?,?>> operrateMap = tabOperateDao.getPermitOperatesByRoleUuid(roleUuid);
     	User user = new User(accountMap,personMap,roleMap,operrateMap);
     	logger.debug("username "+username+" buildUser end");
     	return user;
@@ -72,7 +72,7 @@ public class LoginServiceImpl implements LoginService
                 ResourceEnum.ResourceType1.getIndex(), false,roleUuid);
     }
     @Override
-    public Map getResource (String resourceId,String roleUuid){
+    public Map<?, ?> getResource (String resourceId,String roleUuid){
      if(StringUtils.isBlank(resourceId) || StringUtils.isBlank(resourceId)){
             logger.warn("moduleId 或roleUuid为空,无法查询资源信息.....");
             return null;
