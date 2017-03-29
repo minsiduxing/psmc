@@ -43,11 +43,11 @@
 		    <artifactId>commons-collections</artifactId>
 		    <version>3.2.1</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc14</artifactId>
 			<version>10.2.0.4.0</version>
-		</dependency>
+		</dependency> -->
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 		    <groupId>mysql</groupId>
@@ -320,7 +320,7 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
-					<compilerId>eclipse</compilerId> 
+					<!-- <compilerId>eclipse</compilerId>  -->
 					<encoding>utf8</encoding>
 				</configuration>
 				 <dependencies>  
