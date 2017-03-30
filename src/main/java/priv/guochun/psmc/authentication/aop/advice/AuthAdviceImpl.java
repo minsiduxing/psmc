@@ -51,7 +51,7 @@ public class AuthAdviceImpl implements BaseAdvice
             sBuffer.append(whatMethodName);
             sBuffer.append("]");
             logger.warn(sBuffer.toString());
-            //throw new NotAllowedException(sBuffer.toString());
+            throw new NotAllowedException(sBuffer.toString());
         }
     }
     
