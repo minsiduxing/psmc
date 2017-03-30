@@ -29,14 +29,14 @@ public class CityController extends MyController  {
 	 private CityService cityService;
 
 	 
-	 @RequestMapping(params="method=initRegion")  
-	    @ResponseBody
-	    public void initRegion(HttpServletRequest request,
+	@RequestMapping(params="method=initRegion")  
+	@ResponseBody
+	public void initRegion(HttpServletRequest request,
 	            HttpServletResponse response,String cityId) throws IOException{	
 	        List list = cityService.getAllRegion(new String[]{cityId}, true, false);
 	        JSONArray ja = JsonUtil.convertToJSONArray(list);
 	        super.responseJson(ja, response);
-	    } 
+	} 
 	 
 	@RequestMapping(params="method=getRegionJson")  
 	@ResponseBody

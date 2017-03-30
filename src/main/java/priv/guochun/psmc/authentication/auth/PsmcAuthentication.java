@@ -38,7 +38,12 @@ public class PsmcAuthentication
         return isAuth;
     }
     
-    
+    /**
+     *  鉴权,检验当前角色是否拥有该资源的业务操作许可的验证
+     * @param RoleUuid
+     * @param operateNo
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public static boolean authentication(String RoleUuid,String operateNo){
         StringBuffer visitKey = new StringBuffer();

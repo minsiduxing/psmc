@@ -10,9 +10,7 @@
 </head>
 <body id="body">
 <table id="accountTableId"></table>
-
 <div id="toolbarId">
-	
 	<g:auth operateNo="<%=OperateContantsUtil.ACCOUNT_ADD%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
 	</g:auth>
@@ -22,14 +20,7 @@
 	<g:auth operateNo="<%=OperateContantsUtil.ACCOUNT_DEL%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
 	</g:auth>
-	
-	
-<!-- 	<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="import">导入</a> -->
-<!-- 	<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="export">导出</a> -->
 </div>
-
-
-
 <div id="editdialogDiv"></div>
 </body>
 </html>

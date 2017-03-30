@@ -31,12 +31,12 @@ public class DictController extends MyController {
 	 private TabDataDictService tabDataDictService;
 	 
 	 @RequestMapping(params="method=loadDict")  
-	    @ResponseBody
-	    public void loadDict(HttpServletRequest request,
+	 @ResponseBody
+	 public void loadDict(HttpServletRequest request,
 	            HttpServletResponse response,String dictNo) throws IOException{
 	        List<Map<?,?>> list = tabDataDictService.getDictDataList(dictNo);
 	        JSONArray ja = JsonUtil.convertToJSONArray(list);
 	        super.responseJson(ja, response);
-	    } 
+	 } 
 	 
 }
