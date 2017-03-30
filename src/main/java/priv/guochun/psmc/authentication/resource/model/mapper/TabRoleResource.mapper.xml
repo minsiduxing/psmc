@@ -23,6 +23,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
     
     <delete id="deleteRRORelationsByRoleUuidWithResourceUuid" parameterType="hashmap">
     		delete from tab_role_operate where operate_uuid in(
+			  select t.operate_uuid from(
 				select b.operate_uuid from tab_role_resource a,tab_role_operate b,TAB_OPERATE C where a.role_id = b.role_uuid 
 				AND B.OPERATE_UUID=C.UUID AND A.RESOURCE_ID=C.RESOURCE_UUID
 				<if test="roleUuid !=null">
@@ -31,6 +32,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 				<if test="resourceId !=null">
 					and a.resource_id=#{resourceId}
 				</if>
+			  ) t
 			)
 			<if test="roleUuid !=null">
 					and role_UUID=#{roleUuid}
