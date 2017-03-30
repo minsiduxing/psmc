@@ -85,6 +85,18 @@ public class User
 		return roleName;
 	}
 
+
+    public List getOperateList()
+    {
+        return operateList;
+    }
+
+
+    public void setOperateList(List operateList)
+    {
+        this.operateList = operateList;
+    }
+
     
 
 

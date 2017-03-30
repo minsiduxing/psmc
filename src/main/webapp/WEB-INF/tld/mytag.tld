@@ -104,4 +104,21 @@
 	</attribute>
   </tag>
   
+  
+  <tag>
+    <description>
+        Authorization verification
+    </description>
+    <name>auth</name>
+    <tag-class>priv.guochun.psmc.system.framework.page.taglib.MyAuthTag</tag-class>
+	
+    <attribute>
+		  <description>业务操作单元编号</description>
+		  <name>operateNo</name>
+		  <required>true</required>
+		  <rtexprvalue>true</rtexprvalue>
+		  <type>String</type>
+	</attribute>
+  </tag>
+  
 </taglib>

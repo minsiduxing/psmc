@@ -215,7 +215,7 @@ $(function() {
                 border:'thick',
                 cache: false,
                 href:_url,
-                title: "权限配置",
+                title: "业务操作配置",
                 method:"get"
             });
             privilegeSetdialog.window("open");

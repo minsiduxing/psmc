@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <%@ include file="../../../common.jsp"%>
@@ -43,12 +42,10 @@ var setting = {
 			//用于捕获节点拖拽操作结束之前的事件回调函数，并且根据返回值确定是否允许此拖拽操作
 			beforeDrop:ZbeforeDrop,
 			//
-			beforeRename: zTreeBeforeRename
-			
+			beforeRename: zTreeBeforeRename	
 		}
 	};
 
-	
 	function zTreeBeforeRename(treeId, treeNode, newName, isCancel) {
 		var result = false;
 		if(!isCancel){
@@ -143,13 +140,10 @@ $(document).ready(function(){
 
 
 function initoperatePanel(){
-	sysResourceTreePanel = $('#sysResourceTreePanelDiv').panel({
-		  cache:true,
-		  width:"400px",
-		  height:"600px",
-		  title:"系统资源树",
-		  fit:false,
-		  tools:[{
+	var toolsObj = [];
+	var length = toolsObj.length;
+	if(commonObj.isAuth("<%=OperateContantsUtil.RESOURCE_ADD%>")){
+		toolsObj[length] = {
 				iconCls:'icon-add',
 				handler:function(){
 					var selectNodes = sysResourceTree.getSelectedNodes();
@@ -189,58 +183,78 @@ function initoperatePanel(){
 						}
 					});
 				}
-			},{
-				iconCls:'icon-edit',
-				handler:function(){
-					var selectNodes = sysResourceTree.getSelectedNodes();
-					if(selectNodes.length!=1){
-						commonObj.alert("请选择待修改的节点!","warning");
-						return;
-					}
-					var node = selectNodes[0];
-					sysResourceTree.editName(node);
-				}
-			},{
-				iconCls:'icon-remove',
-				handler:function(){
-					var selectNodes = sysResourceTree.getSelectedNodes();
-					if(selectNodes.length<1){
-						commonObj.alert("请选择待删除的节点!","warning");
-						return;
-					}		
-					var node = selectNodes[0];
-					if(node.isParent){
-						commonObj.alert("该节点下存在子节点,请先删除子节点!","warning");
-						return;
-					}
-					if(node.RESOURCE_TYPE == 1){
-						commonObj.alert("不能删除根节点!","warning");
-						return;
-					}
-					var data ={resourceUuid:node.UUID};
-					var _url=basePath + "/authentication/tabResource.do?method=ajaxDeleteResource";
-					$.ajax({
-						async:false,
-						cache:false,
-						type:'POST',
-						dataType:"text",
-						context:document.body,
-						data:data,
-						url:_url,
-						success:function(data){
-							var dataObj = JSON.parse(data);
-							if(dataObj.res=='success'){
-								sysResourceTree.removeNode(node);
-							}
-							commonObj.showResponse(data);
-						},
-						error:function (XMLHttpRequest, textStatus, errorThrown) {
-							commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+			};
+		length++;
+	 };
+
+	 if(commonObj.isAuth("<%=OperateContantsUtil.RESOURCE_UPDATE%>")){
+			toolsObj[length] = {
+					iconCls:'icon-edit',
+					handler:function(){
+						var selectNodes = sysResourceTree.getSelectedNodes();
+						if(selectNodes.length!=1){
+							commonObj.alert("请选择待修改的节点!","warning");
+							return;
 						}
-					});
-				}
-			}]
-		});   
+						var node = selectNodes[0];
+						sysResourceTree.editName(node);
+					}
+				};
+			length++;
+	 };
+
+	 if(commonObj.isAuth("<%=OperateContantsUtil.RESOURCE_DEL%>")){
+			toolsObj[length] = {
+					iconCls:'icon-remove',
+					handler:function(){
+						var selectNodes = sysResourceTree.getSelectedNodes();
+						if(selectNodes.length<1){
+							commonObj.alert("请选择待删除的节点!","warning");
+							return;
+						}		
+						var node = selectNodes[0];
+						if(node.isParent){
+							commonObj.alert("该节点下存在子节点,请先删除子节点!","warning");
+							return;
+						}
+						if(node.RESOURCE_TYPE == 1){
+							commonObj.alert("不能删除根节点!","warning");
+							return;
+						}
+						var data ={resourceUuid:node.UUID};
+						var _url=basePath + "/authentication/tabResource.do?method=ajaxDeleteResource";
+						$.ajax({
+							async:false,
+							cache:false,
+							type:'POST',
+							dataType:"text",
+							context:document.body,
+							data:data,
+							url:_url,
+							success:function(data){
+								var dataObj = JSON.parse(data);
+								if(dataObj.res=='success'){
+									sysResourceTree.removeNode(node);
+								}
+								commonObj.showResponse(data);
+							},
+							error:function (XMLHttpRequest, textStatus, errorThrown) {
+								commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+							}
+						});
+					}
+				};
+			length++;
+	 };
+	 
+	sysResourceTreePanel = $('#sysResourceTreePanelDiv').panel({
+		  cache:true,
+		  width:"400px",
+		  height:"600px",
+		  title:"系统资源树",
+		  fit:false,
+		  tools:toolsObj
+	});   
 }
 
 </script>

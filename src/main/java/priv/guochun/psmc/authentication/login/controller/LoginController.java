@@ -18,6 +18,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import priv.guochun.psmc.authentication.auth.PsmcAuthentication;
+import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.util.JsonUtil;
@@ -28,17 +30,17 @@ import priv.guochun.psmc.system.util.JsonUtil;
 @RequestMapping("/authentication/loginController")
 public class LoginController  extends MyController {
     
-     protected static final  Logger logger  = LoggerFactory.getLogger(LoginController.class);
+         protected static final  Logger logger  = LoggerFactory.getLogger(LoginController.class);
+    	 
+         @Autowired
+    	 private LoginService loginService;
 	 
-     @Autowired
-	 private LoginService loginService;
-	 
-	 @RequestMapping(params="method=entrance")  
-	 public String entrance(HttpServletRequest request,
-			 	HttpServletResponse response,ModelMap modelMap){
-		 return "/jindex";
-	 }
-	 
+    	 @RequestMapping(params="method=entrance")  
+    	 public String entrance(HttpServletRequest request,
+    			 	HttpServletResponse response,ModelMap modelMap){
+    		 return "/jindex";
+    	 }
+    	 
 	 
 	 /**
 	     * 得到某个角色的导航栏信息
@@ -54,7 +56,6 @@ public class LoginController  extends MyController {
 	                    String roleUuid) throws IOException {
 	        List<Map<?,?>> list = loginService.getNavigationBarResourcesByRoleUuid(roleUuid);
 	        JSONObject returnJsonObj = JsonUtil.convertToJSONObject(list);
-	        logger.debug("加载导航栏数据: "+returnJsonObj.toString());
 	        this.responseJson(returnJsonObj, response);
 	    }
 	    
@@ -90,5 +91,14 @@ public class LoginController  extends MyController {
 	        JSONArray returnJsonObj = JsonUtil.convertToJSONArray(list);
 	        this.responseHtmltext(returnJsonObj.toString(), response);
 	    }
-	 
+	    
+	    @RequestMapping(params="method=authenticationOperate")  
+        @ResponseBody
+        public void authenticationOperate(HttpServletRequest request,HttpServletResponse response,
+                String operateNo) throws IOException {  
+	        User user = this.getUserBySeesion(request);
+            boolean isAuth = PsmcAuthentication.authentication(user.getRoleUuid(), operateNo);
+            this.responseJson(isAuth, null, response);
+	    }
+	    
 }

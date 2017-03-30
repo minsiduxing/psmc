@@ -176,3 +176,28 @@ function allowedAlert(text){
 	return false;
 }
 
+commonObj.isAuth = function(operateNo){
+	var auth = false;
+	if(operateNo == undefined || operateNo == null || operateNo == "")
+		return auth;
+	var _url=basePath + "/authentication/loginController.do?method=authenticationOperate&operateNo="+operateNo;
+	$.ajax({
+		async:false,
+		cache:false,
+		type:'POST',
+		dataType:"text",
+		context:document.body,
+		url:_url,
+		success:function(data){
+			var dataObj = JSON.parse(data);
+			if(dataObj.res == "success"){
+				auth = true;
+			}
+		},
+		error:function (XMLHttpRequest, textStatus, errorThrown) {
+			commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+		}
+	});
+	return auth;
+};
+
