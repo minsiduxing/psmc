@@ -44,8 +44,8 @@ public class CityServiceImpl implements CityService {
 	    List<Map<?,?>> newList = new ArrayList<Map<?,?>>();
 	    for(int i=0;i<regionList.size();i++){
 	        Map<?,?> map = regionList.get(i);
-	        String id = map.get("id").toString();
-	        String pid = map.get("pid").toString();
+	        String id = map.get("ID").toString();
+	        String pid = map.get("PID").toString();
 	        if(containMySelf){
 	            for(int x=0;x<ids.length;x++){
 	                if(id.equals(ids[x])){

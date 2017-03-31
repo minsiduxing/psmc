@@ -25,14 +25,14 @@ var setting = {
 				rootPId: _rootPId
 			},
 			key:{
-				name:"NAME"
+				name:"NAME",
 			},
 		},
 		async: {
 			enable: true,
 			type : "get",
-			url: basePath+"/system/common/cityController.do?method=getRegionJson",
-			autoParam: ["ID=cityId"]
+			url: basePath+"/system/common/cityController.do?method=getRegionJson&cityId="+_rootPId,
+			autoParam: ["ID=id"]
 		}
 	};
 

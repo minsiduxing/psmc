@@ -16,7 +16,7 @@ public abstract class BaseTabPerson  implements Serializable {
 
 	public static String REF = "TabPerson";
 	public static String PROP_UUID = "Uuid";
-	public static String PROP_CITY_ID = "CityId";
+	public static String PROP_CITY_ID = "cityId";
 	public static String PROP_ACC_UUID = "AccUuid";
 	public static String PROP_AGE = "Age";
 	public static String PROP_EMAIL = "Email";

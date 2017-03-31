@@ -74,6 +74,8 @@
 </form>
 <script type="text/javascript">
 function cityCallBack(ids,names){
+	alert(ids);
+	alert(names);
 	$("#cityId").val(ids);
 	$('#cityName').textbox('setValue', names);
 }

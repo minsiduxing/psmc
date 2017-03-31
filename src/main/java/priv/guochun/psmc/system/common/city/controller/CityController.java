@@ -29,6 +29,7 @@ public class CityController extends MyController  {
 	 private CityService cityService;
 
 	 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(params="method=initRegion")  
 	@ResponseBody
 	public void initRegion(HttpServletRequest request,
@@ -38,6 +39,7 @@ public class CityController extends MyController  {
 	        super.responseJson(ja, response);
 	} 
 	 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(params="method=getRegionJson")  
 	@ResponseBody
 	public void getRegionJson(HttpServletRequest request,

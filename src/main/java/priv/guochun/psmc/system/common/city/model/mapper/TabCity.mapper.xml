@@ -9,7 +9,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
     </select>  
    
    	<select id="getSubRegionByCityId" resultType="java.util.Map">  
-       select distinct a.city_id as id,a.city_name as name,a.parent_id as pid,
+       select distinct a.city_id as ID,a.city_name as NAME,a.parent_id as PID,
        (case when b.city_id is not null then 'true' else 'false' end) "isParent" ,a.ordernum
        from tab_city a left join tab_city b on a.city_id=b.parent_id
        <where>

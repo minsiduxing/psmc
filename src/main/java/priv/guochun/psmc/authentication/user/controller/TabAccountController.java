@@ -68,6 +68,7 @@ public class TabAccountController extends MyController {
 	 * @return
 	 * @throws IOException
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(params="method=initEdit")  
 	 public String initEdit(HttpServletRequest request,
 			 	HttpServletResponse response,String uuid,String oper,ModelMap modelMap) throws IOException{
