@@ -94,7 +94,6 @@ function initSysLeftDiv(){
 		        			"method=initNavigationBarTree&roleUuid="+roleUuid+"&resourceId="+uuid;
 		            var treeObj = $.fn.zTree.getZTreeObj(treeId);
 		        	if(treeObj){
-		        		//alert("树已经生成,无需再次生成!"+treeId);
 		        		return;
 		        	}
 		        	
@@ -130,8 +129,16 @@ function initSysLeftDiv(){
 		    	        dataType : "json",  
 		    	        url: url,
 		    	        success:function(data){
-		    	        	$.fn.zTree.init($("#"+treeId), setting, data); 
-		    	        }  
+			    	        function navSucCallBack(){
+			    	        	$.fn.zTree.init($("#"+treeId), setting, data); 
+			    	        	alert("bbbb"+data);
+				    	    };
+		    	        	commonObj.showResponse(data,navSucCallBack);
+		    	        	
+		    	        },
+		    	        error:function (XMLHttpRequest, textStatus, errorThrown) {
+							commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+						}  
 		    	    });  
 
 		    		function zTreebeforeClick(treeId, treeNode) {
@@ -163,7 +170,10 @@ function initSysLeftDiv(){
 			    	        url: url,
 			    	        success:function(data){
 			    	        	newNode = treeObj.addNodes(treeNode, data);
-			    	        }  
+			    	        } ,
+			    	        error:function (XMLHttpRequest, textStatus, errorThrown) {
+								commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+							}  
 			    	    }); 
 			    	};
 			    	
