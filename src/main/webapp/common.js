@@ -158,12 +158,16 @@ commonObj.alert = function(msg,icon){
  */
 commonObj.showError = function(XMLHttpRequest, textStatus, errorThrown){	
 	var status  = XMLHttpRequest.status;
+	var sessionstatus=XMLHttpRequest.getResponseHeader("sessionstatus");
+    if(sessionstatus=='timeout'){ 
+    	//如果超时，统一处理，此处直接返回
+    	return;
+    }
 	if(status == 500){
 		var responseText = XMLHttpRequest.responseText;
 		allowedAlert(responseText);
 		return;
 	}
-
 	commonObj.alert("系统错误,请联系管理员!","error");
 };
 
