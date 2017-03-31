@@ -60,11 +60,7 @@ var setting = {
 				data:data,
 				url:_url,
 				success:function(data){
-					var dataObj = JSON.parse(data);
-					if(dataObj.res=='success'){
-						result = true;
-					}
-					commonObj.showResponse(data);
+					result = commonObj.showResponse(data,updateNameSucFunc);
 				},
 				error:function (XMLHttpRequest, textStatus, errorThrown) {
 					commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
@@ -109,11 +105,7 @@ var setting = {
 			data:data,
 			url:_url,
 			success:function(data){
-				var dataObj = JSON.parse(data);
-				if(dataObj.res=='success'){
-					result = true;
-				}
-				commonObj.showResponse(data);
+				result = commonObj.showResponse(data,updateNameSucFunc);
 			},
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
 				commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
@@ -121,23 +113,33 @@ var setting = {
 		});
 		return result;
 	}
- 		
-$(document).ready(function(){
-	 initoperatePanel();  
-	 var _url =basePath + "/authentication/tabResource.do?method=getSysResouceTreeData";
-	 $.ajax({  
-	        async:false,  
-	        cache:false,  
-	        type:'GET',  
-	        dataType:"json",  
-	        url:_url,
-	        success:function(data){
-	        	sysResourceTree = $.fn.zTree.init($("#sysResourceTree"), setting, data); 
-	        	sysResourceTree.expandAll(true);
-		     }  
-	    });	 
-});
 
+	var newNodes;
+	var node;
+	//添加成功回调函数
+	function addSucFunc(data){
+		var dataObj = JSON.parse(data);
+		if(dataObj.id){
+			newNodes[0].UUID=dataObj.id;
+			sysResourceTree.addNodes(node, newNodes);
+		}
+	}
+	//删除成功回调函数
+	function delSucFunc(data){
+		var dataObj = JSON.parse(data);
+		if(dataObj.res=='success'){
+			sysResourceTree.removeNode(node);
+		}
+	}
+
+	//修改成功回调函数
+	function updateNameSucFunc(data){
+		var dataObj = JSON.parse(data);
+		if(dataObj.res=='success'){
+			return true;
+		}else
+			return false;
+	}
 
 function initoperatePanel(){
 	var toolsObj = [];
@@ -150,8 +152,8 @@ function initoperatePanel(){
 					if(selectNodes.length<1){
 						commonObj.alert("未选择父节点,无法添加资源菜单!","warning");
 					}		
-					var node = selectNodes[0];
-					var newNodes = [{
+					node = selectNodes[0];
+					newNodes = [{
 							RESOURCE_NAME:"新节点",
 							RESOURCE_URL:"/welcome.jsp",
 							PARENT_RESOURCE_UUID:node.UUID}];
@@ -170,13 +172,7 @@ function initoperatePanel(){
 						data:data,
 						url:_url,
 						success:function(data){
-							var dataObj = JSON.parse(data);
-							if(dataObj.id){
-								newNodes[0].UUID=dataObj.id;
-								sysResourceTree.addNodes(node, newNodes);
-								commonObj.alert("操作成功!","info");
-							}else
-								commonObj.alert(null,"error");
+							commonObj.showResponse(data,addSucFunc);
 						},
 						error:function (XMLHttpRequest, textStatus, errorThrown) {
 							commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
@@ -196,7 +192,7 @@ function initoperatePanel(){
 							commonObj.alert("请选择待修改的节点!","warning");
 							return;
 						}
-						var node = selectNodes[0];
+						node = selectNodes[0];
 						sysResourceTree.editName(node);
 					}
 				};
@@ -212,7 +208,7 @@ function initoperatePanel(){
 							commonObj.alert("请选择待删除的节点!","warning");
 							return;
 						}		
-						var node = selectNodes[0];
+						node = selectNodes[0];
 						if(node.isParent){
 							commonObj.alert("该节点下存在子节点,请先删除子节点!","warning");
 							return;
@@ -232,11 +228,7 @@ function initoperatePanel(){
 							data:data,
 							url:_url,
 							success:function(data){
-								var dataObj = JSON.parse(data);
-								if(dataObj.res=='success'){
-									sysResourceTree.removeNode(node);
-								}
-								commonObj.showResponse(data);
+								commonObj.showResponse(data,delSucFunc);
 							},
 							error:function (XMLHttpRequest, textStatus, errorThrown) {
 								commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
@@ -256,6 +248,24 @@ function initoperatePanel(){
 		  tools:toolsObj
 	});   
 }
+
+
+
+$(document).ready(function(){
+	 initoperatePanel();  
+	 var _url =basePath + "/authentication/tabResource.do?method=getSysResouceTreeData";
+	 $.ajax({  
+	        async:false,  
+	        cache:false,  
+	        type:'GET',  
+	        dataType:"json",  
+	        url:_url,
+	        success:function(data){
+	        	sysResourceTree = $.fn.zTree.init($("#sysResourceTree"), setting, data); 
+	        	sysResourceTree.expandAll(true);
+		     }  
+	    });	 
+});
 
 </script>
 </head>

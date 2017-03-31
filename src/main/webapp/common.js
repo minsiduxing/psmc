@@ -1,6 +1,8 @@
 var basePath = $("#basePath").val();
 
-
+/**
+ * 系统基础公共处理对象
+ */
 var commonObj = new Object();
 
 /**
@@ -116,10 +118,16 @@ commonObj.initDictCombobox = function(id,dictNo,defaultValue,validate){
  *easyui表单提交后的统一处理
  *@param data :{res:success/fail,rmsg:错误描述}
  */
-commonObj.showResponse = function(data){
+commonObj.showResponse = function(data,callback){
 	try{
+		if(data=='timeout'){ 
+	    	return false;
+	    };
 		if(allowedAlert(data)){
-			return;
+			return false;
+		};
+		if(callback){
+			return callback(data);
 		};
 		data = JSON.parse(data);
 		if(data.res=='success'){
@@ -134,7 +142,7 @@ commonObj.showResponse = function(data){
 		}
 	}catch(e){
 		commonObj.alert("系统错误,请联系管理员!","error");
-		console.info(data+" e:"+e.message);
+		console.info(" e:"+e.message);
 	}
 };
 
@@ -174,7 +182,6 @@ commonObj.showError = function(XMLHttpRequest, textStatus, errorThrown){
 function allowedAlert(text){
 	if(text.indexOf("priv.guochun.psmc.authentication.aop.exception.NotAllowedException") !=-1){
 		commonObj.alert("用户无权限进行该操作,请联系管理员进行授权!","warning");
-		console.info(text);
 		return true;
 	}
 	return false;
@@ -219,9 +226,9 @@ $.ajaxSetup({
 });
 
 /** 
-* 在页面中任何嵌套层次的窗口中获取顶层窗口 
-* @return 当前页面的顶层窗口对象 
-*/
+ * 在页面中任何嵌套层次的窗口中获取顶层窗口 
+ * @return 当前页面的顶层窗口对象 
+ */
 function getTopWinow(){  
   var p = window;  
   while(p != p.parent){  
