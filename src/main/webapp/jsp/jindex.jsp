@@ -121,7 +121,8 @@ function initSysLeftDiv(){
 	        					onCollapse:zTreeonCollapse,
 	        					beforeClick:zTreebeforeClick
 	        				}
-		        		};   
+		        		}; 
+		    	    
 		            $.ajax({  
 		    	        async : false,  
 		    	        cache:false,  
@@ -129,12 +130,7 @@ function initSysLeftDiv(){
 		    	        dataType : "json",  
 		    	        url: url,
 		    	        success:function(data){
-			    	        function navSucCallBack(){
-			    	        	$.fn.zTree.init($("#"+treeId), setting, data); 
-			    	        	alert("bbbb"+data);
-				    	    };
-		    	        	commonObj.showResponse(data,navSucCallBack);
-		    	        	
+		    	        	$.fn.zTree.init($("#"+treeId), setting, data); 
 		    	        },
 		    	        error:function (XMLHttpRequest, textStatus, errorThrown) {
 							commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
