@@ -19,18 +19,33 @@
 	
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="${jdbc_driverClass}" />
+		<property name="driverClassName" value="${jdbc_driverClass}"/>
 		<property name="url" value="${jdbc_jdbcUrl}" />
 		<property name="username" value="${jdbc_username}" />
 		<property name="password" value="${jdbc_password}" />
 		<!-- 池启动时创建的连接数量 -->
-        <property name="initialSize" value="10"/>
+        <property name="initialSize" value="5"/>
         <!-- 同一时间可以从池分配的最多连接数量。设置为0时表示无限制。 -->
         <property name="maxActive" value="30"/>
-        <!-- 池里不会被释放的最多空闲连接数量。设置为0时表示无限制。 -->
+        <!-- 连接池中最大的空闲的连接数，超过的空闲连接将被释放 -->
         <property name="maxIdle" value="20"/>
-        <!-- 在不新建连接的条件下，池中保持空闲的最少连接数。 -->
-        <property name="minIdle" value="3"/>
+        <!-- 连接池中最小的空闲的连接数，低于这个数量会被创建新的连接 -->
+        <property name="minIdle" value="10"/>
+        <!-- 最大等待时间，当没有可用连接时，连接池等待连接释放的最大时间，超过该时间限制会抛出异常，
+        	（默认为无限，调整为60000ms，避免因线程池不够用，而导致请求被无限制挂起） -->
+        <property name="maxWait" value="5000"/>
+        
+        <!-- 连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除-->
+        <property name="testWhileIdle" value="true"/>
+        <property name="validationQuery" value="SELECT 1"/>
+          
+        <!-- 超过此时间则被空闲线程进行回收 1000 * f60 * 20-->
+        <property name="minEvictableIdleTimeMillis" value="1200000"/>  
+		
+        <!--超过此时间则被废弃线程进行废弃 -单位（秒)-->
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="300"/>
+
 	</bean>
 
 

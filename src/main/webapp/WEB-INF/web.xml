@@ -56,7 +56,7 @@
     <filter-class>priv.guochun.psmc.authentication.login.filter.LoginFilter</filter-class>
     <init-param>
       <param-name>excludedPages</param-name>
-      <param-value>/login.jsp,/login,/js/jquery-1.11.3.js,/js/jquery-easyui-1.4.5/jquery.easyui.min.js,/js/jquery-easyui-1.4.5/themes/default/easyui.css</param-value>
+      <param-value>/common.jsp,/sessionTimeout.jsp,/login.jsp,/login,*.js,*.css,*.gif,*.htm,*.png</param-value>
     </init-param>
   </filter>
   
@@ -114,6 +114,10 @@
   </servlet-mapping>
   
   <welcome-file-list>
-    <welcome-file>/jsp/login.jsp</welcome-file>
+    <welcome-file>/login.jsp</welcome-file>
   </welcome-file-list>
+  
+  <session-config>      
+  	<session-timeout>30</session-timeout>
+  </session-config>
 </web-app>

@@ -40,8 +40,15 @@ public class LoginFilter implements Filter
 
         boolean isExcludedPage = false;     
         String requestUrl = httpServletRequest.getServletPath();
+        
+        String suffix =  null;
+        if(requestUrl.indexOf(".") != -1)
+            suffix = requestUrl.substring(requestUrl.lastIndexOf("."),requestUrl.length());
+        else
+            suffix="";
+        String vagueStr = "*"+suffix;
         for (String page : excludedPageArray) {//判断是否在过滤url之外     
-            if(page.equals(requestUrl)){     
+            if(page.equals(requestUrl) || page.equals(vagueStr)){     
             isExcludedPage = true;     
             break;     
             }
@@ -51,10 +58,20 @@ public class LoginFilter implements Filter
         }else{
             HttpSession httpSession = httpServletRequest.getSession();
             User user = (User)httpSession.getAttribute("user");
+            String ajaxRequest = httpServletRequest.getHeader("x-requested-with");
             String cPath = httpServletRequest.getServletContext().getContextPath();
-            String loginUrl =cPath+"/login.jsp";
-            if(user == null)
-                httpServletResponse.sendRedirect(loginUrl);
+            
+            if(user == null){
+                    String loginUrl =cPath+"/login.jsp";
+                if(StringUtils.isNotBlank(ajaxRequest)){ //表明是ajax请求
+                    httpServletResponse.setHeader("sessionstatus", "timeout");//在响应头设置session状态 
+                    httpServletResponse.setHeader("sessionTimeoutUrl", loginUrl);
+                    httpServletResponse.getWriter().print("timeout"); //打印一个返回值
+                }else{
+                    String sessionTimeOutUrl =cPath+"/sessionTimeout.jsp";
+                    httpServletResponse.sendRedirect(sessionTimeOutUrl);
+                }    
+            }
             else
                 chain.doFilter(httpServletRequest, httpServletResponse);
         }
