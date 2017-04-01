@@ -10104,7 +10104,7 @@ opts.queryParams=_754;
 }
 var _755=$.extend({},opts.queryParams);
 if(opts.pagination){
-$.extend(_755,{pageIndex:opts.pageNumber||1,pageSize:opts.pageSize});
+$.extend(_755,{page:opts.pageNumber||1,rows:opts.pageSize});
 }
 if(opts.sortName){
 $.extend(_755,{sort:opts.sortName,order:opts.sortOrder});
@@ -11605,7 +11605,7 @@ opts.queryParams=_8cf;
 }
 var _8d2=$.extend({},opts.queryParams);
 if(opts.pagination){
-$.extend(_8d2,{pageIndex:opts.pageNumber,pageSize:opts.pageSize});
+$.extend(_8d2,{page:opts.pageNumber,rows:opts.pageSize});
 }
 if(opts.sortName){
 $.extend(_8d2,{sort:opts.sortName,order:opts.sortOrder});

@@ -4,6 +4,7 @@ var editdialog;
 var resourceSetdialog;
 var privilegeSetdialog;
 //表单校验
+
 function progress() {
     var result = $('#editForm').form("validate");
     if (Boolean(result)) {

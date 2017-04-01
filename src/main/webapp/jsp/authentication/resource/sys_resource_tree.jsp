@@ -5,6 +5,8 @@
 <head>
 <%@ include file="../../../common.jsp"%>
 <title>系统资源树</title>
+
+
 <script type="text/javascript">
 var basePath = $("#basePath").val();
 var sysResourceTree;

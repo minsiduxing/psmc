@@ -1,5 +1,6 @@
 package priv.guochun.psmc.system.framework.servletlistener;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -18,11 +19,18 @@ public class SysPropertiesFileInitListener implements ServletContextListener
     
     @Override
     public void contextInitialized(ServletContextEvent contextEvent){
-        Object obj = contextEvent.getServletContext().getInitParameter("systemPropertiesFileName");
+        ServletContext context = contextEvent.getServletContext();
+        String csssuffix = context.getInitParameter("csssuffix").toString();
+        String jssuffix = context.getInitParameter("csssuffix").toString();
+        
+        context.setAttribute(csssuffix, csssuffix);
+        context.setAttribute(jssuffix, jssuffix);
+        
+        Object obj = context.getInitParameter("systemPropertiesFileName");
         if(obj != null && !"".equals(obj.toString())){
             SystemPropertiesUtil.loadPropertiesInit(obj.toString());
         }else
-            logger.error("systemPropertiesFileName  Does not exist,please fill  init-param 'systemPropertiesFileName' in web.xml.........");
+            logger.error("systemPropertiesFileName  Does not exist,please add init-param 'systemPropertiesFileName' in web.xml.........");
        
     }
 
