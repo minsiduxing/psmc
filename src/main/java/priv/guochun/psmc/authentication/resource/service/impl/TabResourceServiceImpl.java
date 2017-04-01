@@ -42,7 +42,7 @@ public class TabResourceServiceImpl implements TabResourceService
     	}
     	List<Map<?,?>> subLists = this.tabResourceDao.getSubResourcesByResourceId(resourceUuid, null, false, null);
     	if(subLists != null && subLists.size()>0){
-    	    String msg ="该资源resourceUuid["+resourceUuid+"]下存在子资源,无法删除.";
+    	    String msg ="该资源下存在子资源,无法删除.请先手工删除子资源或将子资源挂接到其他资源下.";
     		logger.warn(msg);
     		returnObj = ReturnModel.createFailJSONObject(msg);
     		return returnObj;
@@ -50,7 +50,7 @@ public class TabResourceServiceImpl implements TabResourceService
     	
         List<Map<?,?>> rrRelations  = tabRoleResourceDao.getRoleResourceRelations(resourceUuid);
         if(rrRelations != null && rrRelations.size()>0){
-            String msg ="该资源resourceUuid["+resourceUuid+"]已被角色所拥有,无法删除.";
+            String msg ="该资源已被角色所拥有,无法删除.请先解除该资源和角色的关联关系.";
             logger.warn(msg);
             returnObj = ReturnModel.createFailJSONObject(msg);
             return returnObj;

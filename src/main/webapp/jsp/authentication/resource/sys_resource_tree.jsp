@@ -130,6 +130,9 @@ var setting = {
 		if(dataObj.res=='success'){
 			sysResourceTree.removeNode(node);
 		}
+		if(dataObj.res=='fail'){
+			commonObj.alert(dataObj.rmsg,"warning");
+		}
 	}
 
 	//修改成功回调函数
