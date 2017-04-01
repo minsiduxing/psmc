@@ -6,13 +6,13 @@
     <param-name>csstheme</param-name>
     <param-value>default</param-value>
   </context-param>
-  <!-- 定义 CSS 后缀名,开发时使用css,部署时使用-min.css -->
+  <!-- 定义 CSS 后缀名,开发时使用.css,部署时使用-min.css -->
   <context-param>
 	<param-name>csssuffix</param-name>
-	<param-value>css</param-value>
+	<param-value>.css</param-value>
 	<!-- <param-value>-min.css</param-value> -->
   </context-param>
-	<!-- 定义 descript 后缀名,开发时使用js,部署时使用-min.js -->
+	<!-- 定义 descript 后缀名,开发时使用.js,部署时使用-min.js -->
   <context-param>
 	<param-name>jssuffix</param-name>
 	<param-value>.js</param-value>

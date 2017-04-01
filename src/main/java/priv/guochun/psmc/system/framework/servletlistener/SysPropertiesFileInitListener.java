@@ -21,10 +21,10 @@ public class SysPropertiesFileInitListener implements ServletContextListener
     public void contextInitialized(ServletContextEvent contextEvent){
         ServletContext context = contextEvent.getServletContext();
         String csssuffix = context.getInitParameter("csssuffix").toString();
-        String jssuffix = context.getInitParameter("csssuffix").toString();
-        
-        context.setAttribute(csssuffix, csssuffix);
-        context.setAttribute(jssuffix, jssuffix);
+        String jssuffix = context.getInitParameter("jssuffix").toString();
+
+        context.setAttribute("csssuffix", csssuffix);
+        context.setAttribute("jssuffix", jssuffix);
         
         Object obj = context.getInitParameter("systemPropertiesFileName");
         if(obj != null && !"".equals(obj.toString())){
