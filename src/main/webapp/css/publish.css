@@ -1,0 +1,73 @@
+/* ---------------------添加修改表单-------------------------------- */
+.addfrom ，.query-form{
+	height:100%;
+	width:100%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top:0;
+	margin-bottom: 0;
+}
+.addfrom ul,.query-form ul{
+	display: flex;
+    flex-wrap: wrap;
+}
+.addfrom li,.query-form li{
+	list-style: none;
+	width:280px;
+	padding-top: 1.5%;
+	padding-left: 0.25%;
+}
+.input-label{
+	text-align: left;
+	width:80px;
+	float: left;
+}
+input{
+	text-align: left;
+	width:160px;
+	margin-right: 10%;
+	float: right;
+}
+.area-label{
+	text-align: left;
+	float: left;
+}
+.div-area,.li-btn{
+	list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+	display: flex;
+    flex-wrap: wrap;
+}
+.btn{
+	margin-right: 5%;
+	padding: 0.25%;
+	width: 8%;
+}
+/* ---------------------查询区域样式-------------------------------- */
+.query-content{
+    text-align: left;
+    border:1px solid #95B8E7;
+    color: #000000;
+    margin-bottom:1%;
+    background-color: #fafafa;
+    line-height: 18px;
+    font-size: 12px;
+}
+.query-oper{
+	background:#fafafa;
+	border:1px solid #ccc;
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;;
+}
+.query-btn{
+	margin-left:1%;
+}
+
+
+
+
