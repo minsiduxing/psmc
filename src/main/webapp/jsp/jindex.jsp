@@ -8,7 +8,9 @@
 </head>
 <body class="easyui-layout">
 	<div id="sysTopDiv" data-options="region:'north',title:'',split:true" style="height:5%;">
-			<div class="title" title="title">欢迎你,</div>
+			<div class="title" title="title">尊敬的用户：<c:out value='${user.accountName}'/>，欢迎您登入系统</div>
+			<div class="title" title="title"><a id="updatePasswd">修改密码</a></div>
+			<div class="title" title="title"><a id="logOut">退出登录</a></div>
 	</div>	
 	
     <div id="sysFootDiv" data-options="region:'south',title:'',split:true" style="height:5%;">
@@ -32,6 +34,21 @@ $(document).ready(function(){
 	initSysLeftDiv();
 	//初始化功能栏
 	initsysFunctionDiv();
+});
+
+//退出登录操作 add by yangqing 2017-4-8
+$('#logOut').click(function (){
+	var url = "<%=request.getContextPath()%>"+"/logOut";
+	$.messager.confirm('Confirm', '您确定退出登录?', function(r){
+		if (r){
+			window.location = url;
+		}
+	});
+});
+
+//修改密码操作 add by yangqing 2017-4-8
+$('#updatePasswd').click(function(){
+	addTab("修改密码页面", "<%=request.getContextPath()%>/jsp/updatePasswd.jsp");
 });
 
 function initsysFunctionDiv(){

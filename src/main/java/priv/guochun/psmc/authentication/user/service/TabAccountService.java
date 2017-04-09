@@ -58,4 +58,13 @@ public interface TabAccountService
      * @return
      */
     public boolean deletesBusinessMethod(String uuids);
+    
+    /**
+     * 修改账户密码
+     * @param uuid
+     * @param newPassword
+     * @return
+     * @author yangqing 2017-4-9
+     */
+    public boolean updateAccountPasswdMethod(TabAccount tabAccount);
 }

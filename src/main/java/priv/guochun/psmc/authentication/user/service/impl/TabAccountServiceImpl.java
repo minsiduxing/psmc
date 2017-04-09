@@ -98,5 +98,11 @@ public class TabAccountServiceImpl implements TabAccountService
     {
         this.tabRoleService = tabRoleService;
     }
+
+	@Override
+	public boolean updateAccountPasswdMethod(TabAccount tabAccount) {
+		tabAccountDao.saveOrUpdateAccount(tabAccount);
+		return true;
+	}
 	
 }	

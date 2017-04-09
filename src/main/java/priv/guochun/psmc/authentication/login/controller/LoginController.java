@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,6 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import priv.guochun.psmc.authentication.auth.PsmcAuthentication;
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
+import priv.guochun.psmc.authentication.user.model.TabAccount;
+import priv.guochun.psmc.authentication.user.model.TabPerson;
+import priv.guochun.psmc.authentication.user.service.TabAccountService;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.util.JsonUtil;
 
@@ -34,6 +40,9 @@ public class LoginController  extends MyController {
     	 
          @Autowired
     	 private LoginService loginService;
+         
+         @Autowired
+         private TabAccountService tabAccountService;
 	 
     	 @RequestMapping(params="method=entrance")  
     	 public String entrance(HttpServletRequest request,
@@ -99,6 +108,35 @@ public class LoginController  extends MyController {
 	        User user = this.getUserBySeesion(request);
             boolean isAuth = PsmcAuthentication.authentication(user.getRoleUuid(), operateNo);
             this.responseJson(isAuth, null, response);
+	    }
+	    
+	    /**
+	     * 用户修改密码操作
+	     * @param request
+	     * @param response
+	     * @throws IOException
+	     * @author youngqing 2017-4-8
+	     */
+	    @RequestMapping(params="method=autUpdatePasswdOperate")  
+        @ResponseBody
+	    public void autUpdatePasswdOperate(HttpServletRequest request,HttpServletResponse response)throws IOException{
+	    	User user = this.getUserBySeesion(request);
+	    	String accountName = user.getAccountName();
+	    	String oldPassword = request.getParameter("oldPassword");
+	    	String newPassword = request.getParameter("newPassword");
+	    	Map userMap = tabAccountService.getTabAccount(accountName, oldPassword);
+	    	boolean is_True = false;
+	    	if(null != userMap){
+	    		TabAccount tabAccount = new TabAccount();
+	    		tabAccount.setUuid(String.valueOf(user.getTabAccount().get("UUID")));
+	    		tabAccount.setAccountName(accountName);
+	    		tabAccount.setAccountPass(newPassword);
+	    		is_True = tabAccountService.updateAccountPasswdMethod(tabAccount);
+	    	}
+	    	if(is_True){
+	    		request.setAttribute("msg", 1);
+	    	}
+	    	return;
 	    }
 	    
 }

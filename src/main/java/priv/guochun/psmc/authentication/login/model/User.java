@@ -10,9 +10,9 @@ public class User
     private Map tabPerson;
     private Map tabRole;
     private List operateList;
-    
-    
-    private String accountName;
+
+
+	private String accountName;
     
     private String personName;
     private String personTelephone;
@@ -96,7 +96,16 @@ public class User
     {
         this.operateList = operateList;
     }
+    
+    
+    public Map getTabAccount() {
+		return tabAccount;
+	}
 
+
+	public Map getTabPerson() {
+		return tabPerson;
+	}
     
 
 
