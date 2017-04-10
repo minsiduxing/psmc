@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -118,13 +119,13 @@ public class LoginController  extends MyController {
 	     * @author youngqing 2017-4-8
 	     */
 	    @RequestMapping(params="method=autUpdatePasswdOperate")  
-        @ResponseBody
-	    public void autUpdatePasswdOperate(HttpServletRequest request,HttpServletResponse response)throws IOException{
+	    public String autUpdatePasswdOperate(HttpServletRequest request,HttpServletResponse response)throws IOException{
 	    	User user = this.getUserBySeesion(request);
 	    	String accountName = user.getAccountName();
 	    	String oldPassword = request.getParameter("oldPassword");
 	    	String newPassword = request.getParameter("newPassword");
 	    	Map userMap = tabAccountService.getTabAccount(accountName, oldPassword);
+	    	//先判断旧密码是不是正确
 	    	boolean is_True = false;
 	    	if(null != userMap){
 	    		TabAccount tabAccount = new TabAccount();
@@ -135,8 +136,10 @@ public class LoginController  extends MyController {
 	    	}
 	    	if(is_True){
 	    		request.setAttribute("msg", 1);
+	    	}else{
+	    		request.setAttribute("msg", 0);
 	    	}
-	    	return;
+	    	return "/updatePasswd";
 	    }
 	    
 }

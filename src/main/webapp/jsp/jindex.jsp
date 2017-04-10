@@ -39,7 +39,7 @@ $(document).ready(function(){
 //退出登录操作 add by yangqing 2017-4-8
 $('#logOut').click(function (){
 	var url = "<%=request.getContextPath()%>"+"/logOut";
-	$.messager.confirm('Confirm', '您确定退出登录?', function(r){
+	$.messager.confirm('提示', '您确定退出登录?', function(r){
 		if (r){
 			window.location = url;
 		}
