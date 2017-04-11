@@ -125,7 +125,7 @@ public class MyController
 	 */
     protected void responseJson(JSONObject jo,HttpServletResponse response) throws IOException{
         response.setHeader("Content-type", "text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");  
+        response.setCharacterEncoding("UTF-8"); 
         PrintWriter pw =  response.getWriter();
         pw.append(jo.toString());
         pw.close();

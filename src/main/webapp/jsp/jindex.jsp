@@ -29,7 +29,6 @@
 var basePath = $("#basePath").val();
 var roleUuid = "<c:out value='${user.roleUuid}'/>";
 $(document).ready(function(){     
-	
 	//初始化菜单栏
 	initSysLeftDiv();
 	//初始化功能栏
@@ -38,7 +37,7 @@ $(document).ready(function(){
 
 //退出登录操作 add by yangqing 2017-4-8
 $('#logOut').click(function (){
-	var url = "<%=request.getContextPath()%>"+"/logOut";
+	var url = "<c:url value='/logOut'/>";
 	$.messager.confirm('提示', '您确定退出登录?', function(r){
 		if (r){
 			window.location = url;
@@ -48,7 +47,7 @@ $('#logOut').click(function (){
 
 //修改密码操作 add by yangqing 2017-4-8
 $('#updatePasswd').click(function(){
-	addTab("修改密码页面", "<%=request.getContextPath()%>/jsp/updatePasswd.jsp");
+	addTab("修改密码页面","<c:url value='/jsp/updatePasswd.jsp'/>");
 });
 
 function initsysFunctionDiv(){
@@ -71,8 +70,9 @@ function addTab(title, url){
 
 function initSysLeftDiv(){
 	//动态创建加载导航栏
-    var url =basePath+"/authentication/loginController.do?" +
-    		"method=getNavigationBarResources&roleUuid="+roleUuid;
+	var url = basePath+'/authentication/loginController.do';
+	url ='<c:url value="'+url+'"/>';
+	url +='?method=getNavigationBarResources&roleUuid='+roleUuid;
     $.ajax({
 		   type: "GET",
 		   url: url,
@@ -107,8 +107,10 @@ function initSysLeftDiv(){
 		        	//初始化树 默认将当前导航栏作为 该模块的root节点，树的其余节点通过onclick事件动态添加
 		        	var treeId = panel.panel("options").treeId;
 		            var uuid = panel.panel("options").uuid;
-		        	var url =basePath+"/authentication/loginController.do?" +
-		        			"method=initNavigationBarTree&roleUuid="+roleUuid+"&resourceId="+uuid;
+		            var url = basePath+'/authentication/loginController.do';
+		        	url ='<c:url value="'+url+'"/>';
+					url +='?method=initNavigationBarTree&roleUuid='+roleUuid+'&resourceId='+uuid;
+					
 		            var treeObj = $.fn.zTree.getZTreeObj(treeId);
 		        	if(treeObj){
 		        		return;
@@ -165,6 +167,7 @@ function initSysLeftDiv(){
 		    		
 		            function zTreeOnClick(event, treeId, treeNode) {
 		            	var url = basePath+treeNode.RESOURCE_URL;
+		            	url ='<c:url value="'+url+'"/>';
 		            	var name = treeNode.RESOURCE_NAME;
 		            	addTab(name,url);
 		    		};
@@ -173,8 +176,11 @@ function initSysLeftDiv(){
 		    			var treeObj = $.fn.zTree.getZTreeObj(treeId);
 		    			var roleUuid = treeNode.ROLE_ID;
 		    			var uuid = treeNode.UUID;
-		    			var url =basePath+"/authentication/loginController.do?" +
-	        			"method=getSubResoruces&roleUuid="+roleUuid+"&resourceId="+uuid;
+		    			var url = basePath+'/authentication/loginController.do';
+		    			url ='<c:url value="'+url+'"/>';
+		    			url+='?method=getSubResoruces&roleUuid='+roleUuid+'&resourceId='+uuid;
+			        	
+
 		    			$.ajax({  
 			    	        async : false,  
 			    	        cache:false,  
@@ -198,9 +204,5 @@ function initSysLeftDiv(){
 		    }
 		});
 }
-
-
-
 </script>
-
 </html>

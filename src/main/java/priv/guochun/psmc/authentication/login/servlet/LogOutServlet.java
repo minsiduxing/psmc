@@ -25,12 +25,13 @@ public class LogOutServlet extends HttpServlet {
 	}
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	HttpSession httpSession = request.getSession(false);//防止创建Session
+        String loginurl = response.encodeRedirectURL(request.getContextPath()+"/login.jsp");
+        HttpSession httpSession = request.getSession(false);//防止创建Session
     	if(null == httpSession){
-    		response.sendRedirect(request.getContextPath()+"/login.jsp");
+    	    response.sendRedirect(loginurl);
     		return;
     	}
     	httpSession.removeAttribute("user");
-    	response.sendRedirect(request.getContextPath()+"/login.jsp");
+    	response.sendRedirect(loginurl);
     }
 }

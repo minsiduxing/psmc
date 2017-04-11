@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
 
@@ -11,8 +10,10 @@
 </body>
 <script>
 	$(function(){
-		var basePath = $("#basePath").val();	
-		window.location.href=basePath+"/authentication/loginController.do?method=entrance";
+		var basePath = $("#basePath").val();
+		var url=basePath+'/authentication/loginController.do?method=entrance';
+		url ='<c:url value="'+url+'"/>';
+		window.location.href=url;
 	});
 </script>
 </html>

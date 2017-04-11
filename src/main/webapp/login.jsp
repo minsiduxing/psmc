@@ -8,8 +8,8 @@
 <title>系统登录界面</title>
 </head>
 <body>
-
-	<form method="post" action="<%=request.getContextPath()%>/login" class="easyui-panel" title="用户登录" style="width:400px;padding:30px 70px 20px 70px">
+	
+	<form method="post" action="<c:url value='/login'/>" class="easyui-panel" title="用户登录" style="width:400px;padding:30px 70px 20px 70px">
 		<div style="margin-bottom:10px">
 			<input class="easyui-textbox" id="username" name="username" style="width:100%;height:40px;padding:12px" data-options="prompt:'用户名',iconCls:'icon-man',iconWidth:38">
 		</div>
