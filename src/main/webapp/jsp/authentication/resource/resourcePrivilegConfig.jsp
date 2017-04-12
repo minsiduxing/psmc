@@ -1,9 +1,17 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="priv.guochun.psmc.authentication.operate.OperateContantsUtil" %>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="kiben" content="no-cache">
 
+<%@ page isELIgnored="false"%>
+<%@ taglib  uri="http://java.sun.com/jstl/core_rt" prefix="c" %> 
+<%@ taglib  uri="http://prvi.guochun.com/mytag" prefix="g" %>  
+<%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>  
 
 <script type="text/javascript">
+var basePath = $("#basePath").val();
 var _roleUuid = "<%=request.getParameter("roleUuid").toString()%>";
 var _chkStyle = "<%=request.getParameter("chkStyle").toString()%>";
 var _rootPId = "<%=request.getParameter("rootPId").toString()%>";
@@ -42,9 +50,9 @@ var privilegDataList;
 function zTreeOnCheck(event, treeId, treeNode) {
 	var resourceUuid = treeNode.UUID;
 	var resourceName = treeNode.RESOURCE_NAME;
-	var _url =basePath + "/authentication/tabResource.do?method=getPrivilegDataListByRoleAndResource";
+	var _url =basePath + "/authentication/tabResource.do";
+	 _url = '<c:url value="'+_url+'"/>?method=getPrivilegDataListByRoleAndResource'; 	 
 	 _url+="&roleUuid="+_roleUuid+"&resourceUuid="+resourceUuid;
-	 	 
 	 	if(privilegDataList != undefined){
 	 		 	//重置面板内容
 	 			operatePanel.panel("clear");
@@ -117,9 +125,11 @@ function initoperatePanel(){
 		    		else
 		    			operate_uuids += operateArr[i].OPERATE_UUID;
 		    	}
-		    	var editUrl = basePath + "/authentication/tabResource.do?method=editRoleResourceOperateRelations";
-		    		editUrl+="&roleUuid="+_roleUuid+"&resourceUuid="+resourceUuid+"&operate_uuids="+operate_uuids;
-		    	$.ajax({  
+		    	var editUrl = basePath + "/authentication/tabResource.do";
+		    	editUrl = '<c:url value="'+editUrl+'"/>?method=editRoleResourceOperateRelations'; 
+	    		editUrl +="&roleUuid="+_roleUuid+"&resourceUuid="+resourceUuid+"&operate_uuids="+operate_uuids;
+		    			 
+			    $.ajax({  
 		 	        async : false,  
 		 	        cache:false,  
 		 	        type: 'POST',  
@@ -141,7 +151,8 @@ function initoperatePanel(){
 
  		
 $(document).ready(function(){
-	 var _url =basePath + "/authentication/tabResource.do?method=getResourceTreeByRoleUuid&roleUuid=" + _roleUuid;
+	 var _url =basePath + "/authentication/tabResource.do";
+	 _url = '<c:url value="'+_url+'"/>?method=getResourceTreeByRoleUuid&roleUuid='+_roleUuid; 
 	 $.ajax({  
 	        async : false,  
 	        cache:false,  

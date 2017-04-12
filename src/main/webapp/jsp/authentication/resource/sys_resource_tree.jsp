@@ -52,7 +52,8 @@ var setting = {
 		var result = false;
 		if(!isCancel){
 			var data = {"resourceUuid":treeNode.UUID,"newName":newName};
-			var _url=basePath + "/authentication/tabResource.do?method=ajaxUpdateResourceTheName";
+			var _url=basePath + "/authentication/tabResource.do";
+			_url ='<c:url value="'+_url+'"/>?method=ajaxUpdateResourceTheName';	
 			$.ajax({
 				async:false,
 				cache:false,
@@ -96,7 +97,8 @@ var setting = {
 			return false;
 		}
 		var result = false;
-		var _url=basePath + "/authentication/tabResource.do?method=ajaxUpdateResourceTheParentUuid";
+		var _url=basePath + "/authentication/tabResource.do";
+		_url ='<c:url value="'+_url+'"/>?method=ajaxUpdateResourceTheParentUuid';
 		var data ={resourceUuid:treeNodes[0].UUID,parentResourceUuid:tagetNodeUuid};
 		$.ajax({
 			async:false,
@@ -163,7 +165,8 @@ function initoperatePanel(){
 							RESOURCE_URL:"/welcome.jsp",
 							PARENT_RESOURCE_UUID:node.UUID}];
 
-					var _url=basePath + "/authentication/tabResource.do?method=ajaxAddResource";
+					var _url=basePath + "/authentication/tabResource.do";
+					_url ='<c:url value="'+_url+'"/>?method=ajaxAddResource';
 					var data ={
 								resourceName:newNodes[0].RESOURCE_NAME,
 								parentResourceUuid:newNodes[0].PARENT_RESOURCE_UUID,
@@ -223,7 +226,8 @@ function initoperatePanel(){
 							return;
 						}
 						var data ={resourceUuid:node.UUID};
-						var _url=basePath + "/authentication/tabResource.do?method=ajaxDeleteResource";
+						var _url=basePath + "/authentication/tabResource.do";
+						_url ='<c:url value="'+_url+'"/>?method=ajaxDeleteResource';
 						$.ajax({
 							async:false,
 							cache:false,
@@ -258,7 +262,8 @@ function initoperatePanel(){
 
 $(document).ready(function(){
 	 initoperatePanel();  
-	 var _url =basePath + "/authentication/tabResource.do?method=getSysResouceTreeData";
+	 var _url =basePath + "/authentication/tabResource.do";
+	 _url ='<c:url value="'+_url+'"/>?method=getSysResouceTreeData';
 	 $.ajax({  
 	        async:false,  
 	        cache:false,  

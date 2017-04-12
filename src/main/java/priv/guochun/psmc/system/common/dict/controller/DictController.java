@@ -22,7 +22,7 @@ import priv.guochun.psmc.system.util.JsonUtil;
 
 
 @Controller
-@RequestMapping("/system/common/dicyController")
+@RequestMapping("/system/common/dictController")
 public class DictController extends MyController {
 	
 	protected static final  Logger logger  = LoggerFactory.getLogger(DictController.class);

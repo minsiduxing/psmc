@@ -39,4 +39,35 @@
 
 
 </body>
+<script type="text/javascript">
+var basePath = $("#basePath").val();
+var saveRoleUrl = basePath + "/authentication/roleController.do";
+saveRoleUrl ='<c:url value="'+saveRoleUrl+'"/>?method=edit';
+
+var getRoleTabDataUrl = basePath+"/authentication/roleController.do";
+getRoleTabDataUrl ='<c:url value="'+getRoleTabDataUrl+'"/>?method=rolesList';
+
+var addRoleUrl = basePath + "/authentication/roleController.do";
+addRoleUrl ='<c:url value="'+addRoleUrl+'"/>?method=initEdit&oper=save';
+
+var editRoleUrl = basePath + "/authentication/roleController.do";
+editRoleUrl ='<c:url value="'+editRoleUrl+'"/>?method=initEdit&oper=edit';
+
+var removeRoleUrl = basePath+"/authentication/roleController.do";
+removeRoleUrl ='<c:url value="'+removeRoleUrl+'"/>?method=deletes';
+
+var roleResourceSetUrl =  basePath + "/jsp/authentication/resource/resourceBelongRoleTree.jsp";
+roleResourceSetUrl ='<c:url value="'+roleResourceSetUrl+'"/>';
+
+var roleResourceConfigUrl = basePath + "/authentication/tabResource.do";
+roleResourceConfigUrl ='<c:url value="'+roleResourceConfigUrl+'"/>?method=editResourceConfig';
+
+var privilegeSetUrl = basePath + "/jsp/authentication/resource/resourcePrivilegConfig.jsp";
+privilegeSetUrl ='<c:url value="'+privilegeSetUrl+'"/>';
+
+
+
+</script>
+
+
 </html>

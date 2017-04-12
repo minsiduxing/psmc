@@ -34,9 +34,8 @@ function initDialog() {
             text: '保存',
             iconCls: 'icon-save',
             handler: function() {
-                var editUrl = basePath + "/authentication/roleController.do?method=edit";
                 $('#editForm').form({
-                    url: editUrl,
+                    url: saveRoleUrl,
                     onSubmit: function() {
                         return progress();
                     },
@@ -56,7 +55,7 @@ $(function() {
     var option = {
         tabId: "roleTableId",
         toolbar: "toolbarId",
-        url: basePath + "/authentication/roleController.do?method=rolesList",
+        url: getRoleTabDataUrl,
         columns: [
             [
                 /**
@@ -78,13 +77,12 @@ $(function() {
     commonObj.initPaginationGrid(option);
 
     $("#add").click(function() {
-        var _url = basePath + "/authentication/roleController.do?method=initEdit&oper=save";
         if (!editdialog) {
             initDialog();
         }
         editdialog.panel({ title: "新增" });
         editdialog.panel({ iconCls: 'icon-save'});
-        editdialog.panel({ href: _url });
+        editdialog.panel({ href: addRoleUrl });
         editdialog.window("open");
     });
 
@@ -93,7 +91,7 @@ $(function() {
         var rows = $("#roleTableId").datagrid('getChecked');
         if (rows.length == 1) {
             var uuid = rows[0].UUID;
-            var _url = basePath + "/authentication/roleController.do?method=initEdit&oper=edit&uuid=" + uuid;
+            var _url = editRoleUrl+"&uuid=" + uuid;
             if (!editdialog) {
                 initDialog();
             }
@@ -115,8 +113,7 @@ $(function() {
                 arr.push(rows[i].UUID);
             }
             var ids = arr.join(',');
-            var _url = basePath + "/authentication/roleController.do?method=deletes" +
-                "&uuids=" + ids;
+            var _url = removeRoleUrl +"&uuids=" + ids;
             $.messager.progress();
             $.ajax({
                 type: "POST",
@@ -138,7 +135,7 @@ $(function() {
         var rows = $("#roleTableId").datagrid('getChecked');
         if (rows.length == 1) {
             var uuid = rows[0].UUID;
-            var _url = basePath + "/jsp/authentication/resource/resourceBelongRoleTree.jsp?rootPId=e51a8663876f4a3394bb194d89d96735&chkStyle=checkbox&roleUuid=" + uuid;
+            var _url = roleResourceSetUrl+"?rootPId=e51a8663876f4a3394bb194d89d96735&chkStyle=checkbox&roleUuid=" + uuid;
             resourceSetdialog = $("#resourceSetdialogDiv").dialog({
             	modal: true,
         		closed: true,
@@ -169,11 +166,10 @@ $(function() {
         					}
         				}
                     	$.messager.progress(); 
-                    	var resourceConfigUrl = basePath + "/authentication/tabResource.do?method=editResourceConfig";
                     	$.ajax({
          				   type: "POST",
          				   data:"roleUuid="+uuid+"&resourceIds="+ids,
-         				   url: resourceConfigUrl,
+         				   url: roleResourceConfigUrl,
          				   success: function(data){
          					    $.messager.progress("close");
          					    commonObj.showResponse(data);
@@ -203,7 +199,7 @@ $(function() {
         var rows = $("#roleTableId").datagrid('getChecked');
         if (rows.length == 1) {
             var uuid = rows[0].UUID;
-            var _url = basePath + "/jsp/authentication/resource/resourcePrivilegConfig.jsp?rootPId=e51a8663876f4a3394bb194d89d96735&chkStyle=radio&roleUuid=" + uuid;
+            var _url = privilegeSetUrl+"?rootPId=e51a8663876f4a3394bb194d89d96735&chkStyle=radio&roleUuid=" + uuid;
             privilegeSetdialog = $("#privilegeSetdialogDiv").dialog({
             	modal: true,
         		closed: true,

@@ -60,4 +60,23 @@
 </div>
 <div id="editdialogDiv"></div>
 </body>
+<script type="text/javascript">
+var basePath = $("#basePath").val();
+var saveAccountUrl = basePath+"/authentication/accountController.do";
+saveAccountUrl ='<c:url value="'+saveAccountUrl+'"/>?method=edit';
+
+var getTabDataUrl = basePath+"/authentication/accountController.do";
+getTabDataUrl ='<c:url value="'+getTabDataUrl+'"/>?method=accountsList';
+
+var addAccountUrl = basePath+"/authentication/accountController.do";
+addAccountUrl ='<c:url value="'+addAccountUrl+'"/>?method=initEdit&oper=save';
+
+var editAccountUrl = basePath+"/authentication/accountController.do";
+editAccountUrl ='<c:url value="'+editAccountUrl+'"/>?method=initEdit&oper=edit';
+
+var removeAccountUrl = basePath+"/authentication/accountController.do";
+removeAccountUrl ='<c:url value="'+removeAccountUrl+'"/>?method=deletes';
+
+
+</script>
 </html>

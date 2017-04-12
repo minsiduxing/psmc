@@ -39,9 +39,8 @@
 		</ul>
 	</form>
 <script type="text/javascript">
+	var basePath = $("#basePath").val();
 	function cityCallBack(ids, names) {
-		alert(ids);
-		alert(names);
 		$("#cityId").val(ids);
 		$('#cityName').textbox('setValue', names);
 	}
@@ -69,7 +68,6 @@
 							});
 
 							$('#accountName').textbox('readonly', true);
-							//$('#accountPass').textbox('readonly',true);
 
 						} else {
 							$('#accountName').textbox({
@@ -125,9 +123,10 @@
 									},
 								})
 					});
-
-						$('#roleUuid')
-.combogrid(
+						
+		var loadComboRoleList =basePath+"/authentication/roleController.do";
+		loadComboRoleList = '<c:url value="'+loadComboRoleList+'"/>?method=loadComboRoleList';
+		$('#roleUuid').combogrid(
 		{
 			value : "${account.ROLE_UUID}",
 			width : 200,
@@ -136,7 +135,7 @@
 			editable : false,
 			idField : 'UUID',
 			textField : 'ROLE_NAME',
-			url : '<%=request.getContextPath() %>/authentication/roleController.do?method=loadComboRoleList',    
+			url: loadComboRoleList ,
 			columns:[[   
  				  {field:'UUID',title:'主键',hidden:true},    
 		          {field:'ROLE_NO',title:'角色编码',width:100},    
@@ -144,7 +143,6 @@
 		      ]]  
 	});
 	
-	console.info(eval($('#cityName').textbox("options")));
 	commonObj.initDictCombobox("isLocked","IF","<c:out value="${account.IS_LOCKED}"/>",true);
 	commonObj.initDictCombobox("sex","SEX","<c:out value="${person.SEX}"/>",true);
 

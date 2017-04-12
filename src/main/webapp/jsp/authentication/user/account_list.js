@@ -1,4 +1,3 @@
-var basePath = $("#basePath").val();
 
 var editdialog;
 
@@ -32,9 +31,8 @@ function initDialog(){
 			text:'保存',
 			iconCls:'icon-save',
 			handler:function(){
-				var editUrl = basePath+"/authentication/accountController.do?method=edit";
 					$('#editForm').form({    
-					    url:editUrl,    
+					    url:saveAccountUrl,    
 					    onSubmit: function(){
 					    	return onSubmit();
 					    },    
@@ -53,7 +51,7 @@ $(document).ready(function(){
 	var option = {
 		tabId:"accountTableId",
 		toolbar:"toolbarId",
-		url:basePath+"/authentication/accountController.do?method=accountsList",
+		url:getTabDataUrl,
 		columns:[[   
 		          /**
 		           * 可以解决表格右边空白的问题，但是没办法自适应浏览器大小，暂时不用
@@ -74,13 +72,13 @@ $(document).ready(function(){
 	commonObj.initPaginationGrid(option);
 	
 	$("#add").click(function(){
-		var _url = basePath+"/authentication/accountController.do?method=initEdit&oper=save";
+		
 		if(!editdialog){
 			initDialog();
 		}
 		editdialog.panel({title:"新增"});
 		editdialog.panel({iconCls:'icon-save'});
-		editdialog.panel({href:_url});
+		editdialog.panel({href:addAccountUrl});
 		editdialog.window("open");
 	});
 	
@@ -90,7 +88,7 @@ $(document).ready(function(){
 		if (rows.length == 1){
 			var rowObj = eval(rows[0]);
 			var ACC_UUID = rowObj.ACC_UUID;
-			var _url = basePath+"/authentication/accountController.do?method=initEdit&oper=edit&uuid="+ACC_UUID;
+			var _url = editAccountUrl+"&uuid="+ACC_UUID;
 			if(!editdialog){
 				initDialog();
 			}
@@ -118,8 +116,7 @@ $(document).ready(function(){
 					ids+=",";
 			}
 
-			var _url = basePath+"/authentication/accountController.do?method=deletes" +
-			"&uuids="+ids;
+			var _url = removeAccountUrl+"&uuids="+ids;
 			$.messager.progress(); 
 			$.ajax({
 				   type: "POST",

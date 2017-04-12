@@ -25,7 +25,7 @@ commonObj.loadRegoinTree = function(chkStyle,rootPId,Callback){
         width: 220,
         height: 400,
         cache: false,
-        href:basePath+"/jsp/system/common/city/cityTree.jsp?chkStyle="+chkStyle+"&rootPId="+rootPId,
+        href:regionTreeDiaLogUrl+"?chkStyle="+chkStyle+"&rootPId="+rootPId,
         buttons:[{
 			text:'确认',
 			iconCls:'icon-save',
@@ -101,10 +101,11 @@ commonObj.initPaginationGrid = function(option){
  *  @param defaultValue 默认选中的值
  */
 commonObj.initDictCombobox = function(id,dictNo,defaultValue,validate){
+	var url = initDictUrl+'&dictNo='+dictNo;
 	$('#'+id).combobox({
 		panelHeight:100,
 		method:"GET",
-	    url:basePath+'/system/common/dicyController.do?method=loadDict&dictNo='+dictNo,    
+	    url:url,    
 	    valueField:'ID',    
 	    textField:'NAME',
 	    value:defaultValue,
@@ -191,7 +192,7 @@ commonObj.isAuth = function(operateNo){
 	var auth = false;
 	if(operateNo == undefined || operateNo == null || operateNo == "")
 		return auth;
-	var _url=basePath + "/authentication/loginController.do?method=authenticationOperate&operateNo="+operateNo;
+	var _url =isAuthUrl+'?method=authenticationOperate&operateNo='+operateNo;
 	$.ajax({
 		async:false,
 		cache:false,

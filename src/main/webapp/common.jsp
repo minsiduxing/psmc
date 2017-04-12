@@ -30,8 +30,23 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/zTree_v3-master/js/jquery.ztree.excheck${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/zTree_v3-master/js/jquery.ztree.exedit${jssuffix}"></script>
 
+
 <input type="hidden" id="basePath" name="basePath" value="<%=request.getContextPath()%>"/>
 
+<script type="text/javascript">
+var basePath = $("#basePath").val();
+//查询数据字典URL变量定义
+var initDictUrl=basePath+"/system/common/dictController.do";
+initDictUrl ='<c:url value="'+initDictUrl+'"/>?method=loadDict';
+//查询属地树URL变量定义
+var regionTreeDiaLogUrl =basePath+"/jsp/system/common/city/cityTree.jsp";
+regionTreeDiaLogUrl ='<c:url value="'+regionTreeDiaLogUrl+'"/>';
+
+var isAuthUrl =basePath + "/authentication/loginController.do";
+isAuthUrl ='<c:url value="'+isAuthUrl+'"/>';
+
+
+</script>
 
 <!-- 属地控件的Div -->
 <div id="regionTreeDiaLog"></div>
