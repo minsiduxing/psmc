@@ -70,7 +70,6 @@ $(document).ready(function(){
 	};
 	//初始化用户信息列表
 	commonObj.initPaginationGrid(option);
-	
 	$("#add").click(function(){
 		
 		if(!editdialog){
@@ -133,8 +132,6 @@ $(document).ready(function(){
 		}
 		$.messager.progress("close");
 	});
-	
-	
 	
 });
 

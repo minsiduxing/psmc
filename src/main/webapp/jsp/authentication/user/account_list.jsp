@@ -9,10 +9,10 @@
 <script type="text/javascript" src="account_list.js"></script>
 </head>
 <body id="body">
-<div class="easyui-accordion query-content">  
-    <div title="信息查询" data-options="iconCls:'icon-search'"> 
-    <form id="" method="POST" class="query-form">
-	<ul class="query-subcontent">
+<div class="query-content panel easyui-accordion accordion " data-options="selected:false" style="width:100%"> 
+ <div title="信息查询" > 
+    <form id="" method="POST" class="query-form" >
+	<ul class="">
 			<li class="li-input"><label for="" class="input-label">账号名称：</label>
 				<input class="myinput" id="" name=""></input>
 			</li>
@@ -45,8 +45,8 @@
 		<a href="#" class="easyui-linkbutton query-btn" plain="true" iconCls="icon-print">导出</a>
 	</div> 
  </div>
-</div>
-<table id="accountTableId"></table>
+ </div>
+<table id="accountTableId" style="width:100%"></table>
 <div id="toolbarId">
 	<g:auth operateNo="<%=OperateContantsUtil.ACCOUNT_ADD%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
@@ -76,7 +76,6 @@ editAccountUrl ='<c:url value="'+editAccountUrl+'"/>?method=initEdit&oper=edit';
 
 var removeAccountUrl = basePath+"/authentication/accountController.do";
 removeAccountUrl ='<c:url value="'+removeAccountUrl+'"/>?method=deletes';
-
 
 </script>
 </html>

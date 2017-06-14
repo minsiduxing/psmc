@@ -6,7 +6,7 @@
 <title>欢迎访问后台管理系统</title>
 
 </head>
-<body class="easyui-layout">
+<body class="easyui-layout"style="margin-left:0.5%;margin-right:0.5%">
 	<div id="sysTopDiv" data-options="region:'north',title:'',split:true" style="height:5%;">
 			<div class="title" title="title">尊敬的用户：<c:out value='${user.accountName}'/>，欢迎您登入系统</div>
 			<div class="title" title="title"><a id="updatePasswd">修改密码</a></div>
@@ -20,8 +20,8 @@
 		<div id="navigationId" fit="true" class="easyui-accordion"></div>
 	</div>
     
-    <div id="sysFunctionDiv" data-options="region:'center',title:'功能区'" style="width:84%;" >
-    	<div id="sysFunctionTabs"  class="easyui-tabs" style="width:100%;height:100%;"></div>
+    <div id="sysFunctionDiv" data-options="region:'center',title:'功能区'" style="width:83%;" >
+    	<div id="sysFunctionTabs"  class="easyui-tabs" style="width:98%;height:99%;"></div>
     </div>
 </body>
 
@@ -58,7 +58,7 @@ function addTab(title, url){
 	if ($('#sysFunctionTabs').tabs('exists', title)){
 		$('#sysFunctionTabs').tabs('select', title);
 	} else {
-		var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>';
+		var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:99%;"></iframe>';
 		$('#sysFunctionTabs').tabs('add',{
 			title:title,
 			content:content,
