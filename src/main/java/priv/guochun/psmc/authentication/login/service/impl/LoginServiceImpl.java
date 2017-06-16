@@ -30,9 +30,10 @@ public class LoginServiceImpl implements LoginService
     public String isVaild(String username, String password)
     {
         String returnValue = "success";
+        //TODO 密码加密后需要在此处 加密后与数据库校对
         Map<?, ?> accMap = tabAccountDao.getTabAccount(username, password);
         if(accMap == null){
-            returnValue="账号或密码在系统中不存在!";
+            returnValue="账号或密码错误!";
             return returnValue;
         }
         Object lockEdObj = accMap.get("is_locked");

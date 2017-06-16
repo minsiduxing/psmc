@@ -9,18 +9,17 @@
 </head>
 <body>
 	
-	<form method="post" action="<c:url value='/login'/>" class="easyui-panel" title="用户登录" style="width:400px;padding:30px 70px 20px 70px">
+	<form method="post" id="loginForm" class="easyui-panel" title="用户登录" style="width:400px;padding:30px 70px 20px 70px">
 		<div style="margin-bottom:10px">
-			<input class="easyui-textbox" id="username" name="username" style="width:100%;height:40px;padding:12px" data-options="prompt:'用户名',iconCls:'icon-man',iconWidth:38">
+			<input class="easyui-textbox" id="username" name="username"  style="width:100%;height:40px;padding:12px" data-options="prompt:'用户名',iconCls:'icon-man',iconWidth:38">
 		</div>
 		<div style="margin-bottom:20px">
-			<input class="easyui-textbox" id="password" name="password" type="password" style="width:100%;height:40px;padding:12px"  data-options="prompt:'',iconCls:'icon-lock',iconWidth:38">
+			<input class="easyui-textbox" id="password" name="password"  type="password" style="width:100%;height:40px;padding:12px"  data-options="prompt:'',iconCls:'icon-lock',iconWidth:38">
 		</div>
-		<div style="margin-bottom:20px;color:#d64242;font-size: small;">
-			<span><c:out value="${msg}"></c:out></span>
+		<div  id="msg" style="margin-bottom:20px;color:#d64242;font-size: small;display:none;">
 		</div>
 		<div>
-			<input type="submit"  class="easyui-linkbutton" style="padding:5px 0px;width:100%;" value="登录"/>
+			<input type="submit"  class="easyui-linkbutton" onclick="return loginSubmit()" style="padding:5px 0px;width:100%;" value="登录"/>
 		</div>
 	</form>
 </body>
@@ -30,6 +29,14 @@
 		$(window).resize(function(){
 			recalc();
 		});
+		//由于easyui-textbox 不触发blur事件所以在此重新绑定
+		$("input",$("#username").next("span")).blur(function(){  
+			validateUserName();
+		}) 
+		//由于easyui-textbox 不触发blur事件所以在此重新绑定
+		$("input",$("#password").next("span")).blur(function(){  
+			validateUserPassword();
+		})  
 	});
 	
 	function recalc(){
@@ -43,6 +50,75 @@
 			top:(documentH - formH)/2+"px",
 			left:(documentW - formW)/2+"px"
 		});
+	}
+	//校验用户名
+	function validateUserName(){
+		if($("#username").val()==""|| $("#username").val()==null){
+			$("#msg").css("display","block");
+			$("#msg").text("用户名不能为空！");
+			return false;
+		}else{
+			$("#msg").css("display","none");
+			$("#msg").text("");
+			return true;
+		}
+	}
+	//校验密码
+	function validateUserPassword(){
+		 if($("#password").val()=="" || $("#password").val()==null){
+			$("#msg").css("display","block");
+			$("#msg").text("密码不能为空！");
+			return false;
+		}
+		 // 测试，密码长度校验太麻烦，所以注释正式需要放开
+		/* else if($("#password").val().length<6){
+			$("#msg").css("display","block");
+			$("#msg").text("密码不能小于6位！");
+			return false;
+		} */
+		else{
+			$("#msg").css("display","none");
+			$("#msg").text("");
+			return true;
+		}
+	}
+	//登录校验
+	function validateLoginInfo (){
+		if(validateUserName() && validateUserPassword()){
+			return true;
+		}
+		return false;
+	}
+	//用户登录
+	function loginSubmit(){
+		var _url = "<c:url value='/login'/>";
+		var _data = $("#loginForm").serialize()
+		if(validateLoginInfo()){
+			$.ajax({
+				async:false,
+				cache:false,
+				type:'POST',
+				dataType:"text",
+				data:_data,
+				url:_url,
+				success:function(data){
+					var dataObj = JSON.parse(data);
+					if(dataObj.msg =="success"){
+						window.location.href=dataObj.sucurl;
+						return false;
+					}else{
+						$("#msg").css("display","block");
+						$("#msg").text(dataObj.msg);
+						return false;
+					}
+					
+				},
+				error:function (XMLHttpRequest, textStatus, errorThrown) {
+					commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+				}
+			});
+		}
+		return false;
 	}
 </script>
 </html>
