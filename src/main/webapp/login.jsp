@@ -19,7 +19,7 @@
 		<div  id="msg" style="margin-bottom:20px;color:#d64242;font-size: small;display:none;">
 		</div>
 		<div>
-			<input type="submit"  class="easyui-linkbutton" onclick="return loginSubmit()" style="padding:5px 0px;width:100%;" value="登录" onclick="convertMd5();"/>
+			<input type="submit"  class="easyui-linkbutton" onclick="return loginSubmit()" style="padding:5px 0px;width:100%;" value="登录"/>
 		</div>
 	</form>
 </body>
@@ -92,6 +92,8 @@
 	}
 	//用户登录
 	function loginSubmit(){
+		//密码md5加密
+		$('#password').textbox('setValue',hex_md5($('#password').textbox('getValue')));
 		var _url = "<c:url value='/login'/>";
 		var _data = $("#loginForm").serialize()
 		if(validateLoginInfo()){
@@ -122,9 +124,5 @@
 		return false;
 	}
 	
-	//密码md5加密
-	function convertMd5(){
-		$('#password').textbox('setValue',hex_md5($('#password').textbox('getValue')));
-	}
 </script>
 </html>
