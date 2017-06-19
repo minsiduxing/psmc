@@ -19,10 +19,11 @@
 		<div  id="msg" style="margin-bottom:20px;color:#d64242;font-size: small;display:none;">
 		</div>
 		<div>
-			<input type="submit"  class="easyui-linkbutton" onclick="return loginSubmit()" style="padding:5px 0px;width:100%;" value="登录"/>
+			<input type="submit"  class="easyui-linkbutton" onclick="return loginSubmit()" style="padding:5px 0px;width:100%;" value="登录" onclick="convertMd5();"/>
 		</div>
 	</form>
 </body>
+<script type="text/javascript" src="js/md5.js"></script>
 <script>
 	$(function(){
 		recalc();
@@ -119,6 +120,11 @@
 			});
 		}
 		return false;
+	}
+	
+	//密码md5加密
+	function convertMd5(){
+		$('#password').textbox('setValue',hex_md5($('#password').textbox('getValue')));
 	}
 </script>
 </html>

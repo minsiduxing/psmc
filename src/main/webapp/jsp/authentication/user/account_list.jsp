@@ -7,6 +7,7 @@
 
 <title>账号列表</title>
 <script type="text/javascript" src="account_list.js"></script>
+<script type="text/javascript" src="../../../js/md5.js"></script>
 </head>
 <body id="body">
 <div class="query-content panel easyui-accordion accordion " data-options="selected:false" style="width:100%"> 

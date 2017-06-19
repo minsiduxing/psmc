@@ -18,6 +18,11 @@ function successCallback(data){
 	commonObj.showResponse(data);
 }
 
+//密码md5加密
+function convertMd5(){
+	$('#accountPass').textbox('setValue',hex_md5($('#accountPass').textbox('getValue')));
+}
+
 //表单dialog初始化方法
 function initDialog(){
 	editdialog = $("#editdialogDiv").dialog({
@@ -40,6 +45,7 @@ function initDialog(){
 					    	successCallback(data);
 					    }
 					}); 
+					convertMd5();
 					$('#editForm').submit(); 
 			}
 		}]
