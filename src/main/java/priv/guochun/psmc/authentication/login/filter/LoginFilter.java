@@ -58,13 +58,13 @@ public class LoginFilter implements Filter
         if(isExcludedPage){
             chain.doFilter(httpServletRequest, httpServletResponse);
         }else{
-            logger.debug("==================================================");
-            logger.debug("request.getRemoteHost() {}",httpServletRequest.getRemoteHost());
-            logger.debug("getRemotePort() {}",httpServletRequest.getRemotePort());
-            logger.debug("request.getRemoteAddr() {}",httpServletRequest.getRemoteAddr());
-            logger.debug("requestedSessionId: {}",httpServletRequest.getRequestedSessionId());
-            logger.debug("getRequestUrl----------: {}",httpServletRequest.getRequestURL().toString());
-            logger.debug("getRealPath----------: {}",httpServletRequest.getRealPath("/"));
+//            logger.debug("==================================================");
+//            logger.debug("request.getRemoteHost() {}",httpServletRequest.getRemoteHost());
+//            logger.debug("getRemotePort() {}",httpServletRequest.getRemotePort());
+//            logger.debug("request.getRemoteAddr() {}",httpServletRequest.getRemoteAddr());
+//            logger.debug("requestedSessionId: {}",httpServletRequest.getRequestedSessionId());
+//            logger.debug("getRequestUrl----------: {}",httpServletRequest.getRequestURL().toString());
+//            logger.debug("getRealPath----------: {}",httpServletRequest.getRealPath("/"));
             
             
             HttpSession httpSession = httpServletRequest.getSession();

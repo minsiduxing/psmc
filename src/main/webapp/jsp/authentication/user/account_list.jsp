@@ -35,7 +35,7 @@
 	
 			<li class="li-input"><label for="" class="input-label">所属地：</label>
 				<input class="myinput" id="" name="cityName"></input> <input
-				type="hidden" id="cityId" name="cityId" value="${person.CITYID}"></input>
+				type="hidden" id="" name="cityId" value="${person.CITYID}"></input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">所属角色：</label>
 				<input id="" name="roleUuid"></input></li>
