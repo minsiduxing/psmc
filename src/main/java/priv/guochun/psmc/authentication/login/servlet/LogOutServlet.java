@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import priv.guochun.psmc.authentication.login.model.User;
+
 public class LogOutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -31,7 +33,11 @@ public class LogOutServlet extends HttpServlet {
     	    response.sendRedirect(loginurl);
     		return;
     	}
+    	User loginOutUser = (User)httpSession.getAttribute("user");
+    	logger.info("---------------用户"+loginOutUser.getAccountName()+"退出系统！");
     	httpSession.removeAttribute("user");
+    	logger.info("---------------清除了id为"+httpSession.getId()+"的session！");
+    	httpSession.invalidate();
     	response.sendRedirect(loginurl);
     }
 }

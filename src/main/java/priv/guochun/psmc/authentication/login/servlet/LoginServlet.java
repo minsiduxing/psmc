@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 	        String username = request.getParameter("username");
 	        String password = request.getParameter("password");
 //	        String loginurl = response.encodeRedirectURL(request.getContextPath()+"/login.jsp");
-            String sucurl = response.encodeRedirectURL(request.getContextPath()+"/authentication/loginController.do?method=entrance");
+//            String sucurl = response.encodeRedirectURL(request.getContextPath()+"/authentication/loginController.do?method=entrance");
 	        if(StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
 	                msg="用户名或密码为空,无法登录!";
 	                resMap = new HashMap<String,String>();
@@ -71,7 +71,6 @@ public class LoginServlet extends HttpServlet {
 	                 out = response.getWriter();
 	                 resMap = new HashMap<String,String>();
 		             resMap.put("msg", "success");
-		             resMap.put("sucurl", sucurl);
 		             logger.info("--------------------用户"+username +"成功登录系统！");
 		             out.print(JSONObject.valueToString(resMap));
 	            }else{

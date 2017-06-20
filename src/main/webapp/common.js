@@ -237,3 +237,39 @@ function getTopWinow(){
   }  
   return p;  
 }  
+/*将表单数据转为json
+出入要格式化的表单ID 不加 #，和后台要接受的json串名字_targetHiddenName，会在目标表单自动添加隐藏域
+将json 字符串传到后台，后台用_targetHiddenName 接收 ，
+如果不传 _targetJsonStrName 会返回一个json串，
+_targetJsonStrName 会返回一个{_targetJsonStrName：{....}}的json串
+*/
+commonObj.transFormToJosn = function form2Json(_formid,_targetJsonStrName,_targetHiddenName) {
+
+    var arr = $("#" + _formid).serializeArray()
+    var jsonStr = "";
+    if(_targetJsonStrName !=null && _targetJsonStrName !="" && _targetJsonStrName !="undefined" ){
+	   jsonStr += '{"'+_targetJsonStrName+'":{';
+    }else{
+    	 jsonStr += '{';
+    }
+    for (var i = 0; i < arr.length; i++) {
+        jsonStr += '"' + arr[i].name + '":"' + arr[i].value + '",'
+    }
+    jsonStr = jsonStr.substring(0, (jsonStr.length - 1));
+	if(_targetJsonStrName !=null && _targetJsonStrName !="" && _targetJsonStrName !="undefined" ){
+		 jsonStr += '}}'
+    }else{
+    	 jsonStr += '}'
+    }
+    var json = JSON.parse(jsonStr);
+   
+    if(_targetHiddenName !=null && _targetHiddenName !="" && _targetHiddenName !="undefined" ){
+    	  var _appendHiddenText = "<input type='hidden' name='"+_targetHiddenName+"' value='"+json+"'/>";
+    	  $("#" + _formid).append(_appendHiddenText);
+    }
+    return json
+}
+//公共查询方法 点击查询查询按钮，传递grid的ID 和查询表单id 系统会将查询条件自动传递到后台
+commonObj.query=function query(_gridId,_serchformId){
+	    $('#'+_gridId+'').datagrid('reload',commonObj.transFormToJosn(_serchformId,"queryParams",""));   //点击搜索
+}

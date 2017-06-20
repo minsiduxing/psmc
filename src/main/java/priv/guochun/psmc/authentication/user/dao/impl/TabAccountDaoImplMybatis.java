@@ -64,6 +64,10 @@ public class TabAccountDaoImplMybatis implements TabAccountDao
 	 public MyPage getMyPageOfTabAccounts(MyPage mapage){
         Map<String,Object> condition = new HashMap<String,Object>();
         condition.put("dict_no", ContantsUtil.DICTY_TYPE_SEX);
+        //查询参数添加
+        if(mapage.getQueryParams()!=null && mapage.getQueryParams().size()>0){
+        	condition.putAll(mapage.getQueryParams());
+        }
     	return iDaoTemplate.getMyPage(mapage, getMyPageOfTabAccounts, condition);
 	 }
 

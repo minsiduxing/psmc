@@ -2,6 +2,7 @@ package priv.guochun.psmc.system.framework.page;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -41,7 +42,8 @@ public class MyPage implements Serializable {
     private boolean firstPage;  
     // 是否可以工作。默认为false，只有设置了数据总量才为true。  
     private boolean ready = false;  
-    
+    // 查询参数
+    private Map<String,Object> queryParams ;
     public MyPage(){
          init();
     	 this.pageIndex = DEFAULT_PAGE_INDEX;  
@@ -125,6 +127,16 @@ public class MyPage implements Serializable {
 	public int getTotalData() {
 		return totalData;
 	}
+	
+
+	public Map<String, Object> getQueryParams() {
+		return queryParams;
+	}
+
+	public void setQueryParams(Map<String, Object> queryParams) {
+		this.queryParams = queryParams;
+	}
+
 	/** 
 	 * 设置数据总量。在使用时，需提前调用此方法进行设置。 
 	 * 当数据总量设置好之后，会计算页面总量、修正当前页面页数、计算剩余数据量， 

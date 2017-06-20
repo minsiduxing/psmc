@@ -23,10 +23,9 @@
 	float: left;
 }
 input{
-	text-align: left;
+	text-align:left;
 	width:160px;
 	margin-right: 10%;
-	float: right;
 }
 .area-label{
 	text-align: left;

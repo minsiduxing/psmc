@@ -39,6 +39,15 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
     		left join tab_data_dict c on b.sex=c.dict_id
     		and c.dict_no= #{dict_no}
     		where a.uuid=b.acc_uuid 
+    		<if test="accountName !=null and accountName !=''">
+   					and a.ACCOUNT_NAME like concat(concat('%',#{accountName}),'%')
+   			</if>
+ 			<if test="personName !=null and personName !=''">
+ 					and b.PERSON_NAME like concat(concat('%',#{personName}),'%')
+ 			</if>
+ 			<if test="isLocked !=null and isLocked !=''">
+ 					and a.IS_LOCKED = #{isLocked}
+ 			</if>
    	</select>
  
   	

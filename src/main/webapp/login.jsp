@@ -19,7 +19,7 @@
 		<div  id="msg" style="margin-bottom:20px;color:#d64242;font-size: small;display:none;">
 		</div>
 		<div>
-			<input type="submit"  class="easyui-linkbutton" onclick="return loginSubmit()" style="padding:5px 0px;width:100%;" value="登录"/>
+			<input type=button  class="easyui-linkbutton" onclick=" loginSubmit()" style="padding:5px 0px;width:100%;" value="登录"/>
 		</div>
 	</form>
 </body>
@@ -59,10 +59,9 @@
 			$("#msg").text("用户名不能为空！");
 			return false;
 		}else{
-			$("#msg").css("display","none");
-			$("#msg").text("");
 			return true;
 		}
+			
 	}
 	//校验密码
 	function validateUserPassword(){
@@ -78,8 +77,6 @@
 			return false;
 		} */
 		else{
-			$("#msg").css("display","none");
-			$("#msg").text("");
 			return true;
 		}
 	}
@@ -95,7 +92,7 @@
 		//密码md5加密
 		$('#password').textbox('setValue',hex_md5($('#password').textbox('getValue')));
 		var _url = "<c:url value='/login'/>";
-		var _data = $("#loginForm").serialize()
+		var _data = $("#loginForm").serialize();
 		if(validateLoginInfo()){
 			$.ajax({
 				async:false,
@@ -107,12 +104,10 @@
 				success:function(data){
 					var dataObj = JSON.parse(data);
 					if(dataObj.msg =="success"){
-						window.location.href=dataObj.sucurl;
-						return false;
+						window.location.href="<c:url value='/jsp/loginTransfer.jsp'/>";
 					}else{
 						$("#msg").css("display","block");
 						$("#msg").text(dataObj.msg);
-						return false;
 					}
 					
 				},
@@ -121,7 +116,6 @@
 				}
 			});
 		}
-		return false;
 	}
 	
 </script>

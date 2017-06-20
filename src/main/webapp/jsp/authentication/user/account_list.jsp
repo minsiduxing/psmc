@@ -12,37 +12,22 @@
 <body id="body">
 <div class="query-content panel easyui-accordion accordion " data-options="selected:false" style="width:100%"> 
  <div title="信息查询" > 
-    <form id="" method="POST" class="query-form" >
-	<ul class="">
+    <form id="searchform" method="POST" class="query-form" >
+	<ul class="searchform">
 			<li class="li-input"><label for="" class="input-label">账号名称：</label>
-				<input class="myinput" id="" name=""></input>
+				<input class="myinput" id="queryAccountName" name="accountName"></input>
 			</li>
-			<li class="li-input"><label for="" class="input-label">账号密码：</label>
-				<input class="myinput" id="" name=""></input>
+			<li class="li-input"><label for="" class="input-label">用户名：</label>
+				<input class="myinput" id="queryPersonName" name="personName"></input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">是否锁定：</label>
-				<input id="" name="isLocked"></input></li>
-			<li class="li-input"><label for="" class="input-label">姓名：</label>
-				<input class="myinput" id="" name=""></input></li>
-			<li class="li-input"><label for="" class="input-label">性别：</label>
-				<input id="" name=""></input></li>
-			<li class="li-input"><label for="" class="input-label">年龄：</label>
-				<input class="myinput" id="" name=""></input></li>
-			<li class="li-input"><label for="" class="">手机号：</label>
-				<input class="myinput" id="" name=""></input></li>
-			<li class="li-input"><label for="" class="inpt-label">Email：</label>
-				<input class="myinput" id="" name=""></input></li>
-	
-			<li class="li-input"><label for="" class="input-label">所属地：</label>
-				<input class="myinput" id="" name="cityName"></input> <input
-				type="hidden" id="" name="cityId" value="${person.CITYID}"></input>
+				<input id="queryIsLocked" name="isLocked" value=""></input>
 			</li>
-			<li class="li-input"><label for="" class="input-label">所属角色：</label>
-				<input id="" name="roleUuid"></input></li>
+			
 	</ul>
 	</form>
 	<div class="query-oper">
-		<a href="#" class="easyui-linkbutton query-btn" plain="true" iconCls="icon-search">查询</a>
+		<a href="#" class="easyui-linkbutton query-btn" onclick="commonObj.query('accountTableId','searchform')" id="submit_search" plain="true" iconCls="icon-search">查询</a>
 		<a href="#" class="easyui-linkbutton query-btn" plain="true" iconCls="icon-print">导出</a>
 	</div> 
  </div>
@@ -77,6 +62,17 @@ editAccountUrl ='<c:url value="'+editAccountUrl+'"/>?method=initEdit&oper=edit';
 
 var removeAccountUrl = basePath+"/authentication/accountController.do";
 removeAccountUrl ='<c:url value="'+removeAccountUrl+'"/>?method=deletes';
+$('#queryAccountName').textbox({
+	type : "text"
+});
+
+$('#queryPersonName').textbox({
+	type : "text"
+});
+
+commonObj.initDictCombobox("queryIsLocked","IF","<c:out value="${account.IS_LOCKED}"/>",false);
+
+
 
 </script>
 </html>
