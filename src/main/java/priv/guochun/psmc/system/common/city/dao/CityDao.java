@@ -5,10 +5,14 @@ import java.util.Map;
 
 public interface CityDao {
 
+    /**
+     * 获取系统所有属地资源信息
+     * @return
+     * @throws Exception
+     */
     public List<Map<?,?>> getAllRegion()throws Exception;
     
     
-	
 	/**
 	 * 获取某一个/一群属地的信息
 	 * @param ids 属地ids
