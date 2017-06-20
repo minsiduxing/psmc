@@ -3,14 +3,26 @@
 <html>
 <head>
 <%@ include file="../common.jsp"%>
+<style type="text/css">
+.topLeftMenuBtn{
+float: left;
+margin-left: 10px;
+}
+.topRightMenuBtn{
+float: right;
+margin-right: 10px;
+}
+</style>
 <title>欢迎访问后台管理系统</title>
 
 </head>
 <body class="easyui-layout"style="margin-left:0.5%;margin-right:0.5%">
 	<div id="sysTopDiv" data-options="region:'north',title:'',split:true" style="height:5%;">
-			<div class="title" title="title">尊敬的用户：<c:out value='${user.accountName}'/>，欢迎您登入系统</div>
-			<div class="title" title="title"><a id="updatePasswd">修改密码</a></div>
-			<div class="title" title="title"><a id="logOut">退出登录</a></div>
+			<div class="title topLeftMenuBtn" title="title">尊敬的用户：<c:out value='${user.accountName}'/>，欢迎您登入系统！</div>
+			<div class="title topLeftMenuBtn" title="title">当前系统时间：<p id="stime" name="stime"></p></div>
+			<input type="hidden" id="serverTime" name="serverTime" value="<c:out value='${serverTime}'/>">
+			<a id="updatePasswd" href="#" class="easyui-linkbutton topRightMenuBtn" data-options="iconCls:'icon-reload'">修改密码</a>
+			<a id="logOut" href="#" class="easyui-linkbutton topRightMenuBtn" data-options="iconCls:'icon-cancel'">退出登录</a>
 	</div>	
 	
     <div id="sysFootDiv" data-options="region:'south',title:'',split:true" style="height:5%;">
@@ -33,8 +45,30 @@ $(document).ready(function(){
 	initSysLeftDiv();
 	//初始化功能栏
 	initsysFunctionDiv();
+	startTime();
 });
-
+//实现获取后台服务器时间并在前台动态刷新功能 add by yangqing 2017-6-21
+//systime放入隐藏域中
+    function startTime(){
+        //后台传入的当前系统时间（毫秒数）
+        var serverTime=new Date(document.getElementById("serverTime").value);
+        var year=serverTime.getYear();
+        var month=serverTime.getMonth()+1;
+        var day=serverTime.getDate();
+        var hours=serverTime.getHours();
+        var minute=serverTime.getMinutes();
+        var second=serverTime.getSeconds();
+        $("#stime").text(year+"-"+changeNum(month)+"-"+changeNum(day)+" "+changeNum(hours)+":"+changeNum(minute)+":"+changeNum(second));
+        window.setTimeout("startTime()","1000");
+    }
+    //如果是一位就补0
+    function changeNum(num){
+        if(num<10){
+            return '0'+num;
+        }
+        return num;
+    }
+    
 //退出登录操作 add by yangqing 2017-4-8
 $('#logOut').click(function (){
 	var url = "<c:url value='/logOut'/>";

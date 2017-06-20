@@ -2,6 +2,8 @@ package priv.guochun.psmc.authentication.login.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,6 +63,9 @@ public class LoginServlet extends HttpServlet {
 	                logger.info("--------------------用户登录系统失败！原因："+msg);
 	                out.print(JSONObject.valueToString(resMap));
 	        }else{
+	        	//获取服务器当前时间 add by yangqing 2017-6-21
+	        	String serverTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+	        	httpSession.setAttribute("serverTime",serverTime);
 	            LoginService service = (LoginService)MySpringApplicationContext.getObject("loginService");
                 String returnValue = service.isVaild(username, password);
 	            if("success".equals(returnValue)){
