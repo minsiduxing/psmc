@@ -22,7 +22,7 @@ public class CityServiceImpl implements CityService {
 	@Override
 	public List<Map<?,?>> getAllRegion() {
 		try {
-		    return cityDao.getSubRegionByCityId(new String[]{"00"}, true, true);
+		    return cityDao.getAllRegion();
         } catch (Exception e) {
             e.printStackTrace();
             logger.warn(e.getMessage());

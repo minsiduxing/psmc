@@ -24,7 +24,7 @@ commonObj.loadRegoinTree = function(chkStyle,rootPId,Callback){
         resizable: true,
         width: 220,
         height: 400,
-        cache: false,
+        cache: true,
         href:regionTreeDiaLogUrl+"?chkStyle="+chkStyle+"&rootPId="+rootPId,
         buttons:[{
 			text:'确认',

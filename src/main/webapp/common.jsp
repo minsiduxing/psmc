@@ -45,7 +45,6 @@ regionTreeDiaLogUrl ='<c:url value="'+regionTreeDiaLogUrl+'"/>';
 var isAuthUrl =basePath + "/authentication/loginController.do";
 isAuthUrl ='<c:url value="'+isAuthUrl+'"/>';
 
-
 </script>
 
 <!-- 属地控件的Div -->

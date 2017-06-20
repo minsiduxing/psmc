@@ -4,8 +4,10 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="priv.guochun.psmc.system.common.city.model.TabCity">  
     
     <select id="getAllCity"  resultType="java.util.Map">  
-       select city_id cityId,city_id cityName,parent_id parentId,
-       remark,ordernum,city_layer cityLayer from Tab_city
+       select distinct a.city_id as ID,a.city_name as NAME,a.parent_id as PID,
+       (case when b.city_id is not null then 'true' else 'false' end) "isParent" ,a.ordernum
+       from tab_city a left join tab_city b on a.city_id=b.parent_id
+       order by a.ordernum asc
     </select>  
    
    	<select id="getSubRegionByCityId" resultType="java.util.Map">  

@@ -5,7 +5,9 @@ import java.util.Map;
 
 public interface CityDao {
 
-	
+    public List<Map<?,?>> getAllRegion()throws Exception;
+    
+    
 	
 	/**
 	 * 获取某一个/一群属地的信息

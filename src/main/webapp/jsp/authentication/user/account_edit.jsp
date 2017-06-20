@@ -116,7 +116,6 @@
 								$.fn.textbox.defaults.inputEvents,
 								{
 									click : function(event) {
-										console.info(event);
 										commonObj.loadRegoinTree(
 												"radio", null,
 												cityCallBack);

@@ -21,7 +21,7 @@
 	</div>
     
     <div id="sysFunctionDiv" data-options="region:'center',title:'功能区'" style="width:83%;" >
-    	<div id="sysFunctionTabs"  class="easyui-tabs" style="width:98%;height:99%;"></div>
+    	<div id="sysFunctionTabs"  class="easyui-tabs" style="width:100%;height:99%;"></div>
     </div>
 </body>
 
