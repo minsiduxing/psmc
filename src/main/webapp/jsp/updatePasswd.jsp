@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../common.jsp"%>
 <html>
 <head>
 <title>用户修改密码界面</title>
@@ -7,12 +8,15 @@
 <body>
 	<form method="post" action="<%=request.getContextPath()%>/authentication/loginController.do?method=autUpdatePasswdOperate" class="easyui-panel" title="修改密码" style="width:400px;padding:30px 70px 20px 70px">
 		<div style="margin-bottom:20px">
+		<div>原密码:</div>
 			<input class="easyui-textbox" id="oldPassword" name="oldPassword" type="password" style="width:100%;height:40px;padding:12px"  data-options="prompt:'',iconCls:'icon-lock',iconWidth:38">
 		</div>
 		<div style="margin-bottom:20px">
+		<div>新密码:</div>
 			<input class="easyui-textbox" id="newPassword" name="newPassword" type="password" style="width:100%;height:40px;padding:12px"  data-options="prompt:'',iconCls:'icon-lock',iconWidth:38">
 		</div>
 		<div style="margin-bottom:20px">
+		<div>确认密码:</div>
 			<input class="easyui-textbox" id="renewPassword" name="renewPassword" type="password" style="width:100%;height:40px;padding:12px"  data-options="prompt:'',iconCls:'icon-lock',iconWidth:38">
 		</div>
 		<div style="margin-bottom:20px;color:#d64242;font-size: small;">
