@@ -20,7 +20,14 @@ function successCallback(data){
 
 //密码md5加密
 function convertMd5(){
-	$('#accountPass').textbox('setValue',hex_md5($('#accountPass').textbox('getValue')));
+	//编辑时不能修改密码
+	if($('#accountPass').attr("type")!="hidden"){
+		//当密码不为空的时候再加密
+		var accoutPass = $('#accountPass').textbox('getValue');
+		if(accoutPass!=''&&accoutPass!=null && accoutPass!='undefined'){
+			$('#accountPass').textbox('setValue',hex_md5(accoutPass));
+		}
+	}
 }
 
 //表单dialog初始化方法
@@ -47,6 +54,7 @@ function initDialog(){
 					}); 
 					convertMd5();
 					$('#editForm').submit(); 
+					$("#editdialogDiv").dialog('close');
 			}
 		}]
 		
@@ -65,7 +73,7 @@ $(document).ready(function(){
 		           */
 		          {field:'UUID',title:'账号唯一ID',checkbox:true},
 		          {field:'ACCOUNT_NAME',title:'账号名称'},    
-		          {field:'IS_LOCKED',title:'是否锁定'},  
+		          {field:'IS_LOCKED',title:'是否锁定',formatter:formatIsLocke},  
 		          {field:'PERSON_NAME',title:'姓名'}, 
 		          {field:'SEXNAME',title:'性别'}, 
 		          {field:'AGE',title:'年龄'}, 
@@ -86,7 +94,17 @@ $(document).ready(function(){
 		editdialog.panel({href:addAccountUrl});
 		editdialog.window("open");
 	});
-	
+	//格式化是否锁定
+	function formatIsLocke(val,row){
+		if (val ==1){
+			return '是';
+		}else if(val ==2) {
+			return '否';
+		}else{
+			return '';
+		}
+		
+	}
 	
 	$("#edit").click(function(){
 		var rows = $("#accountTableId").datagrid('getChecked');

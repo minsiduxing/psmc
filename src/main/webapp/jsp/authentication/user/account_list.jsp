@@ -70,9 +70,6 @@ $('#queryPersonName').textbox({
 	type : "text"
 });
 
-commonObj.initDictCombobox("queryIsLocked","IF","<c:out value="${account.IS_LOCKED}"/>",false);
-
-
-
+commonObj.initDictCombobox("queryIsLocked","IF","<c:out value="${account.IS_LOCKED}"/>",false,true);
 </script>
 </html>

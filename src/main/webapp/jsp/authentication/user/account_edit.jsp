@@ -15,9 +15,9 @@
 			<li class="li-input"><label for="" class="input-label">账号名称：</label>
 				<input class="myinput" id="accountName" name="accountName"></input>
 			</li>
-			<li class="li-input"><label for="" class="input-label">账号密码：</label>
+			 <li class="li-input" id="accountPassPanel" ><label for="" class="input-label">账号密码：</label>
 				<input class="myinput" id="accountPass" name="accountPass"></input>
-			</li>
+			</li> 
 			<li class="li-input"><label for="" class="input-label">是否锁定：</label>
 				<input id="isLocked" name="isLocked"></input></li>
 			<li class="li-input"><label for="" class="input-label">姓名：</label>
@@ -49,7 +49,7 @@
 	$(document)
 			.ready(
 					function() {
-
+						if ("edit" != oper) {
 						$('#accountPass').textbox({
 							value : "${account.ACCOUNT_PASS}",
 							type : "password",
@@ -57,7 +57,13 @@
 
 							validType : [ 'rules_accountPass' ]
 						});
-
+						}
+						else{
+							//如果是编辑隐藏密码修改
+							$('#accountPassPanel').css("display","none");
+							$('#accountPass').attr("type","hidden");
+							$('#accountPass').val("${account.ACCOUNT_PASS}");
+						}
 						if ("edit" == oper) {
 							$('#accountName').textbox({
 								value : "${account.ACCOUNT_NAME}",

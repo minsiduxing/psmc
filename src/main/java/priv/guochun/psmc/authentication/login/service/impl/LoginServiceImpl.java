@@ -36,8 +36,8 @@ public class LoginServiceImpl implements LoginService
             returnValue="账号或密码错误!";
             return returnValue;
         }
-        Object lockEdObj = accMap.get("is_locked");
-        if(lockEdObj != null && "是".equals(lockEdObj.toString())){
+        Object lockEdObj = accMap.get("IS_LOCKED");
+        if(lockEdObj != null && "1".equals(lockEdObj.toString())){
             returnValue="账号被锁定,请联系管理员!";
             return returnValue;
         }

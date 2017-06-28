@@ -99,19 +99,29 @@ commonObj.initPaginationGrid = function(option){
  *  @param id input id
  *  @param dictNo 数据字典编码
  *  @param defaultValue 默认选中的值
+ *  @param isQuery 是否是查询使用，如果是查询则默认显示全部
  */
-commonObj.initDictCombobox = function(id,dictNo,defaultValue,validate){
+commonObj.initDictCombobox = function(id,dictNo,defaultValue,validate,isQuery){
 	var url = initDictUrl+'&dictNo='+dictNo;
-	$('#'+id).combobox({
-		panelHeight:100,
-		method:"GET",
-	    url:url,    
-	    valueField:'ID',    
-	    textField:'NAME',
-	    value:defaultValue,
-	    required:validate,
-	    editable:false
-	}); 
+	$.ajax({ 
+		url: url,
+		dataType: 'json', 
+		success: function(data){   
+			// 修改ajax返回的值
+			if(isQuery){
+				data.unshift({'ID':'','NAME':'全部'});   //unshift方法添加到第一行，push方法添加到末尾
+			}
+			$('#'+id).combobox({  
+			    panelHeight:100,
+			    data:data,        
+			    valueField:'ID',    
+			    textField:'NAME',
+			    value:defaultValue,
+			    required:validate,
+			    editable:false
+			});    
+		}
+	});
 };
 
 
