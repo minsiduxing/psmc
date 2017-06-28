@@ -138,19 +138,23 @@ $(document).ready(function(){
 				if(i<rlength-1)
 					ids+=",";
 			}
-
-			var _url = removeAccountUrl+"&uuids="+ids;
-			$.messager.progress(); 
-			$.ajax({
-				   type: "POST",
-				   url: _url,
-				   success: function(data){
-					   successCallback(data);
-				   },
-				   error:function(XMLHttpRequest, textStatus, errorThrown){
-					   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
-				   }
-				});
+			$.messager.confirm('提示', '该操作不可逆，您确认删除该用户账户信息?', function(r){
+				if (r){
+					var _url = removeAccountUrl+"&uuids="+ids;
+					$.messager.progress(); 
+					$.ajax({
+						   type: "POST",
+						   url: _url,
+						   success: function(data){
+							   successCallback(data);
+						   },
+						   error:function(XMLHttpRequest, textStatus, errorThrown){
+							   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+						   }
+						});
+				}
+			});
+			
 		}else{
 			commonObj.alert("请选择至少一条记录!","warning");
 		}
