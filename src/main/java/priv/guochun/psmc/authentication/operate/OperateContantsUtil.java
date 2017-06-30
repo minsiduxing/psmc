@@ -11,7 +11,10 @@ public class OperateContantsUtil {
     public final static String ACCOUNT_UPDATE = "ACCOUNT_UPDATE";
     
     public final static String ACCOUNT_DEL = "ACCOUNT_DEL";
-    
+    // 查询用户列表编号
+    public final static String ACCOUNT_QUERY = "ACCOUNT_QUERY";
+    //导出用户列表编号
+    public final static String ACCOUNT_EXPORT = "ACCOUNT_EXPORT";
     
     /*角色信息业务操作编号*/
     public final static String ROLE_ADD = "ROLE_ADD";

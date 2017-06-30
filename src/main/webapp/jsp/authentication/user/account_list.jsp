@@ -10,6 +10,7 @@
 <script type="text/javascript" src="../../../js/md5.js"></script>
 </head>
 <body id="body">
+<g:auth operateNo="<%=OperateContantsUtil.ACCOUNT_QUERY%>">
 <div class="query-content panel easyui-accordion accordion " data-options="selected:false" style="width:100%"> 
  <div title="信息查询" > 
     <form id="searchform" method="POST" class="query-form" >
@@ -28,10 +29,11 @@
 	</form>
 	<div class="query-oper">
 		<a href="#" class="easyui-linkbutton query-btn" onclick="commonObj.query('accountTableId','searchform')" id="submit_search" plain="true" iconCls="icon-search">查询</a>
-		<a href="#" class="easyui-linkbutton query-btn" plain="true" iconCls="icon-print">导出</a>
+		
 	</div> 
  </div>
  </div>
+ </g:auth>
 <table id="accountTableId" style="width:100%"></table>
 <div id="toolbarId">
 	<g:auth operateNo="<%=OperateContantsUtil.ACCOUNT_ADD%>">
@@ -42,6 +44,9 @@
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.ACCOUNT_DEL%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.ACCOUNT_EXPORT%>">
+		<a href="#" class="easyui-linkbutton query-btn" plain="true" iconCls="icon-print">导出</a>
 	</g:auth>
 </div>
 <div id="editdialogDiv"></div>
