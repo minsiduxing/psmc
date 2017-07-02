@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import priv.guochun.psmc.authentication.role.dao.TabRoleDao;
 import priv.guochun.psmc.authentication.role.model.TabAccRole;
 import priv.guochun.psmc.authentication.role.model.TabRole;
@@ -68,7 +66,11 @@ public class TabRoleDaoImplMybatis implements TabRoleDao {
 	   @Override
 	    public MyPage getMyPageOfTabRoles(MyPage myPage)
 	    {
-	        return iDaoTemplate.getMyPage(myPage, getMyPageOfTabRoles, null);
+	       Map<String,Object> condition = new HashMap<String,Object>();
+	       if(myPage.getQueryParams()!=null && myPage.getQueryParams().size()>0){
+	           condition.putAll(myPage.getQueryParams());
+	       }
+	        return iDaoTemplate.getMyPage(myPage, getMyPageOfTabRoles, condition);
 	    }
 
 	   public List<Map<?, ?>> getAllPageOfTabRoles(TabRole tabRole){
@@ -137,7 +139,6 @@ public class TabRoleDaoImplMybatis implements TabRoleDao {
         condition4.put("ids", objList);
         sqlSession.insert(saveAccRoleRelations,condition4);
 	 }
-	 
 
     public SqlSessionTemplate getSqlSession()
     {
@@ -158,7 +159,4 @@ public class TabRoleDaoImplMybatis implements TabRoleDao {
     {
         this.iDaoTemplate = iDaoTemplate;
     }
-    
- 
-	
 }

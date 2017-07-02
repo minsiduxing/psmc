@@ -65,6 +65,12 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	   				<if test="uuid !=null">
 	   					and uuid = #{uuid}
 	   				</if>
+	   				<if test = 'roleNo !=null and roleNo != ""'>
+  						and ROLE_NO like concat(concat('%',#{roleNo}),'%')
+  					</if>
+  					<if test = 'roleName !=null and roleName != ""'>
+  						and ROLE_NAME like concat(concat('%',#{roleName}),'%')
+  					</if>
 	   			</where>
    	</select>
    	
@@ -102,5 +108,5 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   		</trim>
   		where UUID=#{uuid}
   	</update>
-   	
+  	
 </mapper>  

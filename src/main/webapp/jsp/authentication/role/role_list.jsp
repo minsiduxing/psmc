@@ -11,8 +11,24 @@
 
 </head>
 <body id="body">
+<div class="query-content panel easyui-accordion accordion " data-options="selected:false" style="width:100%"> 
+	<div title="角色查询" >
+	    <form id="searchform" method="POST" class="query-form" >
+			<ul class="searchform">
+				<li class="li-input"><label for="" class="input-label">角色编码：</label>
+					<input class="myinput" id="queryRoleNo" name="roleNo"></input>
+				</li>
+				<li class="li-input"><label for="" class="input-label">角色名称：</label>
+					<input class="myinput" id="queryRoleName" name="roleName"></input>
+				</li>
+			</ul>
+		</form>
+		<div class="query-oper">
+			<a href="#" class="easyui-linkbutton query-btn" onclick="commonObj.query('roleTableId','searchform')" id="submit_search" plain="true" iconCls="icon-search">查询</a>
+		</div> 
+	</div>
+</div>
 <table id="roleTableId"></table>
-
 <div id="toolbarId">
 	<g:auth operateNo="<%=OperateContantsUtil.ROLE_ADD%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
@@ -65,7 +81,13 @@ roleResourceConfigUrl ='<c:url value="'+roleResourceConfigUrl+'"/>?method=editRe
 var privilegeSetUrl = basePath + "/jsp/authentication/resource/resourcePrivilegConfig.jsp";
 privilegeSetUrl ='<c:url value="'+privilegeSetUrl+'"/>';
 
+$('#queryRoleNo').textbox({
+	type : "text"
+});
 
+$('#queryRoleName').textbox({
+	type : "text"
+});
 
 </script>
 
