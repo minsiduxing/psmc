@@ -66,6 +66,21 @@ input{
 	margin-right:2%;
 }
 
+/* ---------------------系统顶部工具栏样式-------------------------------- */
 
-
-
+.sysTopDiv{
+	padding:0.5%;
+	 display: flex;
+	 flex-direction: row;
+	 flex-wrap: wrap;
+	 justify-content:space-between;
+}
+.topLeftContent{
+	margin-top:0.2%;
+	align-self:flex-star;
+}
+.topRightBtndiv{
+margin-bottom:-0.2%;
+	align-self:flex-end;
+}
+/* ---------------------系统顶部工具栏样式-------------------------------- */

@@ -3,29 +3,22 @@
 <html>
 <head>
 <%@ include file="../common.jsp"%>
-<style type="text/css">
-.topLeftMenuBtn{
-float: left;
-margin-left: 10px;
-}
-.topRightMenuBtn{
-float: right;
-margin-right: 10px;
-}
-</style>
 <title>欢迎访问后台管理系统</title>
-
 </head>
 <body class="easyui-layout"style="margin-left:0.5%;margin-right:0.5%">
-	<div id="sysTopDiv" data-options="region:'north',title:'',split:true" style="height:5%;">
-			<div class="title topLeftMenuBtn" title="title">尊敬的用户：<c:out value='${user.accountName}'/>，欢迎您登入系统！</div>
-			<div class="title topLeftMenuBtn" title="title">当前系统时间：<span id="stime" name="stime"></span></div>
+	<div id="sysTopDiv" data-options="region:'north',title:'',split:true" class="sysTopDiv" style="height:7%;">
+			<div class="title topLeftContent" title="title">尊敬的用户：<c:out value='${user.accountName}'/>，欢迎您登入系统！
+			当前系统时间：<span id="stime" name="stime"></span>
 			<input type="hidden" id="serverTime" name="serverTime" value="<c:out value='${serverTime}'/>">
-			<a id="updatePasswd" href="#" class="easyui-linkbutton topRightMenuBtn" data-options="iconCls:'icon-reload'">修改密码</a>
-			<a id="logOut" href="#" class="easyui-linkbutton topRightMenuBtn" data-options="iconCls:'icon-cancel'">退出登录</a>
+			</div>
+			<div class="topRightBtndiv">
+			<a id="updatePasswd" href="#" class="easyui-linkbutton topRightMenuBtn" data-options="iconCls:'icon-lock'">修改密码</a>
+			<a id="logOut" href="#" class="easyui-linkbutton topRightMenuBtn" data-options="iconCls:'icon-man'">退出登录</a>
+			</div>
+			
 	</div>	
 	
-    <div id="sysFootDiv" data-options="region:'south',title:'',split:true" style="height:5%;">
+    <div id="sysFootDiv" data-options="region:'south',title:'',split:true" style="height:2%;">
     </div>
     
     <div id="sysLeftDiv" data-options="region:'west',title:'菜单栏',split:true" style="width:16%;" >

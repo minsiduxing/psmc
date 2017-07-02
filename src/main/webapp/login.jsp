@@ -9,7 +9,7 @@
 </head>
 <body>
 	
-	<form method="post" id="loginForm" class="easyui-panel" title="用户登录" style="width:400px;padding:30px 70px 20px 70px">
+	<form method="post" id="loginForm" onkeydown='on_return()' class="easyui-panel" title="用户登录" style="width:400px;padding:30px 70px 20px 70px">
 		<div style="margin-bottom:10px">
 		<div>用户名:</div>
 			<input class="easyui-textbox" id="username" name="username"  style="width:100%;height:40px;padding:12px" data-options="prompt:'用户名',iconCls:'icon-man',iconWidth:38">
@@ -21,7 +21,7 @@
 		<div  id="msg" style="margin-bottom:20px;color:#d64242;font-size: small;display:none;">
 		</div>
 		<div>
-			<input type=button  class="easyui-linkbutton" onclick=" loginSubmit()" style="padding:5px 0px;width:100%;" value="登录"/>
+			<input id="submitbtn" type="button" class="easyui-linkbutton" onclick=" loginSubmit()" style="padding:5px 0px;width:100%;" value="登录"/>
 		</div>
 	</form>
 </body>
@@ -121,6 +121,13 @@
  		}
      }	
 	}
-	
+	//点击enter 登录
+	function on_return(){
+		 if(window.event.keyCode == 13){
+		  if (document.all('submitbtn')!=null){
+		   document.all('submitbtn').click();
+		   }
+		 }
+		 }
 </script>
 </html>
