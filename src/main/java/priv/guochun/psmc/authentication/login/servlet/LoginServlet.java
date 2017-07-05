@@ -2,12 +2,8 @@ package priv.guochun.psmc.authentication.login.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +38,6 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	        HttpSession httpSession = request.getSession();
-	        ServletContext application = getServletConfig().getServletContext();
 	        //由于登录失败要返回前台json数据所以在此声明返回数据格式为json
 	        response.setCharacterEncoding("UTF-8");
 	        response.setContentType("application/json; charset=utf-8");
@@ -65,9 +60,6 @@ public class LoginServlet extends HttpServlet {
 	                logger.info("--------------------用户登录系统失败！原因："+msg);
 	                out.print(JSONObject.valueToString(resMap));
 	        }else{
-	        	//获取服务器当前时间 add by yangqing 2017-6-21
-	        	Long serverTime=System.currentTimeMillis();
-	        	application.setAttribute("serverTime", serverTime);
 	            LoginService service = (LoginService)MySpringApplicationContext.getObject("loginService");
                 String returnValue = service.isVaild(username, password);
 	            if("success".equals(returnValue)){

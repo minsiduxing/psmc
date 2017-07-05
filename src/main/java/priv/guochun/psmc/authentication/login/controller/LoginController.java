@@ -43,7 +43,10 @@ public class LoginController  extends MyController {
     	 @RequestMapping(params="method=entrance")  
     	 public String entrance(HttpServletRequest request,
     			 	HttpServletResponse response,ModelMap modelMap){
-    		 return "/jindex";
+    		//获取服务器当前时间 add by yangqing 2017-6-21
+        	Long serverTime=System.currentTimeMillis();
+        	request.setAttribute("serverTime", serverTime);
+    		return "/jindex";
     	 }
     	 
 	 
