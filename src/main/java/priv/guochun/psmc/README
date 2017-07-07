@@ -1,0 +1,12 @@
+路径说明：
+
+psmc/authentication 系统权限模块、登录、登出相关内容
+
+psmc/system 系统基础模块
+psmc/system/common 公共模块(属地、数据字典）
+psmc/system/framework （框架扩展、分页、excel操作、定时器、统一输出定义等等）
+psmc/system/util 工具类
+
+psmc/website 官网网站模块
+psmc/website/backstage 网站后台管理
+psmc/website/stage 网站前端展示
