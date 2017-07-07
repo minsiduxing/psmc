@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.View;
 
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.role.model.TabRole;
@@ -138,6 +139,23 @@ public class TabRoleController extends MyController {
 	    List<Map<?, ?>> list = tabRoleService.getAllPageRolesList(role);
         super.responseJson(JsonUtil.convertToJSONArray(list), response);
     }
-	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(params="method=exportRole")
+	public View exportAccount( HttpServletRequest request,HttpServletResponse response,MyPage mypage) throws IOException{
+		//1、根据条件查询出角色账号
+		mypage = tabRoleService.getRolesListBusinessMethod(mypage);
+		List roleList = mypage.getDataList();
+		//2、将得到的数据封装到excel里
+		//2.1 设置属性列名
+		 this.setColumns(new String[]{"ROLE_NO","ROLE_NAME","CREATOR","CREATE_TIME","REMARK"});
+		 //2.2 设置表格的显示名
+		 this.setTitles(new String[]{"角色编码","角色名称","姓创建者","创建时间","角色描述"});
+		 //2.3设置文件名
+		 this.setFileName("角色信息列表.xls");
+		//2.4 初始化数据
+		 this.setExportList(roleList);
+		//3、返回excel下载视图
+		return this.responseExcelFile(response) ;
+	}	
 	
 }

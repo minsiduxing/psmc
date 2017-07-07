@@ -33,7 +33,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   
 
    	<select id="getMyPageOfTabAccounts" resultType="java.util.Map" parameterType="hashmap">
-	   select a.uuid as ACC_UUID,a.ACCOUNT_NAME,a.ACCOUNT_PASS,a.IS_LOCKED, 
+	   select a.uuid as ACC_UUID,a.ACCOUNT_NAME,a.ACCOUNT_PASS,a.IS_LOCKED,CASE a.IS_LOCKED  WHEN '1' THEN '是'  WHEN '2' THEN '否' END AS ISLOCKEDNAME, 
     		b.uuid as PERSON_ID,b.PERSON_NAME,b.SEX,b.AGE,b.TELEPHONE,b.EMAIL,c.dict_name as SEXNAME
     		from tab_accounts a ,tab_person b
     		left join tab_data_dict c on b.sex=c.dict_id

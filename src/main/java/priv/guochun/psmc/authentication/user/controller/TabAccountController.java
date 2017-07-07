@@ -2,6 +2,7 @@ package priv.guochun.psmc.authentication.user.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.View;
 
 import priv.guochun.psmc.authentication.role.service.TabRoleService;
 import priv.guochun.psmc.authentication.user.model.TabAccount;
@@ -140,4 +142,24 @@ public class TabAccountController extends MyController {
 		boolean result = tabAccountService.deletesBusinessMethod(uuids);
 		super.responseJson(result, null, response);
 	}
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(params="method=exportAccount")
+	public View exportAccount( HttpServletRequest request,HttpServletResponse response,MyPage mypage) throws IOException{
+		//1、根据条件查询出列表账号
+		mypage = tabAccountService.getTabAccountsBusinessMethod(mypage);
+		List accountList = mypage.getDataList();
+		//2、将得到的数据封装到excel里
+		//2.1 设置属性列名
+		 this.setColumns(new String[]{"ACCOUNT_NAME","ISLOCKEDNAME","PERSON_NAME","SEXNAME","AGE","TELEPHONE","EMAIL"});
+		//2.2 设置表格的显示名
+		 this.setTitles(new String[]{"用户名","是否锁定","姓名","性别","年龄","电话","邮箱"});
+		 //2.3设置文件名
+		 this.setFileName("账户信息列表.xls");
+		//2.4 初始化数据
+		 this.setExportList(accountList);
+		//3、返回excel下载视图
+		return this.responseExcelFile(response) ;
+	}
+
+	
 }

@@ -27,6 +27,10 @@ public class OperateContantsUtil {
     
     public final static String ROLE_HAVE_OPERATE = "ROLE_HAVE_OPERATE";
     
+    // 查询用户列表编号
+    public final static String  ROLE_QUERY = "ROLE_QUERY";
+    //导出用户列表编号
+    public final static String  ROLE_EXPORT = "ROLE_EXPORT";
     
     /*资源信息业务操作编号*/
     

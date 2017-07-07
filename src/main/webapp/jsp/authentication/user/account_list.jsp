@@ -46,7 +46,7 @@
 		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.ACCOUNT_EXPORT%>">
-		<a href="#" class="easyui-linkbutton query-btn" plain="true" iconCls="icon-print">导出</a>
+		<a href="" id="exportBtn" class="easyui-linkbutton query-btn"   plain="true" iconCls="icon-print">导出</a>
 	</g:auth>
 </div>
 <div id="editdialogDiv"></div>
@@ -67,6 +67,12 @@ editAccountUrl ='<c:url value="'+editAccountUrl+'"/>?method=initEdit&oper=edit';
 
 var removeAccountUrl = basePath+"/authentication/accountController.do";
 removeAccountUrl ='<c:url value="'+removeAccountUrl+'"/>?method=deletes';
+
+var exportAccountUrl =  basePath+"/authentication/accountController.do";
+exportAccountUrl ='<c:url value="'+exportAccountUrl+'"/>?method=exportAccount';
+//导出路径
+$('#exportBtn').attr('href',exportAccountUrl);
+
 $('#queryAccountName').textbox({
 	type : "text"
 });

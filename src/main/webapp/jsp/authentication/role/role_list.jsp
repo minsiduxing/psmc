@@ -11,6 +11,7 @@
 
 </head>
 <body id="body">
+<g:auth operateNo="<%=OperateContantsUtil.ROLE_QUERY%>">
 <div class="query-content panel easyui-accordion accordion " data-options="selected:false" style="width:100%"> 
 	<div title="角色查询" >
 	    <form id="searchform" method="POST" class="query-form" >
@@ -28,6 +29,7 @@
 		</div> 
 	</div>
 </div>
+</g:auth>
 <table id="roleTableId"></table>
 <div id="toolbarId">
 	<g:auth operateNo="<%=OperateContantsUtil.ROLE_ADD%>">
@@ -44,6 +46,9 @@
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.ROLE_HAVE_OPERATE%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="privilegeSet">业务操作配置</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.ROLE_EXPORT%>">
+		<a href="" id="exportBtn" class="easyui-linkbutton query-btn"   plain="true" iconCls="icon-print">导出</a>
 	</g:auth>
 </div>
 
@@ -80,6 +85,11 @@ roleResourceConfigUrl ='<c:url value="'+roleResourceConfigUrl+'"/>?method=editRe
 
 var privilegeSetUrl = basePath + "/jsp/authentication/resource/resourcePrivilegConfig.jsp";
 privilegeSetUrl ='<c:url value="'+privilegeSetUrl+'"/>';
+
+var exportRoleUrl =  basePath+"/authentication/roleController.do";
+exportRoleUrl ='<c:url value="'+exportRoleUrl+'"/>?method=exportRole';
+//导出路径
+$('#exportBtn').attr('href',exportRoleUrl);
 
 $('#queryRoleNo').textbox({
 	type : "text"

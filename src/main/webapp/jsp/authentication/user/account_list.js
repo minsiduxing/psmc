@@ -73,7 +73,7 @@ $(document).ready(function(){
 		           */
 		          {field:'UUID',title:'账号唯一ID',checkbox:true},
 		          {field:'ACCOUNT_NAME',title:'账号名称'},    
-		          {field:'IS_LOCKED',title:'是否锁定',formatter:formatIsLocke},  
+		          {field:'ISLOCKEDNAME',title:'是否锁定'},  
 		          {field:'PERSON_NAME',title:'姓名'}, 
 		          {field:'SEXNAME',title:'性别'}, 
 		          {field:'AGE',title:'年龄'}, 
@@ -94,17 +94,6 @@ $(document).ready(function(){
 		editdialog.panel({href:addAccountUrl});
 		editdialog.window("open");
 	});
-	//格式化是否锁定
-	function formatIsLocke(val,row){
-		if (val ==1){
-			return '是';
-		}else if(val ==2) {
-			return '否';
-		}else{
-			return '';
-		}
-		
-	}
 	
 	$("#edit").click(function(){
 		var rows = $("#accountTableId").datagrid('getChecked');
