@@ -3,7 +3,10 @@ package priv.guochun.psmc.authentication.login.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +41,8 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	        HttpSession httpSession = request.getSession();
+	        //在这里创建application域为了存储成功登录的用户session集合（统计当前系统的在线人数）
+	        ServletContext application = httpSession.getServletContext();
 	        //由于登录失败要返回前台json数据所以在此声明返回数据格式为json
 	        response.setCharacterEncoding("UTF-8");
 	        response.setContentType("application/json; charset=utf-8");
@@ -72,6 +77,17 @@ public class LoginServlet extends HttpServlet {
 		             resMap.put("msg", "success");
 		             logger.info("--------------------用户"+username +"成功登录系统！");
 		             out.print(JSONObject.valueToString(resMap));
+		             // 在application范围由一个HashSet集保存所有的session
+		     		 HashSet sessions = (HashSet)application.getAttribute("sessions");
+		     		 if(null == sessions){
+		     			 sessions = new HashSet();
+		     		 }
+		     		 // 将新创建的session添加到HashSet集合中
+		             sessions.add(httpSession);
+		             application.setAttribute("sessions", sessions);
+		             //获取集合的大小即（在线人数）
+		             int sessionsNum = null != sessions ? sessions.size() : 0;
+		             application.setAttribute("sessionsNum", sessionsNum);
 	            }else{
 	            	  out = response.getWriter();
 	            	  resMap = new HashMap<String,String>();

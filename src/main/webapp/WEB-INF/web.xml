@@ -96,10 +96,10 @@
     <listener-class>priv.guochun.psmc.system.framework.servletlistener.SysPropertiesFileInitListener</listener-class>
   </listener>
   <listener>
-    <listener-class>priv.guochun.psmc.authentication.login.controller.SessionListener</listener-class>
+    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
   </listener>
   <listener>
-    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    <listener-class>priv.guochun.psmc.authentication.login.controller.SessionListener</listener-class>
   </listener>
   
   <servlet>

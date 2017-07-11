@@ -16,19 +16,7 @@ public class SessionListener implements HttpSessionListener {
 
 	@Override
 	public void sessionCreated(HttpSessionEvent arg0) {
-		HttpSession session = arg0.getSession();
-		ServletContext application = session.getServletContext();
-		// 在application范围由一个HashSet集保存所有的session
-		HashSet sessions = (HashSet)application.getAttribute("sessions");
-		if(null == sessions){
-			sessions = new HashSet();
-		}
-		// 将新创建的session添加到HashSet集合中
-        sessions.add(session);
-        application.setAttribute("sessions", sessions);
-        //获取集合的大小即（在线人数）
-        int sessionsNum = null != sessions ? sessions.size() : 0;
-        application.setAttribute("sessionsNum", sessionsNum);
+		
 	}
 
 	@Override
@@ -36,12 +24,19 @@ public class SessionListener implements HttpSessionListener {
 		HttpSession session = arg0.getSession();
         ServletContext application = session.getServletContext();
         HashSet sessions = (HashSet) application.getAttribute("sessions");
-        // 销毁的session均从HashSet集中移除
-        sessions.remove(session);
-        application.setAttribute("sessions", sessions);
-      //获取集合的大小即（在线人数）
-        int sessionsNum = null != sessions ? sessions.size() : 0;
-        application.setAttribute("sessionsNum", sessionsNum);
+        if(null != sessions && sessions.size() > 0){
+        	// 销毁的session均从HashSet集中移除
+            sessions.remove(session);
+            application.setAttribute("sessions", sessions);
+            //获取集合的大小即（在线人数）
+            int sessionsNum = null != sessions ? sessions.size() : 0;
+            application.removeAttribute("sessionsNum");
+            application.setAttribute("sessionsNum", sessionsNum);
+        }else{
+        	application.removeAttribute("sessionsNum");
+            application.setAttribute("sessionsNum", 0);
+        }
+        
 	}
 
 }

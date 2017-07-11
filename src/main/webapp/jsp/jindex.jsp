@@ -10,7 +10,7 @@
 			<div class="title topLeftContent" title="title">尊敬的用户：<c:out value='${user.accountName}'/>，欢迎您登入系统！
 			当前系统时间：<span id="stime" name="stime" style="color: #33FFDD"></span>
 			<input type="hidden" id="serverTime" name="serverTime" value="<c:out value='${serverTime}'/>">
-			当前在线人数:<c:out value='${sessionsNum}'/>人
+			当前在线人数:<c:out value='${applicationScope.sessionsNum}'/>人
 			</div>
 			<div class="topRightBtndiv">
 			<a id="updatePasswd" href="#" class="easyui-linkbutton topRightMenuBtn" data-options="iconCls:'icon-lock'">修改密码</a>
