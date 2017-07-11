@@ -9,11 +9,11 @@
 	<form method="post" action="<%=request.getContextPath()%>/authentication/loginController.do?method=autUpdatePasswdOperate" class="easyui-panel" title="修改密码" style="width:400px;padding:30px 70px 20px 70px">
 		<div style="margin-bottom:20px">
 		<div>原密码:</div>
-			<input class="easyui-textbox" id="oldPassword" name="oldPassword" type="password" style="width:100%;height:40px;padding:12px"  data-options="prompt:'',iconCls:'icon-lock',iconWidth:38">
+			<input class="easyui-textbox" id="oldPassword" name="oldPassword" type="password" missingMessage="请输入旧密码" style="width:100%;height:40px;padding:12px"  data-options="required:true,validType:'length[1,20]',prompt:'',iconCls:'icon-lock',iconWidth:38">
 		</div>
 		<div style="margin-bottom:20px">
 		<div>新密码:</div>
-			<input class="easyui-textbox" id="newPassword" name="newPassword" type="password" style="width:100%;height:40px;padding:12px"  data-options="prompt:'',iconCls:'icon-lock',iconWidth:38">
+			<input class="easyui-textbox" id="newPassword" name="newPassword" type="password" missingMessage="请输入新密码" style="width:100%;height:40px;padding:12px"  data-options="required:true,validType:'length[1,20]',prompt:'',iconCls:'icon-lock',iconWidth:38">
 		</div>
 		<div style="margin-bottom:20px">
 		<div>确认密码:</div>
@@ -46,6 +46,9 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 		if(msg=='0'){
 			$.messager.alert('提示','修改失败，请重新修改!');
 		}
+		$("input",$("#renewPassword").next("span")).blur(function(){  
+			checkNewPassword();
+		}) 
 	});
 	
 	function recalc(){
@@ -65,6 +68,21 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 	function convertMd5(){
 		$('#newPassword').textbox('setValue',hex_md5($('#newPassword').textbox('getValue')));
 		$('#renewPassword').textbox('setValue',hex_md5($('#renewPassword').textbox('getValue')));
+	}
+	//判断两次输入密码是否一致
+	function checkNewPassword(){
+		var newPassword = $.trim($("#newPassword").val());
+		var reNewPassword = $.trim($("#renewPassword").val());
+		if(reNewPassword != null && reNewPassword.length> 0){
+			if(newPassword != reNewPassword){
+				$.messager.alert('提示','输入密码不一致，请重新输入!');
+				//清空输入框的值
+				$("#renewPassword").val('');
+			}
+		}else{
+			$.messager.alert('提示','输入值为空，请重新输入!');
+		}
+		
 	}
 </script>
 </html>
