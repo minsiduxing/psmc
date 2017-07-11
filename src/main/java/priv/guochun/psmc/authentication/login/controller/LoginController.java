@@ -18,6 +18,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.StringUtil;
+
 import priv.guochun.psmc.authentication.auth.PsmcAuthentication;
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
@@ -115,6 +117,7 @@ public class LoginController  extends MyController {
 	     * @param response
 	     * @throws IOException
 	     * @author youngqing 2017-4-8
+	     * 在这里规定返回值对应信息内容{0：修改成功}，{1：旧密码错误，修改失败}，{2：新密码输入不一致，修改失败}
 	     */
 	    @RequestMapping(params="method=autUpdatePasswdOperate")  
 	    public String autUpdatePasswdOperate(HttpServletRequest request,HttpServletResponse response)throws IOException{
@@ -122,20 +125,28 @@ public class LoginController  extends MyController {
 	    	String accountName = user.getAccountName();
 	    	String oldPassword = request.getParameter("oldPassword");
 	    	String newPassword = request.getParameter("newPassword");
+	    	String renewPassword = request.getParameter("renewPassword");
 	    	Map userMap = tabAccountService.getTabAccount(accountName, oldPassword);
-	    	//先判断旧密码是不是正确
+	    	
 	    	boolean is_True = false;
 	    	if(null != userMap){
-	    		TabAccount tabAccount = new TabAccount();
-	    		tabAccount.setUuid(String.valueOf(user.getTabAccount().get("UUID")));
-	    		tabAccount.setAccountName(accountName);
-	    		tabAccount.setAccountPass(newPassword);
-	    		is_True = tabAccountService.updateAccountPasswdMethod(tabAccount);
+	    		//判断两次输入的新密码是否合法并一致
+	    		if(StringUtil.isEmpty(newPassword) || StringUtil.isEmpty(renewPassword) || !newPassword.equals(renewPassword)){
+	    			request.setAttribute("msg", 2);
+	    			return "/updatePasswd";
+	    		}else{
+	    			//判断旧密码是不是正确
+	    			TabAccount tabAccount = new TabAccount();
+		    		tabAccount.setUuid(String.valueOf(user.getTabAccount().get("UUID")));
+		    		tabAccount.setAccountName(accountName);
+		    		tabAccount.setAccountPass(newPassword);
+		    		is_True = tabAccountService.updateAccountPasswdMethod(tabAccount);
+	    		}
 	    	}
 	    	if(is_True){
-	    		request.setAttribute("msg", 1);
-	    	}else{
 	    		request.setAttribute("msg", 0);
+	    	}else{
+	    		request.setAttribute("msg", 1);
 	    	}
 	    	return "/updatePasswd";
 	    }

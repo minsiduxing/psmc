@@ -35,7 +35,7 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 		$(window).resize(function(){
 			recalc();
 		});
-		if(msg=='1'){
+		if(msg=='0'){
 			$.messager.confirm('提示', '修改成功，您需要重新登录!', function(r){
 				if (r){
 					parent.window.location = url;
@@ -43,8 +43,16 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 				parent.window.location = url;
 			});
 		}
-		if(msg=='0'){
-			$.messager.alert('提示','修改失败，请重新修改!');
+		if(msg=='1'){
+			$.messager.alert('提示','修改失败，原密码错误，请确认您的正确原密码!');
+		}
+		if(msg=='2'){
+			$.messager.confirm('提示', '修改失败，输入不合法数据，系统退出!', function(r){
+				if (r){
+					parent.window.location = url;
+				}
+				parent.window.location = url;
+			});
 		}
 		$("input",$("#renewPassword").next("span")).blur(function(){  
 			checkNewPassword();
@@ -66,6 +74,7 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 	
 	//密码md5加密
 	function convertMd5(){
+		$('#oldPassword').textbox('setValue',hex_md5($('#oldPassword').textbox('getValue')));
 		$('#newPassword').textbox('setValue',hex_md5($('#newPassword').textbox('getValue')));
 		$('#renewPassword').textbox('setValue',hex_md5($('#renewPassword').textbox('getValue')));
 	}
