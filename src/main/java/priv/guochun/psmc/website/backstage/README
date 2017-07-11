@@ -1,0 +1,21 @@
+路径说明：
+
+
+
+
+
+psmc/website/backstage 网站后台管理
+
+按照模块进行包划分
+psmc/website/backstage/模块1
+psmc/website/backstage/模块2
+psmc/website/backstage/模块3
+
+模块下的包路径一律遵循以下要求：
+模块1/controller
+模块1/dao
+模块1/dao/impl
+模块1/service
+模块1/service/impl
+模块1/model/
+模块1/model/mapper
