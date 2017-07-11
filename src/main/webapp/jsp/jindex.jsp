@@ -8,7 +8,7 @@
 <body class="easyui-layout"style="margin-left:0.5%;margin-right:0.5%">
 	<div id="sysTopDiv" data-options="region:'north',title:'',split:true" class="sysTopDiv" style="height:7%;">
 			<div class="title topLeftContent" title="title">尊敬的用户：<c:out value='${user.accountName}'/>，欢迎您登入系统！
-			当前系统时间：<span id="stime" name="stime" style="color: #33FFDD"></span>
+			当前系统时间：<span id="stime" name="stime"></span>
 			<input type="hidden" id="serverTime" name="serverTime" value="<c:out value='${serverTime}'/>">
 			当前在线人数:<c:out value='${applicationScope.sessionsNum}'/>人
 			</div>
@@ -78,7 +78,7 @@ $('#logOut').click(function (){
 
 //修改密码操作 add by yangqing 2017-4-8
 $('#updatePasswd').click(function(){
-	addTab("修改密码页面","<c:url value='/jsp/updatePasswd.jsp'/>");
+	addTab("修改密码","<c:url value='/jsp/updatePasswd.jsp'/>");
 });
 
 function initsysFunctionDiv(){

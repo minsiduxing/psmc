@@ -48,7 +48,7 @@
 		<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="privilegeSet">业务操作配置</a>
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.ROLE_EXPORT%>">
-		<a href="" id="exportBtn" class="easyui-linkbutton query-btn"   plain="true" iconCls="icon-print">导出</a>
+		<a href="" id="exportBtn" class="easyui-linkbutton query-btn"   plain="true" iconCls="icon-excel">导出</a>
 	</g:auth>
 </div>
 
