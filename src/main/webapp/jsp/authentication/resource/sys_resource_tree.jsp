@@ -9,8 +9,22 @@
 
 <script type="text/javascript">
 var basePath = $("#basePath").val();
+
+var addResourcetUrl = basePath+"/authentication/tabResource.do";
+addResourcetUrl ='<c:url value="'+addResourcetUrl+'"/>?method=initEdit&oper=save';
+
+var editResourcetUrl = basePath+"/authentication/tabResource.do";
+editResourcetUrl ='<c:url value="'+editResourcetUrl+'"/>?method=initEdit&oper=edit';
+
+var saveResourcetUrl = basePath + "/authentication/tabResource.do";
+saveResourcetUrl ='<c:url value="'+saveResourcetUrl+'"/>?method=edit';
+
+var editOperateUrl = basePath + "/authentication/tabResource.do";
+editOperateUrl ='<c:url value="'+editOperateUrl+'"/>?method=initOperateEdit';
+
 var sysResourceTree;
 var sysResourceTreePanel;
+var editdialog; //资源添加弹出框
 var setting = {
 		data:{
 			simpleData:{
@@ -122,11 +136,17 @@ var setting = {
 	var node;
 	//添加成功回调函数
 	function addSucFunc(data){
-		var dataObj = JSON.parse(data);
+		$.messager.progress("close");
+		sysResourceTree = $.fn.zTree.getZTreeObj("tree");
+		sysResourceTree.reAsyncChildNodes(null, "refresh");
+/* 		var dataObj = JSON.parse(data);
 		if(dataObj.id){
 			newNodes[0].UUID=dataObj.id;
-			sysResourceTree.addNodes(node, newNodes);
-		}
+			newNodes[0].RESOURCE_NAME=dataObj.resourceName;
+			//sysResourceTree.addNodes(node, newNodes);
+			var selectNodes = sysResourceTree.getSelectedNodes();
+			sysResourceTree.updateNode(selectNodes[0]);
+		} */
 	}
 	//删除成功回调函数
 	function delSucFunc(data){
@@ -158,8 +178,18 @@ function initoperatePanel(){
 					var selectNodes = sysResourceTree.getSelectedNodes();
 					if(selectNodes.length<1){
 						commonObj.alert("未选择父节点,无法添加资源菜单!","warning");
-					}		
+					}
 					node = selectNodes[0];
+					if(!editdialog){
+						addResourcetUrl = addResourcetUrl + '&parentResourceUuid=' + node.UUID;
+						initResourceDialog();
+					}
+					editdialog.panel({title:"新增"});
+					editdialog.panel({iconCls:'icon-save'});
+					editdialog.panel({href:addResourcetUrl});
+					editdialog.window("open");
+					
+				/* 	node = selectNodes[0];
 					newNodes = [{
 							RESOURCE_NAME:"新节点",
 							RESOURCE_URL:"/welcome.jsp",
@@ -170,8 +200,8 @@ function initoperatePanel(){
 					var data ={
 								resourceName:newNodes[0].RESOURCE_NAME,
 								parentResourceUuid:newNodes[0].PARENT_RESOURCE_UUID,
-								resourceUrl:newNodes[0].RESOURCE_URL};
-					$.ajax({
+								resourceUrl:newNodes[0].RESOURCE_URL}; */
+			/* 		$.ajax({
 						async:false,
 						cache:false,
 						type:'POST',
@@ -185,7 +215,7 @@ function initoperatePanel(){
 						error:function (XMLHttpRequest, textStatus, errorThrown) {
 							commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
 						}
-					});
+					}); */
 				}
 			};
 		length++;
@@ -201,7 +231,15 @@ function initoperatePanel(){
 							return;
 						}
 						node = selectNodes[0];
-						sysResourceTree.editName(node);
+				 		if(!editdialog){
+							editResourcetUrl = editResourcetUrl + '&id=' + node.UUID;
+							initResourceDialog();
+						}
+						editdialog.panel({title:"修改"});
+						editdialog.panel({iconCls:'icon-save'});
+						editdialog.panel({href:editResourcetUrl});
+						editdialog.window("open"); 
+						//sysResourceTree.editName(node);
 					}
 				};
 			length++;
@@ -248,6 +286,30 @@ function initoperatePanel(){
 			length++;
 	 };
 	 
+	<%-- if(commonObj.isAuth("<%=OperateContantsUtil.RESOURCE_OPERATE%>")){ --%>
+			toolsObj[length] = {
+					iconCls:'icon-tip',
+					handler:function(){
+						var selectNodes = sysResourceTree.getSelectedNodes();
+						if(selectNodes.length!=1){
+							commonObj.alert("请选择需要配置的节点!","warning");
+							return;
+						}
+						node = selectNodes[0];
+				 		if(!editdialog){
+				 			editOperateUrl = editOperateUrl + '&id=' + node.UUID;
+				 			initOperateDialog();
+						}
+						editdialog.panel({title:"修改"});
+						editdialog.panel({iconCls:'icon-save'});
+						editdialog.panel({href:editOperateUrl});
+						editdialog.window("open"); 
+						//sysResourceTree.editName(node);
+					}
+				};
+			length++;
+	/*  }; */
+	 
 	sysResourceTreePanel = $('#sysResourceTreePanelDiv').panel({
 		  cache:true,
 		  width:"400px",
@@ -277,13 +339,82 @@ $(document).ready(function(){
 	    });	 
 });
 
+//资源表单dialog初始化方法
+function initResourceDialog(){
+	editdialog = $("#editdialogDiv").dialog({
+		modal: true,
+		closed: true,
+	    width: 705,
+	    height: 280,
+	    resizable:true,
+	    cache: false,
+	    buttons:[{
+			text:'保存',
+			iconCls:'icon-save',
+			handler:function(){
+					$('#editForm').form({    
+					    url:saveResourcetUrl,    
+					    onSubmit: function(){
+					    	return onSubmit();
+					    },    
+					    success:function(data){
+					    	addSucFunc(data);
+					    }
+					}); 
+					$('#editForm').submit();
+					$("#editdialogDiv").dialog('close');
+			}
+		}]
+	});
+}
+
+//业务配置表单dialog初始化方法
+function initOperateDialog(){
+	editdialog = $("#editdialogDiv").dialog({
+		modal: true,
+		closed: true,
+	    width: 705,
+	    height: 280,
+	    resizable:true,
+	    cache: false,
+	    buttons:[{
+			text:'保存',
+			iconCls:'icon-save',
+			handler:function(){
+					$('#editForm').form({    
+					    url:saveResourcetUrl,    
+					    onSubmit: function(){
+					    	return onSubmit();
+					    },    
+					    success:function(data){
+					    	addSucFunc(data);
+					    }
+					}); 
+					$('#editForm').submit();
+					$("#editdialogDiv").dialog('close');
+			}
+		}]
+	});
+}
+
+//表单校验
+function onSubmit(){
+	var result = $('#editForm').form("validate");
+	if(Boolean(result)){
+		$.messager.progress(); 
+		return true;
+	}else{
+		return false;
+	}
+}
+
 </script>
 </head>
 <body id="body">
 <div id="sysResourceTreePanelDiv">
 	<ul id="sysResourceTree" class="ztree"></ul>
 </div>
-
+<div id="editdialogDiv"></div>
 </body>
 </html>
 

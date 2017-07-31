@@ -1,6 +1,7 @@
 package priv.guochun.psmc.authentication.resource.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,9 +81,8 @@ public class TabResourceServiceImpl implements TabResourceService
     	return ReturnModel.createSuccessJSONObject();
     }
     
-    
-    
     @Override
+    @SuppressWarnings("rawtypes")
     public List getSystemAllResourcesBusinessMethod()
     {
         return tabResourceDao.getSystemAllResourcesBelongRole(null);
@@ -171,7 +171,41 @@ public class TabResourceServiceImpl implements TabResourceService
             result = tabResource.getId();
             return result;
     }
+
+    @Override
+    public Integer getTabResourceOrderNum()
+    {
+        Integer ordernum = tabResourceDao.getTabResourceOrderNum();
+        return ordernum;
+    }
     
+    @Override
+    @SuppressWarnings("rawtypes")
+    public Map<?, ?> getTabResourceByUuid(String resourceUuid)
+    {
+        Map map = tabResourceDao.getTabResourceByUuid(resourceUuid);
+        return map;
+    }
+
+    @Override
+    @SuppressWarnings("rawtypes")
+    public Map<String,String> saveOrUpdateTabResourceBusinessMethod(TabResource tabResource)
+    {
+        if(tabResource == null || StringUtils.isBlank(tabResource.getId())){
+            logger.warn("主键为空,无法进行对象持久化操作!");
+            return null;
+        }
+        Map map = tabResourceDao.getTabResourceByUuid(tabResource.getId());
+        if(map == null){
+            tabResourceDao.saveResource(tabResource);
+        }else{
+            tabResourceDao.updateResource(tabResource);
+        }
+        Map<String,String> resultMap = new HashMap<String,String>();
+        resultMap.put("uuid", tabResource.getId());
+        resultMap.put("resourceName", tabResource.getResourceName());
+        return resultMap;
+    }
 
 	public TabResourceDao getTabResourceDao() {
 		return tabResourceDao;
@@ -213,7 +247,4 @@ public class TabResourceServiceImpl implements TabResourceService
     {
         this.psmcInitCacheTool = psmcInitCacheTool;
     }
-    
-    
-    
 }

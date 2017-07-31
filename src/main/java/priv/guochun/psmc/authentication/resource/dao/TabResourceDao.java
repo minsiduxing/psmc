@@ -94,4 +94,12 @@ public interface TabResourceDao
      */
     public void updateResourceTheName(String resourceUuid,String newName);
     
+    /**
+     * 根据资源Id查询资源
+     * <p>Description:<p>
+     * @param resourceUuid
+     * @return
+     * @author wenxiaoming 2017年7月5日
+     */
+    public Map<?,?> getTabResourceByUuid(String resourceUuid);
 }

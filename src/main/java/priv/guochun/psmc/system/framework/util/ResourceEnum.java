@@ -1,6 +1,12 @@
 package priv.guochun.psmc.system.framework.util;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.json.JSONArray;
 
+import priv.guochun.psmc.system.util.JsonUtil;
 
 public enum ResourceEnum
 {
@@ -63,6 +69,27 @@ public enum ResourceEnum
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
-    
-
+	
+	/**
+	 * 将该枚举类转为JSON数组
+	 * <p>Description:<p>
+	 * @return
+	 * @author wenxiaoming 2017年7月5日
+	 */
+	@SuppressWarnings({"rawtypes", "unchecked" })
+    public static JSONArray ResourceType(){
+	    Map map = null;
+	    List list = new ArrayList();
+	    for(ResourceEnum r: ResourceEnum.values()){
+	        if(r.index !=  0){
+    	        map = new HashMap();
+    	        map.put("id", r.index);
+    	        map.put("text", r.name);
+                list.add(map);
+	        }
+        }
+	    JSONArray json = JsonUtil.convertToJSONArray(list);
+	    return json;
+	}
+	
 }

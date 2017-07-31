@@ -100,4 +100,30 @@ public interface TabResourceService
      * @return
      */
     public JSONObject updateResourceTheNameBusinessMethod(String resourceUuid,String newName);
+    
+    /**
+     * 获取资源菜单的最大ordernum+1
+     * <p>Description:<p>
+     * @return
+     * @author wenxiaoming 2017年7月5日
+     */
+    public Integer getTabResourceOrderNum();
+    
+    /**
+     * 根据资源Id查询资源
+     * <p>Description:<p>
+     * @param resourceUuid
+     * @return
+     * @author wenxiaoming 2017年7月5日
+     */
+    public Map<?,?> getTabResourceByUuid(String resourceUuid);
+    
+    /**
+     * 保存或更新资源信息
+     * <p>Description:<p>
+     * @param tabResource
+     * @return
+     * @author wenxiaoming 2017年7月5日
+     */
+    public Map<String,String> saveOrUpdateTabResourceBusinessMethod(TabResource tabResource);
 }

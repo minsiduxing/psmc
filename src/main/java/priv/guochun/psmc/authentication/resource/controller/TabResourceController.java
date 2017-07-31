@@ -1,13 +1,14 @@
 package priv.guochun.psmc.authentication.resource.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -15,14 +16,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import priv.guochun.psmc.authentication.login.model.User;
+import priv.guochun.psmc.authentication.operate.service.TabOperateService;
+import priv.guochun.psmc.authentication.privilege.service.TabPrivilegeService;
 import priv.guochun.psmc.authentication.resource.model.TabResource;
 import priv.guochun.psmc.authentication.resource.service.TabResourceService;
 import priv.guochun.psmc.system.framework.controller.MyController;
+import priv.guochun.psmc.system.framework.util.ResourceEnum;
+import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
+import priv.guochun.psmc.system.util.UUIDGenerator;
 
 @Scope("prototype")
 @Controller
@@ -34,8 +40,6 @@ public class TabResourceController  extends MyController
 
     @Autowired
     private TabResourceService tabResourceService;
-    
-   
     
     /**
      * 进入可以编辑当前角色 所拥有的资源树的界面
@@ -193,4 +197,60 @@ public class TabResourceController  extends MyController
     	
     }
     
+    /**
+     * 新增、修改资源时页面跳转
+     * <p>Description:<p>
+     * @param request
+     * @param response
+     * @param uuid
+     * @param oper
+     * @param modelMap
+     * @return
+     * @throws IOException
+     * @author wenxiaoming 2017年7月5日
+     */
+    @RequestMapping(params = "method=initEdit")
+    @SuppressWarnings({"rawtypes", "unchecked" })
+    public String initEdit(HttpServletRequest request,
+            HttpServletResponse response,String id,String oper,ModelMap modelMap) throws IOException{
+        Map tabResource = new HashMap();
+        if (StringUtils.isNotBlank(id)) {
+            tabResource = tabResourceService.getTabResourceByUuid(id);
+        }else{
+            id = UUIDGenerator.createUUID(); //资源Id
+            String parentResourceUuid = request.getParameter("parentResourceUuid"); //上级资源Id
+            HttpSession seesion = request.getSession();
+            User user = (User)seesion.getAttribute("user");
+            String accountName = user.getAccountName();//获取当前登录人账号
+            String createTime = DateUtil.getDateString(new Date());//创建时间
+            Integer ordernum = tabResourceService.getTabResourceOrderNum(); //排序号
+            
+            tabResource.put("id", id); 
+            tabResource.put("parentResourceUuid", parentResourceUuid);
+            tabResource.put("creatorName",accountName);
+            tabResource.put("createTime",createTime);
+            tabResource.put("ordernum",ordernum);
+        }
+        JSONArray resourceTypeJson = ResourceEnum. ResourceType();//资源类型下拉框数据
+        tabResource.put("resourceTypeJson",resourceTypeJson);
+        modelMap.put("tabResource", tabResource);
+        return "authentication/resource/resource_edit";
+    }
+    
+    /**
+     * 保存或修改资源信息 
+     * <p>Description:<p>
+     * @param request
+     * @param response
+     * @param tabResource
+     * @throws IOException
+     * @author wenxiaoming 2017年7月5日
+     */
+    @RequestMapping(params="method=edit")  
+    @ResponseBody
+    public void edit(HttpServletRequest request,
+            HttpServletResponse response,TabResource tabResource) throws IOException{
+        Map<String,String> resultMap = tabResourceService.saveOrUpdateTabResourceBusinessMethod(tabResource);
+        super.responseJson(JsonUtil.convertToJSONObject(resultMap), response);
+    }
 }

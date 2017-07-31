@@ -29,6 +29,7 @@ public class TabResourceDaoImplMybatis  implements TabResourceDao
     public static final String deleteResource ="deleteResource";
     public static final String updateResourceTheParentUuid ="updateResourceTheParentUuid";
     public static final String updateResourceTheName ="updateResourceTheName";
+    public static final String getTabResourceByUuid ="getTabResourceByUuid";
     
 	private SqlSessionTemplate sqlSession;
 
@@ -127,6 +128,14 @@ public class TabResourceDaoImplMybatis  implements TabResourceDao
         condition.put("resourceUuid", resourceUuid);
         sqlSession.delete(deleteResource,condition);
 	}
+	
+	 @Override
+    public Map<?, ?> getTabResourceByUuid(String resourceUuid){
+	     Map<String,Object> condition = new HashMap<String,Object>();
+	     condition.put("resourceUuid", resourceUuid);
+	     Map<?,?> map = (Map<?,?>)sqlSession.selectOne(getTabResourceByUuid,condition);
+        return map;
+    }
 
 	public SqlSessionTemplate getSqlSession() {
 		return sqlSession;
@@ -135,10 +144,4 @@ public class TabResourceDaoImplMybatis  implements TabResourceDao
 	public void setSqlSession(SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
 	}
-
-   
-
-	
-
-    
 }

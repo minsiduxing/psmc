@@ -207,6 +207,24 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   		where UUID=#{resourceUuid}
   	</update>
   	
+  	<select id="getTabResourceByUuid" parameterType="hashmap" resultType="hashmap">
+  		SELECT
+			uuid AS id,
+			resource_name AS resourceName,
+			resource_type AS resourceType,
+			resource_url AS resourceUrl,
+			parent_resource_uuid AS parentResourceUuid,
+			creator_name AS creatorName,
+			create_time AS createTime,
+			remark,
+			ordernum
+		FROM
+			tab_resource 
+			<if test="resourceUuid != null and _resourceUuid != ''">
+				where uuid = #{resourceUuid}
+			</if>
+  	</select>
+  	
    	
    	
 </mapper>  
