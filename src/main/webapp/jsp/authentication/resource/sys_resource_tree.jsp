@@ -19,8 +19,8 @@ editResourcetUrl ='<c:url value="'+editResourcetUrl+'"/>?method=initEdit&oper=ed
 var saveResourcetUrl = basePath + "/authentication/tabResource.do";
 saveResourcetUrl ='<c:url value="'+saveResourcetUrl+'"/>?method=edit';
 
-var editOperateUrl = basePath + "/authentication/tabResource.do";
-editOperateUrl ='<c:url value="'+editOperateUrl+'"/>?method=initOperateEdit';
+var editOperateUrl = basePath + "/authentication/tabOperate.do";
+editOperateUrl ='<c:url value="'+editOperateUrl+'"/>?method=operateList';
 
 var sysResourceTree;
 var sysResourceTreePanel;
@@ -308,7 +308,7 @@ function initoperatePanel(){
 					}
 				};
 			length++;
-	/*  }; */
+/* /* 	  }; */ 
 	 
 	sysResourceTreePanel = $('#sysResourceTreePanelDiv').panel({
 		  cache:true,
