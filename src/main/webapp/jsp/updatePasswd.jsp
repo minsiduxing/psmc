@@ -84,7 +84,7 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 		var reNewPassword = $.trim($("#renewPassword").val());
 		if(reNewPassword != null && reNewPassword.length> 0){
 			if(newPassword != reNewPassword){
-				$.messager.alert('提示','输入密码不一致，请重新输入!');
+				$.messager.alert('提示','两次输入的密码不一致，请重新输入!');
 				//清空输入框的值
 				$("#renewPassword").val('');
 			}

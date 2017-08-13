@@ -58,13 +58,19 @@ public class LoginFilter implements Filter
         if(isExcludedPage){
             chain.doFilter(httpServletRequest, httpServletResponse);
         }else{
-//            logger.debug("==================================================");
-//            logger.debug("request.getRemoteHost() {}",httpServletRequest.getRemoteHost());
-//            logger.debug("getRemotePort() {}",httpServletRequest.getRemotePort());
-//            logger.debug("request.getRemoteAddr() {}",httpServletRequest.getRemoteAddr());
-//            logger.debug("requestedSessionId: {}",httpServletRequest.getRequestedSessionId());
-//            logger.debug("getRequestUrl----------: {}",httpServletRequest.getRequestURL().toString());
-//            logger.debug("getRealPath----------: {}",httpServletRequest.getRealPath("/"));
+            logger.debug("==================================================");
+            String remoteHost = httpServletRequest.getRemoteHost();
+            int remotePort = httpServletRequest.getRemotePort();
+            String remoteAddr = httpServletRequest.getRemoteAddr();
+            String sessionid = httpServletRequest.getSession().getId();
+            String requestURL = httpServletRequest.getRequestURL().toString();
+            
+            logger.debug("request.getRemoteHost() {}",remoteHost);
+            logger.debug("getRemotePort() {}",remotePort);
+            logger.debug("request.getRemoteAddr() {}",remoteAddr);
+            logger.debug("requestedSessionId: {}",sessionid);
+            logger.debug("getRequestURL----------: {}",requestURL);
+            logger.debug("requestUrl----------: {}",requestUrl);
             
             
             HttpSession httpSession = httpServletRequest.getSession();
@@ -73,8 +79,8 @@ public class LoginFilter implements Filter
             String cPath = httpServletRequest.getServletContext().getContextPath();
             
             if(user == null){
-                String loginUrl =httpServletResponse.encodeRedirectURL(cPath+"/login.jsp");
                 if(StringUtils.isNotBlank(ajaxRequest)){ //表明是ajax请求
+                    String loginUrl =httpServletResponse.encodeRedirectURL(cPath+"/login.jsp");
                 	//在响应头设置session状态 
                     httpServletResponse.setHeader("sessionstatus", "timeout");
                     httpServletResponse.setHeader("sessionTimeoutUrl", loginUrl);
@@ -82,13 +88,18 @@ public class LoginFilter implements Filter
                 }else{
                 	//进行url重写，防止客户端关闭cookie后系统无法正常使用
                     String sessionTimeOutUrl =httpServletResponse.encodeRedirectURL(cPath+"/sessionTimeout.jsp");
-                    logger.debug("sessionTimeOutUrl: {}",sessionTimeOutUrl);
                     httpServletResponse.sendRedirect(sessionTimeOutUrl);
-                    
                 }    
             }
-            else
-                chain.doFilter(httpServletRequest, httpServletResponse);
+            else{
+                String urlSplit = ".";
+                if(requestUrl.indexOf(urlSplit) == -1){
+                    String path = requestUrl+".do";
+                    httpServletRequest.getRequestDispatcher(path).forward(httpServletRequest, httpServletResponse);
+                }else{
+                    chain.doFilter(request, response);
+                }
+            }    
         }
     }
 

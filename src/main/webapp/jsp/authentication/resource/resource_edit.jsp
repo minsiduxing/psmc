@@ -94,7 +94,7 @@
 		});
 		
 		$('#resourceType').combobox({
-			data:${tabResource.resourceTypeJson},
+			data:"${tabResource.resourceTypeJson}",
 			valueField:"id",
 			textField:"text",
 			required : true

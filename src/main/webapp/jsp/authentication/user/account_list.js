@@ -54,7 +54,7 @@ function initDialog(){
 					}); 
 					convertMd5();
 					$('#editForm').submit(); 
-					$("#editdialogDiv").dialog('close');
+					//$("#editdialogDiv").dialog('close');
 			}
 		}]
 		

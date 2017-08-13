@@ -138,14 +138,19 @@ var setting = {
 	function addSucFunc(data){
 		$.messager.progress("close");
 		sysResourceTree = $.fn.zTree.getZTreeObj("tree");
-		sysResourceTree.reAsyncChildNodes(null, "refresh");
+		//sysResourceTree.reAsyncChildNodes(null, "refresh");
+		/**
+ 		* reAsyncChildNodes这个方法用的不对
+		*
+		*
+		*/
+		
 /* 		var dataObj = JSON.parse(data);
 		if(dataObj.id){
 			newNodes[0].UUID=dataObj.id;
 			newNodes[0].RESOURCE_NAME=dataObj.resourceName;
-			//sysResourceTree.addNodes(node, newNodes);
-			var selectNodes = sysResourceTree.getSelectedNodes();
-			sysResourceTree.updateNode(selectNodes[0]);
+			//sysResourceTree.addNodes(node, newNodes);或者
+			sysResourceTree.updateNode(newNodes);
 		} */
 	}
 	//删除成功回调函数
@@ -335,7 +340,7 @@ $(document).ready(function(){
 	        success:function(data){
 	        	sysResourceTree = $.fn.zTree.init($("#sysResourceTree"), setting, data); 
 	        	sysResourceTree.expandAll(true);
-		     }  
+		     }
 	    });	 
 });
 
@@ -358,8 +363,9 @@ function initResourceDialog(){
 					    	return onSubmit();
 					    },    
 					    success:function(data){
-					    	addSucFunc(data);
-					    }
+					    	//addSucFunc(data);
+					    	commonObj.showResponse(data,addSucFunc);
+					    };
 					}); 
 					$('#editForm').submit();
 					$("#editdialogDiv").dialog('close');
