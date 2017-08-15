@@ -1,9 +1,10 @@
 package priv.guochun.psmc.authentication.login.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class User
+public class User implements Serializable
 {
   
     private Map tabAccount;
