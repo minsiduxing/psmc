@@ -13,7 +13,12 @@
 		http://www.springframework.org/schema/aop   
     	http://www.springframework.org/schema/aop/spring-aop-4.3.xsd"
 	default-lazy-init="false" default-autowire="byName">
+<!-- 网站前端导航栏dao注入 -->
+	<bean id="tabNavBarDao"
+		class="priv.guochun.psmc.website.stage.navbar.dao.impl.TabNavBarDaoImpl" />
 
+	<bean id="tabNavBarService"
+		class="priv.guochun.psmc.website.stage.navbar.service.impl.TabNavBarServiceImpl" />
 	
 
 </beans>

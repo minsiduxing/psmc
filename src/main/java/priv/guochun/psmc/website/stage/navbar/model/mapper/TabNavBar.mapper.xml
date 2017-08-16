@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.website.stage.navbar.model.TabNavBar">  
+   
+    
+   	<select id="getListTabNavBarByCondition" resultType="java.util.Map" parameterType="hashmap">
+   			SELECT menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked FROM tab_navigation_bar
+   			<where>
+   				<if test="menuUuid !=null">
+   					and menu_uuid = #{menuUuid}
+   				</if>
+   				<if test="parentMenuUuid !=null">
+   					and parent_menu_uuid = #{parentMenuUuid}
+   				</if>
+   				<if test="accountPass !=null">
+   					and open_type = #{openType}
+   				</if>
+   				<if test="isLocked !=null">
+   					and is_locked = #{isLocked}
+   				</if>
+   				<if test="menuName !=null">
+   					and menu_name = #{menuName}
+   				</if>
+   			</where>
+   			<if test="menuName !=null">
+   					order by #{ordernum}
+   			</if>
+   	</select>
+  	
+  	<select id="getShowTabNavBarByCondition" resultType="java.util.Map" parameterType="hashmap">
+   			SELECT menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type FROM tab_navigation_bar
+   			<where>
+   				<if test="menuUuid !=null">
+   					and menu_uuid = #{menuUuid}
+   				</if>
+   				<if test="parentMenuUuid !=null">
+   					and parent_menu_uuid = #{parentMenuUuid}
+   				</if>
+   				<if test="accountPass !=null">
+   					and open_type = #{openType}
+   				</if>
+   				<if test="isLocked !=null">
+   					and is_locked = #{isLocked}
+   				</if>
+   				<if test="menuName !=null">
+   					and menu_name = #{menuName}
+   				</if>
+   			</where>
+   			<if test="menuName !=null">
+   					order by #{ordernum}
+   				</if>
+   	</select>
+
+  	<insert id="insertNavBar">
+  		INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked) 
+  		VALUES (#{menuUuid}, #{menuName}, #{menuUrl}, #{parentMenuUuid}, #{openType}, #{remark}, #{orderNum}, #{isLocked})
+  	</insert>
+  	
+  	<update id="updateNavBar" parameterType="priv.guochun.psmc.authentication.user.model.TabAccount">
+  		UPDATE tab_navigation_bar 
+  		<trim prefix="set" suffixOverrides=",">
+	  		<if test="menu_name != null">
+	  			menu_name =#{menu_name},
+	  		</if>
+	  		<if test="menuUrl != null">
+	  			menu_url =#{menuUrl},
+	  		</if>
+	  		<if test="parentMenuUuid != null">
+	  			parent_menu_uuid =#{parentMenuUuid},
+	  		</if>
+	  		<if test="isLocked != null">
+	  			is_locked =#{isLocked},
+	  		</if>
+	  		<if test="openType != null">
+	  			open_type =#{openType},
+	  		</if>
+	  		<if test="remark != null">
+	  			remark =#{remark},
+	  		</if>
+	  		<if test="orderNum != null">
+	  			orderNum =#{orderNum},
+	  		</if>
+  		</trim>
+  		WHERE menu_uuid = #{menuUuid}
+  	</update>
+  	
+  	
+    <delete id="deletesNavBarByUuid" parameterType="hashmap">
+    	DELETE FROM  tab_navigation_bar where 1=1  and menu_uuid in
+    	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+				  #{item}  
+		</foreach>  
+    </delete>
+  <delete id="deletesNavBarByParentMenuUuid" parameterType="hashmap">
+    	DELETE FROM  tab_navigation_bar where 1=1  and parent_menu_uuid = #{parentMenuUuid}
+    </delete>
+   	
+</mapper>  
