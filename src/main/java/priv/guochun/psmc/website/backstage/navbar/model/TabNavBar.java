@@ -1,4 +1,4 @@
-package priv.guochun.psmc.website.stage.navbar.model;
+package priv.guochun.psmc.website.backstage.navbar.model;
 
 
 import java.io.Serializable;

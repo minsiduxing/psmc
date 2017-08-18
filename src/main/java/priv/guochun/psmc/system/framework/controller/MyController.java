@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.web.context.ContextLoader;
 import org.springframework.web.servlet.View;
 
 import priv.guochun.psmc.authentication.login.model.User;
@@ -183,7 +184,14 @@ public class MyController
         response.setCharacterEncoding("UTF-8");  
         response.sendRedirect(path);
     }
-
+    /**
+     * <p>Description:获取项目的绝对根路径<p>
+     * @return 项目根路径
+     * @author wanglei 2017年8月18日
+     */
+    protected String getRealPath() {
+        return ContextLoader.getCurrentWebApplicationContext().getServletContext().getRealPath("/");
+    }
 	public String[] getTitles() {
 		return titles;
 	}

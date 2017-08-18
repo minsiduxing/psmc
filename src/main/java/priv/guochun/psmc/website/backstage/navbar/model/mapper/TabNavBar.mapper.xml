@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
 EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
-<mapper namespace="priv.guochun.psmc.website.stage.navbar.model.TabNavBar">  
-   
+<mapper namespace="priv.guochun.psmc.website.backstage.navbar.model.TabNavBar">  
+  <resultMap type="priv.guochun.psmc.website.backstage.navbar.model.TabNavBar" id="tabNavBar">
+    <result property="menuUuid" column="menu_uuid"/>
+    <result property="parentMenuUuid" column="parent_menu_uuid"/>
+    <result property="menuName" column="menu_name"/>
+    <result property="menuUrl" column="menu_url"/>
+ 	<result property="openType" column="open_type"/>
+</resultMap>  
     
    	<select id="getListTabNavBarByCondition" resultType="java.util.Map" parameterType="hashmap">
    			SELECT menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked FROM tab_navigation_bar
@@ -23,12 +29,10 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    					and menu_name = #{menuName}
    				</if>
    			</where>
-   			<if test="menuName !=null">
-   					order by #{ordernum}
-   			</if>
+   			order by ordernum
    	</select>
   	
-  	<select id="getShowTabNavBarByCondition" resultType="java.util.Map" parameterType="hashmap">
+  	<select id="getShowTabNavBarByCondition" resultMap="tabNavBar" parameterType="hashmap">
    			SELECT menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type FROM tab_navigation_bar
    			<where>
    				<if test="menuUuid !=null">
@@ -47,9 +51,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    					and menu_name = #{menuName}
    				</if>
    			</where>
-   			<if test="menuName !=null">
-   					order by #{ordernum}
-   				</if>
+   					order by ordernum
    	</select>
 
   	<insert id="insertNavBar">

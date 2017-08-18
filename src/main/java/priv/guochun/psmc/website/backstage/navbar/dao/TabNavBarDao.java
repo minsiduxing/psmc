@@ -1,8 +1,9 @@
-package priv.guochun.psmc.website.stage.navbar.dao;
+package priv.guochun.psmc.website.backstage.navbar.dao;
 
+import java.util.List;
 import java.util.Map;
 
-import priv.guochun.psmc.website.stage.navbar.model.TabNavBar;
+import priv.guochun.psmc.website.backstage.navbar.model.TabNavBar;
 
 /**
  * <p>Title: 网站导航栏的dao</p>
@@ -31,12 +32,12 @@ public interface TabNavBarDao {
 	 * @return
 	 * @author wanglei 2017年8月16日
 	 */
-	public Map getAllShowTabNavBar();
+	public   List<TabNavBar> getAllShowTabNavBar();
 	/**
 	 * <p>Description:根据父导航栏菜单uuid获取前台显示的导航栏<p>
 	 * @param parentMenuUuid 父导航栏id
 	 * @return
 	 * @author wanglei 2017年8月16日
 	 */
-	public Map getShowTabNavBarByParentMenuUuid(String parentMenuUuid);
+	public  List<Map<String,Object>> getShowTabNavBarByParentMenuUuid(String parentMenuUuid);
 }

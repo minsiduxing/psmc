@@ -11,10 +11,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
 	default-lazy-init="false" default-autowire="byName">
-
 	<!-- spring 上下文环境 -->
 	<bean id="mySpringApplicationContext" class="priv.guochun.psmc.system.framework.util.MySpringApplicationContext" />
-	
 	<!-- properties 文件加载 -->
 	<context:property-placeholder location="classpath:jdbc.properties"/>
 	
@@ -114,5 +112,12 @@
 			</list>
 		</property>
 	</bean>
+<!-- 网站前端导航栏dao注入 -->
+	<bean id="tabNavBarDao"
+		class="priv.guochun.psmc.website.backstage.navbar.dao.impl.TabNavBarDaoImpl" name="tabNavBarDao"/>
+
+	<bean id="tabNavBarService"
+		class="priv.guochun.psmc.website.backstage.navbar.service.impl.TabNavBarServiceImpl" name="tabNavBarService" />
+	
 
 </beans>
