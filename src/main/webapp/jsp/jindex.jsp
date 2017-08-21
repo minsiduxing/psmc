@@ -16,10 +16,9 @@
 			<a id="updatePasswd" href="#" class="easyui-linkbutton topRightMenuBtn" data-options="iconCls:'icon-lock'">修改密码</a>
 			<a id="logOut" href="#" class="easyui-linkbutton topRightMenuBtn" data-options="iconCls:'icon-man'">退出登录</a>
 			</div>
-			
 	</div>	
 	
-    <div id="sysFootDiv" data-options="region:'south',title:'',split:true" style="height:2%;">
+    <div id="sysFootDiv" data-options="region:'south',title:'',split:true" style="height:6%;">
     </div>
     
     <div id="sysLeftDiv" data-options="region:'west',title:'菜单栏',split:true" style="width:16%;" >
@@ -82,7 +81,7 @@ $('#updatePasswd').click(function(){
 });
 
 function initsysFunctionDiv(){
-	addTab("欢迎页面","");
+	addTab("欢迎页面","<c:url value='/jsp/welcome.html'/>");
 }
 
 function addTab(title, url){
