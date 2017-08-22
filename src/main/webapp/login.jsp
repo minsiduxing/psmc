@@ -5,10 +5,9 @@
 <html>
 <head>
 <%@ include file="common.jsp"%>
-<title>系统登录界面</title>
+<title>登录</title>
 </head>
 <body>
-	
 	<form method="post" id="loginForm" onkeydown='on_return()' class="easyui-panel" title="用户登录" style="width:400px;padding:30px 70px 20px 70px">
 		<div style="margin-bottom:10px">
 		<div>用户名:</div>

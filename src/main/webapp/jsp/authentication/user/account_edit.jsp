@@ -148,8 +148,8 @@
 		      ]]  
 	});
 	
-	commonObj.initDictCombobox("isLocked","IF","<c:out value="${account.IS_LOCKED}"/>",true);
-	commonObj.initDictCombobox("sex","SEX","<c:out value="${person.SEX}"/>",true);
+	commonObj.initDictCombobox("isLocked","IF","<c:out value="${account.IS_LOCKED}"/>",true,false);
+	commonObj.initDictCombobox("sex","SEX","<c:out value="${person.SEX}"/>",true,false);
 
 });
 
