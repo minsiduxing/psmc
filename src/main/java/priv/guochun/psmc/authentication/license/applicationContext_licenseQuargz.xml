@@ -12,24 +12,21 @@
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
 	default-lazy-init="false">
 
-	<!-- 业务对象 -->
-	<bean id="licenseQuartzJob" class="priv.guochun.psmc.authentication.license.quartz.LicenseQuartzJob">
-		<property name="licenseReaderService" ref="licenseReaderService">
-		</property>
-	</bean> 
-
-	<!-- 调度业务 -->
-	 <bean id="licenseJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-	 <property name="targetObject" ref="licenseQuartzJob" />
-	 <property name="targetMethod">
-	 	<value>execute</value>
-	 </property>
-	</bean> 
+	<bean id="licenseJobDetail"  
+	    class="org.springframework.scheduling.quartz.JobDetailFactoryBean">  
+	    <property name="jobClass">  
+	        <value>priv.guochun.psmc.authentication.license.quartz.LicenseQuartzJob</value>  
+	    </property>  
+	    <property name="name" value="licenseJobDetail"></property>  
+	    <property name="durability" value="true" />  
+	</bean>
+	
+	
 	<!-- 调度触发器 -->
 	 <bean id="lisenceCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 	 <property name="jobDetail" ref="licenseJobDetail" />
 	<!-- 每分钟执行一次	  -->
-	<property name="cronExpression" value="0 */1 * * * ?" />
+	<property name="cronExpression" value="0 * * * * ?" />
 	</bean>
 	
 </beans>

@@ -1,29 +1,41 @@
 package priv.guochun.psmc.authentication.license.quartz;
 
-import java.util.Date;
-
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import priv.guochun.psmc.authentication.license.sevice.LicenseReaderService;
-import priv.guochun.psmc.system.framework.quartz.MyJob;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 
 
-public class LicenseQuartzJob implements MyJob {
+public class LicenseQuartzJob  extends QuartzJobBean {
 	
 	private static final  Logger logger  = LoggerFactory.getLogger(LicenseQuartzJob.class);
 	
 	private LicenseReaderService licenseReaderService;
 	
 	
-	@Override
-	public void execute() {
-	    //Date currDate = new Date();
-	    //logger.debug("开始计数系统运行时间.....");
-	    licenseReaderService.work();
-	    //logger.debug("结束计数系统运行时间.....");
+	public LicenseQuartzJob(){
+	    Object obj = MySpringApplicationContext.getObject("licenseReaderService");
+        if(obj !=null)
+            this.licenseReaderService = (LicenseReaderService)obj;
+        else
+            logger.warn("bean id licenseReaderService not in spring context");
 	}
-
+	
+	@Override
+	protected void executeInternal(JobExecutionContext context) throws JobExecutionException
+	{
+	    if(licenseReaderService!=null)
+	    {
+	        logger.debug("LicenseQuartzJob start! ");
+	        //licenseReaderService.work();
+	        logger.debug("LicenseQuartzJob end! ");
+	    }
+	        
+	}
 
     public LicenseReaderService getLicenseReaderService()
     {
@@ -35,6 +47,9 @@ public class LicenseQuartzJob implements MyJob {
     {
         this.licenseReaderService = licenseReaderService;
     }
+
+
+  
 	
 	
 	
