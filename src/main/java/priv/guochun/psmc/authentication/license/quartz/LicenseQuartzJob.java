@@ -31,7 +31,7 @@ public class LicenseQuartzJob  extends QuartzJobBean {
 	    if(licenseReaderService!=null)
 	    {
 	        logger.debug("LicenseQuartzJob start! ");
-	        //licenseReaderService.work();
+	        licenseReaderService.work();
 	        logger.debug("LicenseQuartzJob end! ");
 	    }
 	        
