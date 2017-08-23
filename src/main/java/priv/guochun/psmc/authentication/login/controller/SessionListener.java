@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSessionListener;
 
 /**
  * SessionListener
- * 通过实现HttpSessionListener接口来实现获取系统当前在线人数的功能
+ * 閫氳繃瀹炵幇HttpSessionListener鎺ュ彛鏉ュ疄鐜拌幏鍙栫郴缁熷綋鍓嶅湪绾夸汉鏁扮殑鍔熻兘
  * @author Youngman 2017-7-5
  */
 public class SessionListener implements HttpSessionListener {
@@ -25,10 +25,10 @@ public class SessionListener implements HttpSessionListener {
         ServletContext application = session.getServletContext();
         HashSet sessions = (HashSet) application.getAttribute("sessions");
         if(null != sessions && sessions.size() > 0){
-        	// 销毁的session均从HashSet集中移除
+        	
             sessions.remove(session);
             application.setAttribute("sessions", sessions);
-            //获取集合的大小即（在线人数）
+            
             int sessionsNum = null != sessions ? sessions.size() : 0;
             application.removeAttribute("sessionsNum");
             application.setAttribute("sessionsNum", sessionsNum);

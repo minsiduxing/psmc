@@ -7,6 +7,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>psmc Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -168,12 +171,6 @@
 	    <artifactId>commons-pool2</artifactId>
 	    <version>2.4.2</version>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
-	<dependency>
-	    <groupId>org.apache.commons</groupId>
-	    <artifactId>commons-pool2</artifactId>
-	    <version>2.4.2</version>
-	</dependency>
 	         <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
 	<dependency>
 	    <groupId>org.aspectj</groupId>
@@ -320,11 +317,10 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version> 
 				<configuration>
-					<skipTests>true</skipTests>
 					<source>1.7</source>
 					<target>1.7</target>
-					<!-- <compilerId>eclipse</compilerId> -->
-					<encoding>utf8</encoding>
+					 <compilerId>eclipse</compilerId> 
+					<encoding>UTF-8</encoding>
 				</configuration>
 				<dependencies>  
 	                <dependency>  
@@ -334,6 +330,14 @@
 	                </dependency>  
             	</dependencies>  
 			</plugin>
+			<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-surefire-plugin</artifactId>
+		        <configuration>
+		          <skip>true</skip>
+		        </configuration>
+	      	</plugin>
+			
 			<plugin>
 		        <groupId>net.alchim31.maven</groupId>
 		        <artifactId>yuicompressor-maven-plugin</artifactId>
