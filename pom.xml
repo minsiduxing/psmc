@@ -288,10 +288,17 @@
 		    <artifactId>ehcache</artifactId>
 		    <version>2.10.3</version>
 		</dependency>
+		<!--freemark 模板组件  -->
 		<dependency>
 	    <groupId>org.freemarker</groupId>
 	    <artifactId>freemarker</artifactId>
 	    <version>2.3.23</version>
+		</dependency>
+		<!-- ftpclient 组件 -->
+		<dependency>
+		    <groupId>commons-net</groupId>
+		    <artifactId>commons-net</artifactId>
+		    <version>3.3</version>
 		</dependency>
 	</dependencies>
 
@@ -319,7 +326,7 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
-					 <compilerId>eclipse</compilerId> 
+					<!--  <compilerId>eclipse</compilerId>  -->
 					<encoding>UTF-8</encoding>
 				</configuration>
 				<dependencies>  

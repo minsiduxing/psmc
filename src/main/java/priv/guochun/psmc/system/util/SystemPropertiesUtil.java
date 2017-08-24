@@ -14,9 +14,40 @@ public class SystemPropertiesUtil
     private final static Logger logger  = LoggerFactory.getLogger(SystemPropertiesUtil.class.getName());    
     private static Properties props = null;    
     private static String file_name  = null;    
+    //文件上传临时路径
     private static final String system_upload_temp_dir ="system_upload_temp_dir";
+    /**
+     * 文件上传路径
+     */
     private static final String system_upload_dir ="system_upload_dir";
+    /**
+     * 文件下载临时路径
+     */
     private static final String system_download_temp_dir ="system_download_temp_dir";
+    /**
+     * 文件是否远程上传
+     */
+    private static final String system_upload_isremote ="system_upload_isremote";
+    /**
+     * 远程
+     */
+    private static final String system_remote_ip ="system_remote_ip";
+    /**
+     * 远程端口
+     */
+    private static final String system_remote_port ="system_remote_port";
+    /**
+     * 远程用户名
+     */
+    private static final String system_remote_username ="system_remote_username";
+    /**
+     * 远程密码
+     */
+    private static final String system_remote_password ="system_remote_password";
+    /**
+     * 远程操作系统
+     */
+    private static final String system_remote_os ="system_remote_os";
     
     /**
      * 初始化system.propeties
@@ -54,7 +85,31 @@ public class SystemPropertiesUtil
         return getPropertyValue(system_upload_dir);
     }
     
-    public static String getPropertyValue(String key){
+    public static String getSystemUploadIsremote() {
+		return getPropertyValue(system_upload_isremote);
+	}
+
+	public static String getSystemRemoteIp() {
+		return getPropertyValue(system_remote_ip);
+	}
+
+	public static String getSystemRemotePort() {
+		return getPropertyValue(system_remote_port);
+	}
+
+	public static String getSystemRemoteUsername() {
+		return getPropertyValue(system_remote_username);
+	}
+
+	public static String getSystemRemotePassword() {
+		return getPropertyValue(system_remote_password);
+	}
+
+	public static String getSystemRemoteOs() {
+		return getPropertyValue(system_remote_os);
+	}
+
+	public static String getPropertyValue(String key){
         if(props.containsKey(key)){
             return props.getProperty(key);
         }else{

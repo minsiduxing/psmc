@@ -61,8 +61,11 @@ public class BaseUploadAssembly implements UploadAssemblyInterface
                           
                           //重命名上传后的文件名  
                           String fileTempAllPath = SystemPropertiesUtil.getUploadTempPathPropertyValue() +fileSystemName+"."+model.getSuffix(); 
-                          String fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue() +fileSystemName+"."+model.getSuffix(); 
+                          String fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+fileSystemName+"."+model.getSuffix();; 
                           File localFile = new File(fileTempAllPath);  
+                          if(!localFile.exists()){
+                        	  localFile.mkdirs();
+                          }
                           file.transferTo(localFile);
                           model.setTemp_file_path(fileTempAllPath);
                           model.setFile_upload_real_path(fileRealAllPath);

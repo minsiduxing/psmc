@@ -158,5 +158,48 @@ public class DateUtil {
 		System.out.println(calendar.get(calendar.YEAR));
 		System.out.println(calendar.get(calendar.MONTH));
 	}
+
+	/**
+	 * <p>Description:获取当前年份<p>
+	 * @return
+	 * @author wanglei 2017年8月22日
+	 */
+	public static String getCurrentYear() {
+		Calendar cal = Calendar.getInstance();
+		String year = cal.get(Calendar.YEAR) + "";
+		return year;
+	}
+
+	/**
+	 * <p>Description:获取当年月份<p>
+	 * @param flagZero
+	 * @return
+	 * @author wanglei 2017年8月22日
+	 */
+	public static String getCurrentMonth(boolean flagZero) {
+		Calendar cal = Calendar.getInstance();
+		int m = cal.get(Calendar.MONTH) + 1;
+		String month = m + "";
+		if (flagZero && m < 10) {
+			month = "0" + month;
+		}
+		return month;
+	}
+
+	/**
+	 * <p>Description:获取当前天<p>
+	 * @param flagZero
+	 * @return
+	 * @author wanglei 2017年8月22日
+	 */
+	public static String getCurrentDay(boolean flagZero) {
+		Calendar cal = Calendar.getInstance();
+		int d = cal.get(Calendar.DAY_OF_MONTH);
+		String day = d + "";
+		if (flagZero && d < 10) {
+			day = "0" + day;
+		}
+		return day;
+	}
 	
 }

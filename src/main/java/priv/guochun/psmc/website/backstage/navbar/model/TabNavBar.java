@@ -47,6 +47,10 @@ public class TabNavBar implements Serializable{
 	 * 是否锁定
 	 */
 	private Integer isLocked;
+	/**
+	 * 导航栏级别
+	 */
+	private Integer menuLevel;
 	public String getMenuUuid() {
 		return menuUuid;
 	}
@@ -95,11 +99,19 @@ public class TabNavBar implements Serializable{
 	public void setIsLocked(Integer isLocked) {
 		this.isLocked = isLocked;
 	}
+	
+	public Integer getMenuLevel() {
+		return menuLevel;
+	}
+	public void setMenuLevel(Integer menuLevel) {
+		this.menuLevel = menuLevel;
+	}
+	
 	@Override
 	public String toString() {
 		return "TabNavBar [menuUuid=" + menuUuid + ", menuName=" + menuName + ", menuUrl=" + menuUrl
 				+ ", parentMenuUuid=" + parentMenuUuid + ", openType=" + openType + ", remark=" + remark + ", orderNum="
-				+ orderNum + ", isLocked=" + isLocked + "]";
+				+ orderNum + ", isLocked=" + isLocked + ", menuLevel=" + menuLevel + "]";
 	}
 	public TabNavBar() {
 		super();

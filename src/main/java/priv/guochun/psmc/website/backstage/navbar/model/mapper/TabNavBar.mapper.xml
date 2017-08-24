@@ -8,10 +8,11 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
     <result property="menuName" column="menu_name"/>
     <result property="menuUrl" column="menu_url"/>
  	<result property="openType" column="open_type"/>
+ 	<result property="menuLevel" column="menu_level"/>
 </resultMap>  
     
    	<select id="getListTabNavBarByCondition" resultType="java.util.Map" parameterType="hashmap">
-   			SELECT menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked FROM tab_navigation_bar
+   			SELECT menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked,menu_level FROM tab_navigation_bar
    			<where>
    				<if test="menuUuid !=null">
    					and menu_uuid = #{menuUuid}
@@ -27,13 +28,16 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    				</if>
    				<if test="menuName !=null">
    					and menu_name = #{menuName}
+   				</if>
+   				<if test="menuLevel !=null">
+   					and menu_level = #{menuLevel}
    				</if>
    			</where>
    			order by ordernum
    	</select>
   	
   	<select id="getShowTabNavBarByCondition" resultMap="tabNavBar" parameterType="hashmap">
-   			SELECT menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type FROM tab_navigation_bar
+   			SELECT menu_uuid, menu_name, menu_url, parent_menu_uuid,menu_level, open_type FROM tab_navigation_bar
    			<where>
    				<if test="menuUuid !=null">
    					and menu_uuid = #{menuUuid}
@@ -50,13 +54,16 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    				<if test="menuName !=null">
    					and menu_name = #{menuName}
    				</if>
+   				<if test="menuLevel !=null">
+   					and menu_level = #{menuLevel}
+   				</if>
    			</where>
    					order by ordernum
    	</select>
 
   	<insert id="insertNavBar">
-  		INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked) 
-  		VALUES (#{menuUuid}, #{menuName}, #{menuUrl}, #{parentMenuUuid}, #{openType}, #{remark}, #{orderNum}, #{isLocked})
+  		INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked,menu_level) 
+  		VALUES (#{menuUuid}, #{menuName}, #{menuUrl}, #{parentMenuUuid}, #{openType}, #{remark}, #{orderNum}, #{isLocked},#{menuLevel})
   	</insert>
   	
   	<update id="updateNavBar" parameterType="priv.guochun.psmc.authentication.user.model.TabAccount">
@@ -82,6 +89,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	  		</if>
 	  		<if test="orderNum != null">
 	  			orderNum =#{orderNum},
+	  		</if>
+	  		<if test="menuLevel != null">
+	  			menu_level =#{menuLevel},
 	  		</if>
   		</trim>
   		WHERE menu_uuid = #{menuUuid}
