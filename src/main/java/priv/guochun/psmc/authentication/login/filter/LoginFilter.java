@@ -1,6 +1,7 @@
 package priv.guochun.psmc.authentication.login.filter;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -8,6 +9,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -54,24 +56,51 @@ public class LoginFilter implements Filter
             isExcludedPage = true;     
             break;     
             }
-        }     
+        }
+        
+        logger.debug("==================================================");
+        String remoteHost = httpServletRequest.getRemoteHost();
+        int remotePort = httpServletRequest.getRemotePort();
+        String remoteAddr = httpServletRequest.getRemoteAddr();
+        String sessionid = httpServletRequest.getSession().getId();
+        String requestURL = httpServletRequest.getRequestURL().toString();
+        String scheme = httpServletRequest.getScheme();
+        String protocol = httpServletRequest.getProtocol();
+        Cookie[] cookies = httpServletRequest.getCookies();
+        Enumeration eunm = httpServletRequest.getHeaderNames();
+        String serverName = httpServletRequest.getServerName();
+        int serverPort = httpServletRequest.getServerPort();
+        
+        
+        logger.debug("request.getRemoteHost() {}",remoteHost);
+        logger.debug("getRemotePort() {}",remotePort);
+        logger.debug("request.getRemoteAddr() {}",remoteAddr);
+        logger.debug("requestedSessionId: {}",sessionid);
+        logger.debug("getRequestURL----------: {}",requestURL);
+        logger.debug("requestUrl----------: {}",requestUrl);
+        logger.debug("httpServletRequest.getScheme----------: {}",scheme);
+        logger.debug("httpServletRequest.getProtocol----------: {}",protocol);
+        logger.debug("httpServletRequest.getServerName----------: {}",serverName);
+        logger.debug("httpServletRequest.getServerPort----------: {}",serverPort);
+
+//        if(cookies!=null &&cookies.length>0){
+//            logger.debug("print cookies ****************************");
+//            for(int i=0;i<cookies.length;i++){
+//                Cookie ck = cookies[i];
+//                logger.debug("path:"+ck.getPath()+"|| name:"+ck.getName()+"|| value:"+ck.getValue());
+//            }
+//        }
+        while(eunm!=null &&eunm.hasMoreElements()){
+            String headers = (String)eunm.nextElement();
+            String headvalue = httpServletRequest.getHeader(headers);
+            logger.debug("header info name: "+headers+" value: "+headvalue);
+        }
+
+        logger.debug("==================================================");
+        
         if(isExcludedPage){
             chain.doFilter(httpServletRequest, httpServletResponse);
         }else{
-            logger.debug("==================================================");
-            String remoteHost = httpServletRequest.getRemoteHost();
-            int remotePort = httpServletRequest.getRemotePort();
-            String remoteAddr = httpServletRequest.getRemoteAddr();
-            String sessionid = httpServletRequest.getSession().getId();
-            String requestURL = httpServletRequest.getRequestURL().toString();
-            
-            logger.debug("request.getRemoteHost() {}",remoteHost);
-            logger.debug("getRemotePort() {}",remotePort);
-            logger.debug("request.getRemoteAddr() {}",remoteAddr);
-            logger.debug("requestedSessionId: {}",sessionid);
-            logger.debug("getRequestURL----------: {}",requestURL);
-            logger.debug("requestUrl----------: {}",requestUrl);
-            
             
             HttpSession httpSession = httpServletRequest.getSession();
             User user = (User)httpSession.getAttribute("user");
@@ -110,6 +139,8 @@ public class LoginFilter implements Filter
         
     }
 
+    
+   
     
 
 }
