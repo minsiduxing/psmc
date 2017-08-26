@@ -9,9 +9,9 @@
 <body>
 <form id="editForm" method="POST" class="addfrom">
 		<ul class="addform-subcontent">
-			<li class="li-input"><label for="" class="input-label">资源ID：</label>
-				<input class="myinput" id="id" name="id" />
-			</li>
+			<!-- <li class="li-input"><label for="" class="input-label">资源ID：</label> -->
+				<input class="myinput" id="id" name="id" type="hidden" value="${tabResource.id}" />
+			<!-- </li> -->
 			<li class="li-input" id="accountPassPanel" ><label for="" class="input-label">资源名称：</label>
 				<input class="myinput" id="resourceName" name="resourceName" />
 			</li> 
@@ -21,31 +21,31 @@
 			<li class="li-input"><label for="" class="input-label">资源类型：</label>
 				<input id="resourceType" name="resourceType" />
 			</li>
-			<li class="li-input"><label for="" class="input-label">上级资源ID：</label>
-				<input class="myinput" id="parentResourceUuid" name="parentResourceUuid" />
-			</li>
-			<li class="li-input"><label for="" class="input-label">创建人账号：</label>
-				<input class="myinput" id="creatorName" name="creatorName" />
-			</li>
-			<li class="li-input"><label for="" class="input-label">创建时间：</label>
-				<input class="myinput" id="createTime" name="createTime" />
-			</li>
+			<!-- <li class="li-input"><label for="" class="input-label">上级资源ID：</label> -->
+				<input class="myinput" id="parentResourceUuid" name="parentResourceUuid" type="hidden" value="${tabResource.parentResourceUuid}" />
+			<!-- </li> -->
+			<!-- <li class="li-input"><label for="" class="input-label">创建人账号：</label> -->
+				<input class="myinput" id="creatorName" name="creatorName" type="hidden" value="${tabResource.creatorName}" />
+			<!-- </li> -->
+			<!-- <li class="li-input"><label for="" class="input-label">创建时间：</label> -->
+				<input class="myinput" id="createTime" name="createTime" type="hidden" value="${tabResource.createTime}" />
+			<!-- </li> -->
 			<li class="li-input"><label for="" class="input-label">备注：</label>
 				<input class="myinput" id="remark" name="remark" />
 			</li>
-			<li class="li-input"><label for="" class="input-label">排序号：</label>
-				<input class="myinput" id="ordernum" name="ordernum" />
-			</li>
+			<!-- <li class="li-input"><label for="" class="input-label">排序号：</label> -->
+				<input class="myinput" id="ordernum" name="ordernum" type="hidden" value="${tabResource.ordernum}" />
+			<!-- </li> -->
 		</ul>
 	</form>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#id').textbox({
+	/* 	$('#id').textbox({
 			value : "${tabResource.id}",
 			type : "text",
 			readonly : true,
 			required : true
-		});
+		}); */
 
 		$('#resourceName').textbox({
 			value : "${tabResource.resourceName}",
@@ -59,26 +59,26 @@
 			required : true
 		});
 		
-		$('#parentResourceUuid').textbox({
+		/* $('#parentResourceUuid').textbox({
 			value : "${tabResource.parentResourceUuid}",
 			type : "text",
 			readonly : true,
 			required : true
-		});
+		}); */
 
-		$('#creatorName').textbox({
+	/* 	$('#creatorName').textbox({
 			value : "${tabResource.creatorName}",
 			type : "text",
 			readonly : true,
 			required : true
-		});
+		}); */
 
-		$('#createTime').textbox({
+	/* 	$('#createTime').textbox({
 			value : "${tabResource.createTime}",
 			type : "text",
 			readonly : true,
 			required : true
-		});
+		}); */
 
 		$('#remark').textbox({
 			value : "${tabResource.remark}",
@@ -86,19 +86,19 @@
 			required : false
 		});
 		
-		$('#ordernum').textbox({
+	/* 	$('#ordernum').textbox({
 			value : "${tabResource.ordernum}",
 			type : "text",
 			readonly : true,
 			required : true
-		});
+		}); */
 		
 		$('#resourceType').combobox({
-			data:"${tabResource.resourceTypeJson}",
+			data:${tabResource.resourceTypeJson},
 			valueField:"id",
 			textField:"text",
 			required : true
-		});
+		}); 
 		
 		$('#resourceType').combobox('select','${tabResource.resourceType}');
 	});

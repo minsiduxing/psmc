@@ -137,26 +137,19 @@ var setting = {
 	//添加成功回调函数
 	function addSucFunc(data){
 		$.messager.progress("close");
-		sysResourceTree = $.fn.zTree.getZTreeObj("tree");
-		//sysResourceTree.reAsyncChildNodes(null, "refresh");
-		/**
- 		* reAsyncChildNodes这个方法用的不对
-		*
-		*
-		*/
-		
-/* 		var dataObj = JSON.parse(data);
-		if(dataObj.id){
-			newNodes[0].UUID=dataObj.id;
-			newNodes[0].RESOURCE_NAME=dataObj.resourceName;
-			//sysResourceTree.addNodes(node, newNodes);或者
-			sysResourceTree.updateNode(newNodes);
-		} */
+		alert_autoClose("提示","添加成功!","info");
+		var sysResourceTree = $.fn.zTree.getZTreeObj("sysResourceTree");
+		var dataObj = JSON.parse(data);
+		var newNode = {UUID:dataObj.uuid,RESOURCE_NAME:dataObj.resourceName,PARENT_RESOURCE_UUID:dataObj.parentResourceUuid};
+		var parentNode = sysResourceTree.getNodeByParam("UUID", dataObj.parentResourceUuid, null);
+		sysResourceTree.addNodes(parentNode, newNode, true);
 	}
+	
 	//删除成功回调函数
 	function delSucFunc(data){
 		var dataObj = JSON.parse(data);
 		if(dataObj.res=='success'){
+			alert_autoClose("提示","删除成功!","info");
 			sysResourceTree.removeNode(node);
 		}
 		if(dataObj.res=='fail'){
@@ -168,10 +161,27 @@ var setting = {
 	function updateNameSucFunc(data){
 		var dataObj = JSON.parse(data);
 		if(dataObj.res=='success'){
+			alert_autoClose("提示","修改成功!","info");
 			return true;
 		}else
 			return false;
 	}
+	
+	//2秒提示框
+	function alert_autoClose(title,msg,icon){  
+		 var interval;  
+		 var time=1000;  
+		 var x=2;    //设置时间2s
+		$.messager.alert(title,msg,icon,function(){});  
+		 interval=setInterval(fun,time);  
+		        function fun(){  
+		      --x;  
+		      if(x==0){  
+		          clearInterval(interval);  
+		  $(".messager-body").window('close');    
+		       }  
+		}; 
+		}
 
 function initoperatePanel(){
 	var toolsObj = [];
@@ -194,33 +204,6 @@ function initoperatePanel(){
 					editdialog.panel({href:addResourcetUrl});
 					editdialog.window("open");
 					
-				/* 	node = selectNodes[0];
-					newNodes = [{
-							RESOURCE_NAME:"新节点",
-							RESOURCE_URL:"/welcome.jsp",
-							PARENT_RESOURCE_UUID:node.UUID}];
-
-					var _url=basePath + "/authentication/tabResource.do";
-					_url ='<c:url value="'+_url+'"/>?method=ajaxAddResource';
-					var data ={
-								resourceName:newNodes[0].RESOURCE_NAME,
-								parentResourceUuid:newNodes[0].PARENT_RESOURCE_UUID,
-								resourceUrl:newNodes[0].RESOURCE_URL}; */
-			/* 		$.ajax({
-						async:false,
-						cache:false,
-						type:'POST',
-						dataType:"text",
-						context:document.body,
-						data:data,
-						url:_url,
-						success:function(data){
-							commonObj.showResponse(data,addSucFunc);
-						},
-						error:function (XMLHttpRequest, textStatus, errorThrown) {
-							commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
-						}
-					}); */
 				}
 			};
 		length++;
@@ -244,7 +227,6 @@ function initoperatePanel(){
 						editdialog.panel({iconCls:'icon-save'});
 						editdialog.panel({href:editResourcetUrl});
 						editdialog.window("open"); 
-						//sysResourceTree.editName(node);
 					}
 				};
 			length++;
@@ -254,36 +236,40 @@ function initoperatePanel(){
 			toolsObj[length] = {
 					iconCls:'icon-remove',
 					handler:function(){
-						var selectNodes = sysResourceTree.getSelectedNodes();
-						if(selectNodes.length<1){
-							commonObj.alert("请选择待删除的节点!","warning");
-							return;
-						}		
-						node = selectNodes[0];
-						if(node.isParent){
-							commonObj.alert("该节点下存在子节点,请先删除子节点!","warning");
-							return;
-						}
-						if(node.RESOURCE_TYPE == 1){
-							commonObj.alert("不能删除根节点!","warning");
-							return;
-						}
-						var data ={resourceUuid:node.UUID};
-						var _url=basePath + "/authentication/tabResource.do";
-						_url ='<c:url value="'+_url+'"/>?method=ajaxDeleteResource';
-						$.ajax({
-							async:false,
-							cache:false,
-							type:'POST',
-							dataType:"text",
-							context:document.body,
-							data:data,
-							url:_url,
-							success:function(data){
-								commonObj.showResponse(data,delSucFunc);
-							},
-							error:function (XMLHttpRequest, textStatus, errorThrown) {
-								commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+						$.messager.confirm('提示', '确认删除?', function(r){
+							if (r){
+								var selectNodes = sysResourceTree.getSelectedNodes();
+								if(selectNodes.length<1){
+									commonObj.alert("请选择待删除的节点!","warning");
+									return;
+								}		
+								node = selectNodes[0];
+								if(node.isParent){
+									commonObj.alert("该节点下存在子节点,请先删除子节点!","warning");
+									return;
+								}
+								if(node.RESOURCE_TYPE == 1){
+									commonObj.alert("不能删除根节点!","warning");
+									return;
+								}
+								var data ={resourceUuid:node.UUID};
+								var _url=basePath + "/authentication/tabResource.do";
+								_url ='<c:url value="'+_url+'"/>?method=ajaxDeleteResource';
+								$.ajax({
+									async:false,
+									cache:false,
+									type:'POST',
+									dataType:"text",
+									context:document.body,
+									data:data,
+									url:_url,
+									success:function(data){
+										commonObj.showResponse(data,delSucFunc);
+									},
+									error:function (XMLHttpRequest, textStatus, errorThrown) {
+										commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+									}
+								});
 							}
 						});
 					}
@@ -348,7 +334,7 @@ $(document).ready(function(){
 function initResourceDialog(){
 	editdialog = $("#editdialogDiv").dialog({
 		modal: true,
-		closed: true,
+		closed: false,
 	    width: 705,
 	    height: 280,
 	    resizable:true,
@@ -360,12 +346,11 @@ function initResourceDialog(){
 					$('#editForm').form({    
 					    url:saveResourcetUrl,    
 					    onSubmit: function(){
-					    	return onSubmit();
+					    	 return onSubmit();
 					    },    
 					    success:function(data){
-					    	//addSucFunc(data);
 					    	commonObj.showResponse(data,addSucFunc);
-					    };
+					    }
 					}); 
 					$('#editForm').submit();
 					$("#editdialogDiv").dialog('close');
@@ -390,7 +375,7 @@ function initOperateDialog(){
 					$('#editForm').form({    
 					    url:saveResourcetUrl,    
 					    onSubmit: function(){
-					    	return onSubmit();
+					    	 return onSubmit();
 					    },    
 					    success:function(data){
 					    	addSucFunc(data);
@@ -405,6 +390,7 @@ function initOperateDialog(){
 
 //表单校验
 function onSubmit(){
+	debugger;
 	var result = $('#editForm').form("validate");
 	if(Boolean(result)){
 		$.messager.progress(); 
