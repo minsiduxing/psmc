@@ -2,6 +2,7 @@ package priv.guochun.psmc.system.framework.upload.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,8 +29,8 @@ public class FileUploadController extends MyController {
 	public void testFileUpload(HttpServletRequest request,HttpServletResponse response) throws IllegalStateException, IOException{
 		UploadFileModel upf = uploadAssemblyInterface.getFile(request);
 		FtpUtil ftu = FtpUtil.getFtputil();
-		ftu.uploadFile(upf);
-		super.responseJson(true,upf.getFileRealName()+"上传成功！", response);
+		String filepath = ftu.uploadFile(upf);
+		super.responseJson(true,"文件："+filepath+"上传成功！", response);
 	}
 	@RequestMapping(params="method=testFileDownload")
 	public View testFileDownload(HttpServletRequest request,HttpServletResponse response,String filePath) throws IllegalStateException, IOException{
@@ -37,11 +38,17 @@ public class FileUploadController extends MyController {
 		File resFiel = ftu.downloadFileByFtp(filePath);
 		return this.responseFile(resFiel, filePath.substring(filePath.lastIndexOf("/")+1), response);
 	}
+	@RequestMapping(params="method=getImage")
+	public void getImage(HttpServletRequest request,HttpServletResponse response,String filePath) throws Exception{
+		FtpUtil ftu = FtpUtil.getFtputil();
+		InputStream resFiel = ftu.downloadFileBytesByFtp(new String(filePath));
+		this.responseImage(response, resFiel);
+	}
 	@RequestMapping(params="method=testFileDelete")
 	@ResponseBody
 	public void testFileDelete(HttpServletRequest request,HttpServletResponse response,String filePath) throws IllegalStateException, IOException{
 		FtpUtil ftu = FtpUtil.getFtputil();
 	     ftu.deleteFile(filePath);
-		super.responseJson(true,filePath+"删除成功！", response);
+		super.responseJson(true,"文件："+filePath+"删除成功！", response);
 	}
 }

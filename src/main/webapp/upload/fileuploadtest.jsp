@@ -11,6 +11,8 @@
 <form action='<c:url value="/system/freamwork/fileUploadController"/>?method=testFileUpload' method="post" enctype="multipart/form-data">
 <input type="file" name ="file1" />
 <input type = "submit" value="上传"/>
+<!-- 图片测试-->
+<img alt="测试图片" src='<c:url value="/system/freamwork/fileUploadController"/>?method=getImage&filePath=/log/psmc-upload/image/1503740882845-11.png'>
 </form>
 </body>
 </html>

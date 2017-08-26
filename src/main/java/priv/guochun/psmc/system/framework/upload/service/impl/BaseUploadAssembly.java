@@ -17,6 +17,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import priv.guochun.psmc.system.framework.upload.factory.MyCommonsMultipartResolverFactory;
 import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
 import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
+import priv.guochun.psmc.system.framework.upload.util.PSMCFileUtils;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 
@@ -60,8 +61,13 @@ public class BaseUploadAssembly implements UploadAssemblyInterface
                           model.setSuffix(suffix);
                           
                           //重命名上传后的文件名  
-                          String fileTempAllPath = SystemPropertiesUtil.getUploadTempPathPropertyValue() +fileSystemName+"."+model.getSuffix(); 
-                          String fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+fileSystemName+"."+model.getSuffix();; 
+                          String fileSuffix = model.getSuffix();
+                          String fileTempAllPath = SystemPropertiesUtil.getUploadTempPathPropertyValue() +fileSystemName+"."+fileSuffix; 
+                          String fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+fileSystemName+"."+fileSuffix;
+                          //如果文件为图片则新建imag文件夹
+                          if(PSMCFileUtils.isPicture(fileSuffix)){
+                        	  fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+"image/"+fileSystemName+"."+fileSuffix;
+                          }
                           File localFile = new File(fileTempAllPath);  
                           if(!localFile.exists()){
                         	  localFile.mkdirs();

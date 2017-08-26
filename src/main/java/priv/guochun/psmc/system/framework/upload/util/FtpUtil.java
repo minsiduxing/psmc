@@ -134,6 +134,7 @@ public class FtpUtil {
                       boolean isHavesub = ftpClient.changeWorkingDirectory(ftm.getRemotePath());
                       if(!isHavesub){
                     	  ftpClient.makeDirectory(ftm.getRemotePath());
+                    	  ftpClient.changeWorkingDirectory(ftm.getRemotePath());
                        }
                       logger.info("跳转到指定目录:"+ftm.getRemotePath());
                  }
@@ -214,10 +215,16 @@ public class FtpUtil {
     	String savePath = ufm.getFile_upload_real_path();
     	
     	//在判断是否存在目录
-    	File tempsub = new File(rootPath);
-    	if(!tempsub.exists()){
+    	File rootDir = new File(rootPath);
+    	if(!rootDir.exists()){
   		  //创建目录
-    		tempsub.mkdir();
+    		rootDir.mkdir();
+  	    }
+    	String path= ufm.getFile_upload_real_path().substring(0,ufm.getFile_upload_real_path().lastIndexOf("/")+1);
+    	File subDir = new File(path);
+    	if(!subDir.exists()){
+  		  //创建目录
+    		subDir.mkdir();
   	    }
     	//上传文件到本地
     	File targetFile = ufm.getFile();   
@@ -225,10 +232,9 @@ public class FtpUtil {
         //保存  
         try {  
         	filePath.append(savePath).append("/")
-            .append(ufm.getFileRealName());
-        		
+            .append(ufm.getFileRealName()+"."+ufm.getSuffix());        		
         	long beginTime = System.currentTimeMillis();
-            FileUtils.copyFileToDirectory(targetFile, tempsub);;  
+            FileUtils.copyFileToDirectory(targetFile, subDir);;  
             long endTimes = System.currentTimeMillis();
             logger.info("-----------------文件："+ufm.getFileRealName()+"上传成功！上传至："+savePath+"总耗时：["+(endTimes-beginTime)+"ms]");
         } catch (Exception e) {  
@@ -252,15 +258,23 @@ public class FtpUtil {
             //将文件转化成二进制流
             input = new FileInputStream(ufm.getFile());
             long beginTime = System.currentTimeMillis();
+            String path= ufm.getFile_upload_real_path().substring(0,ufm.getFile_upload_real_path().lastIndexOf("/")+1);
+         // 跳转到指定目录
+            boolean isHavesub = ftpClient.changeWorkingDirectory(path);
+            if(!isHavesub){
+          	  ftpClient.makeDirectory(new String(path.getBytes("utf-8"),"iso8859-1"));
+          	  ftpClient.changeWorkingDirectory(path);
+             }
+            logger.info("跳转到指定目录:"+path);
              //上传文件
             boolean flag = ftpClient.storeFile(new String(ufm.getFile().getName().getBytes("utf-8"),"iso8859-1"), input);
             // 修改返回文件保存路径
             // return flag;
             long endTimes = System.currentTimeMillis();
-            StringBuffer filePath = new StringBuffer("/");
+            StringBuffer filePath = new StringBuffer("");
             if (flag)
             {
-                filePath.append(ufm.getFileRealName());
+                filePath.append(ufm.getFileRealName()+"."+ufm.getSuffix());
                 logger.info("-----------------文件："+ufm.getFileRealName()+
                 		"上传成功！上传至："+ufm.getFile_upload_real_path()+"总耗时：["+(endTimes-beginTime)+"ms]");
             }else{
@@ -299,6 +313,7 @@ public class FtpUtil {
 	 */
 	public InputStream downloadFileBytesByFtp(String fileName) throws IOException
 	    {
+		
 	        InputStream ins = null;
 	        FtpModel ftm = this.readPro();
 	        try
@@ -334,7 +349,12 @@ public class FtpUtil {
 	 * @author wanglei 2017年8月24日
 	 */
 	public File downloadFileByFtp(String fileName) throws IOException{
-		File resFile = new File(fileName);
+		//创建临时文件
+		 String name= fileName.substring(fileName.lastIndexOf("/")+1);
+		 File resFile = new File("/log/psmc-temp-upload/"+name);
+		 if(!resFile.exists()){
+			 resFile.mkdirs();
+		 }
 		 InputStream ins = downloadFileBytesByFtp(fileName);
 		 OutputStream os = new FileOutputStream(resFile);
 		 int bytesRead = 0;
@@ -344,6 +364,8 @@ public class FtpUtil {
 		 }
 		 os.close();
 		 ins.close();
+		 //删除临时文件
+		 resFile.delete();
 		return resFile;
 	}
 	/**

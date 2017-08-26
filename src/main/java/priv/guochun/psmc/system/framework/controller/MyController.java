@@ -1,11 +1,15 @@
 package priv.guochun.psmc.system.framework.controller;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.servlet.View;
 
@@ -184,6 +189,24 @@ public class MyController
         response.setCharacterEncoding("UTF-8");  
         response.sendRedirect(path);
     }
+    
+    /**返回一个图片
+     * @param response
+     * @param ins 图片二进制流
+     * @throws Exception
+     */
+    protected void responseImage(HttpServletResponse response,InputStream ins) throws Exception{  
+        response.setContentType("image/png");
+        OutputStream stream = response.getOutputStream(); 
+        byte[] buf=new byte[1024];  
+        int len=0;  
+        while((len=ins.read(buf))!=-1){   //将byte数据读到最多buf长度的buf数组中   
+        	stream.write(buf,0,len); 
+        }  
+        stream.flush();  
+        stream.close();  
+          
+    }  
     /**
      * <p>Description:获取项目的绝对根路径<p>
      * @return 项目根路径
