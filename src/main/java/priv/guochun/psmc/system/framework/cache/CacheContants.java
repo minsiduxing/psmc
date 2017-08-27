@@ -29,4 +29,8 @@ public class CacheContants
     public final static String CACHE_SYSTEM_UPLOAD_PATH="CACHE_SYSTEM_UPLOAD_PATH";
     //文件服务器操作系统
     public final static String CACHE_SYSTEM_UPLOAD_REMOTE_OS="CACHE_SYSTEM_UPLOAD_REMOTE_OS";
+    //上传临时路径
+    public final static String CACHE_SYSTEM_UPLOAD_REMOTE_UP_TEMP_DIR="CACHE_SYSTEM_UPLOAD_REMOTE_TEMP_DIR";
+    //下载临时路径
+    public final static String CACHE_SYSTEM_UPLOAD_REMOTE_DOWN_TEMP_DIR="CACHE_SYSTEM_UPLOAD_REMOTE_TEMP_DIR";
 }

@@ -42,6 +42,14 @@ public class FtpModel implements Serializable {
 	 * 是否远程上传
 	 */
 	private String isRemote;
+	/**
+	 * 上传临时文件夹
+	 */
+	private String uploadTempDir;
+	/**
+	 * 下载临时文件夹
+	 */
+	private String doownLoadTempdir;
 	public String getRemoteIp() {
 		return remoteIp;
 	}
@@ -81,8 +89,9 @@ public class FtpModel implements Serializable {
 	public String getIsRemote() {
 		return isRemote;
 	}
-	public FtpModel(String remoteIp,String remotePort, String remoteUser, String remotePassword, String remotePath, String remoteOs,
-			String isRemote) {
+	
+	public FtpModel(String remoteIp, String remotePort, String remoteUser, String remotePassword, String remotePath,
+			String remoteOs, String isRemote, String uploadTempDir, String doownLoadTempdir) {
 		super();
 		this.remoteIp = remoteIp;
 		this.remotePort = remotePort;
@@ -91,9 +100,25 @@ public class FtpModel implements Serializable {
 		this.remotePath = remotePath;
 		this.remoteOs = remoteOs;
 		this.isRemote = isRemote;
+		this.uploadTempDir = uploadTempDir;
+		this.doownLoadTempdir = doownLoadTempdir;
 	}
 	public void setIsRemote(String isRemote) {
 		this.isRemote = isRemote;
+	}
+	
+	
+	public String getUploadTempDir() {
+		return uploadTempDir;
+	}
+	public void setUploadTempDir(String uploadTempDir) {
+		this.uploadTempDir = uploadTempDir;
+	}
+	public String getDoownLoadTempdir() {
+		return doownLoadTempdir;
+	}
+	public void setDoownLoadTempdir(String doownLoadTempdir) {
+		this.doownLoadTempdir = doownLoadTempdir;
 	}
 	public FtpModel() {
 		super();

@@ -12,7 +12,7 @@
 <input type="file" name ="file1" />
 <input type = "submit" value="上传"/>
 <!-- 图片测试-->
-<img alt="测试图片" src='<c:url value="/system/freamwork/fileUploadController"/>?method=getImage&filePath=/log/psmc-upload/image/1503740882845-11.png'>
+<img alt="测试图片" src='<c:url value="/system/freamwork/fileUploadController"/>?method=getImage&filePath=/log/psmc-upload/image/1503827969232-1503758893527-IMG_20140205_140419.jpg'>
 </form>
 </body>
 </html>

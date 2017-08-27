@@ -1,7 +1,7 @@
 package priv.guochun.psmc.system.framework.controller;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -9,7 +9,6 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.servlet.View;
 
@@ -195,12 +193,16 @@ public class MyController
      * @param ins 图片二进制流
      * @throws Exception
      */
-    protected void responseImage(HttpServletResponse response,InputStream ins) throws Exception{  
-        response.setContentType("image/png");
+    protected void responseImage(HttpServletResponse response,File file) throws Exception{  
+        if(null == file){
+        	return ;
+        }
+    	response.setContentType("image/png");
         OutputStream stream = response.getOutputStream(); 
+        FileInputStream fin = new FileInputStream(file);
         byte[] buf=new byte[1024];  
         int len=0;  
-        while((len=ins.read(buf))!=-1){   //将byte数据读到最多buf长度的buf数组中   
+        while((len=fin.read(buf))!=-1){   //将byte数据读到最多buf长度的buf数组中   
         	stream.write(buf,0,len); 
         }  
         stream.flush();  

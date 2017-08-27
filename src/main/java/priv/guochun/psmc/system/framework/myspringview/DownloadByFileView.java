@@ -32,7 +32,9 @@ public class DownloadByFileView implements View {
 		filename = URLEncoder.encode(filename, "UTF-8");
         response.setHeader("Content-Disposition", "attachment; filename=" + filename);
         response.setContentType(getContentType());
-        response.setContentLength((int) dfile.length());
+        response.addHeader("Content-Length", "" + dfile.length());   
+        //注释原因:如果是大文件会由于int的大小损失精度
+        //response.setContentLength((int)dfile.length());
         // 得到输入流
         FileInputStream in = new FileInputStream(dfile);
         BufferedInputStream bufIn = new BufferedInputStream(in);

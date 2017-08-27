@@ -18,6 +18,7 @@ import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
 import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
 import priv.guochun.psmc.system.framework.upload.util.FtpUtil;
+import priv.guochun.psmc.system.framework.upload.util.PSMCFileUtils;
 @Scope("prototype")
 @Controller
 @RequestMapping("/system/freamwork/fileUploadController")
@@ -36,12 +37,12 @@ public class FileUploadController extends MyController {
 	public View testFileDownload(HttpServletRequest request,HttpServletResponse response,String filePath) throws IllegalStateException, IOException{
 		FtpUtil ftu = FtpUtil.getFtputil();
 		File resFiel = ftu.downloadFileByFtp(filePath);
-		return this.responseFile(resFiel, filePath.substring(filePath.lastIndexOf("/")+1), response);
+		return this.responseFile(resFiel, PSMCFileUtils.getFileNameByPath(filePath), response);
 	}
 	@RequestMapping(params="method=getImage")
 	public void getImage(HttpServletRequest request,HttpServletResponse response,String filePath) throws Exception{
 		FtpUtil ftu = FtpUtil.getFtputil();
-		InputStream resFiel = ftu.downloadFileBytesByFtp(new String(filePath));
+		File resFiel = ftu.downloadFileByFtp(filePath);
 		this.responseImage(response, resFiel);
 	}
 	@RequestMapping(params="method=testFileDelete")
