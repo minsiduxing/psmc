@@ -15,7 +15,7 @@ public class UploadFileModel
     public String fileSystemName;
     
     public String suffix;
-    
+    public String fileSize;
     
     public File getFile()
     {
@@ -76,6 +76,14 @@ public class UploadFileModel
     {
         this.fileSystemName = fileSystemName;
     }
+
+	public String getFileSize() {
+		return fileSize;
+	}
+
+	public void setFileSize(String fileSize) {
+		this.fileSize = fileSize;
+	}
     
     
 }

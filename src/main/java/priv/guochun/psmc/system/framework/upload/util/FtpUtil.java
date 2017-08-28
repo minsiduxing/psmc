@@ -608,43 +608,92 @@ public class FtpUtil {
 	 */
 	public Map<String,Object> getFileList(String path)
     {
-        List<String> fileLists = new ArrayList<String>();
-        List<String> directory = new ArrayList<String>();
+        Map<String,Object> res = new HashMap<String, Object>();
+        FtpModel ftm = this.readPro();
+        if("true".equals(ftm.getIsRemote())){
+        	res =getFileListRemote(path,ftm);
+        }else{
+        	res =  getFileListLoacl(path);
+        }
+        return res;
+    }
+	/**显示本地目录
+	 * @param path
+	 * @return
+	 */
+	private  Map<String,Object>  getFileListLoacl(String path){
+		List<UploadFileModel> fileLists = new ArrayList<UploadFileModel>();
+        List<UploadFileModel> directory = new ArrayList<UploadFileModel>();
         Map<String,Object> res = new HashMap<String, Object>();
         if(null == path){
         	return null;
         }
-        // 获得指定目录下所有文件名
-        FTPFile[] ftpFiles = null;
-        try
+        path = path.replace("//", "/");
+        File f = new File(path);
+        File [] files = f.listFiles();
+        UploadFileModel upm = null;
+        for (int i = 0; files != null && i < files.length; i++)
         {
-            //连接服务器
-        	FtpModel ftm = this.readPro();
-    		//判断是否需要远程下载
-    		this.connectServer(ftm);
-        	ftpClient.changeWorkingDirectory(path);
-            ftpFiles = ftpClient.listFiles();
-          
-        }
-        catch (IOException e)
-        {
-            logger.error(e.getMessage());
-        }finally{
-        	this.closeServer();
-        }
-        for (int i = 0; ftpFiles != null && i < ftpFiles.length; i++)
-        {
-            FTPFile file = ftpFiles[i];
+            File file = files[i];
+            upm = new UploadFileModel();
+        	upm.setFileSize(String.valueOf(file.length()));
+        	String fileRealName=file.getName();
+        	upm.setFileRealName(fileRealName);
             if (file.isFile())
-            {
-                fileLists.add(PSMCFileUtils.decodedFileName(file.getName()));
+            {  
+                fileLists.add(upm);
             }if(file.isDirectory()){
-            	directory.add(PSMCFileUtils.decodedFileName(file.getName()));
+            	directory.add(upm);
             }
         }
         res.put("files", fileLists);
         res.put("directorys", directory);
         return res;
-    }
-	
+	}
+	/**显示远程目录
+	 * @param path
+	 * @param ftm
+	 * @return
+	 */
+	private Map<String,Object>  getFileListRemote(String path,FtpModel ftm){
+		  List<UploadFileModel> fileLists = new ArrayList<UploadFileModel>();
+	        List<UploadFileModel> directory = new ArrayList<UploadFileModel>();
+	        Map<String,Object> res = new HashMap<String, Object>();
+	        if(null == path){
+	        	return null;
+	        }
+	        // 获得指定目录下所有文件名
+	        FTPFile[] ftpFiles = null;
+	        try
+	        {	        	
+	    		this.connectServer(ftm);
+	        	ftpClient.changeWorkingDirectory(path);
+	            ftpFiles = ftpClient.listFiles();
+	          
+	        }
+	        catch (IOException e)
+	        {
+	            logger.error(e.getMessage());
+	        }finally{
+	        	this.closeServer();
+	        }
+	        UploadFileModel upm = null;
+	        for (int i = 0; ftpFiles != null && i < ftpFiles.length; i++)
+	        {
+	            FTPFile file = ftpFiles[i];
+	            upm = new UploadFileModel();
+	        	upm.setFileSize(String.valueOf(file.getSize()));
+	        	String fileRealName=PSMCFileUtils.decodedFileName(file.getName());
+	        	upm.setFileRealName(fileRealName);
+	            if (file.isFile())
+	            {  
+	                fileLists.add(upm);
+	            }if(file.isDirectory()){
+	            	directory.add(upm);
+	            }
+	        }
+	        res.put("files", fileLists);
+	        res.put("directorys", directory);
+	        return res;
+	}
 }

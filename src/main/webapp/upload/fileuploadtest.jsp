@@ -5,6 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>文件上传测试</title>
+<style type="text/css">
+#filelist{
+ padding:10px;
+}
+#filelist td{
+	margin-left:20px;
+}
+</style>
 </head>
 <body>
 <%@ include file="../common.jsp"%>
@@ -34,19 +42,19 @@ $(document).ready(function(){
 //获取文件列表
 function getFileList(path){
 	$('#filelist').text("");
+	var backSpan = '<a href="javascript:void(0);" onclick="backParent(\''+path+'\')">../</a>';
 	if(path=="/"){
 		parentdir ="/";
 		workDir ="/";
-	}else{
-		parentdir =path.substring(0, path.lastIndexOf("\/")+1);
-		if(!parentdir.substr(parentdir.length-1,1)=="/" &&parentdir!="/"){
-			parentdir =parentdir.substring(0, parentdir.lastIndexOf("\/"))+"/";
+		backSpan ="";
+	}else
+		{
+			parentdir =path.substring(0, path.lastIndexOf("\/")+1);
 		}
-		workDir = parentdir+path.substring(path.lastIndexOf("\/")+1,path.length )+"/";
-	}
-	
-	
-	console.info(parentdir);
+		workDir = parentdir+path.substring(path.lastIndexOf("\/")+1,path.length)+"/";
+	console.info("p:"+path);
+	console.info("w:"+workDir);
+	console.info("pp:"+parentdir);
 	var _url = '<c:url value="/system/freamwork/fileUploadController"/>?method=listFiles&filePath='+path; ;
 	$.ajax({
 			async:false,
@@ -55,20 +63,23 @@ function getFileList(path){
 			dataType:"JSON",
 			url:_url,
 			success:function(data){
-				var text = '<tr><th>文件序号</th><th>文件类型</th><th>名称</th><th>文件大小</th><th>文件操作</th></tr><tr ><td><a href="javascript:void(0);" onclick="getFileList(\''+parentdir+'\')">../</a></td></tr>';
+				var text = '<tr><th class="num">文件序号</th><th class="type">文件类型</th><th class="name">名称</th><th class="size">文件大小</th><th class="oper">文件操作</th></tr><tr><td>'+backSpan+'</td></tr>';
 				var num =1;
 				if(data){
 					if(data.directorys){
 						for(var i in data.directorys){
-							var dir = data.directorys[i]+"";
+							var dir = data.directorys[i].fileRealName;
+							var size = data.directorys[i].fileSize;
 							var gtpram = ""+workDir+dir;
-							text=text+'<tr><td>'+num+'</td><td>文件夹</td><td><a href="javascript:void(0);" onclick="getFileList(\''+gtpram+'\')">'+dir+'</a></td><td></td><td><a href="#">删除</a><td></tr>';
+							text=text+'<tr><td>'+num+'</td><td>文件夹</td><td><a href="javascript:void(0);" onclick="getFileList(\''+gtpram+'\')">'+dir+'</a></td><td>'+size+'</td><td><a href="#">删除</a><td></tr>';
 							num = (num+1);
 						}
 					}
 					if(data.files){
 						for(var i in data.files){
-							text=text+'<tr><td>'+num+'</td><td>文件</td><td>'+data.files[i]+'</td><td></td><td><a href="<c:url value="/system/freamwork/fileUploadController"/>?method=testFileDelete&filePath='+path+data.files[i]+'" onclick="return isDel()">删除</a>||<a href="<c:url value="/system/freamwork/fileUploadController"/>?method=testFileDownload&filePath='+path+data.files[i]+'">下载</a><td></tr>';
+							var size = data.files[i].fileSize;
+							var name = data.files[i].fileRealName;
+							text=text+'<tr><td>'+num+'</td><td>文件</td><td>'+name+'</td><td>'+size+'</td><td><a href="<c:url value="/system/freamwork/fileUploadController"/>?method=testFileDelete&filePath='+size+'" onclick="return isDel()">删除</a>||<a href="<c:url value="/system/freamwork/fileUploadController"/>?method=testFileDownload&filePath='+path+name+'">下载</a><td></tr>';
 							num = (num+1);
 						}
 					}
@@ -90,7 +101,15 @@ function isDel(){
 	
 }
 function getsub(subDir){
-	getFileList(subDir)
+	getFileList(subDir);
+}
+function backParent(path){
+	if(path){
+	   getFileList(path.substring(0, path.lastIndexOf("\/")));
+	}else{
+		getFileList("/");
+		}
+	
 }
 </script>
 </html>
