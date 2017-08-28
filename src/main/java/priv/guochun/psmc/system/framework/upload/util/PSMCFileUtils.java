@@ -3,9 +3,7 @@ package priv.guochun.psmc.system.framework.upload.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
@@ -91,6 +89,18 @@ public class PSMCFileUtils {
 			// 返回不和合法
 			try {
 				return new String(path.getBytes(ENCODING),DECODING);
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	public static String decodedFileName(String path){
+		if(StringUtils.isNotBlank(path)){
+			// 返回不和合法
+			try {
+				return new String(path.getBytes(DECODING),ENCODING);
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

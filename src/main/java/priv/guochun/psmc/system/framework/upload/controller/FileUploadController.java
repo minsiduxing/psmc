@@ -3,10 +3,12 @@ package priv.guochun.psmc.system.framework.upload.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -51,5 +53,13 @@ public class FileUploadController extends MyController {
 		FtpUtil ftu = FtpUtil.getFtputil();
 	     ftu.deleteFile(filePath);
 		super.responseJson(true,"文件："+filePath+"删除成功！", response);
+	}
+	@RequestMapping(params="method=listFiles")
+	@ResponseBody
+	public void listFiles(HttpServletRequest request,HttpServletResponse response,String filePath) throws IllegalStateException, IOException{
+		FtpUtil ftu = FtpUtil.getFtputil();
+	    Map<String,Object> resm = ftu.getFileList(filePath);
+	    JSONObject jsob = new JSONObject(resm);
+		super.responseJson(jsob, response);
 	}
 }

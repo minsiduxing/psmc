@@ -8,6 +8,10 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -597,4 +601,50 @@ public class FtpUtil {
 			e.printStackTrace();
 		}     
 	}
+	/**
+	 * <p>Description:获取制定路径下的所有文件<p>
+	 * @return
+	 * @author wanglei 2017年8月27日
+	 */
+	public Map<String,Object> getFileList(String path)
+    {
+        List<String> fileLists = new ArrayList<String>();
+        List<String> directory = new ArrayList<String>();
+        Map<String,Object> res = new HashMap<String, Object>();
+        if(null == path){
+        	return null;
+        }
+        // 获得指定目录下所有文件名
+        FTPFile[] ftpFiles = null;
+        try
+        {
+            //连接服务器
+        	FtpModel ftm = this.readPro();
+    		//判断是否需要远程下载
+    		this.connectServer(ftm);
+        	ftpClient.changeWorkingDirectory(path);
+            ftpFiles = ftpClient.listFiles();
+          
+        }
+        catch (IOException e)
+        {
+            logger.error(e.getMessage());
+        }finally{
+        	this.closeServer();
+        }
+        for (int i = 0; ftpFiles != null && i < ftpFiles.length; i++)
+        {
+            FTPFile file = ftpFiles[i];
+            if (file.isFile())
+            {
+                fileLists.add(PSMCFileUtils.decodedFileName(file.getName()));
+            }if(file.isDirectory()){
+            	directory.add(PSMCFileUtils.decodedFileName(file.getName()));
+            }
+        }
+        res.put("files", fileLists);
+        res.put("directorys", directory);
+        return res;
+    }
+	
 }
