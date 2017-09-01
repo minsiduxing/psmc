@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 
+import javax.management.RuntimeErrorException;
+
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.log4j.Logger;
 
@@ -114,11 +116,12 @@ public class FreemarkUtil {
 			 logger.info("----------输出模板----"+templateName+"到文件"+filePath+File.separator+fileName);
 	        this.getTemplate(templateName).process(dataModel,new FileWriterWithEncoding(filePath+File.separator+fileName, "utf-8"));
         } catch (TemplateException e) {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
+        	e.printStackTrace();
+        	 logger.error(e.getMessage());
+        	throw new RuntimeException("---------------生成模板错误！");
         } catch (IOException e) {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
+        	logger.error(e.getMessage());
+         	throw new RuntimeException("---------------生成模板错误！");
         }
 	}
 }

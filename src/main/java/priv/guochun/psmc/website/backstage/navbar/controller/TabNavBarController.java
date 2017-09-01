@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -18,9 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import priv.guochun.psmc.system.enums.FreemarkEnum;
 import priv.guochun.psmc.system.framework.controller.MyController;
-import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
-import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
-import priv.guochun.psmc.system.framework.upload.util.FtpUtil;
 import priv.guochun.psmc.system.util.FreemarkUtil;
 import priv.guochun.psmc.website.backstage.navbar.model.TabNavBar;
 import priv.guochun.psmc.website.backstage.navbar.service.TabNavBarService;

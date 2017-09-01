@@ -3,9 +3,6 @@ package priv.guochun.psmc.website.backstage.navbar.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import priv.guochun.psmc.website.backstage.navbar.dao.TabNavBarDao;
 import priv.guochun.psmc.website.backstage.navbar.model.TabNavBar;
 import priv.guochun.psmc.website.backstage.navbar.service.TabNavBarService;

@@ -6,7 +6,7 @@
 </head>
 <body>
 <#-- 定义函数获取导航栏子菜单-->
-<#macro  getSubNavbar navs  menuid maxlev>
+<#macro  getSubNavbar navs  menuid>
 	<ul>
 	<#list navs as nav>
 	<#if nav.parentMenuUuid??>
@@ -14,31 +14,24 @@
 			<li>
 				<a href="${nav.menuUrl!''}">${nav.menuName!''}</a>
 			</li>
-				<#if nav.menuLevel<maxlev>
-					<@getSubNavbar navs=navs  menuid=nav.menuUuid maxlev=maxlev/>
-				</#if>	
+		<@getSubNavbar navs=navs  menuid=nav.menuUuid/>
 	</#if>	
 	</#if>			
  	</#list>
 	</ul>
 	
 </#macro >
-<#-- 定义函数获取导航栏菜单-->
-<#macro getBar navbs maxlev>
 <ul>
 <#list navbars as nav>
-	<#if nav.menuLevel ==0>
+	<#if nav.menuLevel ==1>
 		<li>
 		<a href="${nav.menuUrl!''}">${nav.menuName!''}</a>
-		<@getSubNavbar navs=navbars  menuid=nav.menuUuid maxlev=3/>
+		<@getSubNavbar navs=navbars  menuid=nav.menuUuid/>
 	</li>
 	</#if>
-
 </#list>
 </ul>
-</#macro >
 <#--导航菜单测试-->
-<@getBar navbs=navbars  maxlev=3/>
 <#--分页组件测试-->
 </body>
 </html>

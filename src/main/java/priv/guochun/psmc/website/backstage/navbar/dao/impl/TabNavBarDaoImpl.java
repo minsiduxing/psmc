@@ -28,11 +28,10 @@ public class TabNavBarDaoImpl implements TabNavBarDao {
 		
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List<TabNavBar> getAllShowTabNavBar() {
 		Map<String,Object> condition = new HashMap<String,Object>();
-        condition.put("isLocked", 0);
+        condition.put("isLocked", 2);
         List<TabNavBar> results = sqlSession.selectList(getShowTabNavBarByCondition,condition);
 		return results;
 	}
