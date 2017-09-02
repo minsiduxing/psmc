@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.website.backstage.news.model.TabNews">  
+ 
+    
+   	<select id="getListNewsByCondition" resultType="java.util.Map" parameterType="hashmap">
+   		SELECT uuid, news_title, news_subtitle, news_content, news_date, news_author, thumbnail_image_url, news_abstract FROM tab_news
+   			<where>
+   				<if test="newsTitle!=null and newsTitle!=''">
+   					and news_title LIKE  concat(concat('%',#{newsTitle}),'%')
+   				</if>
+   				<if test="newSubTitle!=null and newSubTitle!=''">
+   					and news_subtitle LIKE  concat(concat('%',#{newSubTitle}),'%')
+   				</if>
+   				<if test="newsDateBegin!=null and newsDateBegin !=''">  
+        		    and <![CDATA[news_date>=UNIX_TIMESTAMP(#{newsDateBegin}) ]]>  
+      			 </if>  
+       			<if test="newsDateEnd!=null and createDateEnd!=''" >  
+      		      and <![CDATA[news_date<=UNIX_TIMESTAMP(#{newsDateEnd}) ]]>  
+       			</if>  
+       			<if test="newAutor!=null and newAutor!=''">
+   					and news_author LIKE  concat(concat('%',#{newAutor}),'%')
+   				</if>
+   				<if test="newsAbstarct!=null and newsAbstarct!=''">
+   					and news_abstract LIKE  concat(concat('%',#{newsAbstarct}),'%')
+   				</if>
+   			</where>
+   			
+   	</select>
+  	
+  	
+
+  	<insert id="insertTabNews">
+  		INSERT INTO tab_news (uuid, news_title, news_subtitle, news_content, news_date, news_author, thumbnail_image_url, news_abstract) 
+  		VALUES (#{newsUuid},#{newsTitle}, #{newSubTitle}, #{newsContent}, #{newsDate}, #{newAutor}, #{thumbnailImageUrl}, #{newsAbstarct});
+
+  	</insert>
+  	
+  	<update id="updateTabNews" parameterType="priv.guochun.psmc.website.backstage.news.model.TabNews">
+  		UPDATE tab_news 
+  		<trim prefix="set" suffixOverrides=",">
+	  		<if test="newsUuid != null and newsUuid != ''">
+	  			uuid =#{newsUuid},
+	  		</if>
+	  		<if test="news_title != null and news_title != ''">
+	  			newsTitle =#{news_title},
+	  		</if>
+	  		<if test="newSubTitle != null and newSubTitle != ''">
+	  			news_subtitle =#{newSubTitle},
+	  		</if>
+	  		<if test="newsContent != null and newsContent != ''">
+	  			news_content =#{newsContent},
+	  		</if>
+	  		<if test="newsDate != null and newsDate != ''">
+	  			news_date =#{newsDate},
+	  		</if>
+	  		<if test="newAutor != null and newAutor != ''">
+	  			news_author =#{newAutor},
+	  		</if>
+	  		<if test="thumbnailImageUrl != null and thumbnailImageUrl != ''">
+	  			thumbnail_image_url =#{thumbnailImageUrl},
+	  		</if>
+	  		<if test="newsAbstarct != null and newsAbstarct != ''">
+	  			news_abstract =#{newsAbstarct},
+	  		</if>
+  		</trim>
+  		WHERE uuid = #{newsUuid}
+  	</update>
+  	
+  	
+    <delete id="deletesTabNewsByUuid" parameterType="hashmap">
+    	DELETE FROM  tab_news  where 1=1  and uuid in
+    	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+				  #{item}  
+		</foreach>  
+    </delete>
+</mapper>  

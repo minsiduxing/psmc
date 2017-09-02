@@ -3,7 +3,7 @@ package priv.guochun.psmc.website.backstage.news.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import priv.guochun.psmc.website.backstage.model.model.TabModel;
+import priv.guochun.psmc.website.backstage.module.model.TabModule;
 
 /**
  * <p>Title:新闻实体类 </p>
@@ -14,7 +14,7 @@ import priv.guochun.psmc.website.backstage.model.model.TabModel;
  * @history:
  * Created by wanglei 2017年9月1日
  */
-public class TabNews extends TabModel implements Serializable {
+public class TabNews extends TabModule implements Serializable {
 	private static final long serialVersionUID = 8275476533223527027L;
 	/**
 	 * 新闻标示

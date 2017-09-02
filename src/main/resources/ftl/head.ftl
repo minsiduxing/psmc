@@ -23,7 +23,7 @@
 </#macro >
 <ul>
 <#list navbars as nav>
-	<#if nav.menuLevel ==1>
+	<#if nav.menuLevel == 1>
 		<li>
 		<a href="${nav.menuUrl!''}">${nav.menuName!''}</a>
 		<@getSubNavbar navs=navbars  menuid=nav.menuUuid/>

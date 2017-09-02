@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.website.backstage.model.model.TabModule">  
+ 
+    
+   	<select id="getListTabModelByCondition" resultType="java.util.Map" parameterType="hashmap">
+   		SELECT uuid, create_acc_uuid, create_date, modify_acc_uuid, modify_date, audit, audit_acc_uuid, audit_date, release_acc_uuid, release_date, one_level_classify, two_level_classify FROM tab_model
+   			<where>
+   				<if test="createAccName!=null and createAccName!=''">
+   					and create_acc_uuid in(
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{createAccName}),'%');
+			          )
+   				</if>
+   				<if test="createDateBegin!=null and createDateBegin !=''">  
+        		    and <![CDATA[create_date>=UNIX_TIMESTAMP(#{createDateBegin}) ]]>  
+      			 </if>  
+       			<if test="createDateEnd!=null and createDateEnd!=''" >  
+      		      and <![CDATA[create_date<=UNIX_TIMESTAMP(#{createDateEnd}) ]]>  
+       			</if>  
+       			<if test="modifyAccName!=null and modifyAccName!='' ">
+   					and modify_acc_uuid in(
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{modifyAccName}),'%');
+			          )
+   				</if>
+   				<if test="modifyDateBegin!=null and modifyDateBegin!=''">  
+        		    and <![CDATA[modify_date>=UNIX_TIMESTAMP(#{modifyDateBegin}) ]]>  
+      			 </if>  
+       			<if test="modifyDateEnd!=null and modifyDateEnd!=''">  
+      		      and <![CDATA[modify_date<=UNIX_TIMESTAMP(#{modifyDateEnd}) ]]>  
+       			</if>  
+       			<if test="audit!=null and audit!=''">  
+      		      and  audit =#{audit}
+       			</if>  
+       			<if test="auditAccName!=null and auditAccName!=''">
+   					and audit_acc_uuid in(
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{auditAccName}),'%');
+			          )
+   				</if>
+   				<if test="auditDateBegin!=null and auditDateBegin!=''">  
+        		    and <![CDATA[audit_date>=UNIX_TIMESTAMP(#{auditDateBegin})]]>  
+      			 </if>  
+       			<if test="auditDateEnd!=null and auditDateEnd!=''">  
+      		      and <![CDATA[audit_date<=UNIX_TIMESTAMP(#{auditDateEnd}) ]]>  
+       			</if>  
+       			<if test="releaseAccName!=null and releaseAccName!=''">
+   					and release_acc_uuid in(
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{releaseAccName}),'%');
+			          )
+   				</if>
+   				<if test="releaseDateBegin!=null and releaseDateBegin!=''">  
+        		    and <![CDATA[release_date>=UNIX_TIMESTAMP(#{releaseDateBegin}) ]]>  
+      			 </if>  
+       			<if test="releaseDateEnd!=null and releaseDateEnd!=''">  
+      		      and <![CDATA[release_date<=UNIX_TIMESTAMP(#{releaseDateEnd}) ]]>  
+       			</if>  
+       			<if test="oneLevelClassify!=null and oneLevelClassify!=''">  
+      		      and  one_level_classify =#{oneLevelClassify}
+       			</if>  
+       			<if test="towLevelClassify!=null and towLevelClassify!=''">  
+      		      and  two_level_classify =#{towLevelClassify}
+       			</if>  
+   			</where>
+   			
+   	</select>
+  	
+  	
+
+  	<insert id="insertTabModel">
+  		INSERT INTO tab_model (uuid, create_acc_uuid, create_date, modify_acc_uuid, modify_date, audit, audit_acc_uuid, audit_date, release_acc_uuid, release_date, one_level_classify, two_level_classify) 
+  		VALUES (#{modelUuid}, #{createAccUuid}, #{createDate}, #{modifyAccUuid}, #{modifyDate}, #{audit}, #{auditAccUuid},#{auditDate}, #{releaseAccUuid}, #{releaseDate}, #{oneLevelClassify}, #{towLevelClassify})
+  	</insert>
+  	
+  	<update id="updateTabModel" parameterType="priv.guochun.psmc.website.backstage.model.model.TabModule">
+  		UPDATE tab_model 
+  		<trim prefix="set" suffixOverrides=",">
+	  		<if test="modifyAccUuid != null and modifyAccUuid != ''">
+	  			modify_acc_uuid =#{modifyAccUuid},
+	  		</if>
+	  		<if test="modifyDate != null and modifyDate != ''">
+	  			modify_date =#{modifyDate},
+	  		</if>
+	  		<if test="auditAccUuid != null and auditAccUuid != ''">
+	  			audit_acc_uuid =#{auditAccUuid},
+	  		</if>
+	  		<if test="audit != null and audit != ''">
+	  			audit =#{audit},
+	  		</if>
+	  		<if test="auditDate != null and auditDate != ''">
+	  			audit_date =#{auditDate},
+	  		</if>
+	  		<if test="releaseAccUuid != null and releaseAccUuid != ''">
+	  			release_acc_uuid =#{releaseAccUuid},
+	  		</if>
+	  		<if test="releaseDate != null and releaseDate != ''">
+	  			release_date =#{releaseDate},
+	  		</if>
+	  		<if test="oneLevelClassify != null and oneLevelClassify != ''">
+	  			one_level_classify =#{oneLevelClassify},
+	  		</if>
+	  		<if test="towLevelClassify != null and towLevelClassify != ''">
+	  			two_level_classify =#{towLevelClassify},
+	  		</if>
+  		</trim>
+  		WHERE uuid = #{modelUuid}
+  	</update>
+  	
+  	
+    <delete id="deletesTabModelByUuid" parameterType="hashmap">
+    	DELETE FROM  tab_model  where 1=1  and uuid in
+    	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+				  #{item}  
+		</foreach>  
+    </delete>
+</mapper>  

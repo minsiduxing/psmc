@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.website.backstage.modulepublish.model.TabModulePublish">  
+ 
+    
+   	<select id="getListTabPublishModelByCondition" resultType="java.util.Map" parameterType="hashmap">
+   	SELECT publish_uuid, module_uuid, publish_date, publish_expire_date, publish_account_uuid FROM tab_module_publish
+   			<where>
+   				<if test=" publishAccName!=null and publishAccName!=''">
+   					and publish_account_uuid in(
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{publishAccName}),'%');
+			          )
+   				</if>
+   				<if test="publishDateBegin!=null and publishDateBegin !=''">  
+        		    and <![CDATA[publish_date>=UNIX_TIMESTAMP(#{publishDateBegin}) ]]>  
+      			 </if>  
+       			<if test="publishDateEnd!=null and publishDateEnd!=''" >  
+      		      and <![CDATA[publish_date<=UNIX_TIMESTAMP(#{publishDateEnd}) ]]>  
+       			</if>  
+       			<if test="publishExpireDateBegin!=null and publishExpireDateBegin !=''">  
+        		    and <![CDATA[publish_expire_date>=UNIX_TIMESTAMP(#{publishExpireDateBegin}) ]]>  
+      			 </if>  
+       			<if test="publishExpireDateEnd!=null and publishExpireDateEnd!=''" >  
+      		      and <![CDATA[publish_expire_date<=UNIX_TIMESTAMP(#{publishExpireDateEnd}) ]]>  
+       			</if>  
+   			</where>
+   			
+   	</select>
+  	
+  	
+
+  	<insert id="insertTabPublishModel">
+  		INSERT INTO tab_module_publish (publish_uuid, module_uuid, publish_date, publish_expire_date, publish_account_uuid) 
+  		VALUES (#{pblishUuid}, #{moduleUuuid}, #{publishDate}, #{publishExpireDate}, #{publishAccountUuid})
+  	</insert>
+  	
+  	<update id="updateTabPublishModel" parameterType="priv.guochun.psmc.website.backstage.modulepublish.model.TabModulePublish">
+  		UPDATE tab_module_publish 
+  		<trim prefix="set" suffixOverrides=",">
+	  		<if test="moduleUuuid != null and moduleUuuid != ''">
+	  			module_uuid =#{moduleUuuid},
+	  		</if>
+	  		<if test="publishDate != null and publishDate != ''">
+	  			publish_date =#{publishDate},
+	  		</if>
+	  		<if test="publishExpireDate != null and publishExpireDate != ''">
+	  			publish_expire_date =#{publishExpireDate},
+	  		</if>
+	  	
+	  		<if test="publishAccountUuid != null and publishAccountUuid != ''">
+	  			publishAccountUuid =#{publishAccountUuid},
+	  		</if>
+	  		
+  		</trim>
+  		WHERE publish_uuid = #{pblishUuid}
+  	</update>
+  	
+  	
+    <delete id="deletesTabPublishModelByUuid" parameterType="hashmap">
+    	DELETE FROM  tab_module_publish  where 1=1  and publish_uuid in
+    	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+				  #{item}  
+		</foreach>  
+    </delete>
+</mapper>  

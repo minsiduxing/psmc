@@ -1,4 +1,4 @@
-package priv.guochun.psmc.website.backstage.model.model;
+package priv.guochun.psmc.website.backstage.module.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -12,7 +12,7 @@ import java.sql.Timestamp;
  * @history:
  * Created by wanglei 2017年9月1日
  */
-public class TabModel implements Serializable {
+public class TabModule implements Serializable {
 	private static final long serialVersionUID = 6557534536978347973L;
 	/**
 	 * 模块id
@@ -136,7 +136,7 @@ public class TabModel implements Serializable {
 	public void setModelUuid(String modelUuid) {
 		this.modelUuid = modelUuid;
 	}
-	public TabModel(String uuid, String createAccUuid, Timestamp createDate,
+	public TabModule(String uuid, String createAccUuid, Timestamp createDate,
 			String modifyAccUuid, Timestamp modifyDate, Integer audit,
 			String auditAccUuid, Timestamp auditDate, String releaseAccUuid,
 			Timestamp releaseDate, String oneLevelClassify,
@@ -155,7 +155,7 @@ public class TabModel implements Serializable {
 		this.oneLevelClassify = oneLevelClassify;
 		this.towLevelClassify = towLevelClassify;
 	}
-	public TabModel() {
+	public TabModule() {
 		super();
 	}
 	@Override
