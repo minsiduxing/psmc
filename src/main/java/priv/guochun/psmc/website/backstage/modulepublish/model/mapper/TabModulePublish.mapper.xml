@@ -23,7 +23,10 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       			 </if>  
        			<if test="publishExpireDateEnd!=null and publishExpireDateEnd!=''" >  
       		      and <![CDATA[publish_expire_date<=UNIX_TIMESTAMP(#{publishExpireDateEnd}) ]]>  
-       			</if>  
+       			</if> 
+       		 <if test="pblishUuid != null and pblishUuid != ''">
+	  			 and publish_uuid =#{pblishUuid},
+	  		</if>
    			</where>
    			
    	</select>

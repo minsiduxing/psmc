@@ -1,18 +1,10 @@
-package priv.guochun.psmc.website.backstage.modulepublish.dao;
+package priv.guochun.psmc.website.backstage.modulepublish.service;
 
 import java.util.Map;
 
 import priv.guochun.psmc.website.backstage.modulepublish.model.TabModulePublish;
 
-/**
- * <p>Title: 模块发布类的数据接口</p>
- * <p>Description: 包括模块发布信息的新增、修改、删除、查询</p>
- * @author <a href="mailTo:bingxuewulei@outlook.com">wanglei</a>
- * @version 1.0
- * @history:
- * Created by wanglei 2017年9月3日
- */
-public interface TabModulePublishDao {
+public interface TabModulePublishService {
 	/**
 	 * <p>Description:新增或者编辑模块发布信息<p>
 	 * @param tmp 模块实体类
@@ -32,5 +24,4 @@ public interface TabModulePublishDao {
 	 * @author wanglei 2017年9月3日
 	 */
 	public Map<String,Object> getTabModulePublishByid(String id);
-	
 }

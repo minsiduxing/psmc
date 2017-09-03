@@ -5,7 +5,20 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
  
     
    	<select id="getListTabModelByCondition" resultType="java.util.Map" parameterType="hashmap">
-   		SELECT uuid, create_acc_uuid, create_date, modify_acc_uuid, modify_date, audit, audit_acc_uuid, audit_date, release_acc_uuid, release_date, one_level_classify, two_level_classify FROM tab_model
+   		SELECT 
+	   		uuid, 
+	   		create_acc_uuid, 
+	   		create_date, 
+	   		modify_acc_uuid, 
+	   		modify_date, 
+	   		audit, 
+	   		audit_acc_uuid, 
+	   		audit_date, 
+	   		release_acc_uuid, 
+	   		release_date, 
+	   		one_level_classify, 
+	   		two_level_classify 
+   		FROM tab_model
    			<where>
    				<if test="createAccName!=null and createAccName!=''">
    					and create_acc_uuid in(
@@ -59,6 +72,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
        			</if>  
        			<if test="towLevelClassify!=null and towLevelClassify!=''">  
       		      and  two_level_classify =#{towLevelClassify}
+       			</if>  
+       			<if test="modelUuid and modelUuid''">  
+      		      and  uuid =#{modelUuid}
        			</if>  
    			</where>
    			

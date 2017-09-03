@@ -3,33 +3,143 @@
 EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
 <mapper namespace="priv.guochun.psmc.website.backstage.news.model.TabNews">  
  
-    
+    <!--获取新闻管理页面的列表  -->
    	<select id="getListNewsByCondition" resultType="java.util.Map" parameterType="hashmap">
-   		SELECT uuid, news_title, news_subtitle, news_content, news_date, news_author, thumbnail_image_url, news_abstract FROM tab_news
+   		SELECT 
+   		 tn.uuid, 
+   		 tn.news_title, 
+   		 tn.news_subtitle,
+   		 tn.news_content, 
+   		 tn.news_date, 
+   		 tn.news_author, 
+   		 tn.thumbnail_image_url, 
+   		 tn.news_abstract ,
+   		 tpc.PERSON_NAME as createAccName, 
+   		 tm.create_date, 
+	   	 tpm.PERSON_NAME as modifyccName, 
+	     tm.modify_date, 
+	   	 tm.audit, 
+	   	 tpau.PERSON_NAME as auditAccName, 
+	   	 tm.audit_date, 
+	   	 tpr.PERSON_NAME as releaseAccName, 
+	   	 tm.release_date, 
+	   	 tm.one_level_classify, 
+	   	 tm.two_level_classify 
+   		 FROM tab_news tn
+   		 LEFT JOIN tab_module tm
+   		 ON 
+   		 	tm.uuid = tn.uuid
+   		 LEFT JOIN tab_person tpc
+   		 ON tpc.uuid = tm.create_acc_uuid
+   		  LEFT JOIN tab_person tpm
+   		 ON tpm.uuid = tm.modify_acc_uuid
+   		  LEFT JOIN tab_person tpau
+   		 ON tpau.uuid = tm.audit_acc_uuid
+   		  LEFT JOIN tab_person tpr
+   		 ON tpr.uuid = tm.release_acc_uuid
    			<where>
    				<if test="newsTitle!=null and newsTitle!=''">
-   					and news_title LIKE  concat(concat('%',#{newsTitle}),'%')
+   					and tn.news_title LIKE  concat(concat('%',#{newsTitle}),'%')
    				</if>
    				<if test="newSubTitle!=null and newSubTitle!=''">
-   					and news_subtitle LIKE  concat(concat('%',#{newSubTitle}),'%')
+   					and tn.news_subtitle LIKE  concat(concat('%',#{newSubTitle}),'%')
    				</if>
    				<if test="newsDateBegin!=null and newsDateBegin !=''">  
-        		    and <![CDATA[news_date>=UNIX_TIMESTAMP(#{newsDateBegin}) ]]>  
+        		    and <![CDATA[ tn.news_date>=UNIX_TIMESTAMP(#{newsDateBegin}) ]]>  
       			 </if>  
        			<if test="newsDateEnd!=null and createDateEnd!=''" >  
-      		      and <![CDATA[news_date<=UNIX_TIMESTAMP(#{newsDateEnd}) ]]>  
+      		      and <![CDATA[tn.news_date<=UNIX_TIMESTAMP(#{newsDateEnd}) ]]>  
        			</if>  
        			<if test="newAutor!=null and newAutor!=''">
-   					and news_author LIKE  concat(concat('%',#{newAutor}),'%')
+   					and tn.news_author LIKE  concat(concat('%',#{newAutor}),'%')
    				</if>
    				<if test="newsAbstarct!=null and newsAbstarct!=''">
-   					and news_abstract LIKE  concat(concat('%',#{newsAbstarct}),'%')
+   					and tn.news_abstract LIKE  concat(concat('%',#{newsAbstarct}),'%')
    				</if>
+   				<if test="createAccName!=null and createAccName!=''">
+   					and tm.create_acc_uuid in(
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{createAccName}),'%');
+			          )
+   				</if>
+   				<if test="createDateBegin!=null and createDateBegin !=''">  
+        		    and <![CDATA[tm.create_date>=UNIX_TIMESTAMP(#{createDateBegin}) ]]>  
+      			 </if>  
+       			<if test="createDateEnd!=null and createDateEnd!=''" >  
+      		      and <![CDATA[tm.create_date<=UNIX_TIMESTAMP(#{createDateEnd}) ]]>  
+       			</if>  
+       			<if test="modifyAccName!=null and modifyAccName!='' ">
+   					and tm.modify_acc_uuid in(
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{modifyAccName}),'%');
+			          )
+   				</if>
+   				<if test="modifyDateBegin!=null and modifyDateBegin!=''">  
+        		    and <![CDATA[tm.modify_date>=UNIX_TIMESTAMP(#{modifyDateBegin}) ]]>  
+      			 </if>  
+       			<if test="modifyDateEnd!=null and modifyDateEnd!=''">  
+      		      and <![CDATA[tm.modify_date<=UNIX_TIMESTAMP(#{modifyDateEnd}) ]]>  
+       			</if>  
+       			<if test="audit!=null and audit!=''">  
+      		      and  tm.audit =#{audit}
+       			</if>  
+       			<if test="auditAccName!=null and auditAccName!=''">
+   					and tm.audit_acc_uuid in(
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{auditAccName}),'%');
+			          )
+   				</if>
+   				<if test="auditDateBegin!=null and auditDateBegin!=''">  
+        		    and <![CDATA[tm.audit_date>=UNIX_TIMESTAMP(#{auditDateBegin})]]>  
+      			 </if>  
+       			<if test="auditDateEnd!=null and auditDateEnd!=''">  
+      		      and <![CDATA[tm.audit_date<=UNIX_TIMESTAMP(#{auditDateEnd}) ]]>  
+       			</if>  
+       			<if test="releaseAccName!=null and releaseAccName!=''">
+   					and tm.release_acc_uuid in(
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{releaseAccName}),'%');
+			          )
+   				</if>
+   				<if test="releaseDateBegin!=null and releaseDateBegin!=''">  
+        		    and <![CDATA[tm.release_date>=UNIX_TIMESTAMP(#{releaseDateBegin}) ]]>  
+      			 </if>  
+       			<if test="releaseDateEnd!=null and releaseDateEnd!=''">  
+      		      and <![CDATA[tm.release_date<=UNIX_TIMESTAMP(#{releaseDateEnd}) ]]>  
+       			</if>  
+       			<if test="oneLevelClassify!=null and oneLevelClassify!=''">  
+      		      and  tm.one_level_classify =#{oneLevelClassify}
+       			</if>  
+       			<if test="towLevelClassify!=null and towLevelClassify!=''">  
+      		      and  tm.two_level_classify =#{towLevelClassify}
+       			</if> 
    			</where>
    			
    	</select>
-  	
-  	
+  	<!-- 根据id获取新闻详细内容 -->
+  	 <select id="getNewsByUuid" resultType="java.util.Map" parameterType="hashmap">
+  	 	SELECT uuid, news_title, news_subtitle, news_content, news_date, news_author, thumbnail_image_url, news_abstract FROM tab_news
+   			<where>
+   				<if test="newsUuid !=null and newsUuid!=''">
+   					and uuid = #{newsUuid}
+   				</if>
+   				</where>
+  	 	</select>
+  	 	<!-- 根据二级分类获取新闻标题列表 -->
+  	<select id="getNewsTitlesListByTwoLevelClassify" resultType="java.util.Map" parameterType="hashmap">
+  	 	SELECT 
+	   		 tn.uuid, 
+	   		 tn.news_title, 
+	   		 tn.news_subtitle,
+	   		 tn.thumbnail_image_url, 
+	   		 tn.news_abstract 
+	   	  FROM tab_news tn
+	   	  LEFT JOIN tab_module tm
+   		  ON 
+   		 	tm.uuid = tn.uuid
+   			<where>
+   				<if test="towLevelClassify !=null and towLevelClassify!=''">
+   					and tm.two_level_classify = #{towLevelClassify}
+   				</if>
+   			and tm.release_acc_uuid is not null
+   			</where>
+  	 	</select>
 
   	<insert id="insertTabNews">
   		INSERT INTO tab_news (uuid, news_title, news_subtitle, news_content, news_date, news_author, thumbnail_image_url, news_abstract) 

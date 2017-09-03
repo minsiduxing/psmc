@@ -119,5 +119,4 @@ public class TabNews extends TabModule implements Serializable {
 				+ ", thumbnailImageUrl=" + thumbnailImageUrl + "]";
 	}
 	
-	
 }
