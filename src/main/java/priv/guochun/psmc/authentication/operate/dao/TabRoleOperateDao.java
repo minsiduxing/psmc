@@ -33,4 +33,13 @@ public interface TabRoleOperateDao
      * @author guochun 2017-2-16
      */
     public List<Map<?,?>> getPrivilegDataListByRoleAndResource(String roleUuid,String resourceUuid);
+    
+    /**
+     * 根据操作表示查询对应配置角色的个数
+     * <p>Description:<p>
+     * @param operateUuid
+     * @return
+     * @author wenxiaoming 2017年9月3日
+     */
+    public int selectRoleCountByOperate(String operateUuid);
 }

@@ -3,12 +3,20 @@ package priv.guochun.psmc.authentication.operate.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 import priv.guochun.psmc.authentication.operate.dao.TabOperateDao;
+import priv.guochun.psmc.authentication.operate.dao.TabRoleOperateDao;
+import priv.guochun.psmc.authentication.operate.model.TabOperate;
 import priv.guochun.psmc.authentication.operate.service.TabOperateService;
+import priv.guochun.psmc.system.util.UUIDGenerator;
 
 public class TabOperateServiceImpl implements TabOperateService {
 	
 	private TabOperateDao tabOperateDao;
+	
+	private TabRoleOperateDao tabRoleOperateDao;
+	
 	@Override
 	public List<Map<?,?>> getPermitOperatesByRoleUuid(String role_uuid) {
 		return tabOperateDao.getPermitOperatesByRoleUuid(role_uuid);
@@ -26,6 +34,42 @@ public class TabOperateServiceImpl implements TabOperateService {
 		return true;
 	}
 	
+	@Override
+    public Integer getTabOperateOrderNum()
+    {
+	    return tabOperateDao.getTabOperateOrderNum();
+    }
+	
+    @Override
+    public List getTabOperatesByResourceUuid(String resourceuuid)
+    {
+        return tabOperateDao.getTabOperatesByResourceUuid(resourceuuid);
+    }
+    
+    @Override
+    public void saveOrUpdateResOperateConfig(TabOperate tabResourceOperate)
+    {
+        if (StringUtils.isNotBlank(tabResourceOperate.getUuid())){
+            tabOperateDao.updateResOperateConfig(tabResourceOperate);
+        }else{
+            String uuid = UUIDGenerator.createUUID();
+            tabResourceOperate.setUuid(uuid);
+            tabOperateDao.saveResOperateConfig(tabResourceOperate);
+        }
+    }
+
+    @Override
+    public int selectRoleCountByOperate(String operateUuid)
+    {
+        int count = tabRoleOperateDao.selectRoleCountByOperate(operateUuid);
+        return count;
+    }
+
+    @Override
+    public void deleteOperate(String operateUuid)
+    {
+        tabOperateDao.deleteOperate(operateUuid);
+    }
 	
 	public TabOperateDao getTabOperateDao() {
 		return tabOperateDao;
@@ -34,7 +78,13 @@ public class TabOperateServiceImpl implements TabOperateService {
 	public void setTabOperateDao(TabOperateDao tabOperateDao) {
 		this.tabOperateDao = tabOperateDao;
 	}
-
 	
-	
+    public TabRoleOperateDao getTabRoleOperateDao()
+    {
+        return tabRoleOperateDao;
+    }
+    public void setTabRoleOperateDao(TabRoleOperateDao tabRoleOperateDao)
+    {
+        this.tabRoleOperateDao = tabRoleOperateDao;
+    }
 }

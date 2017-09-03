@@ -22,6 +22,7 @@ public class TabRoleOperateDaoImplMybatis implements TabRoleOperateDao
     public static final String deleteRoleOperateRelations="deleteRoleOperateRelations";
     public static final String getPrivilegDataListByRoleAndResource ="getPrivilegDataListByRoleAndResource";
     public static final String saveRoleResourceOperateRelationsTwo ="saveRoleResourceOperateRelationsTwo";
+    public static final String selectRoleCountByOperate ="selectRoleCountByOperate";
     
     @Override
     public void deleteRoleOperateRelationByRoleUuids(String roleUuids)
@@ -51,6 +52,15 @@ public class TabRoleOperateDaoImplMybatis implements TabRoleOperateDao
         List<Map<?,?>> list = sqlSession.selectList(getPrivilegDataListByRoleAndResource,condition);
         return list;
     }
+
+    @Override
+    public int selectRoleCountByOperate(String operateUuid)
+    {
+        Map<String,Object> condition = new HashMap<String,Object>();
+        condition.put("operateUuid", operateUuid);
+        int count = sqlSession.selectOne(selectRoleCountByOperate,condition);
+        return count;
+    }
     
 
     public SqlSessionTemplate getSqlSession()
@@ -72,9 +82,4 @@ public class TabRoleOperateDaoImplMybatis implements TabRoleOperateDao
     {
         this.iDaoTemplate = iDaoTemplate;
     }
-    
-    
-    
-    
-
 }

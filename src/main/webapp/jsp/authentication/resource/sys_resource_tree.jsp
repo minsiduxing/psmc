@@ -20,11 +20,12 @@ var saveResourcetUrl = basePath + "/authentication/tabResource.do";
 saveResourcetUrl ='<c:url value="'+saveResourcetUrl+'"/>?method=edit';
 
 var editOperateUrl = basePath + "/authentication/tabOperate.do";
-editOperateUrl ='<c:url value="'+editOperateUrl+'"/>?method=operateList';
+editOperateUrl ='<c:url value="'+editOperateUrl+'"/>?method=operateConfigUI';
 
 var sysResourceTree;
 var sysResourceTreePanel;
 var editdialog; //资源添加弹出框
+var operateConfigDialog;//操作配置弹出框
 var setting = {
 		data:{
 			simpleData:{
@@ -147,6 +148,7 @@ var setting = {
 	
 	//删除成功回调函数
 	function delSucFunc(data){
+		$.messager.progress("close");
 		var dataObj = JSON.parse(data);
 		if(dataObj.res=='success'){
 			alert_autoClose("提示","删除成功!","info");
@@ -195,13 +197,14 @@ function initoperatePanel(){
 						commonObj.alert("未选择父节点,无法添加资源菜单!","warning");
 					}
 					node = selectNodes[0];
+					var url = "";
+					url = addResourcetUrl + '&parentResourceUuid=' + node.UUID;
 					if(!editdialog){
-						addResourcetUrl = addResourcetUrl + '&parentResourceUuid=' + node.UUID;
 						initResourceDialog();
 					}
 					editdialog.panel({title:"新增"});
 					editdialog.panel({iconCls:'icon-save'});
-					editdialog.panel({href:addResourcetUrl});
+					editdialog.panel({href:url});
 					editdialog.window("open");
 					
 				}
@@ -219,13 +222,14 @@ function initoperatePanel(){
 							return;
 						}
 						node = selectNodes[0];
+						var url = "";
+						url = editResourcetUrl + '&id=' + node.UUID;
 				 		if(!editdialog){
-							editResourcetUrl = editResourcetUrl + '&id=' + node.UUID;
 							initResourceDialog();
 						}
 						editdialog.panel({title:"修改"});
 						editdialog.panel({iconCls:'icon-save'});
-						editdialog.panel({href:editResourcetUrl});
+						editdialog.panel({href:url});
 						editdialog.window("open"); 
 					}
 				};
@@ -252,6 +256,7 @@ function initoperatePanel(){
 									commonObj.alert("不能删除根节点!","warning");
 									return;
 								}
+								$.messager.progress(); 
 								var data ={resourceUuid:node.UUID};
 								var _url=basePath + "/authentication/tabResource.do";
 								_url ='<c:url value="'+_url+'"/>?method=ajaxDeleteResource';
@@ -287,14 +292,15 @@ function initoperatePanel(){
 							return;
 						}
 						node = selectNodes[0];
+						var url = "";
+						url = editOperateUrl + '&id=' + node.UUID;
 				 		if(!editdialog){
-				 			editOperateUrl = editOperateUrl + '&id=' + node.UUID;
 				 			initOperateDialog();
 						}
-						editdialog.panel({title:"修改"});
-						editdialog.panel({iconCls:'icon-save'});
-						editdialog.panel({href:editOperateUrl});
-						editdialog.window("open"); 
+				 		operateConfigDialog.panel({title:"修改"});
+				 		operateConfigDialog.panel({iconCls:'icon-save'});
+				 		operateConfigDialog.panel({href:url});
+				 		operateConfigDialog.window("open"); 
 						//sysResourceTree.editName(node);
 					}
 				};
@@ -336,7 +342,7 @@ function initResourceDialog(){
 		modal: true,
 		closed: false,
 	    width: 705,
-	    height: 280,
+	    height: 150,
 	    resizable:true,
 	    cache: false,
 	    buttons:[{
@@ -361,30 +367,13 @@ function initResourceDialog(){
 
 //业务配置表单dialog初始化方法
 function initOperateDialog(){
-	editdialog = $("#editdialogDiv").dialog({
+	operateConfigDialog = $("#operateConfigDialogDiv").dialog({
 		modal: true,
 		closed: true,
-	    width: 705,
-	    height: 280,
+	    width: 1000,
+	    height: 350,
 	    resizable:true,
-	    cache: false,
-	    buttons:[{
-			text:'保存',
-			iconCls:'icon-save',
-			handler:function(){
-					$('#editForm').form({    
-					    url:saveResourcetUrl,    
-					    onSubmit: function(){
-					    	 return onSubmit();
-					    },    
-					    success:function(data){
-					    	addSucFunc(data);
-					    }
-					}); 
-					$('#editForm').submit();
-					$("#editdialogDiv").dialog('close');
-			}
-		}]
+	    cache: false
 	});
 }
 
@@ -407,6 +396,7 @@ function onSubmit(){
 	<ul id="sysResourceTree" class="ztree"></ul>
 </div>
 <div id="editdialogDiv"></div>
+<div id="operateConfigDialogDiv"></div>
 </body>
 </html>
 

@@ -39,4 +39,65 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	  		</if>
    	</delete>
    	
+   	<select id="getTabOperateOrderNum" resultType="integer">
+   		SELECT max(A.ORDERNUM)+1 AS ORDERNUM FROM (SELECT ORDERNUM FROM tab_operate GROUP BY ORDERNUM) AS A
+   	</select>
+   	
+   	<select id="getTabOperatesByResourceUuid" parameterType="hashmap" resultType="hashmap">
+   		SELECT
+			B.uuid,
+			A.resource_name "resourceName",
+			B.operate_name "operateName",
+			B.fun_class "funClass",
+			B.fun_method "funMethod",
+			B.ordernum,
+			B.operate_desc "operateDesc",
+			B.privilege_uuid "privilegeUuid",
+			C.privilege_name "privilegeName"
+		FROM
+		tab_resource A
+		INNER JOIN tab_operate B 
+		ON A.uuid = B.resource_uuid
+		LEFT JOIN 
+		tab_privilege C
+		ON B.privilege_uuid = C.uuid
+		WHERE A.uuid = #{resourceUuid}
+		ORDER BY B.ordernum ASC
+   	</select>
+   	
+   	<insert id="saveResOperateConfig" parameterType="priv.guochun.psmc.authentication.operate.model.TabOperate">
+   		INSERT INTO tab_operate (uuid,resource_uuid,privilege_uuid,fun_class,fun_method,operate_name,
+   		operate_desc,ordernum,operate_no) VALUES (#{uuid},#{resourceUuid},#{privilegeUuid},#{funClass},
+   		#{funMethod},#{operateName},#{operateDesc},#{ordernum},#{operateNo})
+   	</insert>
+   	
+   	<update id="updateResOperateConfig" parameterType="priv.guochun.psmc.authentication.operate.model.TabOperate">
+   		UPDATE tab_operate 
+  		<trim prefix="set" suffixOverrides=",">
+	  		<if test="privilegeUuid != null">
+	  			privilege_uuid =#{privilegeUuid},
+	  		</if>
+	  		<if test="funClass != null">
+	  			fun_class =#{funClass},
+	  		</if>
+	  		<if test="funMethod != null">
+	  			fun_method =#{funMethod},
+	  		</if>
+	  		<if test="operateName != null">
+	  			operate_name =#{operateName},
+	  		</if>
+	  		<if test="operateDesc != null">
+	  			operate_desc =#{operateDesc},
+	  		</if>
+	  		<if test="ordernum != null">
+	  			ORDERNUM =#{ordernum},
+	  		</if>
+  		</trim>
+  		where uuid = #{uuid}
+   	</update>
+   	
+   	<delete id="deleteOperate" parameterType="hashmap">
+   		DELETE FROM tab_operate WHERE uuid = #{operateUuid}
+   	</delete>
+
 </mapper>  

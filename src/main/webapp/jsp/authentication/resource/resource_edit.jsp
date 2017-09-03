@@ -13,7 +13,7 @@
 				<input class="myinput" id="id" name="id" type="hidden" value="${tabResource.id}" />
 			<!-- </li> -->
 			<li class="li-input" id="accountPassPanel" ><label for="" class="input-label">资源名称：</label>
-				<input class="myinput" id="resourceName" name="resourceName" />
+				<input class="myinput" class="" data-options="required:true" id="resourceName" name="resourceName" />
 			</li> 
 			<li class="li-input"><label for="" class="input-label">资源URL：</label>
 				<input class="myinput" id="resourceUrl" name="resourceUrl" />

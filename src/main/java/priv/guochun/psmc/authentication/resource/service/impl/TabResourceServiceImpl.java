@@ -203,6 +203,7 @@ public class TabResourceServiceImpl implements TabResourceService
         }
         Map<String,String> resultMap = new HashMap<String,String>();
         resultMap.put("uuid", tabResource.getId());
+        resultMap.put("parentResourceUuid", tabResource.getParentResourceUuid());
         resultMap.put("resourceName", tabResource.getResourceName());
         return resultMap;
     }

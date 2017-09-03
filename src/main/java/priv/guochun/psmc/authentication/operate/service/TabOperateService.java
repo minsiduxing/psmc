@@ -3,6 +3,11 @@ package priv.guochun.psmc.authentication.operate.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import priv.guochun.psmc.authentication.operate.model.TabOperate;
+
 public interface TabOperateService {
 
 	
@@ -29,5 +34,46 @@ public interface TabOperateService {
 	 */
 	public boolean deleteTabOperatesByResourceUuid(String resourceUuid);
 	
-
+	/**
+	 * 获取某个资源的业务操作排序号
+	 * <p>Description:<p>
+	 * @return
+	 * @author wenxiaoming 2017年7月19日
+	 */
+	public Integer getTabOperateOrderNum();
+	
+	/**
+	 * 根据资源查询对应的业务操作列表
+	 * <p>Description:<p>
+	 * @param resourceuuid
+	 * @return
+	 * @author wenxiaoming 2017年8月7日
+	 */
+	public List getTabOperatesByResourceUuid(String resourceuuid);
+	
+	/**
+	 * 保存或更新资源的操作配置
+	 * <p>Description:<p>
+	 * @param tabResourceOperate
+	 * @author wenxiaoming 2017年9月2日
+	 */
+	public void saveOrUpdateResOperateConfig(TabOperate tabResourceOperate);
+	
+	/**
+	 * 根据操作表示查询对应配置角色的个数
+	 * <p>Description:<p>
+	 * @param operateUuid
+	 * @return
+	 * @author wenxiaoming 2017年9月3日
+	 */
+	public int selectRoleCountByOperate(String operateUuid);
+	
+	/**
+	 * 删除操作业务配置
+	 * <p>Description:<p>
+	 * @param operateUuid
+	 * @return
+	 * @author wenxiaoming 2017年9月3日
+	 */
+	public void deleteOperate(String operateUuid);
 }

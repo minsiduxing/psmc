@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import priv.guochun.psmc.authentication.operate.dao.TabOperateDao;
+import priv.guochun.psmc.authentication.operate.model.TabOperate;
 
 public class TabOperateDaoImplMybatis implements TabOperateDao {
 
@@ -18,6 +19,11 @@ public class TabOperateDaoImplMybatis implements TabOperateDao {
 	public static final String getTabOperatesByCondition = "getTabOperatesByCondition";
 	public static final String getPermitOperatesByRoleUuid = "getPermitOperatesByRoleUuid";
 	public static final String deleteTabOperatesByResourceUuid ="deleteTabOperatesByResourceUuid";
+	public static final String getTabOperateOrderNum ="getTabOperateOrderNum";
+	public static final String getTabOperatesByResourceUuid ="getTabOperatesByResourceUuid";
+	public static final String saveResOperateConfig ="saveResOperateConfig";
+    public static final String updateResOperateConfig ="updateResOperateConfig";
+    public static final String deleteOperate ="deleteOperate";
 	private SqlSessionTemplate sqlSession;
 
 	
@@ -53,5 +59,40 @@ public class TabOperateDaoImplMybatis implements TabOperateDao {
 	public void setSqlSession(SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
 	}
+
+    @Override
+    public Integer getTabOperateOrderNum()
+    {
+        Integer orderNum = sqlSession.selectOne(getTabOperateOrderNum);
+        return orderNum;
+    }
+
+    @Override
+    public List getTabOperatesByResourceUuid(String resourceuuid)
+    {
+        Map<String, Object> condition = new HashMap<String, Object>();
+        condition.put("resourceUuid", resourceuuid);
+        return sqlSession.selectList(getTabOperatesByResourceUuid, condition);
+    }
+
+    @Override
+    public void saveResOperateConfig(TabOperate tabResourceOperate)
+    {
+        sqlSession.insert(saveResOperateConfig, tabResourceOperate);
+    }
+
+    @Override
+    public void updateResOperateConfig(TabOperate tabResourceOperate)
+    {
+        sqlSession.update(updateResOperateConfig, tabResourceOperate);
+    }
+
+    @Override
+    public void deleteOperate(String operateUuid)
+    {
+        Map<String, Object> condition = new HashMap<String, Object>();
+        condition.put("operateUuid", operateUuid);
+        sqlSession.delete(deleteOperate, condition);
+    }
 
 }

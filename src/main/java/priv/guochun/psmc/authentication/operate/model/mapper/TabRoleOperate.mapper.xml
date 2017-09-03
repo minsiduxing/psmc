@@ -41,6 +41,10 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	   			</if>
 				order by b.ordernum asc
 	   	</select>
+	   	
+	   	<select id="selectRoleCountByOperate" parameterType="hashmap" resultType="int">
+	   		SELECT COUNT(1) FROM tab_role_operate WHERE operate_uuid = #{operateUuid}
+	   	</select>
     
     
 </mapper>  

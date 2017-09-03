@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.authentication.privilege.model.TabPrivilege">  
+    
+	<select id="queryTabPrivilegeForCombboox" resultType="map">
+		SELECT uuid as privilegeUuid,privilege_name as privilegeName FROM tab_privilege
+	</select>
+   	
+</mapper>  

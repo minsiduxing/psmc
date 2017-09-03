@@ -42,4 +42,6 @@ public class OperateContantsUtil {
     
     public final static String RESOURCE_DRAG = "RESOURCE_DRAG";
     
+    public final static String RESOURCE_OPERATE = "RESOURCE_OPERATE";
+    
 }
