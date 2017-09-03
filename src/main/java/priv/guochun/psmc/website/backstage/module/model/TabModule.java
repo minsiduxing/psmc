@@ -6,7 +6,6 @@ import java.sql.Timestamp;
 /**
  * <p>Title:模块 </p>
  * <p>Description: </p>
- * <p>Copyright: Copyright ICSS(c) 2017</p>
  * @author <a href="mailTo:bingxuewulei@outlook.com">wanglei</a>
  * @version 1.0
  * @history:
