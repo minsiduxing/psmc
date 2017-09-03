@@ -70,27 +70,27 @@ public class FtpUtil {
      * @return
      * @author wanglei 2017年8月21日
      */
-    private FtpModel  getFtpProperFromCache(){
-    	 PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory)MySpringApplicationContext.getObject("psmcCacheFactory");
-    	   
-    	Cache cache = psmcCacheFactory.getCacheSystem();
-    	String ip = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_IP,String.class);
-    	String port = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_PORT,String.class);
-    	String user = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_USER,String.class);
-    	String password = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_PARSSWORD,String.class);
-    	String path = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_PATH,String.class);
-    	String isRemote = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_IS_REMOTE,String.class);
-    	String os = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_OS,String.class);
-    	String uptempDir = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_UP_TEMP_DIR,String.class);
-    	String downtempDir = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_DOWN_TEMP_DIR,String.class);
-    	
-    	FtpModel ftm = null;
-    	if(null!=isRemote &&!"".equals(isRemote)){
-    		ftm = new FtpModel(ip,port, user, password, path, os, isRemote,uptempDir,downtempDir);
-    	}
-    	
-    	return ftm;
-    }
+//    private FtpModel  getFtpProperFromCache(){
+//    	 PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory)MySpringApplicationContext.getObject("psmcCacheFactory");
+//    	   
+//    	Cache cache = psmcCacheFactory.getCacheSystem();
+//    	String ip = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_IP,String.class);
+//    	String port = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_PORT,String.class);
+//    	String user = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_USER,String.class);
+//    	String password = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_PARSSWORD,String.class);
+//    	String path = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_PATH,String.class);
+//    	String isRemote = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_IS_REMOTE,String.class);
+//    	String os = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_OS,String.class);
+//    	String uptempDir = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_UP_TEMP_DIR,String.class);
+//    	String downtempDir = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_DOWN_TEMP_DIR,String.class);
+//    	
+//    	FtpModel ftm = null;
+//    	if(null!=isRemote &&!"".equals(isRemote)){
+//    		ftm = new FtpModel(ip,port, user, password, path, os, isRemote,uptempDir,downtempDir);
+//    	}
+//    	
+//    	return ftm;
+//    }
     /**
      * <p>Description:根据配置文件返回ftpmodel<p>
      * @return
@@ -117,12 +117,7 @@ public class FtpUtil {
      */
     private FtpModel readPro()
     {
-    	FtpModel ftpmodel = getFtpProperFromCache();
-        if (null == ftpmodel)
-        {
-            	ftpmodel = getFtpProperFromFile();
-                return ftpmodel;
-        }
+        FtpModel ftpmodel = getFtpProperFromFile();
         return ftpmodel;
     }
     /**
