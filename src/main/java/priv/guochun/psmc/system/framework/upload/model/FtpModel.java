@@ -14,6 +14,7 @@ import java.io.Serializable;
  */
 public class FtpModel implements Serializable {
 	private static final long serialVersionUID = 2139339287017878359L;
+	private static FtpModel ftpm = null;
 	/**
 	 * 远程IP
 	 */
@@ -90,9 +91,8 @@ public class FtpModel implements Serializable {
 		return isRemote;
 	}
 	
-	public FtpModel(String remoteIp, String remotePort, String remoteUser, String remotePassword, String remotePath,
+	private FtpModel(String remoteIp, String remotePort, String remoteUser, String remotePassword, String remotePath,
 			String remoteOs, String isRemote, String uploadTempDir, String doownLoadTempdir) {
-		super();
 		this.remoteIp = remoteIp;
 		this.remotePort = remotePort;
 		this.remoteUser = remoteUser;
@@ -120,8 +120,16 @@ public class FtpModel implements Serializable {
 	public void setDoownLoadTempdir(String doownLoadTempdir) {
 		this.doownLoadTempdir = doownLoadTempdir;
 	}
-	public FtpModel() {
-		super();
-	}
 	
+	public static FtpModel getInstanceOfFtpModle(String remoteIp, String remotePort, String remoteUser, String remotePassword, String remotePath,
+			String remoteOs, String isRemote, String uploadTempDir, String doownLoadTempdir){
+		if(null==ftpm){
+			//该同步代码块是为了解决多线程状态下 获取单例对象为null的问题
+			 synchronized (FtpModel.class) {  
+			ftpm =new FtpModel(remoteIp, remotePort, remoteUser,  remotePassword, remotePath,
+					 remoteOs, isRemote, uploadTempDir, doownLoadTempdir);
+			 }
+		}
+		return ftpm;
+	}
 }

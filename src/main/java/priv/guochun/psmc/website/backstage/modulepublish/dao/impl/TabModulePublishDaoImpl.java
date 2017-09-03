@@ -1,6 +1,7 @@
 package priv.guochun.psmc.website.backstage.modulepublish.dao.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -15,7 +16,7 @@ public class TabModulePublishDaoImpl implements TabModulePublishDao {
     public static final String insertTabPublishModel="insertTabPublishModel";
     public static final String updateTabPublishModel="updateTabPublishModel";
     public static final String deletesTabPublishModelByUuid="deletesTabPublishModelByUuid";
-    
+    public static final String deletesTabPublishModelByModuleUuids="deletesTabPublishModelByModuleUuids";
     private SqlSessionTemplate sqlSession;
 	@Override
 	public void saveOrUpdateTabModulePublish(TabModulePublish tmp) {
@@ -23,7 +24,7 @@ public class TabModulePublishDaoImpl implements TabModulePublishDao {
             throw new IllegalArgumentException("主键为空,无法进行对象持久化操作!");
         }
         String id = tmp.getPblishUuid();
-        Map<String,Object> map = this.getTabModulePublishByid(id);
+        TabModulePublish map = this.getTabModulePublishByid(id);
         if(map !=null)
             sqlSession.update(updateTabPublishModel,tmp);
         else
@@ -36,16 +37,25 @@ public class TabModulePublishDaoImpl implements TabModulePublishDao {
         condition.put("ids", ids.split(","));
         sqlSession.delete(deletesTabPublishModelByUuid, condition);
 	}
-
-	@SuppressWarnings("unchecked")
 	@Override
-	public Map<String, Object> getTabModulePublishByid(String id) {
+	public void deleteTabModulePublishByModuleids(String mids) {
+		Map<String,Object> condition = new HashMap<String,Object>();
+        condition.put("ids", mids.split(","));
+        sqlSession.delete(deletesTabPublishModelByModuleUuids, condition);
+	}
+	@Override
+	public TabModulePublish getTabModulePublishByid(String id) {
 		Map<String,Object> condition = new HashMap<String,Object>();
         condition.put("pblishUuid", id);
-        Map<String,Object> map = (Map<String,Object>)sqlSession.selectOne(getListTabPublishModelByCondition,condition);
+        TabModulePublish map = (TabModulePublish)sqlSession.selectOne(getListTabPublishModelByCondition,condition);
         return map;
 	}
-
+	@Override
+	public List<TabModulePublish> getTabModulePublishsByModuleids(String ids) {
+		Map<String,Object> condition = new HashMap<String,Object>();
+        condition.put("modelUuids", ids.split(","));
+		return sqlSession.selectList(getListTabPublishModelByCondition, condition);
+	}
 	public SqlSessionTemplate getSqlSession() {
 		return sqlSession;
 	}
@@ -53,5 +63,9 @@ public class TabModulePublishDaoImpl implements TabModulePublishDao {
 	public void setSqlSession(SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
 	}
+
+	
+
+	
 
 }

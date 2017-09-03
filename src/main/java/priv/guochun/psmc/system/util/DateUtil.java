@@ -3,11 +3,9 @@ package priv.guochun.psmc.system.util;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 
 public class DateUtil {
@@ -201,5 +199,12 @@ public class DateUtil {
 		}
 		return day;
 	}
-	
+	/**
+	 * <p>Description:获取当前时间戳<p>
+	 * @return
+	 * @author wanglei 2017年9月3日
+	 */
+	public static Timestamp getCurrentTimstamp(){
+		return new Timestamp(System.currentTimeMillis());
+	}
 }

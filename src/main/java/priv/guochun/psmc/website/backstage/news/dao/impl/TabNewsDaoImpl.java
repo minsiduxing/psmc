@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import priv.guochun.psmc.system.framework.dao.IDaoTemplate;
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.website.backstage.news.dao.TabNewsDao;
 import priv.guochun.psmc.website.backstage.news.model.TabNews;
 
@@ -79,6 +80,7 @@ public class TabNewsDaoImpl implements TabNewsDao {
 		Map<String,Object> condition = new HashMap<String,Object>();
 		 //查询参数添加
        	condition.put("towLevelClassify",towLevelClassify);
+       	condition.put("publishExpireDate",DateUtil.getCurrentTimstamp());
        List<Map<String,Object>> list  = sqlSession.selectList(getNewsTitlesListByTwoLevelClassify,condition);
        return list;
 	}

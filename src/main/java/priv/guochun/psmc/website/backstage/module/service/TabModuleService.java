@@ -36,5 +36,10 @@ public interface TabModuleService {
 	 * @author wanglei 2017年9月3日
 	 */
 	public void releaseModule(TabModule tm);
+	/**
+	 * <p>Description:取消模块发布<p>
+	 * @author wanglei 2017年9月3日
+	 */
+	public void releaseCancel(TabModule tm);
 	
 }

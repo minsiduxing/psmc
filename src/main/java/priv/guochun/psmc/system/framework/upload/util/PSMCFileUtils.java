@@ -114,7 +114,7 @@ public class PSMCFileUtils {
 	 * @author wanglei 2017年8月27日
 	 */
 	public static void deleteAllFilesOfDir(File path) {  
-		 logger.info("--------------正在清空:"+path.getPath()+"下所有文件");
+		 logger.debug("--------------正在清空:"+path.getPath()+"下所有文件");
 	    if (!path.exists())  
 	        return;  
 	    if (path.isFile()) {  
@@ -124,9 +124,9 @@ public class PSMCFileUtils {
 	    File[] files = path.listFiles();  
 	    for (int i = 0; i < files.length; i++) {  
 	        deleteAllFilesOfDir(files[i]); 
-	        logger.info("--------------正在删除:"+files[i].getName());
+	        logger.debug("--------------正在删除:"+files[i].getName());
 	    }  
-	    logger.info("--------------共计删除文件数:"+files.length);
+	    logger.debug("--------------共计删除文件数:"+files.length);
 	    path.delete();  
 	}  
 	/**

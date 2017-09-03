@@ -70,8 +70,10 @@ function getFileList(path){
 						for(var i in data.directorys){
 							var dir = data.directorys[i].fileRealName;
 							var size = data.directorys[i].fileSize;
+							var name = data.directorys[i].fileRealName;
+							path = path.replace("//","/");
 							var gtpram = ""+workDir+dir;
-							text=text+'<tr><td>'+num+'</td><td>文件夹</td><td><a href="javascript:void(0);" onclick="getFileList(\''+gtpram+'\')">'+dir+'</a></td><td>'+size+'</td><td><a href="#">删除</a><td></tr>';
+							text=text+'<tr><td>'+num+'</td><td>文件夹</td><td><a href="javascript:void(0);" onclick="getFileList(\''+gtpram+'\')">'+dir+'</a></td><td>'+size+'</td><td><a href="<c:url value="/system/freamwork/fileUploadController"/>?method=testFileDelete&filePath='+path+"/"+name+'" onclick="return isDel()">删除</a><td></tr>';
 							num = (num+1);
 						}
 					}
@@ -79,7 +81,8 @@ function getFileList(path){
 						for(var i in data.files){
 							var size = data.files[i].fileSize;
 							var name = data.files[i].fileRealName;
-							text=text+'<tr><td>'+num+'</td><td>文件</td><td>'+name+'</td><td>'+size+'</td><td><a href="<c:url value="/system/freamwork/fileUploadController"/>?method=testFileDelete&filePath='+size+'" onclick="return isDel()">删除</a>||<a href="<c:url value="/system/freamwork/fileUploadController"/>?method=testFileDownload&filePath='+path+name+'">下载</a><td></tr>';
+							path = path.replace("//","/");
+							text=text+'<tr><td>'+num+'</td><td>文件</td><td>'+name+'</td><td>'+size+'</td><td><a href="<c:url value="/system/freamwork/fileUploadController"/>?method=testFileDelete&filePath='+path+"/"+name+'" onclick="return isDel()">删除</a>||<a href="<c:url value="/system/freamwork/fileUploadController"/>?method=testFileDownload&filePath='+path+"/"+name+'">下载</a><td></tr>';
 							num = (num+1);
 						}
 					}

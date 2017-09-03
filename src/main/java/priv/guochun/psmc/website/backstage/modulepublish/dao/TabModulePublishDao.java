@@ -1,6 +1,6 @@
 package priv.guochun.psmc.website.backstage.modulepublish.dao;
 
-import java.util.Map;
+import java.util.List;
 
 import priv.guochun.psmc.website.backstage.modulepublish.model.TabModulePublish;
 
@@ -26,11 +26,24 @@ public interface TabModulePublishDao {
 	 */
 	public void deleteTabModulePublishByids(String ids);
 	/**
+	 * <p>Description:根据模块id删除发布信息<p>
+	 * @param mids 模块id
+	 * @author wanglei 2017年9月3日
+	 */
+	public void deleteTabModulePublishByModuleids(String mids);
+	/**
 	 * <p>Description: 根据ID获取模块发布的信息<p>
 	 * @param id 模块发布信息id
 	 * @return
 	 * @author wanglei 2017年9月3日
 	 */
-	public Map<String,Object> getTabModulePublishByid(String id);
+	public TabModulePublish getTabModulePublishByid(String id);
+	/**
+	 * <p>Description:根据模块id获取发布信息<p>
+	 * @param ids 模块id
+	 * @return
+	 * @author wanglei 2017年9月3日
+	 */
+	public List<TabModulePublish> getTabModulePublishsByModuleids(String ids);
 	
 }

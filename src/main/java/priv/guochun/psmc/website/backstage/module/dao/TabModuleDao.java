@@ -1,6 +1,6 @@
 package priv.guochun.psmc.website.backstage.module.dao;
 
-import java.util.Map;
+import java.util.List;
 
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
 
@@ -31,5 +31,12 @@ public interface TabModuleDao {
 	 * @return
 	 * @author wanglei 2017年9月3日
 	 */
-	public Map<String,Object>getModuleByUuid(String id);
+	public TabModule getModuleByUuid(String id);
+	/**
+	 * <p>Description:根据多个id获取模块<p>
+	 * @param ids
+	 * @return
+	 * @author wanglei 2017年9月3日
+	 */
+	public List<TabModule>getModulesByUuids(String ids);
 }

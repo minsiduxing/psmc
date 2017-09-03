@@ -1,6 +1,6 @@
 package priv.guochun.psmc.website.backstage.modulepublish.service.impl;
 
-import java.util.Map;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +25,18 @@ public class TabModulePublishServiceImpl implements TabModulePublishService {
 	}
 
 	@Override
-	public Map<String, Object> getTabModulePublishByid(String id) {
+	public TabModulePublish getTabModulePublishByid(String id) {
 		return tabModulePublishdao.getTabModulePublishByid(id);
+	}
+
+	@Override
+	public List<TabModulePublish> getTabModulePublishsByModuleids(String ids) {
+		return tabModulePublishdao.getTabModulePublishsByModuleids(ids);
+	}
+
+	@Override
+	public void deleteTabModulePublishByModuleids(String mids) {
+		tabModulePublishdao.deleteTabModulePublishByModuleids(mids);
 	}
 
 }

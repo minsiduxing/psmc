@@ -62,6 +62,16 @@ public class TabModule implements Serializable {
 	 */
 	private String towLevelClassify;
 	
+	/**
+	 * 发布状态
+	 */
+	private String releaseStatus;
+	
+	/**
+	 * 模块过期时间-用于模块发布
+	 */
+	private Timestamp publishExpireDate;
+	
 	public String getCreateAccUuid() {
 		return createAccUuid;
 	}
@@ -135,13 +145,29 @@ public class TabModule implements Serializable {
 	public void setModelUuid(String modelUuid) {
 		this.modelUuid = modelUuid;
 	}
-	public TabModule(String uuid, String createAccUuid, Timestamp createDate,
-			String modifyAccUuid, Timestamp modifyDate, Integer audit,
-			String auditAccUuid, Timestamp auditDate, String releaseAccUuid,
-			Timestamp releaseDate, String oneLevelClassify,
-			String towLevelClassify) {
+	
+	public String getReleaseStatus() {
+		return releaseStatus;
+	}
+	public void setReleaseStatus(String releaseStatus) {
+		this.releaseStatus = releaseStatus;
+	}
+	
+	
+	public Timestamp getPublishExpireDate() {
+		return publishExpireDate;
+	}
+	public void setPublishExpireDate(Timestamp publishExpireDate) {
+		this.publishExpireDate = publishExpireDate;
+	}
+	public TabModule(String modelUuid, String createAccUuid,
+			Timestamp createDate, String modifyAccUuid, Timestamp modifyDate,
+			Integer audit, String auditAccUuid, Timestamp auditDate,
+			String releaseAccUuid, Timestamp releaseDate,
+			String oneLevelClassify, String towLevelClassify,
+			String releaseStatus) {
 		super();
-		this.modelUuid = uuid;
+		this.modelUuid = modelUuid;
 		this.createAccUuid = createAccUuid;
 		this.createDate = createDate;
 		this.modifyAccUuid = modifyAccUuid;
@@ -153,21 +179,24 @@ public class TabModule implements Serializable {
 		this.releaseDate = releaseDate;
 		this.oneLevelClassify = oneLevelClassify;
 		this.towLevelClassify = towLevelClassify;
+		this.releaseStatus = releaseStatus;
 	}
 	public TabModule() {
 		super();
 	}
 	@Override
 	public String toString() {
-		return "TabModel [uuid=" + modelUuid + ", createAccUuid=" + createAccUuid
-				+ ", createDate=" + createDate + ", modifyAccUuid="
-				+ modifyAccUuid + ", modifyDate=" + modifyDate + ", audit="
-				+ audit + ", auditAccUuid=" + auditAccUuid + ", auditDate="
-				+ auditDate + ", releaseAccUuid=" + releaseAccUuid
-				+ ", releaseDate=" + releaseDate + ", oneLevelClassify="
-				+ oneLevelClassify + ", towLevelClassify=" + towLevelClassify
-				+ "]";
+		return "TabModule [modelUuid=" + modelUuid + ", createAccUuid="
+				+ createAccUuid + ", createDate=" + createDate
+				+ ", modifyAccUuid=" + modifyAccUuid + ", modifyDate="
+				+ modifyDate + ", audit=" + audit + ", auditAccUuid="
+				+ auditAccUuid + ", auditDate=" + auditDate
+				+ ", releaseAccUuid=" + releaseAccUuid + ", releaseDate="
+				+ releaseDate + ", oneLevelClassify=" + oneLevelClassify
+				+ ", towLevelClassify=" + towLevelClassify + ", releaseStatus="
+				+ releaseStatus + "]";
 	}
+	
 	
 	
 }

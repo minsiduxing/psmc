@@ -3,8 +3,22 @@
 EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
 <mapper namespace="priv.guochun.psmc.website.backstage.module.model.TabModule">  
  
-    
-   	<select id="getListTabModelByCondition" resultType="java.util.Map" parameterType="hashmap">
+    <resultMap type="priv.guochun.psmc.website.backstage.module.model.TabModule" id="tabmoudle">
+    <result property="modelUuid" column="uuid"/>
+    <result property="createAccUuid" column="create_acc_uuid"/>
+    <result property="createDate" column="create_date"/>
+    <result property="modifyAccUuid" column="modify_acc_uuid"/>
+ 	<result property="modifyDate" column="modify_date"/>
+ 	<result property="audit" column="audit"/>
+ 	<result property="auditAccUuid" column="audit_acc_uuid"/>
+    <result property="auditDate" column="audit_date"/>
+    <result property="releaseAccUuid" column="release_acc_uuid"/>
+    <result property="releaseDate" column="one_level_classify"/>
+ 	<result property="oneLevelClassify" column="one_level_classify"/>
+ 	<result property="towLevelClassify" column="two_level_classify"/>
+ 	<result property="releaseStatus" column="release_status"/>
+</resultMap>  
+   	<select id="getListTabModelByCondition" resultMap="tabmoudle" parameterType="hashmap">
    		SELECT 
 	   		uuid, 
 	   		create_acc_uuid, 
@@ -17,7 +31,8 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	   		release_acc_uuid, 
 	   		release_date, 
 	   		one_level_classify, 
-	   		two_level_classify 
+	   		two_level_classify,
+	   		release_status
    		FROM tab_model
    			<where>
    				<if test="createAccName!=null and createAccName!=''">
@@ -73,9 +88,19 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
        			<if test="towLevelClassify!=null and towLevelClassify!=''">  
       		      and  two_level_classify =#{towLevelClassify}
        			</if>  
-       			<if test="modelUuid and modelUuid''">  
+       			<if test="modelUuid!=null and modelUuid!=''">  
       		      and  uuid =#{modelUuid}
        			</if>  
+       			<if test="releaseStatus!=null and releaseStatus!=''">  
+      		      and  release_status =#{releaseStatus}
+       			</if> 
+       			<if test="modelUuids !=null and modelUuids!=''">  
+      		      and  uuid in
+      		      <foreach item="item" index="index" collection="modelUuids!=" open="(" separator="," close=")">  
+				   #{item}  
+		         </foreach> 
+       			</if>  
+       			
    			</where>
    			
    	</select>
@@ -83,8 +108,8 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   	
 
   	<insert id="insertTabModel">
-  		INSERT INTO tab_model (uuid, create_acc_uuid, create_date, modify_acc_uuid, modify_date, audit, audit_acc_uuid, audit_date, release_acc_uuid, release_date, one_level_classify, two_level_classify) 
-  		VALUES (#{modelUuid}, #{createAccUuid}, #{createDate}, #{modifyAccUuid}, #{modifyDate}, #{audit}, #{auditAccUuid},#{auditDate}, #{releaseAccUuid}, #{releaseDate}, #{oneLevelClassify}, #{towLevelClassify})
+  		INSERT INTO tab_model (uuid, create_acc_uuid, create_date, modify_acc_uuid, modify_date, audit, audit_acc_uuid, audit_date, release_acc_uuid, release_date, one_level_classify, two_level_classify,release_status) 
+  		VALUES (#{modelUuid}, #{createAccUuid}, #{createDate}, #{modifyAccUuid}, #{modifyDate}, #{audit}, #{auditAccUuid},#{auditDate}, #{releaseAccUuid}, #{releaseDate}, #{oneLevelClassify}, #{towLevelClassify},#{releaseStatus})
   	</insert>
   	
   	<update id="updateTabModel" parameterType="priv.guochun.psmc.website.backstage.module.model.TabModule">
@@ -116,6 +141,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	  		</if>
 	  		<if test="towLevelClassify != null and towLevelClassify != ''">
 	  			two_level_classify =#{towLevelClassify},
+	  		</if>
+	  		<if test="releaseStatus != null and releaseStatus != ''">
+	  			release_status =#{releaseStatus},
 	  		</if>
   		</trim>
   		WHERE uuid = #{modelUuid}

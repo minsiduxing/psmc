@@ -1,6 +1,10 @@
 package priv.guochun.psmc.website.enums;
 
-public enum ModelEnum {
+public enum ModuleEnum {
+	//未发布
+	NOT_RELEASE("NOT_RELEASE","0"),
+	//已发布 
+	IS_RELEASEED("IS_RELEASEED","1"),
 	//未审核
 	NOT_AUDITED("NOT_AUDITED","0"),
 	//	审核通过
@@ -21,7 +25,7 @@ public enum ModelEnum {
 
 	private String name;
 	private String value;
-	private ModelEnum(String name,String value){
+	private ModuleEnum(String name,String value){
 		this.name=name;
 		this.value = value;
 	}

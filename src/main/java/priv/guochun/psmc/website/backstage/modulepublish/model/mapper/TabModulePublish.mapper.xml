@@ -2,9 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
 EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
 <mapper namespace="priv.guochun.psmc.website.backstage.modulepublish.model.TabModulePublish">  
- 
+     <resultMap type="priv.guochun.psmc.website.backstage.modulepublish.model.TabModulePublish" id="tabmoudlepublish">
+    <result property="pblishUuid" column="publish_uuid"/>
+    <result property="moduleUuuid" column="module_uuid"/>
+    <result property="publishDate" column="publish_date"/>
+    <result property="publishExpireDate" column="publish_expire_date"/>
+ 	<result property="publishAccountUuid" column="publish_account_uuid"/>
+</resultMap>  
     
-   	<select id="getListTabPublishModelByCondition" resultType="java.util.Map" parameterType="hashmap">
+   	<select id="getListTabPublishModelByCondition" resultMap="tabmoudlepublish" parameterType="hashmap">
    	SELECT publish_uuid, module_uuid, publish_date, publish_expire_date, publish_account_uuid FROM tab_module_publish
    			<where>
    				<if test=" publishAccName!=null and publishAccName!=''">
@@ -26,7 +32,12 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
        			</if> 
        		 <if test="pblishUuid != null and pblishUuid != ''">
 	  			 and publish_uuid =#{pblishUuid},
-	  		</if>
+	  		  </if>
+	  		   <if test="moduleUuids != null and moduleUuids != ''">
+	  			 and module_uuid in <foreach item="item" index="index" collection="moduleUuids" open="(" separator="," close=")">  
+				  #{item}  
+	     	</foreach>  
+	  		  </if>
    			</where>
    			
    	</select>
@@ -62,6 +73,12 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   	
     <delete id="deletesTabPublishModelByUuid" parameterType="hashmap">
     	DELETE FROM  tab_module_publish  where 1=1  and publish_uuid in
+    	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+				  #{item}  
+		</foreach>  
+    </delete>
+     <delete id="deletesTabPublishModelByModuleUuids" parameterType="hashmap">
+    	DELETE FROM  tab_module_publish  where 1=1  and module_uuid in
     	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
 				  #{item}  
 		</foreach>  

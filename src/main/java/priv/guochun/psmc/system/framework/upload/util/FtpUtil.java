@@ -20,14 +20,10 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.log4j.Logger;
-import org.springframework.cache.Cache;
 
 import priv.guochun.psmc.system.enums.FileEnum;
-import priv.guochun.psmc.system.framework.cache.CacheContants;
-import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.upload.model.FtpModel;
 import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
-import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 
 /**
@@ -106,7 +102,7 @@ public class FtpUtil {
     	String os = SystemPropertiesUtil.getSystemRemoteOs();
     	String uptempDir = SystemPropertiesUtil.getUploadTempPathPropertyValue();
     	String downtempDir = SystemPropertiesUtil.getDownloadTempPathPropertyValue();
-    	FtpModel ftm = new FtpModel(ip,port, user, password, path, os, isRemote,uptempDir,downtempDir);
+    	FtpModel ftm = FtpModel.getInstanceOfFtpModle(ip,port, user, password, path, os, isRemote,uptempDir,downtempDir);
     	return ftm;
     }
     /**
@@ -138,9 +134,9 @@ public class FtpUtil {
             // 登录
             boolean islogin= ftpClient.login(ftm.getRemoteUser(), ftm.getRemotePassword());
             if(islogin){
-            	 logger.info("设置ftp被动传输模式");
+            	 logger.debug("设置ftp被动传输模式");
                  ftpClient.enterLocalPassiveMode();
-                  logger.info("ftpClient.login");
+                  logger.debug("ftpClient.login");
                   ftpClient.setBufferSize(UPLOAD_BUFFER_SIZE);  
                   
                   //超时时间  
@@ -151,7 +147,7 @@ public class FtpUtil {
                     
                  if (ftm.getRemotePath() != null && ftm.getRemotePath().length() > 0 && !"/".equals(ftm.getRemotePath()))
                  {
-                      logger.info("指定目录:"+ftm.getRemotePath());
+                      logger.debug("指定目录:"+ftm.getRemotePath());
                      // 跳转到指定目录
                       boolean isHavesub = ftpClient.changeWorkingDirectory(ftm.getRemotePath());
                       if(!isHavesub){
@@ -159,7 +155,7 @@ public class FtpUtil {
                     	  ftpClient.changeWorkingDirectory(ftm.getRemotePath());
                     	  
                        }
-                      logger.info("跳转到指定目录:"+ftm.getRemotePath());
+                      logger.debug("跳转到指定目录:"+ftm.getRemotePath());
                  }
             }else{
             	  logger.error(":登录失败!");
@@ -193,7 +189,7 @@ public class FtpUtil {
                      if (!flag) {
                          logger.error("退出FtpClient失败！");
                      }else{
-                    	 logger.info("用户退出登录");
+                    	 logger.debug("用户退出登录");
                      }
               }
             catch (IOException e)
@@ -203,7 +199,7 @@ public class FtpUtil {
             	try {
 					ftpClient.disconnect();
 					 ftpClient=null; 
-					logger.info("断开ftp连接");
+					logger.debug("断开ftp连接");
 				} catch (IOException e) {
 					 logger.error("断开ftp连接失败！");
 					e.printStackTrace();
@@ -238,7 +234,7 @@ public class FtpUtil {
                     if(ftpClient.makeDirectory(subDirectory)){   
                         ftpClient.changeWorkingDirectory(subDirectory);   
                     }else {   
-                        logger.info("创建目录失败");   
+                        logger.error("创建目录失败");   
                         return false;   
                     }   
                 }   
@@ -278,13 +274,13 @@ public class FtpUtil {
         	}
         	if(status){
         		long endTime = System.currentTimeMillis();
-            	logger.info("文件:["
+            	logger.debug("文件:["
         		+PSMCFileUtils.getFileNameByPath(ufm.getFileSystemName())+"]上传成功！总耗时："
         		+(endTime-beginTime)+"ms;"+"文件大小：["+PSMCFileUtils.GetFileSize(ufm.getFile())+"]"
         		);
             	  //清空缓存目录
             	 File tempDir = new File(ftm.getUploadTempDir());
-                 PSMCFileUtils.deleteAllFilesOfDir(tempDir);
+            	 tempDir.delete();
         	}else{
         		throw new RuntimeException("文件上传失败！");
         	}
@@ -349,7 +345,7 @@ public class FtpUtil {
 			    remoteFileName = PSMCFileUtils.getFileNameByPath(remote);   
 			    //创建服务器远程目录结构，创建失败直接返回   
 			    if(CreateDirecroty(remote, ftpClient)==false){   
-			    	logger.info("创建远程目录失败！");
+			    	logger.debug("创建远程目录失败！");
 			        return false;   
 			    }   
 			}   
@@ -418,7 +414,7 @@ public class FtpUtil {
 				  //检查远程文件是否存在   
 		        FTPFile[] files = ftpClient.listFiles(PSMCFileUtils.encodedFileName(fileName));  
 		        if(files.length != 1){   
-		            logger.info("远程文件不存在");   
+		            logger.error("远程文件不存在");   
 		            return null;   
 		        }
 		        
@@ -438,7 +434,7 @@ public class FtpUtil {
 		            long localSize = resFile.length();   
 		            //判断本地文件大小是否大于远程文件大小   
 		            if(localSize >= lRemoteSize){   
-		                logger.info("本地文件大于远程文件，下载中止 将从本地获取");   
+		                logger.debug("本地文件大于远程文件，下载中止 将从本地获取");   
 		                return resFile;   
 		            } 
 		            //进行断点续传，并记录状态   
@@ -449,9 +445,9 @@ public class FtpUtil {
 		            this.getDownLoadProcess(in, out, lRemoteSize);
 		            boolean isDo = ftpClient.completePendingCommand();   
 		            if(isDo){   
-		            	  logger.info("文件：["+name+"]下载成功！");   
+		            	  logger.debug("文件：["+name+"]下载成功！");   
 		            }else {   
-		            	  logger.info("文件：["+name+"]下载失败!");   
+		            	  logger.debug("文件：["+name+"]下载失败!");   
 		            }   
 		        }else{
 		        	//不进行断点下载
@@ -461,9 +457,9 @@ public class FtpUtil {
 		            this.getDownLoadProcess(in, out, lRemoteSize);   
 		            boolean isDo = ftpClient.completePendingCommand();   
 		            if(isDo){   
-		            	  logger.info("文件：["+name+"]下载成功!");   
+		            	  logger.debug("文件：["+name+"]下载成功!");   
 		            }else {   
-		            	  logger.info("文件：["+name+"]下载失败!");   
+		            	  logger.debug("文件：["+name+"]下载失败!");   
 		            }   
 		        }
            }else{
@@ -479,7 +475,7 @@ public class FtpUtil {
         	   //断开远程连接
         	 this.closeServer();
            }
-           logger.info("---下载文件大小：["+PSMCFileUtils.GetFileSize(resFile)+"]");
+           logger.debug("---下载文件大小：["+PSMCFileUtils.GetFileSize(resFile)+"]");
         }
 		return resFile;
 	}
@@ -504,10 +500,10 @@ public class FtpUtil {
                 if(!ftpClient.deleteFile(PSMCFileUtils.encodedFileName(name))) throw new RuntimeException("删除文件失败！");
             }else{
             	//本地删除
-            	FileUtils.forceDelete(new File(fileName));
+            	PSMCFileUtils.deleteAllFilesOfDir(new File(fileName));
             }
         	long endTime = System.currentTimeMillis();
-        	logger.info("文件:["+name+"]删除成功！总耗时："+(endTime-beginTime)+"ms");
+        	logger.debug("文件:["+name+"]删除成功！总耗时："+(endTime-beginTime)+"ms");
         }
         catch (IOException e)
         {
@@ -552,7 +548,7 @@ public class FtpUtil {
             localreadbytes+=c;   
             if(localreadbytes / step != process){   
                 process = localreadbytes / step;   
-                logger.info("上传进度："+process+"%");    
+                logger.debug("上传进度："+process+"%");    
                 //TODO 汇报上传状态   
             }   
         }   
@@ -585,7 +581,7 @@ public class FtpUtil {
 			    if(nowProcess > process){   
 			        process = nowProcess;   
 			        if(process % 10 == 0)   
-			          logger.info("当前文件下载进度："+process+"%");   
+			          logger.debug("当前文件下载进度："+process+"%");   
 			        //TODO 更新文件下载进度,值存放在process变量中   
 			    }   
 			}
