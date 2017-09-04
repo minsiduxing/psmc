@@ -20,7 +20,6 @@ import priv.guochun.psmc.authentication.operate.service.TabOperateService;
 import priv.guochun.psmc.authentication.privilege.service.TabPrivilegeService;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.util.JsonUtil;
-import priv.guochun.psmc.system.util.UUIDGenerator;
 
 @Scope("prototype")
 @Controller
@@ -95,8 +94,10 @@ public class TabOperateController  extends MyController
     public void editOperateConfig(HttpServletRequest request,
             HttpServletResponse response,TabOperate tabOperate) throws IOException{
         tabOperateService.saveOrUpdateResOperateConfig(tabOperate);
+        Integer ordernum = tabOperateService.getTabOperateOrderNum();
         Map resultMap = new HashMap();
         resultMap.put("resourceUuid", tabOperate.getResourceUuid());
+        resultMap.put("ordernum", ordernum);
         super.responseJson(JsonUtil.convertToJSONObject(resultMap), response);
     }
     
@@ -129,9 +130,16 @@ public class TabOperateController  extends MyController
      * @throws IOException
      * @author wenxiaoming 2017年9月3日
      */
-    @RequestMapping(params="method=deleteOperate")  
+    @RequestMapping(params="method=deleteOperate") 
+    @ResponseBody
+    @SuppressWarnings({"unchecked", "rawtypes" })
     public void deleteOperate(HttpServletRequest request,
             HttpServletResponse response,String operateUuid) throws IOException{
-        tabOperateService.deleteOperate(operateUuid);
+        int count = tabOperateService.deleteOperate(operateUuid);
+        Integer ordernum = tabOperateService.getTabOperateOrderNum();
+        Map resultMap = new HashMap();
+        resultMap.put("ordernum", ordernum);
+        resultMap.put("count", count);
+        super.responseJson(JsonUtil.convertToJSONObject(resultMap), response);
     }
 }

@@ -30,7 +30,11 @@
 				</li>
 				<li class="li-input"><label for="" class="input-label">所属权限：</label>
 					<input id="privilegeUuid" name="privilegeUuid" />
-					<a id="saveBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">保存</a>
+				</li>
+				<li class="li-input">
+					<label for="" class="input-label">
+						<a id="saveBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">保存</a>
+					</label>
 				</li>
 			</ul>
 		</form>
@@ -157,9 +161,8 @@ function save(){
 			$("#funMethod").textbox('setValue',"");
 			$("#operateDesc").textbox('setValue',"");
 			$('#privilegeUuid').combobox('select',"");
+			$("#ordernum").textbox('setValue',obj.ordernum);
 			operateGrid(obj.resourceUuid);
-			var maxOrdernum = getMaxOrdernum();
-			$("#ordernum").textbox('setValue',maxOrdernum*1 + 1);
 	    },
 	    error:function(){
 	    	$.messager.progress("close");
@@ -167,13 +170,6 @@ function save(){
 	    }
 	}); 
 	$('#operateForm').submit();
-}
-
-function getMaxOrdernum(){
-	debugger;
-	var rows = $('#operateTable').datagrid('getRows');
-	var maxOrdernum = (rows[rows.length - 1]).ordernum;
-	return maxOrdernum;
 }
 
 function update(index){
@@ -189,49 +185,52 @@ function update(index){
 }
 
 function del(operateUuid){
-	var flag = checkRoleCount(operateUuid);
-	debugger;
-	 if(!flag){
-		alert_autoClose("提示","该业务操作已分配给角色，不能删除!","info");
-		return;
-	}else{
-		$.messager.progress(); 
-		$.ajax({                                
-	       type: "POST",                        
-	       url: deleteOperateUrl,                       
-	       data: {operateUuid:operateUuid},
-	       success: function(){ 
-	    	   operateGrid($("#resourceUuid").val());
-	       	   $.messager.progress("close");
-			   alert_autoClose("提示","删除成功!","info");
-	       },
-	       error:function(){
-		    	$.messager.progress("close");
-				alert_autoClose("提示","删除失败!","info");
-		   }
-	});
- }
+	$.messager.confirm('提示', '确认删除?', function(r){
+		if (r){
+			var count = getRoleOperateCount(operateUuid);
+			 if(count > 0){
+				alert_autoClose("提示","该业务操作已分配给角色，不能删除!","info");
+				return;
+			}else{
+				$.messager.progress(); 
+				$.ajax({                                
+			       type: "POST",                        
+			       url: deleteOperateUrl,                       
+			       data: {operateUuid:operateUuid},
+			       success: function(data){
+			    	   $.messager.progress("close");
+			    	   var obj = JSON.parse(data);
+			    	   if(obj.count == 1){
+			    		   $("#ordernum").textbox('setValue',obj.ordernum);
+				    	   operateGrid($("#resourceUuid").val());
+						   alert_autoClose("提示","删除成功!","info");
+			    	   }else{
+						   alert_autoClose("提示","删除失败!","info");
+			    	   }
+			       },
+			       error:function(){
+				    	$.messager.progress("close");
+						alert_autoClose("提示","删除失败!","info");
+				   }
+			});
+		 }
+	  }
+  })
 }
 
-//判断该业务操作下是否有角色
-function checkRoleCount(operateUuid){
-	var flag;
+//查询该业务操作下配置的角色个数
+function getRoleOperateCount(operateUuid){
+	var count = 0;
  	 $.ajax({                                
         type: "POST",                        
         url: selectRoelCountUrl,                       
         data: {operateUuid:operateUuid},
         success: function(data){ 
         	var obj = JSON.parse(data);
-            var count = obj.count;
-            if(count > 0){
-            	flag = false;
-            }else{
-            	flag = true;
-            }
+            count = obj.count;
         }   
 	 }); 
- 	 debugger;
- 	 return flag;
+ 	 return count;
 }
 
 //表单校验

@@ -75,5 +75,5 @@ public interface TabOperateService {
 	 * @return
 	 * @author wenxiaoming 2017年9月3日
 	 */
-	public void deleteOperate(String operateUuid);
+	public int deleteOperate(String operateUuid);
 }

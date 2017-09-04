@@ -88,11 +88,12 @@ public class TabOperateDaoImplMybatis implements TabOperateDao {
     }
 
     @Override
-    public void deleteOperate(String operateUuid)
+    public int deleteOperate(String operateUuid)
     {
         Map<String, Object> condition = new HashMap<String, Object>();
         condition.put("operateUuid", operateUuid);
-        sqlSession.delete(deleteOperate, condition);
+        int count = sqlSession.delete(deleteOperate, condition);
+        return count;
     }
 
 }
