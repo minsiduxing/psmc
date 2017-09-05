@@ -83,7 +83,7 @@ $(document).ready(function() {
 	$('#operateDesc').textbox({
 		value : "",
 		type : "text",
-		required : true
+		required : false
 	});
  	
 	$('#privilegeUuid').combobox({

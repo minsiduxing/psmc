@@ -19,8 +19,8 @@ editResourcetUrl ='<c:url value="'+editResourcetUrl+'"/>?method=initEdit&oper=ed
 var saveResourcetUrl = basePath + "/authentication/tabResource.do";
 saveResourcetUrl ='<c:url value="'+saveResourcetUrl+'"/>?method=edit';
 
-var editOperateUrl = basePath + "/authentication/tabOperate.do";
-editOperateUrl ='<c:url value="'+editOperateUrl+'"/>?method=operateConfigUI';
+var operateConfigUrl = basePath + "/authentication/tabOperate.do";
+operateConfigUrl ='<c:url value="'+operateConfigUrl+'"/>?method=operateConfigUI';
 
 var sysResourceTree;
 var sysResourceTreePanel;
@@ -282,7 +282,7 @@ function initoperatePanel(){
 			length++;
 	 };
 	 
-	<%-- if(commonObj.isAuth("<%=OperateContantsUtil.RESOURCE_OPERATE%>")){ --%>
+ if(commonObj.isAuth("<%=OperateContantsUtil.RESOURCE_OPERATE%>")){
 			toolsObj[length] = {
 					iconCls:'icon-tip',
 					handler:function(){
@@ -292,20 +292,20 @@ function initoperatePanel(){
 							return;
 						}
 						node = selectNodes[0];
+						debugger;
 						var url = "";
-						url = editOperateUrl + '&id=' + node.UUID;
+						url = operateConfigUrl + '&id=' + node.UUID;
 				 		if(!editdialog){
 				 			initOperateDialog();
 						}
-				 		operateConfigDialog.panel({title:"修改"});
+				 		operateConfigDialog.panel({title:"资源操作配置"});
 				 		operateConfigDialog.panel({iconCls:'icon-save'});
 				 		operateConfigDialog.panel({href:url});
 				 		operateConfigDialog.window("open"); 
-						//sysResourceTree.editName(node);
 					}
 				};
 			length++;
-/* /* 	  }; */ 
+ 	   }; 
 	 
 	sysResourceTreePanel = $('#sysResourceTreePanelDiv').panel({
 		  cache:true,
