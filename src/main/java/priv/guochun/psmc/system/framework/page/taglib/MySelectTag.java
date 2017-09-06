@@ -13,6 +13,8 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import priv.guochun.psmc.system.exception.PsmcBuisnessException;
+
 public class MySelectTag extends TagSupport
 {
     private static final long serialVersionUID = 1L;  
@@ -63,7 +65,7 @@ public class MySelectTag extends TagSupport
         
         } catch (IOException e) {  
             logger.warn(e.getMessage());
-            throw new RuntimeException(e);  
+            throw new PsmcBuisnessException(e);  
         }  
         return super.doStartTag();  
     }

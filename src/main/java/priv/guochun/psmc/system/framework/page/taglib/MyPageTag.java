@@ -11,6 +11,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.framework.page.MyPage;
 
 public class MyPageTag extends TagSupport
@@ -86,7 +87,7 @@ public class MyPageTag extends TagSupport
             
         } catch (IOException e) {  
             logger.warn(e.getMessage());
-            throw new RuntimeException(e);  
+            throw new PsmcBuisnessException(e);  
         }  
         return super.doStartTag();  
     }

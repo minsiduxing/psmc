@@ -22,6 +22,7 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.apache.log4j.Logger;
 
 import priv.guochun.psmc.system.enums.FileEnum;
+import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.framework.upload.model.FtpModel;
 import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
@@ -159,20 +160,20 @@ public class FtpUtil {
                  }
             }else{
             	  logger.error(":登录失败!");
-                  throw new RuntimeException("登录服务器失败,请检测服务器配置,若有疑问请联系管理员!");
+                  throw new PsmcBuisnessException("登录服务器失败,请检测服务器配置,若有疑问请联系管理员!");
             }
            
         }
         catch (SocketException e)
         {
             logger.error(e.getMessage() + ":连接FTP服务器失败!");
-            throw new RuntimeException("连接服务器失败,请检测服务器配置,若有疑问请联系管理员!");
+            throw new PsmcBuisnessException("连接服务器失败,请检测服务器配置,若有疑问请联系管理员!");
 
         }
         catch (IOException e)
         {
             logger.error(e.getMessage() + ":连接FTP服务器失败!");
-            throw new RuntimeException("连接服务器失败,请检测服务器配置,若有疑问请联系管理员!");
+            throw new PsmcBuisnessException("连接服务器失败,请检测服务器配置,若有疑问请联系管理员!");
         }
     }
 
@@ -282,7 +283,7 @@ public class FtpUtil {
             	 File tempDir = new File(ftm.getUploadTempDir());
             	 tempDir.delete();
         	}else{
-        		throw new RuntimeException("文件上传失败！");
+        		throw new PsmcBuisnessException("文件上传失败！");
         	}
             return filePath;
         }
@@ -497,7 +498,7 @@ public class FtpUtil {
         		//连接服务器
                 this.connectServer(ftm);
                 ftpClient.changeWorkingDirectory(PSMCFileUtils.encodedFileName(path));
-                if(!ftpClient.deleteFile(PSMCFileUtils.encodedFileName(name))) throw new RuntimeException("删除文件失败！");
+                if(!ftpClient.deleteFile(PSMCFileUtils.encodedFileName(name))) throw new PsmcBuisnessException("删除文件失败！");
             }else{
             	//本地删除
             	PSMCFileUtils.deleteAllFilesOfDir(new File(fileName));

@@ -43,6 +43,14 @@ public interface TabNewsService {
 	 */
 	public MyPage getNewsByCondition(MyPage myPage);
 	/**
+	 * <p>Description:根据用户id获取列表信息<p>
+	 * @param myPage
+	 * @param userUuid
+	 * @return
+	 * @author wanglei 2017年9月5日
+	 */
+	public MyPage getNewsByCondition(MyPage myPage,String userUuid);
+	/**
 	 * <p>Description:根据条件返回新闻列表<p>
 	 * @param myPage 分页信息
 	 * @return 新闻list
@@ -57,13 +65,25 @@ public interface TabNewsService {
 	 */
 	public List<Map<String,Object>> getShowNewsTitlesListByTowLevelClassify(String towLevelClassify);
 	/**
-	 * <p>Description:审核新闻<p>
+	 * <p>Description:审核新闻不通过<p>
 	 * @author wanglei 2017年9月3日
 	 */
-	public void auditNews();
+	public void executeAuditNewsNotPass(String moduleUuid,String auditAccUuid);
+	/**
+	 * <p>Description:审核通过<p>
+	 * @param tam
+	 * @author wanglei 2017年9月4日
+	 */
+	public void executeAuditNewsPass(String moduleUuid,String auditAccUuid);
 	/**
 	 * <p>Description:发布新闻<p>
 	 * @author wanglei 2017年9月3日
 	 */
-	public void releaseNews();
+	public void executeReleaseNews(TabModule tam);
+	/**
+	 * <p>Description:取消发布新闻<p>
+	 * @param tam
+	 * @author wanglei 2017年9月4日
+	 */
+	public void executeCancleReleaseNews(TabModule tam);
 }

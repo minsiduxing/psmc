@@ -2,16 +2,14 @@ package priv.guochun.psmc.system.util;
 
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 
-import javax.management.RuntimeErrorException;
-
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.log4j.Logger;
 
+import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
@@ -118,10 +116,10 @@ public class FreemarkUtil {
         } catch (TemplateException e) {
         	e.printStackTrace();
         	 logger.error(e.getMessage());
-        	throw new RuntimeException("---------------生成模板错误！");
+        	throw new PsmcBuisnessException("---------------生成模板错误！");
         } catch (IOException e) {
         	logger.error(e.getMessage());
-         	throw new RuntimeException("---------------生成模板错误！");
+         	throw new PsmcBuisnessException("---------------生成模板错误！");
         }
 	}
 }

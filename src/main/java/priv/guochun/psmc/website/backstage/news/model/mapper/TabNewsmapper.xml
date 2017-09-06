@@ -127,6 +127,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
        			<if test="publishExpireDateEnd!=null and publishExpireDateEnd!=''" >  
       		      and <![CDATA[tmpl.publish_expire_date<=UNIX_TIMESTAMP(#{publishExpireDateEnd}) ]]>  
        			</if> 
+       			<if test="userId!=null and userId!=''">
+   					and tm.create_acc_uuid =#{userId}
+   				</if>
    			</where>
    			
    	</select>

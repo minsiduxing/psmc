@@ -42,6 +42,7 @@ public interface TabNewsDao {
 	 * @author wanglei 2017年9月3日
 	 */
 	public MyPage getNewsByCondition(MyPage myPage);
+	public MyPage getNewsByCondition(MyPage myPage,String userid);
 	/**
 	 * <p>Description:根据条件返回新闻列表<p>
 	 * @param myPage 分页信息

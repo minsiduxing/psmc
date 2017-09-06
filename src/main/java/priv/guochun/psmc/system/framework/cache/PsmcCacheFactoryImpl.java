@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
+import priv.guochun.psmc.system.exception.PsmcBuisnessException;
+
 public class PsmcCacheFactoryImpl implements PsmcCacheFactory
 {
     public CacheManager cacheManager; 
@@ -27,7 +29,7 @@ public class PsmcCacheFactoryImpl implements PsmcCacheFactory
         if(cache == null){
             String msg = "缓存["+name+"]无法找到!!!请检查缓存配置项!";
             logger.warn(msg);
-            throw new RuntimeException(msg);
+            throw new PsmcBuisnessException(msg);
         }
         return cache;
     }

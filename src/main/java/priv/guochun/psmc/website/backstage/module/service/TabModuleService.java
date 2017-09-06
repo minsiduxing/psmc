@@ -25,21 +25,28 @@ public interface TabModuleService {
 	 */
 	public void deleteTabModulebyUuids(String ids);
 	/**
-	 * <p>Description:审核模块<p>
-	 * @param tm 模块信息
+	 * <p>Description:审核模块通过<p>
+	 * @param moduleUuid 模块标示
 	 * @author wanglei 2017年9月3日
 	 */
-	public void auditModule(TabModule tm);
+	public void executeAuditModulePass(String moduleUuid,String auditAccUuid);
+	/**
+	 * <p>Description:审核<p>
+	 * @param moduleUuid 模块标示
+	 * @author wanglei 2017年9月4日
+	 */
+	public void executeAuditModuleNotPass(String moduleUuid,String auditAccUuid);
 	/**
 	 * <p>Description:发布模块信息<p>
 	 * @param tm 模块信息
 	 * @author wanglei 2017年9月3日
 	 */
-	public void releaseModule(TabModule tm);
+	public void executeReleaseModule(TabModule tam);
 	/**
 	 * <p>Description:取消模块发布<p>
+	 *  @param tm 模块信息
 	 * @author wanglei 2017年9月3日
 	 */
-	public void releaseCancel(TabModule tm);
+	public void executeReleaseCancel(TabModule tam);
 	
 }

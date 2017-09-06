@@ -17,6 +17,7 @@ import priv.guochun.psmc.authentication.resource.dao.TabResourceDao;
 import priv.guochun.psmc.authentication.resource.dao.TabRoleResourceDao;
 import priv.guochun.psmc.authentication.resource.model.TabResource;
 import priv.guochun.psmc.authentication.resource.service.TabResourceService;
+import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcInitCacheTool;
 import priv.guochun.psmc.system.framework.util.ResourceEnum;
@@ -118,7 +119,7 @@ public class TabResourceServiceImpl implements TabResourceService
     public List<Map<?,?>> getPrivilegDataListByRoleAndResource(String roleUuid,String resourceUuid){
         if(StringUtils.isBlank(roleUuid) || StringUtils.isBlank(resourceUuid)){
             logger.warn("角色ID或资源ID为空，无法进行处理....");
-            throw new RuntimeException("角色ID或资源ID为空，无法进行处理....");
+            throw new PsmcBuisnessException("角色ID或资源ID为空，无法进行处理....");
         }else{
             List<Map<?,?>> list = tabRoleOperateDao.getPrivilegDataListByRoleAndResource(roleUuid, resourceUuid);
             return list;

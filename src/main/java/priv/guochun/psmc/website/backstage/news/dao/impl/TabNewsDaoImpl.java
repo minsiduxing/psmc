@@ -55,14 +55,19 @@ public class TabNewsDaoImpl implements TabNewsDao {
 
 	@Override
 	public MyPage getNewsByCondition(MyPage myPage) {
+       return this.getNewsByCondition(myPage, null);
+	}
+	@Override
+	public MyPage getNewsByCondition(MyPage myPage, String userid) {
 		Map<String,Object> condition = new HashMap<String,Object>();
 		 //查询参数添加
-       if(myPage.getQueryParams()!=null && myPage.getQueryParams().size()>0){
-       	condition.putAll(myPage.getQueryParams());
-       }
-       return iDaoTemplate.getMyPage(myPage, getListNewsByCondition, condition);
+      if(myPage.getQueryParams()!=null && myPage.getQueryParams().size()>0){
+      	condition.putAll(myPage.getQueryParams());
+      }if(StringUtils.isNotBlank(userid)){
+    	  condition.put("userId", userid);
+      }
+      return iDaoTemplate.getMyPage(myPage, getListNewsByCondition, condition);
 	}
-
 	@Override
 	public List<Map<String, Object>> getNewsListByCondition(MyPage myPage) {
 		Map<String,Object> condition = new HashMap<String,Object>();
@@ -100,5 +105,7 @@ public class TabNewsDaoImpl implements TabNewsDao {
 	public void setiDaoTemplate(IDaoTemplate iDaoTemplate) {
 		this.iDaoTemplate = iDaoTemplate;
 	}
+
+	
 
 }
