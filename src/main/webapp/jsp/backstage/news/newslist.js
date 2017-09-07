@@ -9,83 +9,41 @@ $(document).ready(function(){
 		           * 可以解决表格右边空白的问题，但是没办法自适应浏览器大小，暂时不用
 		           * width:parseInt($(this).width()*0.3)
 		           */
-		          {field:'UUID',title:'账号唯一ID',checkbox:true},
-		          {field:'ACCOUNT_NAME',title:'账号名称'},    
-		          {field:'ISLOCKEDNAME',title:'是否锁定'},  
-		          {field:'PERSON_NAME',title:'姓名'}, 
-		          {field:'SEXNAME',title:'性别'}, 
-		          {field:'AGE',title:'年龄'}, 
-		          {field:'TELEPHONE',title:'手机号'}, 
-		          {field:'EMAIL',title:'Email',resizable:true}
+		          {field:'uuid',title:'新闻标示',checkbox:true},
+		          {field:'news_title',title:'新闻标题',resizable:true},    
+		          {field:'news_subtitle',title:'新闻副标题',resizable:true},  
+		          {field:'news_date',title:'新闻日期'}, 
+		          {field:'news_author',title:'新闻作者'}, 
+		          {field:'news_abstract',title:'新闻简介'}, 
+		          {field:'createAccName',title:'新闻创建人'}, 
+		          {field:'create_date',title:'新闻创建时间',resizable:true}, 
+		          {field:'modifyccName',title:'新闻修改人'}, 
+		          {field:'modify_date',title:'新闻修改时间',resizable:true}, 
+		          {field:'audit',title:'审核状态',formatter: function (value, row, index) {
+                     if(value=='0'){return "未审核"; }
+                     if(value=='1'){return "审核通过"; }
+                     if(value=='2'){return "审核不通过"; }
+                                                  
+                  }},
+		          {field:'auditAccName',title:'新闻审核人'}, 
+		          {field:'audit_date',title:'新闻审核时间',resizable:true}, 
+		          {field:'two_level_classify',title:'新闻分类',resizable:true,formatter: function (value, row, index) {
+	                     if(value=='1'){return "公司新闻"; }
+	                     if(value=='2'){return "行业资讯"; }
+	                                                  
+	                  }},
+		          {field:'release_status',title:'发布状态',resizable:true,formatter: function (value, row, index) {
+	                     if(value=='0'){return "未发布"; }
+	                     if(value=='1'){return "已发布"; }
+	                                                  
+	                  }},
+		          {field:'releaseAccName',title:'新闻发布人'}, 
+		          {field:'release_date',title:'新闻发布时间'}, 
+		          {field:'publish_expire_date',title:'新闻过期时间'}
 		         ] 
 		      ]
 	};
-	//初始化用户信息列表
+	//初始化新闻列表
 	commonObj.initPaginationGrid(option);
-	$("#add").click(function(){
-		
-		if(!editdialog){
-			initDialog();
-		}
-		editdialog.panel({title:"新增"});
-		editdialog.panel({iconCls:'icon-save'});
-		editdialog.panel({href:addAccountUrl});
-		editdialog.window("open");
-	});
-	
-	$("#edit").click(function(){
-		var rows = $("#accountTableId").datagrid('getChecked');
-		if (rows.length == 1){
-			var rowObj = eval(rows[0]);
-			var ACC_UUID = rowObj.ACC_UUID;
-			var _url = editAccountUrl+"&uuid="+ACC_UUID;
-			if(!editdialog){
-				initDialog();
-			}
-			editdialog.panel({title:"修改"});
-			editdialog.panel({iconCls:'icon-edit'});
-			editdialog.panel({href:_url});
-			editdialog.window("open");
-			
-		}else{
-			commonObj.alert("请选择一条记录!","warning");
-		}
-	});
-	
-	$("#remove").click(function(){
-		
-		var rows = $("#accountTableId").datagrid('getChecked');
-		var rlength = rows.length;
-		var ids="";
-		if (rlength > 0){
-			for(var i=0;i<rlength;i++){
-				var rowObj = eval(rows[i]);
-				var ACC_UUID = rowObj.ACC_UUID;
-				ids+=ACC_UUID;
-				if(i<rlength-1)
-					ids+=",";
-			}
-			$.messager.confirm('提示', '该操作不可逆，您确认删除该用户账户信息?', function(r){
-				if (r){
-					var _url = removeAccountUrl+"&uuids="+ids;
-					$.messager.progress(); 
-					$.ajax({
-						   type: "POST",
-						   url: _url,
-						   success: function(data){
-							   successCallback(data);
-						   },
-						   error:function(XMLHttpRequest, textStatus, errorThrown){
-							   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
-						   }
-						});
-				}
-			});
-			
-		}else{
-			commonObj.alert("请选择至少一条记录!","warning");
-		}
-		$.messager.progress("close");
-	});
 	
 });

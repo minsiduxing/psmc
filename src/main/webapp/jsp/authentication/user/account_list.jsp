@@ -29,7 +29,6 @@
 	</form>
 	<div class="query-oper">
 		<a href="#" class="easyui-linkbutton query-btn" onclick="commonObj.query('accountTableId','searchform')" id="submit_search" plain="true" iconCls="icon-search">查询</a>
-		
 	</div> 
  </div>
  </div>
