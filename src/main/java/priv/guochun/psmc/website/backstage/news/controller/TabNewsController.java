@@ -32,7 +32,7 @@ public class TabNewsController extends MyController {
 	@ResponseBody
 	public void getNesPage(HttpServletRequest request,
 		 	HttpServletResponse response,MyPage mypage) throws IOException{
-		mypage = tabNewsService.getNewsByCondition(mypage);
+		mypage = tabNewsService.getNewsByConditionBusinessMethod(mypage);
 		super.responseJson(JsonUtil.convertToJSONObject(mypage), response);
 	}
 	@RequestMapping(params="method=newsSaveOrUpdate")
@@ -41,6 +41,10 @@ public class TabNewsController extends MyController {
 	}
 	@RequestMapping(params="method=newsAudit")
 	public String newsAudit(){
+		return "backstage/news/newslist";
+	}
+	@RequestMapping(params="method=newsRelease")
+	public String newsRelease(){
 		return "backstage/news/newslist";
 	}
 }

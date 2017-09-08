@@ -21,13 +21,13 @@ public interface TabNewsService {
 	 * @param tabNews  新闻实体类
 	 * @author wanglei 2017年9月3日
 	 */
-	public void saveOrUpdateTabNews (TabNews tabNews,TabModule tam);
+	public void saveOrUpdateTabNewsBusinessMethod (TabNews tabNews,TabModule tam);
 	/**
 	 * <p>Description:根据id删除新闻<p>
 	 * @param uuids id
 	 * @author wanglei 2017年9月3日
 	 */
-	public void deleteTabNewsByUuids(String uuids);
+	public void deleteTabNewsByUuidsBusinessMethod(String uuids);
 	/**
 	 * <p>Description:根据id 主键获取新闻<p>
 	 * @param uuid主键
@@ -41,7 +41,7 @@ public interface TabNewsService {
 	 * @return 新闻分页列表
 	 * @author wanglei 2017年9月3日
 	 */
-	public MyPage getNewsByCondition(MyPage myPage);
+	public MyPage getNewsByConditionBusinessMethod(MyPage myPage);
 	/**
 	 * <p>Description:根据用户id获取列表信息<p>
 	 * @param myPage
@@ -56,7 +56,7 @@ public interface TabNewsService {
 	 * @return 新闻list
 	 * @author wanglei 2017年9月3日
 	 */
-	public List<Map<String,Object>> getNewsListByCondition(MyPage myPage);
+	public List<Map<String,Object>> getNewsListByConditionBusinessMethod(MyPage myPage);
 	/**
 	 * <p>Description:根据二级分类查询列表<p>
 	 * @param towLevelClassify 二级分类内容
@@ -65,25 +65,19 @@ public interface TabNewsService {
 	 */
 	public List<Map<String,Object>> getShowNewsTitlesListByTowLevelClassify(String towLevelClassify);
 	/**
-	 * <p>Description:审核新闻不通过<p>
+	 * <p>Description:审核新闻<p>
 	 * @author wanglei 2017年9月3日
 	 */
-	public void executeAuditNewsNotPass(String moduleUuid,String auditAccUuid);
-	/**
-	 * <p>Description:审核通过<p>
-	 * @param tam
-	 * @author wanglei 2017年9月4日
-	 */
-	public void executeAuditNewsPass(String moduleUuid,String auditAccUuid);
+	public void executeAuditNewsBusinessMethod(TabModule tam);
 	/**
 	 * <p>Description:发布新闻<p>
 	 * @author wanglei 2017年9月3日
 	 */
-	public void executeReleaseNews(TabModule tam);
+	public void executeReleaseNewsBusinessMethod(TabModule tam);
 	/**
 	 * <p>Description:取消发布新闻<p>
 	 * @param tam
 	 * @author wanglei 2017年9月4日
 	 */
-	public void executeCancleReleaseNews(TabModule tam);
+	public void executeCancleReleaseNewsBusinessMethod(TabModule tam);
 }

@@ -29,13 +29,7 @@ public interface TabModuleService {
 	 * @param moduleUuid 模块标示
 	 * @author wanglei 2017年9月3日
 	 */
-	public void executeAuditModulePass(String moduleUuid,String auditAccUuid);
-	/**
-	 * <p>Description:审核<p>
-	 * @param moduleUuid 模块标示
-	 * @author wanglei 2017年9月4日
-	 */
-	public void executeAuditModuleNotPass(String moduleUuid,String auditAccUuid);
+	public void executeAuditModule(TabModule tam);
 	/**
 	 * <p>Description:发布模块信息<p>
 	 * @param tm 模块信息

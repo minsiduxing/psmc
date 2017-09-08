@@ -26,7 +26,7 @@ public class TabNewsServiceImpl implements TabNewsService {
 	@Autowired
 	private TabNewsDao tabNewsDao;
 	@Override
-	public void saveOrUpdateTabNews(TabNews tabNews, TabModule tam) {
+	public void saveOrUpdateTabNewsBusinessMethod(TabNews tabNews, TabModule tam) {
 		if(null==tabNews || null == tam){
 			throw new PsmcBuisnessException("保存新闻参数出错！");
 		}
@@ -55,7 +55,7 @@ public class TabNewsServiceImpl implements TabNewsService {
 	}
 
 	@Override
-	public void deleteTabNewsByUuids(String uuids) {
+	public void deleteTabNewsByUuidsBusinessMethod(String uuids) {
        // 先删除模块信息
 		tabModuleService.deleteTabModulebyUuids(uuids);
 		//删除模块信息
@@ -68,12 +68,12 @@ public class TabNewsServiceImpl implements TabNewsService {
 	}
 
 	@Override
-	public MyPage getNewsByCondition(MyPage myPage) {
+	public MyPage getNewsByConditionBusinessMethod(MyPage myPage) {
 		return tabNewsDao.getNewsByCondition(myPage);
 	}
 
 	@Override
-	public List<Map<String, Object>> getNewsListByCondition(MyPage myPage) {
+	public List<Map<String, Object>> getNewsListByConditionBusinessMethod(MyPage myPage) {
 		return tabNewsDao.getNewsListByCondition(myPage);
 	}
 
@@ -84,27 +84,21 @@ public class TabNewsServiceImpl implements TabNewsService {
 	}
 
 	@Override
-	public void executeAuditNewsNotPass(String moduleUuid,String auditAccUuid) {
-		// 审核不通过
-		tabModuleService.executeAuditModuleNotPass(moduleUuid, auditAccUuid);
+	public void executeAuditNewsBusinessMethod(TabModule tam) {
+		// 审核
+		tabModuleService.executeAuditModule(tam);
 		
 	}
 
 	@Override
-	public void executeAuditNewsPass(String moduleUuid,String auditAccUuid) {
-		// 审核通过
-		tabModuleService.executeAuditModulePass(moduleUuid, auditAccUuid);
-	}
-
-	@Override
-	public void executeReleaseNews(TabModule tam) {
+	public void executeReleaseNewsBusinessMethod(TabModule tam) {
 		// 发布信息
 		tabModuleService.executeReleaseModule(tam);
 		
 	}
 
 	@Override
-	public void executeCancleReleaseNews(TabModule tam) {
+	public void executeCancleReleaseNewsBusinessMethod(TabModule tam) {
 		//取消发布新闻
 		tabModuleService.executeReleaseCancel(tam);
 		

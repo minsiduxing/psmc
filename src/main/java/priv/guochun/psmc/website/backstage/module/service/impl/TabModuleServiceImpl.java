@@ -50,19 +50,12 @@ public class TabModuleServiceImpl implements TabModuleService {
 	}
 
 	@Override
-	public void executeAuditModulePass(String moduleUuid,String auditAccUuid) {
-		 this.auditModule(moduleUuid,new Integer(ModuleEnum.AUDITED_PASS.getValue()),auditAccUuid);
-	}
-	@Override
-	public void executeAuditModuleNotPass(String moduleUuid,String auditAccUuid) {
-		this.auditModule(moduleUuid,new Integer(ModuleEnum.AUDITED_NOT_PASS.getValue()),auditAccUuid);
-	}
-	private void auditModule(String moduleUuid,Integer audit,String auditAccUuid){
-		if(StringUtils.isBlank(moduleUuid)){
+	public void executeAuditModule(TabModule tm) {
+		if(StringUtils.isBlank(tm.getModelUuid())){
 			throw new PsmcBuisnessException("参数有误！");
 		}
 		// 1.判断模块是否存在如果不存在则不能审核
-		TabModule temp = tabModuleDao.getModuleByUuid(moduleUuid);
+		TabModule temp = tabModuleDao.getModuleByUuid(tm.getModelUuid());
 		if(null==temp){
 			throw new PsmcBuisnessException("模块不存在不能审核");
 		}
@@ -75,9 +68,9 @@ public class TabModuleServiceImpl implements TabModuleService {
 			throw new PsmcBuisnessException("模块已经发布不能审核");		
 		}
 		//更新审核通过标示
-		temp.setAudit(audit);
+		temp.setAudit(tm.getAudit());
 		temp.setAuditDate(DateUtil.getCurrentTimstamp());
-		temp.setAuditAccUuid(auditAccUuid);
+		temp.setAuditAccUuid(tm.getAuditAccUuid());
 		//4.修改模块状态
 		tabModuleDao.saveOrUpdateTabModule(temp);
 	}
