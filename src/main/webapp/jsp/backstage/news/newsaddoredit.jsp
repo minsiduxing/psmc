@@ -8,14 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    
-    <title>My JSP 'newsaddoredit.jsp' starting page</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
+
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -28,12 +21,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	.newsForm>ul>li>lable{
 			margin:2%;
 		}
-	.newsForm>ul>li>input{
-			width:80%;
-			height:8%;
+	.newsForm>ul>li>span{
+			width:100%;
+			height:10%;
 			margin-top: 1%;
 		}
-		
+		.newsForm>ul>li>input{
+			width:40%;
+			height:10%;
+			margin-top: 1%;
+		}
 	.operButon{
 		 width:98%;
 		 margin-left: 2.5%;
@@ -42,14 +39,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 padding:5px 0px;
 		 margin-right: 2%;
 		 margin-left: 2%;
-		 width:16%;
+		 width:5%;
 		}
       #container {
             width: 100%;
             margin: 0 auto;
         }
         #toolbar-container {
-         width:90%;
+            width:80%;
             border: 1px solid #ccc;
             background-color: #fff;
         }
@@ -68,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             margin-left:-2%;
         }
         #newsContent {
-            width:90%;
+            width:80%;
             border: 1px solid #ccc;
             border-top: 0;
             height: 300px;
@@ -103,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li><label >内容摘要</label><br>
 				<input id="newsAbstarct" name="newsAbstarct"></input></li>
 			<li><label>新闻配图</label><br>
-				<input id="thumbnailImageUrl" name="thumbnailImageUrl"></input></li>
+				<input id="thumbnailImageUrl"  name="thumbnailImageUrl"></input></li>
 			<li ><label >新闻内容</label><br>
 			 <!--非全屏模式-->
 			    <div id="container">
@@ -135,50 +132,116 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </body>
 </html>
 <script type="text/javascript">
-        var E = window.wangEditor
-        var editor = new E('#editor-toolbar','#newsContent');
-        //editor.customConfig.uploadImgShowBase64 = true   // 使用 base64 保存图片
-         editor.customConfig.uploadImgServer = '/upload'  // 上传图片到服务器
-        editor.create();  
-         // 获取使用到的元素
-         var toolbarContaner = document.getElementById('toolbar-container');
-         var editorText = document.getElementById('newsContent');
-         var cover = document.getElementById('cover');
-         var container = document.getElementById('container');
+    $(document).ready(function(){
+    	wangEditorInit();
+    	 formInint();
+    });   
+    //富文本编辑器初始化
+    function  wangEditorInit(){
+    	  var E = window.wangEditor
+          var editor = new E('#editor-toolbar','#newsContent');
+          editor.customConfig.uploadImgServer = '/upload';  // 上传图片到服务器
+          editor.create();  
+          // 获取使用到的元素
+          var toolbarContaner = document.getElementById('toolbar-container');
+          var editorText = document.getElementById('newsContent');
+          var cover = document.getElementById('cover');
+          var container = document.getElementById('container');
 
-         // 全屏事件
-         function doFullScreen() {
-             cover.style.display = 'block';
-             editorText.style.height = '90%';
-             editorText.style.width = '100%';
-             toolbarContaner.style.width = '100%';
-             cover.appendChild(toolbarContaner);
-             cover.appendChild(editorText);
-             $('#btn1').text("退出全屏");
-         }
+          // 全屏事件
+          function doFullScreen() {
+              cover.style.display = 'block';
+              editorText.style.height = '90%';
+              editorText.style.width = '100%';
+              toolbarContaner.style.width = '100%';
+              cover.appendChild(toolbarContaner);
+              cover.appendChild(editorText);
+              $('#btn1').text("退出全屏");
+          }
 
-         // 退出全屏事件
-         function unDoFullScreen() {
-             container.appendChild(toolbarContaner);
-             container.appendChild(editorText);
-             editorText.style.height = '100%';
-           
-             cover.style.display = 'none';
-             $('#btn1').text("全屏");
-         }
+          // 退出全屏事件
+          function unDoFullScreen() {
+              container.appendChild(toolbarContaner);
+              container.appendChild(editorText);
+              editorText.style.height = '100%';
+            
+              cover.style.display = 'none';
+              $('#btn1').text("全屏");
+          }
 
-         // 是否是全屏的标志
-         var isFullScreen = false
+          // 是否是全屏的标志
+          var isFullScreen = false
 
-         // 点击事件
-         var btn1 = document.getElementById('btn1');
-         btn1.addEventListener('click', function () {
-             if (isFullScreen) {
-                 isFullScreen = false;
-                 unDoFullScreen();
-             } else {
-                 isFullScreen = true;
-                 doFullScreen();
-             }
-         }, false);
+          // 点击事件
+          var btn1 = document.getElementById('btn1');
+          btn1.addEventListener('click', function () {
+              if (isFullScreen) {
+                  isFullScreen = false;
+                  unDoFullScreen();
+              } else {
+                  isFullScreen = true;
+                  doFullScreen();
+              }
+          }, false);
+    }
+    //表单数据初始化
+    function formInint(isEdit){
+    	if (isEdit) {
+				$('#newsTitle').textbox({
+					value : "${news.newsTitle}",
+					type : "text",
+					required : true
+				});
+				$('#newSubTitle').textbox({
+					value : "${news.newSubTitle}",
+					type : "text"
+				});
+				$('#newsAbstarct').textbox({
+					value : "${news.newsAbstarct}",
+					type : "text"
+				});
+				$('#thumbnailImageUrl').textbox({
+					value : "${news.thumbnailImageUrl}",
+					type : "text"
+				});
+				$('#newsDate').textbox({
+					value : "${news.newsDate}",
+					type : "date",
+					required : true
+				});
+				$('#newAutor').textbox({
+					value : "${news.newAutor}",
+					type : "text",
+					required : true
+				});
+		}
+		else{
+			$('#newsTitle').textbox({
+				value : "",
+				type : "text",
+				required : true
+			});
+			$('#newSubTitle').textbox({
+				value : "",
+				type : "text"
+			});
+			$('#newsAbstarct').textbox({
+				value : "",
+				type : "text"
+			});
+			$('#thumbnailImageUrl').filebox({
+				prompt:'选择招片',
+				value : ""
+			});
+			$('#newsDate').datetimebox({
+				value : "",
+				required : true
+			});
+			$('#newAutor').textbox({
+				value : "",
+				type : "text",
+				required : true
+			});
+		}
+    }
     </script>
