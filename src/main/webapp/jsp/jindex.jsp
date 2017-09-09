@@ -5,28 +5,39 @@
 <%@ include file="../common.jsp"%>
 <title>欢迎访问后台管理系统</title>
 </head>
-<body class="easyui-layout"style="margin-left:0.5%;margin-right:0.5%">
-	<div id="sysTopDiv" data-options="region:'north',title:'',split:true" class="sysTopDiv" style="height:7%;">
-			<div class="title topLeftContent" title="title">尊敬的用户：<c:out value='${user.accountName}'/>，欢迎您登入系统！
-			当前系统时间：<span id="stime" name="stime"></span>
-			<input type="hidden" id="serverTime" name="serverTime" value="<c:out value='${serverTime}'/>">
-			当前在线人数:<c:out value='${applicationScope.sessionsNum}'/>人
+<body class="easyui-layout" data-options="" style="margin-left:0.6%;margin-right:0.6%;margin-top:0.3%;background-color:#F5F5F5;">
+	<div id="sysTopDiv" plain="true" data-options="region:'north',title:'',split:false" class="sysTopDiv" style="width:100%;height:11%;">
+			<div>
+				<div style="float:left;height:83%;width:99%;position:absolute;">
+					<img src="../images/top.jpg" height="100%" width="100%"/>
+				</div>
+				<div class="topLeftContent">
+				您好：<c:out value='${user.accountName}'/>，欢迎您登入系统！
+				当前系统时间：<span id="stime" name="stime"></span>
+				<input type="hidden" id="serverTime" name="serverTime" value="<c:out value='${serverTime}'/>">
+				当前在线人数:<c:out value='${applicationScope.sessionsNum}'/>人
+				</div>
+				<div class="topRightBtndiv">
+				<a id="updatePasswd" style="width:90px;" href="#" class="easyui-linkbutton topRightMenuBtn" data-options="iconCls:'icon-lock'">修改密码</a>
+				<a id="logOut" style="width:90px;" href="#" class="easyui-linkbutton topRightMenuBtn" data-options="iconCls:'icon-man'">退出登录</a>
+				</div>
 			</div>
-			<div class="topRightBtndiv">
-			<a id="updatePasswd" href="#" class="easyui-linkbutton topRightMenuBtn" data-options="iconCls:'icon-lock'">修改密码</a>
-			<a id="logOut" href="#" class="easyui-linkbutton topRightMenuBtn" data-options="iconCls:'icon-man'">退出登录</a>
-			</div>
+			
 	</div>	
 	
-    <div id="sysFootDiv" data-options="region:'south',title:'',split:true" style="height:6%;">
+    <div id="sysFootDiv" data-options="region:'south',title:'',split:false" style="height:7%">
+    	<div style="padding:0.9%;font-family:serif;font-size:10px;text-align:center;
+    	font-style:inherit;font-variant-caps:titling-caps;background:#F5F5F5;color:#191970;">
+    		博汇康宁（深圳）投资基金管理有限公司.版权所有;  Powered By  西安敏思笃行信息技术有限公司
+    	</div>
     </div>
     
-    <div id="sysLeftDiv" data-options="region:'west',title:'菜单栏',split:true" style="width:16%;" >
+    <div id="sysLeftDiv" data-options="region:'west',title:'菜单栏',split:false," style="width:13%;height:82%;" >
 		<div id="navigationId" fit="true" class="easyui-accordion"></div>
 	</div>
     
-    <div id="sysFunctionDiv" data-options="region:'center',title:'功能区'" style="width:83%;" >
-    	<div id="sysFunctionTabs"  class="easyui-tabs" style="width:100%;height:100%;"></div>
+    <div id="sysFunctionDiv" data-options="region:'center',title:'功能区',split:false" style="width:87%;height:82%" >
+    	<div id="sysFunctionTabs"  fit="true" class="easyui-tabs" style="width:100%;height:100%;"></div>
     </div>
 </body>
 
