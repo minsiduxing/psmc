@@ -34,9 +34,13 @@ public class LogOutServlet extends HttpServlet {
     		return;
     	}
     	User loginOutUser = (User)httpSession.getAttribute("user");
-    	logger.info("---------------用户"+loginOutUser.getAccountName()+"退出系统！");
-    	httpSession.removeAttribute("user");
-    	logger.info("---------------清除了id为"+httpSession.getId()+"的session！");
+    	if(loginOutUser!=null)
+    	{
+    		httpSession.removeAttribute("user");
+    		logger.info("---------------用户"+loginOutUser.getAccountName()+"退出系统！");
+    		logger.info("---------------清除了id为"+httpSession.getId()+"的session！");
+    	}
+    	
     	httpSession.invalidate();
     	response.sendRedirect(loginurl);
     }

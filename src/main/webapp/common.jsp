@@ -9,7 +9,7 @@
 <%@ taglib  uri="http://prvi.guochun.com/mytag" prefix="g" %>  
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>  
 
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/jquery-easyui-1.4.5/themes/default/easyui${csssuffix}" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/jquery-easyui-1.4.5/themes/bootstrap/easyui${csssuffix}" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/jquery-easyui-1.4.5/themes/icon${csssuffix}" />
 
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.11.3${jssuffix}"></script>

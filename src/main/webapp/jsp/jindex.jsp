@@ -5,10 +5,10 @@
 <%@ include file="../common.jsp"%>
 <title>欢迎访问后台管理系统</title>
 </head>
-<body class="easyui-layout" data-options="" style="margin-left:0.6%;margin-right:0.6%;margin-top:0.3%;background-color:#F5F5F5;">
-	<div id="sysTopDiv" plain="true" data-options="region:'north',title:'',split:false" class="sysTopDiv" style="width:100%;height:11%;">
+<body id="layoutId" class="easyui-layout" data-options="" style="margin:0.1px;background-color:#F5F5F5;">
+	<div id="sysTopDiv" data-options="region:'north',title:'',split:false" class="sysTopDiv" style="width:100%;height:11%;">
 			<div>
-				<div style="float:left;height:83%;width:99%;position:absolute;">
+				<div style="float:left;height:100%;width:100%;position:absolute;top:1px;left:1px;">
 					<img src="../images/top.jpg" height="100%" width="100%"/>
 				</div>
 				<div class="topLeftContent">
@@ -27,12 +27,12 @@
 	
     <div id="sysFootDiv" data-options="region:'south',title:'',split:false" style="height:7%">
     	<div style="padding:0.9%;font-family:serif;font-size:10px;text-align:center;
-    	font-style:inherit;font-variant-caps:titling-caps;background:#F5F5F5;color:#191970;">
+    	font-style:inherit;font-variant-caps:titling-caps;background:#F8F8FF;color:black;">
     		博汇康宁（深圳）投资基金管理有限公司.版权所有;  Powered By  西安敏思笃行信息技术有限公司
     	</div>
     </div>
     
-    <div id="sysLeftDiv" data-options="region:'west',title:'菜单栏',split:false," style="width:13%;height:82%;" >
+    <div id="sysLeftDiv" data-options="region:'west',title:'菜单栏',split:false" style="width:13%;height:82%;" >
 		<div id="navigationId" fit="true" class="easyui-accordion"></div>
 	</div>
     
@@ -50,6 +50,9 @@ $(document).ready(function(){
 	//初始化功能栏
 	initsysFunctionDiv();
 	startTime();
+	$("#layoutId").layout("collapse", "west");
+
+	
 });
 //实现获取后台服务器时间并在前台动态刷新功能 add by yangqing 2017-6-21
 //systime放入隐藏域中

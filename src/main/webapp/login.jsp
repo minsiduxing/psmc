@@ -5,54 +5,34 @@
 <html>
 <head>
 <%@ include file="common.jsp"%>
+<link rel="stylesheet" href="css/login.css" type="text/css" />
 <title>登录</title>
 </head>
+
 <body>
-	<form method="post" id="loginForm" onkeydown='on_return()' class="easyui-panel" title="用户登录" style="width:400px;padding:30px 70px 20px 70px">
-		<div style="margin-bottom:10px">
-		<div>用户名:</div>
-			<input class="easyui-textbox" id="username" name="username"  style="width:100%;height:40px;padding:12px" data-options="prompt:'用户名',iconCls:'icon-man',iconWidth:38">
-		</div>
-		<div style="margin-bottom:20px">
-		<div>密码:</div>
-			<input class="easyui-textbox" id="password" name="password"  type="password" style="width:100%;height:40px;padding:12px"  data-options="prompt:'',iconCls:'icon-lock',iconWidth:38">
-		</div>
-		<div  id="msg" style="margin-bottom:20px;color:#d64242;font-size: small;display:none;">
-		</div>
-		<div>
-			<input id="submitbtn" type="button" class="easyui-linkbutton" onclick=" loginSubmit()" style="padding:5px 0px;width:100%;" value="登录"/>
-		</div>
-	</form>
+  	<div id="loginDiv" class="loginDiv">
+  		<div id="formDiv" class="formDiv">
+  			<img src="images/login.jpg"/>	
+  			<div class="formInputDiv">
+  				<form method="post" id="loginForm" onkeydown='on_return()'>
+				<p>
+					账号:<input class="input" id="username" name="username">
+				</p>
+				<p>
+					密码:<input class="input" id="password" name="password"  type="password">
+				</p>
+				<div class="formButtonDiv">
+					<input id="submitbtn" type="button" onclick="loginSubmit();"/>
+				</div>
+				<div  id="msg" style="color:#d64242;font-size: small;display:none">
+				</div>
+				</form>
+			</div>
+		</div>  	
+  	</div>
 </body>
 <script type="text/javascript" src="js/md5.js"></script>
 <script>
-	$(function(){
-		recalc();
-		$(window).resize(function(){
-			recalc();
-		});
-		//由于easyui-textbox 不触发blur事件所以在此重新绑定
-		$("input",$("#username").next("span")).blur(function(){  
-			validateUserName();
-		}) 
-		//由于easyui-textbox 不触发blur事件所以在此重新绑定
-		$("input",$("#password").next("span")).blur(function(){  
-			validateUserPassword();
-		})  
-	});
-	
-	function recalc(){
-		var formH = $(".panel").height();
-		var formW = $(".panel").width();
-		var documentH = $(document).height();
-		var documentW = $(document).width();
-		
-		$(".panel").css({
-			position:'absolute', 
-			top:(documentH - formH)/2+"px",
-			left:(documentW - formW)/2+"px"
-		});
-	}
 	//校验用户名
 	function validateUserName(){
 		if($("#username").val()==""|| $("#username").val()==null){
@@ -92,7 +72,7 @@
 	function loginSubmit(){
 		//密码md5加密
      if(validateLoginInfo()){
-    	 $('#password').textbox('setValue',hex_md5($('#password').textbox('getValue')));
+    	 $('#password').val(hex_md5($('#password').val()));
  		var _url = "<c:url value='/login'/>";
  		var _data = $("#loginForm").serialize();
  		if(validateLoginInfo()){
@@ -127,6 +107,6 @@
 		   document.all('submitbtn').click();
 		   }
 		 }
-		 }
+	}
 </script>
 </html>
