@@ -501,7 +501,12 @@ public class FtpUtil {
                 if(!ftpClient.deleteFile(PSMCFileUtils.encodedFileName(name))) throw new PsmcBuisnessException("删除文件失败！");
             }else{
             	//本地删除
-            	PSMCFileUtils.deleteAllFilesOfDir(new File(fileName));
+            	File tempfile = new File(fileName);
+            	if(!tempfile.delete())
+            	   {
+            	    System.gc();//系统进行资源强制回收
+            	    tempfile.delete();
+            	  };
             }
         	long endTime = System.currentTimeMillis();
         	logger.debug("文件:["+name+"]删除成功！总耗时："+(endTime-beginTime)+"ms");

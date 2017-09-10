@@ -50,6 +50,15 @@ public class SystemPropertiesUtil
     private static final String system_remote_os ="system_remote_os";
     
     /**
+     * 新闻图片宽度
+     */
+    private static final String news_pic_width ="news_pic_width";
+    /**
+     * 新闻图片高度
+     */
+    private static final String news_pic_height ="news_pic_height";
+    
+    /**
      * 初始化system.propeties
      * <p>Description:<p>
      * @author guochun 2016-6-29
@@ -107,6 +116,14 @@ public class SystemPropertiesUtil
 
 	public static String getSystemRemoteOs() {
 		return getPropertyValue(system_remote_os);
+	}
+
+	public static String getNewsPicWidth() {
+		return getPropertyValue(news_pic_width);
+	}
+
+	public static String getNewsPicHeight() {
+		return getPropertyValue(news_pic_height);
 	}
 
 	public static String getPropertyValue(String key){

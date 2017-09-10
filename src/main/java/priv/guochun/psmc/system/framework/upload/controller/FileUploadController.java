@@ -47,9 +47,9 @@ public class FileUploadController extends MyController {
 		File resFiel = ftu.downloadFileByFtp(filePath);
 		this.responseImage(response, resFiel);
 	}
-	@RequestMapping(params="method=testFileDelete")
+	@RequestMapping(params="method=fileDelete")
 	@ResponseBody
-	public void testFileDelete(HttpServletRequest request,HttpServletResponse response,String filePath) throws IllegalStateException, IOException{
+	public void fileDelete(HttpServletRequest request,HttpServletResponse response,String filePath) throws IllegalStateException, IOException{
 		FtpUtil ftu = FtpUtil.getFtputil();
 	     ftu.deleteFile(filePath);
 		super.responseJson(true,"文件："+filePath+"删除成功！", response);

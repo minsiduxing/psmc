@@ -23,12 +23,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	.newsForm>ul>li>span{
 			width:100%;
-			height:10%;
 			margin-top: 1%;
 		}
 		.newsForm>ul>li>input{
 			width:40%;
-			height:10%;
 			margin-top: 1%;
 		}
 	.operButon{
@@ -46,6 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             margin: 0 auto;
         }
         #toolbar-container {
+          margin-top: 1%;
             width:80%;
             border: 1px solid #ccc;
             background-color: #fff;
@@ -60,6 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             
         }
         #btn-container {
+            margin-top: 1%;
             float: right;
             text-align: right;
             margin-left:-2%;
@@ -85,6 +85,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             padding: 20px;
             background-color: #f1f1f1;
         }
+        #picpreview{
+        margin-top:1%;
+        border: 1px solid #D4D4D4;
+        width:80%;
+        }
+        #picpreview>img{
+         margin:1%;
+         border: 1px solid #D4D4D4;
+        }
+        .img-btn{
+        	width:10%;
+        	text-align: center;
+        	float:right;
+        }
 </style>
   </head>
   <%@ include file="../../../common.jsp"%>
@@ -100,7 +114,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li><label >内容摘要</label><br>
 				<input id="newsAbstarct" name="newsAbstarct"></input></li>
 			<li><label>新闻配图</label><br>
-				<input id="thumbnailImageUrl"  name="thumbnailImageUrl"></input></li>
+			<input type="hidden" id="hiddenfile" name="thumbnailImageUrl"/>
+			<div id="picpreview" >
+			<div id="thumbnailImageUrl"></div>
+			
+			</div>
+			</li>
 			<li ><label >新闻内容</label><br>
 			 <!--非全屏模式-->
 			    <div id="container">
@@ -135,7 +154,151 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     $(document).ready(function(){
     	wangEditorInit();
     	 formInint();
-    });   
+    });
+    //用户离开页面删除临时文件
+    window.onbeforeunload=function(){
+    	return "\n确认离开该页面吗？离开后未上传图片将不被保存";
+    }
+    window.onunload=function(){
+    	deleteFile();
+    	return "";
+    }
+    var basePath = $("#basePath").val();
+    var uploadUrl = basePath+"/website/backstage/tabNewsController.do";
+    uploadUrl ='<c:url value="'+uploadUrl+'"/>?method=uploadPic';
+    var newsPicWidth=0,newsPicHeight=0,imgWidth=0,imgHeight=0;
+	var x,y,w,h;
+	var pirSrc ;
+	var getImag;
+    $('#thumbnailImageUrl').Huploadify({
+        auto:true,
+        fileTypeExts:'*.jpg;*.png;*.JPG',
+        multi:false,
+        formData:{key:123456,key2:'vvvv'},
+        fileSizeLimit:1024,
+        fileObjName:'newsPic',
+        showUploadedPercent:true,
+        showUploadedSize:true,
+        uploader:uploadUrl,
+        buttonText:'选择图片',
+        onUploadStart:function(){
+            console.log('开始上传');
+            $('.uploadify-queue').html('');
+            },
+        onInit:function(){
+            console.log('初始化');
+            $(".uploadify-queue ").hide();
+            },
+        onUploadComplete:function(file,data){
+        	var ao = $.parseJSON(data);
+        	if(ao.result=='1') {
+        		deleteFile();
+        		pirSrc = ao.picSrc;
+        		newpic =$.parseJSON(ao.newsPic);
+        		showPicpreview(ao.picSrc,"true");
+        		newsPicWidth = newpic.newsPicWidth;
+				newsPicHeight = newpic.newsPicHeight;
+				imgWidth = ao.newsPic.imgWidth;
+				imgHeight = ao.newsPic.imgHeight;
+				getImag='<c:url value="/system/freamwork/fileUploadController"/>?method=getImage&filePath='+pirSrc;
+				$("#picpreimg").before("<div id='pc' style='width:"+newsPicWidth+"px;height:"+newsPicHeight+"px;overflow:hidden;margin-bottom:5px;'><img id='preview' src='"+getImag+"'/></div>");
+				$("#picpreimg ").Jcrop({
+					aspectRatio:newsPicWidth/newsPicHeight,
+					onChange: showPreview,
+					onSelect: showPreview,
+					allowResize:false ,
+					setSelect: [0,0,newsPicWidth,newsPicHeight]
+				});
+				$("#confirmSelect").click(confirmSelect);
+        	}else{
+        		alert(ao.msg);
+        	}
+            },
+        onCancel:function(file){
+            console.log(file);
+        }
+    });
+    //预览图片显示
+    function showPicpreview(picSrc,showbtn){
+        getImag='<c:url value="/system/freamwork/fileUploadController"/>?method=getImage&filePath='+picSrc;
+    	var previewImg='<img alt="预览图片" id="picpreimg" src='+getImag+'>';
+    	if(showbtn=="true"){
+    		var imgBtn ='<input type="button" value="上传" id="confirmSelect" class="img-btn" id="confirmSelect"/>';
+        	$("#picpreview").append(imgBtn+previewImg);
+    	}else{
+    		$("#picpreview").append(previewImg);
+    	}
+    }
+    //重新上传时删除已经存在的图片
+    function deleteFile(){
+            var imgSrc = $("#picpreimg").attr("src");
+            if(imgSrc!=undefined && imgSrc!=''){
+            	imgSrc = imgSrc.replace('getImage','fileDelete');
+            	var _url='<c:url value="'+imgSrc+'"/>';
+            	$.ajax({
+     				async:false,
+     				cache:false,
+     				type:'GET',
+     				url:_url,
+     				success:function(data){
+     					var dataObj = JSON.parse(data);
+     					console.info(dataObj.msg);
+     				},
+     				error:function (XMLHttpRequest, textStatus, errorThrown) {
+     					alert(textStatus);
+     					commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+     				}
+     			});
+            	$("#preview").remove();
+				$("#picpreimg").remove();
+				$(".jcrop-holder").remove();
+				$("#pc").remove();
+				$("#confirmSelect").remove();
+            	$("#preview").remove();
+            }
+   };
+   //修改图片预览
+   function showPreview(coords)
+	{
+		if (parseInt(coords.w) > 0)
+		{
+			var rx = newsPicWidth / coords.w;
+			var ry = newsPicHeight / coords.h;
+			x = coords.x;
+			y = coords.y;
+			h = coords.h;
+			w = coords.w;
+			jQuery('#preview').css({
+				width: Math.round(rx * imgWidth) + 'px',
+				height: Math.round(ry * imgHeight) + 'px',
+				marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+				marginTop: '-' + Math.round(ry * coords.y) + 'px'
+			});
+		}
+	}
+   //上传修改后的图片
+   function confirmSelect() {
+		//var tn = newName.replace("\.","#");
+		//alert(tn);
+		alert();
+		var path = '<c:url value="'+ basePath+'/website/backstage/tabNewsController.do"/>?method=confirmPic';
+		$.post(path,{w:w,h:h,x:x,y:y,pirSrc:pirSrc},function(data) {
+				var ao = $.parseJSON(data);
+				console.info(ao);
+				if(ao.result=='1'){
+					$("#preview").remove();
+					$("#picpreimg").remove();
+					$(".jcrop-holder").remove();
+					$("#pc").remove();
+					$("#confirmSelect").remove();
+					showPicpreview(ao.newsrc,"false");
+					$("#hiddenfile").val(ao.newsrc);
+				}else{
+					alert(ao.msg);
+				}
+				
+		},"text")
+	}
     //富文本编辑器初始化
     function  wangEditorInit(){
     	  var E = window.wangEditor
@@ -200,10 +363,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					value : "${news.newsAbstarct}",
 					type : "text"
 				});
-				$('#thumbnailImageUrl').textbox({
-					value : "${news.thumbnailImageUrl}",
-					type : "text"
-				});
 				$('#newsDate').textbox({
 					value : "${news.newsDate}",
 					type : "date",
@@ -228,10 +387,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#newsAbstarct').textbox({
 				value : "",
 				type : "text"
-			});
-			$('#thumbnailImageUrl').filebox({
-				prompt:'选择招片',
-				value : ""
 			});
 			$('#newsDate').datetimebox({
 				value : "",
