@@ -5,7 +5,7 @@
 <html>
 <head>
 <%@ include file="common.jsp"%>
-<link rel="stylesheet" href="css/login.css" type="text/css" />
+<link rel="stylesheet" href="css/default/login.css" type="text/css" />
 <title>登录</title>
 </head>
 
