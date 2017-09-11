@@ -14,7 +14,10 @@ $(document).ready(function(){
 		          {field:'news_subtitle',title:'新闻副标题',resizable:true},  
 		          {field:'news_date',title:'新闻日期'}, 
 		          {field:'news_author',title:'新闻作者'}, 
-		          {field:'news_abstract',title:'新闻简介'}, 
+		          {field:'news_abstract',title:'新闻简介',formatter: function (value, row, index) {
+	                     if(value.length>=10){return value.substring(0,10)+"......"; }	
+	                     if(value.length<10){return value; }
+	              }}, 
 		          {field:'createAccName',title:'新闻创建人'}, 
 		          {field:'create_date',title:'新闻创建时间',resizable:true}, 
 		          {field:'modifyccName',title:'新闻修改人'}, 
@@ -45,5 +48,17 @@ $(document).ready(function(){
 	};
 	//初始化新闻列表
 	commonObj.initPaginationGrid(option);
-	
+	//编辑
+	$("#edit").click(function(){
+		var rows = $("#newsTableId").datagrid('getChecked');
+		if (rows.length == 1){
+			var rowObj = eval(rows[0]);
+			var uuid = rowObj.uuid;
+			var _url = editNewsUrl+"&uuid="+uuid;
+			window.location.href=_url;
+		}else{
+			commonObj.alert("请选择一条记录!","warning");
+		}
+		event.preventDefault();
+	});
 });

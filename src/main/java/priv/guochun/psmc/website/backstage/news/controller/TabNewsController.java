@@ -14,12 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.Thumbnails.Builder;
 
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,7 +33,9 @@ import priv.guochun.psmc.system.framework.upload.util.FtpUtil;
 import priv.guochun.psmc.system.framework.upload.util.PSMCFileUtils;
 import priv.guochun.psmc.system.util.JsonUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
+import priv.guochun.psmc.website.backstage.module.model.TabModule;
 import priv.guochun.psmc.website.backstage.news.model.NewsImage;
+import priv.guochun.psmc.website.backstage.news.model.TabNews;
 import priv.guochun.psmc.website.backstage.news.service.TabNewsService;
 @Scope("prototype")
 @Controller
@@ -55,7 +59,22 @@ public class TabNewsController extends MyController {
 		super.responseJson(JsonUtil.convertToJSONObject(mypage), response);
 	}
 	@RequestMapping(params="method=newsSaveOrUpdate")
-	public String newsSaveOrUpdate(){
+	public String newsSaveOrUpdate(HttpServletRequest request,TabNews  tn ,TabModule tm,String isEdit){
+		//新增
+		if(StringUtils.isBlank(isEdit)){
+			tm.setCreateAccUuid(this.getUserBySeesion(request).getUserUuid());
+		}else{
+			tm.setModelUuid(tn.getNewsUuid());
+			tm.setModifyAccUuid(this.getUserBySeesion(request).getUserUuid());
+		}
+		tabNewsService.saveOrUpdateTabNewsBusinessMethod(tn, tm);
+		return "redirect:/website/backstage/tabNewsController?method=index";
+	}
+	@RequestMapping(params="method=newsEdit")
+	public String newsEdit(String uuid,Model model){
+		Map<String,Object> tabNews = tabNewsService.getNewsByNewsUuid(uuid);
+		model.addAttribute("news", tabNews);
+		model.addAttribute("isEdit", "isEdit");
 		return "backstage/news/newsaddoredit";
 	}
 	@RequestMapping(params="method=newsAudit")

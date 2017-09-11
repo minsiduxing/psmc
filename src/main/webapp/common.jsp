@@ -23,17 +23,12 @@
 <%-- <script type="text/javascript" src="<%=request.getContextPath()%>/js/vlidate/dist/localization/messages_zh.min${jssuffix}"></script> --%>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/json2${jssuffix}"></script>
 <%-- <script type="text/javascript" src="<%=request.getContextPath()%>/js/date/WdatePicker.js"></script> --%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/Huploadify${csssuffix}" type="text/css">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/jcrop/css/jquery.Jcrop${csssuffix}"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/js/zTree_v3-master/css/zTreeStyle/zTreeStyle${csssuffix}" type="text/css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/publish${csssuffix}" type="text/css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/zTree_v3-master/js/jquery.ztree.core${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/zTree_v3-master/js/jquery.ztree.excheck${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/zTree_v3-master/js/jquery.ztree.exedit${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/wangEditor/wangEditor.min${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/uploadfy/jquery.Huploadify${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/browser${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/jquery.Jcrop.min${jssuffix}"></script>
+
 <input type="hidden" id="basePath" name="basePath" value="<%=request.getContextPath()%>"/>
 
 <script type="text/javascript">

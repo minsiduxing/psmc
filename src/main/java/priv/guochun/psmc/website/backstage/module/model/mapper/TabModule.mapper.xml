@@ -33,7 +33,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	   		one_level_classify, 
 	   		two_level_classify,
 	   		release_status
-   		FROM tab_model
+   		FROM tab_module
    			<where>
    				<if test="createAccName!=null and createAccName!=''">
    					and create_acc_uuid in(
@@ -108,12 +108,12 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   	
 
   	<insert id="insertTabModel">
-  		INSERT INTO tab_model (uuid, create_acc_uuid, create_date, modify_acc_uuid, modify_date, audit, audit_acc_uuid, audit_date, release_acc_uuid, release_date, one_level_classify, two_level_classify,release_status) 
+  		INSERT INTO tab_module (uuid, create_acc_uuid, create_date, modify_acc_uuid, modify_date, audit, audit_acc_uuid, audit_date, release_acc_uuid, release_date, one_level_classify, two_level_classify,release_status) 
   		VALUES (#{modelUuid}, #{createAccUuid}, #{createDate}, #{modifyAccUuid}, #{modifyDate}, #{audit}, #{auditAccUuid},#{auditDate}, #{releaseAccUuid}, #{releaseDate}, #{oneLevelClassify}, #{towLevelClassify},#{releaseStatus})
   	</insert>
   	
   	<update id="updateTabModel" parameterType="priv.guochun.psmc.website.backstage.module.model.TabModule">
-  		UPDATE tab_model 
+  		UPDATE tab_module 
   		<trim prefix="set" suffixOverrides=",">
 	  		<if test="modifyAccUuid != null and modifyAccUuid != ''">
 	  			modify_acc_uuid =#{modifyAccUuid},
@@ -151,7 +151,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   	
   	
     <delete id="deletesTabModelByUuid" parameterType="hashmap">
-    	DELETE FROM  tab_model  where 1=1  and uuid in
+    	DELETE FROM  tab_module  where 1=1  and uuid in
     	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
 				  #{item}  
 		</foreach>  

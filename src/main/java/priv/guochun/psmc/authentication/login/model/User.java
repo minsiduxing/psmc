@@ -23,6 +23,7 @@ public class User implements Serializable
     private String roleUuid;
     private String roleNo;
     private String roleName;
+    private String userUuid;
     
     
     public User(Map tabAccount,Map tabPerson,Map tabRole,List operateList){
@@ -39,7 +40,7 @@ public class User implements Serializable
     	personEmail = tabPerson.get("EMAIL")!=null?
     					tabPerson.get("EMAIL").toString():"";
     	personCityId = tabPerson.get("CITYID").toString();
-
+    	userUuid =tabPerson.get("UUID").toString();
     	roleUuid = tabRole.get("UUID").toString();
     	roleNo = tabRole.get("ROLE_NO").toString();
     	roleName = tabRole.get("ROLE_NAME").toString();
@@ -87,7 +88,17 @@ public class User implements Serializable
 	}
 
 
-    public List getOperateList()
+    public String getUserUuid() {
+		return userUuid;
+	}
+
+
+	public void setUserUuid(String userUuid) {
+		this.userUuid = userUuid;
+	}
+
+
+	public List getOperateList()
     {
         return operateList;
     }

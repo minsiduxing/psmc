@@ -4,6 +4,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%@ include file="../../../common.jsp"%>
+<%@ page isELIgnored="false"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -58,13 +59,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div id="toolbarId">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="edit">修改</a>
 		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
-		<a href="" id="exportBtn" class="easyui-linkbutton query-btn"   plain="true" iconCls="icon-excel">导出</a>
+		<a href="#" id="exportBtn" class="easyui-linkbutton query-btn"   plain="true" iconCls="icon-excel">导出</a>
 </div>
   </body>
 </html>
 <script type="text/javascript">
 var basePath = $("#basePath").val();
-
 var getNewsDataUrl = basePath+"/website/backstage/tabNewsController.do";
 getNewsDataUrl ='<c:url value="'+getNewsDataUrl+'"/>?method=getNesPage';
+
+var editNewsUrl = basePath+"/website/backstage/tabNewsController.do";
+editNewsUrl ='<c:url value="'+editNewsUrl+'"/>?method=newsEdit';
 </script>
