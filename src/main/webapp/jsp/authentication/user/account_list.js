@@ -148,6 +148,7 @@ $(document).ready(function(){
 			commonObj.alert("请选择至少一条记录!","warning");
 		}
 		$.messager.progress("close");
+		
 	});
 	
 });

@@ -56,7 +56,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    				<if test="newsDateBegin!=null and newsDateBegin !=''">  
         		    and <![CDATA[ tn.news_date>=UNIX_TIMESTAMP(#{newsDateBegin}) ]]>  
       			 </if>  
-       			<if test="newsDateEnd!=null and createDateEnd!=''" >  
+       			<if test="newsDateEnd!=null and newsDateEnd !=''" >  
       		      and <![CDATA[tn.news_date<=UNIX_TIMESTAMP(#{newsDateEnd}) ]]>  
        			</if>  
        			<if test="newAutor!=null and newAutor!=''">
@@ -67,7 +67,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    				</if>
    				<if test="createAccName!=null and createAccName!=''">
    					and tm.create_acc_uuid in(
-   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{createAccName}),'%');
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{createAccName}),'%')
 			          )
    				</if>
    				<if test="createDateBegin!=null and createDateBegin !=''">  
@@ -78,7 +78,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
        			</if>  
        			<if test="modifyAccName!=null and modifyAccName!='' ">
    					and tm.modify_acc_uuid in(
-   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{modifyAccName}),'%');
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{modifyAccName}),'%')
 			          )
    				</if>
    				<if test="modifyDateBegin!=null and modifyDateBegin!=''">  
@@ -92,7 +92,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
        			</if>  
        			<if test="auditAccName!=null and auditAccName!=''">
    					and tm.audit_acc_uuid in(
-   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{auditAccName}),'%');
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{auditAccName}),'%')
 			          )
    				</if>
    				<if test="auditDateBegin!=null and auditDateBegin!=''">  
@@ -103,7 +103,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
        			</if>  
        			<if test="releaseAccName!=null and releaseAccName!=''">
    					and tm.release_acc_uuid in(
-   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{releaseAccName}),'%');
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{releaseAccName}),'%')
 			          )
    				</if>
    				<if test="releaseDateBegin!=null and releaseDateBegin!=''">  
@@ -180,8 +180,8 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	  		<if test="newsUuid != null and newsUuid != ''">
 	  			uuid =#{newsUuid},
 	  		</if>
-	  		<if test="news_title != null and news_title != ''">
-	  			newsTitle =#{news_title},
+	  		<if test="newsTitle != null and newsTitle != ''">
+	  			news_title =#{newsTitle},
 	  		</if>
 	  		<if test="newSubTitle != null and newSubTitle != ''">
 	  			news_subtitle =#{newSubTitle},

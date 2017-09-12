@@ -13,7 +13,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
  	<result property="auditAccUuid" column="audit_acc_uuid"/>
     <result property="auditDate" column="audit_date"/>
     <result property="releaseAccUuid" column="release_acc_uuid"/>
-    <result property="releaseDate" column="one_level_classify"/>
+    <result property="releaseDate" column="release_date"/>
  	<result property="oneLevelClassify" column="one_level_classify"/>
  	<result property="towLevelClassify" column="two_level_classify"/>
  	<result property="releaseStatus" column="release_status"/>
@@ -94,9 +94,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
        			<if test="releaseStatus!=null and releaseStatus!=''">  
       		      and  release_status =#{releaseStatus}
        			</if> 
-       			<if test="modelUuids !=null and modelUuids!=''">  
+       			<if test="modelUuids !=null and modelUuids!='' ">  
       		      and  uuid in
-      		      <foreach item="item" index="index" collection="modelUuids!=" open="(" separator="," close=")">  
+      		      <foreach item="item" index="index" collection="modelUuids" open="(" separator="," close=")">  
 				   #{item}  
 		         </foreach> 
        			</if>  

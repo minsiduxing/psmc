@@ -47,8 +47,9 @@ String newsType = request.getParameter("newtype");
 			                <button id="btn1">全屏</button>
 			            </div>
 			        </div>
+			        <input id="hiddencontent" type="hidden" name="newsContent"/>
 			        <div id="newsContent" class="newsContent">
-			        <input type="hidden" id="hiddencontent" name="newsContent"/>
+			      
 			       </div>
                 </div>
                 </li>
@@ -78,11 +79,13 @@ uploadUrl ='<c:url value="'+uploadUrl+'"/>?method=uploadPic';
 var getImag='<c:url value="/system/freamwork/fileUploadController"/>?method=getImage&filePath=';
 var _url = '<c:url value="/system/freamwork/fileUploadController"/>?method=fileDelete&filePath=';
 var isEdit = "<c:out value='${isEdit}'/>";
+//图片上路经
+var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController"/>?method=fileUpload';
 //修改保存路径
 var path = '<c:url value="'+ basePath+'/website/backstage/tabNewsController.do"/>?method=confirmPic';
 //表单数据初始化---------------------------------------------------
 var newsTitle = "${news.newsTitle}";
-var newscontent = "${news.news_content}";
+var newscontent = '${news.news_content}';
 var editnewssrc = "${news.thumbnail_image_url}";
 function formInint(isEdit){
 	if (isEdit=="isEdit") {
@@ -109,6 +112,7 @@ function formInint(isEdit){
 				type : "text",
 				required : true
 			});
+			$('#towLevelClassify').val('${news.two_level_classify}');
 	}
 	else{
 		$('#newsTitle').textbox({

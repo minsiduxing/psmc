@@ -61,4 +61,46 @@ $(document).ready(function(){
 		}
 		event.preventDefault();
 	});
+$("#remove").click(function(){
+		var rows = $("#newsTableId").datagrid('getChecked');
+		var rlength = rows.length;
+		var ids="";
+		if (rlength > 0){
+			for(var i=0;i<rlength;i++){
+				var rowObj = eval(rows[i]);
+				var newsid = rowObj.uuid;
+				ids+=newsid;
+				if(i<rlength-1)
+					ids+=",";
+			}
+			$.messager.confirm('提示', '该操作不可逆，您确认删除选中新闻信息?', function(r){
+				if (r){
+					var _url = removenews+"&newsIds="+ids;
+					$.messager.progress(); 
+					$.ajax({
+						   type: "POST",
+						   url: _url,
+						   success: function(data){
+							   successCallback(data);
+						   },
+						   error:function(XMLHttpRequest, textStatus, errorThrown){
+							   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+							   $.messager.progress("close");
+						   }
+						});
+				}
+			});
+			
+		}else{
+			commonObj.alert("请选择至少一条记录!","warning");
+		}
+		$.messager.progress("close");
+		event.preventDefault();
+	});
+//表单提交成功后的回调方法
+function successCallback(data){
+	$.messager.progress("close");
+	$("#newsTableId").datagrid('reload');
+	commonObj.showResponse(data);
+}
 });

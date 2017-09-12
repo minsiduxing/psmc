@@ -14,7 +14,7 @@ $(function(){
 });
 var editor;
 $("#editForm").submit(function(e){
-	$("#hiddencontent").val(editor.txt.text());
+	$("#hiddencontent").val(editor.txt.html());
 });
 /**
  * 图片上传编辑---------------------------------------------
@@ -30,7 +30,6 @@ function newsPicInit(isEdit){
     }
     if (isEdit=="isEdit") {
     	$("#isedit").val("isEdit");
-    	alert($("#isedit").val());
     	showPicpreview(editnewssrc,"false");
     }
 	    var newsPicWidth=0,newsPicHeight=0,imgWidth=0,imgHeight=0;
@@ -170,7 +169,22 @@ function newsPicInit(isEdit){
 function  wangEditorInit(isEdit){
     	  var E = window.wangEditor
            editor = new E('#editor-toolbar','#newsContent');
-          editor.customConfig.uploadImgServer = '/upload';  // 上传图片到服务器
+          editor.customConfig.uploadImgServer = imageuploadsrc;  // 上传图片到服务器
+          editor.customConfig.uploadImgHooks = {
+        		    // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
+        		    // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
+        		    customInsert: function (insertImg, result, editor) {
+        		        // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+        		        // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+
+        		        // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+        		    	console.info(result.rmsg);
+        		        var url = getImag+result.rmsg;
+        		        insertImg(url);
+
+        		        // result 必须是一个 JSON 格式字符串！！！否则报错
+        		    }
+        		}
           editor.create();  
           if (isEdit=="isEdit") {
         	  editor.txt.html(newscontent) ;

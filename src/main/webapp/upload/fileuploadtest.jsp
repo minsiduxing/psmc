@@ -16,7 +16,7 @@
 </head>
 <body>
 <%@ include file="../common.jsp"%>
-<form action='<c:url value="/system/freamwork/fileUploadController"/>?method=testFileUpload' method="post" enctype="multipart/form-data">
+<form action='<c:url value="/system/freamwork/fileUploadController"/>?method=fileUpload' method="post" enctype="multipart/form-data">
 <input type="file" name ="file1" />
 <input type = "submit" value="上传"/>
 

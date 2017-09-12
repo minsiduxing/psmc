@@ -281,5 +281,6 @@ commonObj.transFormToJosn = function form2Json(_formid,_targetJsonStrName,_targe
 }
 //公共查询方法 点击查询查询按钮，传递grid的ID 和查询表单id 系统会将查询条件自动传递到后台
 commonObj.query=function query(_gridId,_serchformId){
+	    event.preventDefault();
 	    $('#'+_gridId+'').datagrid('reload',commonObj.transFormToJosn(_serchformId,"queryParams",""));   //点击搜索
 }

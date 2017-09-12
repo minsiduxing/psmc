@@ -37,7 +37,7 @@ public class TabModuleServiceImpl implements TabModuleService {
 			throw new PsmcBuisnessException("删除的模块不存在不能删除");
 		}
 		//判断是否已经发布
-		if(null!=tamps){
+		if(null!=tamps && tamps.size()>=1){
 			for(TabModulePublish tamp:tamps){
 				//判断所发布的模块中是否存在到期的模块
 				if(DateUtil.getCurrentTimstamp().equals(tamp.getPublishExpireDate())){

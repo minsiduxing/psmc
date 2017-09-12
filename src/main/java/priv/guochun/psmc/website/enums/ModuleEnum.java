@@ -2,15 +2,15 @@ package priv.guochun.psmc.website.enums;
 
 public enum ModuleEnum {
 	//未发布
-	NOT_RELEASE("NOT_RELEASE","0"),
+	NOT_RELEASE("NOT_RELEASE","2"),
 	//已发布 
 	IS_RELEASEED("IS_RELEASEED","1"),
 	//未审核
-	NOT_AUDITED("NOT_AUDITED","0"),
+	NOT_AUDITED("NOT_AUDITED","2"),
 	//	审核通过
     AUDITED_PASS("AUDITED_PASS","1"),
     //审核未通过
-    AUDITED_NOT_PASS("AUDITED_NOT_PASS","2"),
+    AUDITED_NOT_PASS("AUDITED_NOT_PASS","3"),
     //模块一级分类-新闻
     ONE_LEVEL_CLASSIFY_NEWS("ONE_LEVEL_CLASSIFY_NEWS","1"),
     // 模块一级分类-微课程

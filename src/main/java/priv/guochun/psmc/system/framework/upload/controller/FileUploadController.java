@@ -27,13 +27,13 @@ import priv.guochun.psmc.system.framework.upload.util.PSMCFileUtils;
 public class FileUploadController extends MyController {
 	@Autowired
 	private UploadAssemblyInterface uploadAssemblyInterface;
-	@RequestMapping(params="method=testFileUpload")
+	@RequestMapping(params="method=fileUpload")
 	@ResponseBody
-	public void testFileUpload(HttpServletRequest request,HttpServletResponse response) throws IllegalStateException, IOException{
+	public void fileUpload(HttpServletRequest request,HttpServletResponse response) throws IllegalStateException, IOException{
 		UploadFileModel upf = uploadAssemblyInterface.getFile(request);
 		FtpUtil ftu = FtpUtil.getFtputil();
 		String filepath = ftu.uploadFile(upf);
-		super.responseJson(true,"文件："+filepath+"上传成功！", response);
+		super.responseJson(true,filepath, response);
 	}
 	@RequestMapping(params="method=testFileDownload")
 	public View testFileDownload(HttpServletRequest request,HttpServletResponse response,String filePath) throws IllegalStateException, IOException{

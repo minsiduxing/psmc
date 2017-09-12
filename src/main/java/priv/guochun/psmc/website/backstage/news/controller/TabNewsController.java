@@ -66,7 +66,7 @@ public class TabNewsController extends MyController {
 		}else{
 			tm.setModelUuid(tn.getNewsUuid());
 			tm.setModifyAccUuid(this.getUserBySeesion(request).getUserUuid());
-		}
+		}	
 		tabNewsService.saveOrUpdateTabNewsBusinessMethod(tn, tm);
 		return "redirect:/website/backstage/tabNewsController?method=index";
 	}
@@ -76,6 +76,11 @@ public class TabNewsController extends MyController {
 		model.addAttribute("news", tabNews);
 		model.addAttribute("isEdit", "isEdit");
 		return "backstage/news/newsaddoredit";
+	}
+	@RequestMapping(params="method=newsDelete")
+	public void newsDelete(HttpServletResponse response,String newsIds) throws IOException{
+		tabNewsService.deleteTabNewsByUuidsBusinessMethod(newsIds);
+		super.responseJson(true, "删除新闻成功!", response);
 	}
 	@RequestMapping(params="method=newsAudit")
 	public String newsAudit(){
