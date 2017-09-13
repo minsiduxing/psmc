@@ -85,7 +85,7 @@ public class TabModuleServiceImpl implements TabModuleService {
 			throw new PsmcBuisnessException("模块不存在不能发布");
 		}
 		// 2.判断模块是否为审核通过如果审核不通过通过则不能发布
-		if(!ModuleEnum.AUDITED_PASS.equals(temp.getAudit())){
+		if(new Integer(ModuleEnum.AUDITED_PASS.getValue())==temp.getAudit()){
 			throw new PsmcBuisnessException("模块未审核通过或者未审核不能发布");		
 		}
 		// 3.判断模块是否为已发布状态若为已发布则不能发布

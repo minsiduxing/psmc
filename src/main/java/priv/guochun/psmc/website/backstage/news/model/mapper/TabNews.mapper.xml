@@ -54,10 +54,10 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    					and tn.news_subtitle LIKE  concat(concat('%',#{newSubTitle}),'%')
    				</if>
    				<if test="newsDateBegin!=null and newsDateBegin !=''">  
-        		    and <![CDATA[ tn.news_date>=UNIX_TIMESTAMP(#{newsDateBegin}) ]]>  
+        		    and <![CDATA[ tn.news_date>=#{newsDateBegin} ]]>  
       			 </if>  
        			<if test="newsDateEnd!=null and newsDateEnd !=''" >  
-      		      and <![CDATA[tn.news_date<=UNIX_TIMESTAMP(#{newsDateEnd}) ]]>  
+      		      and <![CDATA[tn.news_date<=#{newsDateEnd} ]]>  
        			</if>  
        			<if test="newAutor!=null and newAutor!=''">
    					and tn.news_author LIKE  concat(concat('%',#{newAutor}),'%')
@@ -71,10 +71,10 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 			          )
    				</if>
    				<if test="createDateBegin!=null and createDateBegin !=''">  
-        		    and <![CDATA[tm.create_date>=UNIX_TIMESTAMP(#{createDateBegin}) ]]>  
+        		    and <![CDATA[tm.create_date>=#{createDateBegin} ]]>  
       			 </if>  
        			<if test="createDateEnd!=null and createDateEnd!=''" >  
-      		      and <![CDATA[tm.create_date<=UNIX_TIMESTAMP(#{createDateEnd}) ]]>  
+      		      and <![CDATA[tm.create_date<=#{createDateEnd} ]]>  
        			</if>  
        			<if test="modifyAccName!=null and modifyAccName!='' ">
    					and tm.modify_acc_uuid in(
@@ -82,10 +82,10 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 			          )
    				</if>
    				<if test="modifyDateBegin!=null and modifyDateBegin!=''">  
-        		    and <![CDATA[tm.modify_date>=UNIX_TIMESTAMP(#{modifyDateBegin}) ]]>  
+        		    and <![CDATA[tm.modify_date>=#{modifyDateBegin} ]]>  
       			 </if>  
        			<if test="modifyDateEnd!=null and modifyDateEnd!=''">  
-      		      and <![CDATA[tm.modify_date<=UNIX_TIMESTAMP(#{modifyDateEnd}) ]]>  
+      		      and <![CDATA[tm.modify_date<=#{modifyDateEnd} ]]>  
        			</if>  
        			<if test="audit!=null and audit!=''">  
       		      and  tm.audit =#{audit}
@@ -96,10 +96,10 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 			          )
    				</if>
    				<if test="auditDateBegin!=null and auditDateBegin!=''">  
-        		    and <![CDATA[tm.audit_date>=UNIX_TIMESTAMP(#{auditDateBegin})]]>  
+        		    and <![CDATA[tm.audit_date>=#{auditDateBegin}]]>  
       			 </if>  
        			<if test="auditDateEnd!=null and auditDateEnd!=''">  
-      		      and <![CDATA[tm.audit_date<=UNIX_TIMESTAMP(#{auditDateEnd}) ]]>  
+      		      and <![CDATA[tm.audit_date<=#{auditDateEnd})]]>  
        			</if>  
        			<if test="releaseAccName!=null and releaseAccName!=''">
    					and tm.release_acc_uuid in(
@@ -107,10 +107,10 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 			          )
    				</if>
    				<if test="releaseDateBegin!=null and releaseDateBegin!=''">  
-        		    and <![CDATA[tm.release_date>=UNIX_TIMESTAMP(#{releaseDateBegin}) ]]>  
+        		    and <![CDATA[tm.release_date>=#{releaseDateBegin} ]]>  
       			 </if>  
        			<if test="releaseDateEnd!=null and releaseDateEnd!=''">  
-      		      and <![CDATA[tm.release_date<=UNIX_TIMESTAMP(#{releaseDateEnd}) ]]>  
+      		      and <![CDATA[tm.release_date<=#{releaseDateEnd} ]]>  
        			</if>  
        			<if test="oneLevelClassify!=null and oneLevelClassify!=''">  
       		      and  tm.one_level_classify =#{oneLevelClassify}
@@ -122,10 +122,10 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       		      and  tm.release_status =#{releaseStatus}
        			</if>
        			<if test="publishExpireDateBegin!=null and publishExpireDateBegin !=''">  
-        		    and <![CDATA[tmpl.publish_expire_date>=UNIX_TIMESTAMP(#{publishExpireDateBegin}) ]]>  
+        		    and <![CDATA[tmpl.publish_expire_date>=#{publishExpireDateBegin} ]]>  
       			 </if>  
        			<if test="publishExpireDateEnd!=null and publishExpireDateEnd!=''" >  
-      		      and <![CDATA[tmpl.publish_expire_date<=UNIX_TIMESTAMP(#{publishExpireDateEnd}) ]]>  
+      		      and <![CDATA[tmpl.publish_expire_date<=#{publishExpireDateEnd} ]]>  
        			</if> 
        			<if test="userId!=null and userId!=''">
    					and tm.create_acc_uuid =#{userId}
@@ -162,7 +162,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    					and tm.two_level_classify = #{towLevelClassify}
    				</if>
    				<if test="publishExpireDate!=null and publishExpireDate !=''">  
-        		    and <![CDATA[tmpl.publish_expire_date<=UNIX_TIMESTAMP(#{publishExpireDate}) ]]>  
+        		    and <![CDATA[tmpl.publish_expire_date<=#{publishExpireDate} ]]>  
       			 </if>  
    			 and  tm.release_status =1
    			</where>

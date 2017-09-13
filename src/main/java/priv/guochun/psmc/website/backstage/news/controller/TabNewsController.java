@@ -37,6 +37,7 @@ import priv.guochun.psmc.website.backstage.module.model.TabModule;
 import priv.guochun.psmc.website.backstage.news.model.NewsImage;
 import priv.guochun.psmc.website.backstage.news.model.TabNews;
 import priv.guochun.psmc.website.backstage.news.service.TabNewsService;
+import priv.guochun.psmc.website.enums.ModuleEnum;
 @Scope("prototype")
 @Controller
 @RequestMapping("/website/backstage/tabNewsController")
@@ -83,12 +84,20 @@ public class TabNewsController extends MyController {
 		super.responseJson(true, "删除新闻成功!", response);
 	}
 	@RequestMapping(params="method=newsAudit")
-	public String newsAudit(){
-		return "backstage/news/newslist";
+	@ResponseBody
+	public void newsAudit(HttpServletResponse response,HttpServletRequest request,TabModule tam) throws IOException{
+		tam.setAudit(Integer.parseInt(ModuleEnum.AUDITED_PASS.getValue()));
+		tam.setAuditAccUuid(this.getUserBySeesion(request).getUserUuid());
+		tabNewsService.executeAuditNewsBusinessMethod(tam);
+		super.responseJson(true, "审核新闻成功!", response);
 	}
 	@RequestMapping(params="method=newsRelease")
-	public String newsRelease(){
-		return "backstage/news/newslist";
+	@ResponseBody
+	public void newsRelease(HttpServletResponse response,HttpServletRequest request,TabModule tam) throws IOException{
+		tam.setReleaseStatus(ModuleEnum.IS_RELEASEED.getValue());
+		tam.setReleaseAccUuid(this.getUserBySeesion(request).getUserUuid());
+		tabNewsService.executeReleaseNewsBusinessMethod(tam);	
+		super.responseJson(true, "发布新闻成功!", response);
 	}
 	@RequestMapping(params="method=uploadPic")
 	@ResponseBody

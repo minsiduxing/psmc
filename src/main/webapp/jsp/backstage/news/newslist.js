@@ -14,7 +14,7 @@ $(document).ready(function(){
 		          {field:'news_subtitle',title:'新闻副标题',resizable:true},  
 		          {field:'news_date',title:'新闻日期'}, 
 		          {field:'news_author',title:'新闻作者'}, 
-		          {field:'news_abstract',title:'新闻简介',formatter: function (value, row, index) {
+		          {field:'news_abstract',title:'新闻概要',formatter: function (value, row, index) {
 	                     if(value.length>=10){return value.substring(0,10)+"......"; }	
 	                     if(value.length<10){return value; }
 	              }}, 
@@ -23,17 +23,17 @@ $(document).ready(function(){
 		          {field:'modifyccName',title:'新闻修改人'}, 
 		          {field:'modify_date',title:'新闻修改时间',resizable:true}, 
 		          {field:'audit',title:'审核状态',formatter: function (value, row, index) {
-                     if(value=='0'){return "未审核"; }
                      if(value=='1'){return "审核通过"; }
-                     if(value=='2'){return "审核不通过"; }
+                     if(value=='2'){return "未审核"; }
+                     if(value=='3'){return "审核不通过"; }
                                                   
                   }},
 		          {field:'auditAccName',title:'新闻审核人'}, 
 		          {field:'audit_date',title:'新闻审核时间',resizable:true}, 
 		          {field:'two_level_classify',title:'新闻分类',resizable:true,formatter: function (value, row, index) {
-	                     if(value=='1'){return "公司新闻"; }
-	                     if(value=='2'){return "行业资讯"; }
-	                                                  
+	                     if(value=='1'){return "热点新闻"; }
+	                     if(value=='2'){return "实时资讯"; }
+	                     if(value=='2'){return "行业动向"; }
 	                  }},
 		          {field:'release_status',title:'发布状态',resizable:true,formatter: function (value, row, index) {
 	                     if(value=='0'){return "未发布"; }
@@ -61,6 +61,7 @@ $(document).ready(function(){
 		}
 		event.preventDefault();
 	});
+	//删除
 $("#remove").click(function(){
 		var rows = $("#newsTableId").datagrid('getChecked');
 		var rlength = rows.length;
@@ -97,10 +98,82 @@ $("#remove").click(function(){
 		$.messager.progress("close");
 		event.preventDefault();
 	});
+//审核
+$("#auditNews").click(function(){
+	var rows = $("#newsTableId").datagrid('getChecked');
+	var rlength = rows.length;
+	if(rlength ==1){
+		var rowObj = eval(rows[0]);
+		 uuid = rowObj.uuid;
+		var audit = rowObj.audit;
+		var releasestatus = rowObj.release_status;
+		if(audit==1){
+			commonObj.alert('该条新闻已经审核通过!',"warning");
+			return ;
+		}
+		if(releasestatus==1){
+			commonObj.alert('该条新闻已经发布!,不能审核',"warning");
+			return ;
+		}
+		$.messager.confirm('提示', '确认该条新闻审核通过?', function(r){
+			if (r){
+			var _url = auditnews+"&modelUuid="+uuid;
+			$.messager.progress(); 
+			$.ajax({
+				   type: "POST",
+				   url: _url,
+				   success: function(data){
+					   successCallback(data);
+				   },
+				   error:function(XMLHttpRequest, textStatus, errorThrown){
+					   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+					   $.messager.progress("close");
+				   }
+				});
+		
+	}});
+	}else{
+		commonObj.alert('请选择一条新闻!',"warning");
+		return ;
+	}
+	$.messager.progress("close");
+	event.preventDefault();
+});
+//发布
+$("#releaseNews").click(function(){
+	var rows = $("#newsTableId").datagrid('getChecked');
+	var rlength = rows.length;
+	 if(rlength ==1){
+		var rowObj = eval(rows[0]);
+		uuid = rowObj.uuid;
+		var audit = rowObj.audit;
+		var releasestatus = rowObj.release_status;
+		if(audit!=1){
+			commonObj.alert('该条新闻未审核或未审核通过,不能发布!',"warning");
+			return ;
+		}
+		if(releasestatus==1){
+			commonObj.alert('该条新闻已经发布!',"warning");
+			return ;
+		}
+		$.messager.confirm('提示', '确认发布该条新闻吗?', function(r){
+			if (r){
+				    $('#dlg').dialog('open');				
+			}
+			
+	    });
+	}else{
+		commonObj.alert('请选择一条新闻!',"warning");
+		return ;
+	}
+	$.messager.progress("close");
+	event.preventDefault();
+});
 //表单提交成功后的回调方法
 function successCallback(data){
 	$.messager.progress("close");
 	$("#newsTableId").datagrid('reload');
 	commonObj.showResponse(data);
 }
+
 });

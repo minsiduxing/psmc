@@ -24,6 +24,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li class="li-input"><label for="" class="input-label">子标题：</label>
 				<input class="myinput" id="newSubTitle" name="newSubTitle"></input>
 			</li>
+			<li class="li-input"><label for="" class="input-label">概要：</label>
+				<input id="newsAbstarct" name="newsAbstarct" ></input>
+			</li>
 			<li class="li-input"><label for="" class="input-label">作者：</label>
 				<input id="newAutor" name="newAutor" value=""></input>
 			</li>
@@ -34,9 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li class="li-input"><label for="" class="input-label">至</label>
 			<input id="newsDateEnd" name="newsDateEnd" ></input>
 			</li>
-			<li class="li-input"><label for="" class="input-label">概要：</label>
-				<input id="newsAbstarct" name="newsAbstarct" ></input>
-			</li>
+		
 			<li class="li-input"><label for="" class="input-label">创建人：</label>
 				<input id="createAccName" name="createAccName" ></input>
 			</li>
@@ -89,7 +90,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li class="li-input"><label for="" class="input-label">至：</label>
 					<input id="createDateEnd" name="createDateEnd" />
 			</li>
-			
 	</ul>
 	</form>
 	<div class="query-oper">
@@ -104,10 +104,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div id="toolbarId">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="edit">修改</a>
 		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
-		<a href="" id="exportBtn" class="easyui-linkbutton query-btn" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-excel">导出</a>
+		<a href="#" id="auditNews" class="easyui-linkbutton query-btn" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-tip">审核</a>
+		<a href="#" id="releaseNews" class="easyui-linkbutton query-btn" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-large-clipart">发布</a>
 </div>
+
+<div id="dlg" class="easyui-dialog" title="新闻到期日期" style="width:200px;height:120px;padding:10px"
+			data-options="
+				iconCls: 'icon-save',buttons:'#dlg-buttons'
+			" closed="true" >
+	         <input class="easyui-datetimebox" id="publishExpireDate" name="publishExpireDate"
+                        data-options="required:true,showSeconds:true" style="width:150px">
+	</div>
+	<div id="dlg-buttons">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="publishNews();">确定</a>
+	</div>
   </body>
 </html>
+
 <script type="text/javascript">
 var basePath = $("#basePath").val();
 var getNewsDataUrl = basePath+"/website/backstage/tabNewsController.do";
@@ -116,6 +129,9 @@ getNewsDataUrl ='<c:url value="'+getNewsDataUrl+'"/>?method=getNesPage';
 var newsDo = basePath+"/website/backstage/tabNewsController.do";
 var editNewsUrl ='<c:url value="'+newsDo+'"/>?method=newsEdit';
 var removenews = '<c:url value="'+newsDo+'"/>?method=newsDelete';
+var auditnews = '<c:url value="'+newsDo+'"/>?method=newsAudit';
+var releasenews = '<c:url value="'+newsDo+'"/>?method=newsRelease';
+//----------------------------查询框初始化开始
 $('#newsTitle').textbox({
 	type : "text"
 });
@@ -168,4 +184,33 @@ $('#modifyAccName').textbox({
 commonObj.initDictCombobox("audit","IF","<c:out value="${account.IS_LOCKED}"/>",false,true);
 commonObj.initDictCombobox("releaseStatus","IF","<c:out value="${account.IS_LOCKED}"/>",false,true);
 commonObj.initDictCombobox("towLevelClassify","IF","<c:out value="${account.IS_LOCKED}"/>",false,true);
+
+//----------------------------查询框初始化结束
+//表单提交成功后的回调方法
+function successCallback(data){
+	$.messager.progress("close");
+	$("#newsTableId").datagrid('reload');
+	commonObj.showResponse(data);
+}
+var uuid;
+function publishNews(){
+	var _date = $("#publishExpireDate").datebox('getValue');;
+	if(_date!=''){
+		$('#dlg').dialog('close');
+		var _url = releasenews+"&modelUuid="+uuid+"&publishExpireDate="+_date;
+		$.messager.progress(); 
+		$.ajax({
+			   type: "POST",
+			   url: _url,
+			   success: function(data){
+				   successCallback(data);
+			   },
+			   error:function(XMLHttpRequest, textStatus, errorThrown){
+				   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+				   $.messager.progress("close");
+			   }
+			});
+	}
+	 $.messager.progress("close");
+  }
 </script>

@@ -31,7 +31,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       		      and <![CDATA[publish_expire_date<=UNIX_TIMESTAMP(#{publishExpireDateEnd}) ]]>  
        			</if> 
        		 <if test="pblishUuid != null and pblishUuid != ''">
-	  			 and publish_uuid =#{pblishUuid},
+	  			 and publish_uuid =#{pblishUuid}
 	  		  </if>
 	  		   <if test="moduleUuids != null and moduleUuids != ''">
 	  			 and module_uuid in <foreach item="item" index="index" collection="moduleUuids" open="(" separator="," close=")">  
