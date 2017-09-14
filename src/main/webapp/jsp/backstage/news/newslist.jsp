@@ -102,10 +102,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <table id="newsTableId" style="width:100%"></table>
   <!--工具栏  -->
 <div id="toolbarId">
+<g:auth operateNo="<%=OperateContantsUtil.NEWS_EDIT%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="edit">修改</a>
+</g:auth>
+<g:auth operateNo="<%=OperateContantsUtil.NEWS_DELETE%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
+</g:auth>
+<g:auth operateNo="<%=OperateContantsUtil.NEWS_AUDIT%>">
 		<a href="#" id="auditNews" class="easyui-linkbutton query-btn" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-tip">审核</a>
+</g:auth>
+<g:auth operateNo="<%=OperateContantsUtil.NEWS_RELEASE%>">
 		<a href="#" id="releaseNews" class="easyui-linkbutton query-btn" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-large-clipart">发布</a>
+</g:auth>
 </div>
 
 <div id="dlg" class="easyui-dialog" title="新闻到期日期" style="width:200px;height:120px;padding:10px"
@@ -183,7 +191,7 @@ $('#modifyAccName').textbox({
 });
 commonObj.initDictCombobox("audit","IF","<c:out value="${account.IS_LOCKED}"/>",false,true);
 commonObj.initDictCombobox("releaseStatus","IF","<c:out value="${account.IS_LOCKED}"/>",false,true);
-commonObj.initDictCombobox("towLevelClassify","IF","<c:out value="${account.IS_LOCKED}"/>",false,true);
+commonObj.initDictCombobox("towLevelClassify","NEWS_TYPE","<c:out value="${account.IS_LOCKED}"/>",false,true);
 
 //----------------------------查询框初始化结束
 //表单提交成功后的回调方法

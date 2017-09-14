@@ -29,7 +29,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   
 	  <select id="getPrivilegDataListByRoleAndResource" resultType="java.util.Map" parameterType="hashmap">
 	   			
-	   			SELECT a.ROLE_ID,a.RESOURCE_ID,b.UUID AS OPERATE_UUID,b.FUN_CLASS,b.FUN_METHOD,b.OPERATE_NAME,b.OPERATE_DESC,
+	   			SELECT DISTINCT a.ROLE_ID,a.RESOURCE_ID,b.UUID AS OPERATE_UUID,b.FUN_CLASS,b.FUN_METHOD,b.OPERATE_NAME,b.OPERATE_DESC,
 				(CASE WHEN c.OPERATE_UUID IS NOT NULL THEN 'true' ELSE 'false' END) AS CHECKED 
 				FROM tab_role_resource a,tab_operate b left join tab_role_operate c ON  b.UUID =c.OPERATE_UUID 
 				WHERE a.resource_id=b.resource_uuid

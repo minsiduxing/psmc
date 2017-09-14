@@ -115,7 +115,7 @@ public class TabNewsController extends MyController {
 			BufferedImage bi = ImageIO.read( new FileInputStream(tempPic));
 			double tempPicw = bi.getWidth();
 			double tempPich = bi.getHeight();
-			if(tempPicw>newsw&&tempPicw/tempPich<newsw/newsh) {
+			if(tempPicw>newsw) {
 				//图片的大小是否符合要求
 				Builder<BufferedImage> b = Thumbnails.of(bi);
 				//判断文件是否需要缩放

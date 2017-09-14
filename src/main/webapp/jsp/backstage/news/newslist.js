@@ -33,7 +33,7 @@ $(document).ready(function(){
 		          {field:'two_level_classify',title:'新闻分类',resizable:true,formatter: function (value, row, index) {
 	                     if(value=='1'){return "热点新闻"; }
 	                     if(value=='2'){return "实时资讯"; }
-	                     if(value=='2'){return "行业动向"; }
+	                     if(value=='3'){return "行业动向"; }
 	                  }},
 		          {field:'release_status',title:'发布状态',resizable:true,formatter: function (value, row, index) {
 	                     if(value=='0'){return "未发布"; }
