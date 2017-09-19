@@ -80,14 +80,17 @@ public class TabNewsDaoImpl implements TabNewsDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> getShowNewsTitlesListByTowLevelClassify(
+	public MyPage getShowNewsTitlesPagerByTowLevelClassify(MyPage myPage,
 			String towLevelClassify) {
+		
 		Map<String,Object> condition = new HashMap<String,Object>();
 		 //查询参数添加
-       	condition.put("towLevelClassify",towLevelClassify);
-       	condition.put("publishExpireDate",DateUtil.getCurrentTimstamp());
-       List<Map<String,Object>> list  = sqlSession.selectList(getNewsTitlesListByTwoLevelClassify,condition);
-       return list;
+	     if(myPage.getQueryParams()!=null && myPage.getQueryParams().size()>0){
+	     	condition.putAll(myPage.getQueryParams());
+	     } //查询参数添加
+	       	condition.put("towLevelClassify",towLevelClassify);
+	       	condition.put("publishExpireDate",DateUtil.getCurrentTimstamp());
+         return iDaoTemplate.getMyPage(myPage, getNewsTitlesListByTwoLevelClassify, condition);
 	}
 
 	public SqlSessionTemplate getSqlSession() {

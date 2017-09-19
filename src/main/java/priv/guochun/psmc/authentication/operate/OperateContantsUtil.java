@@ -54,5 +54,6 @@ public class OperateContantsUtil {
     public final static String NEWS_AUDIT = "NEWS_AUDIT";
     public final static String NEWS_EXPORT = "NEWS_EXPORT";
     public final static String NEWS_DELETE = "NEWS_DELETE";
+    public final static String NEWS_PRIVIEW = "NEWS_PRIVIEW";
     
 }

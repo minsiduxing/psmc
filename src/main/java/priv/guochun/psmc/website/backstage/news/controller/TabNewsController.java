@@ -60,7 +60,7 @@ public class TabNewsController extends MyController {
 		super.responseJson(JsonUtil.convertToJSONObject(mypage), response);
 	}
 	@RequestMapping(params="method=newsSaveOrUpdate")
-	public String newsSaveOrUpdate(HttpServletRequest request,TabNews  tn ,TabModule tm,String isEdit){
+	public void newsSaveOrUpdate(HttpServletRequest request,TabNews  tn ,TabModule tm,String isEdit,HttpServletResponse response) throws IOException{
 		//新增
 		if(StringUtils.isBlank(isEdit)){
 			tm.setCreateAccUuid(this.getUserBySeesion(request).getUserUuid());
@@ -69,7 +69,7 @@ public class TabNewsController extends MyController {
 			tm.setModifyAccUuid(this.getUserBySeesion(request).getUserUuid());
 		}	
 		tabNewsService.saveOrUpdateTabNewsBusinessMethod(tn, tm);
-		return "redirect:/website/backstage/tabNewsController?method=index";
+		super.responseJson(true, "操作成功!", response);
 	}
 	@RequestMapping(params="method=newsEdit")
 	public String newsEdit(String uuid,Model model){
@@ -114,7 +114,7 @@ public class TabNewsController extends MyController {
 			double newsh = new Double(SystemPropertiesUtil.getNewsPicHeight());
 			BufferedImage bi = ImageIO.read( new FileInputStream(tempPic));
 			double tempPicw = bi.getWidth();
-			double tempPich = bi.getHeight();
+		//	double tempPich = bi.getHeight();
 			if(tempPicw>newsw) {
 				//图片的大小是否符合要求
 				Builder<BufferedImage> b = Thumbnails.of(bi);
@@ -173,5 +173,18 @@ public class TabNewsController extends MyController {
 			returnmap.put("result", 0);
 		}
 		  super.responseJson(JsonUtil.convertToJSONObject(returnmap), response);
+	}
+	@RequestMapping(params="method=getNewsContent")
+	@ResponseBody
+	public void getNewsContent(String uuid,Model model,HttpServletResponse response) throws IOException{
+		Map<String,Object> tabNews = tabNewsService.getNewsByNewsUuid(uuid);
+		super.responseJson(JsonUtil.convertToJSONObject(tabNews), response);
+	}
+	@RequestMapping(params="method=getNewsTitlePager")
+	@ResponseBody
+	public void getNewsTitlePager(HttpServletRequest request,
+		 	HttpServletResponse response,MyPage mypage,String towLevelClassify) throws IOException{
+		mypage = tabNewsService.getShowNewsTitlesPagerByTowLevelClassify(mypage, towLevelClassify);
+		super.responseJson(JsonUtil.convertToJSONObject(mypage), response);
 	}
 }

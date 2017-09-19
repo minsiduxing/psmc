@@ -1,17 +1,12 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 <%@ include file="../../../common.jsp"%>
 <%@ page isELIgnored="false"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <base href="<%=basePath%>">
     <title>新闻列表页面</title>
   </head>
-  <script type="text/javascript" src="jsp/backstage/news/newslist.js"></script>
+  <script type="text/javascript" src="<%=request.getContextPath()%>/jsp/backstage/news/newslist.js"></script>
   <body id="body">
   <!-- 信息查询 -->
 <div class="query-content panel easyui-accordion accordion " data-options="selected:false" style="width:100%"> 
@@ -56,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li class="li-input"><label for="" class="input-label">至：</label>
 				<input id="modifyDateEnd" name="modifyDateEnd" />
 			</li>
-			<li class="li-input"><label for="" class="input-label">是否审核：</label>
+			<li class="li-input"><label for="" class="input-label">审核是否通过：</label>
 				<input id="audit" name="audit" value=""></input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">审核日期：</label>
@@ -65,8 +60,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li class="li-input"><label for="" class="input-label">至：</label>
 				<input id="auditDateEnd" name="auditDateEnd" />
 			</li>
-		     <li class="li-input"><label for="" class="input-label">是否发布：</label>
-				<input id="releaseStatus" name="releaseStatus"> </input>
+		     <li class="li-input"><label for="" class="input-label">发布是否通过：</label>
+				<input id="releaseStatus" name="releaseStatus"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">发布日期：</label>
 			<input id="releaseDateBegin" name="releaseDateBegin" ></input>
@@ -108,6 +103,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <g:auth operateNo="<%=OperateContantsUtil.NEWS_DELETE%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
 </g:auth>
+<g:auth operateNo="<%=OperateContantsUtil.NEWS_PRIVIEW%>">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">预览</a>
+</g:auth>
 <g:auth operateNo="<%=OperateContantsUtil.NEWS_AUDIT%>">
 		<a href="#" id="auditNews" class="easyui-linkbutton query-btn" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-tip">审核</a>
 </g:auth>
@@ -139,6 +137,7 @@ var editNewsUrl ='<c:url value="'+newsDo+'"/>?method=newsEdit';
 var removenews = '<c:url value="'+newsDo+'"/>?method=newsDelete';
 var auditnews = '<c:url value="'+newsDo+'"/>?method=newsAudit';
 var releasenews = '<c:url value="'+newsDo+'"/>?method=newsRelease';
+var priviewenews = '<c:url value="'+newsDo+'"/>?method=getNewsContent';
 //----------------------------查询框初始化开始
 $('#newsTitle').textbox({
 	type : "text"
@@ -189,7 +188,7 @@ $('#auditAccName').textbox({
 $('#modifyAccName').textbox({
 	type : "text"
 });
-commonObj.initDictCombobox("audit","IF","<c:out value="${account.IS_LOCKED}"/>",false,true);
+commonObj.initDictCombobox("audit","IF","",false,true);
 commonObj.initDictCombobox("releaseStatus","IF","<c:out value="${account.IS_LOCKED}"/>",false,true);
 commonObj.initDictCombobox("towLevelClassify","NEWS_TYPE","<c:out value="${account.IS_LOCKED}"/>",false,true);
 

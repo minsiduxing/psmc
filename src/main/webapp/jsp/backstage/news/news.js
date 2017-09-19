@@ -13,18 +13,44 @@ $(function(){
 	newsPicInit(isEdit);
 });
 var editor;
-$("#editForm").submit(function(e){
+function sbmit (e){
+	event.preventDefault();
+	var result = $('#editForm').form("validate");
 	$("#hiddencontent").val(editor.txt.html());
-});
+	var formdata = $("#editForm").serialize();
+	var _addUrl = addUrl;
+	if(Boolean(result)){
+		$.messager.progress(); 
+		$.ajax({
+			   type: "POST",
+			   url: _addUrl,
+			   data:formdata,
+			   success: function(data){
+				   successCallback(data);
+			   },
+			   error:function(XMLHttpRequest, textStatus, errorThrown){
+				   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+				   $.messager.progress("close");
+			   }
+			});
+		return true;
+	}else{
+		return false;
+	}
+}
+//表单提交成功后的回调方法
+function successCallback(data){
+	$.messager.progress("close");
+	$("#accountTableId").datagrid('reload');
+	commonObj.showResponse(data);
+}
+
 /**
  * 图片上传编辑---------------------------------------------
  */
 function newsPicInit(isEdit){
 	//用户离开页面删除临时文件
-    window.onbeforeunload=function(){
-    	return "\n确认离开该页面吗？离开后未上传图片将不被保存";
-    }
-    window.onunload=function(){
+	window.onbeforeunload=function(){
     	deleteFile();
     	return "";
     }
@@ -208,6 +234,7 @@ function  wangEditorInit(isEdit){
 
           // 退出全屏事件
           function unDoFullScreen() {
+        	  event.preventDefault();
               container.appendChild(toolbarContaner);
               container.appendChild(editorText);
               editorText.style.height = '100%';
@@ -232,5 +259,7 @@ function  wangEditorInit(isEdit){
           }, false);
     }
 //富文本编辑器结束-----------------------------
-
+function retList(){
+	window.location.href=retrunUrl;
+}
 //表单数据初始化结束--------------------------------------

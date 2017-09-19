@@ -139,6 +139,33 @@ $("#auditNews").click(function(){
 	$.messager.progress("close");
 	event.preventDefault();
 });
+//预览
+$("#priview").click(function(){
+	var rows = $("#newsTableId").datagrid('getChecked');
+	var rlength = rows.length;
+	if(rlength ==1){
+		var rowObj = eval(rows[0]);
+		 uuid = rowObj.uuid;
+			var _url = priviewenews+"&uuid="+uuid;
+			$.ajax({
+				   type: "POST",
+				   url: _url,
+				   success: function(data){
+					   console.info(data);
+				   },
+				   error:function(XMLHttpRequest, textStatus, errorThrown){
+					   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+					   $.messager.progress("close");
+				   }
+				});
+		
+	}else{
+		commonObj.alert('请选择一条新闻!',"warning");
+		return ;
+	}
+	$.messager.progress("close");
+	event.preventDefault();
+});
 //发布
 $("#releaseNews").click(function(){
 	var rows = $("#newsTableId").datagrid('getChecked');

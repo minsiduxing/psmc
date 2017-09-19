@@ -56,5 +56,5 @@ public interface TabNewsDao {
 	 * @return
 	 * @author wanglei 2017年9月3日
 	 */
-	public List<Map<String,Object>> getShowNewsTitlesListByTowLevelClassify(String towLevelClassify);
+	public MyPage getShowNewsTitlesPagerByTowLevelClassify(MyPage myPage,String towLevelClassify);
 }

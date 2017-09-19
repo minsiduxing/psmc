@@ -78,9 +78,9 @@ public class TabNewsServiceImpl implements TabNewsService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getShowNewsTitlesListByTowLevelClassify(
+	public MyPage getShowNewsTitlesPagerByTowLevelClassify(MyPage mypage ,
 			String towLevelClassify) {
-		return tabNewsDao.getShowNewsTitlesListByTowLevelClassify(towLevelClassify);
+		return tabNewsDao.getShowNewsTitlesPagerByTowLevelClassify(mypage,towLevelClassify);
 	}
 
 	@Override

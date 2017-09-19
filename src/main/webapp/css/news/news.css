@@ -1,9 +1,19 @@
+
+.newsForm{
+	 border-color: #D4D4D4;
+	border:1px solid #D4D4D4; 
+    border-radius: 0 0 0 0;
+    
+}
 .newsForm>ul>li{
 			list-style: none;
 			padding:0.5%;
-			
+			font-size: 12px;
+			color: #333;
 		}
 	.newsForm>ul>li>lable{
+		font-size: 12px;
+			color: #333;
 			margin:2%;
 		}
 	.newsForm>ul>li>span{
@@ -13,16 +23,18 @@
 		.newsForm>ul>li>input{
 			width:40%;
 			margin-top: 1%;
+			  
 		}
 	.operButon{
 		 width:98%;
 		 margin-left: 2.5%;
+		 margin-bottom:1.5%;
 		}
 	.operButon>input{
 		 padding:5px 0px;
 		 margin-right: 2%;
 		 margin-left: 2%;
-		 width:5%;
+		 width:10%;
 		}
       #container {
             width: 100%;

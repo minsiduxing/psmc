@@ -1,15 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-String newsType = request.getParameter("newtype");
-%>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <base href="<%=basePath%>">
-
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -19,8 +11,8 @@ String newsType = request.getParameter("newtype");
   </head>
   <%@ include file="../../../common.jsp"%>
   <body id="body">
-<form id="editForm" method="POST" class="newsForm" action='<c:url value="/website/backstage/tabNewsController"/>?method=newsSaveOrUpdate'>
-	<input type="hidden" id="towLevelClassify" name="towLevelClassify" value='<%=newsType%>'/>
+<form id="editForm" method="POST" class="newsForm" >
+	<input type="hidden" id="towLevelClassify" name="towLevelClassify" value='${param.newtype}' />
 		<ul >
 			<li ><label>新闻标题</label><br>
 				<input  id="newsTitle" name="newsTitle"></input>
@@ -61,8 +53,9 @@ String newsType = request.getParameter("newtype");
 	 <input type="hidden" id="isedit" name="isEdit"/>
 	 <input type="hidden" id="newsUuid" name=newsUuid value="${news.uuid }"/>
 	  <div class="operButon">
-			<input id="submitbtn" type="submit" class="easyui-linkbutton" onclick=" " value="提交"/>
+			<input id="submitbtn" type="button" class="easyui-linkbutton" onclick=" sbmit()" value="提交"/>
 			<input id="reset" type="reset" class="easyui-linkbutton" onclick=" "  value="重置"/>
+			<input id="button" type="reset" class="easyui-linkbutton" onclick=" retList() "  value="返回列表"/>
 	</div>
 	</form>
 
@@ -87,6 +80,8 @@ var path = '<c:url value="'+ basePath+'/website/backstage/tabNewsController.do"/
 var newsTitle = "${news.newsTitle}";
 var newscontent = '${news.news_content}';
 var editnewssrc = "${news.thumbnail_image_url}";
+var addUrl = '<c:url value="/website/backstage/tabNewsController"/>?method=newsSaveOrUpdate';
+var retrunUrl =  '<c:url value="/website/backstage/tabNewsController"/>?method=index';
 function formInint(isEdit){
 	if (isEdit=="isEdit") {
 			$('#newsTitle').textbox({
@@ -147,4 +142,4 @@ function formInint(isEdit){
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/uploadfy/jquery.Huploadify${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/browser${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/jquery.Jcrop.min${jssuffix}"></script>
-<script type="text/javascript" src="jsp/backstage/news/news.js"></script>
+<script type="text/javascript" src="news.js"></script>
