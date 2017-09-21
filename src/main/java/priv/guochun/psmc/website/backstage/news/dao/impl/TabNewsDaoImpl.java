@@ -92,7 +92,15 @@ public class TabNewsDaoImpl implements TabNewsDao {
 	       	condition.put("publishExpireDate",DateUtil.getCurrentTimstamp());
          return iDaoTemplate.getMyPage(myPage, getNewsTitlesListByTwoLevelClassify, condition);
 	}
-
+	@Override
+	public List<Map<String, Object>> getShowNewsTitlesPagerByTowLevelClassify(
+			String towLevelClassify) {
+		Map<String,Object> condition = new HashMap<String,Object>();
+	 	condition.put("towLevelClassify",towLevelClassify);
+       	condition.put("publishExpireDate",DateUtil.getCurrentTimstamp());
+	    List<Map<String,Object>> list  = sqlSession.selectList(getNewsTitlesListByTwoLevelClassify,condition);
+        return list;
+	}
 	public SqlSessionTemplate getSqlSession() {
 		return sqlSession;
 	}
@@ -108,7 +116,5 @@ public class TabNewsDaoImpl implements TabNewsDao {
 	public void setiDaoTemplate(IDaoTemplate iDaoTemplate) {
 		this.iDaoTemplate = iDaoTemplate;
 	}
-
-	
 
 }

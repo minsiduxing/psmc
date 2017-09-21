@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
@@ -25,12 +26,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import priv.guochun.psmc.system.enums.FreemarkEnum;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
 import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
 import priv.guochun.psmc.system.framework.upload.util.FtpUtil;
 import priv.guochun.psmc.system.framework.upload.util.PSMCFileUtils;
+import priv.guochun.psmc.system.util.FreemarkUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
@@ -96,7 +99,10 @@ public class TabNewsController extends MyController {
 	public void newsRelease(HttpServletResponse response,HttpServletRequest request,TabModule tam) throws IOException{
 		tam.setReleaseStatus(ModuleEnum.IS_RELEASEED.getValue());
 		tam.setReleaseAccUuid(this.getUserBySeesion(request).getUserUuid());
+		//发布新闻
 		tabNewsService.executeReleaseNewsBusinessMethod(tam);	
+		//生成列表页面
+		generateInfoHtml();
 		super.responseJson(true, "发布新闻成功!", response);
 	}
 	@RequestMapping(params="method=uploadPic")
@@ -186,5 +192,29 @@ public class TabNewsController extends MyController {
 		 	HttpServletResponse response,MyPage mypage,String towLevelClassify) throws IOException{
 		mypage = tabNewsService.getShowNewsTitlesPagerByTowLevelClassify(mypage, towLevelClassify);
 		super.responseJson(JsonUtil.convertToJSONObject(mypage), response);
+	}
+	/**
+	 * <p>Description:生成新闻列表页的html<p>
+	 * @author wanglei 2017年9月21日
+	 */
+	@RequestMapping(params="method=generateInfoHtml")
+	public void generateInfoHtml(){
+		String realPath = this.getRealPath();
+		String outPath = realPath+"resources/bhkn";
+		Map<String,Object> newsTitles= new HashMap<String,Object>();
+		//获取行热点新闻列表
+		List<Map<String, Object>> hotNews = tabNewsService.getShowNewsTitlesPagerByTowLevelClassify(ModuleEnum.TOW_LEVEL_HOT_NEWS.getValue());
+		newsTitles.put("hotNews", hotNews);
+		//获取实时资讯列表
+		List<Map<String, Object>> quotationNews =	tabNewsService.getShowNewsTitlesPagerByTowLevelClassify(ModuleEnum.TOW_LEVEL_QUOTATION_INFOMATION.getValue());
+		newsTitles.put("quotationNews", quotationNews);
+		//获取行业动向列表
+		List<Map<String, Object>> latesTrendsNews= tabNewsService.getShowNewsTitlesPagerByTowLevelClassify(ModuleEnum.TOW_LEVEL_LATES_TRENDS.getValue());
+		newsTitles.put("latesTrendsNews", latesTrendsNews);
+		//合并模板
+		//设置ftl模板路径
+		FreemarkUtil ftu = FreemarkUtil.getInstance(FreemarkEnum.FREEMARKER_VERSIONNO.getValue(),FreemarkEnum.FTL_PATH.getValue());
+		logger.info("------------------正在生成网站info.html！-到"+outPath+"---------------------");
+		ftu.fprintTemplate(newsTitles, "news/info.ftl", outPath, "info.html");
 	}
 }

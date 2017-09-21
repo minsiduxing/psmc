@@ -162,7 +162,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    					and tm.two_level_classify = #{towLevelClassify}
    				</if>
    				<if test="publishExpireDate!=null and publishExpireDate !=''">  
-        		    and <![CDATA[tmpl.publish_expire_date<=#{publishExpireDate} ]]>  
+        		    and <![CDATA[tmpl.publish_expire_date>=#{publishExpireDate} ]]>  
       			 </if>  
    			 and  tm.release_status =1
    			</where>

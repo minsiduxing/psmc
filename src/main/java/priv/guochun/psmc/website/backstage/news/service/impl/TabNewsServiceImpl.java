@@ -109,6 +109,12 @@ public class TabNewsServiceImpl implements TabNewsService {
 		return tabNewsDao.getNewsByCondition(myPage,userUuid);
 	}
 
+	@Override
+	public List<Map<String, Object>> getShowNewsTitlesPagerByTowLevelClassify(
+			String towLevelClassify) {
+		return tabNewsDao.getShowNewsTitlesPagerByTowLevelClassify(towLevelClassify);
+	}
+
 	
 
 }

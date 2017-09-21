@@ -62,6 +62,7 @@ public class FreemarkUtil {
 	private Template getTemplate(String templateName){
 		  try {
 			  logger.info("----------读取模板----"+templateName);
+			  cfg.setDefaultEncoding("UTF-8");
 		   return cfg.getTemplate(templateName);
 		  } catch (TemplateNotFoundException e) {
 			  logger.error("----------读取模板--失败-"+e.getMessage());
@@ -112,7 +113,7 @@ public class FreemarkUtil {
 		}
 		try {
 			 logger.info("----------输出模板----"+templateName+"到文件"+filePath+File.separator+fileName);
-	        this.getTemplate(templateName).process(dataModel,new FileWriterWithEncoding(filePath+File.separator+fileName, "utf-8"));
+	        this.getTemplate(templateName).process(dataModel,new FileWriterWithEncoding(filePath+File.separator+fileName, "UTF-8"));
         } catch (TemplateException e) {
         	e.printStackTrace();
         	 logger.error(e.getMessage());

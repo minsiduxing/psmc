@@ -64,6 +64,7 @@ public interface TabNewsService {
 	 * @author wanglei 2017年9月3日
 	 */
 	public MyPage getShowNewsTitlesPagerByTowLevelClassify(MyPage mypage ,String towLevelClassify);
+	public List<Map<String,Object>> getShowNewsTitlesPagerByTowLevelClassify(String towLevelClassify);
 	/**
 	 * <p>Description:审核新闻<p>
 	 * @author wanglei 2017年9月3日
