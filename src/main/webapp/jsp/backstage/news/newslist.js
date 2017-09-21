@@ -51,8 +51,13 @@ $(document).ready(function(){
 	//编辑
 	$("#edit").click(function(){
 		var rows = $("#newsTableId").datagrid('getChecked');
+		
 		if (rows.length == 1){
 			var rowObj = eval(rows[0]);
+			if(rowObj.audit==1){
+				commonObj.alert("该新闻已经审核通过不能修改!","warning");
+				return;
+			}
 			var uuid = rowObj.uuid;
 			var _url = editNewsUrl+"&uuid="+uuid;
 			window.location.href=_url;
@@ -146,19 +151,7 @@ $("#priview").click(function(){
 	if(rlength ==1){
 		var rowObj = eval(rows[0]);
 		 uuid = rowObj.uuid;
-			var _url = priviewenews+"&uuid="+uuid;
-			$.ajax({
-				   type: "POST",
-				   url: _url,
-				   success: function(data){
-					   console.info(data);
-				   },
-				   error:function(XMLHttpRequest, textStatus, errorThrown){
-					   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
-					   $.messager.progress("close");
-				   }
-				});
-		
+		 window.location.href='/psmc/resources/bhkn/previewnews.html?id='+uuid;
 	}else{
 		commonObj.alert('请选择一条新闻!',"warning");
 		return ;

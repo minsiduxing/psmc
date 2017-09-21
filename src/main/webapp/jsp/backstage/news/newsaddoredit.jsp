@@ -142,4 +142,4 @@ function formInint(isEdit){
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/uploadfy/jquery.Huploadify${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/browser${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/jquery.Jcrop.min${jssuffix}"></script>
-<script type="text/javascript" src="news.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/news/news.js"></script>
