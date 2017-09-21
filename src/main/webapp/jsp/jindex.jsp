@@ -28,7 +28,7 @@
     <div id="sysFootDiv" data-options="region:'south',title:'',split:false" style="height:7%">
     	<div style="padding:0.9%;font-family:serif;font-size:10px;text-align:center;
     	font-style:inherit;font-variant-caps:titling-caps;background:#F8F8FF;color:black;">
-    		博汇康宁（深圳）投资基金管理有限公司.版权所有;  Powered By  西安敏思笃行信息技术有限公司
+    		Powered By  西安敏思笃行信息技术有限公司
     	</div>
     </div>
     
@@ -95,7 +95,8 @@ $('#updatePasswd').click(function(){
 });
 
 function initsysFunctionDiv(){
-	addTab("欢迎页面","<c:url value='/jsp/welcome.html'/>");
+// 	addTab("欢迎页面","<c:url value='/jsp/welcome.html'/>");
+	addTab("欢迎页面","<c:url value='/website/backstage/tabNewsController?method=index'/>");
 }
 
 function addTab(title, url){

@@ -10,34 +10,33 @@
 </head>
 
 <body>
+<form method="post" id="loginForm" onkeydown='on_return()'>
   	<div id="loginDiv" class="loginDiv">
   		<div id="formDiv" class="formDiv">
   			<img src="images/login.jpg"/>	
   			<div class="formInputDiv">
-  				<form method="post" id="loginForm" onkeydown='on_return()'>
 				<p>
-					账号:<input class="input" id="username" name="username">
+					<input class="input" id="username" name="username">
 				</p>
-				<p>
-					密码:<input class="input" id="password" name="password"  type="password">
-				</p>
-				<div class="formButtonDiv">
-					<input id="submitbtn" type="button" onclick="loginSubmit();"/>
+				<div class="formPwInputDiv">
+					<p>
+						<input class="input" id="password" name="password"  type="password">
+					</p>
+					<div class="formButtonDiv">
+						<input id="submitbtn" type="button" value="登录" onclick="loginSubmit();"/>
+					</div>
 				</div>
-				<div  id="msg" style="color:#d64242;font-size: small;display:none">
-				</div>
-				</form>
 			</div>
 		</div>  	
   	</div>
+</form>
 </body>
 <script type="text/javascript" src="js/md5.js"></script>
 <script>
 	//校验用户名
 	function validateUserName(){
 		if($("#username").val()==""|| $("#username").val()==null){
-			$("#msg").css("display","block");
-			$("#msg").text("用户名不能为空！");
+			commonObj.alert("用户名不能为空!","warning");
 			return false;
 		}else{
 			return true;
@@ -47,14 +46,12 @@
 	//校验密码
 	function validateUserPassword(){
 		 if($("#password").val()=="" || $("#password").val()==null){
-			$("#msg").css("display","block");
-			$("#msg").text("密码不能为空！");
+			commonObj.alert("密码不能为空!","warning");
 			return false;
 		}
 		 // 测试，密码长度校验太麻烦，所以注释正式需要放开
 		/* else if($("#password").val().length<6){
-			$("#msg").css("display","block");
-			$("#msg").text("密码不能小于6位！");
+			commonObj.alert("密码不能小于6位!","warning");
 			return false;
 		} */
 		else{
@@ -76,6 +73,7 @@
  		var _url = "<c:url value='/login'/>";
  		var _data = $("#loginForm").serialize();
  		if(validateLoginInfo()){
+ 			$.messager.progress(); 
  			$.ajax({
  				async:false,
  				cache:false,
@@ -88,8 +86,8 @@
  					if(dataObj.msg =="success"){
  						window.location.href="<c:url value='/jsp/loginTransfer.jsp'/>";
  					}else{
- 						$("#msg").css("display","block");
- 						$("#msg").text(dataObj.msg);
+ 						$.messager.progress('close');
+ 	 					commonObj.alert(dataObj.msg,"warning");
  					}
  					
  				},

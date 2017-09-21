@@ -107,10 +107,10 @@
 		<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">预览</a>
 </g:auth>
 <g:auth operateNo="<%=OperateContantsUtil.NEWS_AUDIT%>">
-		<a href="#" id="auditNews" class="easyui-linkbutton query-btn" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-tip">审核</a>
+		<a href="#" id="auditNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-audit">审核</a>
 </g:auth>
 <g:auth operateNo="<%=OperateContantsUtil.NEWS_RELEASE%>">
-		<a href="#" id="releaseNews" class="easyui-linkbutton query-btn" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-large-clipart">发布</a>
+		<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
 </g:auth>
 </div>
 

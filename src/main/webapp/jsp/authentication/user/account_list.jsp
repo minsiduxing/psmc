@@ -28,7 +28,7 @@
 	</ul>
 	</form>
 	<div class="query-oper">
-		<a href="#" class="easyui-linkbutton query-btn" onclick="commonObj.query('accountTableId','searchform')" id="submit_search" plain="true" iconCls="icon-search">查询</a>
+		<a href="#" class="easyui-linkbutton" onclick="commonObj.query('accountTableId','searchform')" id="submit_search" plain="true" iconCls="icon-search">查询</a>
 	</div> 
  </div>
  </div>
@@ -45,7 +45,7 @@
 		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.ACCOUNT_EXPORT%>">
-		<a href="" id="exportBtn" class="easyui-linkbutton query-btn"   plain="true" iconCls="icon-excel">导出</a>
+		<a href="" id="exportBtn" class="easyui-linkbutton"   plain="true" iconCls="icon-excel">导出</a>
 	</g:auth>
 </div>
 <div id="editdialogDiv"></div>

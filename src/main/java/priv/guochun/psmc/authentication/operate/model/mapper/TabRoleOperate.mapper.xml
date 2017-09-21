@@ -32,6 +32,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	   			SELECT DISTINCT a.ROLE_ID,a.RESOURCE_ID,b.UUID AS OPERATE_UUID,b.FUN_CLASS,b.FUN_METHOD,b.OPERATE_NAME,b.OPERATE_DESC,
 				(CASE WHEN c.OPERATE_UUID IS NOT NULL THEN 'true' ELSE 'false' END) AS CHECKED 
 				FROM tab_role_resource a,tab_operate b left join tab_role_operate c ON  b.UUID =c.OPERATE_UUID 
+				<if test="roleUuid !=null">
+	   					AND c.ROLE_UUID = #{roleUuid}
+	   			</if>
 				WHERE a.resource_id=b.resource_uuid
 				<if test="roleUuid !=null">
 	   					AND a.ROLE_ID = #{roleUuid}

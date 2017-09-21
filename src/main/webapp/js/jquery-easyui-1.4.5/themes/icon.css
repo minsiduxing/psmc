@@ -70,6 +70,13 @@
 .icon-excel{
 	background:url('icons/excel.png') no-repeat center center;
 }
+.icon-audit{
+	background:url('icons/audit.png') no-repeat center center;
+}
+.icon-release{
+	background:url('icons/release.png') no-repeat center center;
+}
+
 
 
 .icon-mini-add{
