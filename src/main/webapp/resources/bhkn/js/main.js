@@ -1,10 +1,7 @@
 ;(function () {
 	
 	'use strict';
-	//初始化导航栏
-	var inIntNavBar = function(){
-		
-	}
+
 	// iPad and iPod detection	
 	var isiPad = function(){
 		return (navigator.platform.indexOf("iPad") != -1);
