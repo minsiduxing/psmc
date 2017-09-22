@@ -7,6 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.ContextLoader;
 
 import priv.guochun.psmc.system.enums.FreemarkEnum;
 import priv.guochun.psmc.system.util.FreemarkUtil;
@@ -89,8 +90,6 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 
 	@Override
 	public void genetateAllStageHtmls() {
-		this.generateHeadHtml();
-		this.generateFooterHtml();
 		this.generateTeamShowHtml();
 		this.generateChooseUsHtml();
 		this.generateAboutUsHtml();
@@ -99,7 +98,7 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 		this.generateInofHtml();
 	}
 	private void gnerateHtml(Map<String,Object> root,String ftlPath,String fileName){
-	 String outPath = "/resources/bhkn";
+	 String outPath =  ContextLoader.getCurrentWebApplicationContext().getServletContext().getRealPath("/")+"/resources/bhkn";
 		//设置ftl模板路径
 		 FreemarkUtil ftu = FreemarkUtil.getInstance(FreemarkEnum.FREEMARKER_VERSIONNO.getValue(),FreemarkEnum.FTL_PATH.getValue());
 		logger.debug("----------------正在生成网站"+fileName+"！到"+outPath+"---------------------");
