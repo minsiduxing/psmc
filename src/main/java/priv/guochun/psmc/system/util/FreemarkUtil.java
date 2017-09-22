@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.log4j.Logger;
+import org.springframework.web.context.ContextLoader;
 
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import freemarker.core.ParseException;
@@ -122,6 +123,15 @@ public class FreemarkUtil {
         	logger.error(e.getMessage());
          	throw new PsmcBuisnessException("---------------生成模板错误！");
         }
+	}
+	public String getOutPutPath(){
+		String oupath = "";
+		 if("true".equals(SystemPropertiesUtil.getIsPublish())){
+			 oupath = SystemPropertiesUtil.getGennerateFtlfilePath();
+		 }else{
+			 oupath =  ContextLoader.getCurrentWebApplicationContext().getServletContext().getRealPath("/")+SystemPropertiesUtil.getGennerateFtlfileLocalPath();
+		 }
+		return oupath;
 	}
 }
 

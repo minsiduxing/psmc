@@ -98,9 +98,10 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 		this.generateInofHtml();
 	}
 	private void gnerateHtml(Map<String,Object> root,String ftlPath,String fileName){
-	 String outPath =  ContextLoader.getCurrentWebApplicationContext().getServletContext().getRealPath("/")+"/resources/bhkn";
+	
 		//设置ftl模板路径
 		 FreemarkUtil ftu = FreemarkUtil.getInstance(FreemarkEnum.FREEMARKER_VERSIONNO.getValue(),FreemarkEnum.FTL_PATH.getValue());
+		 String outPath = ftu.getOutPutPath();
 		logger.debug("----------------正在生成网站"+fileName+"！到"+outPath+"---------------------");
 		ftu.fprintTemplate(root, ftlPath, outPath, fileName);
 		logger.debug("------------------生成网站"+fileName+"成功！----------------------");

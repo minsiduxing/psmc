@@ -59,6 +59,19 @@ public class SystemPropertiesUtil
     private static final String news_pic_height ="news_pic_height";
     
     /**
+     * 生成网页服务器路径 
+     */
+    private static final String gennerate_ftlfile_path ="gennerate_ftlfile_path";
+    /**
+     * 生成网页tomcat路径 
+     */
+    private static final String gennerate_ftlfile_local_path ="gennerate_ftlfile_local_path";
+    /**
+     * 是否部署
+     */
+    private static final String is_publish ="is_publish";
+    
+    /**
      * 初始化system.propeties
      * <p>Description:<p>
      * @author guochun 2016-6-29
@@ -124,6 +137,20 @@ public class SystemPropertiesUtil
 
 	public static String getNewsPicHeight() {
 		return getPropertyValue(news_pic_height);
+	}
+	
+	
+
+	public static String getGennerateFtlfileLocalPath() {
+		return getPropertyValue(gennerate_ftlfile_local_path);
+	}
+
+	public static String getGennerateFtlfilePath() {
+		return getPropertyValue(gennerate_ftlfile_path);
+	}
+
+	public static String getIsPublish() {
+		return getPropertyValue(is_publish);
 	}
 
 	public static String getPropertyValue(String key){
