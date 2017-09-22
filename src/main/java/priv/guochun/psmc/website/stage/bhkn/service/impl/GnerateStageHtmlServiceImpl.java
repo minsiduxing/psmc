@@ -31,7 +31,8 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 		logger.debug("------------------获取导航栏菜单数据成功！----------------------");
 		Map<String,Object> remaps= new HashMap<String,Object>();
 		remaps.put("navbars", navbars);
-		gnerateHtml(remaps,"bukn/head.ftl",getClass().getClassLoader().getResource("/ftl/bukn").getPath(),"head.html");
+		//gnerateHtml(remaps,"bukn/head.ftl",getClass().getClassLoader().getResource("/ftl/bukn").getPath(),"head.html");
+		gnerateHtml(remaps,"bukn/head.ftl","head.html");
 		genetateAllStageHtmls();
 	}
 
@@ -84,7 +85,8 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 	@Override
 	public void generateFooterHtml() {
 		Map<String,Object> remaps= new HashMap<String,Object>();
-		gnerateHtml(remaps,"bukn/footer.ftl",getClass().getClassLoader().getResource("/ftl/bukn").getPath(), "footer.html");
+		//gnerateHtml(remaps,"bukn/footer.ftl",getClass().getClassLoader().getResource("/ftl/bukn").getPath(), "footer.html");
+		gnerateHtml(remaps,"bukn/footer.ftl", "footer.html");
 		genetateAllStageHtmls();
 	}
 
