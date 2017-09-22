@@ -13,5 +13,7 @@
 		http://www.springframework.org/schema/aop   
     	http://www.springframework.org/schema/aop/spring-aop-4.3.xsd"
 	default-lazy-init="false" default-autowire="byName">
-	
+	<!--生成网页前台页面service -->
+	<bean id="generateStageHtmlService"
+		class="priv.guochun.psmc.website.stage.bhkn.service.impl.GnerateStageHtmlServiceImpl" />
 </beans>
