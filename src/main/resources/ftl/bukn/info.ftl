@@ -182,13 +182,14 @@
 	.newsContentWithImg>p{
 		margin-bottom: 0;
 	}
-	.contentTittle{
+	.contentTittle , .modal-title{
 		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 15px;
+		font-size: 18px;
+		font-weight:bold;
 	}
 	.contentText{
 		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 12px;
+		font-size: 10px;
 	}
 	.news-carousel{
 		width:100%;
@@ -350,11 +351,14 @@
 						<div class="col-md-6">
 								<div class="row">
 									<div class="col-md-5" style="text-align: center;">
-										<img src="images/news1.jpg" style="width: 100px; height: 100px;">
+									<#if hn.thumbnail_image_url?? && hn.thumbnail_image_url!=''>
+									   <img src="/psmc/system/freamwork/fileUploadController?method=getImage&filePath=${hn.thumbnail_image_url}"  data-toggle="modal" data-target="#myModal" onclick="showDtail('${hn.uuid}')" style="width: 100px;  cursor:pointer; height: 100px;">
+									</#if>
+										
 									</div>
 									<div class="col-md-7 newsContentWithImg">
 										<a class="contentTittle" onclick="showDtail('${hn.uuid}')"  data-toggle="modal" data-target="#myModal">${hn.news_title}</a></br>
-										<a class="contentText">${hn.news_abstract}</a>
+										<a class="contentText" onclick="showDtail('${hn.uuid}')"  data-toggle="modal" data-target="#myModal" ><span class="newabstract">新闻摘要：</sapn>${hn.news_abstract}</a>
 									</div>
 								</div>
 							</div>
@@ -423,11 +427,13 @@
 							<div class="col-md-6">
 							    <div class="row">
 								    <div class="col-md-5" style="text-align: center;">
-										<img src="images/news1.jpg" style="width: 100px; height: 100px;">
+										<#if qn.thumbnail_image_url?? && qn.thumbnail_image_url!=''>
+									   <img  data-toggle="modal" data-target="#myModal" src="/psmc/system/freamwork/fileUploadController?method=getImage&filePath=${qn.thumbnail_image_url}" onclick="showDtail('${qn.uuid}')" style="width: 100px; cursor:pointer; height: 100px;">
+									</#if>
 									</div>
 									<div class="col-md-7 newsContentWithImg">
-										<a class="contentTittle"onclick="showDtail('${qn.uuid}')"  data-toggle="modal" data-target="#myModal" >${qn.news_title}</a></br>
-										<a class="contentText">${qn.news_abstract}</a>
+										<a class="contentTittle"  onclick="showDtail('${qn.uuid}')"  data-toggle="modal" data-target="#myModal" >${qn.news_title}</a></br>
+										<a class="contentText"  data-toggle="modal" data-target="#myModal" onclick="showDtail('${qn.uuid}')" ><span class="newabstract">新闻摘要：</sapn>${qn.news_abstract}</a>
 									</div>
 								</div>
 							</div>
@@ -496,11 +502,13 @@
 							<div class="col-md-6">
 								  <div class="row">
 									<div class="col-md-5" style="text-align: center;">
-										<img src="images/news1.jpg" style="width: 100px; height: 100px;">
+										<#if ln.thumbnail_image_url?? && ln.thumbnail_image_url!=''>
+									   <img src="/psmc/system/freamwork/fileUploadController?method=getImage&filePath=${ln.thumbnail_image_url}" data-toggle="modal" data-target="#myModal" onclick="showDtail('${ln.uuid}')"  style="width: 100px; cursor:pointer; height: 100px;">
+									</#if>
 									</div>
 									<div class="col-md-7 newsContentWithImg">
 										<a class="contentTittle" onclick="showDtail('${ln.uuid}')"  data-toggle="modal" data-target="#myModal">${ln.news_title}</a></br>
-										<a class="contentText">${ln.news_abstract}</a>
+										<a class="contentText"  data-toggle="modal" data-target="#myModal" onclick="showDtail('${ln.uuid}')" ><span class="newabstract">新闻摘要：</sapn>${ln.news_abstract}</a>
 									</div>
 								</div>
 							</div>
@@ -593,12 +601,19 @@
 	    		<div class="modal-content">
 	      			<div class="modal-header">
 		        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        			<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-	      			</div>
+		        			<h4 class="modal-title text-center" id="myModalLabel" >新闻标题</h4>
+		        			
+					</div>
 				<div class="modal-body">
+			           <div id="newabstract" class="text-left">
+					   </div>
+					   <hr>
 					<div id="myModalText" class="text-left">
 						
 					</div>
+					<hr>
+					   <div id="author" class="text-left"></div>
+					   <div id="newdate" class="text-left"></div>
 				</div>
 		      		<div class="modal-footer">
 				        	<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
@@ -654,8 +669,11 @@
 				   url: _url,
 				   success: function(data){
 				        var news =  JSON.parse(data);
-					     $('#myModalLabel').text(news.news_title);
-					     $('#myModalText').html(news.news_content);
+					     $('#myModalLabel').html("<b>新闻标题</b>："+news.news_title);
+				      $('#newabstract').html("<b>摘要</b>："+news.news_abstract);
+				       $('#author').html("<b>新闻作者</b>："+news.news_author);
+				        $('#newdate').html("<b>新闻日期</b>："+news.news_date);
+				     $('#myModalText').html(news.news_content);
 				   },
 				   error:function(XMLHttpRequest, textStatus, errorThrown){
 					 console.info(errorThrown);
