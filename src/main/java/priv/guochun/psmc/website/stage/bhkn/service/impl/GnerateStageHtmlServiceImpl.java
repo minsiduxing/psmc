@@ -31,7 +31,7 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 		logger.debug("------------------获取导航栏菜单数据成功！----------------------");
 		Map<String,Object> remaps= new HashMap<String,Object>();
 		remaps.put("navbars", navbars);
-		gnerateHtml(remaps,"bukn/head.ftl","head.html");
+		gnerateHtml(remaps,"bukn/head.ftl",getClass().getClassLoader().getResource("/ftl/bukn").getPath(),"head.html");
 		genetateAllStageHtmls();
 	}
 
@@ -84,7 +84,7 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 	@Override
 	public void generateFooterHtml() {
 		Map<String,Object> remaps= new HashMap<String,Object>();
-		gnerateHtml(remaps,"bukn/footer.ftl", "footer.ftl");
+		gnerateHtml(remaps,"bukn/footer.ftl",getClass().getClassLoader().getResource("/ftl/bukn").getPath(), "footer.html");
 		genetateAllStageHtmls();
 	}
 
@@ -102,6 +102,14 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 		//设置ftl模板路径
 		 FreemarkUtil ftu = FreemarkUtil.getInstance(FreemarkEnum.FREEMARKER_VERSIONNO.getValue(),FreemarkEnum.FTL_PATH.getValue());
 		 String outPath = ftu.getOutPutPath();
+		logger.debug("----------------正在生成网站"+fileName+"！到"+outPath+"---------------------");
+		ftu.fprintTemplate(root, ftlPath, outPath, fileName);
+		logger.debug("------------------生成网站"+fileName+"成功！----------------------");
+	}
+	private void gnerateHtml(Map<String,Object> root,String ftlPath,String outPath,String fileName){
+		//生成头部和底部页面因为要动态包含所以要放到和模板同一路径
+		//设置ftl模板路径
+		 FreemarkUtil ftu = FreemarkUtil.getInstance(FreemarkEnum.FREEMARKER_VERSIONNO.getValue(),FreemarkEnum.FTL_PATH.getValue());
 		logger.debug("----------------正在生成网站"+fileName+"！到"+outPath+"---------------------");
 		ftu.fprintTemplate(root, ftlPath, outPath, fileName);
 		logger.debug("------------------生成网站"+fileName+"成功！----------------------");
