@@ -85,8 +85,8 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 	@Override
 	public void generateFooterHtml() {
 		Map<String,Object> remaps= new HashMap<String,Object>();
-		//gnerateHtml(remaps,"bukn/footer.ftl",getClass().getClassLoader().getResource("/ftl/bukn").getPath(), "footer.html");
-		gnerateHtml(remaps,"bukn/footer.ftl", "footer.html");
+		gnerateHtml(remaps,"bukn/footer.ftl",getClass().getClassLoader().getResource("/ftl/bukn").getPath(), "footer.html");
+		//gnerateHtml(remaps,"bukn/footer.ftl", "footer.html");
 		genetateAllStageHtmls();
 	}
 
