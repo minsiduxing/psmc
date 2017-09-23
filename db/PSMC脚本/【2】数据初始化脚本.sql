@@ -165,96 +165,96 @@ insert into tab_acc_role (acc_uuid, role_uuid) values ('38ee6b0869c9411a948d4bda
 
 /*-----------------------------系统菜单-----------------------------*/
 insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('e51a8663876f4a3394bb194d89d96735','PSMC系统树根目录',1,'','0','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'子系统',0);
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('e51a8663876f4a3394bb194d89d96735','PSMC系统树根目录',1,'','0','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'子系统',0,1);
 
 insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('c4ecb01b62274ab9bc08a826f404b643','电费合同管理',2,'','e51a8663876f4a3394bb194d89d96735','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'导航模块',1);
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('c4ecb01b62274ab9bc08a826f404b643','电费合同管理',2,'','e51a8663876f4a3394bb194d89d96735','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'导航模块',1,1);
 
 insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('ba625cc38233480983f608b74eb697f4','信息管理',3,'','c4ecb01b62274ab9bc08a826f404b643','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',2);
-
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('f15cbb06413449b2bffaf61cae8722d6','站点基础信息',3,'/sencondage/tabBaseElectricController.do?method=initBaseElectricityQuery','ba625cc38233480983f608b74eb697f4','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',3);
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('abb22fde2c3f4421961ae9aac00dc853','站点电费信息',3,'/sencondage/tabMonthlyElectricController.do?method=initBaseElectricityQuery','ba625cc38233480983f608b74eb697f4','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',4);
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('ba625cc38233480983f608b74eb697f4','信息管理',3,'','c4ecb01b62274ab9bc08a826f404b643','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',2,1);
 
 
 insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('8f88c82038774bbe95dbcf74965a6821','电费分析',3,'','c4ecb01b62274ab9bc08a826f404b643','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',5);
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('f15cbb06413449b2bffaf61cae8722d6','站点基础信息',3,'/sencondage/tabBaseElectricController.do?method=initBaseElectricityQuery','ba625cc38233480983f608b74eb697f4','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',3,1);
 
 insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('6eee3d7f0a5044d09833ef60500f1cff','超标杆站点TOPN统计',3,'/sencondage/report/electricDataDig.do?method=initTopNQuery','8f88c82038774bbe95dbcf74965a6821','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',6);
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('67463ddf203046edae7761215256a45e','单站点电费统计',3,'/sencondage/tabBaseElectricController.do?method=initAloneSitStatisticsQuery','8f88c82038774bbe95dbcf74965a6821','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',7);
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('b0a1af0a1a0440b190b813e21ca5c4ac','运营商区县维度电费统计',3,'/sencondage/report/electricDataDig.do?method=initProviderlatitudeQuery','8f88c82038774bbe95dbcf74965a6821','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',8);
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('abb22fde2c3f4421961ae9aac00dc853','站点电费信息',3,'/sencondage/tabMonthlyElectricController.do?method=initBaseElectricityQuery','ba625cc38233480983f608b74eb697f4','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',4,1);
 
 
 insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('38d770a20a6847ec861269893c5154eb','电费结算',3,'','c4ecb01b62274ab9bc08a826f404b643','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',9);
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('8f88c82038774bbe95dbcf74965a6821','电费分析',3,'','c4ecb01b62274ab9bc08a826f404b643','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',5,1);
+
+insert into tab_resource 
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('6eee3d7f0a5044d09833ef60500f1cff','超标杆站点TOPN统计',3,'/sencondage/report/electricDataDig.do?method=initTopNQuery','8f88c82038774bbe95dbcf74965a6821','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',6,1);
+
+insert into tab_resource 
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('67463ddf203046edae7761215256a45e','单站点电费统计',3,'/sencondage/tabBaseElectricController.do?method=initAloneSitStatisticsQuery','8f88c82038774bbe95dbcf74965a6821','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',7,1);
+
+insert into tab_resource 
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('b0a1af0a1a0440b190b813e21ca5c4ac','运营商区县维度电费统计',3,'/sencondage/report/electricDataDig.do?method=initProviderlatitudeQuery','8f88c82038774bbe95dbcf74965a6821','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',8,1);
 
 
 insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('06e86b3b58d942e6bb383cda44e43825','电费结算报表',3,'/sencondage/tabMonthlyElectricController.do?method=initEstimateElectricityQuery','38d770a20a6847ec861269893c5154eb','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',10);
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('38d770a20a6847ec861269893c5154eb','电费结算',3,'','c4ecb01b62274ab9bc08a826f404b643','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',9,1);
 
 
 insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('fb67ef15af98450f8d57dd8a1f46b688','合同分析',3,'','c4ecb01b62274ab9bc08a826f404b643','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',11);
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('fcd66122137c4ba887024eaee56ae3af','合同数据分析报表',3,'/sencondage/tabBaseElectricController.do?method=initContractReportQuery','fb67ef15af98450f8d57dd8a1f46b688','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',12);
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('06e86b3b58d942e6bb383cda44e43825','电费结算报表',3,'/sencondage/tabMonthlyElectricController.do?method=initEstimateElectricityQuery','38d770a20a6847ec861269893c5154eb','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',10,1);
 
 
 insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('f55580fa321b4d34a172628d5825c4dc','系统管理',2,'','e51a8663876f4a3394bb194d89d96735','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'导航模块',13);
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('fb67ef15af98450f8d57dd8a1f46b688','合同分析',3,'','c4ecb01b62274ab9bc08a826f404b643','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',11,1);
 
 insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('deab504ee54b4f10b65fb17c7615ab9c','用户管理',3,'','f55580fa321b4d34a172628d5825c4dc','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',14);
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('d4f3b60bfdcc4314baf65448d1284080','账户信息',3,'/jsp/authentication/user/account_list.jsp','deab504ee54b4f10b65fb17c7615ab9c','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',15);
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('fcd66122137c4ba887024eaee56ae3af','合同数据分析报表',3,'/sencondage/tabBaseElectricController.do?method=initContractReportQuery','fb67ef15af98450f8d57dd8a1f46b688','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',12,1);
 
 
 insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('74385facee5148cbb0c9d69ecc1b8636','修改密码',3,'/jsp/updatePasswd.jsp','deab504ee54b4f10b65fb17c7615ab9c','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',16);
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('f55580fa321b4d34a172628d5825c4dc','系统管理',2,'','e51a8663876f4a3394bb194d89d96735','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'导航模块',13,1);
 
 insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('9563b511d42f4768aa08cc506571de0a','角色管理',3,'','f55580fa321b4d34a172628d5825c4dc','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',17);
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('deab504ee54b4f10b65fb17c7615ab9c','用户管理',3,'','f55580fa321b4d34a172628d5825c4dc','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',14,1);
 
 insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('a807a90d00fb48c4bdf1d82ab41a9bc0','角色信息',3,'/jsp/authentication/role/role_list.jsp','9563b511d42f4768aa08cc506571de0a','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',18);
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('d4f3b60bfdcc4314baf65448d1284080','账户信息',3,'/jsp/authentication/user/account_list.jsp','deab504ee54b4f10b65fb17c7615ab9c','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',15,1);
 
 
 insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('8d5276afc8444b47a842da1f42aaac34','资源管理',3,'','f55580fa321b4d34a172628d5825c4dc','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',21);
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('74385facee5148cbb0c9d69ecc1b8636','修改密码',3,'/jsp/updatePasswd.jsp','deab504ee54b4f10b65fb17c7615ab9c','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',16,1);
 
 insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum) values 
-('1a1a1817883142e7a9c9e06c477360cc','资源信息',3,'/jsp/authentication/resource/sys_resource_tree.jsp','8d5276afc8444b47a842da1f42aaac34','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',22);
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('9563b511d42f4768aa08cc506571de0a','角色管理',3,'','f55580fa321b4d34a172628d5825c4dc','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',17,1);
+
+insert into tab_resource 
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('a807a90d00fb48c4bdf1d82ab41a9bc0','角色信息',3,'/jsp/authentication/role/role_list.jsp','9563b511d42f4768aa08cc506571de0a','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',18,1);
+
+
+insert into tab_resource 
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('8d5276afc8444b47a842da1f42aaac34','资源管理',3,'','f55580fa321b4d34a172628d5825c4dc','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',21,1);
+
+insert into tab_resource 
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('1a1a1817883142e7a9c9e06c477360cc','资源信息',3,'/jsp/authentication/resource/sys_resource_tree.jsp','8d5276afc8444b47a842da1f42aaac34','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',22,1);
 
 
 
@@ -424,11 +424,11 @@ insert into tab_role_operate (role_uuid, operate_uuid) values ('5428f3cdbd434934
 insert into tab_role_operate (role_uuid, operate_uuid) values ('5428f3cdbd434934b142354221ed6b16','35559c19ed964e37b2fbb0892b13b339');
 
 ------------------------新闻资源脚本
-INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum) VALUES ('097d7b066a66449d86334f48ad972e7a', '行业动向添加', 3, '/jsp/backstage/news/newsaddoredit.jsp?newtype=3', 'da271ee987da4c2d90f91573bd2a7dad', 'admin', '2017-09-14 00:00:00', '行业动向添加', 30);
-INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum) VALUES ('123a3b983b3246bb98de2ed39e10ac40', '实时资讯添加', 3, '/jsp/backstage/news/newsaddoredit.jsp?newtype=2', 'da271ee987da4c2d90f91573bd2a7dad', 'admin', '2017-09-14 00:00:00', '实时资讯添加', 29);
-INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum) VALUES ('90e372f048404a1eac921868b3497d35', '行情资讯管理', 3, '/website/backstage/tabNewsController?method=index', 'da271ee987da4c2d90f91573bd2a7dad', 'admin', '2017-09-15 00:29:57', '新闻信息', 28);
-INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum) VALUES ('aa8386c1771c40d795a53b9ee85ca575', '热点新闻添加', 3, '/jsp/backstage/news/newsaddoredit.jsp?newtype=1', 'da271ee987da4c2d90f91573bd2a7dad', 'admin', '2017-09-14 23:14:15', '热点新闻添加', 26);
-INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum) VALUES ('da271ee987da4c2d90f91573bd2a7dad', '行情资讯管理', 2, '/website/backstage/tabNewsController?method=index', 'e51a8663876f4a3394bb194d89d96735', 'admin', '2017-09-15 00:11:07', '行情资讯管理', 25);
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum,is_view) VALUES ('097d7b066a66449d86334f48ad972e7a', '行业动向添加', 3, '/jsp/backstage/news/newsaddoredit.jsp?newtype=3', 'da271ee987da4c2d90f91573bd2a7dad', 'admin', '2017-09-14 00:00:00', '行业动向添加', 30,1);
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum,is_view) VALUES ('123a3b983b3246bb98de2ed39e10ac40', '实时资讯添加', 3, '/jsp/backstage/news/newsaddoredit.jsp?newtype=2', 'da271ee987da4c2d90f91573bd2a7dad', 'admin', '2017-09-14 00:00:00', '实时资讯添加', 29,1);
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum,is_view) VALUES ('90e372f048404a1eac921868b3497d35', '行情资讯管理', 3, '/website/backstage/tabNewsController?method=index', 'da271ee987da4c2d90f91573bd2a7dad', 'admin', '2017-09-15 00:29:57', '新闻信息', 28,1);
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum,is_view) VALUES ('aa8386c1771c40d795a53b9ee85ca575', '热点新闻添加', 3, '/jsp/backstage/news/newsaddoredit.jsp?newtype=1', 'da271ee987da4c2d90f91573bd2a7dad', 'admin', '2017-09-14 23:14:15', '热点新闻添加', 26,1);
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum,is_view) VALUES ('da271ee987da4c2d90f91573bd2a7dad', '行情资讯管理', 2, '/website/backstage/tabNewsController?method=index', 'e51a8663876f4a3394bb194d89d96735', 'admin', '2017-09-15 00:11:07', '行情资讯管理', 25,1);
 --------------新闻操作
 INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('4093d626accc44c580e2ea915db4c742', '90e372f048404a1eac921868b3497d35', '756d6e80c9d74b4389c918ab50ee19c3', 'priv.guochun.psmc.website.backstage.news.service.TabNewsService', 'getNewsByConditionBusinessMethod', 'NEWS_LIST', '新闻列表', '新闻列表', 11);
 INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('4af86746772f4c40adac88f4a3ccd70d', '90e372f048404a1eac921868b3497d35', '022a43088dcd46d4b201b43b32d3d85a', 'priv.guochun.psmc.website.backstage.news.service.TabNewsService', 'executeReleaseNewsBusinessMethod', 'NEWS_RELEASE', '新闻发布', '新闻发布', 19);

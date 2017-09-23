@@ -87,3 +87,5 @@ CREATE TABLE `tab_news` (
   `news_abstract` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+alter table tab_resource add column is_view integer  comment '是否展示?1是2否';  
