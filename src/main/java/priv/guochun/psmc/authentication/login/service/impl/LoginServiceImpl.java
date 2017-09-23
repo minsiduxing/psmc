@@ -14,6 +14,7 @@ import priv.guochun.psmc.authentication.resource.dao.TabResourceDao;
 import priv.guochun.psmc.authentication.role.dao.TabRoleDao;
 import priv.guochun.psmc.authentication.user.dao.TabAccountDao;
 import priv.guochun.psmc.authentication.user.dao.TabPersonDao;
+import priv.guochun.psmc.system.enums.IfEnum;
 import priv.guochun.psmc.system.framework.util.ResourceEnum;
 
 public class LoginServiceImpl implements LoginService
@@ -70,7 +71,7 @@ public class LoginServiceImpl implements LoginService
         }
         return tabResourceDao.getSubResourcesByResourceId(
                 String.valueOf(ResourceEnum.PsmcRootId.getUuid()), 
-                ResourceEnum.ResourceType1.getIndex(), false,roleUuid);
+                ResourceEnum.ResourceType1.getIndex(), false,roleUuid,IfEnum.YES.getValue());
     }
     @Override
     public Map<?, ?> getResource (String resourceId,String roleUuid){
@@ -78,7 +79,7 @@ public class LoginServiceImpl implements LoginService
             logger.warn("moduleId 或roleUuid为空,无法查询资源信息.....");
             return null;
         }
-        return tabResourceDao.getResource(resourceId, null, roleUuid);
+        return tabResourceDao.getResource(resourceId, null, roleUuid,IfEnum.YES.getValue());
     }
     
     @Override
@@ -88,7 +89,7 @@ public class LoginServiceImpl implements LoginService
             return null;
         }
         return tabResourceDao.getSubResourcesByResourceId
-            (resourceId, null, ContainSelf, roleUuid);
+            (resourceId, null, ContainSelf, roleUuid,IfEnum.YES.getValue());
     }
     
     

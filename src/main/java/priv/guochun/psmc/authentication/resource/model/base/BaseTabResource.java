@@ -57,6 +57,7 @@ public abstract class BaseTabResource  implements Serializable {
 	private java.util.Date createTime;
 	private java.lang.String remark;
 	private java.lang.Integer ordernum;
+	private java.lang.Integer isView;
 
 
 
@@ -230,7 +231,13 @@ public abstract class BaseTabResource  implements Serializable {
 		}
 		return this.hashCode;
 	}
+	public java.lang.Integer getIsView() {
+		return isView;
+	}
 
+	public void setIsView(java.lang.Integer isView) {
+		this.isView = isView;
+	}
 
 	public String toString () {
 		return super.toString();

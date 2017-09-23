@@ -35,7 +35,7 @@ public class TabResourceDaoImplMybatis  implements TabResourceDao
 
 	@Override
 	public List<Map<?,?>> getSubResourcesByResourceId(String resourceId,
-			Integer resourceType, boolean ContainSelf, String roleId) {
+			Integer resourceType, boolean ContainSelf, String roleId,Integer isView) {
 			if(StringUtils.isBlank(resourceId)){
 	    		String msg ="系统该方法参数为空!"; 
 	    		logger.warn(msg);
@@ -46,6 +46,8 @@ public class TabResourceDaoImplMybatis  implements TabResourceDao
 	        condition.put("resourceType", resourceType);
 	        condition.put("roleId", roleId);
 	        condition.put("ContainSelf", ContainSelf);
+	        condition.put("isView", isView);
+	        
 
 	        List<Map<?,?>> list =sqlSession.selectList(getSubResourcesByResourceId,condition);
 	        return list;
@@ -58,6 +60,19 @@ public class TabResourceDaoImplMybatis  implements TabResourceDao
 		condition.put("resourceId", resourceId);
         condition.put("resourceType", resourceType);
         condition.put("roleId", roleId);
+
+        Map<?,?> map = (Map<?,?>)sqlSession.selectOne(getResource,condition);
+        return map;
+	}
+	
+	@Override
+	public Map<?,?> getResource(String resourceId, Integer resourceType,
+			String roleId,Integer isView) {
+		Map<String,Object> condition = new HashMap<String,Object>();
+		condition.put("resourceId", resourceId);
+        condition.put("resourceType", resourceType);
+        condition.put("roleId", roleId);
+        condition.put("isView", isView);
 
         Map<?,?> map = (Map<?,?>)sqlSession.selectOne(getResource,condition);
         return map;

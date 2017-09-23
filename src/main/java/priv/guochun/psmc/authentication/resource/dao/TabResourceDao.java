@@ -23,7 +23,7 @@ public interface TabResourceDao
     public List<Map<?,?>> getSubResourcesByResourceId(String resourceId,
                                             Integer resourceType,
                                             boolean ContainSelf,
-                                            String roleId);
+                                            String roleId,Integer isView);
     /**
      * 得到某一个角色的某一个资源
      * @param resourceId 资源主键
@@ -32,6 +32,8 @@ public interface TabResourceDao
      * @return
      */
     public Map<?,?> getResource(String resourceId,Integer resourceType,String roleUuid);
+    
+    public Map<?,?> getResource(String resourceId,Integer resourceType,String roleUuid,Integer isView);
     
     /**
      * 获取系统资源树，并对隶属于该角色的资源默认check

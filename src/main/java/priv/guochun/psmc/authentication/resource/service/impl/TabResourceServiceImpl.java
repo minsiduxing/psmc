@@ -42,7 +42,7 @@ public class TabResourceServiceImpl implements TabResourceService
     		logger.warn(msg);
     		throw new NullPointerException(msg);
     	}
-    	List<Map<?,?>> subLists = this.tabResourceDao.getSubResourcesByResourceId(resourceUuid, null, false, null);
+    	List<Map<?,?>> subLists = this.tabResourceDao.getSubResourcesByResourceId(resourceUuid, null, false, null,null);
     	if(subLists != null && subLists.size()>0){
     	    String msg ="该资源下存在子资源,无法删除.请先手工删除子资源或将子资源挂接到其他资源下.";
     		logger.warn(msg);

@@ -15,6 +15,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 		 				<include refid="getResourceBaseSqlNoRole"/>
 		 			</otherwise>
 		 		</choose>
+		 		<if test="isView != null">
+			 			and a.is_view=#{isView}
+			 	</if>
 			<![CDATA[	
 		     	and a.parent_resource_uuid in ( 
 			     select t.UUID from(
@@ -37,6 +40,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 			 	<if test="roleId != null">
 			 		and b.role_id=#{roleId}
 			 	</if>
+			 	<if test="isView != null">
+			 		and a.is_view=#{isView}
+			 	</if>
 			 	) t
 			 )
 			 <if test="ContainSelf == true">
@@ -57,6 +63,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 			 	</if>
 			 	<if test="roleId != null">
 			 		and b.role_id=#{roleId}
+			 	</if>
+			 	<if test="isView != null">
+			 		and a.is_view=#{isView}
 			 	</if>
 			 </if>
 		) a order by a.ordernum asc 
@@ -83,23 +92,27 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 		 	<if test="roleId != null">
 		 		and b.role_id=#{roleId}
 		 	</if>
+		 	<if test="isView != null">
+		 		and a.is_view=#{isView}
+		 	</if>
    	</select>
    	
    	
    	<sql id="getResourceBaseSql">
 	   	<![CDATA[
 	   		 select distinct a.UUID,A.RESOURCE_NAME,A.RESOURCE_TYPE,A.RESOURCE_URL,A.PARENT_RESOURCE_UUID,A.CREATOR_NAME,A.CREATE_TIME,A.REMARK,A.ORDERNUM,B.ROLE_ID,  
-		     (case when c.uuid is not null then 'true' else 'false' end) "isParent"
+		     (case when c.uuid is not null then 'true' else 'false' end) "isParent",a.is_view
 		     FROM tab_resource a left join tab_resource c   
 		     on a.uuid=c.parent_resource_uuid , tab_role_resource b 
 		     where 1=1 and a.uuid=b.resource_id 
+		     
 		]]>   
    	</sql>
    	
    	<sql id="getResourceBaseSqlNoRole">
 	   	<![CDATA[
 	   		 select distinct a.UUID,A.RESOURCE_NAME,A.RESOURCE_TYPE,A.RESOURCE_URL,A.PARENT_RESOURCE_UUID,A.CREATOR_NAME,A.CREATE_TIME,A.REMARK,A.ORDERNUM,
-		     (case when c.uuid is not null then 'true' else 'false' end) "isParent"
+		     (case when c.uuid is not null then 'true' else 'false' end) "isParent",a.is_view
 		     FROM tab_resource a left join tab_resource c   
 		     on a.uuid=c.parent_resource_uuid 
 		     where 1=1
@@ -112,7 +125,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    		<![CDATA[	
 	   			select distinct a.UUID,A.RESOURCE_NAME,A.RESOURCE_TYPE,A.RESOURCE_URL,A.PARENT_RESOURCE_UUID,A.CREATOR_NAME,A.CREATE_TIME,A.REMARK,A.ORDERNUM,
 					(case when c.UUID is not null then 'true' else 'false' end) isParent,
-					(case when b.RESOURCE_ID is not null then 'true' else 'false' end) "checked"
+					(case when b.RESOURCE_ID is not null then 'true' else 'false' end) "checked",a.is_view
 					from tab_resource a 
 					left join tab_role_resource b on a.UUID = b.RESOURCE_ID
 		]]> 
@@ -133,7 +146,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    	<select id="getResourcesBelongRole" resultType="java.util.Map"  parameterType="hashmap">
    		<![CDATA[	
 	   			select distinct a.UUID,A.RESOURCE_NAME,A.RESOURCE_TYPE,A.RESOURCE_URL,A.PARENT_RESOURCE_UUID,A.CREATOR_NAME,A.CREATE_TIME,A.REMARK,A.ORDERNUM,
-					(case when c.UUID is not null then 'true' else 'false' end) isParent
+					(case when c.UUID is not null then 'true' else 'false' end) isParent,a.is_view
 					from tab_resource a left join tab_resource c on a.UUID = c.PARENT_RESOURCE_UUID  ,tab_role_resource b
                     where 1=1 and  a.UUID = b.RESOURCE_ID 
 		]]> 
@@ -152,9 +165,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    	
    	<insert id="insertTabResource">
   		INSERT INTO TAB_RESOURCE(UUID,RESOURCE_NAME,RESOURCE_TYPE,RESOURCE_URL,PARENT_RESOURCE_UUID,
-  		CREATOR_NAME,CREATE_TIME,REMARK,ORDERNUM) VALUES
+  		CREATOR_NAME,CREATE_TIME,REMARK,ORDERNUM,IS_VIEW) VALUES
   		(#{id},#{resourceName},#{resourceType},#{resourceUrl},#{parentResourceUuid},#{creatorName},
-  		#{createTime},#{remark},#{ordernum})
+  		#{createTime},#{remark},#{ordernum},#{isView})
   	</insert>
    	
    	<update id="updateTabResource">
@@ -183,6 +196,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	  		</if>
 	  		<if test="ordernum != null">
 	  			ORDERNUM =#{ordernum},
+	  		</if>
+	  		<if test="isView != null">
+	  			IS_VIEW =#{isview},
 	  		</if>
   		</trim>
   		where UUID=#{id}
@@ -216,7 +232,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 			parent_resource_uuid AS parentResourceUuid,
 			creator_name AS creatorName,
 			create_time AS createTime,
-			remark,
+			remark,is_view
 			ordernum
 		FROM
 			tab_resource 
