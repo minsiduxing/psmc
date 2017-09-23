@@ -44,6 +44,8 @@ http://www.springframework.org/schema/task/spring-task-3.2.xsd">
 	<context:component-scan
 		base-package="priv.guochun.psmc.authentication.license.sevice" />
 	<!-- license验证 -->
+	<!--配置自定义异常处理类-->
+    <bean id="handlerExceptionResolver" class="priv.guochun.psmc.system.excepthandler.MyExceptionHandler"/>
 <!-- 	<mvc:interceptors> -->
 <!-- 		<mvc:interceptor> -->
 <!-- 			<mvc:mapping path="/**" /> -->

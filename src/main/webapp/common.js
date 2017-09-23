@@ -160,7 +160,13 @@ commonObj.showResponse = function(data,callback){
 			}
 		}
 	}catch(e){
-		commonObj.alert("系统错误,请联系管理员!","error");
+		//为了打印出后台抛出的业务操作异常所以添加一下代码
+		 if(data.error=="false"){
+			commonObj.alert(data.msg,"warning");
+		}else{
+			commonObj.alert("系统错误,请联系管理员!","error");
+		}
+		//为了打印出后台抛出的业务操作异常所以添加一下代码
 		console.info(" e:"+e.message);
 	}
 };
