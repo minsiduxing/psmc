@@ -23,7 +23,7 @@
 						<input class="input" id="password" name="password"  type="password">
 					</p>
 					<div class="formButtonDiv">
-						<input id="submitbtn" type="button" value="登录" onclick="loginSubmit();"/>
+						<input id="submitbtn" type="button" value="" onclick="loginSubmit();"/>
 					</div>
 				</div>
 			</div>
