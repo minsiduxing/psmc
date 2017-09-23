@@ -208,9 +208,9 @@
 						<li class="dropdown">
 							          <a href="#" class="dropdown-toggle index_color" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">产品一览<span class="caret"></span></a>
 							          <ul class="dropdown-menu" style="z-index: 1000;">
-							            <li><a href="#">产品线一览</a></li>
-							            <li><a href="#">产品一览</a></li>
-							            <li><a href="#">口碑产品</a></li>
+							            <li><a href="#productlineview">产品线一览</a></li>
+							            <li><a href="#productview">产品一览</a></li>
+							            <li><a href="#popularproducts">口碑产品</a></li>
 							          </ul>
 						</li>
 						<li class="dropdown">
@@ -260,6 +260,7 @@
 		<div class="fh5co-project-style-2">
 			<div class="comContentDiv">
 				<div class="compCulture">
+					<a name="productview" id="productview"></a>
 					<span class="compCuContent">产&nbsp;品&nbsp;一&nbsp;览</span>
 				</div>
 				<div class="container" style="width: 80%;">
@@ -290,6 +291,7 @@
 			</div>
 			<div class="comContentDiv">
 				<div class="compCulture">
+					<a name="productlineview" id="productlineview"></a>
 					<span class="compCuContent">产&nbsp;品&nbsp;线&nbsp;一&nbsp;览</span>
 				</div>
 				<div class="clearfix">

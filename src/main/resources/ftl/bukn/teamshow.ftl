@@ -124,9 +124,9 @@
 						<li class="dropdown">
 							          <a href="#" class="dropdown-toggle index_color" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">团队展示<span class="caret"></span></a>
 							          <ul class="dropdown-menu">
-							            <li><a href="./teamshow.html">创始人</a></li>
-							            <li><a href="#">研究团队</a></li>
-							            <li><a href="#">核心团队</a></li>
+							            <li><a href="#founder">创始人</a></li>
+							            <li><a href="#researchteam">研究团队</a></li>
+							            <li><a href="#coreteam">核心团队</a></li>
 							          </ul>
 						</li>
 						<li class="dropdown">
@@ -152,6 +152,7 @@
 				<div class="row">
 					<div class="row p-b">
 						<div class="col-md-6 col-md-offset-3 text-center">
+							<a name="founder" id="founder"></a>
 							<h2 class="fh5co-heading wow fadeInUp tip" data-wow-duration="1s" data-wow-delay=".5s">创&nbsp;始&nbsp;人&nbsp;介&nbsp;绍</h2>
 							<p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".7s">研究创造价值，智慧创造财富，成功的基石不仅止于坚持，更需要专业的分工和科学的管理</p>
 						</div>
@@ -207,6 +208,7 @@
 			<div class="container">
 				<div class="row p-b">
 					<div class="col-md-6 col-md-offset-3 text-center">
+						<a name="coreteam" id="coreteam"></a>
 						<h2 class="fh5co-heading wow fadeInUp tip" data-wow-duration="1s" data-wow-delay=".5s">核心团队介绍</h2>
 						<p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".8s">目前研究员中有博士后2人，博士3人，研究生4人。核心人员均具有国际宏观视野，熟悉国内外资本市场运作，数年来为客户取得丰厚回报</p>
 					</div>
@@ -318,6 +320,7 @@
 			<div class="container">
 				<div class="row p-b">
 					<div class="col-md-6 col-md-offset-3 text-center">
+						<a name="researchteam" id="researchteam">
 						<h2 class="fh5co-heading wow fadeInUp tip" data-wow-duration="1s" data-wow-delay=".5s">研究团队介绍</h2>
 						<p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".8s">目前研究员中有博士后2人，博士3人，研究生4人。核心人员均具有国际宏观视野，熟悉国内外资本市场运作，数年来为客户取得丰厚回报</p>
 					</div>

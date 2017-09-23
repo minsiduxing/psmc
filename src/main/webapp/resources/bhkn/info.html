@@ -229,9 +229,9 @@
 						<li class="dropdown">
 							          <a href="#" class="dropdown-toggle index_color" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">行情资讯<span class="caret"></span></a>
 							          <ul class="dropdown-menu">
-							            <li><a href="./info.html">热点新闻</a></li>
-							            <li><a href="#">实时资讯</a></li>
-							            <li><a href="#">行业动向</a></li>
+							            <li><a href="#compCuContent" id="hotNewsd">热点新闻</a></li>
+							            <li><a href="#compCuContent" id="qoutionnewsd">实时资讯</a></li>
+							            <li><a href="#compCuContent" id="trendnewsd">行业动向</a></li>
 							          </ul>
 						</li>
 					</ul>
@@ -268,6 +268,7 @@
 					<span class="compCuContent">行&nbsp;情&nbsp;资&nbsp;讯</span>
 				</div>
 				<div class="container" style="width: 80%;">
+					<a name="compCuContent"></a>
 					<div class="row">
 					 	<div class="col-md-4">
 					 		<div class="productDiv">
@@ -870,6 +871,16 @@
 			$('#myModalLabel').text("新的新闻标题1");
 			$('#myModalText').text("新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容新的新闻填充内容");
 		})
+
+		$('#hotNewsd').click(function(){
+				$('#hotNews').trigger("click");
+		});
+		$('#qoutionnewsd').click(function(){
+				 $('#timeNews').trigger("click");
+		});
+		$('#trendnewsd').click(function(){
+				$('#hangYeMove').trigger("click");
+		});
 
 	})
 </script>

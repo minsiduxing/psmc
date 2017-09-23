@@ -239,6 +239,7 @@
 		<!-- 顶部导航条 end-->
 		<div class="fh5co-project-style-2">
 			<div class="comContentDiv">
+				<a name="businessculture"></a>
 				<div class="compCulture">
 					<span class="compCuContent">企&nbsp;业&nbsp;文&nbsp;化</span>
 				</div>
@@ -272,6 +273,7 @@
 				</div>	
 			</div>
 			<div class="comContentDiv">
+				<a name="companyprocess"></a>
 				<div class="compCulture">
 					<span class="compCuContent">公&nbsp;司&nbsp;历&nbsp;程</span>
 				</div>
@@ -330,6 +332,7 @@
 				</div>
 			</div>
 			<div class="comContentDiv">
+				<a name="supervise"></a>
 				<div class="compCulture">
 					<span class="compCuContent">资&nbsp;质&nbsp;监&nbsp;管</span>
 				</div>

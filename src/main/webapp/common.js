@@ -77,6 +77,14 @@ commonObj.initPaginationGrid = function(option){
 	    autoRowHeight:false,
 	    toolbar:"#"+option.toolbar,
 	    pagination:true,
+	    queryParams: {  
+	        "pageSize" : function(){  
+	            return $('#'+option.tabId).datagrid("getPager").pagination("options").pageSize;  
+	        },  
+	        "pageIndex" : function(){  
+	            return $('#'+option.tabId).datagrid("getPager").pagination("options").pageNumber;  
+	        }  
+	    },  
 	    rownumbers:true,
 	    fitColumns:true,
 	    autoRowHeight:false,

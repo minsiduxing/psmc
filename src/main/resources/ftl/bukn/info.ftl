@@ -238,10 +238,10 @@
 						</li>
 						<li class="dropdown">
 							          <a href="#" class="dropdown-toggle index_color" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">行情资讯<span class="caret"></span></a>
-							          <ul class="dropdown-menu">
-							            <li><a href="./info.html">热点新闻</a></li>
-							            <li><a href="#">实时资讯</a></li>
-							            <li><a href="#">行业动向</a></li>
+							         <ul class="dropdown-menu">
+							            <li><a href="#compCuContent" id="hotNewsd">热点新闻</a></li>
+							            <li><a href="#compCuContent" id="qoutionnewsd">实时资讯</a></li>
+							            <li><a href="#compCuContent" id="trendnewsd">行业动向</a></li>
 							          </ul>
 						</li>
 					</ul>
@@ -274,6 +274,7 @@
 		<!-- 顶部导航条 end-->
 		<div class="fh5co-project-style-2">
 			<div class="comContentDiv">
+				<a name="compCuContent"></a>
 				<div class="compCulture">
 					<span class="compCuContent">行&nbsp;情&nbsp;资&nbsp;讯</span>
 				</div>
@@ -662,6 +663,15 @@
 			$('#newsBlock3').fadeIn(3000);
 		});
 	 });
+	 $('#hotNewsd').click(function(){
+				$('#hotNews').trigger("click");
+		});
+		$('#qoutionnewsd').click(function(){
+				 $('#timeNews').trigger("click");
+		});
+		$('#trendnewsd').click(function(){
+				$('#hangYeMove').trigger("click");
+		});
 	 function showDtail(id){
 	 	var _url = '/psmc/website/backstage/tabNewsController.do?method=getNewsContent&uuid='+id;
 			$.ajax({
