@@ -185,7 +185,7 @@ function update(index){
 }
 
 function del(operateUuid){
-	$.messager.confirm('提示', '确认删除?', function(r){
+	$.messager.confirm('提示', '该操作不可逆，确认删除？', function(r){
 		if (r){
 			var count = getRoleOperateCount(operateUuid);
 			 if(count > 0){

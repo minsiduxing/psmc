@@ -161,12 +161,14 @@ var setting = {
 
 	//修改成功回调函数
 	function updateNameSucFunc(data){
+		$.messager.progress("close");
 		var dataObj = JSON.parse(data);
-		if(dataObj.res=='success'){
-			alert_autoClose("提示","修改成功!","info");
-			return true;
-		}else
-			return false;
+		var sysResourceTree = $.fn.zTree.getZTreeObj("sysResourceTree");
+		var thisNode = sysResourceTree.getNodeByParam("UUID", dataObj.uuid, null);
+		thisNode.RESOURCE_NAME = dataObj.resourceName;
+		sysResourceTree.updateNode(thisNode); 
+		alert_autoClose("提示","修改成功!","info");
+		return true;
 	}
 	
 	//2秒提示框
@@ -200,7 +202,7 @@ function initoperatePanel(){
 					var url = "";
 					url = addResourcetUrl + '&parentResourceUuid=' + node.UUID;
 					if(!editdialog){
-						initResourceDialog();
+						initResourceDialog(addSucFunc);
 					}
 					editdialog.panel({title:"新增"});
 					editdialog.panel({iconCls:'icon-save'});
@@ -212,6 +214,7 @@ function initoperatePanel(){
 		length++;
 	 };
 
+	 //修改资源节点信息
 	 if(commonObj.isAuth("<%=OperateContantsUtil.RESOURCE_UPDATE%>")){
 			toolsObj[length] = {
 					iconCls:'icon-edit',
@@ -225,7 +228,7 @@ function initoperatePanel(){
 						var url = "";
 						url = editResourcetUrl + '&id=' + node.UUID;
 				 		if(!editdialog){
-							initResourceDialog();
+							initResourceDialog(updateNameSucFunc);
 						}
 						editdialog.panel({title:"修改"});
 						editdialog.panel({iconCls:'icon-save'});
@@ -236,11 +239,12 @@ function initoperatePanel(){
 			length++;
 	 };
 
+	 //删除资源节点信息
 	 if(commonObj.isAuth("<%=OperateContantsUtil.RESOURCE_DEL%>")){
 			toolsObj[length] = {
 					iconCls:'icon-remove',
 					handler:function(){
-						$.messager.confirm('提示', '确认删除?', function(r){
+						$.messager.confirm('提示', '该操作不可逆，确认删除？', function(r){
 							if (r){
 								var selectNodes = sysResourceTree.getSelectedNodes();
 								if(selectNodes.length<1){
@@ -252,10 +256,10 @@ function initoperatePanel(){
 									commonObj.alert("该节点下存在子节点,请先删除子节点!","warning");
 									return;
 								}
-								if(node.RESOURCE_TYPE == 1){
+							/* 	if(node.RESOURCE_TYPE == 1){
 									commonObj.alert("不能删除根节点!","warning");
 									return;
-								}
+								} */
 								$.messager.progress(); 
 								var data ={resourceUuid:node.UUID};
 								var _url=basePath + "/authentication/tabResource.do";
@@ -282,7 +286,8 @@ function initoperatePanel(){
 			length++;
 	 };
 	 
- if(commonObj.isAuth("<%=OperateContantsUtil.RESOURCE_OPERATE%>")){
+	 //配置业务操作
+ 	if(commonObj.isAuth("<%=OperateContantsUtil.RESOURCE_OPERATE%>")){
 			toolsObj[length] = {
 					iconCls:'icon-tip',
 					handler:function(){
@@ -337,12 +342,12 @@ $(document).ready(function(){
 });
 
 //资源表单dialog初始化方法
-function initResourceDialog(){
+function initResourceDialog(sucFunc){
 	editdialog = $("#editdialogDiv").dialog({
 		modal: true,
 		closed: false,
-	    width: 705,
-	    height: 150,
+	    width: 750,
+	    height: 300,
 	    resizable:true,
 	    cache: false,
 	    buttons:[{
@@ -355,7 +360,7 @@ function initResourceDialog(){
 					    	 return onSubmit();
 					    },    
 					    success:function(data){
-					    	commonObj.showResponse(data,addSucFunc);
+					    	commonObj.showResponse(data,sucFunc);
 					    }
 					}); 
 					$('#editForm').submit();
@@ -370,8 +375,8 @@ function initOperateDialog(){
 	operateConfigDialog = $("#operateConfigDialogDiv").dialog({
 		modal: true,
 		closed: true,
-	    width: 1000,
-	    height: 350,
+	    width: 1100,
+	    height: 400,
 	    resizable:true,
 	    cache: false
 	});
@@ -379,7 +384,6 @@ function initOperateDialog(){
 
 //表单校验
 function onSubmit(){
-	debugger;
 	var result = $('#editForm').form("validate");
 	if(Boolean(result)){
 		$.messager.progress(); 

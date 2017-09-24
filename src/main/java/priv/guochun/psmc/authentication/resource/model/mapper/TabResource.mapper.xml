@@ -198,7 +198,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	  			ORDERNUM =#{ordernum},
 	  		</if>
 	  		<if test="isView != null">
-	  			IS_VIEW =#{isview},
+	  			IS_VIEW =#{isView},
 	  		</if>
   		</trim>
   		where UUID=#{id}
@@ -232,7 +232,8 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 			parent_resource_uuid AS parentResourceUuid,
 			creator_name AS creatorName,
 			create_time AS createTime,
-			remark,is_view
+			remark,
+			is_view AS isView,
 			ordernum
 		FROM
 			tab_resource 

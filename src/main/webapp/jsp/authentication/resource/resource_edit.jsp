@@ -19,7 +19,7 @@
 				<input class="myinput" id="resourceUrl" name="resourceUrl" />
 			</li>
 			<li class="li-input"><label for="" class="input-label">资源类型：</label>
-				<input id="resourceType" name="resourceType" />
+				<input id="resourceType" name="resourceType"  editable="false"/>
 			</li>
 			<!-- <li class="li-input"><label for="" class="input-label">上级资源ID：</label> -->
 				<input class="myinput" id="parentResourceUuid" name="parentResourceUuid" type="hidden" value="${tabResource.parentResourceUuid}" />
@@ -36,6 +36,9 @@
 			<!-- <li class="li-input"><label for="" class="input-label">排序号：</label> -->
 				<input class="myinput" id="ordernum" name="ordernum" type="hidden" value="${tabResource.ordernum}" />
 			<!-- </li> -->
+			<li class="li-input"><label for="" class="input-label">是否展示：</label>
+				<input id="isView" name="isView"></input>
+			</li>
 		</ul>
 	</form>
 <script type="text/javascript">
@@ -101,6 +104,8 @@
 		}); 
 		
 		$('#resourceType').combobox('select','${tabResource.resourceType}');
+		
+		commonObj.initDictCombobox("isView","IF","<c:out value="${tabResource.isView}"/>",true,false);
 	});
 
 </script>
