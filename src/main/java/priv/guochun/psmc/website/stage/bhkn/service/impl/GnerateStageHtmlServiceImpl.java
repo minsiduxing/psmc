@@ -31,14 +31,18 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 		logger.debug("------------------获取导航栏菜单数据成功！----------------------");
 		Map<String,Object> remaps= new HashMap<String,Object>();
 		remaps.put("navbars", navbars);
-		//gnerateHtml(remaps,"bukn/head.ftl",getClass().getClassLoader().getResource("/ftl/bukn").getPath(),"head.html");
-		gnerateHtml(remaps,"bukn/head.ftl","head.html");
+		 gnerateHtml(remaps,"bukn/head.ftl",getClass().getClassLoader().getResource("/ftl/bukn").getPath(),"head.html");
+	     //gnerateHtml(remaps,"bukn/head.ftl","head.html");
 		genetateAllStageHtmls();
 	}
 
 	@Override
 	public void generateIndexHtml() {
 		Map<String,Object> remaps= new HashMap<String,Object>();
+		logger.debug("------------------获取导航栏菜单数据----------------------");
+		 List<TabNavBar>  navbars = tabNavBarService.getAllShowTabNavBar();
+		logger.debug("------------------获取导航栏菜单数据成功！----------------------");
+		remaps.put("navbars", navbars);
 		gnerateHtml(remaps,"bukn/index.ftl", "index.html");
 	}
 

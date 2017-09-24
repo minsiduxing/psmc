@@ -92,61 +92,9 @@
 </head>
 <body>
 	<div id="fh5co-page">
-		<nav class="fh5co-nav-style-1" role="navigation" data-offcanvass-position="fh5co-offcanvass-left">
-			<div class="container">
-				<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 fh5co-logo">
-					<!-- <a href="#" class="js-fh5co-mobile-toggle fh5co-nav-toggle"><i></i></a> -->
-					<a href="#" class="wow fadeInUp"  data-wow-duration="1s" data-wow-delay="0.5s">团队展示</a>
-				</div>
-				<div class="col-lg-7 col-md-6 col-sm-6 text-center fh5co-link-wrap index_font">
-					<ul data-offcanvass="yes">
-						<li><a href="#" class="index_color wow">首页</a></li>
-						<li><a href="aboutus.html" class="wow index_color">关于我们</a></li>
-						<li class="active">
-							<li class="dropdown">
-							          <a href="#" class="dropdown-toggle index_color" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">选择博汇康宁<span class="caret"></span></a>
-							          <ul class="dropdown-menu">
-							            <li><a href="./chooseus.html">我们的优势</a></li>
-							            <li><a href="#">风控体系</a></li>
-							            <li><a href="#">核心团队</a></li>
-							            <li><a href="#">投资流程</a></li>
-							          </ul>
-							</li>
-						</li>
-						<li class="dropdown">
-							          <a href="#" class="dropdown-toggle index_color" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">产品一览<span class="caret"></span></a>
-							          <ul class="dropdown-menu" style="z-index: 1000;">
-							            <li><a href="./productlist">产品线一览</a></li>
-							            <li><a href="#">产品一览</a></li>
-							            <li><a href="#">口碑产品</a></li>
-							          </ul>
-						</li>
-						<li class="dropdown">
-							          <a href="#" class="dropdown-toggle index_color" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">团队展示<span class="caret"></span></a>
-							          <ul class="dropdown-menu">
-							            <li><a href="#founder">创始人</a></li>
-							            <li><a href="#researchteam">研究团队</a></li>
-							            <li><a href="#coreteam">核心团队</a></li>
-							          </ul>
-						</li>
-						<li class="dropdown">
-							          <a href="#" class="dropdown-toggle index_color" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">行情资讯<span class="caret"></span></a>
-							          <ul class="dropdown-menu">
-							            <li><a href="./info.html">热点新闻</a></li>
-							            <li><a href="#">实时资讯</a></li>
-							            <li><a href="#">行业动向</a></li>
-							          </ul>
-						</li>
-					</ul>
-				</div> 
-				<div class="col-lg-3 col-md-3 col-sm-3 text-right fh5co-link-wrap index_font" style="padding: 0 5px;">
-					<ul data-offcanvass="yes">
-						<li class="col-lg-6 col-md-6 col-sm-6"><a href="#" class="button_joinus">加入我们</a></li>
-						<li class="col-lg-6 col-md-6 col-sm-6"><a href="#" class="button_joinus">会员中心</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+		<!-- 网站顶部部导航菜单 -->
+		 <#include "head.html"/> 
+		<!-- 网站顶部导航菜单结束 -->
 		<div class="fh5co-pricing-style-2">
 			<div class="container" style="margin-top: 100px;">
 				<div class="row">
@@ -453,6 +401,9 @@
 <script src="js/wow.min.js"></script>
 <script>
 	new WOW().init();
+	$(function(){
+	   $('#topinfo').text("团队展示");
+	});
 </script>
 <!-- Main -->
 <script src="js/main.js"></script>

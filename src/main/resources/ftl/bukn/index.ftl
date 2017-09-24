@@ -3,7 +3,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]>    <html class="no-js"> <!--<![endif]-->
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -128,63 +128,66 @@
 	</head>
 	<body>
 	
-	<div id="fh5co-page">
-		<nav class="fh5co-nav-style-1" role="navigation" data-offcanvass-position="fh5co-offcanvass-left">
-			<div class="container">
+<div id="fh5co-page">
+		<!-- 网站顶部部导航菜单 -->
+		<#-- 定义函数获取导航栏子菜单-->
+<#macro  getSubNavbar navs  menuid>
+
+	<#list navs as nav>
+	<#if nav.parentMenuUuid??>
+			<#if nav.parentMenuUuid==menuid>
+
+			   <li>
+				<a href="${nav.menuUrl!''}">${nav.menuName!''}</a>
+			   </li>
+
+		<@getSubNavbar navs=navs  menuid=nav.menuUuid/>
+	</#if>	
+	</#if>			
+ 	</#list>	
+</#macro >
+<#-- 判断是否有子菜单-->
+<#function haveSubMenu navs  menuid>
+  <#assign x = 0> 
+  <#list navs as nav>
+	<#if nav.parentMenuUuid??>
+		 <#if nav.parentMenuUuid==menuid>
+		   <#assign x=x+1>;
+         </#if>	
+	</#if>
+ </#list>	
+ <#return x>	
+</#function>
+<div id="fh5co-page">
+		<nav class="fh5co-nav-style-1" role="navigation" data-offcanvass-position="fh5co-offcanvass-left">	<div class="container">
 				<div class="text-center fh5co-link-wrap" style="font-size:45px;font-style:normal;padding-left:0px;font-family:sans-serif">
 					<ul data-offcanvass="yes">
 						<li>
 							<img src="./images/LOGO22_02.png" style="width: 200px;height: 200px;">
 						</li>
-						<li><a href="#" class="index_color wow">首页</a></li>
-						<li><a href="aboutus.html" class="wow index_color">关于我们</a></li>
-						<li class="active">
+					<#list navbars as nav>
+						<#if nav.menuLevel == 2>
+						<#if haveSubMenu(navbars,nav.menuUuid)==0>
+						  <li class="wow index_color">
+							<a href="${nav.menuUrl!''}" class="wow index_color" >${nav.menuName!''}</a>
+						  </li>
+						 </#if>
+						 <#if haveSubMenu(navbars,nav.menuUuid)!=0 >
 							<li class="dropdown">
-							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">选择博汇康宁<span class="caret"></span></a>
-							          <ul class="dropdown-menu">
-							            <li><a href="chooseus.html">我们的优势</a></li>
-							            <li><a href="#">风控体系</a></li>
-							            <li><a href="#">核心团队</a></li>
-							            <li><a href="#">投资流程</a></li>
-							          </ul>
+							
+							 <a href="${nav.menuUrl!''}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${nav.menuName!''}<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+								<@getSubNavbar navs=navbars  menuid=nav.menuUuid/>
+								</ul>
 							</li>
-						</li>
-						<li class="dropdown">
-							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">产品一览<span class="caret"></span></a>
-							          <ul class="dropdown-menu" style="z-index: 1000;">
-							            <li><a href="productlist.html">产品线一览</a></li>
-							            <li><a href="#">产品一览</a></li>
-							            <li><a href="#">口碑产品</a></li>
-							          </ul>
-						</li>
-						<li class="dropdown">
-							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">团队展示<span class="caret"></span></a>
-							          <ul class="dropdown-menu">
-							            <li><a href="./teamshow.html">创始人</a></li>
-							            <li><a href="#">研究团队</a></li>
-							            <li><a href="#">核心团队</a></li>
-							          </ul>
-						</li>
-						<li class="dropdown">
-							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">行情资讯<span class="caret"></span></a>
-							          <ul class="dropdown-menu">
-							            <li><a href="./info.html">热点新闻</a></li>
-							            <li><a href="#">实时资讯</a></li>
-							            <li><a href="#">行业动向</a></li>
-							          </ul>
-						</li>
-						<li>
-							<a href="#" class="button_">加入我们</a>
-						</li>
-						<li>
-							<a href="#" class="button_">会员中心</a>
-						</li>
-					</ul>
+						</#if>
+					</#if>
+					</#list>
+				</ul>
 				</div> 
 			</div>
 		</nav>
-
-
+		<!-- 网站顶部导航菜单结束 -->
 		<div class="fh5co-cover js-full-height" data-next="yes"  style="background-image: url(images/full_001.jpg); background-size:100% 100%;background-repeat:no-repeat;background-position:center;">
 		  	<span class="scroll-btn wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.4s">
 				<a href="#">
