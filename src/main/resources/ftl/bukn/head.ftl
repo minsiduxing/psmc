@@ -12,7 +12,7 @@
 	<#if nav.parentMenuUuid??>
 			<#if nav.parentMenuUuid==menuid>
 			<li>
-				<a href="${nav.menuUrl.!''}">${nav.menuName!''}</a>
+				<a href="${nav.menuUrl!''}">${nav.menuName!''}</a>
 			</li>
 		<@getSubNavbar navs=navs  menuid=nav.menuUuid/>
 	</#if>	

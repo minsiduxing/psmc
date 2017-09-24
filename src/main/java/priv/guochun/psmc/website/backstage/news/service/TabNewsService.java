@@ -42,6 +42,7 @@ public interface TabNewsService {
 	 * @author wanglei 2017年9月3日
 	 */
 	public MyPage getNewsByConditionBusinessMethod(MyPage myPage);
+	public MyPage getNewsByConditionBusinessMethod(MyPage myPage,String userid);
 	/**
 	 * <p>Description:根据用户id获取列表信息<p>
 	 * @param myPage

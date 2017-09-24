@@ -60,7 +60,12 @@ public class TabNewsController extends MyController {
 	@ResponseBody
 	public void getNesPage(HttpServletRequest request,
 		 	HttpServletResponse response,MyPage mypage) throws IOException{
-		mypage = tabNewsService.getNewsByConditionBusinessMethod(mypage);
+		String userRole = this.getUserBySeesion(request).getRoleNo();
+		if("sys_news_add".equals(userRole)){
+			mypage = tabNewsService.getNewsByConditionBusinessMethod(mypage,this.getUserBySeesion(request).getUserUuid());
+		}else{
+			mypage = tabNewsService.getNewsByConditionBusinessMethod(mypage);
+		}
 		super.responseJson(JsonUtil.convertToJSONObject(mypage), response);
 	}
 	@RequestMapping(params="method=newsSaveOrUpdate")

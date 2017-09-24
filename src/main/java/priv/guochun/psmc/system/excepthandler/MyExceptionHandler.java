@@ -19,20 +19,19 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response,  Object handler, Exception ex) {
 		 logger.error("系统异常!",ex); 
-		 ModelAndView mv = new ModelAndView();  
-         /*  使用FastJson提供的FastJsonJsonView视图返回，不需要捕获异常   */  
-         FastJsonJsonView view = new FastJsonJsonView();  
-         Map<String, Object> attributes = new HashMap<String, Object>();  
+		//如果是业务异常则在前台提示业务异常信息 如果是系统系统则前台提示系统异常
          if(ex instanceof PsmcBuisnessException){
+        	 ModelAndView mv = new ModelAndView();  
+             /*  使用FastJson提供的FastJsonJsonView视图返回，不需要捕获异常   */  
+             FastJsonJsonView view = new FastJsonJsonView();  
+             Map<String, Object> attributes = new HashMap<String, Object>();  
         	 attributes.put("msg", ex.getMessage()); 
         	 attributes.put("error","false");
-         }else{
-        	 attributes.put("msg", "发生系统错误,请联系管理员!");  
-        	 attributes.put("error", "true"); 
+        	 view.setAttributesMap(attributes);  
+             mv.setView(view);   
+             return mv;  
          }
-         view.setAttributesMap(attributes);  
-         mv.setView(view);   
-         return mv;  
+         return new ModelAndView("error").addObject("exception","系统异常!"); 
 		 
 	}
 
