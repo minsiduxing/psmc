@@ -101,6 +101,7 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 	public void genetateAllStageHtmls() {
 		generateFooterHtml();
 		generateHeadHtml();
+		genetateOtherStageHtmls();
 	}
 	private void gnerateHtml(Map<String,Object> root,String ftlPath,String fileName){
 	
