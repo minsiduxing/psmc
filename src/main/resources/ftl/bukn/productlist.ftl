@@ -303,7 +303,7 @@
 	new WOW().init();
 	$(function () {
 		$('[data-toggle="tooltip"]').tooltip();
-	$('#topinfo').html("<i>产品一览<i>");
+	$('#topinfo').html("产品一览");
 	})
 </script>
 <!-- Main -->

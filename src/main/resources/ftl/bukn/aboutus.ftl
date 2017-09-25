@@ -342,7 +342,7 @@
 		$('#img04').hover(function(){
 			
 		});
-		$('#topinfo').html("<i>关于我们</i>");
+		$('#topinfo').html("关于我们");
 	});
 </script>
 <!-- Main -->

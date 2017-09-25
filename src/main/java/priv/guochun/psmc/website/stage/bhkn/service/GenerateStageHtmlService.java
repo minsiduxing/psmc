@@ -38,6 +38,10 @@ public interface GenerateStageHtmlService {
 	 */
 	public void generateFooterHtml();
 	/**
+	 * 生成除首页外其他页面
+	 */
+	public void genetateOtherStageHtmls();
+	/**
 	 * 生成全部页面
 	 */
 	public void genetateAllStageHtmls();

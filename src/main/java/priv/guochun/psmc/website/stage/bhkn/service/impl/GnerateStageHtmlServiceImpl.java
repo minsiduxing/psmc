@@ -33,7 +33,7 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 		remaps.put("navbars", navbars);
 		 gnerateHtml(remaps,"bukn/head.ftl",getClass().getClassLoader().getResource("/ftl/bukn").getPath(),"head.html");
 	     //gnerateHtml(remaps,"bukn/head.ftl","head.html");
-		genetateAllStageHtmls();
+		 genetateOtherStageHtmls();
 	}
 
 	@Override
@@ -89,19 +89,18 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 	@Override
 	public void generateFooterHtml() {
 		Map<String,Object> remaps= new HashMap<String,Object>();
+		 List<TabNavBar>  navbars = tabNavBarService.getAllShowTabNavBar();
+			logger.debug("------------------获取导航栏菜单数据成功！----------------------");
+			remaps.put("navbars", navbars);
 		gnerateHtml(remaps,"bukn/footer.ftl",getClass().getClassLoader().getResource("/ftl/bukn").getPath(), "footer.html");
 		//gnerateHtml(remaps,"bukn/footer.ftl", "footer.html");
-		genetateAllStageHtmls();
+		genetateOtherStageHtmls();
 	}
 
 	@Override
 	public void genetateAllStageHtmls() {
-		this.generateTeamShowHtml();
-		this.generateChooseUsHtml();
-		this.generateAboutUsHtml();
-		this.generateProductlistHtml();
-		this.generateIndexHtml();
-		this.generateInofHtml();
+		generateFooterHtml();
+		generateHeadHtml();
 	}
 	private void gnerateHtml(Map<String,Object> root,String ftlPath,String fileName){
 	
@@ -119,5 +118,15 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 		logger.debug("----------------正在生成网站"+fileName+"！到"+outPath+"---------------------");
 		ftu.fprintTemplate(root, ftlPath, outPath, fileName);
 		logger.debug("------------------生成网站"+fileName+"成功！----------------------");
+	}
+
+	@Override
+	public void genetateOtherStageHtmls() {
+		this.generateTeamShowHtml();
+		this.generateChooseUsHtml();
+		this.generateAboutUsHtml();
+		this.generateProductlistHtml();
+		this.generateIndexHtml();
+		this.generateInofHtml();
 	}
 }

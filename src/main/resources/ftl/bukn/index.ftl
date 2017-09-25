@@ -130,34 +130,7 @@
 	
 <div id="fh5co-page">
 		<!-- 网站顶部部导航菜单 -->
-		<#-- 定义函数获取导航栏子菜单-->
-<#macro  getSubNavbar navs  menuid>
-
-	<#list navs as nav>
-	<#if nav.parentMenuUuid??>
-			<#if nav.parentMenuUuid==menuid>
-
-			   <li>
-				<a href="${nav.menuUrl!''}">${nav.menuName!''}</a>
-			   </li>
-
-		<@getSubNavbar navs=navs  menuid=nav.menuUuid/>
-	</#if>	
-	</#if>			
- 	</#list>	
-</#macro >
-<#-- 判断是否有子菜单-->
-<#function haveSubMenu navs  menuid>
-  <#assign x = 0> 
-  <#list navs as nav>
-	<#if nav.parentMenuUuid??>
-		 <#if nav.parentMenuUuid==menuid>
-		   <#assign x=x+1>;
-         </#if>	
-	</#if>
- </#list>	
- <#return x>	
-</#function>
+<#import "../common/navbarfunction.ftl" as navf />
 <div id="fh5co-page">
 		<nav class="fh5co-nav-style-1" role="navigation" data-offcanvass-position="fh5co-offcanvass-left">	<div class="container">
 				<div class="text-center fh5co-link-wrap" style="font-size:45px;font-style:normal;padding-left:0px;font-family:sans-serif">
@@ -167,17 +140,17 @@
 						</li>
 					<#list navbars as nav>
 						<#if nav.menuLevel == 2>
-						<#if haveSubMenu(navbars,nav.menuUuid)==0>
+						<#if navf.haveSubMenu(navbars,nav.menuUuid)==0>
 						  <li class="wow index_color">
 							<a href="${nav.menuUrl!''}" class="wow index_color" >${nav.menuName!''}</a>
 						  </li>
 						 </#if>
-						 <#if haveSubMenu(navbars,nav.menuUuid)!=0 >
+						 <#if navf.haveSubMenu(navbars,nav.menuUuid)!=0 >
 							<li class="dropdown">
 							
 							 <a href="${nav.menuUrl!''}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${nav.menuName!''}<span class="caret"></span></a>
 								<ul class="dropdown-menu">
-								<@getSubNavbar navs=navbars  menuid=nav.menuUuid/>
+								<@navf.getSubNavbar navs=navbars  menuid=nav.menuUuid/>
 								</ul>
 							</li>
 						</#if>
