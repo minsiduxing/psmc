@@ -33,7 +33,7 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 		remaps.put("navbars", navbars);
 		 gnerateHtml(remaps,"bukn/head.ftl",getClass().getClassLoader().getResource("/ftl/bukn").getPath(),"head.html");
 	     //gnerateHtml(remaps,"bukn/head.ftl","head.html");
-		 genetateOtherStageHtmls();
+		 //genetateOtherStageHtmls();
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 			remaps.put("navbars", navbars);
 		gnerateHtml(remaps,"bukn/footer.ftl",getClass().getClassLoader().getResource("/ftl/bukn").getPath(), "footer.html");
 		//gnerateHtml(remaps,"bukn/footer.ftl", "footer.html");
-		genetateOtherStageHtmls();
+		//genetateOtherStageHtmls();
 	}
 
 	@Override
