@@ -1,10 +1,7 @@
 <#import "../common/navbarfunction.ftl" as navf />
 <nav class="fh5co-nav-style-1" role="navigation" data-offcanvass-position="fh5co-offcanvass-left">
 			<div class="container">
-				<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 fh5co-logo">
-					 <a href="#" id ="topinfo" class="wow fadeInUp"  data-wow-duration="1s" data-wow-delay="0.5s"></a> 
-				</div>
-				<div class="col-lg-10 col-md-9 col-sm-9 text-center fh5co-link-wrap index_font">
+				<div class="text-center fh5co-link-wrap index_font">
 					<ul data-offcanvass="yes">
 					<#list navbars as nav>
 						<#if nav.menuLevel == 2>

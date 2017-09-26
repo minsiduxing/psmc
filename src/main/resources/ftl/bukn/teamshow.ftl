@@ -71,8 +71,25 @@
 		 max-width:100%;
 		 max-height:100%;
 	}
-	.index_color{
+	.index_font{
+		font-family: "Montserrat", Arial, sans-serif !important;
+		font-weight: 700 !important;
 		color: #fff !important;
+	}
+	.dropdown>a, .index_color{
+		color: rgba(255, 255, 255, 0.5) !important;
+		font-weight: 600;
+	}
+	.dropdown>a:hover, .index_color:hover{
+		ccolor: rgba(255, 255, 255, 0.5) !important;
+		font-weight: 600;
+	}
+	.dropdown-menu>li>a, .index_colour{
+		color: rgba(255, 255, 255, 0.5) !important;
+		font-weight: 600;
+	}
+	.index_color{
+		color: rgba(255, 255, 255, 0.5) !important;
 	}
 	h3{
 		font-family: "STHeiti Light" !important;
@@ -95,7 +112,7 @@
 		<!-- 网站顶部部导航菜单 -->
 		 <#include "head.html"/> 
 		<!-- 网站顶部导航菜单结束 -->
-		<div class="fh5co-pricing-style-2">
+		<div class="fh5co-pricing-style-2" style="background-color: #528B8B;">
 			<div class="container" style="margin-top: 100px;">
 				<div class="row">
 					<div class="row p-b">
@@ -157,7 +174,9 @@
 				<div class="row p-b">
 					<div class="col-md-6 col-md-offset-3 text-center">
 						<a name="coreteam" id="coreteam"></a>
-						<h2 class="fh5co-heading wow fadeInUp tip" data-wow-duration="1s" data-wow-delay=".5s">核心团队介绍</h2>
+						<div class="compCulture">
+							<span class="compCuContent">核&nbsp;心&nbsp;团&nbsp;队</span>
+						</div>
 						<p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".8s">目前研究员中有博士后2人，博士3人，研究生4人。核心人员均具有国际宏观视野，熟悉国内外资本市场运作，数年来为客户取得丰厚回报</p>
 					</div>
 				</div>
@@ -269,7 +288,9 @@
 				<div class="row p-b">
 					<div class="col-md-6 col-md-offset-3 text-center">
 						<a name="researchteam" id="researchteam">
-						<h2 class="fh5co-heading wow fadeInUp tip" data-wow-duration="1s" data-wow-delay=".5s">研究团队介绍</h2>
+						<div class="compCulture">
+							<span class="compCuContent">研&nbsp;究&nbsp;团&nbsp;队</span>
+						</div>
 						<p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".8s">目前研究员中有博士后2人，博士3人，研究生4人。核心人员均具有国际宏观视野，熟悉国内外资本市场运作，数年来为客户取得丰厚回报</p>
 					</div>
 				</div>

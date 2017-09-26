@@ -58,8 +58,25 @@
 		 max-width:100%;
 		 max-height:100%;
 	}
-	.index_color{
+	.index_font{
+		font-family: "Montserrat", Arial, sans-serif !important;
+		font-weight: 700 !important;
 		color: #fff !important;
+	}
+	.dropdown>a, .index_color{
+		color: rgba(255, 255, 255, 0.5) !important;
+		font-weight: 600;
+	}
+	.dropdown>a:hover, .index_color:hover{
+		ccolor: rgba(255, 255, 255, 0.5) !important;
+		font-weight: 600;
+	}
+	.dropdown-menu>li>a, .index_colour{
+		color: rgba(255, 255, 255, 0.5) !important;
+		font-weight: 600;
+	}
+	.index_color{
+		color: rgba(255, 255, 255, 0.5) !important;
 	}
 	h3{
 		font-family: "STHeiti Light" !important;
