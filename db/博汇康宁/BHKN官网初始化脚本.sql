@@ -1,4 +1,7 @@
-﻿delete from tab_navigation_bar;
+--屏蔽用户管理菜单 不给开放
+update tab_resource set is_view=2 where uuid='f55580fa321b4d34a172628d5825c4dc';
+
+delete from tab_navigation_bar;
 
 /*
  *根目录
@@ -8,8 +11,7 @@ VALUES ('10119b6e651647e38a289cd4fc6c8c1b', '博汇康宁', '', null, '1', '根�
 /*
  *导航栏
  */
-INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked, menu_level) 
-VALUES ('5f62c30f24ed4f5499eb082d055e3841', '团队展示', 'teamshow.html', '10119b6e651647e38a289cd4fc6c8c1b', '1', '导航栏', 8, 2, 2);
+
 INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked, menu_level) 
 VALUES ('8f981a1dbe7f469bb3fa5870b480f904', '首页', 'index.html', '10119b6e651647e38a289cd4fc6c8c1b', '1', '导航栏', 2, 2, 2);
 INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked, menu_level) 
@@ -18,12 +20,15 @@ INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid
 VALUES ('9cdf2c2c88d44e4c8a26a565e9f0d03c', '选择博汇康宁', 'chooseus.html', '10119b6e651647e38a289cd4fc6c8c1b', '1', '导航栏', 4, 2, 2);
 INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked, menu_level) 
 VALUES ('b15f4a58a5a143338961d7fc0bb7c1fb', '产品一览', 'productlist.html', '10119b6e651647e38a289cd4fc6c8c1b', '1', '导航栏', 5, 2, 2);
-INSERT INTO tab_navigation_ba		 (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked, menu_level) 
-VALUES ('b481ab861d6643909db2841e6dff77ae', '会员中心', 'member.html', '10119b6e651647e38a289cd4fc6c8c1b', '1', '导航栏', 7, 2, 2);
-INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked, menu_level) 
-VALUES ('d36c76a19b204cef920a465c691dbeaa', '加入我们', 'recruit.html', '10119b6e651647e38a289cd4fc6c8c1b', '1', '导航栏', 9, 2, 2);
 INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked, menu_level) 
 VALUES ('e717c3d4f9464a74931e5a4b5e90ab13', '行情资讯', 'info.html', '10119b6e651647e38a289cd4fc6c8c1b', '1', '导航栏', 6, 2, 2);
+INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked, menu_level)
+VALUES ('b481ab861d6643909db2841e6dff77ae', '会员中心', 'member.html', '10119b6e651647e38a289cd4fc6c8c1b', '1', '导航栏', 7, 2, 2);
+INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked, menu_level) 
+VALUES ('5f62c30f24ed4f5499eb082d055e3841', '团队展示', 'teamshow.html', '10119b6e651647e38a289cd4fc6c8c1b', '1', '导航栏', 8, 2, 2);
+INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked, menu_level) 
+VALUES ('d36c76a19b204cef920a465c691dbeaa', '加入我们', 'recruit.html', '10119b6e651647e38a289cd4fc6c8c1b', '1', '导航栏', 9, 2, 2);
+
 
 
 
@@ -75,8 +80,6 @@ INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid
 VALUES ('81cb0cdb539249baad079d94192b36b9', '实时资讯', 'info.html#compCuContent', 'e717c3d4f9464a74931e5a4b5e90ab13', '1', '模块菜单', 21, 2, 3);
 INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked, menu_level) 
 VALUES ('da4de3037f074465a700d957dbbc935c', '热点新闻', 'info.html#compCuContent', 'e717c3d4f9464a74931e5a4b5e90ab13', '1', '模块菜单', 20, 2, 3);
-
-
 
 
 /**

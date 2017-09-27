@@ -10,7 +10,7 @@ delete from tab_resource;
 delete from tab_privilege;
 DELETE FROM TAB_CITY;
 DELETE FROM TAB_DATA_DICT;
-DELETE FROM  tab_navigation_bar;
+
 
 INSERT INTO TAB_CITY (CITY_ID, CITY_NAME, PARENT_ID, REMARK, ORDERNUM, CITY_LAYER) VALUES ('00', '省中心', 'NULL', '', 1, 1);
 INSERT INTO TAB_CITY (CITY_ID, CITY_NAME, PARENT_ID, REMARK, ORDERNUM, CITY_LAYER) VALUES ('0001', '西安市', '00', '', 2, 2);
@@ -155,7 +155,7 @@ insert into tab_accounts (uuid, account_name, account_pass, is_locked) values
 ('38ee6b0869c9411a948d4bda69c2d216','admin','c4ca4238a0b923820dcc509a6f75849b','2');
 
 insert into tab_person (uuid, person_name, sex, age, telephone, email, acc_uuid,city_id) values 
-('bd474935a3894530af485bea128501ec','郭纯',1,22,'18392101807','272193530@qq.com','38ee6b0869c9411a948d4bda69c2d216','00');
+('bd474935a3894530af485bea128501ec','王笛',1,0,'18691026980','','38ee6b0869c9411a948d4bda69c2d216','00');
 
 insert into tab_role (uuid, role_no, role_name, creator, create_time, remark) 
 values('5428f3cdbd434934b142354221ed6b16','sys_manager','系统管理员','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'系统权限最大的管理者');
@@ -167,60 +167,6 @@ insert into tab_acc_role (acc_uuid, role_uuid) values ('38ee6b0869c9411a948d4bda
 insert into tab_resource 
 (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
 ('e51a8663876f4a3394bb194d89d96735','PSMC系统树根目录',1,'','0','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'子系统',0,1);
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('c4ecb01b62274ab9bc08a826f404b643','电费合同管理',2,'','e51a8663876f4a3394bb194d89d96735','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'导航模块',1,1);
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('ba625cc38233480983f608b74eb697f4','信息管理',3,'','c4ecb01b62274ab9bc08a826f404b643','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',2,1);
-
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('f15cbb06413449b2bffaf61cae8722d6','站点基础信息',3,'/sencondage/tabBaseElectricController.do?method=initBaseElectricityQuery','ba625cc38233480983f608b74eb697f4','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',3,1);
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('abb22fde2c3f4421961ae9aac00dc853','站点电费信息',3,'/sencondage/tabMonthlyElectricController.do?method=initBaseElectricityQuery','ba625cc38233480983f608b74eb697f4','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',4,1);
-
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('8f88c82038774bbe95dbcf74965a6821','电费分析',3,'','c4ecb01b62274ab9bc08a826f404b643','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',5,1);
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('6eee3d7f0a5044d09833ef60500f1cff','超标杆站点TOPN统计',3,'/sencondage/report/electricDataDig.do?method=initTopNQuery','8f88c82038774bbe95dbcf74965a6821','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',6,1);
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('67463ddf203046edae7761215256a45e','单站点电费统计',3,'/sencondage/tabBaseElectricController.do?method=initAloneSitStatisticsQuery','8f88c82038774bbe95dbcf74965a6821','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',7,1);
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('b0a1af0a1a0440b190b813e21ca5c4ac','运营商区县维度电费统计',3,'/sencondage/report/electricDataDig.do?method=initProviderlatitudeQuery','8f88c82038774bbe95dbcf74965a6821','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',8,1);
-
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('38d770a20a6847ec861269893c5154eb','电费结算',3,'','c4ecb01b62274ab9bc08a826f404b643','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',9,1);
-
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('06e86b3b58d942e6bb383cda44e43825','电费结算报表',3,'/sencondage/tabMonthlyElectricController.do?method=initEstimateElectricityQuery','38d770a20a6847ec861269893c5154eb','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',10,1);
-
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('fb67ef15af98450f8d57dd8a1f46b688','合同分析',3,'','c4ecb01b62274ab9bc08a826f404b643','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',11,1);
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('fcd66122137c4ba887024eaee56ae3af','合同数据分析报表',3,'/sencondage/tabBaseElectricController.do?method=initContractReportQuery','fb67ef15af98450f8d57dd8a1f46b688','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',12,1);
-
 
 insert into tab_resource 
 (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
@@ -258,22 +204,7 @@ insert into tab_resource
 
 
 
-
-
-/*-----------------------------给ADMIN赋菜单权限-----------------------------*/
 insert into tab_role_resource (role_id, resource_id) values ('5428f3cdbd434934b142354221ed6b16', 'e51a8663876f4a3394bb194d89d96735');
-insert into tab_role_resource (role_id, resource_id) values ('5428f3cdbd434934b142354221ed6b16', 'c4ecb01b62274ab9bc08a826f404b643');
-insert into tab_role_resource (role_id, resource_id) values ('5428f3cdbd434934b142354221ed6b16', 'ba625cc38233480983f608b74eb697f4');
-insert into tab_role_resource (role_id, resource_id) values ('5428f3cdbd434934b142354221ed6b16', 'f15cbb06413449b2bffaf61cae8722d6');
-insert into tab_role_resource (role_id, resource_id) values ('5428f3cdbd434934b142354221ed6b16', 'abb22fde2c3f4421961ae9aac00dc853');
-insert into tab_role_resource (role_id, resource_id) values ('5428f3cdbd434934b142354221ed6b16', '8f88c82038774bbe95dbcf74965a6821');
-insert into tab_role_resource (role_id, resource_id) values ('5428f3cdbd434934b142354221ed6b16', '6eee3d7f0a5044d09833ef60500f1cff');
-insert into tab_role_resource (role_id, resource_id) values ('5428f3cdbd434934b142354221ed6b16', '67463ddf203046edae7761215256a45e');
-insert into tab_role_resource (role_id, resource_id) values ('5428f3cdbd434934b142354221ed6b16', 'b0a1af0a1a0440b190b813e21ca5c4ac');
-insert into tab_role_resource (role_id, resource_id) values ('5428f3cdbd434934b142354221ed6b16', '38d770a20a6847ec861269893c5154eb');
-insert into tab_role_resource (role_id, resource_id) values ('5428f3cdbd434934b142354221ed6b16', '06e86b3b58d942e6bb383cda44e43825');
-insert into tab_role_resource (role_id, resource_id) values ('5428f3cdbd434934b142354221ed6b16', 'fb67ef15af98450f8d57dd8a1f46b688');
-insert into tab_role_resource (role_id, resource_id) values ('5428f3cdbd434934b142354221ed6b16', 'fcd66122137c4ba887024eaee56ae3af');
 insert into tab_role_resource (role_id, resource_id) values ('5428f3cdbd434934b142354221ed6b16', 'f55580fa321b4d34a172628d5825c4dc');
 insert into tab_role_resource (role_id, resource_id) values ('5428f3cdbd434934b142354221ed6b16', 'deab504ee54b4f10b65fb17c7615ab9c');
 insert into tab_role_resource (role_id, resource_id) values ('5428f3cdbd434934b142354221ed6b16', 'd4f3b60bfdcc4314baf65448d1284080');
@@ -375,8 +306,6 @@ insert into tab_role_operate (role_uuid, operate_uuid) values ('5428f3cdbd434934
 
 
 
-
-
 /*菜单----[角色信息]业务操作*/
 insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
 ('dc5648b017404cbb80fcde8947b5bea3','a807a90d00fb48c4bdf1d82ab41a9bc0','756d6e80c9d74b4389c918ab50ee19c3',
@@ -420,15 +349,47 @@ insert into tab_role_operate (role_uuid, operate_uuid) values ('5428f3cdbd434934
 insert into tab_role_operate (role_uuid, operate_uuid) values ('5428f3cdbd434934b142354221ed6b16','a5bf5461a44d4fc9b4531483dffa2192');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('5428f3cdbd434934b142354221ed6b16','dc5648b017404cbb80fccf8947b8cea3');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('5428f3cdbd434934b142354221ed6b16','dc5648b017404cbb80fcde8947b8cea3');
-insert into tab_role_operate (role_uuid, operate_uuid) values ('5428f3cdbd434934b142354221ed6b16','eb71ace6b73d436d8f2c6e3d7c11be91');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('5428f3cdbd434934b142354221ed6b16','35559c19ed964e37b2fbb0892b13b339');
 
-------------------------新闻资源脚本
-INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum,is_view) VALUES ('097d7b066a66449d86334f48ad972e7a', '行业动向添加', 3, '/jsp/backstage/news/newsaddoredit.jsp?newtype=3', 'da271ee987da4c2d90f91573bd2a7dad', 'admin', '2017-09-14 00:00:00', '行业动向添加', 30,1);
-INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum,is_view) VALUES ('123a3b983b3246bb98de2ed39e10ac40', '实时资讯添加', 3, '/jsp/backstage/news/newsaddoredit.jsp?newtype=2', 'da271ee987da4c2d90f91573bd2a7dad', 'admin', '2017-09-14 00:00:00', '实时资讯添加', 29,1);
-INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum,is_view) VALUES ('90e372f048404a1eac921868b3497d35', '行情资讯管理', 3, '/website/backstage/tabNewsController?method=index', 'da271ee987da4c2d90f91573bd2a7dad', 'admin', '2017-09-15 00:29:57', '新闻信息', 28,1);
-INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum,is_view) VALUES ('aa8386c1771c40d795a53b9ee85ca575', '热点新闻添加', 3, '/jsp/backstage/news/newsaddoredit.jsp?newtype=1', 'da271ee987da4c2d90f91573bd2a7dad', 'admin', '2017-09-14 23:14:15', '热点新闻添加', 26,1);
+
+
+--------------新闻角色脚本
+INSERT INTO tab_role (uuid, role_no, role_name, creator, create_time, remark) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'sys_news_add', '新闻添加人员', 'admin', '2017-09-24 17:05:01', '新闻添加人员');
+INSERT INTO tab_role (uuid, role_no, role_name, creator, create_time, remark) VALUES ('60fa2131c09448848f42a29e3b5ab421', 'sys_news_audit', '系统新闻审核', 'admin', '2017-09-08 23:27:47', '审核新闻信息');
+INSERT INTO tab_role (uuid, role_no, role_name, creator, create_time, remark) VALUES ('f20d3a2281ef4de29a7c8bc761d83701', 'sys_news_release', '系统新闻发布员', 'admin', '2017-09-08 23:28:39', '发布新闻');
+
+
+--------------新闻资源脚本
 INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum,is_view) VALUES ('da271ee987da4c2d90f91573bd2a7dad', '行情资讯管理', 2, '/website/backstage/tabNewsController?method=index', 'e51a8663876f4a3394bb194d89d96735', 'admin', '2017-09-15 00:11:07', '行情资讯管理', 25,1);
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum,is_view) VALUES ('097d7b066a66449d86334f48ad972e7a', '行业动向添加', 3, '/jsp/backstage/news/newsaddoredit.jsp?newtype=3', 'da271ee987da4c2d90f91573bd2a7dad', 'admin', '2017-09-14 00:00:00', '行业动向添加', 28,1);
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum,is_view) VALUES ('123a3b983b3246bb98de2ed39e10ac40', '实时资讯添加', 3, '/jsp/backstage/news/newsaddoredit.jsp?newtype=2', 'da271ee987da4c2d90f91573bd2a7dad', 'admin', '2017-09-14 00:00:00', '实时资讯添加', 29,1);
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum,is_view) VALUES ('90e372f048404a1eac921868b3497d35', '行情资讯管理', 3, '/website/backstage/tabNewsController?method=index', 'da271ee987da4c2d90f91573bd2a7dad', 'admin', '2017-09-15 00:29:57', '新闻信息', 30,1);
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum,is_view) VALUES ('aa8386c1771c40d795a53b9ee85ca575', '热点新闻添加', 3, '/jsp/backstage/news/newsaddoredit.jsp?newtype=1', 'da271ee987da4c2d90f91573bd2a7dad', 'admin', '2017-09-14 23:14:15', '热点新闻添加', 26,1);
+
+
+------------------新闻菜单和角色关系
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('5428f3cdbd434934b142354221ed6b16', '90e372f048404a1eac921868b3497d35');
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('5428f3cdbd434934b142354221ed6b16', 'aa8386c1771c40d795a53b9ee85ca575');
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('5428f3cdbd434934b142354221ed6b16', 'da271ee987da4c2d90f91573bd2a7dad');
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('5428f3cdbd434934b142354221ed6b16', '097d7b066a66449d86334f48ad972e7a');
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('5428f3cdbd434934b142354221ed6b16', '123a3b983b3246bb98de2ed39e10ac40');
+
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('60fa2131c09448848f42a29e3b5ab421', '90e372f048404a1eac921868b3497d35');
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('60fa2131c09448848f42a29e3b5ab421', 'da271ee987da4c2d90f91573bd2a7dad');
+
+
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('f20d3a2281ef4de29a7c8bc761d83701', '90e372f048404a1eac921868b3497d35');
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('f20d3a2281ef4de29a7c8bc761d83701', 'da271ee987da4c2d90f91573bd2a7dad');
+
+
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'e51a8663876f4a3394bb194d89d96735');
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', '90e372f048404a1eac921868b3497d35');
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', '097d7b066a66449d86334f48ad972e7a');
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', '123a3b983b3246bb98de2ed39e10ac40');
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'aa8386c1771c40d795a53b9ee85ca575');
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'da271ee987da4c2d90f91573bd2a7dad');
+
+
 --------------新闻操作
 INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('4093d626accc44c580e2ea915db4c742', '90e372f048404a1eac921868b3497d35', '756d6e80c9d74b4389c918ab50ee19c3', 'priv.guochun.psmc.website.backstage.news.service.TabNewsService', 'getNewsByConditionBusinessMethod', 'NEWS_LIST', '新闻列表', '新闻列表', 11);
 INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('4af86746772f4c40adac88f4a3ccd70d', '90e372f048404a1eac921868b3497d35', '022a43088dcd46d4b201b43b32d3d85a', 'priv.guochun.psmc.website.backstage.news.service.TabNewsService', 'executeReleaseNewsBusinessMethod', 'NEWS_RELEASE', '新闻发布', '新闻发布', 19);
@@ -438,56 +399,31 @@ INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_met
 INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('80cbfd5bcbcc4b78ba9abbb1deac53f9', '90e372f048404a1eac921868b3497d35', '460283cc3e2c4d0a8b6bbbd75698a339', 'priv.guochun.psmc.website.backstage.news.service.TabNewsService', 'getNewsListByConditionBusinessMethod', 'NEWS_EXPORT', '新闻导出', '新闻导出功能', 17);
 INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('998ef3e5f0374ca1bf6fb4fe0c51f240', '90e372f048404a1eac921868b3497d35', 'dec3b327b8a54d66bd644c544ea65c5e', 'priv.guochun.psmc.website.backstage.news.service.TabNewsService', 'deleteTabNewsByUuidsBusinessMethod', 'NEWS_DELETE', '新闻删除', '新闻删除', 14);
 INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('28b13f095f204b278c6dfcb724dc2840', 'aa8386c1771c40d795a53b9ee85ca575', '607e8bc6f9bb4afa9be3cfdc72a1a326', 'priv.guochun.psmc.website.backstage.news.service.TabNewsService', 'saveOrUpdateTabNewsBusinessMethod', 'NEWS_ADD', '新闻新增', '新闻新增', 12);
---------------新闻角色脚本
-INSERT INTO tab_role (uuid, role_no, role_name, creator, create_time, remark) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'sys_news_add', '新闻添加人员', 'admin', '2017-09-24 17:05:01', '新闻添加人员');
-INSERT INTO tab_role (uuid, role_no, role_name, creator, create_time, remark) VALUES ('60fa2131c09448848f42a29e3b5ab421', 'sys_news_audit', '系统新闻审核', 'admin', '2017-09-08 23:27:47', '审核新闻信息');
-INSERT INTO tab_role (uuid, role_no, role_name, creator, create_time, remark) VALUES ('f20d3a2281ef4de29a7c8bc761d83701', 'sys_news_release', '系统新闻发布员', 'admin', '2017-09-08 23:28:39', '发布新闻');
 
 ------------------新闻操作和角色关系
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('5428f3cdbd434934b142354221ed6b16', '4093d626accc44c580e2ea915db4c742');
-INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('60fa2131c09448848f42a29e3b5ab421', '4093d626accc44c580e2ea915db4c742');
-INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('f20d3a2281ef4de29a7c8bc761d83701', '4093d626accc44c580e2ea915db4c742');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('5428f3cdbd434934b142354221ed6b16', '4af86746772f4c40adac88f4a3ccd70d');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('5428f3cdbd434934b142354221ed6b16', '5d590288a2904be5a97679e066dca0c1');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('5428f3cdbd434934b142354221ed6b16', '618c35390cc04b8a927f7f408f859ca0');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('5428f3cdbd434934b142354221ed6b16', '8083e515b2e84d81a7c891cef8119c74');
-INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('60fa2131c09448848f42a29e3b5ab421', '8083e515b2e84d81a7c891cef8119c74');
-INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('f20d3a2281ef4de29a7c8bc761d83701', '8083e515b2e84d81a7c891cef8119c74');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('5428f3cdbd434934b142354221ed6b16', '80cbfd5bcbcc4b78ba9abbb1deac53f9');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('5428f3cdbd434934b142354221ed6b16', '998ef3e5f0374ca1bf6fb4fe0c51f240');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('5428f3cdbd434934b142354221ed6b16', '28b13f095f204b278c6dfcb724dc2840');
-INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '118996db35a842ae87eb18398b75b14d');
+
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('60fa2131c09448848f42a29e3b5ab421', '4093d626accc44c580e2ea915db4c742');
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('60fa2131c09448848f42a29e3b5ab421', '8083e515b2e84d81a7c891cef8119c74');
+
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('f20d3a2281ef4de29a7c8bc761d83701', '8083e515b2e84d81a7c891cef8119c74');
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('f20d3a2281ef4de29a7c8bc761d83701', '4093d626accc44c580e2ea915db4c742');
+
+--INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '118996db35a842ae87eb18398b75b14d');
+--INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'd4501574a62349a99309b80e1f598299');
+
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '28b13f095f204b278c6dfcb724dc2840');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '4093d626accc44c580e2ea915db4c742');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '5d590288a2904be5a97679e066dca0c1');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '618c35390cc04b8a927f7f408f859ca0');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '998ef3e5f0374ca1bf6fb4fe0c51f240');
-INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'd4501574a62349a99309b80e1f598299');
-
-------------------新闻菜单和角色关系
-INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('5428f3cdbd434934b142354221ed6b16', '90e372f048404a1eac921868b3497d35');
-INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('60fa2131c09448848f42a29e3b5ab421', '90e372f048404a1eac921868b3497d35');
-INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('f20d3a2281ef4de29a7c8bc761d83701', '90e372f048404a1eac921868b3497d35');
-INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('5428f3cdbd434934b142354221ed6b16', 'aa8386c1771c40d795a53b9ee85ca575');
-INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('5428f3cdbd434934b142354221ed6b16', 'da271ee987da4c2d90f91573bd2a7dad');
-INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('60fa2131c09448848f42a29e3b5ab421', 'da271ee987da4c2d90f91573bd2a7dad');
-INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('f20d3a2281ef4de29a7c8bc761d83701', 'da271ee987da4c2d90f91573bd2a7dad');
-INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', '097d7b066a66449d86334f48ad972e7a');
-INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', '123a3b983b3246bb98de2ed39e10ac40');
-INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', '90e372f048404a1eac921868b3497d35');
-INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'aa8386c1771c40d795a53b9ee85ca575');
-INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'da271ee987da4c2d90f91573bd2a7dad');
-INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'e51a8663876f4a3394bb194d89d96735');
 
 
 
-/**------------------------测试数据---------------
-
-insert into tab_accounts (uuid, account_name, account_pass, is_locked) values 
-('6e166767e6d144e48690aeaa3dbe5904','test1','test1','否');
-
-
-insert into tab_person (uuid, person_name, sex, age, telephone, email, acc_uuid,city_id) values 
-('359785266594451d90b5ed2f4ff09f4e','测试1',2,12,'18392101807','272193530@qq.com','6e166767e6d144e48690aeaa3dbe5904','0001');
-
-**/
