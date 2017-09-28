@@ -7,7 +7,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>博汇康宁Demo</title>
+	<title>博汇康宁</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
@@ -87,11 +87,11 @@
 		}
 		h3{
 			font-family: "STHeiti Light" !important;
-			font-size: 25px !important;
+			font-size: 18px !important;
 		}
 		.col-md-6>p{
 			font-family: "STHeiti Light" !important;
-			font-size: 15px !important;
+			font-size: 12px !important;
 		}
 		.carousel{
 			width: 70%;
@@ -327,7 +327,7 @@
 			<div class="container" id="infolist">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3 text-center">
-						<img src="./images/index_rise_3.jpg" style="width: 100%">
+						<img src="./images/index_rise_3.jpg" style="width: 60%">
 					</div>
 				</div>
 				<div class="row p-b">
