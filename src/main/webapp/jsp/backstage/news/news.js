@@ -55,7 +55,7 @@ function successCallback(data){
 function newsPicInit(isEdit){
 	//用户离开页面删除临时文件
 	window.onbeforeunload=function(){
-    	deleteFile();
+    	//deleteFile();
     	return "";
     }
     if (isEdit=="isEdit") {
