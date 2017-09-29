@@ -105,6 +105,43 @@
 		font-size: 15px !important;
 		color: #DAA520;
 	}
+	.cover-text-lead{
+		color: #fff;
+		font-weight: 500 !important;
+		margin-bottom: 0;
+	}
+	.companyLine{
+		border-top-style: solid;
+		border-top-color: rgb(255, 255, 255);
+		border-top-width: 2px;
+		display: block;
+		width: 80px; 
+		margin: 20px auto;
+	}
+	.companyEN{
+		display: block;
+		font-family: "Microsoft YaHei","微软雅黑";
+		font-size: 23px;
+		font-weight: 100;
+		line-height: 37.15px;
+		opacity: 0.6;
+		color: #fff;
+	}
+	.compCulture{
+		width: 80%;
+		height: 20px;
+		border-bottom: 1.5px solid #ddd;
+		margin: 30px auto;
+		text-align: center;
+	}
+	.compCuContent{
+		width: 200px;
+		display: inline-block;
+		background-color: #fff;
+		font-weight: 500;
+		line-height: 1.1;
+		font-size: 24px;
+	}
 </style>
 </head>
 <body>
@@ -118,7 +155,9 @@
 					<div class="row p-b">
 						<div class="col-md-6 col-md-offset-3 text-center">
 							<a name="founder" id="founder"></a>
-							<h2 class="fh5co-heading wow fadeInUp tip" data-wow-duration="1s" data-wow-delay=".5s">创&nbsp;始&nbsp;人&nbsp;介&nbsp;绍</h2>
+							<h1 class="cover-text-lead wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.5s">创始人介绍</h1>
+							<span class="companyEN">CREATOR INTROUDUCT</span>
+							<i class="companyLine"></i>
 							<p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".7s">研究创造价值，智慧创造财富，成功的基石不仅止于坚持，更需要专业的分工和科学的管理</p>
 						</div>
 					</div>
