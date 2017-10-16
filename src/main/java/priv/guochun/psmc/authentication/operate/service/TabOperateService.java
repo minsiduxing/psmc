@@ -76,4 +76,14 @@ public interface TabOperateService {
 	 * @author wenxiaoming 2017年9月3日
 	 */
 	public int deleteOperate(String operateUuid);
+	
+	/**
+	 * 根据操作编号查询操作配置的个数
+	 * <p>Description:<p>
+	 * @param operateUuid
+	 * @param operateNo
+	 * @return
+	 * @author wenxiaoming 2017年10月3日
+	 */
+	public int selectOperateCountByNo(String operateUuid, String operateNo);
 }

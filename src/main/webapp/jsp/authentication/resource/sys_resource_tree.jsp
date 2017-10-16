@@ -201,9 +201,7 @@ function initoperatePanel(){
 					node = selectNodes[0];
 					var url = "";
 					url = addResourcetUrl + '&parentResourceUuid=' + node.UUID;
-					if(!editdialog){
-						initResourceDialog(addSucFunc);
-					}
+					initResourceDialog(addSucFunc);
 					editdialog.panel({title:"新增"});
 					editdialog.panel({iconCls:'icon-save'});
 					editdialog.panel({href:url});
@@ -227,9 +225,7 @@ function initoperatePanel(){
 						node = selectNodes[0];
 						var url = "";
 						url = editResourcetUrl + '&id=' + node.UUID;
-				 		if(!editdialog){
-							initResourceDialog(updateNameSucFunc);
-						}
+						initResourceDialog(updateNameSucFunc);
 						editdialog.panel({title:"修改"});
 						editdialog.panel({iconCls:'icon-save'});
 						editdialog.panel({href:url});
@@ -256,10 +252,10 @@ function initoperatePanel(){
 									commonObj.alert("该节点下存在子节点,请先删除子节点!","warning");
 									return;
 								}
-							/* 	if(node.RESOURCE_TYPE == 1){
+							 	if(node.RESOURCE_TYPE == 1){
 									commonObj.alert("不能删除根节点!","warning");
 									return;
-								} */
+								}
 								$.messager.progress(); 
 								var data ={resourceUuid:node.UUID};
 								var _url=basePath + "/authentication/tabResource.do";
@@ -297,12 +293,9 @@ function initoperatePanel(){
 							return;
 						}
 						node = selectNodes[0];
-						debugger;
 						var url = "";
 						url = operateConfigUrl + '&id=' + node.UUID;
-				 		if(!editdialog){
-				 			initOperateDialog();
-						}
+				 		initOperateDialog();
 				 		operateConfigDialog.panel({title:"资源操作配置"});
 				 		operateConfigDialog.panel({iconCls:'icon-save'});
 				 		operateConfigDialog.panel({href:url});
@@ -403,8 +396,3 @@ function onSubmit(){
 <div id="operateConfigDialogDiv"></div>
 </body>
 </html>
-
-
-
-
-

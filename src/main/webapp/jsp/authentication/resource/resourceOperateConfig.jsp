@@ -11,25 +11,34 @@
 		<form id="operateForm" method="POST" class="addfrom">
 			<input type="hidden" id="uuid" name="uuid" value=""/>
 			<input type="hidden" id="resourceUuid" name="resourceUuid" value="${resourceUuid}"/>
-			<input type="hidden" id="operateNo" name="operateNo" value=""/>
 			<ul class="addform-subcontent">
-				<li class="li-input"><label for="" class="input-label">业务名称：</label>
+				<li class="li-input">
+					<label for="" class="input-label">业务名称：</label>
 					<input class="myinput" id="operateName" name="operateName" />
 				</li>
-				<li class="li-input"><label for="" class="input-label">所属类：</label>
+				<li class="li-input">
+					<label for="" class="input-label">所属类：</label>
 					<input class="myinput" id="funClass" name="funClass" />
 				</li> 
-				<li class="li-input"><label for="" class="input-label">所属方法：</label>
+				<li class="li-input">
+					<label for="" class="input-label">所属方法：</label>
 					<input class="myinput" id="funMethod" name="funMethod" />
 				</li>
-				<li class="li-input"><label for="" class="input-label">排序号：</label>
+				<li class="li-input">
+					<label for="" class="input-label">排序号：</label>
 					<input class="myinput" readonly="readonly" id="ordernum" name="ordernum" />
 				</li>
-				<li class="li-input"><label for="" class="input-label">备注：</label>
+				<li class="li-input">
+					<label for="" class="input-label">备注：</label>
 					<input class="myinput" id="operateDesc" name="operateDesc" />
 				</li>
-				<li class="li-input"><label for="" class="input-label">所属权限：</label>
+				<li class="li-input">
+					<label for="" class="input-label">所属权限：</label>
 					<input id="privilegeUuid" name="privilegeUuid" />
+				</li>
+				<li class="li-input">
+					<label for="" class="input-label">操作编号：</label>
+					<input class="myinput" id="operateNo" name="operateNo" />
 				</li>
 				<li class="li-input">
 					<label for="" class="input-label">
@@ -55,6 +64,9 @@ selectRoelCountUrl ='<c:url value="'+selectRoelCountUrl+'"/>?method=selectRoleCo
 var deleteOperateUrl = basePath + "/authentication/tabOperate.do";
 deleteOperateUrl ='<c:url value="'+deleteOperateUrl+'"/>?method=deleteOperate';
 
+var checkOperateNoUrl = basePath + "/authentication/tabOperate.do";
+checkOperateNoUrl ='<c:url value="'+checkOperateNoUrl+'"/>?method=checkOperateNo';
+
 $(document).ready(function() {
 	$('#operateName').textbox({
 		value : "",
@@ -75,7 +87,7 @@ $(document).ready(function() {
 	});
 	
 	$('#ordernum').textbox({
-		value : "${ordernum}",
+		value : '<c:out value="${ordernum}"/>',
 		type : "text",
 		required : true
 	});
@@ -91,6 +103,12 @@ $(document).ready(function() {
 		valueField:"privilegeUuid",
 		textField:"privilegeName",
 		required : true
+	});
+	
+	$('#operateNo').textbox({
+		value : "",
+		type : "text",
+		required : false
 	});
 		
 	var resourceUuid = $("#resourceUuid").val();
@@ -116,6 +134,7 @@ function operateGrid(resourceUuid){
 		    {field:"ordernum",title:"排序号",width:100,halign:"center",align:"center",formatter: showInfo},
 		    {field:"operateDesc",title:"备注",width:120,halign:"center",align:"center",formatter: showInfo},
 		    {field:"privilegeName",title:"所属权限名称",width:120,halign:"center",align:"center",formatter: showInfo},
+		    {field:"operateNo",title:"操作编号",width:220,halign:"center",align:"center",formatter: showInfo},
 		    {field:"operate",title:"操作",width:200,halign:"center",align:"center",formatter:formatterOperate}
 		]],
 		onLoadSuccess:function(data) {
@@ -162,6 +181,7 @@ function save(){
 			$("#operateDesc").textbox('setValue',"");
 			$('#privilegeUuid').combobox('select',"");
 			$("#ordernum").textbox('setValue',obj.ordernum);
+			$("#operateNo").textbox('setValue',"");
 			operateGrid(obj.resourceUuid);
 	    },
 	    error:function(){
@@ -182,6 +202,7 @@ function update(index){
 	$("#ordernum").textbox('setValue',obj.ordernum);
 	$("#operateDesc").textbox('setValue',obj.operateDesc);
 	$('#privilegeUuid').combobox('select',obj.privilegeUuid);
+	$("#operateNo").textbox('setValue',obj.operateNo);
 }
 
 function del(operateUuid){
@@ -223,7 +244,8 @@ function getRoleOperateCount(operateUuid){
 	var count = 0;
  	 $.ajax({                                
         type: "POST",                        
-        url: selectRoelCountUrl,                       
+        url: selectRoelCountUrl, 
+        async: false,
         data: {operateUuid:operateUuid},
         success: function(data){ 
         	var obj = JSON.parse(data);
@@ -237,11 +259,39 @@ function getRoleOperateCount(operateUuid){
 function onSubmit(){
 	var result = $('#operateForm').form("validate");
 	if(Boolean(result)){
+		var flag = checkOperateNo();
+		if(!flag){
+			alert_autoClose("提示","该操作编号已存在!","info");
+			return false;
+		}
 		$.messager.progress(); 
 		return true;
 	}else{
 		return false;
 	}
+}
+
+//校验操作编号是否重复
+function checkOperateNo(){
+	var flag = true;
+	var uuid = $("#uuid").val();
+	var operateNo =  $("#operateNo").textbox('getValue');
+	if(operateNo != ""){
+	 	 $.ajax({                                
+	         type: "POST",                        
+	         url: checkOperateNoUrl, 
+	         async: false,
+	         data: {operateUuid:uuid,operateNo:operateNo},
+	         success: function(data){ 
+	         	var obj = JSON.parse(data);
+	         	count = obj.count;
+	            if(count > 0){
+	    	 		flag = false;
+	    	 	}
+	         }   
+	 	 }); 
+	}
+	return flag;
 }
 </script>
 </body>

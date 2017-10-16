@@ -142,4 +142,25 @@ public class TabOperateController  extends MyController
         resultMap.put("count", count);
         super.responseJson(JsonUtil.convertToJSONObject(resultMap), response);
     }
+    
+    /**
+     * 校验操作编号是否重复
+     * <p>Description:<p>
+     * @param request
+     * @param response
+     * @param operateUuid
+     * @param operateNo
+     * @throws IOException
+     * @author wenxiaoming 2017年10月3日
+     */
+    @RequestMapping(params="method=checkOperateNo")  
+    @ResponseBody
+    @SuppressWarnings({"unchecked", "rawtypes" })
+    public void checkOperateNo(HttpServletRequest request,
+            HttpServletResponse response,String operateUuid,String operateNo) throws IOException{
+        int count = tabOperateService.selectOperateCountByNo(operateUuid,operateNo);
+        Map resultMap = new HashMap();
+        resultMap.put("count", count);
+        super.responseJson(JsonUtil.convertToJSONObject(resultMap), response);
+    }
 }

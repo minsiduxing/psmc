@@ -53,7 +53,8 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 			B.ordernum,
 			B.operate_desc "operateDesc",
 			B.privilege_uuid "privilegeUuid",
-			C.privilege_name "privilegeName"
+			C.privilege_name "privilegeName",
+			B.operate_no "operateNo"
 		FROM
 		tab_resource A
 		INNER JOIN tab_operate B 
@@ -72,32 +73,17 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    	</insert>
    	
    	<update id="updateResOperateConfig" parameterType="priv.guochun.psmc.authentication.operate.model.TabOperate">
-   		UPDATE tab_operate 
-  		<trim prefix="set" suffixOverrides=",">
-	  		<if test="privilegeUuid != null">
-	  			privilege_uuid =#{privilegeUuid},
-	  		</if>
-	  		<if test="funClass != null">
-	  			fun_class =#{funClass},
-	  		</if>
-	  		<if test="funMethod != null">
-	  			fun_method =#{funMethod},
-	  		</if>
-	  		<if test="operateName != null">
-	  			operate_name =#{operateName},
-	  		</if>
-	  		<if test="operateDesc != null">
-	  			operate_desc =#{operateDesc},
-	  		</if>
-	  		<if test="ordernum != null">
-	  			ORDERNUM =#{ordernum},
-	  		</if>
-  		</trim>
+   		UPDATE tab_operate set privilege_uuid = #{privilegeUuid},fun_class =#{funClass},fun_method =#{funMethod},
+   		operate_name =#{operateName},operate_desc =#{operateDesc},ORDERNUM =#{ordernum},operate_no =#{operateNo}
   		where uuid = #{uuid}
    	</update>
    	
    	<delete id="deleteOperate" parameterType="hashmap">
    		DELETE FROM tab_operate WHERE uuid = #{operateUuid}
    	</delete>
+   	
+   	<select id="selectOperateCountByNo" parameterType="hashmap" resultType="int">
+   		select count(1) from tab_operate where operate_no =#{operateNo} and uuid != #{operateUuid}
+   	</select>
 
 </mapper>  

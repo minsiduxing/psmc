@@ -71,6 +71,13 @@ public class TabOperateServiceImpl implements TabOperateService {
         int count = tabOperateDao.deleteOperate(operateUuid);
         return count;
     }
+    
+    @Override
+    public int selectOperateCountByNo(String operateUuid, String operateNo)
+    {
+        int count = tabOperateDao.selectOperateCountByNo(operateUuid, operateNo);
+        return count;
+    }
 	
 	public TabOperateDao getTabOperateDao() {
 		return tabOperateDao;

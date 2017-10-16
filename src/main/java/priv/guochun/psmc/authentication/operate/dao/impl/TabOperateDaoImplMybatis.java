@@ -24,6 +24,7 @@ public class TabOperateDaoImplMybatis implements TabOperateDao {
 	public static final String saveResOperateConfig ="saveResOperateConfig";
     public static final String updateResOperateConfig ="updateResOperateConfig";
     public static final String deleteOperate ="deleteOperate";
+    public static final String selectOperateCountByNo ="selectOperateCountByNo";
 	private SqlSessionTemplate sqlSession;
 
 	
@@ -93,6 +94,16 @@ public class TabOperateDaoImplMybatis implements TabOperateDao {
         Map<String, Object> condition = new HashMap<String, Object>();
         condition.put("operateUuid", operateUuid);
         int count = sqlSession.delete(deleteOperate, condition);
+        return count;
+    }
+
+    @Override
+    public int selectOperateCountByNo(String operateUuid, String operateNo)
+    {
+        Map<String, Object> condition = new HashMap<String, Object>();
+        condition.put("operateUuid", operateUuid);
+        condition.put("operateNo", operateNo);
+        int count = sqlSession.selectOne(selectOperateCountByNo, condition);
         return count;
     }
 
