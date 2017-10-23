@@ -320,7 +320,7 @@
 						<div class="fh5co-post wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.1s">
 							<div class="fh5co-post-image">
 								<div class="fh5co-overlay"></div>	
-								<div class="fh5co-category"><a href="#" style="background-color: red;">热点新闻+</a></div>	
+								<div class="fh5co-category"><a href="info.html#compCuContent" style="background-color: red;">热点新闻+</a></div>	
 								<img src="images/news1.jpg" alt="Image" class="img-responsive">
 							</div>
 							<div class="fh5co-post-text">
@@ -334,7 +334,7 @@
 						<div class="fh5co-post wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.4s">
 							<div class="fh5co-post-image">
 								<div class="fh5co-overlay"></div>	
-								<div class="fh5co-category"><a href="#" style="background-color: green;">实时资讯+</a></div>	
+								<div class="fh5co-category"><a href="info.html#compCuContent" style="background-color: green;">实时资讯+</a></div>	
 								<img src="images/news2.jpg" alt="Image" class="img-responsive">
 							</div>
 							<div class="fh5co-post-text">
@@ -349,7 +349,7 @@
 						<div class="fh5co-post wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.7s">
 							<div class="fh5co-post-image">
 								<div class="fh5co-overlay"></div>	
-								<div class="fh5co-category"><a href="#" style="background-color: #FFD700;">行业动向+</a></div>	
+								<div class="fh5co-category"><a href="info.html#compCuContent" style="background-color: #FFD700;">行业动向+</a></div>	
 								<img src="images/news3.jpg" alt="Image" class="img-responsive">
 							</div>
 							<div class="fh5co-post-text">

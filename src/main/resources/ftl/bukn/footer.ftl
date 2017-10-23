@@ -33,7 +33,6 @@
 							<li><a href="javasript:void(0)">029-84536670</a></li>
 							<li><a href="javasript:void(0)">电子邮箱:</a></li>
 							<li><a href="javasript:void(0)">bhkn@bohuikangning.com</a></li>
-							<li><a href="javasript:void(0)">二维码</a></li>
 							<li><img src="images/1503125910(1).png"></li>
 						</ul>
 					</div>
@@ -41,7 +40,7 @@
 				</div>
 				
 				<div class="row text-center">
-					<div class="col-md-12 wow fadeInUp" data-wow-duration="1s"style=" font-size: 12px !important; margin-top:-40px;" data-wow-delay=".5s">
+					<div class="col-md-12 wow fadeInUp" data-wow-duration="1s"s	tyle=" font-size: 12px !important; margin-top:-40px;" data-wow-delay=".5s">
 					<!--<img src="images/police.png">&nbsp;深公网安备&nbsp;44010202000381&nbsp;|&nbsp; ;股票代码&nbsp;888888-->
 						<p>友情链接 | 百度搜索 | 搜狐新闻 | 腾讯视频 | 蚂蚁金融</p>
 						<p>Copyright&nbsp;&copy; 2017-2018 博汇康宁（深圳）投资基金管理有限公司&nbsp;</p>
