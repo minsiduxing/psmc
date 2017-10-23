@@ -109,7 +109,7 @@
 	.compCuContent{
 		width: 200px;
 		display: inline-block;
-		background-color: #fff;
+		background-color: #FFFCEC;
 		font-weight: 500;
 		line-height: 1.1;
 		font-size: 24px;
@@ -214,7 +214,7 @@
 </style>
 </head>
 <body>
-	<div id="fh5co-page">
+	<div id="fh5co-page" style="background-color: #FFFCEC">
 		<!-- 网站顶部部导航菜单 -->
 		 <#include "head.html"/> 
 		<!-- 网站顶部导航菜单结束 -->
@@ -261,7 +261,6 @@
 					 	</div>
 					</div>
 					<div id="newsBlock1">
-					<p>热点新闻</p>
 						<div class="row newsBlock">
 							<div class="news-carousel">
 								<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000">
@@ -336,7 +335,6 @@
 					</div>
 					<!-- newsBlock2-->
 					<div id="newsBlock2">
-						<p>实时资讯</p>
 						<div class="news-carousel">
 							<div>
 								<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000">
@@ -411,7 +409,6 @@
 					</div>
 					<!-- newsBlock3-->
 					<div id="newsBlock3">
-						<p>行业动向</p>
 						<div class="row newsBlock">
 							<div class="news-carousel">
 								<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000">

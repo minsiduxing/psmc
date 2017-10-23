@@ -91,7 +91,7 @@
 		}
 		.col-md-6>p{
 			font-family: "STHeiti Light" !important;
-			font-size: 12px !important;
+			font-size: 20px !important;
 		}
 		.carousel{
 			width: 70%;
@@ -128,10 +128,10 @@
 	</head>
 	<body>
 	
-<div id="fh5co-page">
+<div id="fh5co-page" style="background-color: #FFFCEC">
 		<!-- 网站顶部部导航菜单 -->
 <#import "../common/navbarfunction.ftl" as navf />
-<div id="fh5co-page">
+<div id="fh5co-page" style="background-color: #FFFCEC">
 		<nav class="fh5co-nav-style-1" role="navigation" data-offcanvass-position="fh5co-offcanvass-left">	<div class="container">
 				<div class="text-center fh5co-link-wrap" style="font-size:45px;font-style:normal;padding-left:0px;font-family:sans-serif">
 					<ul data-offcanvass="yes">
@@ -162,11 +162,6 @@
 		</nav>
 		<!-- 网站顶部导航菜单结束 -->
 		<div class="fh5co-cover js-full-height" data-next="yes"  style="background-image: url(images/full_001.jpg); background-size:100% 100%;background-repeat:no-repeat;background-position:center;">
-		  	<span class="scroll-btn wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.4s">
-				<a href="#">
-					<span class="mouse"><span></span></span>
-				</a>
-			</span>
 		</div>
 		<div class="fh5co-project-style-2">
 			<div class="text-center" style="width: 70%;margin: 0 auto;">
@@ -213,11 +208,6 @@
 			    		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 			    		<span class="sr-only">Next</span>
 			  	</a>		  	
-			</div>
-			<div style="width: 70%; margin: 10px auto;">
-				<a href="#productlist" id="toProduct">
-					<span class="buttonNext"><span>↓</span></span>
-				</a>
 			</div>
 			<!-- <div class="container text-center" style="margin-top: 100px;">
 				<h2 class="fh5co-heading wow fadeInUp text" data-wow-duration="1s" data-wow-delay=".5s">选择博汇康宁</h2>
@@ -317,13 +307,8 @@
 				</ul>
 			</div>
 		</div>
-		<div style="width: 70%; margin: 10px auto;">
-			<a href="#infolist" id="toInfo">
-				<span class="buttonNext"><span>↓</span></span>
-			</a>
-		</div>
 
-		<div class="fh5co-blog-style-1">
+		<div class="fh5co-blog-style-1" style="background-color: #FFFCEC">
 			<div class="container" id="infolist">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3 text-center">
@@ -375,11 +360,6 @@
 						</div>
 					</div>
 					<div class="clearfix visible-sm-block"></div>
-				</div>
-				<div style="width: 70%; margin: 0 auto;">
-					<a href="#numCount" id="toNumCount">
-						<span class="buttonNext"><span>↓</span></span>
-					</a>
 				</div>
 			</div>
 		</div>
