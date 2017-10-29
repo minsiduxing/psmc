@@ -210,25 +210,25 @@
 				<div class="container" style="width: 80%;">
 					<div class="row">
 					 	<div class="col-md-3 text-center">
-					 		<img src="images/hexagon1.png" id="img01">
+					 		<img src="images/bo.jpg" id="img01">
 					 		<div class="imgContentDiv" id="imgContentDiv01">
 					 			<p class="imgContentText">博：填充内容字数控制在30字以内</p>
 					 		</div>
 					 	</div>
 					  	<div class="col-md-3 text-center">
-					 		<img src="images/hexagon2.png" id="img02">
+					 		<img src="images/hui.jpg" id="img02">
 					 		<div class="imgContentDiv" id="imgContentDiv02">
 					 			<p class="imgContentText">汇：填充内容字数控制在30字以内</p>
 					 		</div>
 					 	</div>
 					 	<div class="col-md-3 text-center">
-					 		<img src="images/hexagon3.png" id="img03">
+					 		<img src="images/kang.jpg" id="img03">
 					 		<div class="imgContentDiv" id="imgContentDiv03">
 					 			<p class="imgContentText">康：填充内容字数控制在30字以内</p>
 					 		</div>
 					 	</div>
 					 	<div class="col-md-3 text-center">
-					 		<img src="images/hexagon4.png" id="img04">
+					 		<img src="images/ning.jpg" id="img04">
 					 		<div class="imgContentDiv" id="imgContentDiv04">
 					 			<p class="imgContentText">宁：填充内容字数控制在30字以内</p>
 					 		</div>

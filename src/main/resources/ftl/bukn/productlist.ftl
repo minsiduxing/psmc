@@ -229,25 +229,32 @@
 				</div>
 				<div class="container" style="width: 80%;">
 					<div class="row">
-					 	<div class="col-md-4">
+					 	<div class="col-md-3">
 					 		<div class="productDiv" id="productDiv01">
 					 			<p class="imgContentText">博汇康宁价值优选1期私募证券投资基金</p>
 					 			<img src="images/gold.jpg" id="img01">
-					 			<button class="btn btn-default">查看详情</button>
+					 			<button class="btn btn-default">已清算</button>
 					 		</div>
 					 	</div>
-					  	<div class="col-md-4">
+					  	<div class="col-md-3">
 					 		<div class="productDiv" id="productDiv02">
 					 			<p class="imgContentText">博汇康宁景博稳健1号私募基金</p>
 					 			<img src="images/gold.jpg" id="img01">
-					 			<button class="btn btn-default">查看详情</button>
+					 			<button class="btn btn-default">2017-03-02~至今</button>
 					 		</div>
 					 	</div>
-					 	<div class="col-md-4">
+					 	<div class="col-md-3">
+					 		<div class="productDiv" id="productDiv02">
+					 			<p class="imgContentText">博汇康宁·中原1号</p>
+					 			<img src="images/gold.jpg" id="img01">
+					 			<button class="btn btn-default">2017-07-25~至今</button>
+					 		</div>
+					 	</div>
+					 	<div class="col-md-3">
 					 		<div class="productDiv" id="productDiv03">
 					 			<p class="imgContentText">博汇康宁股票型管理1期私募证券投资基金</p>
 					 			<img src="images/gold.jpg" id="img01">
-					 			<button class="btn btn-default">查看详情</button>
+					 			<button class="btn btn-default">2017-03-31~至今</button>
 					 		</div>
 					 	</div>
 					</div>

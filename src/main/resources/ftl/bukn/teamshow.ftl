@@ -167,9 +167,6 @@
 					             <div class="pricing-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.1s">
 					                 <h2 class="pricing-title" style="font-size: 25px; color: #DAA520">王慧</h2>
 					                 <p class="pricing-sentence">风控总监&nbsp;经济学专家</p>
-					                 <div class="creatorImg">
-					                 	<img src="images/cr2.png" alt="Image" class="img-circle">
-					                 </div>
 					                 <ul class="pricing-feature-list text-left crContent">
 					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.4s">联合创始人</li>
 					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.7s">经济学副教授</li>
@@ -179,9 +176,6 @@
 					             <div class="pricing-item pricing-item--featured wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.4s">
 					                 <h2 class="pricing-title" style="font-size: 25px; color: #DAA520">赵少康</h2>
 					                 <p class="pricing-sentence">总经理&nbsp;联合创始人</p>
-					                <div class="creatorImg">
-					                 	<img src="images/cr1.jpg" alt="Image" class="img-circle">
-					                 </div>
 					                 <ul class="pricing-feature-list text-left crContent">
 					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="0.9s">中博建设集团副总经理</li>
 					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.2s">加拿大多伦多大学商学学士</li>
@@ -193,9 +187,6 @@
 					             <div class="pricing-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.7s">
 					                 <h2 class="pricing-title" style="font-size: 25px; color: #DAA520">曹双宁</h2>
 					                 <p class="pricing-sentence">投资总监&nbsp;联合创始人</p>
-					                 <div class="creatorImg">
-					                 	<img src="images/cr3.png" alt="Image" class="img-circle">
-					                 </div>
 					                 <ul class="pricing-feature-list text-left crContent">
 					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.4s">善于挖掘趋势下的价值投资机会</li>
 					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.7s">深刻理解市场盛衰循环</li>
@@ -224,7 +215,6 @@
 					<div class="col-md-4 col-sm-6 col-xs-12">
 						<div class="fh5co-testimonial-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.1s">
 							<div class="fh5co-name">
-								<img src="images/person_5.jpg" alt="">
 								<div class="fh5co-meta">
 									<h3>巴图</h3>
 									<span class="fh5co-company">期货交易总监&nbsp;硕士</span>
@@ -238,7 +228,6 @@
 					<div class="col-md-4 col-sm-6 col-xs-12">
 						<div class="fh5co-testimonial-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.4s">
 							<div class="fh5co-name">
-								<img src="images/person_4.jpg" alt="">
 								<div class="fh5co-meta">
 									<h3>李伟</h3>
 									<span class="fh5co-company">研究总监&nbsp;博士后</span>
@@ -255,7 +244,6 @@
 					<div class="col-md-4 col-sm-6 col-xs-12">
 						<div class="fh5co-testimonial-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.7s">
 							<div class="fh5co-name">
-								<img src="images/person_3.jpg" alt="">
 								<div class="fh5co-meta">
 									<h3>常镇宇</h3>
 									<span class="fh5co-company">研究员&nbsp;博士</span>
@@ -272,7 +260,6 @@
 					<div class="col-md-4 col-sm-6 col-xs-12">
 						<div class="fh5co-testimonial-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="2s">
 							<div class="fh5co-name">
-								<img src="images/person_1.jpg" alt="">
 								<div class="fh5co-meta">
 									<h3>卫保国</h3>
 									<span class="fh5co-company">研究员&bnsp;博士</span>
@@ -289,7 +276,6 @@
 					<div class="col-md-4 col-sm-6 col-xs-12">
 						<div class="fh5co-testimonial-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="2.3s">
 							<div class="fh5co-name">
-								<img src="images/person_2.jpg" alt="">
 								<div class="fh5co-meta">
 									<h3>曹双利</h3>
 									<span class="fh5co-company">研究员&nbsp;博士</span>
@@ -304,121 +290,6 @@
 					<div class="col-md-4 col-sm-6 col-xs-12">
 						<div class="fh5co-testimonial-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="2.6s">
 							<div class="fh5co-name">
-								<img src="images/person_6.jpg" alt="">
-								<div class="fh5co-meta">
-									<h3>Colleen Bass</h3>
-									<span class="fh5co-company">XYZ Inc.</span>
-								</div>
-							</div>
-							<div class="fh5co-text">
-								<p>&ldquo;Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
-							</div>
-						</div>
-					</div>
-
-					<div class="clearfix visible-sm-block"></div>
-
-				</div>
-			</div>	
-		</div>
-		<!-- 研究团队介绍-->
-		<div class="fh5co-testimonial-style-2">
-			<div class="container">
-				<div class="row p-b">
-					<div class="col-md-6 col-md-offset-3 text-center">
-						<a name="researchteam" id="researchteam">
-						<div class="compCulture">
-							<span class="compCuContent">研&nbsp;究&nbsp;团&nbsp;队</span>
-						</div>
-						<p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".8s">目前研究员中有博士后2人，博士3人，研究生4人。核心人员均具有国际宏观视野，熟悉国内外资本市场运作，数年来为客户取得丰厚回报</p>
-					</div>
-				</div>
-				<div class="row">
-					
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="fh5co-testimonial-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.1s">
-							<div class="fh5co-name">
-								<img src="images/person_5.jpg" alt="">
-								<div class="fh5co-meta">
-									<h3>Chris Clark</h3>
-									<span class="fh5co-company">XYZ Inc.</span>
-								</div>
-							</div>
-							<div class="fh5co-text">
-								<p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
-							</div>
-						</div>	
-					</div>
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="fh5co-testimonial-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.4s">
-							<div class="fh5co-name">
-								<img src="images/person_4.jpg" alt="">
-								<div class="fh5co-meta">
-									<h3>Ian Stewart</h3>
-									<span class="fh5co-company">XYZ Inc.</span>
-								</div>
-							</div>
-							<div class="fh5co-text">
-								<p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. &rdquo;</p>
-							</div>
-						</div>
-					</div>
-
-					<div class="clearfix visible-sm-block"></div>
-
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="fh5co-testimonial-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.7s">
-							<div class="fh5co-name">
-								<img src="images/person_3.jpg" alt="">
-								<div class="fh5co-meta">
-									<h3>Mitch Silk</h3>
-									<span class="fh5co-company">XYZ Inc.</span>
-								</div>
-							</div>
-							<div class="fh5co-text">
-								<p>&ldquo;Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
-							</div>
-						</div>
-					</div>
-					
-					<div class="clearfix visible-lg-block visible-md-block"></div>
-
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="fh5co-testimonial-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="2s">
-							<div class="fh5co-name">
-								<img src="images/person_1.jpg" alt="">
-								<div class="fh5co-meta">
-									<h3>Beth Glasgow</h3>
-									<span class="fh5co-company">XYZ Inc.</span>
-								</div>
-							</div>
-							<div class="fh5co-text">
-								<p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. &rdquo;</p>
-							</div>
-						</div>	
-					</div>
-					
-					<div class="clearfix visible-sm-block"></div>
-
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="fh5co-testimonial-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="2.3s">
-							<div class="fh5co-name">
-								<img src="images/person_2.jpg" alt="">
-								<div class="fh5co-meta">
-									<h3>Rob Smith</h3>
-									<span class="fh5co-company">XYZ Inc.</span>
-								</div>
-							</div>
-							<div class="fh5co-text">
-								
-								<p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="fh5co-testimonial-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="2.6s">
-							<div class="fh5co-name">
-								<img src="images/person_6.jpg" alt="">
 								<div class="fh5co-meta">
 									<h3>Colleen Bass</h3>
 									<span class="fh5co-company">XYZ Inc.</span>
