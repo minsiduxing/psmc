@@ -6,8 +6,8 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/news/news${csssuffix}" type="text/css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/Huploadify${csssuffix}" type="text/css">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/jcrop/css/jquery.Jcrop${csssuffix}"/>
+<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/css/Huploadify${csssuffix}" type="text/css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/jcrop/css/jquery.Jcrop${csssuffix}"/> --%>
   </head>
   <%@ include file="../../../common.jsp"%>
   <body id="body">
@@ -50,7 +50,7 @@
 			<li ><label >新闻作者：</label><br>
 				<input  id="newAutor" name="newAutor"></input></li>
 		</ul>
-	 <input type="hidden" id="isedit" name="isEdit"/>
+	 <input type="hidden" id="isedit" name="isEdit" value="${isEdit}"/>
 	 <input type="hidden" id="newsUuid" name=newsUuid value="${news.uuid }"/>
 	  <div class="operButon">
 			<input id="submitbtn" type="button" class="easyui-linkbutton" onclick=" sbmit()" value="提交"/>
