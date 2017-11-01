@@ -118,6 +118,23 @@
 
 	<bean id="tabNavBarService"
 		class="priv.guochun.psmc.website.backstage.navbar.service.impl.TabNavBarServiceImpl" name="tabNavBarService" />
-	
+	<!-- 网站前端导航栏dao注入 -->
+	<bean id="tabNewsDao"
+		class="priv.guochun.psmc.website.backstage.news.dao.impl.TabNewsDaoImpl" />
+	<!-- 网站新闻service注入 -->
+	<bean id="tabNewsService"
+		class="priv.guochun.psmc.website.backstage.news.service.impl.TabNewsServiceImpl" />
+	<!-- 网站模块dao注入 -->
+	<bean id="tabModuleDao"
+		class="priv.guochun.psmc.website.backstage.module.dao.impl.TabModuleDaoImpl" />
+	<!-- 网站网站模块service注入 -->
+	<bean id="tabModuleService"
+		class="priv.guochun.psmc.website.backstage.module.service.impl.TabModuleServiceImpl" />
+	<!-- 网站模块发布dao注入 -->
+	<bean id="tabModulePublishDao"
+		class="priv.guochun.psmc.website.backstage.modulepublish.dao.impl.TabModulePublishDaoImpl" />
+	<!-- 网站网站模块发布service注入 -->
+	<bean id="tabModulePublishService"
+		class="priv.guochun.psmc.website.backstage.modulepublish.service.impl.TabModulePublishServiceImpl" />
 
 </beans>

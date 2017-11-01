@@ -22,13 +22,13 @@
 			</li> 
 			<li><label >内容摘要</label><br>
 				<input id="newsAbstarct" name="newsAbstarct" style="height:100px;"></input></li>
-			<li><label>新闻配图</label><br>
+			<!-- <li><label>新闻配图</label><br>
 			<input type="hidden" id="hiddenfile" name="thumbnailImageUrl"/>
 			<div id="picpreview" >
 			<div id="thumbnailImageUrl"></div>
 			
 			</div>
-			</li>
+			</li> -->
 			<li ><label >新闻内容</label><br>
 			 <!--非全屏模式-->
 			    <div id="container">
@@ -58,7 +58,6 @@
 			<input id="button" type="reset" class="easyui-linkbutton" onclick=" retList() "  value="返回列表"/>
 	</div>
 	</form>
-
         <!--全屏模式-->
     <div id="cover"></div>
   </body>

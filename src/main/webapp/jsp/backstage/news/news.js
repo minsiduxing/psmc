@@ -9,18 +9,18 @@ $(function(){
 	wangEditorInit(isEdit);
 	//表单初始化
 	formInint(isEdit);
-	//图片初始化
-	newsPicInit(isEdit);
+	/*//图片初始化
+	newsPicInit(isEdit);*/
 });
 var editor;
 function sbmit (e){
 	event.preventDefault();
 	var result = $('#editForm').form("validate");
 	$("#hiddencontent").val(editor.txt.html());
-	if($("#hiddenfile").val()==''){
+	/*if($("#hiddenfile").val()==''){
 		commonObj.alert ("新闻配图不能为空!","warning");
 		return false;
-	}
+	}*/
 	var formdata = $("#editForm").serialize();
 	var _addUrl = addUrl;
 	if(Boolean(result)){
@@ -51,7 +51,7 @@ function successCallback(data){
 
 /**
  * 图片上传编辑---------------------------------------------
- */
+ *//*
 function newsPicInit(isEdit){
 	//用户离开页面删除临时文件
 	window.onbeforeunload=function(){
@@ -193,7 +193,7 @@ function newsPicInit(isEdit){
 		}
 }
 //图片上传编辑结束------------------------------------------
-/**
+*//**
  * 富文本编辑器初始化-----------------------------------
  */
 function  wangEditorInit(isEdit){

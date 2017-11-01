@@ -149,6 +149,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	   		 tn.news_title, 
 	   		 tn.news_subtitle,
 	   		 tn.thumbnail_image_url, 
+	   		 tn.news_author,
 	   		 tn.news_abstract 
 	   	  FROM tab_news tn
 	   	  LEFT JOIN tab_module tm

@@ -1,5 +1,5 @@
 
-.newsForm{
+.body{
 	 border-color: #D4D4D4;
 	border:1px solid #D4D4D4; 
     border-radius: 0 0 0 0;
@@ -83,7 +83,7 @@
             padding: 20px;
             background-color: #f1f1f1;
         }
-        #picpreview{
+        /* #picpreview{
         margin-top:1%;
         border: 1px solid #D4D4D4;
         width:80%;
@@ -96,4 +96,4 @@
         	width:10%;
         	text-align: center;
         	float:right;
-        }
+        } */

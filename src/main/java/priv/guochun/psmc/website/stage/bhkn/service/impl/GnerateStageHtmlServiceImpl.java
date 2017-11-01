@@ -7,10 +7,10 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.ContextLoader;
 
 import priv.guochun.psmc.system.enums.FreemarkEnum;
 import priv.guochun.psmc.system.util.FreemarkUtil;
+import priv.guochun.psmc.system.util.JsonUtil;
 import priv.guochun.psmc.website.backstage.navbar.controller.TabNavBarController;
 import priv.guochun.psmc.website.backstage.navbar.model.TabNavBar;
 import priv.guochun.psmc.website.backstage.navbar.service.TabNavBarService;
@@ -46,22 +46,23 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 		gnerateHtml(remaps,"bukn/index.ftl", "index.html");
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void generateInofHtml() {
 		Map<String,Object> newsTitles= new HashMap<String,Object>();
 		//获取行热点新闻列表
-		List<Map<String, Object>> hotNews = tabNewsService.getShowNewsTitlesPagerByTowLevelClassify(ModuleEnum.TOW_LEVEL_HOT_NEWS.getValue());
-		newsTitles.put("hotNews", hotNews);
+		List hotNews = tabNewsService.getShowNewsTitlesPagerByTowLevelClassify(ModuleEnum.TOW_LEVEL_HOT_NEWS.getValue());
+		newsTitles.put("hotNews", JsonUtil.convertToJSONArray(hotNews));
 		//获取实时资讯列表
-		List<Map<String, Object>> quotationNews =	tabNewsService.getShowNewsTitlesPagerByTowLevelClassify(ModuleEnum.TOW_LEVEL_QUOTATION_INFOMATION.getValue());
-		newsTitles.put("quotationNews", quotationNews);
+		List quotationNews =	tabNewsService.getShowNewsTitlesPagerByTowLevelClassify(ModuleEnum.TOW_LEVEL_QUOTATION_INFOMATION.getValue());
+		newsTitles.put("quotationNews", JsonUtil.convertToJSONArray(quotationNews));
 		//获取行业动向列表
-		List<Map<String, Object>> latesTrendsNews= tabNewsService.getShowNewsTitlesPagerByTowLevelClassify(ModuleEnum.TOW_LEVEL_LATES_TRENDS.getValue());
-		newsTitles.put("latesTrendsNews", latesTrendsNews);
+		List latesTrendsNews= tabNewsService.getShowNewsTitlesPagerByTowLevelClassify(ModuleEnum.TOW_LEVEL_LATES_TRENDS.getValue());
+		newsTitles.put("latesTrendsNews", JsonUtil.convertToJSONArray(latesTrendsNews));
 		//合并模板
 		gnerateHtml(newsTitles,"bukn/info.ftl", "info.html");
 	}
-
+           
 	@Override
 	public void generateProductlistHtml() {
 		Map<String,Object> remaps= new HashMap<String,Object>();
