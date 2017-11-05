@@ -178,12 +178,6 @@
 	.item{
 		height: 300px;
 	}
-	.rightNewsTittle{
-		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 20px;
-		font-weight: 500;
-		line-height: 37.15px;
-	}
 	.newsContentWithImg{
 		font-family: "Microsoft YaHei","微软雅黑";
 		font-size: 20px;
@@ -199,17 +193,33 @@
 	.newsContentWithImg>p{
 		margin-bottom: 0;
 	}
-	.contentTittle , .modal-title{
+	.contentTittle{
 		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 18px;
-		font-weight:bold;
+		font-size: 15px;
 	}
 	.contentText{
 		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 10px;
+		font-size: 12px;
 	}
-	.news-carousel{
-		width:100%;
+	.newsInfoDiv{
+		width: 60%;
+		margin: 30px auto;
+	}
+	.tabDiv{
+		margin: 0 auto;
+		text-align: center;
+	}
+	.pagination>li>a{
+		color: rgb(128,128,128);
+	}
+	.panelRed{
+		background-color: #C63300 !important;
+	}
+	.panelGreen{
+		background-color: #00AA00 !important;
+	}
+	.panelYello{
+		background-color: #FFBB00 !important;
 	}
 </style>
 </head>
@@ -261,227 +271,19 @@
 					 	</div>
 					</div>
 					<div id="newsBlock1">
-						<div class="row newsBlock">
-							<div class="news-carousel">
-								<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000">
-									<!-- Indicators -->
-								  	<ol class="carousel-indicators">
-										<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="3"></li>
-									  </ol>
-								  	<!-- Wrapper for slides -->
-								  	<div class="carousel-inner" role="listbox">
-								    		<div class="item active">
-								      			<img src="images/news1.jpg" alt="...">
-								      			<div class="carousel-caption">
-								      			新闻标题1
-								      			</div>
-								    		</div>
-								   	 	<div class="item">
-								     			<img src="images/news2.jpg" alt="...">
-								      			<div class="carousel-caption">
-								      			新闻标题2
-								      			</div>
-								    		</div>
-								     		<div class="item">
-								      			<img src="images/news3.jpg" alt="...">
-								      			<div class="carousel-caption">
-								      			新闻标题3
-								      			</div>
-								    		</div>
-								    		<div class="item">
-								      			<img src="images/news2.jpg" alt="...">
-								      			<div class="carousel-caption">
-								      			新闻标题4
-								      			</div>
-								    		</div>
-								  	</div>
-								  	<!-- Controls -->
-								  	<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-								    		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-								    		<span class="sr-only">Previous</span>
-								  	</a>
-									<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-									    	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-									    	<span class="sr-only">Next</span>
-									</a>
-								</div>			
-							</div>
-						</div>
-						<div class="row newsContent">
-						<#list hotNews as hn>
-						<div class="col-md-6">
-								<div class="row">
-									<div class="col-md-5" style="text-align: center;">
-									<#if hn.thumbnail_image_url?? && hn.thumbnail_image_url!=''>
-									   <img src="/psmc/system/freamwork/fileUploadController?method=getImage&filePath=${hn.thumbnail_image_url}"  data-toggle="modal" data-target="#myModal" onclick="showDtail('${hn.uuid}')" style="width: 100px;  cursor:pointer; height: 100px;">
-									</#if>
-										
-									</div>
-									<div class="col-md-7 newsContentWithImg">
-										<a class="contentTittle" onclick="showDtail('${hn.uuid}')"  data-toggle="modal" data-target="#myModal">${hn.news_title}</a></br>
-										<a class="contentText" onclick="showDtail('${hn.uuid}')"  data-toggle="modal" data-target="#myModal" ><span class="newabstract">新闻摘要：</sapn>${hn.news_abstract}</a>
-									</div>
-								</div>
-							</div>
-							<#if (hn_index+1)%2==0>
-							</div>
-							<div class="row newsContent">
-							</#if>	
-						</#list>
-					</div>
 					</div>
 					<!-- newsBlock2-->
 					<div id="newsBlock2">
-						<div class="news-carousel">
-							<div>
-								<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000">
-									<!-- Indicators -->
-								  	<ol class="carousel-indicators">
-										<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="3"></li>
-									  </ol>
-								  	<!-- Wrapper for slides -->
-								  	<div class="carousel-inner" role="listbox">
-								    		<div class="item active">
-								      			<img src="images/news1.jpg" alt="...">
-								      			<div class="carousel-caption">
-								      			新闻标题1
-								      			</div>
-								    		</div>
-								   	 	<div class="item">
-								     			<img src="images/news2.jpg" alt="...">
-								      			<div class="carousel-caption">
-								      			新闻标题2
-								      			</div>
-								    		</div>
-								     		<div class="item">
-								      			<img src="images/news3.jpg" alt="...">
-								      			<div class="carousel-caption">
-								      			新闻标题3
-								      			</div>
-								    		</div>
-								    		<div class="item">
-								      			<img src="images/news2.jpg" alt="...">
-								      			<div class="carousel-caption">
-								      			新闻标题4
-								      			</div>
-								    		</div>
-								  	</div>
-								  	<!-- Controls -->
-								  	<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-								    		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-								    		<span class="sr-only">Previous</span>
-								  	</a>
-									<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-									    	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-									    	<span class="sr-only">Next</span>
-									</a>
-								</div>			
-							</div>
-						</div>
-				
-						<div class="row newsContent">
-							<#list quotationNews as qn>
-							<div class="col-md-6">
-							    <div class="row">
-								    <div class="col-md-5" style="text-align: center;">
-										<#if qn.thumbnail_image_url?? && qn.thumbnail_image_url!=''>
-									   <img  data-toggle="modal" data-target="#myModal" src="/psmc/system/freamwork/fileUploadController?method=getImage&filePath=${qn.thumbnail_image_url}" onclick="showDtail('${qn.uuid}')" style="width: 100px; cursor:pointer; height: 100px;">
-									</#if>
-									</div>
-									<div class="col-md-7 newsContentWithImg">
-										<a class="contentTittle"  onclick="showDtail('${qn.uuid}')"  data-toggle="modal" data-target="#myModal" >${qn.news_title}</a></br>
-										<a class="contentText"  data-toggle="modal" data-target="#myModal" onclick="showDtail('${qn.uuid}')" ><span class="newabstract">新闻摘要：</sapn>${qn.news_abstract}</a>
-									</div>
-								</div>
-							</div>
-							<#if (qn_index+1)%2==0>
-							</div>
-							<div class="row newsContent">
-							</#if>	
-							</#list>
-						</div>
 					</div>
 					<!-- newsBlock3-->
 					<div id="newsBlock3">
-						<div class="row newsBlock">
-							<div class="news-carousel">
-								<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000">
-									<!-- Indicators -->
-								  	<ol class="carousel-indicators">
-										<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="3"></li>
-									  </ol>
-								  	<!-- Wrapper for slides -->
-								  	<div class="carousel-inner" role="listbox">
-								    		<div class="item active">
-								      			<img src="images/news1.jpg" alt="...">
-								      			<div class="carousel-caption">
-								      			新闻标题1
-								      			</div>
-								    		</div>
-								   	 	<div class="item">
-								     			<img src="images/news2.jpg" alt="...">
-								      			<div class="carousel-caption">
-								      			新闻标题2
-								      			</div>
-								    		</div>
-								     		<div class="item">
-								      			<img src="images/news3.jpg" alt="...">
-								      			<div class="carousel-caption">
-								      			新闻标题3
-								      			</div>
-								    		</div>
-								    		<div class="item">
-								      			<img src="images/news2.jpg" alt="...">
-								      			<div class="carousel-caption">
-								      			新闻标题4
-								      			</div>
-								    		</div>
-								  	</div>
-								  	<!-- Controls -->
-								  	<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-								    		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-								    		<span class="sr-only">Previous</span>
-								  	</a>
-									<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-									    	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-									    	<span class="sr-only">Next</span>
-									</a>
-								</div>			
-							</div>
-							
-						</div>
-						<div class="row newsContent">
-							<#list latesTrendsNews as ln>
-							<div class="col-md-6">
-								  <div class="row">
-									<div class="col-md-5" style="text-align: center;">
-										<#if ln.thumbnail_image_url?? && ln.thumbnail_image_url!=''>
-									   <img src="/psmc/system/freamwork/fileUploadController?method=getImage&filePath=${ln.thumbnail_image_url}" data-toggle="modal" data-target="#myModal" onclick="showDtail('${ln.uuid}')"  style="width: 100px; cursor:pointer; height: 100px;">
-									</#if>
-									</div>
-									<div class="col-md-7 newsContentWithImg">
-										<a class="contentTittle" onclick="showDtail('${ln.uuid}')"  data-toggle="modal" data-target="#myModal">${ln.news_title}</a></br>
-										<a class="contentText"  data-toggle="modal" data-target="#myModal" onclick="showDtail('${ln.uuid}')" ><span class="newabstract">新闻摘要：</sapn>${ln.news_abstract}</a>
-									</div>
-								</div>
-							</div>
-							<#if (ln_index+1)%2==0>
-							</div>
-							<div class="row newsContent">
-							</#if>	
-						</#list>
 					</div>
+					<nav aria-label="Page navigation" class="tabDiv">
+					  	<ul class="pagination pagination-lg" id="pageList">
+					    		
+					  	</ul>
+					</nav>
 				</div>
-				</div>	
 			</div>
 		</div>
 		
@@ -541,16 +343,22 @@
 		$('#newsBlock2').hide();
 		$('#newsBlock3').hide();
 		$('#hotNews').click(function(){
+			newsType = "hotNews";
+			newsArraySize = hotNewsArry.length;
 			$('#newsBlock2').hide();
 			$('#newsBlock3').hide();
 			$('#newsBlock1').fadeIn(3000);
 		});
 		$('#timeNews').click(function(){
+			newsType = "timeNews";
+			newsArraySize = timeNewsArray.length;
 			$('#newsBlock1').hide();
 			$('#newsBlock3').hide();
 			$('#newsBlock2').fadeIn(3000);
 		});
 		$('#hangYeMove').click(function(){
+			newsType = "hyNews";
+			newsArraySize = hyNewsArray.length;
 			$('#newsBlock1').hide();
 			$('#newsBlock2').hide();
 			$('#newsBlock3').fadeIn(3000);
@@ -584,6 +392,159 @@
 				   }
 				});
 	 }
+	 /*分页显示三个模块的新闻列表*/
+	var hotNewsArry = [{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻02_概要","news_author":"热点新闻02_作者","news_subtitle":"热点新闻02_副标题","news_title":"热点新闻02_标题","uuid":"002"},{"news_abstract":"热点新闻03_概要","news_author":"热点新闻03_作者","news_subtitle":"热点新闻03_副标题","news_title":"热点新闻03_标题","uuid":"003"},{"news_abstract":"热点新闻04_概要","news_author":"热点新闻04_作者","news_subtitle":"热点新闻04_副标题","news_title":"热点新闻04_标题","uuid":"004"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻06_概要","news_author":"热点新闻06_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻06_标题","uuid":"006"},{"news_abstract":"热点新闻07_概要","news_author":"热点新闻07_作者","news_subtitle":"热点新闻07_副标题","news_title":"热点新闻07_标题","uuid":"001"},{"news_abstract":"热点新闻08_概要","news_author":"热点新闻08_作者","news_subtitle":"热点新闻08_副标题","news_title":"热点新闻08_标题","uuid":"001"},{"news_abstract":"热点新闻09_概要","news_author":"热点新闻09_作者","news_subtitle":"热点新闻09_副标题","news_title":"热点新闻09_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻02_概要","news_author":"热点新闻02_作者","news_subtitle":"热点新闻02_副标题","news_title":"热点新闻02_标题","uuid":"002"},{"news_abstract":"热点新闻03_概要","news_author":"热点新闻03_作者","news_subtitle":"热点新闻03_副标题","news_title":"热点新闻03_标题","uuid":"003"},{"news_abstract":"热点新闻04_概要","news_author":"热点新闻04_作者","news_subtitle":"热点新闻04_副标题","news_title":"热点新闻04_标题","uuid":"004"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"}];
+
+	var timeNewsArray =  [{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯02_概要","news_author":"实时资讯02_作者","news_subtitle":"实时资讯02_副标题","news_title":"实时资讯02_标题","uuid":"002"},{"news_abstract":"实时资讯03_概要","news_author":"实时资讯03_作者","news_subtitle":"实时资讯03_副标题","news_title":"实时资讯03_标题","uuid":"003"},{"news_abstract":"实时资讯04_概要","news_author":"实时资讯04_作者","news_subtitle":"实时资讯04_副标题","news_title":"实时资讯04_标题","uuid":"004"},{"news_abstract":"实时资讯05_概要","news_author":"实时资讯05_作者","news_subtitle":"实时资讯05_副标题","news_title":"实时资讯05_标题","uuid":"001"},{"news_abstract":"实时资讯06_概要","news_author":"实时资讯06_作者","news_subtitle":"实时资讯06_副标题","news_title":"实时资讯06_标题","uuid":"001"},{"news_abstract":"实时资讯07_概要","news_author":"实时资讯07_作者","news_subtitle":"实时资讯07_副标题","news_title":"实时资讯07_标题","uuid":"001"},{"news_abstract":"实时资讯08_概要","news_author":"实时资讯08_作者","news_subtitle":"实时资讯08_副标题","news_title":"实时资讯08_标题","uuid":"001"},{"news_abstract":"实时资讯09_概要","news_author":"实时资讯09_作者","news_subtitle":"实时资讯09_副标题","news_title":"实时资讯09_标题","uuid":"001"},{"news_abstract":"实时资讯10_概要","news_author":"实时资讯10_作者","news_subtitle":"实时资讯10_副标题","news_title":"实时资讯10_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"}];
+
+	var hyNewsArray = [{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"//行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"}];
+	//初始化给页面渲染三个类型新闻列表信息
+	printAllNewsList(hotNewsArry.length,timeNewsArray.length,hyNewsArray.length);
+	//定义新闻类型参数变量
+	var newsType = "hotNews";
+	//定义当前的新闻总条数
+	var newsArraySize = hotNewsArry.length;
+	//定义总页数
+	var pageNum;
+	//定义当前所在的页数
+	var currentPageNum;
+	getPageListButton(newsArraySize);
+	//定义获取页数的方法
+	function getPageListButton(arraySize){
+		currentPageNum = 1;
+		if(arraySize % 5 != 0){
+			pageNum = (arraySize - (arraySize % 5)) / 5 +1;
+		}else{
+			pageNum = (arraySize - (arraySize % 5)) / 5;
+		}
+		$('#pageList').append("<li><a aria-label='Previous' onclick='pervious();return false;'><span aria-hidden='true'>&laquo;</span></a></li>");
+		$('#pageList').append("<li><a>首页</a></li>");
+		for(var i = 0;i<pageNum;i++){
+			var currentPage = i +1;
+			if(i < 5){
+				$('#pageList').append("<li id='tab_"+currentPage+"'><a onclick='openTo(this);return false;'>"+currentPage+"</a></li>");
+			}else{
+				$('#pageList').append("<li id='tab_"+currentPage+"' class='hidden'><a onclick='openTo(this);return false;'>"+currentPage+"</a></li>");
+			}
+		}
+		if(pageNum > 5){
+			$('#pageList').append("<li><a>...</a></li>");
+		}
+		$('#pageList').append("<li><a>末页</a></li>");
+		$('#pageList').append("<li><a aria-label='Next' onclick='nextTo();return false;'><span aria-hidden='true'>&raquo;</span></a></li>");
+		$("#tab_"+currentPageNum+"").addClass("active");
+	}
+	//点击上一页按钮触发的方法
+	function pervious(){
+		if(currentPageNum <= 1){
+			alert("已经到首页");
+			return;
+		}
+		if($("#tab_"+(currentPageNum-1)+"").hasClass("hidden")){
+			$("#tab_"+(currentPageNum+4)+"").addClass("hidden");
+			$("#tab_"+(currentPageNum-1)+"").removeClass("hidden");
+			$("#tab_"+currentPageNum+"").removeClass("active");
+			$("#tab_"+(currentPageNum-1)+"").addClass("active");
+		}else{
+			$("#tab_"+currentPageNum+"").removeClass("active");
+			$("#tab_"+(currentPageNum-1)+"").addClass("active");
+		}
+		currentPageNum--
+		//根据页数展现新闻
+		for (var i = 1; i < newsArraySize+1;i++) {
+			var begin = (currentPageNum*5-4);
+			var end = begin + 4;
+			if(i >= begin && i <= end){
+				$("#"+newsType+"_"+i).removeClass("hidden");
+			}else{
+				$("#"+newsType+"_"+i).addClass("hidden");
+			}
+		}
+		return;
+	}
+	//点击下一页按钮触发的方法
+	function nextTo(){
+		if(currentPageNum == pageNum){
+			alert("已经到末页");
+			return;
+		}
+		if($("#tab_"+(currentPageNum+1)+"").hasClass("hidden")){
+			$("#tab_"+(currentPageNum-4)+"").addClass("hidden");
+			$("#tab_"+(currentPageNum+1)+"").removeClass("hidden");
+			$("#tab_"+currentPageNum+"").removeClass("active");
+			$("#tab_"+(currentPageNum+1)+"").addClass("active");
+		}else{
+			$("#tab_"+currentPageNum+"").removeClass("active");
+			$("#tab_"+(currentPageNum+1)+"").addClass("active");
+		}
+		currentPageNum++
+		//根据页数展现新闻
+		for (var i = 1; i < newsArraySize+1;i++) {
+			var begin = (currentPageNum*5-4);
+			var end = begin + 4;
+			if(i >= begin && i <= end){
+				$("#"+newsType+"_"+i).removeClass("hidden");
+			}else{
+				$("#"+newsType+"_"+i).addClass("hidden");
+			}
+		}
+		return;
+	}
+	//点击每一个标签页触发的方法
+	function openTo(target){
+		for(var i = 1;i < pageNum+1;i++){
+			$("#tab_"+i+"").removeClass("active");
+		}
+		currentPageNum = $(target).text();
+		$("#tab_"+currentPageNum+"").addClass("active");
+		//根据页数展现新闻
+		for (var i = 1; i < newsArraySize+1;i++) {
+			var begin = (currentPageNum*5-4);
+			var end = begin + 4;
+			if(i >= begin && i <= end){
+				$("#"+newsType+"_"+i).removeClass("hidden");
+			}else{
+				$("#"+newsType+"_"+i).addClass("hidden");
+			}
+		}
+	}
+	//定义渲染新闻的方法
+	function printAllNewsList(arraySize_1,arraySize_2,arraySize_3){
+		for(var i = 0; i < arraySize_1;i++){
+			var hotNews_author = hotNewsArry[i].news_author;
+			var hotNews_title = hotNewsArry[i].news_title;
+			var hotNews_subtitle = hotNewsArry[i].news_subtitle;
+			if(i < 5){
+				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelRed'><h3 class='panel-title'>热点新闻>"+hotNews_title+"</h3></div><div class='panel-body'>发布者："+hotNews_author+"副标题："+hotNews_subtitle+"</div></div>");
+			}else{
+				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelRed'><h3 class='panel-title'>热点新闻>"+hotNews_title+"</h3></div><div class='panel-body'>发布者："+hotNews_author+"副标题："+hotNews_subtitle+"</div></div>");
+			}
+			
+		}
+		for(var i = 0; i < arraySize_2;i++){
+			var timeNews_author = timeNewsArray[i].news_author;
+			var timeNews_title = timeNewsArray[i].news_title;
+			var timeNews_subtitle = timeNewsArray[i].news_subtitle;
+			if(i < 5){
+				$("#newsBlock2").append("<div id='timeNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGreen'><h3 class='panel-title'>热点新闻>"+timeNews_title+"</h3></div><div class='panel-body'>发布者："+timeNews_author+"副标题："+timeNews_subtitle+"</div></div>");
+			}else{
+				$("#newsBlock2").append("<div id='timeNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGreen'><h3 class='panel-title'>热点新闻>"+timeNews_title+"</h3></div><div class='panel-body'>发布者："+timeNews_author+"副标题："+timeNews_subtitle+"</div></div>");
+			}
+			
+		}
+		for(var i = 0; i < arraySize_3;i++){
+			var hyNews_author = hyNewsArray[i].news_author;
+			var hyNews_title = hyNewsArray[i].news_title;
+			var hyNews_subtitle = hyNewsArray[i].news_subtitle;
+			if(i < 5){
+				$("#newsBlock3").append("<div id='hyNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelYello'><h3 class='panel-title'>热点新闻>"+hyNews_title+"</h3></div><div class='panel-body'>发布者："+hyNews_author+"副标题："+hyNews_subtitle+"</div></div>");
+			}else{
+				$("#newsBlock3").append("<div id='hyNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelYello'><h3 class='panel-title'>热点新闻>"+hyNews_title+"</h3></div><div class='panel-body'>发布者："+hyNews_author+"副标题："+hyNews_subtitle+"</div></div>");
+			}
+			
+		}
+		return;
+	}
 </script>
 <!-- Main -->
 <script src="js/main.js"></script>
