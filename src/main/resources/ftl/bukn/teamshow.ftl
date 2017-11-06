@@ -287,20 +287,6 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="fh5co-testimonial-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="2.6s">
-							<div class="fh5co-name">
-								<div class="fh5co-meta">
-									<h3>Colleen Bass</h3>
-									<span class="fh5co-company">XYZ Inc.</span>
-								</div>
-							</div>
-							<div class="fh5co-text">
-								<p>&ldquo;Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
-							</div>
-						</div>
-					</div>
-
 					<div class="clearfix visible-sm-block"></div>
 
 				</div>

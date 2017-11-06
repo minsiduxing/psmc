@@ -383,7 +383,7 @@
 								<div class="icon">
 									<i class="glyphicon glyphicon-thumbs-up"></i>
 								</div>
-								<span class="fh5co-counter js-counter" data-from="0" data-to="66" data-speed="5000" data-refresh-interval="50"></span>
+								<span class="fh5co-counter js-counter" data-from="0" data-to="" data-speed="5000" data-refresh-interval="50"></span>
 								<span class="fh5co-counter-label">用户咨询量</span>
 							</div>
 							<div class="col-md-4 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.1s">
@@ -427,6 +427,10 @@
 	<script src="js/wow.min.js"></script>
 	<script>
 		new WOW().init();
+		//设置今日访客量的随机两位数（30~99）
+		var num = Math.random()*70+30;
+		num = parseInt(num, 10);
+		$("#dataTo").data('to',num);
 	</script>
 	<!-- Main -->
 	<script src="js/main.js">

@@ -212,25 +212,25 @@
 					 	<div class="col-md-3 text-center">
 					 		<img src="images/bo.jpg" id="img01">
 					 		<div class="imgContentDiv" id="imgContentDiv01">
-					 			<p class="imgContentText">博：专业化 知识化 信息化</p>
+					 			<p class="imgContentText">专业化 知识化 信息化</p>
 					 		</div>
 					 	</div>
 					  	<div class="col-md-3 text-center">
 					 		<img src="images/hui.jpg" id="img02">
 					 		<div class="imgContentDiv" id="imgContentDiv02">
-					 			<p class="imgContentText">汇：汇集优势 整合资源</p>
+					 			<p class="imgContentText">汇集优势 整合资源</p>
 					 		</div>
 					 	</div>
 					 	<div class="col-md-3 text-center">
 					 		<img src="images/kang.jpg" id="img03">
 					 		<div class="imgContentDiv" id="imgContentDiv03">
-					 			<p class="imgContentText">康：健康发展 持续稳定</p>
+					 			<p class="imgContentText">健康发展 持续稳定</p>
 					 		</div>
 					 	</div>
 					 	<div class="col-md-3 text-center">
 					 		<img src="images/ning.jpg" id="img04">
 					 		<div class="imgContentDiv" id="imgContentDiv04">
-					 			<p class="imgContentText">宁：内心宁静 独立思考</p>
+					 			<p class="imgContentText">内心宁静 独立思考</p>
 					 		</div>
 					 	</div>
 					</div>

@@ -157,8 +157,8 @@
 		display: block;
 		text-align: center;
 		box-shadow: 3px 3px 3px #ddd;
-		width: 350px;
-    		height: 436px;
+		width: 98%;
+    		height: 98%;
     		background-color: #f8f7f7;
     		margin: 20px 0;
     		padding-top: 10px; 
