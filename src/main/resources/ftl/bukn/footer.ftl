@@ -42,7 +42,9 @@
 				<div class="row text-center">
 					<div class="col-md-12 wow fadeInUp" data-wow-duration="1s"s	tyle=" font-size: 12px !important; margin-top:-40px;" data-wow-delay=".5s">
 					<!--<img src="images/police.png">&nbsp;深公网安备&nbsp;44010202000381&nbsp;|&nbsp; ;股票代码&nbsp;888888-->
-						<p>友情链接 | 百度搜索 | 搜狐新闻 | 腾讯视频 | 蚂蚁金融</p>
+						<p>友情链接 | <a href="http://www.amac.org.cn/">中国证券投资基金业协会</a> | <a href="http://www.sac.net.cn/">中国证券业协会</a> | <a href="http://www.csrc.gov.cn/pub/newsite/">中国证券监督管理委员会</a> | <a href="http://www.szse.cn/">深圳证券交易所</a></p>
+						<p><a href="http://www.sse.com.cn/">上海证券交易所</a> | <a href="http://www.simuwang.com/?utm_source=12">私募排排网</a> | <a href="http://www.cicc.com/index_cn.xhtml?locale=zh_CN">中国国际金融股份有限公司</a> | <a href="http://www.sxzbjs.com/">陕西中博建设集团有限公司</a></p>
+						<p>备案/许可证编号为 | 粤ICP备17132929号</p>
 						<p>Copyright&nbsp;&copy; 2017-2018 博汇康宁（深圳）投资基金管理有限公司&nbsp;</p>
 						<p>技术支持 | 西安敏思笃行信息技术有限公司</p>
 					</div>
