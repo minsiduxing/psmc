@@ -212,25 +212,25 @@
 					 	<div class="col-md-3 text-center">
 					 		<img src="images/bo.jpg" id="img01">
 					 		<div class="imgContentDiv" id="imgContentDiv01">
-					 			<p class="imgContentText">博：填充内容字数控制在30字以内</p>
+					 			<p class="imgContentText">博：专业化 知识化 信息化</p>
 					 		</div>
 					 	</div>
 					  	<div class="col-md-3 text-center">
 					 		<img src="images/hui.jpg" id="img02">
 					 		<div class="imgContentDiv" id="imgContentDiv02">
-					 			<p class="imgContentText">汇：填充内容字数控制在30字以内</p>
+					 			<p class="imgContentText">汇：汇集优势 整合资源</p>
 					 		</div>
 					 	</div>
 					 	<div class="col-md-3 text-center">
 					 		<img src="images/kang.jpg" id="img03">
 					 		<div class="imgContentDiv" id="imgContentDiv03">
-					 			<p class="imgContentText">康：填充内容字数控制在30字以内</p>
+					 			<p class="imgContentText">康：健康发展 持续稳定</p>
 					 		</div>
 					 	</div>
 					 	<div class="col-md-3 text-center">
 					 		<img src="images/ning.jpg" id="img04">
 					 		<div class="imgContentDiv" id="imgContentDiv04">
-					 			<p class="imgContentText">宁：填充内容字数控制在30字以内</p>
+					 			<p class="imgContentText">宁：内心宁静 独立思考</p>
 					 		</div>
 					 	</div>
 					</div>
