@@ -85,5 +85,21 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    	<select id="selectOperateCountByNo" parameterType="hashmap" resultType="int">
    		select count(1) from tab_operate where operate_no =#{operateNo} and uuid != #{operateUuid}
    	</select>
+   	
+   	<select id="selectOpertateById" parameterType="priv.guochun.psmc.authentication.operate.model.TabOperate" resultType="priv.guochun.psmc.authentication.operate.model.TabOperate">
+   		SELECT
+			A.uuid,
+			A.resource_uuid AS resourceUuid,
+			A.privilege_uuid AS privilegeUuid,
+			A.fun_class AS funClass,
+			A.fun_method AS funMethod,
+			A.OPERATE_NAME AS operateName,
+			A.OPERATE_DESC AS operateDesc,
+			A.ORDERNUM AS ordernum,
+			A.OPERATE_NO AS operateNo
+		FROM
+			tab_operate A
+		WHERE uuid = #{uuid}
+   	</select>
 
 </mapper>  

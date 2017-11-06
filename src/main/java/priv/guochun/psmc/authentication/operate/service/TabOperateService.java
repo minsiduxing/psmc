@@ -86,4 +86,11 @@ public interface TabOperateService {
 	 * @author wenxiaoming 2017年10月3日
 	 */
 	public int selectOperateCountByNo(String operateUuid, String operateNo);
+	
+	/**
+	 * 根据主键查询操作配置
+	 * @param operateUuid
+	 * @return
+	 */
+	public TabOperate selectOpertateById(TabOperate tabResourceOperate);
 }

@@ -49,7 +49,8 @@ public class TabOperateServiceImpl implements TabOperateService {
     @Override
     public void saveOrUpdateResOperateConfig(TabOperate tabResourceOperate)
     {
-        if (StringUtils.isNotBlank(tabResourceOperate.getUuid())){
+    	TabOperate tabOperate = tabOperateDao.selectOpertateById(tabResourceOperate);
+        if (tabOperate != null){
             tabOperateDao.updateResOperateConfig(tabResourceOperate);
         }else{
             String uuid = UUIDGenerator.createUUID();
@@ -78,6 +79,12 @@ public class TabOperateServiceImpl implements TabOperateService {
         int count = tabOperateDao.selectOperateCountByNo(operateUuid, operateNo);
         return count;
     }
+    
+
+	@Override
+	public TabOperate selectOpertateById(TabOperate tabResourceOperate) {
+		return tabOperateDao.selectOpertateById(tabResourceOperate);
+	}
 	
 	public TabOperateDao getTabOperateDao() {
 		return tabOperateDao;

@@ -25,6 +25,7 @@ public class TabOperateDaoImplMybatis implements TabOperateDao {
     public static final String updateResOperateConfig ="updateResOperateConfig";
     public static final String deleteOperate ="deleteOperate";
     public static final String selectOperateCountByNo ="selectOperateCountByNo";
+    public static final String selectOpertateById ="selectOpertateById";
 	private SqlSessionTemplate sqlSession;
 
 	
@@ -106,5 +107,10 @@ public class TabOperateDaoImplMybatis implements TabOperateDao {
         int count = sqlSession.selectOne(selectOperateCountByNo, condition);
         return count;
     }
+
+	@Override
+	public TabOperate selectOpertateById(TabOperate tabResourceOperate) {
+        return sqlSession.selectOne(selectOpertateById, tabResourceOperate);
+	}
 
 }

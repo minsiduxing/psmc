@@ -149,7 +149,7 @@ public class TabRoleController extends MyController {
 		//2.1 设置属性列名
 		 this.setColumns(new String[]{"ROLE_NO","ROLE_NAME","CREATOR","CREATE_TIME","REMARK"});
 		 //2.2 设置表格的显示名
-		 this.setTitles(new String[]{"角色编码","角色名称","姓创建者","创建时间","角色描述"});
+		 this.setTitles(new String[]{"角色编码","角色名称","创建者","创建时间","角色描述"});
 		 //2.3设置文件名
 		 this.setFileName("角色信息列表.xls");
 		//2.4 初始化数据
