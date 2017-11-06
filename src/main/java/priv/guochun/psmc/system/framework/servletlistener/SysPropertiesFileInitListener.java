@@ -6,14 +6,16 @@ import javax.servlet.ServletContextListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
+import priv.guochun.psmc.website.stage.bhkn.service.GenerateStageHtmlService;
 
 public class SysPropertiesFileInitListener implements ServletContextListener
 {
 
     private final static Logger logger  = LoggerFactory.getLogger(SysPropertiesFileInitListener.class.getName());
-    
     @Override
     public void contextDestroyed(ServletContextEvent arg0){}
     
@@ -31,6 +33,9 @@ public class SysPropertiesFileInitListener implements ServletContextListener
             SystemPropertiesUtil.loadPropertiesInit(obj.toString());
         }else
             logger.error("systemPropertiesFileName  Does not exist,please add init-param 'systemPropertiesFileName' in web.xml.........");
+        //初始化网站模板
+        GenerateStageHtmlService generateStageHtmlService =(GenerateStageHtmlService)MySpringApplicationContext.getObject("generateStageHtmlService");
+        generateStageHtmlService.genetateAllStageHtmls();
        
     }
 

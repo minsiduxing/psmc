@@ -432,7 +432,7 @@
 			pageNum = (arraySize - (arraySize % 5)) / 5;
 		}
 		$('#pageList').append("<li><a aria-label='Previous' onclick='pervious();return false;'><span aria-hidden='true'>&laquo;</span></a></li>");
-		$('#pageList').append("<li><a>首页</a></li>");
+		$('#pageList').append("<li><a onclick='firstPage();return false;'>首页</a></li>");
 		for(var i = 0;i<pageNum;i++){
 			var currentPage = i +1;
 			if(i < 5){
@@ -444,7 +444,7 @@
 		if(pageNum > 5){
 			$('#pageList').append("<li><a>...</a></li>");
 		}
-		$('#pageList').append("<li><a>末页</a></li>");
+		$('#pageList').append("<li><a onclick='lastPage();return false;'>末页</a></li>");
 		$('#pageList').append("<li><a aria-label='Next' onclick='nextTo();return false;'><span aria-hidden='true'>&raquo;</span></a></li>");
 		$("#tab_"+currentPageNum+"").addClass("active");
 	}
@@ -506,10 +506,64 @@
 	}
 	//点击每一个标签页触发的方法
 	function openTo(target){
+		currentPageNum = $(target).text();
+		for(var i = 1;i < pageNum+1;i++){
+		   var begin = (currentPageNum-4);
+			var end = begin + 4;
+			$("#tab_"+i+"").removeClass("active");
+			$("#tab_"+i+"").addClass("hidden");
+			
+			if(i >= begin && i <= end || i<=5)  {
+			  $("#tab_"+(i)+"").removeClass("hidden");
+			}
+			if(i==currentPageNum){
+				$("#tab_"+i+"").addClass("active");
+			}
+		}
+		//根据页数展现新闻
+		for (var i = 1; i < newsArraySize+1;i++) {
+			var begin = (currentPageNum*5-4);
+			var end = begin + 4;
+			if(i >= begin && i <= end){
+				$("#"+newsType+"_"+i).removeClass("hidden");
+			}else{
+				$("#"+newsType+"_"+i).addClass("hidden");
+			}
+		}
+	}
+	//首页方法 
+	function firstPage(){
+	currentPageNum = 1;
 		for(var i = 1;i < pageNum+1;i++){
 			$("#tab_"+i+"").removeClass("active");
+			$("#tab_"+i+"").addClass("hidden");
+			if(i<=(currentPageNum+4) ){
+			  $("#tab_"+(i)+"").removeClass("hidden");
+			}
 		}
-		currentPageNum = $(target).text();
+	    $("#tab_"+currentPageNum+"").addClass("active");
+		//根据页数展现新闻
+		for (var i = 1; i < newsArraySize+1;i++) {
+			var begin = (currentPageNum*5-4);
+			var end = begin + 4;
+			if(i >= begin && i <= end){
+				$("#"+newsType+"_"+i).removeClass("hidden");
+			}else{
+				$("#"+newsType+"_"+i).addClass("hidden");
+			}
+		}
+		
+	}
+	//尾页方法 
+	function lastPage(){
+		currentPageNum = pageNum;
+		for(var i = 1;i < pageNum+1;i++){
+			$("#tab_"+i+"").removeClass("active");
+			$("#tab_"+i+"").addClass("hidden");
+			if(i>=(currentPageNum-4) ){
+			  $("#tab_"+(i)+"").removeClass("hidden");
+			}
+		}
 		$("#tab_"+currentPageNum+"").addClass("active");
 		//根据页数展现新闻
 		for (var i = 1; i < newsArraySize+1;i++) {
@@ -528,7 +582,7 @@
 			var hotNews_author = hotNewsArry[i].news_author;
 			var hotNews_title = hotNewsArry[i].news_title;
 			var hotNews_subtitle = hotNewsArry[i].news_subtitle;
-			var uuid = timeNewsArray[i].uuid;
+			var uuid = hotNewsArry[i].uuid;
 			if(i < 5){
 				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelRed'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>热点新闻>"+hotNews_title+"</h3></div><div class='panel-body'>发布者："+hotNews_author+"副标题："+hotNews_subtitle+"</div></div>");
 			}else{
@@ -552,7 +606,7 @@
 			var hyNews_author = hyNewsArray[i].news_author;
 			var hyNews_title = hyNewsArray[i].news_title;
 			var hyNews_subtitle = hyNewsArray[i].news_subtitle;
-			var uuid = timeNewsArray[i].uuid;
+			var uuid = hyNewsArray[i].uuid;
 			if(i < 5){
 				$("#newsBlock3").append("<div id='hyNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelYello'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>行业动向>"+hyNews_title+"</h3></div><div class='panel-body'>发布者："+hyNews_author+"副标题："+hyNews_subtitle+"</div></div>");
 			}else{
