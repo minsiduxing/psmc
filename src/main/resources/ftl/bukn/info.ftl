@@ -144,6 +144,7 @@
 		font-family: "Microsoft YaHei","微软雅黑";
 		font-size: 20px;
 		font-weight: 500;
+		background-color: rgba(51, 122, 183, 1);
 	}
 	.productDiv>a{
 		border: none;
@@ -153,10 +154,8 @@
 	    	text-decoration: none;
 	    	display: inline-block;
 	    	font-size: 16px;
-	    	border-radius: 50%;
-	    	box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 	}
-	.productDiv>a:hover{
+	.productDiv:hover{
 		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 	}
 	.hotNews{
@@ -212,18 +211,16 @@
 	.pagination>li>a{
 		color: rgb(128,128,128);
 	}
-	.panelRed{
-		background-color: #C63300 !important;
-	}
-	.panelGreen{
-		background-color: #00AA00 !important;
-	}
-	.panelYello{
-		background-color: #FFBB00 !important;
+	.panelGray{
+		background-color: #f5f5f5 !important;
 	}
 	.panel-title:hover{
 	 cursor:pointer;
 	 }
+	.infoBorder{
+		border:2px solid rgba(221, 221, 221, 1);
+		border-radius: 1%;
+	}
 	 /* 解决页面抖动*/
 	 body{ overflow: auto !important;} .modal{ overflow: auto !important;} 
 </style>
@@ -258,37 +255,39 @@
 					<span class="compCuContent">行&nbsp;情&nbsp;资&nbsp;讯</span>
 				</div>
 				<div class="container" style="width: 80%;">
-					<div class="row">
+					<div class="row" style="margin-bottom: 5%;">
 					 	<div class="col-md-4">
 					 		<div class="productDiv">
-					 			<a class="hotNews" id="hotNews">热点新闻</a>
+					 			<a id="hotNews">热点新闻</a>
 					 		</div>
 					 	</div>
 					  	<div class="col-md-4">
 					 		<div class="productDiv">
-					 			<a  class="timeNews" id="timeNews">实时资讯</a>
+					 			<a id="timeNews">实时资讯</a>
 					 		</div>
 					 	</div>
 					 	<div class="col-md-4">
 					 		<div class="productDiv">
-					 			<a class="hangYeMove" id="hangYeMove">行业动向</a>
+					 			<a id="hangYeMove">行业动向</a>
 					 		</div>
 					 	</div>
 					</div>
-					<div id="newsBlock1">
-					</div>
-					<!-- newsBlock2-->
-					<div id="newsBlock2">
-					</div>
-					<!-- newsBlock3-->
-					<div id="newsBlock3">
+					<div class="infoBorder">
+						<div id="newsBlock1" class="newsInfoDiv">
+						</div>
+						<!-- newsBlock2-->
+						<div id="newsBlock2" class="newsInfoDiv">
+						</div>
+						<!-- newsBlock3-->
+						<div id="newsBlock3" class="newsInfoDiv">
+						</div>
 					</div>
 					<nav aria-label="Page navigation" class="tabDiv">
 					  	<ul class="pagination pagination-lg" id="pageList">
 					    		
 					  	</ul>
 					</nav>
-				</div>
+				</div>	
 			</div>
 		</div>
 		
@@ -597,38 +596,38 @@
 	//定义渲染新闻的方法
 	function printAllNewsList(arraySize_1,arraySize_2,arraySize_3){
 		for(var i = 0; i < arraySize_1;i++){
-			var hotNews_author = hotNewsArry[i].news_author;
+			var hotNews_author = hotNewsArry[i].releaseAccName;
 			var hotNews_title = hotNewsArry[i].news_title;
-			var hotNews_subtitle = hotNewsArry[i].news_subtitle;
+			var hotNews_date = hotNewsArry[i].release_date;
 			var uuid = hotNewsArry[i].uuid;
 			if(i <=pageSize){
-				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelRed'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>热点新闻>"+hotNews_title+"</h3></div><div class='panel-body'>发布者："+hotNews_author+"副标题："+hotNews_subtitle+"</div></div>");
+				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>热点新闻>"+hotNews_title+"</h3></div><div class='panel-body'>发布者："+hotNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hotNews_date+"</div></div>");
 			}else{
-				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelRed'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>热点新闻>"+hotNews_title+"</h3></div><div class='panel-body'>发布者："+hotNews_author+"副标题："+hotNews_subtitle+"</div></div>");
+				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>热点新闻>"+hotNews_title+"</h3></div><div class='panel-body'>发布者："+hotNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hotNews_date+"</div></div>");
 			}
 			
 		}
 		for(var i = 0; i < arraySize_2;i++){
-			var timeNews_author = timeNewsArray[i].news_author;
+			var timeNews_author = timeNewsArray[i].releaseAccName;
 			var timeNews_title = timeNewsArray[i].news_title;
-			var timeNews_subtitle = timeNewsArray[i].news_subtitle;
+			var timeNews_date = timeNewsArray[i].release_date;
 			var uuid = timeNewsArray[i].uuid;
 			if(i <=pageSize){
-				$("#newsBlock2").append("<div id='timeNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGreen'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>实时资讯>"+timeNews_title+"</h3></div><div class='panel-body'>发布者："+timeNews_author+"副标题："+timeNews_subtitle+"</div></div>");
+				$("#newsBlock2").append("<div id='timeNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>实时资讯>"+timeNews_title+"</h3></div><div class='panel-body'>发布者："+timeNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+timeNews_date+"</div></div>");
 			}else{
-				$("#newsBlock2").append("<div id='timeNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGreen'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>实时资讯>"+timeNews_title+"</h3></div><div class='panel-body'>发布者："+timeNews_author+"副标题："+timeNews_subtitle+"</div></div>");
+				$("#newsBlock2").append("<div id='timeNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>实时资讯>"+timeNews_title+"</h3></div><div class='panel-body'>发布者："+timeNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+timeNews_date+"</div></div>");
 			}
 			
 		}
 		for(var i = 0; i < arraySize_3;i++){
-			var hyNews_author = hyNewsArray[i].news_author;
+			var hyNews_author = hyNewsArray[i].releaseAccName;
 			var hyNews_title = hyNewsArray[i].news_title;
-			var hyNews_subtitle = hyNewsArray[i].news_subtitle;
+			var hyNews_date = hyNewsArray[i].release_date;
 			var uuid = hyNewsArray[i].uuid;
 			if(i <=pageSize){
-				$("#newsBlock3").append("<div id='hyNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelYello'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>行业动向>"+hyNews_title+"</h3></div><div class='panel-body'>发布者："+hyNews_author+"副标题："+hyNews_subtitle+"</div></div>");
+				$("#newsBlock3").append("<div id='hyNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>行业动向>"+hyNews_title+"</h3></div><div class='panel-body'>发布者："+hyNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hyNews_date+"</div></div>");
 			}else{
-				$("#newsBlock3").append("<div id='hyNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelYello'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")'  data-toggle='modal' data-target='#myModal'>行业动向>"+hyNews_title+"</h3></div><div class='panel-body'>发布者："+hyNews_author+"副标题："+hyNews_subtitle+"</div></div>");
+				$("#newsBlock3").append("<div id='hyNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")'  data-toggle='modal' data-target='#myModal'>行业动向>"+hyNews_title+"</h3></div><div class='panel-body'>发布者："+hyNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hyNews_date+"</div></div>");
 			}
 			
 		}

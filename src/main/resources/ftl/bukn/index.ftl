@@ -308,63 +308,6 @@
 			</div>
 		</div>
 
-		<div class="fh5co-blog-style-1" style="background-color: #FFFCEC">
-			<div class="container" id="infolist">
-				<div class="row">
-					<div class="col-md-6 col-md-offset-3 text-center">
-						<img src="./images/index_rise_3.jpg" style="width: 60%">
-					</div>
-				</div>
-				<div class="row p-b">
-					<div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12">
-						<div class="fh5co-post wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.1s">
-							<div class="fh5co-post-image">
-								<div class="fh5co-overlay"></div>	
-								<div class="fh5co-category"><a href="info.html#compCuContent" style="background-color: red;">热点新闻+</a></div>	
-								<img src="images/news1.jpg" alt="Image" class="img-responsive">
-							</div>
-							<div class="fh5co-post-text">
-								<h3><a href="#">2017年A股十大牛股：博汇康宁涨逾10倍</a></h3>
-								<p>据统计，今年，两市3034只个股中仅924只个股上涨，涨幅最大的博汇康宁年累计涨幅达1069%(以上市首日收盘价起算，下同)，11...</p>
-							</div>
-							<div class="fh5co-post-meta"></div>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12">
-						<div class="fh5co-post wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.4s">
-							<div class="fh5co-post-image">
-								<div class="fh5co-overlay"></div>	
-								<div class="fh5co-category"><a href="info.html#compCuContent" style="background-color: green;">实时资讯+</a></div>	
-								<img src="images/news2.jpg" alt="Image" class="img-responsive">
-							</div>
-							<div class="fh5co-post-text">
-								<h3><a href="#">腾讯控股开盘涨5.32% 股价再创历史新高</a></h3>
-								<p>证券时报（www.stcn.com）08月17日讯 8月17日，今日早盘，腾讯控股开盘涨5.32%，报340.40港元，股价再创历史新高，市值达到3.23万亿...</p>
-							</div>
-							<div class="fh5co-post-meta"></div>
-						</div>
-					</div>
-					<div class="clearfix visible-sm-block"></div>
-					<div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12">
-						<div class="fh5co-post wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.7s">
-							<div class="fh5co-post-image">
-								<div class="fh5co-overlay"></div>	
-								<div class="fh5co-category"><a href="info.html#compCuContent" style="background-color: #FFD700;">行业动向+</a></div>	
-								<img src="images/news3.jpg" alt="Image" class="img-responsive">
-							</div>
-							<div class="fh5co-post-text">
-								<h3><a href="#">证监会连发三文，给中国股市传递...</a></h3>
-								<p>证监会一天连发三文，引起市场各方的高度关注。然而，对于证监会如此密集的发文速度，确实罕见，这一举动实际上也给市场传递出一些信号...</p>
-							</div>
-							<div class="fh5co-post-meta"></div>
-						</div>
-					</div>
-					<div class="clearfix visible-sm-block"></div>
-				</div>
-			</div>
-		</div>
-
-
 		<div class="fh5co-counter-style-2" style="background-image: url(images/r.jpg);">
 			<div class="fh5co-overlay"></div>
 			<div class="container" id="numCount">
