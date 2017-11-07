@@ -150,7 +150,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	   		 tn.news_subtitle,
 	   		 tn.thumbnail_image_url, 
 	   		 tn.news_author,
-	   		 tn.news_abstract 
+	   		 tn.news_abstract ,
+	   		 tm.release_date,
+	   		 tpr.PERSON_NAME as releaseAccName 
 	   	  FROM tab_news tn
 	   	  LEFT JOIN tab_module tm
    		  ON 
@@ -158,6 +160,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    		  LEFT JOIN tab_module_publish tmpl
    		  ON 
    		 	tmpl.module_uuid = tm.uuid
+   		 LEFT JOIN tab_person tpr
+   		 ON 
+   		 	tpr.uuid = tmpl.publish_account_uuid
    			<where>
    				<if test="towLevelClassify !=null and towLevelClassify!=''">
    					and tm.two_level_classify = #{towLevelClassify}
@@ -166,6 +171,8 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
         		    and <![CDATA[tmpl.publish_expire_date>=#{publishExpireDate} ]]>  
       			 </if>  
    			 and  tm.release_status =1
+   			 order by
+   			 tm.release_date desc
    			</where>
   	 	</select>
 
