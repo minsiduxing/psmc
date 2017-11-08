@@ -34,6 +34,7 @@ $(document).ready(function(){
 	                     if(value=='1'){return "热点新闻"; }
 	                     if(value=='2'){return "实时资讯"; }
 	                     if(value=='3'){return "行业动向"; }
+	                     if(value=='4'){return "会员信息"; }
 	                  }},
 		          {field:'release_status',title:'发布状态',resizable:true,formatter: function (value, row, index) {
 	                     if(value=='0'){return "未发布"; }

@@ -131,7 +131,8 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    					and tm.create_acc_uuid =#{userId}
    				</if>
    			</where>
-   			
+   			 order by
+   			 tm.create_date desc
    	</select>
   	<!-- 根据id获取新闻详细内容 -->
   	 <select id="getNewsByUuid" resultType="java.util.Map" parameterType="hashmap">

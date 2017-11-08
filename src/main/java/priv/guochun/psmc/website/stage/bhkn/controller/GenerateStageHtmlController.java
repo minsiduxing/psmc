@@ -106,6 +106,17 @@ public class GenerateStageHtmlController extends MyController {
 		generateStageHtmlService.generateInofHtml();
 		super.responseJson(true,"生成新闻列表页面成功！", response);
 	}
+	/**
+	 * <p>Description:生成会员信息列表页的html<p>
+	 * @author wanglei 2017年9月21日
+	 * @throws IOException 
+	 */
+	@RequestMapping(params="method=generateMemberHtml")
+	@ResponseBody
+	public void generateMemberHtml(HttpServletResponse response) throws IOException{
+		generateStageHtmlService.generateMemberInofHtml();
+		super.responseJson(true,"生成会员列表页面成功！", response);
+	}
 	
 	/**生成博汇康宁全部网站页面
 	 * @param response

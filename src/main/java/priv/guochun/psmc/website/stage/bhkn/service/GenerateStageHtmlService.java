@@ -18,6 +18,11 @@ public interface GenerateStageHtmlService {
 	 */
 	public void generateInofHtml();
 	/**
+	 * <p>Description:生成会员信息页面<p>
+	 * @author wanglei 2017年11月8日
+	 */
+	public void generateMemberInofHtml();
+	/**
 	 * 生成产品列表
 	 */
 	public void generateProductlistHtml();

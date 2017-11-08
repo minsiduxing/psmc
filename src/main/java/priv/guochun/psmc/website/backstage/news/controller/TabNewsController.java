@@ -109,6 +109,8 @@ public class TabNewsController extends MyController {
 		tabNewsService.executeReleaseNewsBusinessMethod(tam);	
 		//生成列表页面
 		generateStageHtmlService.generateInofHtml();
+		//生成会员信息列表
+		generateStageHtmlService.generateMemberInofHtml();
 		super.responseJson(true, "发布新闻成功!", response);
 	}
 	@RequestMapping(params="method=uploadPic")

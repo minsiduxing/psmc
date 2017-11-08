@@ -62,7 +62,16 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 		//合并模板
 		gnerateHtml(newsTitles,"bukn/info.ftl", "info.html");
 	}
-           
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public void generateMemberInofHtml(){
+		Map<String,Object> memberInfos= new HashMap<String,Object>();
+		//获取行热点新闻列表
+		List memberInfo = tabNewsService.getShowNewsTitlesPagerByTowLevelClassify(ModuleEnum.TOW_LEVEL_MEMBER_INFORMATION.getValue());
+		memberInfos.put("memberInfos", JsonUtil.convertToJSONArray(memberInfo));
+		//合并模板
+		gnerateHtml(memberInfos,"bukn/member.ftl", "member.html");
+	}  
 	@Override
 	public void generateProductlistHtml() {
 		Map<String,Object> remaps= new HashMap<String,Object>();
@@ -126,6 +135,7 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 	public void genetateOtherStageHtmls() {
 		this.generateTeamShowHtml();
 		this.generateChooseUsHtml();
+		this.generateMemberInofHtml();
 		this.generateAboutUsHtml();
 		this.generateProductlistHtml();
 		this.generateIndexHtml();
