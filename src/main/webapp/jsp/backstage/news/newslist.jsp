@@ -19,11 +19,14 @@
 			<li class="li-input"><label for="" class="input-label">子标题：</label>
 				<input class="myinput" id="newSubTitle" name="newSubTitle"></input>
 			</li>
-			<li class="li-input"><label for="" class="input-label">概要：</label>
+		<!-- 	<li class="li-input"><label for="" class="input-label">概要：</label>
 				<input id="newsAbstarct" name="newsAbstarct" ></input>
-			</li>
+			</li> -->
 			<li class="li-input"><label for="" class="input-label">作者：</label>
 				<input id="newAutor" name="newAutor" value=""></input>
+			</li>
+			 <li class="li-input"><label for="" class="input-label">新闻分类：</label>
+				<input id="towLevelClassify" name="towLevelClassify"> </input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">新闻日期：</label>
 				<input id="newsDateBegin" name="newsDateBegin" value=""></input>
@@ -33,24 +36,24 @@
 			<input id="newsDateEnd" name="newsDateEnd" ></input>
 			</li>
 		
-			<li class="li-input"><label for="" class="input-label">创建人：</label>
+		<!-- 	<li class="li-input"><label for="" class="input-label">创建人：</label>
 				<input id="createAccName" name="createAccName" ></input>
-			</li>
+			</li> -->
 			<li class="li-input"><label for="" class="input-label">发布人：</label>
 				<input id="releaseAccName" name="releaseAccName" ></input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">审核人：</label>
 				<input id="auditAccName" name="auditAccName" ></input>
 			</li>
-			<li class="li-input"><label for="" class="input-label">修改人：</label>
+			<!-- <li class="li-input"><label for="" class="input-label">修改人：</label>
 				<input id="modifyAccName" name="modifyAccName" ></input>
-			</li>
-				<li class="li-input"><label for="" class="input-label">修改日期：</label>
+			</li> -->
+				<!-- <li class="li-input"><label for="" class="input-label">修改日期：</label>
 				<input id="modifyDateBegin" name="modifyDateBegin" ></input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至：</label>
 				<input id="modifyDateEnd" name="modifyDateEnd" />
-			</li>
+			</li> -->
 			<li class="li-input"><label for="" class="input-label">审核是否通过：</label>
 				<input id="audit" name="audit" value=""></input>
 			</li>
@@ -69,22 +72,20 @@
 			<li class="li-input"><label for="" class="input-label">至：</label>
 				<input id="releaseDateEnd" name="releaseDateEnd" />
 			</li>
-			 <li class="li-input"><label for="" class="input-label">新闻分类：</label>
-				<input id="towLevelClassify" name="towLevelClassify"> </input>
-			</li>
+			
 			<li class="li-input"><label for="" class="input-label">到期日期：</label>
 			<input id="publishExpireDateBegin" name="publishExpireDateBegin" ></input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至：</label>
 				<input id="publishExpireDateEnd" name="publishExpireDateEnd" />
 			</li>
-			<li class="li-input"><label for="" class="input-label">创建日期：</label>
+		<!-- 	<li class="li-input"><label for="" class="input-label">创建日期：</label>
 			<input id="createDateBegin" name="createDateBegin" ></input>
 
-			</li>
-			<li class="li-input"><label for="" class="input-label">至：</label>
+			</li> -->
+			<!-- <li class="li-input"><label for="" class="input-label">至：</label>
 					<input id="createDateEnd" name="createDateEnd" />
-			</li>
+			</li> -->
 	</ul>
 	</form>
 	<div class="query-oper">

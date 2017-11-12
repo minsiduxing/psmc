@@ -1,5 +1,7 @@
 package priv.guochun.psmc.website.backstage.module.service;
 
+import java.util.List;
+
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
 
 
@@ -29,7 +31,7 @@ public interface TabModuleService {
 	 * @param moduleUuid 模块标示
 	 * @author wanglei 2017年9月3日
 	 */
-	public void executeAuditModule(TabModule tam);
+	public void executeAuditModule(String newsIds,String auditUuid);
 	/**
 	 * <p>Description:发布模块信息<p>
 	 * @param tm 模块信息
@@ -42,5 +44,5 @@ public interface TabModuleService {
 	 * @author wanglei 2017年9月3日
 	 */
 	public void executeReleaseCancel(TabModule tam);
-	
+	public List<TabModule>  getModulesByUuids(String newsIds) ;
 }

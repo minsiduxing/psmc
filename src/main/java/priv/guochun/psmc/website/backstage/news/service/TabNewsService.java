@@ -70,7 +70,7 @@ public interface TabNewsService {
 	 * <p>Description:审核新闻<p>
 	 * @author wanglei 2017年9月3日
 	 */
-	public void executeAuditNewsBusinessMethod(TabModule tam);
+	public void executeAuditNewsBusinessMethod(String newsIds,String auditUuid);
 	/**
 	 * <p>Description:发布新闻<p>
 	 * @author wanglei 2017年9月3日

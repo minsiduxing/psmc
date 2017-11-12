@@ -46,7 +46,7 @@
                 </div>
                 </li>
 			<li ><label>新闻时间</label><br>
-				<input id="newsDate" name="newsDate"></input></li>
+				<input id="newsDate" name="newsDate" editable="false" ></input></li>
 			<li ><label >新闻作者：</label><br>
 				<input  id="newAutor" name="newAutor"></input></li>
 		</ul>
@@ -55,6 +55,7 @@
 	  <div class="operButon">
 			<input id="submitbtn" type="button" class="easyui-linkbutton" onclick=" sbmit()" value="提交"/>
 			<input id="reset" type="reset" class="easyui-linkbutton" onclick=" "  value="重置"/>
+			
 			<input id="button" type="reset" class="easyui-linkbutton" onclick=" retList() "  value="返回列表"/>
 	</div>
 	</form>
@@ -82,7 +83,12 @@ var editnewssrc = "${news.thumbnail_image_url}";
 var addUrl = '<c:url value="/website/backstage/tabNewsController"/>?method=newsSaveOrUpdate';
 var retrunUrl =  '<c:url value="/website/backstage/tabNewsController"/>?method=index';
 function formInint(isEdit){
+	$('#newsDate').datetimebox({   
+		editable:true   
+	});
+	$('#button').css("display","none");
 	if (isEdit=="isEdit") {
+		$('#button').css("display","inline");
 			$('#newsTitle').textbox({
 				value : '${news.news_title}',
 				type : "text",
@@ -99,7 +105,8 @@ function formInint(isEdit){
 			});
 			$('#newsDate').datetimebox({
 				value :'${news.news_date}',
-				required : true
+				required : true,
+				editable:true  
 			});
 			$('#newAutor').textbox({
 				value : '${news.news_author}',
@@ -126,7 +133,8 @@ function formInint(isEdit){
 		});
 		$('#newsDate').datetimebox({
 			value : "",
-			required : true
+			required : true,
+			editable:true  
 		});
 		$('#newAutor').textbox({
 			value : "",

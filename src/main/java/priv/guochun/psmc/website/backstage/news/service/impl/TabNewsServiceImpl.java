@@ -12,6 +12,7 @@ import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
+import priv.guochun.psmc.website.backstage.module.dao.TabModuleDao;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
 import priv.guochun.psmc.website.backstage.module.service.TabModuleService;
 import priv.guochun.psmc.website.backstage.news.dao.TabNewsDao;
@@ -25,6 +26,8 @@ public class TabNewsServiceImpl implements TabNewsService {
 	private TabModuleService tabModuleService;
 	@Autowired
 	private TabNewsDao tabNewsDao;
+	@Autowired
+	private TabModuleDao tabModuleDao;
 	@Override
 	public void saveOrUpdateTabNewsBusinessMethod(TabNews tabNews, TabModule tam) {
 		if(null==tabNews || null == tam){
@@ -84,10 +87,9 @@ public class TabNewsServiceImpl implements TabNewsService {
 	}
 
 	@Override
-	public void executeAuditNewsBusinessMethod(TabModule tam) {
+	public void executeAuditNewsBusinessMethod(String newsIds,String auditUuid) {
 		// 审核
-		tabModuleService.executeAuditModule(tam);
-		
+			tabModuleService.executeAuditModule( newsIds, auditUuid);
 	}
 
 	@Override
@@ -119,7 +121,5 @@ public class TabNewsServiceImpl implements TabNewsService {
 	public MyPage getNewsByConditionBusinessMethod(MyPage myPage, String userid) {
 		return tabNewsDao.getNewsByCondition(myPage,userid);
 	}
-
-	
 
 }

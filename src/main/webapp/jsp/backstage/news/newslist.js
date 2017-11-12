@@ -14,14 +14,14 @@ $(document).ready(function(){
 		          {field:'news_subtitle',title:'新闻副标题',resizable:true},  
 		          {field:'news_date',title:'新闻日期'}, 
 		          {field:'news_author',title:'新闻作者'}, 
-		          {field:'news_abstract',title:'新闻概要',formatter: function (value, row, index) {
+		         /* {field:'news_abstract',title:'新闻概要',formatter: function (value, row, index) {
 	                     if(value.length>=10){return value.substring(0,10)+"......"; }	
 	                     if(value.length<10){return value; }
-	              }}, 
-		          {field:'createAccName',title:'新闻创建人'}, 
-		          {field:'create_date',title:'新闻创建时间',resizable:true}, 
-		          {field:'modifyccName',title:'新闻修改人'}, 
-		          {field:'modify_date',title:'新闻修改时间',resizable:true}, 
+	              }}, */
+		         /* {field:'createAccName',title:'新闻创建人'}, 
+		          {field:'create_date',title:'新闻创建时间',resizable:true}, */
+		          /*{field:'modifyccName',title:'新闻修改人'}, 
+		          {field:'modify_date',title:'新闻修改时间',resizable:true}, */
 		          {field:'audit',title:'审核状态',formatter: function (value, row, index) {
                      if(value=='1'){return "审核通过"; }
                      if(value=='2'){return "未审核"; }
@@ -108,22 +108,29 @@ $("#remove").click(function(){
 $("#auditNews").click(function(){
 	var rows = $("#newsTableId").datagrid('getChecked');
 	var rlength = rows.length;
-	if(rlength ==1){
-		var rowObj = eval(rows[0]);
-		 uuid = rowObj.uuid;
-		var audit = rowObj.audit;
-		var releasestatus = rowObj.release_status;
-		if(audit==1){
-			commonObj.alert('该条新闻已经审核通过!',"warning");
-			return ;
+	var ids="";
+	if (rlength > 0){		
+		for(var i=0;i<rlength;i++){
+			var rowObj = eval(rows[i]);
+			var newsid = rowObj.uuid;
+			var audit = rowObj.audit;
+			var releasestatus = rowObj.release_status;
+			if(audit==1){
+				commonObj.alert('该条新闻已经审核通过!',"warning");
+				return ;
+			}
+			if(releasestatus==1){
+				commonObj.alert('该条新闻已经发布!,不能审核',"warning");
+				return ;
+			}
+			ids+=newsid;
+			if(i<rlength-1)
+				ids+=",";
 		}
-		if(releasestatus==1){
-			commonObj.alert('该条新闻已经发布!,不能审核',"warning");
-			return ;
-		}
-		$.messager.confirm('提示', '确认该条新闻审核通过?', function(r){
+		
+		$.messager.confirm('提示', '确认选中新闻审核通过?', function(r){
 			if (r){
-			var _url = auditnews+"&modelUuid="+uuid;
+			var _url = auditnews+"&newsIds="+ids;
 			$.messager.progress(); 
 			$.ajax({
 				   type: "POST",
@@ -139,7 +146,7 @@ $("#auditNews").click(function(){
 		
 	}});
 	}else{
-		commonObj.alert('请选择一条新闻!',"warning");
+		commonObj.alert('请至少选择一条新闻!',"warning");
 		return ;
 	}
 	$.messager.progress("close");

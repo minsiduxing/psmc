@@ -50,30 +50,38 @@ public class TabModuleServiceImpl implements TabModuleService {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	@Override
-	public void executeAuditModule(TabModule tm) {
-		if(StringUtils.isBlank(tm.getModelUuid())){
+	public void executeAuditModule(String newsIds,String auditUuid) {
+		if(StringUtils.isBlank(newsIds)){
 			throw new PsmcBuisnessException("参数有误！");
 		}
+		List<TabModule> modeuls = tabModuleDao.getModulesByUuids(newsIds);
+		
 		// 1.判断模块是否存在如果不存在则不能审核
-		TabModule temp = tabModuleDao.getModuleByUuid(tm.getModelUuid());
-		if(null==temp){
-			throw new PsmcBuisnessException("模块不存在不能审核");
+		for(TabModule temp:modeuls){
+			temp.setAudit(Integer.parseInt(ModuleEnum.AUDITED_PASS.getValue()));
+			temp.setAuditAccUuid(auditUuid);
+			if(null==temp){
+				throw new PsmcBuisnessException("模块不存在不能审核");
+			}
+			// 2.判断模块是否为审核通过如果审核通过则不能审核
+			if(ModuleEnum.AUDITED_PASS.equals(temp.getAudit())){
+				throw new PsmcBuisnessException("模块已经审核通过不能审核");		
+			}
+			// 3.判断模块是否为已发布状态若为已发布则不能审核
+			if(ModuleEnum.IS_RELEASEED.equals(temp.getReleaseStatus())){
+				throw new PsmcBuisnessException("模块已经发布不能审核");		
+			}
+			//更新审核通过标示
+			temp.setAuditDate(DateUtil.getCurrentTimstamp());
+			temp.setModelUuid(auditUuid);
+			temp.setModifyDate(DateUtil.getCurrentTimstamp());
+			//4.修改模块状态
+			tabModuleDao.saveOrUpdateTabModule(temp);
 		}
-		// 2.判断模块是否为审核通过如果审核通过则不能审核
-		if(ModuleEnum.AUDITED_PASS.equals(temp.getAudit())){
-			throw new PsmcBuisnessException("模块已经审核通过不能审核");		
-		}
-		// 3.判断模块是否为已发布状态若为已发布则不能审核
-		if(ModuleEnum.IS_RELEASEED.equals(temp.getReleaseStatus())){
-			throw new PsmcBuisnessException("模块已经发布不能审核");		
-		}
-		//更新审核通过标示
-		temp.setAudit(tm.getAudit());
-		temp.setAuditDate(DateUtil.getCurrentTimstamp());
-		temp.setAuditAccUuid(tm.getAuditAccUuid());
-		//4.修改模块状态
-		tabModuleDao.saveOrUpdateTabModule(temp);
+		
+		
 	}
 	@Override
 	public void executeReleaseModule(TabModule tm) {
@@ -105,6 +113,8 @@ public class TabModuleServiceImpl implements TabModuleService {
 		temp.setReleaseDate(tmp.getPublishDate());
 		temp.setReleaseStatus(ModuleEnum.IS_RELEASEED.getValue());
 		temp.setReleaseAccUuid(tm.getReleaseAccUuid());
+		temp.setModelUuid(tm.getReleaseAccUuid());
+		temp.setModifyDate(DateUtil.getCurrentTimstamp());
 		tabModuleDao.saveOrUpdateTabModule(temp);
 	}
 
@@ -137,4 +147,8 @@ public class TabModuleServiceImpl implements TabModuleService {
 		tabModuleDao.saveOrUpdateTabModule(tm);
 	}
 
+	@Override
+	public List<TabModule> getModulesByUuids(String newsIds) {
+		return  tabModuleDao.getModulesByUuids(newsIds);
+	}
 }

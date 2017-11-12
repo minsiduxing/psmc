@@ -94,10 +94,8 @@ public class TabNewsController extends MyController {
 	}
 	@RequestMapping(params="method=newsAudit")
 	@ResponseBody
-	public void newsAudit(HttpServletResponse response,HttpServletRequest request,TabModule tam) throws IOException{
-		tam.setAudit(Integer.parseInt(ModuleEnum.AUDITED_PASS.getValue()));
-		tam.setAuditAccUuid(this.getUserBySeesion(request).getUserUuid());
-		tabNewsService.executeAuditNewsBusinessMethod(tam);
+	public void newsAudit(HttpServletResponse response,HttpServletRequest request,String newsIds ) throws IOException{
+		tabNewsService.executeAuditNewsBusinessMethod(newsIds,this.getUserBySeesion(request).getUserUuid());
 		super.responseJson(true, "审核新闻成功!", response);
 	}
 	@RequestMapping(params="method=newsRelease")
