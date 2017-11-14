@@ -326,7 +326,7 @@
 								<div class="icon">
 									<i class="glyphicon glyphicon-thumbs-up"></i>
 								</div>
-								<span class="fh5co-counter js-counter" data-from="0" data-to="" data-speed="5000" data-refresh-interval="50"></span>
+								<span id="dataTo" class="fh5co-counter js-counter" data-from="0" data-to="" data-speed="5000" data-refresh-interval="50"></span>
 								<span class="fh5co-counter-label">用户咨询量</span>
 							</div>
 							<div class="col-md-4 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.1s">
