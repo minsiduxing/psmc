@@ -302,6 +302,7 @@
 	      			<div class="modal-header">
 		        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		        			<h4 class="modal-title text-center" id="myModalLabel" >新闻标题</h4>
+		        			<h5 class="modal-title text-left" id="myModalLabelsub" >新闻标题</h5>
 		        			
 					</div>
 				<div class="modal-body">
@@ -395,6 +396,7 @@
 				   success: function(data){
 				        var news =  JSON.parse(data);
 					     $('#myModalLabel').html("<b>新闻标题</b>："+news.news_title);
+					      $('#myModalLabelsub').html("<b>新闻副标题</b>："+news.news_subtitle);
 				      $('#newabstract').html("<b>摘要</b>："+news.news_abstract);
 				       $('#author').html("<b>新闻作者</b>："+news.news_author);
 				        $('#newdate').html("<b>新闻日期</b>："+news.news_date);
@@ -564,35 +566,38 @@
 	//定义渲染新闻的方法
 	function printAllNewsList(arraySize_1,arraySize_2,arraySize_3){
 		for(var i = 0; i < arraySize_1;i++){
+		var uuid = hotNewsArry[i].uuid;
 			var hotNews_author = hotNewsArry[i].news_author;
 			var hotNews_title = hotNewsArry[i].news_title;
 			var hotNews_subtitle = hotNewsArry[i].news_subtitle;
 			if(i < 10){
-				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><h3 class='panel-title'>热点新闻>"+hotNews_title+"</h3></div><div class='panel-body'>发布者："+hotNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hotNews_subtitle+"</div></div>");
+				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>热点新闻>"+hotNews_title+"</h3></div><div class='panel-body'>发布者："+hotNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hotNews_subtitle+"</div></div>");
 			}else{
-				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><h3 class='panel-title'>热点新闻>"+hotNews_title+"</h3></div><div class='panel-body'>发布者："+hotNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hotNews_subtitle+"</div></div>");
+				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal' >热点新闻>"+hotNews_title+"</h3></div><div class='panel-body'>发布者："+hotNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hotNews_subtitle+"</div></div>");
 			}
 			
 		}
 		for(var i = 0; i < arraySize_2;i++){
+		var uuid = timeNewsArray[i].uuid;
 			var timeNews_author = timeNewsArray[i].news_author;
 			var timeNews_title = timeNewsArray[i].news_title;
 			var timeNews_subtitle = timeNewsArray[i].news_subtitle;
 			if(i < 10){
-				$("#newsBlock2").append("<div id='timeNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><h3 class='panel-title'>实时资讯>"+timeNews_title+"</h3></div><div class='panel-body'>发布者："+timeNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+timeNews_subtitle+"</div></div>");
+				$("#newsBlock2").append("<div id='timeNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>实时资讯>"+timeNews_title+"</h3></div><div class='panel-body'>发布者："+timeNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+timeNews_subtitle+"</div></div>");
 			}else{
-				$("#newsBlock2").append("<div id='timeNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><h3 class='panel-title'>实时资讯>"+timeNews_title+"</h3></div><div class='panel-body'>发布者："+timeNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+timeNews_subtitle+"</div></div>");
+				$("#newsBlock2").append("<div id='timeNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>实时资讯>"+timeNews_title+"</h3></div><div class='panel-body'>发布者："+timeNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+timeNews_subtitle+"</div></div>");
 			}
 			
 		}
 		for(var i = 0; i < arraySize_3;i++){
+		var uuid = hyNewsArray[i].uuid;
 			var hyNews_author = hyNewsArray[i].news_author;
 			var hyNews_title = hyNewsArray[i].news_title;
 			var hyNews_subtitle = hyNewsArray[i].news_subtitle;
 			if(i < 10){
-				$("#newsBlock3").append("<div id='hyNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><h3 class='panel-title'>行业动向>"+hyNews_title+"</h3></div><div class='panel-body'>发布者："+hyNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hyNews_subtitle+"</div></div>");
+				$("#newsBlock3").append("<div id='hyNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>行业动向 >"+hyNews_title+"</h3></div><div class='panel-body' >发布者："+hyNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hyNews_subtitle+"</div></div>");
 			}else{
-				$("#newsBlock3").append("<div id='hyNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><h3 class='panel-title'>行业动向>"+hyNews_title+"</h3></div><div class='panel-body'>发布者："+hyNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hyNews_subtitle+"</div></div>");
+				$("#newsBlock3").append("<div id='hyNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>行业动向>"+hyNews_title+"</h3></div><div class='panel-body' >发布者："+hyNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hyNews_subtitle+"</div></div>");
 			}
 			
 		}

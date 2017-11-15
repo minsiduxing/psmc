@@ -44,6 +44,7 @@
 	      			<div class="modal-header">
 		        			<button type="button" onclick="javascript:history.go(-1);" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		        			<h4 class="modal-title text-center" id="myModalLabel" >新闻标题</h4>
+		        			<h5 class="modal-title text-left" id="myModalLabelsub" >新闻副标题</h5>
 		        			
 					</div>
 				<div class="modal-body">
@@ -94,6 +95,7 @@
 			   success: function(data){
 			        var news =  JSON.parse(data);
 			        $('#myModalLabel').html("<b>新闻标题</b>："+news.news_title);
+			        $('#myModalLabelsub').html("<b>新闻副标题</b>："+news.news_subtitle);
 				      $('#newabstract').html("<b>摘要</b>："+news.news_abstract);
 				       $('#author').html("<b>新闻作者</b>："+news.news_author);
 				        $('#newdate').html("<b>新闻日期</b>："+news.news_date);

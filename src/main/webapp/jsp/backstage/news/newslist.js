@@ -190,7 +190,7 @@ $("#releaseNews").click(function(){
 		if(i<rlength-1)
 			uuids+=",";
 	  }
-	$.messager.confirm('提示', '确认发布该条新闻吗?', function(r){
+	$.messager.confirm('提示', '确认发布选择的新闻吗?', function(r){
 			if (r){
 				    $('#dlg').dialog('open');				
 			}
