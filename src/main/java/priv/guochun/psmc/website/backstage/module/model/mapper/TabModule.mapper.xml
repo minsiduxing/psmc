@@ -148,8 +148,55 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   		</trim>
   		WHERE uuid = #{modelUuid}
   	</update>
-  	
-  	
+  		<update id="auditTabModel" parameterType="hashmap">
+  		UPDATE tab_module 
+  		<trim prefix="set" suffixOverrides=",">
+  		<if test="modifyAccUuid != null and modifyAccUuid != ''">
+	  			modify_acc_uuid =#{modifyAccUuid},
+	  		</if>
+	  		<if test="modifyDate != null and modifyDate != ''">
+	  			modify_date =#{modifyDate},
+	  		</if>
+	  		<if test="auditAccUuid != null and auditAccUuid != ''">
+	  			audit_acc_uuid =#{auditAccUuid},
+	  		</if>
+	  		<if test="audit != null and audit != ''">
+	  			audit =#{audit},
+	  		</if>
+	  		<if test="auditDate != null and auditDate != ''">
+	  			audit_date =#{auditDate}
+	  		</if>
+	  		
+  		</trim>
+  		WHERE uuid in
+  		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+				  #{item}  
+		</foreach>  
+  	</update>
+  		<update id="relaeaseTabModel" parameterType="hashmap">
+  		UPDATE tab_module 
+  		<trim prefix="set" suffixOverrides=",">
+	  		<if test="modifyAccUuid != null and modifyAccUuid != ''">
+	  			modify_acc_uuid =#{modifyAccUuid},
+	  		</if>
+	  		<if test="modifyDate != null and modifyDate != ''">
+	  			modify_date =#{modifyDate},
+	  		</if>
+	  		<if test="releaseAccUuid != null and releaseAccUuid != ''">
+	  			release_acc_uuid =#{releaseAccUuid},
+	  		</if>
+	  		<if test="releaseDate != null and releaseDate != ''">
+	  			release_date =#{releaseDate},
+	  		</if>
+	  		<if test="releaseStatus != null and releaseStatus != ''">
+	  			release_status =#{releaseStatus},
+	  		</if>
+  		</trim>
+  		WHERE uuid in
+  		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+				  #{item}  
+		</foreach>  
+  	</update>
     <delete id="deletesTabModelByUuid" parameterType="hashmap">
     	DELETE FROM  tab_module  where 1=1  and uuid in
     	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  

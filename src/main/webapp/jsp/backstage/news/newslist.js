@@ -116,11 +116,11 @@ $("#auditNews").click(function(){
 			var audit = rowObj.audit;
 			var releasestatus = rowObj.release_status;
 			if(audit==1){
-				commonObj.alert('该条新闻已经审核通过!',"warning");
+				commonObj.alert('存在已经审核通过的新闻!',"warning");
 				return ;
 			}
 			if(releasestatus==1){
-				commonObj.alert('该条新闻已经发布!,不能审核',"warning");
+				commonObj.alert('存在已经发布的!,不能审核',"warning");
 				return ;
 			}
 			ids+=newsid;
@@ -171,27 +171,33 @@ $("#priview").click(function(){
 $("#releaseNews").click(function(){
 	var rows = $("#newsTableId").datagrid('getChecked');
 	var rlength = rows.length;
-	 if(rlength ==1){
-		var rowObj = eval(rows[0]);
-		uuid = rowObj.uuid;
-		var audit = rowObj.audit;
-		var releasestatus = rowObj.release_status;
+	uuids="";
+	if (rlength > 0){		
+		for(var i=0;i<rlength;i++){
+			var rowObj = eval(rows[i]);
+			var newsid = rowObj.uuid;
+			var audit = rowObj.audit;
+			var releasestatus = rowObj.release_status;
 		if(audit!=1){
-			commonObj.alert('该条新闻未审核或未审核通过,不能发布!',"warning");
+			commonObj.alert('存在未审核或未审核通过的新闻,不能发布!',"warning");
 			return ;
 		}
 		if(releasestatus==1){
-			commonObj.alert('该条新闻已经发布!',"warning");
+			commonObj.alert('选择的新闻中存在发布过的新闻!',"warning");
 			return ;
 		}
-		$.messager.confirm('提示', '确认发布该条新闻吗?', function(r){
+		uuids+=newsid;
+		if(i<rlength-1)
+			uuids+=",";
+	  }
+	$.messager.confirm('提示', '确认发布该条新闻吗?', function(r){
 			if (r){
 				    $('#dlg').dialog('open');				
 			}
 			
 	    });
-	}else{
-		commonObj.alert('请选择一条新闻!',"warning");
+  }else{
+		commonObj.alert('请至少选择一条新闻!',"warning");
 		return ;
 	}
 	$.messager.progress("close");

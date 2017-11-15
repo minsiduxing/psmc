@@ -100,11 +100,12 @@ public class TabNewsController extends MyController {
 	}
 	@RequestMapping(params="method=newsRelease")
 	@ResponseBody
-	public void newsRelease(HttpServletResponse response,HttpServletRequest request,TabModule tam) throws IOException{
+	public void newsRelease(HttpServletResponse response,HttpServletRequest request,String newsIds,TabModule tam) throws IOException{
 		tam.setReleaseStatus(ModuleEnum.IS_RELEASEED.getValue());
 		tam.setReleaseAccUuid(this.getUserBySeesion(request).getUserUuid());
+		tam.setModifyAccUuid(this.getUserBySeesion(request).getUserUuid());
 		//发布新闻
-		tabNewsService.executeReleaseNewsBusinessMethod(tam);	
+		tabNewsService.executeReleaseNewsBusinessMethod(newsIds,tam);	
 		//生成列表页面
 		generateStageHtmlService.generateInofHtml();
 		//生成会员信息列表

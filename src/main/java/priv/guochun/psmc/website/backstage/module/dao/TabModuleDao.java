@@ -20,6 +20,20 @@ public interface TabModuleDao {
 	 */
 	public void saveOrUpdateTabModule(TabModule tam);
 	/**
+	 * <p>Description:发布模块<p>
+	 * @param uuid模块id
+	 * @param tam 模块实体类
+	 * @author wanglei 2017年11月15日
+	 */
+	public void excuteAudiTabModules(String ids ,TabModule tam);
+	/**
+	 * <p>Description:模块发布<p>
+	 * @param ids模块ID
+	 * @param tam 模块实体类
+	 * @author wanglei 2017年11月15日
+	 */
+	public void excuteReleaseTabModules(String ids ,TabModule tam);
+	/**
 	 * <p>Description:删除模块<p>
 	 * @param ids 模块id
 	 * @author wanglei 2017年9月3日

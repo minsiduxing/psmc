@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.mybatis.spring.SqlSessionTemplate;
 
+import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.website.backstage.module.dao.TabModuleDao;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
 
@@ -15,6 +16,8 @@ public class TabModuleDaoImpl implements TabModuleDao {
     public static final String updateTabModel="updateTabModel";
     public static final String getListTabModelByCondition="getListTabModelByCondition";
     public static final String deletesTabModelByUuid="deletesTabModelByUuid";
+    public static final String relaeaseTabModel="relaeaseTabModel";
+    public static final String auditTabModel="auditTabModel";
   
     private SqlSessionTemplate sqlSession;
 	@Override
@@ -55,6 +58,28 @@ public class TabModuleDaoImpl implements TabModuleDao {
 
 	public void setSqlSession(SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
+	}
+	@Override
+	public void excuteAudiTabModules(String ids, TabModule tam) {
+		Map<String,Object> condition = new HashMap<String,Object>();
+        condition.put("ids", ids.split(","));
+        condition.put("modifyDate", tam.getModifyDate());
+        condition.put("auditAccUuid", tam.getAuditAccUuid());
+        condition.put("modifyAccUuid", tam.getModifyAccUuid());
+        condition.put("audit", tam.getAudit());
+        condition.put("auditDate", tam.getAuditDate());
+        sqlSession.update(auditTabModel, condition);
+	}
+	@Override
+	public void excuteReleaseTabModules(String ids, TabModule tam) {
+		Map<String,Object> condition = new HashMap<String,Object>();
+        condition.put("ids", ids.split(","));
+        condition.put("modifyDate", tam.getModifyDate());
+        condition.put("releaseAccUuid", tam.getReleaseAccUuid());
+        condition.put("modifyAccUuid", tam.getModifyAccUuid());
+        condition.put("releaseStatus", tam.getReleaseStatus());
+        condition.put("releaseDate", DateUtil.getCurrentTimstamp());
+        sqlSession.update(relaeaseTabModel, condition);
 	}
 	
 

@@ -37,7 +37,7 @@ public interface TabModuleService {
 	 * @param tm 模块信息
 	 * @author wanglei 2017年9月3日
 	 */
-	public void executeReleaseModule(TabModule tam);
+	public void executeReleaseModule(String newsIds,TabModule tam);
 	/**
 	 * <p>Description:取消模块发布<p>
 	 *  @param tm 模块信息

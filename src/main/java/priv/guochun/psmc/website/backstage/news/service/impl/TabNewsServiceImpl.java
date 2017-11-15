@@ -93,9 +93,9 @@ public class TabNewsServiceImpl implements TabNewsService {
 	}
 
 	@Override
-	public void executeReleaseNewsBusinessMethod(TabModule tam) {
+	public void executeReleaseNewsBusinessMethod(String newsUuid,TabModule tam) {
 		// 发布信息
-		tabModuleService.executeReleaseModule(tam);
+		tabModuleService.executeReleaseModule(newsUuid,tam);
 		
 	}
 

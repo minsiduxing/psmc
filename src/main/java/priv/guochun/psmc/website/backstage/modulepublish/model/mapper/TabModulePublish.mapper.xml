@@ -70,7 +70,6 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   		WHERE publish_uuid = #{pblishUuid}
   	</update>
   	
-  	
     <delete id="deletesTabPublishModelByUuid" parameterType="hashmap">
     	DELETE FROM  tab_module_publish  where 1=1  and publish_uuid in
     	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  

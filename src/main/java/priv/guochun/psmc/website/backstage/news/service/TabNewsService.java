@@ -75,7 +75,7 @@ public interface TabNewsService {
 	 * <p>Description:发布新闻<p>
 	 * @author wanglei 2017年9月3日
 	 */
-	public void executeReleaseNewsBusinessMethod(TabModule tam);
+	public void executeReleaseNewsBusinessMethod(String newsUuid,TabModule tam);
 	/**
 	 * <p>Description:取消发布新闻<p>
 	 * @param tam

@@ -50,72 +50,74 @@ public class TabModuleServiceImpl implements TabModuleService {
 		}
 	}
 
-	@SuppressWarnings("unused")
 	@Override
 	public void executeAuditModule(String newsIds,String auditUuid) {
 		if(StringUtils.isBlank(newsIds)){
 			throw new PsmcBuisnessException("参数有误！");
 		}
 		List<TabModule> modeuls = tabModuleDao.getModulesByUuids(newsIds);
-		
+		TabModule tam = new TabModule();
 		// 1.判断模块是否存在如果不存在则不能审核
 		for(TabModule temp:modeuls){
-			temp.setAudit(Integer.parseInt(ModuleEnum.AUDITED_PASS.getValue()));
-			temp.setAuditAccUuid(auditUuid);
+			
 			if(null==temp){
 				throw new PsmcBuisnessException("模块不存在不能审核");
 			}
 			// 2.判断模块是否为审核通过如果审核通过则不能审核
-			if(ModuleEnum.AUDITED_PASS.equals(temp.getAudit())){
+			if(Integer.parseInt(ModuleEnum.AUDITED_PASS.getValue())==temp.getAudit()){
 				throw new PsmcBuisnessException("模块已经审核通过不能审核");		
 			}
 			// 3.判断模块是否为已发布状态若为已发布则不能审核
 			if(ModuleEnum.IS_RELEASEED.equals(temp.getReleaseStatus())){
 				throw new PsmcBuisnessException("模块已经发布不能审核");		
 			}
-			//更新审核通过标示
-			temp.setAuditDate(DateUtil.getCurrentTimstamp());
-			temp.setModelUuid(auditUuid);
-			temp.setModifyDate(DateUtil.getCurrentTimstamp());
-			//4.修改模块状态
-			tabModuleDao.saveOrUpdateTabModule(temp);
 		}
-		
-		
+		//更新审核通过标示
+		tam.setAuditDate(DateUtil.getCurrentTimstamp());
+		tam.setModelUuid(auditUuid);
+		tam.setModifyDate(DateUtil.getCurrentTimstamp());
+		tam.setAudit(Integer.parseInt(ModuleEnum.AUDITED_PASS.getValue()));
+		tam.setAuditAccUuid(auditUuid);
+		//4.审核模块
+		tabModuleDao.excuteAudiTabModules(newsIds, tam);
 	}
 	@Override
-	public void executeReleaseModule(TabModule tm) {
-		if(null==tm){
+	public void executeReleaseModule(String newsIds,TabModule tam) {
+		if(null==newsIds){
 			throw new PsmcBuisnessException("参数有误！");
 		}
 		// 1.判断模块是否存在如果不存在则不能发布
-		TabModule temp = tabModuleDao.getModuleByUuid(tm.getModelUuid());
-		if(null==temp){
-			throw new PsmcBuisnessException("模块不存在不能发布");
+		List<TabModule> modeuls = tabModuleDao.getModulesByUuids(newsIds);
+		// 1.判断模块是否存在如果不存在则不能审核
+		for(TabModule temp:modeuls){
+			if(null==temp){
+				throw new PsmcBuisnessException("模块不存在不能发布");
+			}
+			// 2.判断模块是否为审核通过如果审核不通过则不能发布
+			if(Integer.parseInt(ModuleEnum.AUDITED_PASS.getValue())!=(temp.getAudit())){
+				throw new PsmcBuisnessException("发布模块中存在审核未通过的模块不能发布!");		
+			}
+			// 3.判断模块是否为已发布状态若为已发布则不能发布
+			if(ModuleEnum.IS_RELEASEED.getValue().equals(temp.getReleaseStatus())){
+				throw new PsmcBuisnessException("发布的模块中存在已经发布的模块!");		
+			}
 		}
-		// 2.判断模块是否为审核通过如果审核不通过通过则不能发布
-		if(new Integer(ModuleEnum.AUDITED_PASS.getValue())==temp.getAudit()){
-			throw new PsmcBuisnessException("模块未审核通过或者未审核不能发布");		
-		}
-		// 3.判断模块是否为已发布状态若为已发布则不能发布
-		if(ModuleEnum.IS_RELEASEED.equals(temp.getReleaseStatus())){
-			throw new PsmcBuisnessException("模块已经发布不能再次发布");		
-		}
+		String [] moudlids = newsIds.split(",");
 		//4.新增模块发布信息
-		TabModulePublish tmp = new TabModulePublish();
-		tmp.setPblishUuid(UUIDGenerator.createUUID());
-		tmp.setModuleUuuid(temp.getModelUuid());
-		tmp.setPublishAccountUuid(tm.getReleaseAccUuid());
-		tmp.setPublishDate(DateUtil.getCurrentTimstamp());
-		tmp.setPublishExpireDate(tm.getPublishExpireDate());
-		tabModulePublishService.saveOrUpdateTabModulePublish(tmp);
+		for(int i = 0;i<moudlids.length;i++){
+			TabModulePublish tmp = new TabModulePublish();
+			tmp.setPblishUuid(UUIDGenerator.createUUID());
+			tmp.setModuleUuuid(moudlids[i]);
+			tmp.setPublishAccountUuid(tam.getReleaseAccUuid());
+			tmp.setPublishDate(DateUtil.getCurrentTimstamp());
+			tmp.setPublishExpireDate(tam.getPublishExpireDate());
+			tabModulePublishService.saveOrUpdateTabModulePublish(tmp);
+		}
 		//更新模块信息
-		temp.setReleaseDate(tmp.getPublishDate());
-		temp.setReleaseStatus(ModuleEnum.IS_RELEASEED.getValue());
-		temp.setReleaseAccUuid(tm.getReleaseAccUuid());
-		temp.setModelUuid(tm.getReleaseAccUuid());
-		temp.setModifyDate(DateUtil.getCurrentTimstamp());
-		tabModuleDao.saveOrUpdateTabModule(temp);
+		tam.setReleaseDate(DateUtil.getCurrentTimstamp());
+		tam.setReleaseStatus(ModuleEnum.IS_RELEASEED.getValue());
+		tam.setModifyDate(DateUtil.getCurrentTimstamp());
+		tabModuleDao.excuteReleaseTabModules(newsIds, tam);;
 	}
 
 	@Override

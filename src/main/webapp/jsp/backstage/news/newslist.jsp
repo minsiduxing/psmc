@@ -200,12 +200,12 @@ function successCallback(data){
 	$("#newsTableId").datagrid('reload');
 	commonObj.showResponse(data);
 }
-var uuid;
+var uuids="";
 function publishNews(){
 	var _date = $("#publishExpireDate").datebox('getValue');;
 	if(_date!=''){
 		$('#dlg').dialog('close');
-		var _url = releasenews+"&modelUuid="+uuid+"&publishExpireDate="+_date;
+		var _url = releasenews+"&newsIds="+uuids+"&publishExpireDate="+_date;
 		$.messager.progress(); 
 		$.ajax({
 			   type: "POST",
