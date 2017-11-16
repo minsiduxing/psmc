@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.website.backstage.webuser.model.TabWebUser">  
+<!-- 	<resultMap type="priv.guochun.psmc.website.backstage.webuser.model.TabWebUser" id="tabWebUser">
+		<result property="uuid" column="uuid"/>
+		<result property="userId" column="user_id"/>
+		<result property="password" column="password"/>
+		<result property="userName" column="user_name"/>
+		<result property="idCard" column="id_card"/>
+		<result property="phone" column="phone"/>
+	</resultMap>  
+    --> 
+    <select id="getWebUserList" resultType="java.util.Map">
+    	SELECT UUID, USER_ID, PASSWORD, USER_NAME, ID_CARD, PHONE FROM TAB_WEB_USER
+    </select>
+    
+    <select id="queryUserCount" parameterType="java.util.Map">
+    	SELECT COUNT(1) FROM TAB_WEB_USER WHERE USER_ID = #{userId} AND PASSWORD = #{password}
+    </select>
+ 
+</mapper>  

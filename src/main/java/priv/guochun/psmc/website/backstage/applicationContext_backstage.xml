@@ -37,4 +37,9 @@
 	<!-- 网站网站模块发布service注入 -->
 	<bean id="tabModulePublishService"
 		class="priv.guochun.psmc.website.backstage.modulepublish.service.impl.TabModulePublishServiceImpl" />
+	<bean id="tabWebUserDao"
+		class="priv.guochun.psmc.website.backstage.webuser.dao.impl.TabWebUserDaoImplMybatis" />
+	<!-- 网站用户管理service注入 -->
+	<bean id="tabWebUserService"
+		class="priv.guochun.psmc.website.backstage.webuser.service.impl.TabWebUserServiceImpl" />
 </beans>
