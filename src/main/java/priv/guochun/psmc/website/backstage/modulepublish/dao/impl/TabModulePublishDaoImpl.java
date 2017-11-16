@@ -53,7 +53,7 @@ public class TabModulePublishDaoImpl implements TabModulePublishDao {
 	@Override
 	public List<TabModulePublish> getTabModulePublishsByModuleids(String ids) {
 		Map<String,Object> condition = new HashMap<String,Object>();
-        condition.put("modelUuids", ids.split(","));
+        condition.put("moduleUuids", ids.split(","));
 		return sqlSession.selectList(getListTabPublishModelByCondition, condition);
 	}
 	public SqlSessionTemplate getSqlSession() {
