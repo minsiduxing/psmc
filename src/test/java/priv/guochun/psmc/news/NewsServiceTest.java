@@ -37,26 +37,39 @@ public class NewsServiceTest {
 	@Before
 	public void init(){
 		initNews("1","热点新闻");
-		initNews("2","实时资讯");
-		initNews("3","行业动向");
+		//initNews("2","实时资讯");
+		//initNews("3","行业动向");
 		
 	}
 	private void initNews (String newsType,String pre){
 		TabModule tam  = null;
 		TabNews tnnew = null;
 		TabModulePublish tabp = null;
-		for(int i =0;i<1000;i++){
+		for(int i =0;i<11;i++){
 			tnnew = new TabNews();
 			String newUuid = UUIDGenerator.createUUID();
 			tnnew.setNewsUuid(newUuid);
-			tnnew.setNewsTitle(pre+"新闻测试"+i+i);
-			tnnew.setNewSubTitle(pre+"新闻测试"+i+"副标题");
+			tnnew.setNewsTitle(pre+"新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题"+i);
+			tnnew.setNewSubTitle(pre+"新闻副标题测试啊新闻副标题测试啊新闻副标题测试啊新闻副标题测试啊新闻副标题测试啊新闻副标题测试啊新闻副标题测试啊"+i);
 			tnnew.setNewsContent(pre+"测试内容！测试内容测试内容测试内容测试内容测试内容测试内容测试"
+					+ "内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内"
+					+ "内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内"
+					+ "内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内"
+					+ "内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内"
+					+ "内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内"
+					+ "内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内"
+					+ "内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内"
+					+ "内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内"
+					+ "内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内"
+					+ "内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内"
+					+ "内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内"
+					+ "内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内"
+					+ "内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内"
 					+ "内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内"
 					+ "容测试内容");
 			tnnew.setNewsDate(DateUtil.getCurrentTimstamp());
-			tnnew.setNewsAbstarct(pre+"新闻测试"+i+"概要");
-			tnnew.setNewAutor(pre+"测试用户"+i);
+			tnnew.setNewsAbstarct(pre+"新闻概要测试新闻概要测试新闻概要测试新闻概要测试新闻概要测试新闻概要测试新闻概要测试新闻概要测试新闻概要测试"+i);
+			tnnew.setNewAutor(pre+"新闻作者用户"+i);
 			tam = new TabModule();
 		    String uid = "bd474935a3894530af485bea128501ec";
 			tam.setModelUuid(newUuid);
@@ -75,7 +88,7 @@ public class NewsServiceTest {
 			tabp.setPblishUuid(UUIDGenerator.createUUID());
 			tabp.setPublishAccountUuid(uid);
 			tabp.setPublishDate(DateUtil.getCurrentTimstamp());
-			tabp.setPublishExpireDate(DateUtil.getTime("2019-10-10 00:00:00"));
+			tabp.setPublishExpireDate(DateUtil.getTime("2017-11-09 00:00:00"));
 			tanews.add(tnnew);
 			tams.add(tam);
 			tabps.add(tabp);
