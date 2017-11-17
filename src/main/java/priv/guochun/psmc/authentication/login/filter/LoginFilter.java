@@ -99,7 +99,17 @@ public class LoginFilter implements Filter
         logger.debug("==================================================");
         
         if(isExcludedPage){
-            chain.doFilter(httpServletRequest, httpServletResponse);
+        	String urlSplit = ".";
+            if(requestUrl.indexOf(urlSplit) == -1){
+                String path = requestUrl;
+                if(requestUrl.indexOf("fileUploadController") != -1 ){
+                	path+=".do";
+                }
+                httpServletRequest.getRequestDispatcher(path).forward(httpServletRequest, httpServletResponse);
+            }else{
+            	 chain.doFilter(httpServletRequest, httpServletResponse);
+            }
+           
         }else{
             
             HttpSession httpSession = httpServletRequest.getSession();
