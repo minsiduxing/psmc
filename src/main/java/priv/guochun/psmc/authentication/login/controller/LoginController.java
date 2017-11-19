@@ -15,13 +15,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.StringUtil;
 
 import priv.guochun.psmc.authentication.auth.PsmcAuthentication;
 import priv.guochun.psmc.authentication.login.model.User;
+import priv.guochun.psmc.authentication.login.model.UserPassword;
 import priv.guochun.psmc.authentication.login.service.LoginService;
 import priv.guochun.psmc.authentication.user.model.TabAccount;
 import priv.guochun.psmc.authentication.user.service.TabAccountService;
@@ -119,21 +122,28 @@ public class LoginController  extends MyController {
 	     * @author youngqing 2017-4-8
 	     * 在这里规定返回值对应信息内容{0：修改成功}，{1：旧密码错误，修改失败}，{2：新密码输入不一致，修改失败}
 	     */
-	    @RequestMapping(params="method=autUpdatePasswdOperate")  
-	    public String autUpdatePasswdOperate(HttpServletRequest request,HttpServletResponse response)throws IOException{
-	    	User user = this.getUserBySeesion(request);
+	    @RequestMapping(params="method=autUpdatePasswdOperate", method=RequestMethod.POST)
+	    @ResponseBody
+	    public String autUpdatePasswdOperate(UserPassword userPassword)throws IOException{
+	    	String msg = null;
+	    	User user = this.getUserBySeesion(this.request());
+	    	String accountName = user.getAccountName();
+	    	String oldPassword = userPassword.getOldPassword();
+	    	String newPassword = userPassword.getNewPassword();
+	    	String renewPassword = userPassword.getRenewPassword();
+	    	Map userMap = tabAccountService.getTabAccount(accountName, oldPassword);
+	    	/*User user = this.getUserBySeesion(request);
 	    	String accountName = user.getAccountName();
 	    	String oldPassword = request.getParameter("oldPassword");
 	    	String newPassword = request.getParameter("newPassword");
 	    	String renewPassword = request.getParameter("renewPassword");
 	    	Map userMap = tabAccountService.getTabAccount(accountName, oldPassword);
-	    	
+	    	*/
 	    	boolean is_True = false;
 	    	if(null != userMap){
 	    		//判断两次输入的新密码是否合法并一致
 	    		if(StringUtil.isEmpty(newPassword) || StringUtil.isEmpty(renewPassword) || !newPassword.equals(renewPassword)){
-	    			request.setAttribute("msg", 2);
-	    			return "/updatePasswd";
+	    			msg = "2";
 	    		}else{
 	    			//判断旧密码是不是正确
 	    			TabAccount tabAccount = new TabAccount();
@@ -144,11 +154,11 @@ public class LoginController  extends MyController {
 	    		}
 	    	}
 	    	if(is_True){
-	    		request.setAttribute("msg", 0);
+	    		msg = "0";
 	    	}else{
-	    		request.setAttribute("msg", 1);
+	    		msg = "1";
 	    	}
-	    	return "/updatePasswd";
+	    	return msg;
 	    }
 	    
 }

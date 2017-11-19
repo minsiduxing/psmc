@@ -6,7 +6,7 @@
 <title>用户修改密码界面</title>
 </head>
 <body>
-	<form method="post" action="<%=request.getContextPath()%>/authentication/loginController.do?method=autUpdatePasswdOperate" class="easyui-panel" title="修改密码" style="width:400px;padding:30px 70px 20px 70px">
+	<form method="post" class="easyui-panel" title="修改密码" style="width:400px;padding:30px 70px 20px 70px">
 		<div style="margin-bottom:20px">
 		<div>原密码:</div>
 			<input class="easyui-textbox" id="oldPassword" name="oldPassword" type="password" missingMessage="请输入旧密码" style="width:100%;height:40px;padding:12px"  data-options="required:true,validType:'length[1,20]',prompt:'',iconCls:'icon-lock',iconWidth:38">
@@ -22,7 +22,7 @@
 		<div style="margin-bottom:20px;color:#d64242;font-size: small;">
 		</div>
 		<div>
-			<input type="submit" id="submit" class="easyui-linkbutton" style="padding:5px 0px;width:100%;" value="确定修改" onclick="convertMd5();"/>
+			<input type="button" id="submit" class="easyui-linkbutton" style="padding:5px 0px;width:100%;" value="确定修改" onclick="submitFn();" />
 		</div>
 	</form>
 </body>
@@ -35,28 +35,6 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 		$(window).resize(function(){
 			recalc();
 		});
-		if(msg=='0'){
-			$.messager.confirm('提示', '修改成功，您需要重新登录!', function(r){
-				if (r){
-					parent.window.location = url;
-				}
-				parent.window.location = url;
-			});
-		}
-		if(msg=='1'){
-			$.messager.alert('提示','修改失败，原密码错误，请确认您的正确原密码!');
-		}
-		if(msg=='2'){
-			$.messager.confirm('提示', '修改失败，输入不合法数据，系统退出!', function(r){
-				if (r){
-					parent.window.location = url;
-				}
-				parent.window.location = url;
-			});
-		}
-		$("input",$("#renewPassword").next("span")).blur(function(){  
-			checkNewPassword();
-		}) 
 	});
 	
 	function recalc(){
@@ -80,18 +58,69 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 	}
 	//判断两次输入密码是否一致
 	function checkNewPassword(){
+		var _flag = false;
 		var newPassword = $.trim($("#newPassword").val());
 		var reNewPassword = $.trim($("#renewPassword").val());
 		if(reNewPassword != null && reNewPassword.length> 0){
 			if(newPassword != reNewPassword){
-				$.messager.alert('提示','两次输入的密码不一致，请重新输入!');
 				//清空输入框的值
-				$("#renewPassword").val('');
+				$('#renewPassword').textbox('setValue','');
+				$.messager.alert('提示','两次输入的密码不一致，请重新输入!');
+				
+			}else{
+				_flag=true;
 			}
 		}else{
 			$.messager.alert('提示','输入值为空，请重新输入!');
 		}
-		
+		return _flag;
+	}
+
+	function submitFn(){
+		convertMd5();
+		var _msg = '';
+		var _info = '';
+		var _url = "<%=request.getContextPath()%>/authentication/loginController.do?method=autUpdatePasswdOperate";
+		 $("input",$("#renewPassword").next("span")).blur(function(){  
+			
+		}); 
+		if(!checkNewPassword()){
+			return false;
+		}
+		var _data = $("form").serialize();
+		//$.messager.progress();
+		$.ajax({
+				async:false,
+				cache:false,
+				type:'POST',
+				dataType:"text",
+				data:_data,
+				url:_url,
+				success:function(msg){
+					//$.messager.progress('close');
+					_msg = msg;
+					if(msg=='0'){
+						_info= '修改成功，您需要重新登录!';
+					}
+					if(msg=='1'){
+						_info= '修改失败，原密码错误，请确认您的正确原密码!';
+					}
+					if(msg=='2'){
+						_info= '修改失败，输入不合法数据，系统退出!';
+					}
+					
+					
+				},
+				error:function (XMLHttpRequest, textStatus, errorThrown) {
+					commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+				}
+			});
+		 	$.messager.alert('提示',_info,'info',function(){
+			if(_msg!='1'){
+				parent.window.location = url;
+			}
+		});
+		 	$(".panel-tool-close").css("display","none");
 	}
 </script>
 </html>

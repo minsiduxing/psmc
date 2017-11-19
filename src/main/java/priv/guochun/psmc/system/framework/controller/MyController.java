@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.servlet.View;
 
@@ -33,7 +34,40 @@ public class MyController
 	private String[] columns;
 	private List<?> exportList;
 	private String fileName;
-	
+	private HttpServletRequest request;  
+	private HttpServletResponse response;  
+	private HttpSession session;  
+      
+    @ModelAttribute
+    public void setReqAndRes(HttpServletRequest request, HttpServletResponse response){  
+        this.request = request;  
+        this.response = response;  
+        this.session = request.getSession();  
+    }
+    /**
+     * 获取HttpServletRequest
+     * @author liyufei
+     * @return
+     */
+    protected HttpServletRequest request() {
+    	return this.request;
+    }
+    /**
+     * 获取HttpServletResponse
+     * @author liyufei
+     * @return
+     */
+    protected HttpServletResponse response() {
+    	return this.response;
+    }
+    /**
+     * 获取HttpSession
+     * @author liyufei
+     * @return
+     */
+    protected HttpSession sessoion() {
+    	return this.session;
+    }
 	/**
 	 * 获取保存在session里的登录人信息
 	 * @param request
