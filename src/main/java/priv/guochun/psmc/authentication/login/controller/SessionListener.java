@@ -1,6 +1,7 @@
 package priv.guochun.psmc.authentication.login.controller;
 
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -23,17 +24,17 @@ public class SessionListener implements HttpSessionListener {
 	public void sessionDestroyed(HttpSessionEvent arg0) {
 		HttpSession session = arg0.getSession();
         ServletContext application = session.getServletContext();
-        HashSet sessions = (HashSet) application.getAttribute("sessions");
+        Map sessions = (HashMap) application.getAttribute("sessions");
         if(null != sessions && sessions.size() > 0){
         	
-            sessions.remove(session);
+            sessions.remove(session.getId());
             application.setAttribute("sessions", sessions);
             
             int sessionsNum = null != sessions ? sessions.size() : 0;
             application.removeAttribute("sessionsNum");
             application.setAttribute("sessionsNum", sessionsNum);
         }else{
-        	application.removeAttribute("sessionsNum");
+        		application.removeAttribute("sessionsNum");
             application.setAttribute("sessionsNum", 0);
         }
         
