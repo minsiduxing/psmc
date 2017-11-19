@@ -1,7 +1,6 @@
 .newsForm {
-	border-color: #D4D4D4;
-	border: 1px solid #D4D4D4;
-	border-radius: 0 0 0 0;
+
+    height:80%;
 }
 
 .newsForm>ul>li {
@@ -11,7 +10,12 @@
 	color: #333;
 	
 }
-
+.newsForm>ul {
+	border-color: #D4D4D4;
+	border: 1px solid #D4D4D4;
+	border-radius: 0 0 0 0;
+	
+}
 .newsForm>ul>li>lable {
 	font-size: 12px;
 	color: #333;
@@ -20,6 +24,7 @@
 
 .newsForm>ul>li>span {
 	width: 100%;
+
 	margin-top: 1%;
 }
 
@@ -77,10 +82,10 @@
 	height: 300px;
 	background-color: #fff;
 	margin-top: 1%;
+	z-index: 998;!important
 }
 
-#cover {
-	display: none;
+.cover {
 	position: fixed;
 	z-index: 998;
 	top: 2px;

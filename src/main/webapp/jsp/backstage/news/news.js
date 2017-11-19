@@ -224,10 +224,11 @@ function  wangEditorInit(isEdit){
           var editorText = document.getElementById('newsContent');
           var cover = document.getElementById('cover');
           var container = document.getElementById('container');
-
+          $("#newsContent").css("z-index","998");
           // 全屏事件
           function doFullScreen() {
               cover.style.display = 'block';
+              $("#cover").addClass("cover");
               editorText.style.height = '90%';
               editorText.style.width = '100%';
               toolbarContaner.style.width = '100%';
@@ -242,8 +243,9 @@ function  wangEditorInit(isEdit){
               container.appendChild(toolbarContaner);
               container.appendChild(editorText);
               editorText.style.height = '100%';
-            
-              cover.style.display = 'none';
+              editorText.style.width = '80%';
+              toolbarContaner.style.width = '80%';
+              $("#cover").removeClass("cover");
               $('#btn1').text("全屏");
           }
 

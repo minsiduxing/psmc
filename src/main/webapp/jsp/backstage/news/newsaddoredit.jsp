@@ -60,7 +60,7 @@
 	</div>
 	</form>
         <!--全屏模式-->
-    <div id="cover"></div>
+    <div id="cover" ></div>
   </body>
 </html>
 <script type="text/javascript">
