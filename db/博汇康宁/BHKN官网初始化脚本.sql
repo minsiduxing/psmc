@@ -92,4 +92,9 @@ INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid
 VALUES ('7001cecab4dd4418bc09b17d596da1c0', '研究团队', 'teamshow.html#researchteam', '5f62c30f24ed4f5499eb082d055e3841', '1', '模块菜单', 24, 2, 3);
 INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked, menu_level) 
 VALUES ('fbb16e0051bc4a7aa02e43ee776cc27b', '创始人', 'teamshow.html#founder', '5f62c30f24ed4f5499eb082d055e3841', '1', '模块菜单', 23, 2, 3);
+/**
+ *会员登录退出
+ */
 
+INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked, menu_level) VALUES ('b482ab861d6643909dc2841e6dff77ae', '登录', 'login.html', '10119b6e651647e38a289cd4fc6c8c1b', '1', '导航栏', 10, 2, 2);
+INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked, menu_level) VALUES ('b482ab864d6643909dc2f41e6dff77ae', '退出', '#', '10119b6e651647e38a289cd4fc6c8c1b', '1', '导航栏', 11, 2, 2);

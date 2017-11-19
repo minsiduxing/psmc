@@ -6,9 +6,11 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import priv.guochun.psmc.system.framework.dao.IDaoTemplate;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.website.backstage.webuser.dao.TabWebUserDao;
+import priv.guochun.psmc.website.backstage.webuser.model.TabWebUser;
 
 public class TabWebUserDaoImplMybatis implements TabWebUserDao {
 
@@ -16,6 +18,8 @@ public class TabWebUserDaoImplMybatis implements TabWebUserDao {
 	
 	public static final String getWebUserList="getWebUserList";
 	public static final String queryUserCount="queryUserCount";
+	public static final String findUserByCondition="findUserByCondition";
+	public static final String updateUser="updateUser";
 	    
 	private SqlSessionTemplate sqlSession;
 	
@@ -56,5 +60,17 @@ public class TabWebUserDaoImplMybatis implements TabWebUserDao {
 
 	public static String getGetwebuserlist() {
 		return getWebUserList;
+	}
+
+	@Override
+	public Map<String, Object> findUserByCondition(TabWebUser twu) {
+		Map<String, Object> condition = new HashMap<String, Object>();
+		condition.put("userId", twu.getUserId());
+		return sqlSession.selectOne(findUserByCondition, condition);
+	}
+
+	@Override
+	public void updateUser(TabWebUser twu) {
+		sqlSession.update(updateUser,twu);
 	}
 }

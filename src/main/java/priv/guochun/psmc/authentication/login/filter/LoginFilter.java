@@ -52,7 +52,7 @@ public class LoginFilter implements Filter
         
         //判断是否在过滤url之外     
         for (String page : excludedPageArray) {
-            if(page.equals(requestUrl) || page.equals(suffix)){     
+            if(requestUrl.indexOf(page)!=-1 || page.equals(suffix)){     
             isExcludedPage = true;     
             break;     
             }
@@ -103,6 +103,9 @@ public class LoginFilter implements Filter
             if(requestUrl.indexOf(urlSplit) == -1){
                 String path = requestUrl;
                 if(requestUrl.indexOf("fileUploadController") != -1 ){
+                	path+=".do";
+                }
+                if(requestUrl.indexOf("webUserController") != -1 ){
                 	path+=".do";
                 }
                 httpServletRequest.getRequestDispatcher(path).forward(httpServletRequest, httpServletResponse);

@@ -15,8 +15,19 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
     	SELECT UUID, USER_ID, PASSWORD, USER_NAME, ID_CARD, PHONE FROM TAB_WEB_USER
     </select>
     
-    <select id="queryUserCount" parameterType="java.util.Map">
+    <select id="queryUserCount" parameterType="java.util.Map" resultType="java.lang.Integer">
     	SELECT COUNT(1) FROM TAB_WEB_USER WHERE USER_ID = #{userId} AND PASSWORD = #{password}
     </select>
- 
+    <select id="findUserByCondition" parameterType="java.util.Map" resultType="java.util.Map">
+    	SELECT * FROM TAB_WEB_USER WHERE USER_ID = #{userId}
+    </select>
+    <update id="updateUser" parameterType="priv.guochun.psmc.website.backstage.news.model.TabNews">
+  		UPDATE TAB_WEB_USER
+  		<trim prefix="set" suffixOverrides=",">
+	  		<if test="password != null and password != ''">
+	  			password =#{password},
+	  		</if>
+  		</trim>
+  		WHERE user_id = #{userId}
+  	</update>
 </mapper>  

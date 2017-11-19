@@ -58,7 +58,7 @@
 		}
 		.index_font{
 			font-family: "Montserrat", Arial, sans-serif !important;
-  			font-weight: 700 !important;
+  			font-weight: 600 !important;
 			color: #fff !important;
 		}
 		.button_{
@@ -136,13 +136,18 @@
 				<div class="text-center fh5co-link-wrap" style="font-size:45px;font-style:normal;padding-left:0px;font-family:sans-serif">
 					<ul data-offcanvass="yes">
 						<li>
-							<img src="./images/LOGO22_02.png" style="width: 100px;height: 100px;">
+							<img src="./images/LOGO22_02.png" style="width: 80px;height: 100px;">
 						</li>
 					<#list navbars as nav>
 						<#if nav.menuLevel == 2>
 						<#if navf.haveSubMenu(navbars,nav.menuUuid)==0>
+						
 						  <li class="wow index_color">
+						   <#if "退出"==nav.menuName >
+			                       <a href="${nav.menuUrl!''}" id="_logout" class="wow index_color">${nav.menuName!''}</a>
+			                 <#else>
 							<a href="${nav.menuUrl!''}" class="wow index_color" >${nav.menuName!''}</a>
+							</#if>
 						  </li>
 						 </#if>
 						 <#if navf.haveSubMenu(navbars,nav.menuUuid)!=0 >
@@ -160,6 +165,9 @@
 				</div> 
 			</div>
 		</nav>
+<script>
+
+</script>
 		<!-- 网站顶部导航菜单结束 -->
 		<div class="fh5co-cover js-full-height" data-next="yes"  style="background-image: url(images/full_001.jpg); background-size:100% 100%;background-repeat:no-repeat;background-position:center;">
 		</div>
@@ -368,7 +376,38 @@
 	<script src="js/jquery.countTo.js"></script>
 	<!-- WOW -->
 	<script src="js/wow.min.js"></script>
+	<script src="js/jquery.cookie.js"></script>
 	<script>
+	//判断用户cookie是否存在 
+    if($.cookie("userID")==null){  
+         $('#_logout').css("display","none");
+     }
+     //退出登录
+function logout(){
+if(window.confirm("您确认退出登录吗？")){
+		var _url ="/psmc/website/backstage/webUserController?method=webuserloginout";
+		$.ajax({
+ 				async:false,
+ 				cache:false,
+ 				type:'POST',
+ 				dataType:"text",
+ 				url:_url,
+ 				success:function(data){
+ 					var dataObj = JSON.parse(data);
+ 					if(dataObj.res =="success"){
+ 						alert(dataObj.rmsg);
+ 						window.location.href="index.html";
+ 					}else{
+ 						writemsg(dataObj.rmsg);
+ 					}
+ 					
+ 				},
+ 				error:function (XMLHttpRequest, textStatus, errorThrown) {
+ 					
+ 				}
+ 			});
+	}
+}
 		new WOW().init();
 		//设置今日访客量的随机两位数（30~99）
 		var num = Math.random()*70+30;

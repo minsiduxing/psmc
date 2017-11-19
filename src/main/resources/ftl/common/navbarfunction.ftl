@@ -6,9 +6,12 @@
 			<#if nav.parentMenuUuid==menuid>
 
 			   <li>
-				<a href="${nav.menuUrl!''}">${nav.menuName!''}</a>
+			   <#if "退出"==nav.menuName >
+			   <a href="${nav.menuUrl!''}" id="_logout" onclick="logout()" >${nav.menuName!''}</a>
+			   <#else>
+				 <a href="${nav.menuUrl!''}">${nav.menuName!''}</a>
+			</#if>
 			   </li>
-
 		<@getSubNavbar navs=navs  menuid=nav.menuUuid/>
 	</#if>	
 	</#if>			

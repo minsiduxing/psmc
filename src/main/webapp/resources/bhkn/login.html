@@ -1,0 +1,127 @@
+<!DOCTYPE html5>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<title>login</title>
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+<!--必要样式-->
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<!--[if IE]>
+<script src="js/html5.js"></script>
+<![endif]-->
+</head>
+<body>
+		<div class="container demo-1">
+			<div class="content">
+				<div id="large-header" class="large-header">
+					<canvas id="demo-canvas"></canvas>
+					<div class="logo_box">
+						<h3>博汇康宁欢迎你</h3>
+						<center><span id ="msg"style="color:red !important;"></span></center>
+						<br>
+						<form action="#" id="loginForm" name="f" method="post" autocomplete="off">
+							<div class="input_outer">
+								<span class="u_user"></span>
+
+								<input name="userId" id="username" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入用户名"/>
+
+							</div>
+							<div class="input_outer">
+								<span class="us_uer"></span>
+								<input name="password" id="password" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"value="" type="password" placeholder="请输入密码"/>
+							</div>
+							<div class="mb2"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF" onclick="loginSubmit()">登录</a></div>
+
+							<div class="mb2"><a class="act-but submit" onclick="findPass()" href="javascript:;" style="color: #FFFFFF">忘记密码</a></div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div><!-- /container -->
+		<script src="js/TweenLite.min.js"></script>
+		<script src="js/EasePack.min.js"></script>
+		<script src="js/rAF.js"></script>
+		<script src="js/demo-1.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/md5.js"></script>
+		<div style="text-align:center;">
+</div>
+	</body>
+<span>
+	<script>
+	$(document).ready(function(){
+		$("#msg").fadeOut();
+	});
+	//校验密码
+	function validateUserPassword(){
+		 if($("#password").val()=="" || $("#password").val()==null){
+			writemsg("密码不能为空!");
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+	function validateUserName(){
+		if($("#username").val()==""|| $("#username").val()==null){
+			writemsg("用户名不能为空!");
+			return false;
+		}else{
+			return true;
+		}
+			
+	}
+	//登录校验
+	function validateLoginInfo (){
+		if(validateUserName() && validateUserPassword()){
+			return true;
+		}
+		return false;
+	}
+	//写提示信息
+	function writemsg(msg){
+		$("#msg").text(msg);
+		$("#msg").fadeIn();
+		
+	}
+	//用户登录
+	function loginSubmit(){
+		//密码md5加密
+     if(validateLoginInfo()){
+    	 $('#password').val(hex_md5($('#password').val()));
+ 		var _url = "/psmc/website/backstage/webUserController?method=login";
+ 		var _data = $("#loginForm").serialize();
+ 		if(validateLoginInfo()){
+ 			$.ajax({
+ 				async:false,
+ 				cache:false,
+ 				type:'POST',
+ 				dataType:"text",
+ 				data:_data,
+ 				url:_url,
+ 				success:function(data){
+ 					var dataObj = JSON.parse(data);
+ 					if(dataObj.res =="success"){
+ 						window.location.href="member.html";
+ 					}else{
+ 						writemsg(dataObj.rmsg);
+ 					}
+ 					
+ 				},
+ 				error:function (XMLHttpRequest, textStatus, errorThrown) {
+ 					
+ 				}
+ 			});
+ 		} 
+     }	
+	}
+	//找回密码
+	function findPass(){
+		window.location.href="find.html";
+	}
+</script>
+</span>
+</html>

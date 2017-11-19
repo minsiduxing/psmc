@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.JsonUtil;
@@ -43,9 +45,17 @@ public class TabWebUserController extends MyController {
 				msg = "用户名和密码不能为空！";
 			}else{
 				int count = tabWebUserService.isVaild(userId, password);
+				
 				if(count == 0){
 					flag = false;
 					msg = "用户名和密码错误！";
+				}else{
+					msg = "登录成功！";
+					Cookie cooks = new Cookie("userID", "LOGINSUCCESS_USER"+userId);
+					request.getSession().setAttribute("cuurentUser", "LOGINSUCCESS_USER"+userId);
+					cooks.setMaxAge(30*60);
+					cooks.setPath("/");
+					response.addCookie(cooks);
 				}
 			}
 			super.responseJson(flag, msg, response);
@@ -92,7 +102,55 @@ public class TabWebUserController extends MyController {
 		modelMap.put("user", user);
 		return "backstage/webuser/user_edit";
 	}
-	
+	@RequestMapping(params="method=webuserloginout")  
+	@ResponseBody
+	public void webuserloginout(HttpServletRequest request,HttpServletResponse response,TabWebUser webUser) throws IOException{
+		//获取用户的cookie 移除当前用的cookie 退出登录成功
+		String msg = "";
+		 Cookie[] cookies = request.getCookies();
+		 if(null!=cookies ){
+			 //遍历cookies数组
+			 for(Cookie cookie: cookies){
+				 String cuurentUser = String.valueOf(request.getSession().getAttribute("cuurentUser"));
+				 if(cookie.getValue().equals(cuurentUser)){
+					 cookie.setMaxAge(0);
+					 cookie.setPath("/");
+					 response.addCookie(cookie);
+					 msg = "退出登录成功!";
+					 break;
+				 }
+				 msg = "系统错误!";
+			 }
+		 }else{
+			 msg = "系统错误!";
+			 logger.debug("未获取到cookie 退出登录失败!");
+		 }
+		 super.responseJson(true, msg, response);
+	}
+	@RequestMapping(params="method=findPass")  
+	@ResponseBody
+	public void findPass(HttpServletRequest request,HttpServletResponse response,TabWebUser twu) throws IOException{
+		//找回密码，先判断用户名是否准确，然后再提示用户是否要重置到初始密码123456如果要重置则重置默认密码
+		Map<String,String>  res = new HashMap<>();
+		 Map<String,Object> resuser = tabWebUserService.findUserByCondition(twu);
+	    //先查找用户信息存在不存在
+		 if(twu.getPassword()==null ||twu.getPassword().equals("")){
+			 if(null!=resuser&& resuser.size()>0){
+				 res.put("flag", "1");
+				 res.put("msg", "确定要重置到初始化密码吗？");
+			 }else{
+				 res.put("flag", "2");
+				 res.put("msg", "用户不存在");
+			 } 
+		 }else{
+			 //用户确认后修改密码
+			 tabWebUserService.updateUser(twu);
+			 res.put("flag", "3");
+			 res.put("msg", "密码重置成功,初始密码为:123456");
+		 }
+		 
+		 super.responseJson(JsonUtil.convertToJSONObject(res), response);;
+	}
 	@Autowired
 	private TabWebUserService tabWebUserService;
 }
