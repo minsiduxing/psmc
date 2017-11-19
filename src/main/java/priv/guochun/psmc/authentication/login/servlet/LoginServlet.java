@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
 	}
 
 
-	@SuppressWarnings({"unchecked", "unchecked" })
+	@SuppressWarnings({ })
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	        HttpSession httpSession = request.getSession();
 	        //在这里创建application域为了存储成功登录的用户session集合（统计当前系统的在线人数）
@@ -48,56 +48,55 @@ public class LoginServlet extends HttpServlet {
 	        //由于登录失败要返回前台json数据所以在此声明返回数据格式为json
 	        response.setCharacterEncoding("UTF-8");
 	        response.setContentType("text/html;charset=UTF-8");
-	        PrintWriter out = null;
 	        //返回消息
 	        String msg;
 	        //由于要转json格式，所以需要定义一个map
 	        Map <String,String> resMap ;
 	        String username = request.getParameter("username");
 	        String password = request.getParameter("password");
-	        PrintWriter pw =  response.getWriter();
-//	        String loginurl = response.encodeRedirectURL(request.getContextPath()+"/login.jsp");
-//            String sucurl = response.encodeRedirectURL(request.getContextPath()+"/authentication/loginController.do?method=entrance");
+	        String transmiturl = request.getParameter("transmiturl");
 	        if(StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
 	                msg="用户名或密码为空,无法登录!";
 	                resMap = new HashMap<String,String>();
 	                resMap.put("msg", msg);
-//	                request.setAttribute("msg", msg);
-//	                response.sendRedirect(loginurl);
 	                logger.info("--------------------用户登录系统失败！原因："+msg);
 	        }else{
 	            LoginService service = (LoginService)MySpringApplicationContext.getObject("loginService");
                 String returnValue = service.isVaild(username, password);
 	            if("success".equals(returnValue)){
 	            	User user = service.buildUser(username);
-	            	//httpSession.removeAttribute("user");
-	            	 logger.info("--------------------用户"+username +"的信息植入session容器成功！");
-	                 httpSession.setAttribute("user",user);
-	                 resMap = new HashMap<String,String>();
-		             resMap.put("msg", "success");
-		             logger.info("--------------------用户"+username +"成功登录系统！");
-		             
-		             // 在application范围由一个HashSet集保存所有的session
-                    HashSet<HttpSession> sessions = (HashSet<HttpSession>)application.getAttribute("sessions");
-		     		 if(null == sessions){
-		     			 sessions = new HashSet<HttpSession>();
-		     		 }
-		     		 // 将新创建的session添加到HashSet集合中
-		             sessions.add(httpSession);
-		             application.setAttribute("sessions", sessions);
-		             //获取集合的大小即（在线人数）
-		             int sessionsNum = null != sessions ? sessions.size() : 0;
-		             application.setAttribute("sessionsNum", sessionsNum);
+	            	logger.info("--------------------用户"+username +"的信息植入session容器成功！");
+	             httpSession.setAttribute("user",user);
+	             resMap = new HashMap<String,String>();
+		         resMap.put("msg", "success");
+		         logger.info("--------------------用户"+username +"成功登录系统！");
+		         countLonin(application,httpSession);
+		         if(StringUtils.isNotBlank(transmiturl)) {
+		        	 	request.getRequestDispatcher(transmiturl).forward(request, response);
+		        	 	return;
+		         }
 	            }else{
 	            	  resMap = new HashMap<String,String>();
-		              resMap.put("msg", returnValue);
-		              logger.info("--------------------用户"+username +"登录系统失败！原因："+returnValue);
-		              
-	            }
-	            
+		          resMap.put("msg", returnValue);
+		          logger.info("--------------------用户"+username +"登录系统失败！原因："+returnValue);
+	            }  
 	        }
+	        PrintWriter pw =  response.getWriter();
 	        pw.append(JsonUtil.convertToJSONObject(resMap).toString());
             pw.close();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void countLonin(ServletContext application,HttpSession httpSession) {
+		Map<String,HttpSession> sessions = (HashMap<String,HttpSession>)application.getAttribute("sessions");
+ 		if(null == sessions){
+ 			sessions = new HashMap<String,HttpSession>();
+ 		}
+         sessions.put(httpSession.getId(), httpSession);
+         application.setAttribute("sessions", sessions);
+         //获取集合的大小即（在线人数）
+         int sessionsNum =sessions.size();
+         application.setAttribute("sessionsNum", sessionsNum);
 	}
 
 }
