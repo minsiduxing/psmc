@@ -59,9 +59,11 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 	//判断两次输入密码是否一致
 	function checkNewPassword(){
 		var _flag = false;
-		var newPassword = $.trim($("#newPassword").val());
-		var reNewPassword = $.trim($("#renewPassword").val());
-		if(reNewPassword != null && reNewPassword.length> 0){
+        var oldPassword = $.trim($("#oldPassword").textbox('getValue'));
+        var newPassword = $.trim($("#newPassword").textbox('getValue'));
+        var reNewPassword = $.trim($("#renewPassword").textbox('getValue'));
+
+		if(reNewPassword){
 			if(newPassword != reNewPassword){
 				//清空输入框的值
 				$('#renewPassword').textbox('setValue','');
@@ -77,6 +79,9 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 	}
 
 	function submitFn(){
+		if(!checkNewPassword()){
+			return false;
+		}
 		convertMd5();
 		var _msg = '';
 		var _info = '';
@@ -84,9 +89,7 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 		 $("input",$("#renewPassword").next("span")).blur(function(){  
 			
 		}); 
-		if(!checkNewPassword()){
-			return false;
-		}
+		
 		var _data = $("form").serialize();
 		//$.messager.progress();
 		$.ajax({
