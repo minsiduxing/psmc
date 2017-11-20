@@ -35,7 +35,7 @@
 <script>
 	//校验用户名
 	function validateUserName(){
-		if($("#username").val()==""|| $("#username").val()==null){
+		if(!$("#username").val()){
 			commonObj.alert("用户名不能为空!","warning");
 			return false;
 		}else{
@@ -45,7 +45,7 @@
 	}
 	//校验密码
 	function validateUserPassword(){
-		 if($("#password").val()=="" || $("#password").val()==null){
+		 if(!$("#password").val()){
 			commonObj.alert("密码不能为空!","warning");
 			return false;
 		}
