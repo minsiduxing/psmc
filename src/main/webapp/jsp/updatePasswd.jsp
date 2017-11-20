@@ -59,8 +59,9 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 	//判断两次输入密码是否一致
 	function checkNewPassword(){
 		var _flag = false;
-		var newPassword = $.trim($("#newPassword").val());
-		var reNewPassword = $.trim($("#renewPassword").val());
+		var oldPassword = $.trim($("#oldPassword").textbox('getValue'));
+		var newPassword = $.trim($("#newPassword").textbox('getValue'));
+		var reNewPassword = $.trim($("#renewPassword").textbox('getValue'));
 		if(reNewPassword != null && reNewPassword.length> 0){
 			if(newPassword != reNewPassword){
 				//清空输入框的值
@@ -70,13 +71,16 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 			}else{
 				_flag=true;
 			}
-		}else{
+		}else if(!oldPassword&&!newPassword&&!reNewPassword){
 			$.messager.alert('提示','输入值为空，请重新输入!');
 		}
 		return _flag;
 	}
 
 	function submitFn(){
+		if(!checkNewPassword()){
+			return false;
+		}
 		convertMd5();
 		var _msg = '';
 		var _info = '';
@@ -84,9 +88,6 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 		 $("input",$("#renewPassword").next("span")).blur(function(){  
 			
 		}); 
-		if(!checkNewPassword()){
-			return false;
-		}
 		var _data = $("form").serialize();
 		//$.messager.progress();
 		$.ajax({
