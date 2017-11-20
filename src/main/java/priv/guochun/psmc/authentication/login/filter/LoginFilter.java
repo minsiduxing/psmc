@@ -45,14 +45,15 @@ public class LoginFilter implements Filter
         
         boolean isExcludedPage = false;     
         String requestUrl = httpServletRequest.getServletPath();
-        
+        String urlSplit = ".";
         String suffix =  "*";
-        if(requestUrl.indexOf(".") != -1)
+        if(requestUrl.indexOf(urlSplit) != -1)
             suffix += requestUrl.substring(requestUrl.lastIndexOf("."),requestUrl.length());
         
         //判断是否在过滤url之外     
         for (String page : excludedPageArray) {
-            if(requestUrl.indexOf(page)!=-1 || page.equals(suffix)){     
+        	//这里equals需要完全匹配
+            if(page.equals(requestUrl) || page.equals(suffix)){     
             isExcludedPage = true;     
             break;     
             }
@@ -99,20 +100,7 @@ public class LoginFilter implements Filter
         logger.debug("==================================================");
         
         if(isExcludedPage){
-        	String urlSplit = ".";
-            if(requestUrl.indexOf(urlSplit) == -1){
-                String path = requestUrl;
-                if(requestUrl.indexOf("fileUploadController") != -1 ){
-                	path+=".do";
-                }
-                if(requestUrl.indexOf("webUserController") != -1 ){
-                	path+=".do";
-                }
-                httpServletRequest.getRequestDispatcher(path).forward(httpServletRequest, httpServletResponse);
-            }else{
-            	 chain.doFilter(httpServletRequest, httpServletResponse);
-            }
-           
+             httpServletRequest.getRequestDispatcher(requestUrl).forward(httpServletRequest, httpServletResponse);
         }else{
             
             HttpSession httpSession = httpServletRequest.getSession();
@@ -134,13 +122,7 @@ public class LoginFilter implements Filter
                 }    
             }
             else{
-                String urlSplit = ".";
-                if(requestUrl.indexOf(urlSplit) == -1){
-                    String path = requestUrl+".do";
-                    httpServletRequest.getRequestDispatcher(path).forward(httpServletRequest, httpServletResponse);
-                }else{
-                    chain.doFilter(request, response);
-                }
+            	httpServletRequest.getRequestDispatcher(requestUrl).forward(httpServletRequest, httpServletResponse);
             }    
         }
     }
