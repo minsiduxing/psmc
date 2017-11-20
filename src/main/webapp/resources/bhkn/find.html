@@ -28,6 +28,7 @@
 
 								<input name="userId" id="username" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入用户名"/>
                                 <input name="password" id="password" class="text" hidden="hidden" type="password"/>
+                                <input name="isupdate" id="isupdate"  hidden="hidden" />
 							</div>
 							<div class="mb2"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF" onclick="findpass()">确认</a></div>
 							<div class="mb2"><a class="act-but submit" onclick="javascript:window.location.href='login.html';" href="javascript:;" style="color: #FFFFFF">返回登录</a></div>
@@ -77,7 +78,7 @@
 	function findpass(){
 		//密码md5加密
      if(validateLoginInfo()){
- 		var _url = "/psmc/website/backstage/webUserController?method=findPass";
+ 		var _url = "/psmc/login?username=query&password=c4ca4238a0b923820dcc509a6f75849b&transmiturl=/website/backstage/webUserController.do?method=findPass";
  		var _data = $("#loginForm").serialize();
  			$.ajax({
  				async:false,
@@ -91,6 +92,7 @@
  					if(dataObj.flag =="1"){
  						if(window.confirm(dataObj.msg)){
  							$('#password').val(hex_md5("123456"));
+ 							$('#isupdate').val("isupdate");
  							findpass();
  						}
  					}

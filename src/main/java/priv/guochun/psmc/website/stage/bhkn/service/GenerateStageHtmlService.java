@@ -39,6 +39,10 @@ public interface GenerateStageHtmlService {
 	 */
 	public void generateTeamShowHtml();
 	/**
+	 * 生成加入我们
+	 */
+	public void generatereCruitHtml();
+	/**
 	 * 生成页脚
 	 */
 	public void generateFooterHtml();

@@ -129,12 +129,12 @@ public class TabWebUserController extends MyController {
 	}
 	@RequestMapping(params="method=findPass")  
 	@ResponseBody
-	public void findPass(HttpServletRequest request,HttpServletResponse response,TabWebUser twu) throws IOException{
+	public void findPass(HttpServletRequest request,HttpServletResponse response,TabWebUser twu,String isupdate) throws IOException{
 		//找回密码，先判断用户名是否准确，然后再提示用户是否要重置到初始密码123456如果要重置则重置默认密码
 		Map<String,String>  res = new HashMap<>();
 		 Map<String,Object> resuser = tabWebUserService.findUserByCondition(twu);
 	    //先查找用户信息存在不存在
-		 if(twu.getPassword()==null ||twu.getPassword().equals("")){
+		 if(StringUtils.isBlank(isupdate)){
 			 if(null!=resuser&& resuser.size()>0){
 				 res.put("flag", "1");
 				 res.put("msg", "确定要重置到初始化密码吗？");

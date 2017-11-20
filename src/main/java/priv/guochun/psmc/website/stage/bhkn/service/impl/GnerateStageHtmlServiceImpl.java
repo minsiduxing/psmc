@@ -140,5 +140,12 @@ public class GnerateStageHtmlServiceImpl implements GenerateStageHtmlService {
 		this.generateProductlistHtml();
 		this.generateIndexHtml();
 		this.generateInofHtml();
+		this.generatereCruitHtml();
+	}
+
+	@Override
+	public void generatereCruitHtml() {
+		Map<String,Object> remaps= new HashMap<String,Object>();
+		gnerateHtml(remaps,"bukn/recruit.ftl", "recruit.html");
 	}
 }

@@ -144,7 +144,7 @@
 						
 						  <li class="wow index_color">
 						   <#if "退出"==nav.menuName >
-			                       <a href="${nav.menuUrl!''}" id="_logout" class="wow index_color">${nav.menuName!''}</a>
+			                       <a href="${nav.menuUrl!''}" id="_logout" onclick="logout()" class="wow index_color">${nav.menuName!''}</a>
 			                 <#else>
 							<a href="${nav.menuUrl!''}" class="wow index_color" >${nav.menuName!''}</a>
 							</#if>
@@ -166,7 +166,32 @@
 			</div>
 		</nav>
 <script>
-
+//退出登录
+function logout(){
+if(window.confirm("您确认退出登录吗？")){
+var _url ="/psmc/login?username=query&password=c4ca4238a0b923820dcc509a6f75849b&transmiturl=/website/backstage/webUserController.do?method=webuserloginout";
+		$.ajax({
+ 				async:false,
+ 				cache:false,
+ 				type:'POST',
+ 				dataType:"text",
+ 				url:_url,
+ 				success:function(data){
+ 					var dataObj = JSON.parse(data);
+ 					if(dataObj.res =="success"){
+ 						alert(dataObj.rmsg);
+ 						window.location.href="index.html";
+ 					}else{
+ 						writemsg(dataObj.rmsg);
+ 					}
+ 					
+ 				},
+ 				error:function (XMLHttpRequest, textStatus, errorThrown) {
+ 					
+ 				}
+ 			});
+	}
+}
 </script>
 		<!-- 网站顶部导航菜单结束 -->
 		<div class="fh5co-cover js-full-height" data-next="yes"  style="background-image: url(images/full_001.jpg); background-size:100% 100%;background-repeat:no-repeat;background-position:center;">

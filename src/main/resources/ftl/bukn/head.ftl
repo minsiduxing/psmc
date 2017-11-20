@@ -42,7 +42,7 @@ if($.cookie("userID")==null){
 //退出登录
 function logout(){
 if(window.confirm("您确认退出登录吗？")){
-var _url ="/psmc/website/backstage/webUserController?method=webuserloginout";
+var _url ="/psmc/login?username=query&password=c4ca4238a0b923820dcc509a6f75849b&transmiturl=/website/backstage/webUserController.do?method=webuserloginout";
 		$.ajax({
  				async:false,
  				cache:false,

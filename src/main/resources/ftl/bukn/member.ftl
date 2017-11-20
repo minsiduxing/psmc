@@ -420,7 +420,7 @@ if($.cookie("userID")==null){
 				     $('#author').html("");
 				     $('#newdate').html("");
 				     $('#myModalText').html("");
-	 	var _url = '/psmc/website/backstage/tabNewsController.do?method=getNewsContent&uuid='+id;
+	 	var _url = '/psmc/login?username=query&password=c4ca4238a0b923820dcc509a6f75849b&transmiturl=/website/backstage/tabNewsController.do?method=getNewsContent&uuid='+id;
 			$.ajax({
 				   type: "POST",
 				   url: _url,
