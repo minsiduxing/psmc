@@ -69,19 +69,19 @@ var basePath = $("#basePath").val();
 var uploadUrl = basePath+"/website/backstage/tabNewsController.do";
 uploadUrl ='<c:url value="'+uploadUrl+'"/>?method=uploadPic';
 //获取图片路径
-var getImag='<c:url value="/system/freamwork/fileUploadController"/>?method=getImage&filePath=';
-var _url = '<c:url value="/system/freamwork/fileUploadController"/>?method=fileDelete&filePath=';
+var getImag='<c:url value="/system/freamwork/fileUploadController.do"/>?method=getImage&filePath=';
+var _url = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileDelete&filePath=';
 var isEdit = "<c:out value='${isEdit}'/>";
 //图片上路经
-var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController"/>?method=fileUpload';
+var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUpload';
 //修改保存路径
 var path = '<c:url value="'+ basePath+'/website/backstage/tabNewsController.do"/>?method=confirmPic';
 //表单数据初始化---------------------------------------------------
 var newsTitle = "${news.newsTitle}";
 var newscontent = '${news.news_content}';
 var editnewssrc = "${news.thumbnail_image_url}";
-var addUrl = '<c:url value="/website/backstage/tabNewsController"/>?method=newsSaveOrUpdate';
-var retrunUrl =  '<c:url value="/website/backstage/tabNewsController"/>?method=index';
+var addUrl = '<c:url value="/website/backstage/tabNewsController.do"/>?method=newsSaveOrUpdate';
+var retrunUrl =  '<c:url value="/website/backstage/tabNewsController.do"/>?method=index';
 function formInint(isEdit){
 	$('#newsDate').datetimebox({   
 		editable:true   

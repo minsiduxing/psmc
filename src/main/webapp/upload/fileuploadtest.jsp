@@ -16,7 +16,7 @@
 </head>
 <body>
 <%@ include file="../common.jsp"%>
-<form action='<c:url value="/system/freamwork/fileUploadController"/>?method=fileUpload' method="post" enctype="multipart/form-data">
+<form action='<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUpload' method="post" enctype="multipart/form-data">
 <input type="file" name ="file1" />
 <input type = "submit" value="上传"/>
 
@@ -30,7 +30,7 @@
 </center>
 <!-- 图片测试-->
 <%-- 
-<img alt="测试图片" src='<c:url value="/system/freamwork/fileUploadController"/>?method=getImage&filePath=/log/psmc-upload/image/1503827969232-1503758893527-IMG_20140205_140419.jpg'>
+<img alt="测试图片" src='<c:url value="/system/freamwork/fileUploadController.do"/>?method=getImage&filePath=/log/psmc-upload/image/1503827969232-1503758893527-IMG_20140205_140419.jpg'>
  --%>
 </body>
 <script type="text/javascript">
@@ -55,7 +55,7 @@ function getFileList(path){
 	console.info("p:"+path);
 	console.info("w:"+workDir);
 	console.info("pp:"+parentdir);
-	var _url = '<c:url value="/system/freamwork/fileUploadController"/>?method=listFiles&filePath='+path; ;
+	var _url = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=listFiles&filePath='+path; ;
 	$.ajax({
 			async:false,
 			cache:false,
@@ -73,7 +73,7 @@ function getFileList(path){
 							var name = data.directorys[i].fileRealName;
 							path = path.replace("//","/");
 							var gtpram = ""+workDir+dir;
-							text=text+'<tr><td>'+num+'</td><td>文件夹</td><td><a href="javascript:void(0);" onclick="getFileList(\''+gtpram+'\')">'+dir+'</a></td><td>'+size+'</td><td><a href="<c:url value="/system/freamwork/fileUploadController"/>?method=fileDelete&filePath='+path+"/"+name+'" onclick="return isDel()">删除</a><td></tr>';
+							text=text+'<tr><td>'+num+'</td><td>文件夹</td><td><a href="javascript:void(0);" onclick="getFileList(\''+gtpram+'\')">'+dir+'</a></td><td>'+size+'</td><td><a href="<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileDelete&filePath='+path+"/"+name+'" onclick="return isDel()">删除</a><td></tr>';
 							num = (num+1);
 						}
 					}
@@ -82,7 +82,7 @@ function getFileList(path){
 							var size = data.files[i].fileSize;
 							var name = data.files[i].fileRealName;
 							path = path.replace("//","/");
-							text=text+'<tr><td>'+num+'</td><td>文件</td><td>'+name+'</td><td>'+size+'</td><td><a href="<c:url value="/system/freamwork/fileUploadController"/>?method=fileDelete&filePath='+path+"/"+name+'" onclick="return isDel()">删除</a>||<a href="<c:url value="/system/freamwork/fileUploadController"/>?method=testFileDownload&filePath='+path+"/"+name+'">下载</a><td></tr>';
+							text=text+'<tr><td>'+num+'</td><td>文件</td><td>'+name+'</td><td>'+size+'</td><td><a href="<c:url value="/system/freamwork/.do"/>?method=fileDelete&filePath='+path+"/"+name+'" onclick="return isDel()">删除</a>||<a href="<c:url value="/system/freamwork/fileUploadController"/>?method=testFileDownload&filePath='+path+"/"+name+'">下载</a><td></tr>';
 							num = (num+1);
 						}
 					}
