@@ -91,7 +91,7 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 		}); 
 		
 		var _data = $("form").serialize();
-		//$.messager.progress();
+		$.messager.progress();
 		$.ajax({
 				async:false,
 				cache:false,
@@ -100,7 +100,7 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 				data:_data,
 				url:_url,
 				success:function(msg){
-					//$.messager.progress('close');
+					$.messager.progress('close');
 					_msg = msg;
 					if(msg=='0'){
 						_info= '修改成功，您需要重新登录!';
