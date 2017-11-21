@@ -1,5 +1,6 @@
 package priv.guochun.psmc.website.backstage.webuser.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import priv.guochun.psmc.system.framework.page.MyPage;
@@ -34,4 +35,25 @@ public interface TabWebUserDao {
 	 * @author wanglei 2017年11月19日
 	 */
 	public void updateUser (TabWebUser twu);
+	
+	/**
+	 * 保存或修改用户信息
+	 * @param user
+	 * @return
+	 */
+	public void saveTabWebUser(TabWebUser user);
+	
+	/**
+	 * 保存或修改用户信息
+	 * @param user
+	 * @return
+	 */
+	public void updateTabWebUserByUuid(TabWebUser user);
+	
+	/**
+	 * 用户唯一校验
+	 * @param user
+	 * @return
+	 */
+	public int executeWebUserUniqueValidate(TabWebUser user);
 }

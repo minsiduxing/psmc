@@ -2,6 +2,7 @@ package priv.guochun.psmc.website.backstage.webuser.service;
 
 import java.util.Map;
 
+import priv.guochun.psmc.authentication.resource.model.TabResource;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.website.backstage.webuser.model.TabWebUser;
 
@@ -33,4 +34,18 @@ public interface TabWebUserService {
 	 * @author wanglei 2017年11月19日
 	 */
 	public void updateUser (TabWebUser twu);
+	
+	/**
+	 * 保存或修改用户信息
+	 * @param user
+	 * @return
+	 */
+	public boolean saveOrUpdateTabWebUser(TabWebUser user);
+	
+	/**
+	 * 用户唯一校验
+	 * @param user
+	 * @return
+	 */
+	public boolean executeWebUserUniqueValidate(TabWebUser user);
 }

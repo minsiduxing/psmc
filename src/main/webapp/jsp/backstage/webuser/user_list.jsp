@@ -54,5 +54,11 @@ getTabDataUrl ='<c:url value="'+getTabDataUrl+'"/>?method=webUserList';
 
 var addUserUrl = basePath+"/website/backstage/webUserController.do";
 addUserUrl ='<c:url value="'+addUserUrl+'"/>?method=initEdit&oper=save';
+
+var editUserUrl = basePath+"/website/backstage/webUserController.do";
+editUserUrl ='<c:url value="'+editUserUrl+'"/>?method=initEdit&oper=edit';
+
+var saveUserUrl = basePath+"/website/backstage/webUserController.do";
+saveUserUrl ='<c:url value="'+saveUserUrl+'"/>?method=edit';
 </script>
 </html>

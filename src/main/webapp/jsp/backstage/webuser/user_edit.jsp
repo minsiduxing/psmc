@@ -8,8 +8,8 @@
 </head>
 <body>
 <form id="editForm" method="POST" class="addfrom">
-<input type="text" id="uuid" name="uuid" value="<c:out value="${user.UUID}"/>"></input>
-<input type="text" id="password" name="password" value="<c:out value="${user.password}"/>"></input>
+<input type="hidden" id="uuid" name="uuid" value="<c:out value="${user.uuid}"/>"></input>
+<input type="hidden" id="password" name="password" value="<c:out value="${user.password}"/>"></input>
 		<ul class="addform-subcontent">
 			<li class="li-input"><label for="" class="input-label">用户账号：</label>
 				<input class="myinput" id="userId" name="userId"></input>
@@ -31,19 +31,19 @@
 	$(document).ready(
 		function() {
 			$('#userId').textbox({
-				value : "${user.USER_ID}",
+				value : "${user.user_id}",
 				type : "text",
 				required : true
 			});
 			
 			$('#userName').textbox({
-				value : "${user.USER_NAME}",
+				value : "${user.user_name}",
 				type : "text",
 				required : true
 			});
 			
 			$('#idCard').textbox({
-				value : "${user.ID_CARD}",
+				value : "${user.id_card}",
 				type : "text",
 				required : true
 			});

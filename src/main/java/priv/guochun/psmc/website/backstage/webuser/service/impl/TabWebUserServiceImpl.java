@@ -37,4 +37,27 @@ public class TabWebUserServiceImpl implements TabWebUserService {
 	public void updateUser(TabWebUser twu) {
 		tabWebUserDao.updateUser(twu);
 	}
+
+	@Override
+	public boolean saveOrUpdateTabWebUser(TabWebUser user) {
+		TabWebUser twu = new TabWebUser();
+		twu.setUuid(user.getUuid());
+		Map<String,Object> map = tabWebUserDao.findUserByCondition(twu);
+		if(map == null){
+			tabWebUserDao.saveTabWebUser(user);
+		}else{
+			tabWebUserDao.updateTabWebUserByUuid(user);
+		}
+		return true;
+	}
+
+	@Override
+	public boolean executeWebUserUniqueValidate(TabWebUser user) {
+		int count = tabWebUserDao.executeWebUserUniqueValidate(user);
+		if(count > 0){
+			return false;
+		}else{
+			return true;
+		}
+	}
 }

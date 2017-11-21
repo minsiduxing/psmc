@@ -28,7 +28,46 @@ $(document).ready(function(){
 			editdialog.panel({href:addUserUrl});
 			editdialog.window("open");
 		});
+	
+	$("#edit").click(function(){
+		var rows = $("#webUserTableId").datagrid('getChecked');
+		if (rows.length == 1){
+			var rowObj = eval(rows[0]);
+			var UUID = rowObj.UUID;
+			var _url = editUserUrl+"&uuid=" + UUID;
+			if(!editdialog){
+				initDialog();
+			}
+			editdialog.panel({title:"修改"});
+			editdialog.panel({iconCls:'icon-edit'});
+			editdialog.panel({href:_url});
+			editdialog.window("open");
+			
+		}else{
+			commonObj.alert("请选择一条记录!","warning");
+		}
+	});
 });
+
+//表单校验
+function onSubmit(){
+	var result = $('#editForm').form("validate");
+	if(Boolean(result)){
+		$.messager.progress(); 
+		return true;
+	}else{
+		return false;
+	}
+}
+
+//表单提交成功后的回调方法
+function successCallback(data){
+	debugger;
+	$('#editdialogDiv').dialog('close');
+	$.messager.progress("close");
+	$("#webUserTableId").datagrid('reload');
+	commonObj.showResponse(data);
+}
 
 //表单dialog初始化方法
 function initDialog(){
@@ -44,7 +83,7 @@ function initDialog(){
 			iconCls:'icon-save',
 			handler:function(){
 					$('#editForm').form({    
-					    url:saveAccountUrl,    
+					    url:saveUserUrl,    
 					    onSubmit: function(){
 					    	return onSubmit();
 					    },    

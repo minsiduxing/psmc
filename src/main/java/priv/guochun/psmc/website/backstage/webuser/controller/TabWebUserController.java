@@ -18,6 +18,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import priv.guochun.psmc.authentication.resource.model.TabResource;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.JsonUtil;
@@ -92,11 +93,13 @@ public class TabWebUserController extends MyController {
 		 	HttpServletResponse response,String uuid,String oper,ModelMap modelMap) throws IOException{
 		Map user = null;
 		if(StringUtils.isNotBlank(uuid)){
-			
+			TabWebUser twu = new TabWebUser();
+			twu.setUuid(uuid);
+			user = tabWebUserService.findUserByCondition(twu);
 		}else{
 			String userUuid = UUIDGenerator.createUUID();
 			user = new HashMap<String, String>();
-			user.put("UUID", userUuid);
+			user.put("uuid", userUuid);
 		}
 		modelMap.put("oper", oper);
 		modelMap.put("user", user);
@@ -151,6 +154,26 @@ public class TabWebUserController extends MyController {
 		 
 		 super.responseJson(JsonUtil.convertToJSONObject(res), response);;
 	}
+	
+	/**
+	 * 修改或保存用户
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=edit")  
+    @ResponseBody
+    public void edit(HttpServletRequest request,
+            HttpServletResponse response,TabWebUser user) throws IOException{
+		boolean exits = tabWebUserService.executeWebUserUniqueValidate(user);
+		if (!exits) {
+			super.responseJson(exits, "账号名称在系统中已存在,不能重复录入", response);
+		} else {
+			boolean result = tabWebUserService.saveOrUpdateTabWebUser(user);
+			super.responseJson(result, null, response);
+		}
+    }
 	@Autowired
 	private TabWebUserService tabWebUserService;
 }

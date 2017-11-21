@@ -2,15 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
 EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
 <mapper namespace="priv.guochun.psmc.website.backstage.webuser.model.TabWebUser">  
-<!-- 	<resultMap type="priv.guochun.psmc.website.backstage.webuser.model.TabWebUser" id="tabWebUser">
-		<result property="uuid" column="uuid"/>
-		<result property="userId" column="user_id"/>
-		<result property="password" column="password"/>
-		<result property="userName" column="user_name"/>
-		<result property="idCard" column="id_card"/>
-		<result property="phone" column="phone"/>
-	</resultMap>  
-    --> 
     <select id="getWebUserList" resultType="java.util.Map">
     	SELECT UUID, USER_ID, PASSWORD, USER_NAME, ID_CARD, PHONE FROM TAB_WEB_USER
     </select>
@@ -19,7 +10,13 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
     	SELECT COUNT(1) FROM TAB_WEB_USER WHERE USER_ID = #{userId} AND PASSWORD = #{password}
     </select>
     <select id="findUserByCondition" parameterType="java.util.Map" resultType="java.util.Map">
-    	SELECT * FROM TAB_WEB_USER WHERE USER_ID = #{userId}
+    	SELECT * FROM TAB_WEB_USER WHERE 1=1
+    	<if test="userId != null and userId != ''">
+    		AND USER_ID = #{userId}
+    	</if>
+    	<if test="uuid != null and uuid != ''">
+    		AND UUID = #{uuid}
+    	</if>
     </select>
     <update id="updateUser" parameterType="priv.guochun.psmc.website.backstage.news.model.TabNews">
   		UPDATE TAB_WEB_USER
@@ -30,4 +27,13 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   		</trim>
   		WHERE user_id = #{userId}
   	</update>
+  	<insert id="saveTabWebUser" parameterType="priv.guochun.psmc.website.backstage.webuser.model.TabWebUser">
+  		INSERT INTO tab_web_user (UUID,USER_ID,PASSWORD,USER_NAME,ID_CARD,PHONE) VALUES (#{uuid},#{userId},#{password},#{userName},#{idCard},#{phone})
+  	</insert>
+  	<update id="updateTabWebUserByUuid" parameterType="priv.guochun.psmc.website.backstage.webuser.model.TabWebUser">
+  		UPDATE TAB_WEB_USER SET USER_ID = #{userId},PASSWORD = #{password},USER_NAME = #{userName},ID_CARD = #{idCard},PHONE = #{phone} WHERE UUID = #{uuid}
+  	</update>
+  	<select id="executeWebUserUniqueValidate" parameterType="priv.guochun.psmc.website.backstage.webuser.model.TabWebUser" resultType="int">
+  		SELECT COUNT(1) FROM TAB_WEB_USER WHERE USER_ID = #{userId} AND UUID != #{uuid}
+  	</select>
 </mapper>  

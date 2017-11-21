@@ -1,6 +1,7 @@
 package priv.guochun.psmc.website.backstage.webuser.dao.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -20,7 +21,10 @@ public class TabWebUserDaoImplMybatis implements TabWebUserDao {
 	public static final String queryUserCount="queryUserCount";
 	public static final String findUserByCondition="findUserByCondition";
 	public static final String updateUser="updateUser";
-	    
+	public static final String saveTabWebUser="saveTabWebUser";
+	public static final String updateTabWebUserByUuid="updateTabWebUserByUuid";
+	public static final String executeWebUserUniqueValidate="executeWebUserUniqueValidate";  
+	
 	private SqlSessionTemplate sqlSession;
 	
 	private IDaoTemplate iDaoTemplate;
@@ -66,11 +70,27 @@ public class TabWebUserDaoImplMybatis implements TabWebUserDao {
 	public Map<String, Object> findUserByCondition(TabWebUser twu) {
 		Map<String, Object> condition = new HashMap<String, Object>();
 		condition.put("userId", twu.getUserId());
+		condition.put("uuid", twu.getUuid());
 		return sqlSession.selectOne(findUserByCondition, condition);
 	}
 
 	@Override
 	public void updateUser(TabWebUser twu) {
 		sqlSession.update(updateUser,twu);
+	}
+
+	@Override
+	public void saveTabWebUser(TabWebUser user) {
+		sqlSession.insert(saveTabWebUser, user);
+	}
+
+	@Override
+	public void updateTabWebUserByUuid(TabWebUser user) {
+		sqlSession.update(updateTabWebUserByUuid, user);
+	}
+
+	@Override
+	public int executeWebUserUniqueValidate(TabWebUser user) {
+		return sqlSession.selectOne(executeWebUserUniqueValidate, user);
 	}
 }
