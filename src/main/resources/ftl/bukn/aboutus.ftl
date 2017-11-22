@@ -244,52 +244,52 @@
 				<div class="clearfix course_nr">
 					<ul class="course_nr2">
 						<li>
-							2016年3月
+							2015年12月
 							<div class="shiji">
-								<h1>2016年3月</h1>
-								<p>内容描述1。</p>
+								<h1>2015年12月16日</h1>
+								<p>公司成立</p>
+							</div>
+						</li>
+						<li>
+							2016年2月
+							<div class="shiji">
+								<h1>2016年2月</h1>
+								<p>公司取得牌照</p>
 							</div>
 						</li>
 						<li>
 							2016年5月
 							<div class="shiji">
-								<h1>2016年5月</h1>
-								<p>内容描述2；</p>
+								<h1>2016年5月1日</h1>
+								<p>公司乔迁新址</p>
+							</div>
+						</li>
+						<li>
+							2016年5月
+							<div class="shiji">
+								<h1>2016年5月10日</h1>
+								<p>第一款产品发行</p>
+							</div>
+						</li>
+						<li>
+							2016年3月
+							<div class="shiji">
+								<h1>2016年3月31日</h1>
+								<p>博汇康宁股票型管理1期私募证券投资基金</p>
 							</div>
 						</li>
 						<li>
 							2016年7月
 							<div class="shiji">
-								<h1>2016年7月</h1>
-								<p>内容描述3</p>
-							</div>
-						</li>
-						<li>
-							2016年10月
-							<div class="shiji">
-								<h1>2016年10月</h1>
-								<p>内容描述4</p>
-							</div>
-						</li>
-						<li>
-							2016年12月
-							<div class="shiji">
-								<h1>2016年12月</h1>
-								<p>内容描述5</p>
-							</div>
-						</li>
-						<li>
-							2017年5月
-							<div class="shiji">
-								<h1>2017年5月</h1>
-								<p>内容描述6</p>
+								<h1>2016年7月25日</h1>
+								<p>第四款产品发行产品总值突破五亿</p>
 							</div>
 						</li>
 						<li>
 							至今
 							<div class="shiji">
 								<h1>至今</h1>
-								<p>内容描述7</p>
+								<p>公司营业额蒸蒸日上，再取佳绩</p>
 							</div>
 						</li>
 					</ul>

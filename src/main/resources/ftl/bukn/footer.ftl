@@ -22,6 +22,8 @@
 							<li><a href="javasript:void(0)">联系地址:</a></li>
 							<li><a href="javasript:void(0)">陕西省西安市科技路西</a></li>
 							<li><a href="javasript:void(0)">段绿地鸿海大厦B座9层</a></li>
+							<li><a href="javasript:void(0)">联系电话:</a></li>
+							<li><a href="javasript:void(0)">029-84536670</a></li>
 							<li><a href="javasript:void(0)">电子邮箱:</a></li>
 							<li><a href="javasript:void(0)">bhkn@bohuikangning.com</a></li>
 							<li><img src="images/1503125910(1).png"></li>
