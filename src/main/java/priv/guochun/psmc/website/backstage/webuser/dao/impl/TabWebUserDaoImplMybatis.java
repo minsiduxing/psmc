@@ -24,6 +24,7 @@ public class TabWebUserDaoImplMybatis implements TabWebUserDao {
 	public static final String saveTabWebUser="saveTabWebUser";
 	public static final String updateTabWebUserByUuid="updateTabWebUserByUuid";
 	public static final String executeWebUserUniqueValidate="executeWebUserUniqueValidate";  
+	public static final String deleteWebUsers="deleteWebUsers";  
 	
 	private SqlSessionTemplate sqlSession;
 	
@@ -31,7 +32,12 @@ public class TabWebUserDaoImplMybatis implements TabWebUserDao {
 	
 	@Override
 	public MyPage getWebUserList(MyPage mapage) {
-		return iDaoTemplate.getMyPage(mapage, getWebUserList,null);
+		Map<String,Object> condition = new HashMap<String,Object>();
+		//查询参数添加
+        if(mapage.getQueryParams()!=null && mapage.getQueryParams().size()>0){
+        	condition.putAll(mapage.getQueryParams());
+        }
+    	return iDaoTemplate.getMyPage(mapage, getWebUserList, condition);
 	}
 	
 	@Override
@@ -40,30 +46,6 @@ public class TabWebUserDaoImplMybatis implements TabWebUserDao {
 		condition.put("userId", userId);
 		condition.put("password", password);
 		return sqlSession.selectOne(queryUserCount, condition);
-	}
-
-	public SqlSessionTemplate getSqlSession() {
-		return sqlSession;
-	}
-
-	public void setSqlSession(SqlSessionTemplate sqlSession) {
-		this.sqlSession = sqlSession;
-	}
-
-	public IDaoTemplate getiDaoTemplate() {
-		return iDaoTemplate;
-	}
-
-	public void setiDaoTemplate(IDaoTemplate iDaoTemplate) {
-		this.iDaoTemplate = iDaoTemplate;
-	}
-
-	public static Logger getLogger() {
-		return logger;
-	}
-
-	public static String getGetwebuserlist() {
-		return getWebUserList;
 	}
 
 	@Override
@@ -92,5 +74,36 @@ public class TabWebUserDaoImplMybatis implements TabWebUserDao {
 	@Override
 	public int executeWebUserUniqueValidate(TabWebUser user) {
 		return sqlSession.selectOne(executeWebUserUniqueValidate, user);
+	}
+
+	@Override
+	public void deleteWebUsers(String uuids) {
+		Map<String, Object> condition = new HashMap<String, Object>();
+		condition.put("uuids", uuids.split(","));
+		sqlSession.delete(deleteWebUsers, condition);
+	}
+	
+	public SqlSessionTemplate getSqlSession() {
+		return sqlSession;
+	}
+
+	public void setSqlSession(SqlSessionTemplate sqlSession) {
+		this.sqlSession = sqlSession;
+	}
+
+	public IDaoTemplate getiDaoTemplate() {
+		return iDaoTemplate;
+	}
+
+	public void setiDaoTemplate(IDaoTemplate iDaoTemplate) {
+		this.iDaoTemplate = iDaoTemplate;
+	}
+
+	public static Logger getLogger() {
+		return logger;
+	}
+
+	public static String getGetwebuserlist() {
+		return getWebUserList;
 	}
 }

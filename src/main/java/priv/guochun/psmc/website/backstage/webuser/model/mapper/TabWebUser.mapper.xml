@@ -3,7 +3,13 @@
 EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
 <mapper namespace="priv.guochun.psmc.website.backstage.webuser.model.TabWebUser">  
     <select id="getWebUserList" resultType="java.util.Map">
-    	SELECT UUID, USER_ID, PASSWORD, USER_NAME, ID_CARD, PHONE FROM TAB_WEB_USER
+    	SELECT UUID, USER_ID, PASSWORD, USER_NAME, ID_CARD, PHONE FROM TAB_WEB_USER WHERE 1=1
+    	<if test="userId != null and userId != ''">
+    		AND USER_ID like concat(concat('%',#{userId}),'%')
+    	</if>
+    	<if test="userName != null and userName != ''">
+    		AND USER_NAME like concat(concat('%',#{userName}),'%')
+    	</if>
     </select>
     
     <select id="queryUserCount" parameterType="java.util.Map" resultType="java.lang.Integer">
@@ -36,4 +42,10 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   	<select id="executeWebUserUniqueValidate" parameterType="priv.guochun.psmc.website.backstage.webuser.model.TabWebUser" resultType="int">
   		SELECT COUNT(1) FROM TAB_WEB_USER WHERE USER_ID = #{userId} AND UUID != #{uuid}
   	</select>
+  	<delete id="deleteWebUsers" parameterType="hashmap">
+  		DELETE FROM TAB_WEB_USER WHERE 1=1 AND UUID IN
+  		<foreach item="item" index="index" collection="uuids" open="(" separator="," close=")">  
+				  #{item}  
+		</foreach> 
+  	</delete>
 </mapper>  

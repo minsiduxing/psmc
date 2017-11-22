@@ -10,7 +10,7 @@
 <script type="text/javascript" src="../../../js/md5.js"></script>
 </head>
 <body id="body">
-<%-- <g:auth operateNo="<%=OperateContantsUtil.ACCOUNT_QUERY%>"> --%>
+<g:auth operateNo="<%=OperateContantsUtil.WEB_USER_QUERY%>">
 <div class="query-content panel easyui-accordion accordion " data-options="selected:false" style="width:100%"> 
  <div title="信息查询" > 
     <form id="searchform" method="POST" class="query-form" >
@@ -28,21 +28,21 @@
 	</div> 
  </div>
  </div>
- <%-- </g:auth> --%>
+ </g:auth>
 <table id="webUserTableId" style="width:100%"></table>
 <div id="toolbarId">
-	<%-- <g:auth operateNo="<%=OperateContantsUtil.ACCOUNT_ADD%>"> --%>
+	<g:auth operateNo="<%=OperateContantsUtil.WEB_USER_ADD%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
-	<%-- </g:auth> --%>
-	<%-- <g:auth operateNo="<%=OperateContantsUtil.ACCOUNT_UPDATE%>"> --%>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.WEB_USER_UPDATE%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="edit">修改</a>
-	<%-- </g:auth> --%>
-	<%-- <g:auth operateNo="<%=OperateContantsUtil.ACCOUNT_DEL%>"> --%>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.WEB_USER_DELETE%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
-	<%-- </g:auth> --%>
-	<%-- <g:auth operateNo="<%=OperateContantsUtil.ACCOUNT_EXPORT%>"> --%>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.WEB_USER_EXPORT%>">
 		<a href="" id="exportBtn" class="easyui-linkbutton"   plain="true" iconCls="icon-excel">导出</a>
-	<%-- </g:auth> --%>
+	</g:auth>
 </div>
 <div id="editdialogDiv"></div>
 </body>
@@ -60,5 +60,21 @@ editUserUrl ='<c:url value="'+editUserUrl+'"/>?method=initEdit&oper=edit';
 
 var saveUserUrl = basePath+"/website/backstage/webUserController.do";
 saveUserUrl ='<c:url value="'+saveUserUrl+'"/>?method=edit';
+
+var removeUserUrl = basePath+"/website/backstage/webUserController.do";
+removeUserUrl ='<c:url value="'+removeUserUrl+'"/>?method=delete';
+
+var exportUserUrl =  basePath+"/website/backstage/webUserController.do";
+exportUserUrl ='<c:url value="'+exportUserUrl+'"/>?method=exportUser';
+//导出路径
+$('#exportBtn').attr('href',exportUserUrl);
+
+$('#queryUserId').textbox({
+	type : "text"
+});
+
+$('#queryUserName').textbox({
+	type : "text"
+});
 </script>
 </html>

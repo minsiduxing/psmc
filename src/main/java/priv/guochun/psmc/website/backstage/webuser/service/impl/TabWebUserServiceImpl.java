@@ -60,4 +60,10 @@ public class TabWebUserServiceImpl implements TabWebUserService {
 			return true;
 		}
 	}
+
+	@Override
+	public boolean deleteWebUsers(String uuids) {
+		tabWebUserDao.deleteWebUsers(uuids);
+		return true;
+	}
 }

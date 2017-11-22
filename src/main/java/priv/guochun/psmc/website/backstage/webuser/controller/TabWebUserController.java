@@ -2,12 +2,11 @@ package priv.guochun.psmc.website.backstage.webuser.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.View;
 
-import priv.guochun.psmc.authentication.resource.model.TabResource;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.JsonUtil;
@@ -174,6 +173,49 @@ public class TabWebUserController extends MyController {
 			super.responseJson(result, null, response);
 		}
     }
+	
+	/**
+	 * 批量删除用户
+	 * @param request
+	 * @param response
+	 * @param uuids
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=delete")  
+    @ResponseBody
+    public void delete(HttpServletRequest request,
+            HttpServletResponse response,String uuids) throws IOException{
+		boolean result = tabWebUserService.deleteWebUsers(uuids);
+		super.responseJson(result, null, response);
+	}
+	
+	/**
+	 * 用户列表导出
+	 * @param request
+	 * @param response
+	 * @param mypage
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=exportUser")
+	@SuppressWarnings("rawtypes")
+	public View exportUser( HttpServletRequest request,HttpServletResponse response,MyPage mypage) throws IOException{
+		//1、根据条件查询出列表账号
+		mypage = tabWebUserService.getWebUserList(mypage);
+		List userList = mypage.getDataList();
+		//2、将得到的数据封装到excel里
+		//2.1 设置属性列名
+		 this.setColumns(new String[]{"USER_ID","USER_NAME","ID_CARD","PHONE"});
+		//2.2 设置表格的显示名
+		 this.setTitles(new String[]{"用户账号","用户姓名","身份证号","手机号码"});
+		 //2.3设置文件名
+		 this.setFileName("网站会员信息列表.xls");
+		//2.4 初始化数据
+		 this.setExportList(userList);
+		//3、返回excel下载视图
+		return this.responseExcelFile(response) ;
+	}
+	
 	@Autowired
 	private TabWebUserService tabWebUserService;
 }

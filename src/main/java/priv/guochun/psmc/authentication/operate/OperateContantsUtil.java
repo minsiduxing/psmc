@@ -56,4 +56,13 @@ public class OperateContantsUtil {
     public final static String NEWS_DELETE = "NEWS_DELETE";
     public final static String NEWS_PRIVIEW = "NEWS_PRIVIEW";
     
+    /**
+     * 网站用户管理
+     */
+    public final static String WEB_USER_ADD = "WEB_USER_ADD";
+    public final static String WEB_USER_DELETE = "WEB_USER_DELETE";
+    public final static String WEB_USER_UPDATE = "WEB_USER_UPDATE";
+    public final static String WEB_USER_QUERY = "WEB_USER_QUERY";
+    public final static String WEB_USER_EXPORT = "WEB_USER_EXPORT";
+    
 }

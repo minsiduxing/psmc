@@ -48,4 +48,11 @@ public interface TabWebUserService {
 	 * @return
 	 */
 	public boolean executeWebUserUniqueValidate(TabWebUser user);
+	
+	/**
+	 * 批量删除用户
+	 * @param uuids
+	 * @return
+	 */
+	public boolean deleteWebUsers(String uuids);
 }

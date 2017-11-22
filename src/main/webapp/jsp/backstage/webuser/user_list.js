@@ -10,7 +10,7 @@ $(document).ready(function(){
 		          {field:'USER_ID',title:'用户账号'},    
 		          {field:'PASSWORD',title:'密码',hidden:true},  
 		          {field:'USER_NAME',title:'用户姓名'}, 
-		          {field:'ID_CARD',title:'身份证'}, 
+		          {field:'ID_CARD',title:'身份证号'}, 
 		          {field:'PHONE',title:'手机号码'}
 		         ] 
 		      ]
@@ -47,6 +47,42 @@ $(document).ready(function(){
 			commonObj.alert("请选择一条记录!","warning");
 		}
 	});
+	
+	$("#remove").click(function(){
+		var rows = $("#webUserTableId").datagrid('getChecked');
+		var rlength = rows.length;
+		var ids="";
+		if (rlength > 0){
+			for(var i=0;i<rlength;i++){
+				var rowObj = eval(rows[i]);
+				var UUID = rowObj.UUID;
+				ids+=UUID;
+				if(i<rlength-1)
+					ids+=",";
+			}
+			$.messager.confirm('提示', '该操作不可逆，您确认删除该用户账户信息?', function(r){
+				if (r){
+					var _url = removeUserUrl+"&uuids="+ids;
+					$.messager.progress(); 
+					$.ajax({
+						   type: "POST",
+						   url: _url,
+						   success: function(data){
+							   successCallback(data);
+						   },
+						   error:function(XMLHttpRequest, textStatus, errorThrown){
+							   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+						   }
+						});
+				}
+			});
+			
+		}else{
+			commonObj.alert("请选择至少一条记录!","warning");
+		}
+		$.messager.progress("close");
+		
+	});
 });
 
 //表单校验
@@ -62,8 +98,6 @@ function onSubmit(){
 
 //表单提交成功后的回调方法
 function successCallback(data){
-	debugger;
-	$('#editdialogDiv').dialog('close');
 	$.messager.progress("close");
 	$("#webUserTableId").datagrid('reload');
 	commonObj.showResponse(data);
@@ -88,6 +122,7 @@ function initDialog(){
 					    	return onSubmit();
 					    },    
 					    success:function(data){
+					    	$('#editdialogDiv').dialog('close');
 					    	successCallback(data);
 					    }
 					}); 

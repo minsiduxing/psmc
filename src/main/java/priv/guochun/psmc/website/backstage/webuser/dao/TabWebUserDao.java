@@ -56,4 +56,10 @@ public interface TabWebUserDao {
 	 * @return
 	 */
 	public int executeWebUserUniqueValidate(TabWebUser user);
+	
+	/**
+	 * 批量删除用户
+	 * @param uuids
+	 */
+	public void deleteWebUsers(String uuids);
 }
