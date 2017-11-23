@@ -359,12 +359,11 @@ INSERT INTO tab_role (uuid, role_no, role_name, creator, create_time, remark) VA
 INSERT INTO tab_role (uuid, role_no, role_name, creator, create_time, remark) VALUES ('f20d3a2281ef4de29a7c8bc761d83701', 'sys_news_release', '系统新闻发布员', 'admin', '2017-09-08 23:28:39', '发布新闻');
 INSERT INTO tab_role (uuid, role_no, role_name, creator, create_time, remark) VALUES ('fcbd8c27372346e198bc2eae52b1643e', 'sys_news_query', '查看权限', 'admin', '2017-09-08 23:28:39', '');
 
+
 insert into tab_accounts (uuid, account_name, account_pass, is_locked) values 
 ('a98ea24502694850bc0ac8121a83d97a','query','c4ca4238a0b923820dcc509a6f75849b','2');
-
 insert into tab_person (uuid, person_name, sex, age, telephone, email, acc_uuid,city_id) values 
 ('07dd3b31b1574bf3b42f6de34ec7e124','外系统查看人员',1,0,'18691026980','','a98ea24502694850bc0ac8121a83d97a','00');
-
 insert into tab_acc_role (acc_uuid, role_uuid) values ('a98ea24502694850bc0ac8121a83d97a','fcbd8c27372346e198bc2eae52b1643e');
 
 
@@ -415,7 +414,6 @@ INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_met
 INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('80cbfd5bcbcc4b78ba9abbb1deac53f9', '90e372f048404a1eac921868b3497d35', '460283cc3e2c4d0a8b6bbbd75698a339', 'priv.guochun.psmc.website.backstage.news.service.TabNewsService', 'getNewsListByConditionBusinessMethod', 'NEWS_EXPORT', '新闻导出', '新闻导出功能', 17);
 INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('998ef3e5f0374ca1bf6fb4fe0c51f240', '90e372f048404a1eac921868b3497d35', 'dec3b327b8a54d66bd644c544ea65c5e', 'priv.guochun.psmc.website.backstage.news.service.TabNewsService', 'deleteTabNewsByUuidsBusinessMethod', 'NEWS_DELETE', '新闻删除', '新闻删除', 14);
 INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('28b13f095f204b278c6dfcb724dc2840', 'aa8386c1771c40d795a53b9ee85ca575', '607e8bc6f9bb4afa9be3cfdc72a1a326', 'priv.guochun.psmc.website.backstage.news.service.TabNewsService', 'saveOrUpdateTabNewsBusinessMethod', 'NEWS_ADD', '新闻新增', '新闻新增', 12);
-INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('a30b8feb609b4cd1a234ff7c53926ff4', '7ae04930c73643c8826b81239a2209e8', '607e8bc6f9bb4afa9be3cfdc72a1a326', 'priv.guochun.psmc.website.backstage.news.service.TabNewsService', 'saveOrUpdateTabNewsBusinessMethod', ' MEMBERINFO_ADD', '会员信息添加', '会员信息添加', 26);
 INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('ca7ef06da4904382b1f3eace2813feea', '2df1b11499b64e4ea09d6490d565cf58', '607e8bc6f9bb4afa9be3cfdc72a1a326', 'priv.guochun.psmc.website.backstage.news.service.TabNewsService', 'saveOrUpdateTabNewsBusinessMethod', 'MEMBERINFO_ADD', '会员新闻添加', '会员新闻添加', 27);
 
 ------------------新闻操作和角色关系
@@ -427,7 +425,6 @@ INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '80cbfd5bcbcc4b78ba9abbb1deac53f9');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '998ef3e5f0374ca1bf6fb4fe0c51f240');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '28b13f095f204b278c6dfcb724dc2840');
-INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'a30b8feb609b4cd1a234ff7c53926ff4');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'ca7ef06da4904382b1f3eace2813feea');
 
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('60fa2131c09448848f42a29e3b5ab421', '4093d626accc44c580e2ea915db4c742');
@@ -444,6 +441,4 @@ INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('447a398c553d4462
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('447a398c553d446283b030c2a5716a79', '5d590288a2904be5a97679e066dca0c1');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('447a398c553d446283b030c2a5716a79', '618c35390cc04b8a927f7f408f859ca0');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('447a398c553d446283b030c2a5716a79', '998ef3e5f0374ca1bf6fb4fe0c51f240');
-
-
 
