@@ -18,7 +18,7 @@ public class TabWebUserServiceImpl implements TabWebUserService {
 	}
 
 	@Override
-	public MyPage getWebUserList(MyPage mapage) {
+	public MyPage getWebUsersBusinessMethod(MyPage mapage) {
 		return tabWebUserDao.getWebUserList(mapage);
 	}
 	
@@ -39,7 +39,7 @@ public class TabWebUserServiceImpl implements TabWebUserService {
 	}
 
 	@Override
-	public boolean saveOrUpdateTabWebUser(TabWebUser user) {
+	public boolean saveOrUpdateBusinessMethod(TabWebUser user) {
 		TabWebUser twu = new TabWebUser();
 		twu.setUuid(user.getUuid());
 		Map<String,Object> map = tabWebUserDao.findUserByCondition(twu);
@@ -62,7 +62,7 @@ public class TabWebUserServiceImpl implements TabWebUserService {
 	}
 
 	@Override
-	public boolean deleteWebUsers(String uuids) {
+	public boolean deleteWebUsersBusinessMethod(String uuids) {
 		tabWebUserDao.deleteWebUsers(uuids);
 		return true;
 	}

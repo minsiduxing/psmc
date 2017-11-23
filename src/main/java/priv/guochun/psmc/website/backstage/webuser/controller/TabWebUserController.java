@@ -69,7 +69,7 @@ public class TabWebUserController extends MyController {
 	public void webUserList(HttpServletRequest request,
 		 	HttpServletResponse response,MyPage mypage){
 		try {
-			mypage = tabWebUserService.getWebUserList(mypage);
+			mypage = tabWebUserService.getWebUsersBusinessMethod(mypage);
 			super.responseJson(JsonUtil.convertToJSONObject(mypage), response);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -169,7 +169,7 @@ public class TabWebUserController extends MyController {
 		if (!exits) {
 			super.responseJson(exits, "账号名称在系统中已存在,不能重复录入", response);
 		} else {
-			boolean result = tabWebUserService.saveOrUpdateTabWebUser(user);
+			boolean result = tabWebUserService.saveOrUpdateBusinessMethod(user);
 			super.responseJson(result, null, response);
 		}
     }
@@ -185,7 +185,7 @@ public class TabWebUserController extends MyController {
     @ResponseBody
     public void delete(HttpServletRequest request,
             HttpServletResponse response,String uuids) throws IOException{
-		boolean result = tabWebUserService.deleteWebUsers(uuids);
+		boolean result = tabWebUserService.deleteWebUsersBusinessMethod(uuids);
 		super.responseJson(result, null, response);
 	}
 	
@@ -201,7 +201,7 @@ public class TabWebUserController extends MyController {
 	@SuppressWarnings("rawtypes")
 	public View exportUser( HttpServletRequest request,HttpServletResponse response,MyPage mypage) throws IOException{
 		//1、根据条件查询出列表账号
-		mypage = tabWebUserService.getWebUserList(mypage);
+		mypage = tabWebUserService.getWebUsersBusinessMethod(mypage);
 		List userList = mypage.getDataList();
 		//2、将得到的数据封装到excel里
 		//2.1 设置属性列名

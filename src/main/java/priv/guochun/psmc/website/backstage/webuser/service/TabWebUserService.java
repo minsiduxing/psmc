@@ -1,8 +1,6 @@
 package priv.guochun.psmc.website.backstage.webuser.service;
 
 import java.util.Map;
-
-import priv.guochun.psmc.authentication.resource.model.TabResource;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.website.backstage.webuser.model.TabWebUser;
 
@@ -12,7 +10,7 @@ public interface TabWebUserService {
 	 * 获取网站用户列表
 	 * @return
 	 */
-	public MyPage getWebUserList(MyPage mapage);
+	public MyPage getWebUsersBusinessMethod(MyPage mapage);
 	
 	/**
 	 * 判断用户是否存在
@@ -40,7 +38,7 @@ public interface TabWebUserService {
 	 * @param user
 	 * @return
 	 */
-	public boolean saveOrUpdateTabWebUser(TabWebUser user);
+	public boolean saveOrUpdateBusinessMethod(TabWebUser user);
 	
 	/**
 	 * 用户唯一校验
@@ -54,5 +52,5 @@ public interface TabWebUserService {
 	 * @param uuids
 	 * @return
 	 */
-	public boolean deleteWebUsers(String uuids);
+	public boolean deleteWebUsersBusinessMethod(String uuids);
 }
