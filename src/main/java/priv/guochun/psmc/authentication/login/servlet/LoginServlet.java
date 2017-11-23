@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
 	        //由于要转json格式，所以需要定义一个map
 	        Map <String,String> resMap ;
 	        String username = request.getParameter("username");
-	        String password = request.getParameter("password");
+	        String password = request.getParameter("ppassword");
 	        String transmiturl = request.getParameter("transmiturl");
 	        if(StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
 	                msg="用户名或密码为空,无法登录!";
@@ -59,6 +59,18 @@ public class LoginServlet extends HttpServlet {
 	                resMap.put("msg", msg);
 	                logger.info("--------------------用户登录系统失败！原因："+msg);
 	        }else{
+	        	if(httpSession.getAttribute("user")!=null){
+	        		 if(StringUtils.isNotBlank(transmiturl)) {
+			        	 	request.getRequestDispatcher(transmiturl).forward(request, response);
+			        	 	return;
+			         }else{
+			        	 resMap = new HashMap<String,String>();
+				         resMap.put("msg", "success");
+				         PrintWriter pw =  response.getWriter();
+					     pw.append(JsonUtil.convertToJSONObject(resMap).toString());
+				         pw.close();
+			         }
+	        	}
 	            LoginService service = (LoginService)MySpringApplicationContext.getObject("loginService");
                 String returnValue = service.isVaild(username, password);
 	            if("success".equals(returnValue)){

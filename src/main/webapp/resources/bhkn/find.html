@@ -78,7 +78,7 @@
 	function findpass(){
 		//密码md5加密
      if(validateLoginInfo()){
- 		var _url = "/psmc/login?username=query&password=c4ca4238a0b923820dcc509a6f75849b&transmiturl=/website/backstage/webUserController.do?method=findPass";
+ 		var _url = "/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b&transmiturl=/website/backstage/webUserController.do?method=findPass";
  		var _data = $("#loginForm").serialize();
  			$.ajax({
  				async:false,

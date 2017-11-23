@@ -20,7 +20,7 @@
 				</p>
 				<div class="formPwInputDiv">
 					<p>
-						<input class="input" id="password" name="password"  type="password">
+						<input class="input" id="ppassword" name="ppassword"  type="password">
 					</p>
 					<div class="formButtonDiv">
 						<input id="submitbtn" type="button" value="" onclick="loginSubmit();"/>
@@ -45,7 +45,7 @@
 	}
 	//校验密码
 	function validateUserPassword(){
-		 if(!$("#password").val()){
+		 if(!$("#ppassword").val()){
 			commonObj.alert("密码不能为空!","warning");
 			return false;
 		}
@@ -69,7 +69,7 @@
 	function loginSubmit(){
 		//密码md5加密
      if(validateLoginInfo()){
-    	 $('#password').val(hex_md5($('#password').val()));
+    	 $('#ppassword').val(hex_md5($('#ppassword').val()));
  		var _url = "<c:url value='/login'/>";
  		var _data = $("#loginForm").serialize();
  		if(validateLoginInfo()){

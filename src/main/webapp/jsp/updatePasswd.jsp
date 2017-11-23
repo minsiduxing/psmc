@@ -6,6 +6,14 @@
 <title>用户修改密码界面</title>
 </head>
 <body>
+
+
+
+
+
+
+
+
 	<form method="post" class="easyui-panel" title="修改密码" style="width:400px;padding:30px 70px 20px 70px">
 		<div style="margin-bottom:20px">
 		<div>原密码:</div>
@@ -67,8 +75,8 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 			if(newPassword != reNewPassword){
 				//清空输入框的值
 				$('#renewPassword').textbox('setValue','');
+				$('#newPassword').textbox('setValue','');
 				$.messager.alert('提示','两次输入的密码不一致，请重新输入!');
-				
 			}else{
 				_flag=true;
 			}
@@ -107,6 +115,9 @@ var url = "<%=request.getContextPath()%>"+"/logOut";
 					}
 					if(msg=='1'){
 						_info= '修改失败，原密码错误，请确认您的正确原密码!';
+						$('#renewPassword').textbox('setValue','');
+						$('#newPassword').textbox('setValue','');
+						$('#oldPassword').textbox('setValue','');
 					}
 					if(msg=='2'){
 						_info= '修改失败，输入不合法数据，系统退出!';
