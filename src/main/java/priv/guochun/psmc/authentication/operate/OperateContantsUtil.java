@@ -44,6 +44,12 @@ public class OperateContantsUtil {
     
     public final static String RESOURCE_OPERATE = "RESOURCE_OPERATE";
     
+    public final static String OPERATE_ADD = "OPERATE_ADD";
+    
+    public final static String OPERATE_UPDATE = "OPERATE_UPDATE";
+    
+    public final static String OPERATE_DEL = "OPERATE_DEL";
+    
     /**
      * 新闻操作
      */

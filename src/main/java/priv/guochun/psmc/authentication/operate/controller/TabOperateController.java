@@ -74,7 +74,7 @@ public class TabOperateController  extends MyController
     @SuppressWarnings({"rawtypes", "unchecked" })
     public void operateList(HttpServletRequest request,HttpServletResponse response,String resourceUuid) throws IOException{
         //查询该资源的所有业务操作
-        List operateList = tabOperateService.getTabOperatesByResourceUuid(resourceUuid);
+        List operateList = tabOperateService.getTabOperatesBusinessMethod(resourceUuid);
         JSONArray operateJson = JsonUtil.convertToJSONArray(operateList);
         response.getWriter().write("{\"rows\":" + operateJson.toString() + "}");
     }
@@ -93,7 +93,7 @@ public class TabOperateController  extends MyController
     @SuppressWarnings({"unchecked", "rawtypes" })
     public void editOperateConfig(HttpServletRequest request,
             HttpServletResponse response,TabOperate tabOperate) throws IOException{
-        tabOperateService.saveOrUpdateResOperateConfig(tabOperate);
+        tabOperateService.saveOrUpdateResOperateBusinessMethod(tabOperate);
         Integer ordernum = tabOperateService.getTabOperateOrderNum();
         Map resultMap = new HashMap();
         resultMap.put("resourceUuid", tabOperate.getResourceUuid());
@@ -135,7 +135,7 @@ public class TabOperateController  extends MyController
     @SuppressWarnings({"unchecked", "rawtypes" })
     public void deleteOperate(HttpServletRequest request,
             HttpServletResponse response,String operateUuid) throws IOException{
-        int count = tabOperateService.deleteOperate(operateUuid);
+        int count = tabOperateService.deleteOperateBusinessMethod(operateUuid);
         Integer ordernum = tabOperateService.getTabOperateOrderNum();
         Map resultMap = new HashMap();
         resultMap.put("ordernum", ordernum);

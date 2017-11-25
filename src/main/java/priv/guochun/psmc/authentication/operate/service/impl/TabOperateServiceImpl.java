@@ -41,13 +41,13 @@ public class TabOperateServiceImpl implements TabOperateService {
     }
 	
     @Override
-    public List getTabOperatesByResourceUuid(String resourceuuid)
+    public List getTabOperatesBusinessMethod(String resourceuuid)
     {
         return tabOperateDao.getTabOperatesByResourceUuid(resourceuuid);
     }
     
     @Override
-    public void saveOrUpdateResOperateConfig(TabOperate tabResourceOperate)
+    public void saveOrUpdateResOperateBusinessMethod(TabOperate tabResourceOperate)
     {
     	TabOperate tabOperate = tabOperateDao.selectOpertateById(tabResourceOperate);
         if (tabOperate != null){
@@ -67,7 +67,7 @@ public class TabOperateServiceImpl implements TabOperateService {
     }
 
     @Override
-    public int deleteOperate(String operateUuid)
+    public int deleteOperateBusinessMethod(String operateUuid)
     {
         int count = tabOperateDao.deleteOperate(operateUuid);
         return count;

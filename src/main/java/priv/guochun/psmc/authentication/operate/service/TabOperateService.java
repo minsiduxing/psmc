@@ -49,7 +49,7 @@ public interface TabOperateService {
 	 * @return
 	 * @author wenxiaoming 2017年8月7日
 	 */
-	public List getTabOperatesByResourceUuid(String resourceuuid);
+	public List getTabOperatesBusinessMethod(String resourceuuid);
 	
 	/**
 	 * 保存或更新资源的操作配置
@@ -57,7 +57,7 @@ public interface TabOperateService {
 	 * @param tabResourceOperate
 	 * @author wenxiaoming 2017年9月2日
 	 */
-	public void saveOrUpdateResOperateConfig(TabOperate tabResourceOperate);
+	public void saveOrUpdateResOperateBusinessMethod(TabOperate tabResourceOperate);
 	
 	/**
 	 * 根据操作表示查询对应配置角色的个数
@@ -75,7 +75,7 @@ public interface TabOperateService {
 	 * @return
 	 * @author wenxiaoming 2017年9月3日
 	 */
-	public int deleteOperate(String operateUuid);
+	public int deleteOperateBusinessMethod(String operateUuid);
 	
 	/**
 	 * 根据操作编号查询操作配置的个数

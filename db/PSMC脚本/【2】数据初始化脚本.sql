@@ -297,12 +297,23 @@ insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_metho
 ('97edba427bbd40aea43295595a30cddd','1a1a1817883142e7a9c9e06c477360cc','fe755fa4bd25475fa1a9d841caa16f44',
 'priv.guochun.psmc.authentication.resource.service.TabResourceService','updateResourceTheNameBusinessMethod','更新[资源项名称]','',4,'RESOURCE_UPDATE');
 
+INSERT INTO `tab_operate` VALUES ('23ef454491484c7b8665bef3390a0cc9', '1a1a1817883142e7a9c9e06c477360cc', '022a43088dcd46d4b201b43b32d3d85a', 'priv.guochun.psmc.authentication.operate.service.TabOperateService', 'getTabOperatesBusinessMethod', 'RESOURCE_OPERATE', '资源业务操作配置', '', '32');
+
+INSERT INTO `tab_operate` VALUES ('1bf34d6238ec40e4ba59007b2d9e4f10', '1a1a1817883142e7a9c9e06c477360cc', '607e8bc6f9bb4afa9be3cfdc72a1a326', 'priv.guochun.psmc.authentication.operate.service.TabOperateService', 'saveOrUpdateResOperateBusinessMethod', 'OPERATE_ADD', '新增[资源业务操作配置]', '', '33');
+
+INSERT INTO `tab_operate` VALUES ('de3c4bea21644074a5b5798bf0b67826', '1a1a1817883142e7a9c9e06c477360cc', 'fe755fa4bd25475fa1a9d841caa16f44', 'priv.guochun.psmc.authentication.operate.service.TabOperateService', 'saveOrUpdateResOperateBusinessMethod', 'OPERATE_UPDATE', '修改[资源业务操作配置]', '', '34');
+
+INSERT INTO `tab_operate` VALUES ('a3c7dbf3c90a4917862ac036e94ed37c', '1a1a1817883142e7a9c9e06c477360cc', 'dec3b327b8a54d66bd644c544ea65c5e', 'priv.guochun.psmc.authentication.operate.service.TabOperateService', 'deleteOperateBusinessMethod', 'OPERATE_DEL', '删除[资源业务操作配置]', '', '35');
 
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','24d1fd15ba54491982f91ed98f8e8d8c');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','6f0d3821e9cc43be828eeeedc95cf269');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','3408bb85700742e2b9142ee1c69eb21e');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','e5cb125131bf4978a1e166e0bcf631cf');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','97edba427bbd40aea43295595a30cddd');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '14a2243153eb483caf3573246148e9cc');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '1bf34d6238ec40e4ba59007b2d9e4f10');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', 'de3c4bea21644074a5b5798bf0b67826');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', 'a3c7dbf3c90a4917862ac036e94ed37c');
 
 
 
