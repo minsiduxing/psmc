@@ -44,9 +44,10 @@
 <!-- Cards -->
 <link rel="stylesheet" href="css/cards.css">
 <!-- 公司历程时间轴 -->
-<link href="css/timerStyle.css" rel="stylesheet">
+<link rel="stylesheet" href="css/about.css">
 <!-- Modernizr JS -->
 <script src="js/modernizr-2.6.2.min.js"></script>
+<script src="js/jquery.min_v1.0.js" type="text/javascript"></script>
 <!-- FOR IE9 below -->
 <!--[if lt IE 9]>
 <script src="js/respond.min.js"></script>
@@ -123,7 +124,7 @@
 	.compCuContent{
 		width: 200px;
 		display: inline-block;
-		background-color: #FFFCEC;
+		background-color: rgba(240, 240, 240, 1);
 		font-weight: 500;
 		line-height: 1.1;
 		font-size: 24px;
@@ -202,96 +203,34 @@
 		</div>
 		<!-- 顶部导航条 end-->
 		<div class="fh5co-project-style-2">
-			<div class="comContentDiv">
-				<a name="businessculture"></a>
-				<div class="compCulture">
-					<span class="compCuContent">企&nbsp;业&nbsp;文&nbsp;化</span>
-				</div>
-				<div class="container" style="width: 80%;">
-					<div class="row">
-					 	<div class="col-md-3 text-center">
-					 		<img src="images/bo.jpg" id="img01">
-					 		<div class="imgContentDiv" id="imgContentDiv01">
-					 			<p class="imgContentText">专业化 知识化 信息化</p>
-					 		</div>
-					 	</div>
-					  	<div class="col-md-3 text-center">
-					 		<img src="images/hui.jpg" id="img02">
-					 		<div class="imgContentDiv" id="imgContentDiv02">
-					 			<p class="imgContentText">汇集优势 整合资源</p>
-					 		</div>
-					 	</div>
-					 	<div class="col-md-3 text-center">
-					 		<img src="images/kang.jpg" id="img03">
-					 		<div class="imgContentDiv" id="imgContentDiv03">
-					 			<p class="imgContentText">健康发展 持续稳定</p>
-					 		</div>
-					 	</div>
-					 	<div class="col-md-3 text-center">
-					 		<img src="images/ning.jpg" id="img04">
-					 		<div class="imgContentDiv" id="imgContentDiv04">
-					 			<p class="imgContentText">内心宁静 独立思考</p>
-					 		</div>
-					 	</div>
-					</div>
-				</div>	
-			</div>
-			<div class="comContentDiv">
+			<div class="comContentDiv" style="height:  800px;">
 				<a name="companyprocess"></a>
 				<div class="compCulture">
 					<span class="compCuContent">公&nbsp;司&nbsp;历&nbsp;程</span>
 				</div>
-				<div class="clearfix course_nr">
-					<ul class="course_nr2">
-						<li>
-							2015年12月
-							<div class="shiji">
-								<h1>2015年12月16日</h1>
-								<p>公司成立</p>
-							</div>
-						</li>
-						<li>
-							2016年2月
-							<div class="shiji">
-								<h1>2016年2月</h1>
-								<p>公司取得牌照</p>
-							</div>
-						</li>
-						<li>
-							2016年5月
-							<div class="shiji">
-								<h1>2016年5月1日</h1>
-								<p>公司乔迁新址</p>
-							</div>
-						</li>
-						<li>
-							2016年5月
-							<div class="shiji">
-								<h1>2016年5月10日</h1>
-								<p>第一款产品发行</p>
-							</div>
-						</li>
-						<li>
-							2016年3月
-							<div class="shiji">
-								<h1>2016年3月31日</h1>
-								<p>博汇康宁股票型管理1期私募证券投资基金</p>
-							</div>
-						</li>
-						<li>
-							2016年7月
-							<div class="shiji">
-								<h1>2016年7月25日</h1>
-								<p>第四款产品发行产品总值突破五亿</p>
-							</div>
-						</li>
-						<li>
-							至今
-							<div class="shiji">
-								<h1>至今</h1>
-								<p>公司营业额蒸蒸日上，再取佳绩</p>
-							</div>
-						</li>
+				<div class="box">
+					<ul class="event_year">
+						<li class="current"><label for="2017">2017</label></li>
+						<li><label for="2016">2016</label></li>
+						<li><label for="2015">2015</label></li>
+					</ul>
+					<ul class="event_list">
+						<div>
+							<h3 id="2017">2017</h3>
+							<li><span>至今</span><p><span>公司营业额蒸蒸日上，再取佳绩</span></p></li>
+						</div>
+						<div>
+							<h3 id="2016">2016</h3>
+							<li><span>7月25日</span><p><span>改成与中原证券达成深度合作</span></p></li>
+							<li><span>5月31日</span><p><span>博汇康宁股票型管理1期私募证券投资基金</span></p></li>
+							<li><span>5月10日</span><p><span>博汇康宁第一款产品发行</span></p></li>
+							<li><span>5月1日</span><p><span>公司乔迁新址</span></p></li>
+							<li><span>2月</span><p><span>公司取得牌照</span></p></li>
+						</div>
+						<div>
+							<h3 id="2015">2015</h3>
+							<li><span>12月16日</span><p><span>博汇康宁成立</span></p></li>
+						</div>
 					</ul>
 				</div>
 			</div>
@@ -340,6 +279,15 @@
 	new WOW().init();
 
 	$(function(){
+
+		$('label').click(function(){
+			$('.event_year>li').removeClass('current');
+			$(this).parent('li').addClass('current');
+			var year = $(this).attr('for');
+			$('#'+year).parent().prevAll('div').slideUp(800);
+			$('#'+year).parent().slideDown(800).nextAll('div').slideDown(800);
+		});
+		
 		//首页大事记
 		$('.course_nr2 li').hover(function(){
 			$(this).find('.shiji').slideDown(600);

@@ -170,14 +170,16 @@
 					                 <ul class="pricing-feature-list text-left crContent">
 					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.4s">联合创始人</li>
 					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.7s">经济学副教授</li>
-					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="2.0s">极度的保守主义者</li>	
+					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="2.0s">极度的保守主义者</li>
+					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="2.1s">能熟练运用数理统计模型衡量市场的风险；</li>
+					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="2.3s">能用分型数学等解析市场结构，理解市场混沌中的有序。</li>
 					                 </ul>
 					             </div>
 					             <div class="pricing-item pricing-item--featured wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.4s">
 					                 <h2 class="pricing-title" style="font-size: 25px; color: #DAA520">赵少康</h2>
 					                 <p class="pricing-sentence">总经理&nbsp;联合创始人</p>
 					                 <ul class="pricing-feature-list text-left crContent">
-					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="0.9s">中博建设集团副总经理</li>
+					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="0.9s">中博建设集团总经理</li>
 					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.2s">加拿大多伦多大学商学学士</li>
 					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.5s">加拿大多伦多大学文学学士</li>
 					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.8s">加拿大多伦多大学金融学硕士</li>
