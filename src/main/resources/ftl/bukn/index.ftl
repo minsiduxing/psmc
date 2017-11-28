@@ -289,7 +289,7 @@ var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b
 
 			<div class="fh5co-projects" style="margin-top: 100px">
 				<div class="text-center" id="productlist" style="width: 70%;margin: 0 auto;">
-					<img src="./images/index_rise_2_1.jpg" style="width: 80%">
+					<img src="./images/index_rise_2.jpg" style="width: 100%">
 				</div>
 				<ul>
 					<li class="wow fadeInUp" style="background-image: url(images/2.jpg);" data-wow-delay="1.4s">

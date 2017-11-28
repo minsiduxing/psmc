@@ -291,10 +291,10 @@
 			<div class="comContentDiv">
 				<div class="compCulture">
 						<a name="investmentprocess" id="investmentprocess"></a>
-					<span class="compCuContent">投&nbsp;资&nbsp;流&nbsp;程</span>
+					<span class="compCuContent">组&nbsp;织&nbsp;架&nbsp;构</span>
 				</div>
-				<div class="container" style="width: 80%; text-align: center;">
-					<img src="./images/touziTree.png">
+				<div class="container" style="text-align:center;">
+					<img src="./images/touziTree.png" style="width:90%;height:100%;">
 				</div>
 			</div>
 		</div>
