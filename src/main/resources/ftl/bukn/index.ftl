@@ -66,15 +66,15 @@
   			font-weight: 600 !important;
 		}
 		.dropdown>a, .index_color{
-			color: #7c5a53 !important;
+			color: #FAFAD2 !important;
 			font-weight: 600;
 		}
 		.dropdown>a:hover, .index_color:hover{
-			color: #7c5a53 !important;
+			color: #F0E68C !important;
 			font-weight: 600;
 		}
 		.dropdown-menu>li>a, .index_colour{
-			color: #7c5a53 !important;
+			color: #F0E68C !important;
 			font-weight: 600;
 		}
 		.btn-primary:hover{
@@ -136,7 +136,7 @@
 				<div class="text-center fh5co-link-wrap" style="font-size:45px;font-style:normal;padding-left:0px;font-family:sans-serif">
 					<ul data-offcanvass="yes">
 						<li>
-							<img src="./images/LOGO22_02.png" style="width: 80px;height: 100px;">
+							<img src="./images/LOGO22_02.png" style="width: 12%;">
 						</li>
 					<#list navbars as nav>
 						<#if nav.menuLevel == 2>
@@ -287,12 +287,14 @@ var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b
 				</div>
 			</div> -->
 
-			<div class="fh5co-projects" style="margin-top: 100px">
+			
+			<div class="fh5co-projects">
 				<div class="text-center" id="productlist" style="width: 70%;margin: 0 auto;">
 					<img src="./images/index_rise_2.jpg" style="width: 100%">
 				</div>
+				<!-- 
 				<ul>
-					<li class="wow fadeInUp" style="background-image: url(images/2.jpg);" data-wow-delay="1.4s">
+					<li class="wow fadeInUp" style="background-image: url(images/2.jpg);" data-wow-delay="0s">
 						<a>
 							<div class="fh5co-overlay"></div>
 							<div class="container">
@@ -307,7 +309,7 @@ var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b
 							</div>
 						</a>
 					</li>
-					<li class="wow fadeInUp" style="background-image: url(images/6.jpg);" data-wow-delay="1.7s">
+					<li class="wow fadeInUp" style="background-image: url(images/6.jpg);" data-wow-delay="0s">
 						<a>
 							<div class="fh5co-overlay"></div>
 							<div class="container">
@@ -322,7 +324,7 @@ var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b
 							</div>
 						</a>
 					</li>
-					<li class="wow fadeInUp" style="background-image: url(images/65.jpg);" data-wow-delay="2s">
+					<li class="wow fadeInUp" style="background-image: url(images/65.jpg);" data-wow-delay="0s">
 						<a>
 							<div class="fh5co-overlay"></div>
 							<div class="container">
@@ -338,9 +340,11 @@ var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b
 						</a>
 					</li>
 				</ul>
+				-->
 			</div>
 		</div>
-
+		
+		<!--
 		<div class="fh5co-counter-style-2" style="background-image: url(images/r.jpg);">
 			<div class="fh5co-overlay"></div>
 			<div class="container" id="numCount">
@@ -374,6 +378,7 @@ var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b
 				</div>
 			</div>
 		</div>
+			-->
 		<!-- 网站底部导航菜单 -->
 		<!-- 网站底部导航菜单 -->
 		 <#include "footer.html"/>  
