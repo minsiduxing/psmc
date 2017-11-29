@@ -124,7 +124,7 @@
 	.compCuContent{
 		width: 200px;
 		display: inline-block;
-		background-color: rgba(240, 240, 240, 1);
+		background-color: rgba(245,245,245, 1);
 		font-weight: 500;
 		line-height: 1.1;
 		font-size: 24px;
@@ -180,7 +180,7 @@
 </style>
 </head>
 <body>
-	<div id="fh5co-page" style="background-color: #FFFCEC">
+	<div id="fh5co-page" style="background-color:#F5F5F5">
 		<!-- 网站顶部部导航菜单 -->
 		 <#include "head.html"/> 
 		<!-- 网站顶部导航菜单结束 -->
@@ -221,7 +221,7 @@
 						</div>
 						<div>
 							<h3 id="2016">2016</h3>
-							<li><span>7月25日</span><p><span>改成与中原证券达成深度合作</span></p></li>
+							<li><span>7月25日</span><p><span>与中原证券达成深度合作</span></p></li>
 							<li><span>5月31日</span><p><span>博汇康宁股票型管理1期私募证券投资基金</span></p></li>
 							<li><span>5月10日</span><p><span>博汇康宁第一款产品发行</span></p></li>
 							<li><span>5月1日</span><p><span>公司乔迁新址</span></p></li>

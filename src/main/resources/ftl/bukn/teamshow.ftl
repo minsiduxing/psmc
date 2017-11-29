@@ -137,7 +137,7 @@
 	.compCuContent{
 		width: 200px;
 		display: inline-block;
-		background-color: #FFFCEC;
+		background-color: #F5F5F5;
 		font-weight: 500;
 		line-height: 1.1;
 		font-size: 24px;
@@ -145,7 +145,7 @@
 </style>
 </head>
 <body>
-	<div id="fh5co-page" style="background-color: #FFFCEC">
+	<div id="fh5co-page" style="background-color: #F5F5F5">
 		<!-- 网站顶部部导航菜单 -->
 		 <#include "head.html"/> 
 		<!-- 网站顶部导航菜单结束 -->

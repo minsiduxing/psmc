@@ -129,7 +129,7 @@
 	.compCuContent{
 		width: 200px;
 		display: inline-block;
-		background-color: #FFFCEC;
+		background-color: #F5F5F5;
 		font-weight: 500;
 		line-height: 1.1;
 		font-size: 24px;
@@ -276,7 +276,7 @@
 </style>
 </head>
 <body>
-	<div id="fh5co-page" style="background-color: #FFFCEC">
+	<div id="fh5co-page" style="background-color:#F5F5F5">
 		<!-- 网站顶部部导航菜单 -->
 		 <#include "head.html"/> 
 		<!-- 网站顶部导航菜单结束 -->
@@ -304,7 +304,7 @@
 					<a name="productview" id="productview"></a>
 					<span class="compCuContent">产&nbsp;品&nbsp;一&nbsp;览</span>
 				</div>
-				<div class="demo" style="background-color: rgba(255, 252, 236, 1);">
+				<div class="demo" style="background-color: #F5F5F5;">
 					<div class="container">
 						<div class="row">
 							<div class="col-md-offset-1 col-md-10">
@@ -319,7 +319,7 @@
 										</div>
 										<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 											<div class="panel-body">
-												<p>发行日期：已清算&nbsp;&nbsp;&nbsp;产品状态：沽清停售<br>产品简介：</p>
+												<p>发行日期：</p>
 											</div>
 										</div>
 									</div>
@@ -334,7 +334,7 @@
 										</div>
 										<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 											<div class="panel-body">
-												<p>发行日期：2017-03-02~至今&nbsp;&nbsp;&nbsp;产品状态：正在营运<br>产品简介： </p>
+												<p>发行日期：2017-03-02~至今 </p>
 											</div>
 										</div>
 									</div>
@@ -349,7 +349,7 @@
 										</div>
 										<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
 											<div class="panel-body">
-												<p>发行日期：2017-07-25~至今&nbsp;&nbsp;&nbsp;产品状态：正在营运<br>产品简介：</p>
+												<p>发行日期：2017-07-25~至今</p>
 											</div>
 										</div>
 									</div>
@@ -363,7 +363,7 @@
 										</div>
 										<div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
 											<div class="panel-body">
-												<p>发行日期：2017-03-31~至今&nbsp;&nbsp;&nbsp;产品状态：沽清停售<br>产品简介：</p>
+												<p>发行日期：2017-03-31~至今</p>
 											</div>
 										</div>
 									</div>

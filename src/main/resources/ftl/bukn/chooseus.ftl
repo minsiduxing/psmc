@@ -122,7 +122,7 @@
 	.compCuContent{
 		width: 200px;
 		display: inline-block;
-		background-color: #FFFCEC;
+		background-color: #F5F5F5;
 		font-weight: 500;
 		line-height: 1.1;
 		font-size: 24px;
@@ -181,7 +181,7 @@
 </style>
 </head>
 <body>
-	<div id="fh5co-page" style="background-color: #FFFCEC">
+	<div id="fh5co-page" style="background-color: #F5F5F5">
 		<!-- 网站顶部部导航菜单 -->
 		 <#include "head.html"/> 
 		<!-- 网站顶部导航菜单结束 -->
@@ -208,6 +208,7 @@
 					<a name="ourstrengths" id="ourstrengths"></a>
 					<span class="compCuContent">我&nbsp;们&nbsp;的&nbsp;优&nbsp;势</span>
 				</div>
+				</br>
 				<div class="container" style="width: 80%;">
 					<ul>
 						<li>
@@ -225,48 +226,9 @@
 					<a name="riskmanagement" id="riskmanagement"></a>
 					<span class="compCuContent">风&nbsp;控&nbsp;体&nbsp;系</span>
 				</div>
-				<div class="container" style="width: 80%;">
-					<div class="row">
-						<div class="col-md-4">
-							<p>合法经营</p>
-					 		<img src="images/windSystem_1.png" id="img01">
-					 		<div class="windSystemContentDiv">
-					 			<ul>
-					 				<li>合理的部门设置</li>
-					 				<li>独立的风控合规部</li>
-					 				<li>内幕交易防范制度</li>
-					 				<li>完善的制度建设</li>
-					 				<li>高效的信息技术</li>
-					 			</ul>
-					 		</div>
-					 	</div>
-					  	<div class="col-md-4">
-					  		<p>合规操作</p>
-					 		<img src="images/windSystem_2.png" id="img02">
-					 		<div class="windSystemContentDiv">
-					 			<ul>
-					 				<li>公平交易制度</li>
-					 				<li>总体仓位控制</li>
-					 				<li>多级股票池制度</li>
-					 				<li>个股每日交易集中度</li>
-					 				<li>持股集中度</li>
-					 			</ul>
-					 		</div>
-					 	</div>
-					 	<div class="col-md-4">
-					 		<p>独立运作</p>
-					 		<img src="images/windSystem_3.png" id="img03">
-					 		<div class="windSystemContentDiv">
-					 			<ul>
-					 				<li>交易差错制度</li>
-					 				<li>行业投资集中度</li>
-					 				<li>止损止盈</li>
-					 				<li>账户控制下跌</li>
-					 				<li>净值最大回撤</li>
-					 			</ul>
-					 		</div>
-					 	</div>
-					</div>
+				</br>
+				<div class="container" style="text-align:center;">
+					<img src="./images/fktx.png" style="width:75%;height:100%;">
 				</div>
 			</div>
 			<div class="comContentDiv">
@@ -279,10 +241,9 @@
 						<div class="col-md-5">
 							<img src="images/teamShow.jpg" class="teamImg">
 						</div>
-						<div class="col-md-7">
-							<p>研究团队：</p>
-							<p>
-								目前研究员中有博士后2人，博士3人，研究生4人。 核心人员均具有国际宏观视野，熟悉国内外资本市场运作，数年来为客户取得丰厚回报.
+						<div class="col-md-7"></br></br></br>
+							<p align="center">
+								目前研究员中有博士后2人，博士3人，研究生4人。</br> 核心人员均具有国际宏观视野，熟悉国内外资本市场运作，</br>数年来为客户取得丰厚回报。
 							</p>
 						</div>
 					</div>
@@ -293,8 +254,9 @@
 						<a name="investmentprocess" id="investmentprocess"></a>
 					<span class="compCuContent">组&nbsp;织&nbsp;架&nbsp;构</span>
 				</div>
+				</br>
 				<div class="container" style="text-align:center;">
-					<img src="./images/touziTree.png" style="width:90%;height:100%;">
+					<img src="./images/touziTree.png" style="width:70%;height:100%;">
 				</div>
 			</div>
 		</div>

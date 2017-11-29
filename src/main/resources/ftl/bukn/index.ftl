@@ -128,10 +128,10 @@
 	</head>
 	<body>
 	
-<div id="fh5co-page" style="background-color: #FFFCEC">
+<div id="fh5co-page" style="background-color: #F5F5F5">
 		<!-- 网站顶部部导航菜单 -->
 <#import "../common/navbarfunction.ftl" as navf />
-<div id="fh5co-page" style="background-color: #FFFCEC">
+<div id="fh5co-page" style="background-color: #F5F5F5">
 		<nav class="fh5co-nav-style-1" role="navigation" data-offcanvass-position="fh5co-offcanvass-left">	<div class="container">
 				<div class="text-center fh5co-link-wrap" style="font-size:45px;font-style:normal;padding-left:0px;font-family:sans-serif">
 					<ul data-offcanvass="yes">
