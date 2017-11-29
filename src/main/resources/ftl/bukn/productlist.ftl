@@ -51,12 +51,7 @@
 <!--[if lt IE 9]>
 <script src="js/respond.min.js"></script>
 <![endif]-->
-<!--图标样式和布局-->
-<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<link href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
-<!--公共样式-->
-<link rel="stylesheet" type="text/css" href="css/demo01.css">
 <style type="text/css" media="screen">
 	.dropdown-menu{
 		 background-color: transparent;
@@ -165,7 +160,7 @@
 		box-shadow: 3px 3px 3px #ddd;
 		width: 98%;
     		height: 98%;
-    		background-color: #f8f7f7;
+    		background-color: #F0E68C;
     		margin: 20px 0;
     		padding-top: 10px; 
     		transition: All 0.4s ease-in-out;
@@ -202,77 +197,6 @@
 		font-weight: 800;
 	}
 
-	.demo{padding: 2em 0; background: #fff;}
-	a:hover,a:focus{
-		text-decoration: none;
-		outline: none;
-	}
-	#accordion .panel{
-		border: none;
-		box-shadow: none;
-		border-radius: 0;
-		margin: 0 0 15px 10px;
-	}
-	#accordion .panel-heading{
-		padding: 0;
-		border-radius: 30px;
-	}
-	#accordion .panel-title a{
-		display: block;
-		padding: 12px 20px 12px 50px;
-		background: #ebb710;
-		font-size: 18px;
-		font-weight: 600;
-		color: #fff;
-		border: 1px solid transparent;
-		border-radius: 30px;
-		position: relative;
-		transition: all 0.3s ease 0s;
-	}
-	#accordion .panel-title a.collapsed{
-		background: #fff;
-		color: #0d345d;
-		border: 1px solid #ddd;
-	}
-	#accordion .panel-title a:after,
-	#accordion .panel-title a.collapsed:after{
-		content: "\f107";
-		font-family: fontawesome;
-		width: 55px;
-		height: 55px;
-		line-height: 55px;
-		border-radius: 50%;
-		background: #ebb710;
-		font-size: 25px;
-		color: #fff;
-		text-align: center;
-		border: 1px solid transparent;
-		box-shadow: 0 3px 10px rgba(0, 0, 0, 0.58);
-		position: absolute;
-		top: -5px;
-		left: -20px;
-		transition: all 0.3s ease 0s;
-	}
-	#accordion .panel-title a.collapsed:after{
-		content: "\f105";
-		background: #fff;
-		color: #0d345d;
-		border: 1px solid #ddd;
-		box-shadow: none;
-	}
-	#accordion .panel-body{
-		padding: 20px 25px 10px 9px;
-		background: transparent;
-		font-size: 14px;
-		color: #8c8c8c;
-		line-height: 25px;
-		border-top: none;
-		position: relative;
-	}
-	#accordion .panel-body p{
-		padding-left: 25px;
-		border-left: 1px dashed #8c8c8c;
-	}
 </style>
 </head>
 <body>
@@ -304,74 +228,39 @@
 					<a name="productview" id="productview"></a>
 					<span class="compCuContent">产&nbsp;品&nbsp;一&nbsp;览</span>
 				</div>
-				<div class="demo" style="background-color: #F5F5F5;">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-offset-1 col-md-10">
-								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-									<div class="panel panel-default">
-										<div class="panel-heading" role="tab" id="headingOne">
-											<h4 class="panel-title">
-												<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-													博汇康宁价值优选1期私募证券投资基金
-												</a>
-											</h4>
-										</div>
-										<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-											<div class="panel-body">
-												<p>发行日期：</p>
-											</div>
-										</div>
-									</div>
-
-									<div class="panel panel-default">
-										<div class="panel-heading" role="tab" id="headingTwo">
-											<h4 class="panel-title">
-												<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-													博汇康宁景博稳健1号私募基金
-												</a>
-											</h4>
-										</div>
-										<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-											<div class="panel-body">
-												<p>发行日期：2017-03-02~至今 </p>
-											</div>
-										</div>
-									</div>
-
-									<div class="panel panel-default">
-										<div class="panel-heading" role="tab" id="headingThree">
-											<h4 class="panel-title">
-												<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-													博汇康宁股票型管理1期私募证券投资基金
-												</a>
-											</h4>
-										</div>
-										<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-											<div class="panel-body">
-												<p>发行日期：2017-07-25~至今</p>
-											</div>
-										</div>
-									</div>
-									<div class="panel panel-default">
-										<div class="panel-heading" role="tab" id="headingFour">
-											<h4 class="panel-title">
-												<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
-													博汇康宁·中原1号
-												</a>
-											</h4>
-										</div>
-										<div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-											<div class="panel-body">
-												<p>发行日期：2017-03-31~至今</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+				<div class="container" style="width: 80%;">
+					<div class="row">
+					 	<div class="col-md-3">
+					 		<div class="productDiv" id="productDiv01">
+					 			<p class="imgContentText">博汇康宁价值优选1期</br>私募证券投资基金</p>
+					 			<img src="images/gold.jpg" id="img01">
+					 			<button class="btn btn-default">至今</button>
+					 		</div>
+					 	</div>
+					  	<div class="col-md-3">
+					 		<div class="productDiv" id="productDiv02">
+					 			<p class="imgContentText">博汇康宁景博稳健1号</br>私募基金</p>
+					 			<img src="images/gold.jpg" id="img01">
+					 			<button class="btn btn-default">2017-03-02~至今</button>
+					 		</div>
+					 	</div>
+					 	<div class="col-md-3">
+					 		<div class="productDiv" id="productDiv03">
+					 			<p class="imgContentText">博汇康宁股票型管理1期</br>私募证券投资基金</p>
+					 			<img src="images/gold.jpg" id="img01">
+					 			<button class="btn btn-default">2017-03-31~至今</button>
+					 		</div>
+					 	</div>
+					 	<div class="col-md-3">
+					 		<div class="productDiv" id="productDiv02">
+					 			<p class="imgContentText">博汇康宁</br>中原1号</p>
+					 			<img src="images/gold.jpg" id="img01">
+					 			<button class="btn btn-default">2017-07-25~至今</button>
+					 		</div>
+					 	</div>
+					 	
 					</div>
-				</div>
+				</div>	
 			</div>
 			<div class="comContentDiv">
 				<div class="compCulture">
@@ -389,21 +278,21 @@
 					 	</tr>
 					 	<tr class="success">
 					 		<td>1</td>
-					 		<td><a href="" data-toggle="tooltip" data-placement="right" title="点击查看详情">股票基金</a></td>
+					 		<td><a href="" data-toggle="tooltip" data-placement="right" >股票基金</a></td>
 					 		<td>博汇康宁价值优选</td>
 					 		<td>高风险，高收益</td>
 					 		<td>A股股票</td>
 					 	</tr>
 					 	<tr class="info">
 					 		<td>2</td>
-					 		<td><a href="" data-toggle="tooltip" data-placement="right" title="点击查看详情">量化对冲基金</a></td>
+					 		<td><a href="" data-toggle="tooltip" data-placement="right" >量化对冲基金</a></td>
 					 		<td>博汇康宁灵活Alpha</td>
 					 		<td>中低风险，中低收益</td>
 					 		<td>多投：A股股票（量化选股）空头：股指期货</td>
 					 	</tr>
 					 	<tr class="warning">
 					 		<td>3</td>
-					 		<td><a href="" data-toggle="tooltip" data-placement="right" title="点击查看详情">定增基金</a></td>
+					 		<td><a href="" data-toggle="tooltip" data-placement="right" >定增基金</a></td>
 					 		<td>定增投资</td>
 					 		<td>高风险，高收益</td>
 					 		<td>1年期上市公司定增项目</td>
