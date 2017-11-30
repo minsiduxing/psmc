@@ -11,7 +11,7 @@ $(document).ready(function(){
 		           */
 		          {field:'uuid',title:'新闻标示',checkbox:true},
 		          {field:'news_title',title:'新闻标题',resizable:true},    
-		          {field:'news_subtitle',title:'新闻副标题',resizable:true},  
+		        /*  {field:'news_subtitle',title:'新闻副标题',resizable:true},  */
 		          {field:'news_date',title:'新闻日期'}, 
 		          {field:'news_author',title:'新闻作者'}, 
 		         /* {field:'news_abstract',title:'新闻概要',formatter: function (value, row, index) {
