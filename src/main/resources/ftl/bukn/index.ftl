@@ -66,16 +66,16 @@
   			font-weight: 600 !important;
 		}
 		.dropdown>a, .index_color{
-			color: #FAFAD2 !important;
-			font-weight: 600;
+			color: #FFFAFD !important;
+			font-weight: 100;
 		}
 		.dropdown>a:hover, .index_color:hover{
-			color: #F0E68C !important;
-			font-weight: 600;
+			color: #FFFAFD !important;
+			font-weight: 100;
 		}
 		.dropdown-menu>li>a, .index_colour{
-			color: #F0E68C !important;
-			font-weight: 600;
+			color: #FFFAFD !important;
+			font-weight: 100;
 		}
 		.btn-primary:hover{
 			background-color: #45c46f !important;
@@ -133,10 +133,10 @@
 <#import "../common/navbarfunction.ftl" as navf />
 <div id="fh5co-page" style="background-color: #F5F5F5">
 		<nav class="fh5co-nav-style-1" role="navigation" data-offcanvass-position="fh5co-offcanvass-left">	<div class="container">
-				<div class="text-center fh5co-link-wrap" style="font-size:45px;font-style:normal;padding-left:0px;font-family:sans-serif">
+				<div class="text-center fh5co-link-wrap">
 					<ul data-offcanvass="yes">
 						<li>
-							<img src="./images/LOGO22_02.png" style="width: 12%;">
+							<img src="./images/LOGO22.png" style="width: 14%;">
 						</li>
 					<#list navbars as nav>
 						<#if nav.menuLevel == 2>

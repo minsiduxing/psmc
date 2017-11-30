@@ -675,7 +675,7 @@ a:hover .lnk-icon-right {
   *display: inline;
   margin: 0 15px;
   color: rgba(255, 255, 255, 0.5);
-  font-size: 16px;
+  font-size: 18px;
   padding: 10px 0;
 }
 @media screen and (max-width: 992px) {

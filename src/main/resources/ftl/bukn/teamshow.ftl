@@ -78,15 +78,15 @@
 	}
 	.dropdown>a, .index_color{
 		color: rgba(255, 255, 255, 0.5) !important;
-		font-weight: 600;
+		font-weight: 100;
 	}
 	.dropdown>a:hover, .index_color:hover{
 		ccolor: rgba(255, 255, 255, 0.5) !important;
-		font-weight: 600;
+		font-weight: 100;
 	}
 	.dropdown-menu>li>a, .index_colour{
 		color: rgba(255, 255, 255, 0.5) !important;
-		font-weight: 600;
+		font-weight: 100;
 	}
 	.index_color{
 		color: rgba(255, 255, 255, 0.5) !important;
