@@ -160,7 +160,7 @@
 		box-shadow: 3px 3px 3px #ddd;
 		width: 98%;
     		height: 98%;
-    		background-color: #F0E68C;
+    		background-color: white;
     		margin: 20px 0;
     		padding-top: 10px; 
     		transition: All 0.4s ease-in-out;
