@@ -136,7 +136,7 @@
 				<div class="text-center fh5co-link-wrap">
 					<ul data-offcanvass="yes">
 						<li>
-							<img src="./images/LOGO22.png" style="width: 14%;">
+							<img src="./images/LOGO.png" style="width: 14%;">
 						</li>
 					<#list navbars as nav>
 						<#if nav.menuLevel == 2>
@@ -198,7 +198,7 @@ var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b
 		</div>
 		<div class="fh5co-project-style-2">
 			<div class="text-center" style="width: 70%;margin: 0 auto;">
-				<img src="./images/index_rise_1.jpg" style="width: 100%;">
+				<img src="./images/welcome.jpg" style="width: 100%;">
 			</div>
 			<!-- 企业文化的滚动模态框效果-->
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000">
@@ -290,7 +290,7 @@ var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b
 			
 			<div class="fh5co-projects">
 				<div class="text-center" id="productlist" style="width: 70%;margin: 0 auto;">
-					<img src="./images/index_rise_2.jpg" style="width: 100%">
+					<img src="./images/product_introduction.jpg" style="width: 100%">
 				</div>
 				<!-- 
 				<ul>

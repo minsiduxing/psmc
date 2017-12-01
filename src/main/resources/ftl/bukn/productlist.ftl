@@ -181,9 +181,9 @@
 	.imgContentText{
 		font-family: "Microsoft YaHei","微软雅黑";
 		font-size: 15px;
-		font-weight: 100;
+		font-weight: 400;
 		line-height: 30px;
-		color: #000;
+		color: rgb(112,97,78);
 		margin-bottom: 0;
 	}
 	.btn-default{
@@ -233,28 +233,28 @@
 					 	<div class="col-md-3">
 					 		<div class="productDiv" id="productDiv01">
 					 			<p class="imgContentText">博汇康宁价值优选1期</br>私募证券投资基金</p>
-					 			<img src="images/gold.jpg" id="img01">
+					 			<img src="images/product.jpg" id="img01">
 					 			<button class="btn btn-default">至今</button>
 					 		</div>
 					 	</div>
 					  	<div class="col-md-3">
 					 		<div class="productDiv" id="productDiv02">
 					 			<p class="imgContentText">博汇康宁景博稳健1号</br>私募基金</p>
-					 			<img src="images/gold.jpg" id="img01">
+					 			<img src="images/product.jpg" id="img01">
 					 			<button class="btn btn-default">2017-03-02~至今</button>
 					 		</div>
 					 	</div>
 					 	<div class="col-md-3">
 					 		<div class="productDiv" id="productDiv03">
 					 			<p class="imgContentText">博汇康宁股票型管理1期</br>私募证券投资基金</p>
-					 			<img src="images/gold.jpg" id="img01">
+					 			<img src="images/product.jpg" id="img01">
 					 			<button class="btn btn-default">2017-03-31~至今</button>
 					 		</div>
 					 	</div>
 					 	<div class="col-md-3">
 					 		<div class="productDiv" id="productDiv02">
 					 			<p class="imgContentText">博汇康宁</br>中原1号</p>
-					 			<img src="images/gold.jpg" id="img01">
+					 			<img src="images/product.jpg" id="img01">
 					 			<button class="btn btn-default">2017-07-25~至今</button>
 					 		</div>
 					 	</div>

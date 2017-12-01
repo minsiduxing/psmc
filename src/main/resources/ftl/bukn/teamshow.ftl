@@ -194,7 +194,7 @@ html{font-family: 'Noto Sans' , serif;}
 	float: left;
 	list-style: none;
 	margin: 1%;
-	padding: 60px 0;
+	padding: 80px 0;
 	position: relative;
 	text-align: center;
 	-webkit-transition: .3s cubic-bezier(.3,0,0,1.3);
