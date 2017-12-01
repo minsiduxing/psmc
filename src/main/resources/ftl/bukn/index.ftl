@@ -30,6 +30,10 @@
 	
 	<!-- Cards -->
 	<link rel="stylesheet" href="css/cards.css">
+	
+	<!-- youshi -->
+	<link rel="stylesheet" href="css/youshi.css">
+	
 
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
@@ -94,7 +98,7 @@
 			font-size: 20px !important;
 		}
 		.carousel{
-			width: 70%;
+			width: 80%;
 			margin: 0 auto;
 		}
 		.buttonNext{
@@ -124,6 +128,51 @@
 			width: 26px;
 			margin: 0 auto;
 		}
+
+		.productDiv{
+		display: block;
+		text-align: center;
+		box-shadow: 3px 3px 3px #ddd;
+		width: 98%;
+    		height: 98%;
+    		background-color: white;
+    		margin: 20px 0;
+    		padding-top: 10px; 
+    		transition: All 0.4s ease-in-out;
+	            -webkit-transition: All 0.4s ease-in-out;
+	            -moz-transition: All 0.4s ease-in-out;
+	            -o-transition: All 0.4s ease-in-out;
+	}
+	.productDiv:hover{
+		transform: scale(1.1, 1.1);
+	            -webkit-transform: scale(1.1, 1.1);
+	            -moz-transform: scale(1.1, 1.1);
+	            -o-transform: scale(1.1, 1.1);
+	            -ms-transform: scale(1.1, 1.1);
+	}
+	.productDiv>img{
+		width: 100%;
+	}
+	.imgContentText{
+		font-family: "Microsoft YaHei","微软雅黑";
+		font-size: 15px;
+		font-weight: 400;
+		line-height: 30px;
+		color: rgb(112,97,78);
+		margin-bottom: 0;
+	}
+	.btn-default{
+		margin-top: 20px;
+	}
+	.clearfix{
+		width: 80%;
+		margin: 0 auto;
+	}
+	.active{
+		font-weight: 800;
+	}
+		
+
 	</style>
 	</head>
 	<body>
@@ -196,10 +245,12 @@ var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b
 		<!-- 网站顶部导航菜单结束 -->
 		<div class="fh5co-cover js-full-height" data-next="yes"  style="background-image: url(images/full_001.jpg); background-size:100% 100%;background-repeat:no-repeat;background-position:center;">
 		</div>
-		<div class="fh5co-project-style-2">
-			<div class="text-center" style="width: 70%;margin: 0 auto;">
+		<div class="fh5co-project-style-2" style="background-color:white">
+			<div class="text-center" style="width: 80%;margin: 0 auto;">
 				<img src="./images/welcome.jpg" style="width: 100%;">
 			</div>
+		</div>
+		<div class="fh5co-projects" style="background-color:#F5F5F5">
 			<!-- 企业文化的滚动模态框效果-->
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000">
 				<!-- Indicators -->
@@ -242,143 +293,107 @@ var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b
 			    		<span class="sr-only">Next</span>
 			  	</a>		  	
 			</div>
-			<!-- <div class="container text-center" style="margin-top: 100px;">
-				<h2 class="fh5co-heading wow fadeInUp text" data-wow-duration="1s" data-wow-delay=".5s">选择博汇康宁</h2>
-			</div>
-			<div class="fh5co-features-style-1" style="background-image: url(images/3e.jpg);" data-stellar-background-ratio="0.5">
-				<div class="fh5co-overlay"></div>
-				<div class="container" style="z-index: 3; position: relative;">
-					<div class="row">
-						<div class="fh5co-features">
-							<div class="fh5co-feature wow fadeInUp" data-wow-duration="1s" data-wow-delay=".8s">
-								<div class="icon"><i class="glyphicon glyphicon-education" aria-hidden="true"></i></div>
-								<h3>公司资质</h3>
-								<p>公司成立于2015年12月，注册资本金超过5000万元人民币，核心成员均有10年以上金融行业资历，目前管理资金规模已达4亿元人民币</p>
-							</div>
-							<div class="fh5co-feature wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.1s">
-								<div class="icon"><i class="glyphicon glyphicon-user" aria-hidden="true"></i></div>
-								<h3>团队实力</h3>
-								<p>我们拥有一支富有敬业精神和创造力、经验丰富、高素质和专业化的管理团队，团队由金融、投资、企业管理、法律等领域的高端人才、权威专家组成</p>
-							</div>
-							<div class="fh5co-feature wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.4s">
-								<div class="icon"><i class="glyphicon glyphicon-tasks" aria-hidden="true"></i></div>
-								<h3>风控体系</h3>
-								<p>以风险控制为前提、以市场为导向、以客户为中心、以效益为目标，追求可持续发展，力争发展成为“资本充足、运作安全、内控严密、服务优质、效益良好、有核心竞争力”的现代金融服务企业</p>
-							</div>
-
-							<div class="fh5co-feature wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.7s">
-								<div class="icon"><i class="glyphicon glyphicon-yen" aria-hidden="true"></i></div>
-								<h3>理财方式</h3>
-								<p> 	专业的金融产品数据库  帮您轻松理财，资深研究团队深入调研为您提供最放心的服务，三位一体360°的风控体系，只选定性强的金融产品，专属您的理财顾问 一站式服务、咨询、签约省时省心</p>
-							</div>
-							<div class="fh5co-feature wow fadeInUp" data-wow-duration="1s" data-wow-delay="2s">
-								<div class="icon"><i class="glyphicon glyphicon-comment" aria-hidden="true"></i></div>
-								<h3>一手讯息</h3>
-								<p>获取金融行业的一首财富讯息，实时动态刷新，为您的投资提供高瞻远见的财富指引</p>
-							</div>
-							<div class="fh5co-feature wow fadeInUp" data-wow-duration="1s" data-wow-delay="2.3s">
-								<div class="icon"><i class="glyphicon glyphicon-cloud" aria-hidden="true"></i></div>
-								<h3>会员平台</h3>
-								<p>成为博汇康宁的尊贵会员，在帮助您稳健理财投资的同时，我们还提供个性化理财方案的定制，变化性的协调方案以及更为精准的财富方向把控，为您的理财之路保驾护航</p>
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div> -->
-
-			
-			<div class="fh5co-projects">
-				<div class="text-center" id="productlist" style="width: 70%;margin: 0 auto;">
+		</div>
+		<!--产品介绍-->
+		<div class="fh5co-projects" style="background-color:white">
+				<div class="text-center" id="productlist" style="width: 80%;margin: 0 auto;">
 					<img src="./images/product_introduction.jpg" style="width: 100%">
 				</div>
-				<!-- 
-				<ul>
-					<li class="wow fadeInUp" style="background-image: url(images/2.jpg);" data-wow-delay="0s">
-						<a>
-							<div class="fh5co-overlay"></div>
-							<div class="container">
-								<div class="fh5co-text">
-									<div class="fh5co-text-inner">
-										<div class="row">
-											<div class="col-md-6"><h3>博汇康宁价值优选1期私募证券投资基金</h3></div>
-											<div class="col-md-6"><p>投资领域：证券交易所上市交易股票（包括在主板、中小板、创业板上市的股票、上市公司非公开发行股票及新股申购、公募证券投资金）;直接投资...</p></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</a>
-					</li>
-					<li class="wow fadeInUp" style="background-image: url(images/6.jpg);" data-wow-delay="0s">
-						<a>
-							<div class="fh5co-overlay"></div>
-							<div class="container">
-								<div class="fh5co-text">
-									<div class="fh5co-text-inner">
-										<div class="row">
-											<div class="col-md-6"><h3>博汇康宁景博稳健1号私募基金</h3></div>
-											<div class="col-md-6"><p>本基金允许投资的金融工具包括： 1、权益类金融产品：A股股票、股票期权、期货、融资融券、交易所上市的股票型/混合型基金（含交易所上市的封闭式及开放式证券投资基金、LOF、ETF基金）...</p></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</a>
-					</li>
-					<li class="wow fadeInUp" style="background-image: url(images/65.jpg);" data-wow-delay="0s">
-						<a>
-							<div class="fh5co-overlay"></div>
-							<div class="container">
-								<div class="fh5co-text">
-									<div class="fh5co-text-inner">
-										<div class="row">
-											<div class="col-md-6"><h3>博汇康宁股票型管理1期私募证券投资基金</h3></div>
-											<div class="col-md-6"><p>投资领域：沪深交易所发行、上市的股票（包括上市公司非公开发行股票、新股申购）、新三板挂牌公司股份、沪港通中港股通标的范围内的股票、深港通中港股通标的范围内的股票、债券、资产支持证券、债券回购...</p></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</a>
-					</li>
-				</ul>
-				-->
-			</div>
-		</div>
-		
-		<!--
-		<div class="fh5co-counter-style-2" style="background-image: url(images/r.jpg);">
-			<div class="fh5co-overlay"></div>
-			<div class="container" id="numCount">
-				<div class="fh5co-section-content-wrap">
-					<div class="fh5co-section-content">
-						<div class="row">
-							<div class="col-md-4 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay=".5s">
-								<div class="icon">
-									<i class="glyphicon glyphicon-hand-down"></i>
-								</div>
-								<span class="fh5co-counter js-counter" data-from="0" data-to="188" data-speed="5000" data-refresh-interval="50"></span>
-								<span class="fh5co-counter-label">今日访问量</span>
-								
-							</div>
-							<div class="col-md-4 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay=".8s">
-								<div class="icon">
-									<i class="glyphicon glyphicon-thumbs-up"></i>
-								</div>
-								<span id="dataTo" class="fh5co-counter js-counter" data-from="0" data-to="" data-speed="5000" data-refresh-interval="50"></span>
-								<span class="fh5co-counter-label">用户咨询量</span>
-							</div>
-							<div class="col-md-4 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.1s">
-								<div class="icon">
-									<i class="glyphicon glyphicon-user"></i>
-								</div>
-								<span class="fh5co-counter js-counter" data-from="0" data-to="48" data-speed="5000" data-refresh-interval="50"></span>
-								<span class="fh5co-counter-label">会员客户总量</span>
-							</div>
-						</div>
+				<div class="container" style="width: 80%;">
+					<div class="row">
+					 	<div class="col-md-3">
+					 		<div class="productDiv" id="productDiv01">
+					 			<p class="imgContentText">博汇康宁价值优选1期</br>私募证券投资基金</p>
+					 			<img src="images/product.jpg" id="img01">
+					 			<button class="btn btn-default">至今</button>
+					 		</div>
+					 	</div>
+					  	<div class="col-md-3">
+					 		<div class="productDiv" id="productDiv02">
+					 			<p class="imgContentText">博汇康宁景博稳健1号</br>私募基金</p>
+					 			<img src="images/product.jpg" id="img01">
+					 			<button class="btn btn-default">2017-03-02~至今</button>
+					 		</div>
+					 	</div>
+					 	<div class="col-md-3">
+					 		<div class="productDiv" id="productDiv03">
+					 			<p class="imgContentText">博汇康宁股票型管理1期</br>私募证券投资基金</p>
+					 			<img src="images/product.jpg" id="img01">
+					 			<button class="btn btn-default">2017-03-31~至今</button>
+					 		</div>
+					 	</div>
+					 	<div class="col-md-3">
+					 		<div class="productDiv" id="productDiv02">
+					 			<p class="imgContentText">博汇康宁</br>中原1号</p>
+					 			<img src="images/product.jpg" id="img01">
+					 			<button class="btn btn-default">2017-07-25~至今</button>
+					 		</div>
+					 	</div>
 					</div>
 				</div>
-			</div>
 		</div>
-			-->
+		<!--产品介绍 end-->
+
+		<div class="fh5co-projects" style="background-color:#F5F5F5">
+				<div class="text-center" id="productlist" style="width: 80%;margin: 0 auto;">
+					<img src="./images/youshi.jpg" style="width: 100%">
+				</div>
+				
+				<div class="shortcut">
+					<a href="#" target="_blank">
+						<img class="img" src="./images/u1_front.png" style="background:red" height="270" width="230" />
+						<img class="imgH" src=".images/u1_back.png" style="background:green" height="270" width="230" />
+					</a>
+					
+					<a href="#" target="_blank">
+						<img class="img" src="./images/u2_front.png" style="background:red" height="270" width="230" />
+						<img class="imgH" src=".images/u2_back.png" style="background:green" height="270" width="230" />
+					</a>
+					
+					<a href="#" target="_blank">
+						<img class="img" src="./images/u3_front.png" style="background:red" height="270" width="230" />
+						<img class="imgH" src=".images/u3_back.png" style="background:green" height="270" width="230" />
+					</a>
+					
+					<a href="#" target="_blank">
+						<img class="img" src="./images/u4_front.png" style="background:red" height="270" width="230" />
+						<img class="imgH" src=".images/u4_back.png" style="background:green" height="270" width="230" />
+					</a>
+				</div>
+		</div>
+		
+		
+		<div class="fh5co-projects" style="background-color:#F5F5F5">
+				<div class="text-center" id="productlist" style="width: 80%;margin: 0 auto;">
+					<img src="./images/youshi.jpg" style="width: 100%">
+				</div>
+				
+				<div class="shortcut">
+					<a href="#" target="_blank">
+						<img class="img" src="./images/u1_front.png" style="background:red" height="270" width="230" />
+						<img class="imgH" src=".images/u1_back.png" style="background:green" height="270" width="230" />
+					</a>
+					
+					<a href="#" target="_blank">
+						<img class="img" src="./images/u2_front.png" style="background:red" height="270" width="230" />
+						<img class="imgH" src=".images/u2_back.png" style="background:green" height="270" width="230" />
+					</a>
+					
+					<a href="#" target="_blank">
+						<img class="img" src="./images/u3_front.png" style="background:red" height="270" width="230" />
+						<img class="imgH" src=".images/u3_back.png" style="background:green" height="270" width="230" />
+					</a>
+					
+					<a href="#" target="_blank">
+						<img class="img" src="./images/u4_front.png" style="background:red" height="270" width="230" />
+						<img class="imgH" src=".images/u4_back.png" style="background:green" height="270" width="230" />
+					</a>
+				</div>
+		</div>
+		
+		
+		</br>
+	
 		<!-- 网站底部导航菜单 -->
 		<!-- 网站底部导航菜单 -->
 		 <#include "footer.html"/>  
@@ -404,8 +419,7 @@ var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b
 	<script src="js/jquery.stellar.min.js"></script>
 	<!-- countTo -->
 	<script src="js/jquery.countTo.js"></script>
-	<!-- WOW -->
-	<script src="js/wow.min.js"></script>
+
 	<script src="js/jquery.cookie.js"></script>
 	<script>
 	//判断用户cookie是否存在 
@@ -438,35 +452,11 @@ if(window.confirm("您确认退出登录吗？")){
  			});
 	}
 }
-		new WOW().init();
-		//设置今日访客量的随机两位数（30~99）
-		var num = Math.random()*70+30;
-		num = parseInt(num, 10);
-		$("#dataTo").data('to',num);
+
 	</script>
 	<!-- Main -->
 	<script src="js/main.js">
-		$('#toProduct').click(function () {
-
-			$('html, body').animate({
-				scrollTop: $( $.attr(this, 'href') ).offset().top}, 1000);
-			 return false;
-
-		});
-		$('#toInfo').click(function () {
-
-			$('html, body').animate({
-				scrollTop: $( $.attr(this, 'href') ).offset().top}, 1000);
-			 return false;
-
-		});
-		$('#toNumCount').click(function () {
-
-			$('html, body').animate({
-				scrollTop: $( $.attr(this, 'href') ).offset().top}, 1000);
-			 return false;
-
-		});
+		
 
 	</script>
 	</body>

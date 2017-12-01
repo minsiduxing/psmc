@@ -98,3 +98,7 @@ VALUES ('fbb16e0051bc4a7aa02e43ee776cc27b', '创始人', 'teamshow.html#founder'
 
 INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked, menu_level) VALUES ('b482ab861d6643909dc2841e6dff77ae', '登录', 'login.html', '10119b6e651647e38a289cd4fc6c8c1b', '1', '导航栏', 10, 1, 2);
 INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid, open_type, remark, ordernum, is_locked, menu_level) VALUES ('b482ab864d6643909dc2f41e6dff77ae', '退出', '#', '10119b6e651647e38a289cd4fc6c8c1b', '1', '导航栏', 11, 2, 2);
+
+
+update tab_navigation_bar  t set is_locked='1' where t.menu_name like '%研究团队%';
+update tab_navigation_bar  t set menu_name='组织架构' where t.menu_name like '%投资流程%';
