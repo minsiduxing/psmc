@@ -100,32 +100,17 @@
 		letter-spacing: 0;
 		text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;
 	}
+	.fh5co-cover-intro{
+		text-align: center !important;
+		margin-top: 18%;
+	}
 	.crContent{
 		font-family: "STHeiti Light" !important;
 		font-size: 15px !important;
 		color: #DAA520;
 	}
-	.cover-text-lead{
-		color: #fff;
-		font-weight: 500 !important;
-		margin-bottom: 0;
-	}
-	.companyLine{
-		border-top-style: solid;
-		border-top-color: rgb(255, 255, 255);
-		border-top-width: 2px;
-		display: block;
-		width: 80px; 
-		margin: 20px auto;
-	}
-	.companyEN{
-		display: block;
-		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 23px;
-		font-weight: 100;
-		line-height: 37.15px;
-		opacity: 0.6;
-		color: #fff;
+	.comContentDiv{
+		margin-bottom: 100px;
 	}
 	.compCulture{
 		width: 80%;
@@ -142,6 +127,131 @@
 		line-height: 1.1;
 		font-size: 24px;
 	}
+	.fh5co-cover-style-2{
+		min-height: 500px !important;
+		background-image: url(images/full_1_1.jpg);
+	}
+	.cover-text-lead{
+		font-weight: 500 !important;
+		margin-bottom: 0;
+	}
+	.companyEN{
+		display: block;
+		font-family: "Microsoft YaHei","微软雅黑";
+		font-size: 23px;
+		font-weight: 100;
+		line-height: 37.15px;
+		opacity: 0.6;
+		color: #fff;
+	}
+	.companyLine{
+		border-top-style: solid;
+		border-top-color: rgb(255, 255, 255);
+		border-top-width: 2px;
+		display: block;
+		width: 80px; 
+		margin: 20px auto;
+	}
+	.col-md-4{
+		text-align: center;
+	}
+	.col-md-4>img{
+		transition: All 1s ease-in-out;
+	            -webkit-transition: All 1s ease-in-out;
+	            -moz-transition: All 1s ease-in-out;
+	            -o-transition: All 1s ease-in-out;
+	}
+	.col-md-4>img:hover{
+		transform: scale(1.2);
+	            -webkit-transform: scale(1.2);
+	            -moz-transform: scale(1.2);
+	            -o-transform: scale(1.2);
+	            -ms-transform: scale(1.2);
+	}
+	.windSystemContentDiv{
+		margin-top: 20px;
+		border: 5px solid #FFCC22;
+		border-radius: 8px;
+	}
+	.teamImg{
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+	
+	
+<!--创始人控件 start-->
+html{font-family: 'Noto Sans' , serif;}
+.blocks{
+	margin:40px auto 0 auto;
+	max-width: 1070px;
+	padding: 0;
+}
+.blocks li{
+	color: rgb(112,97,78,1);
+	background-color: white;
+	cursor: default;
+	float: left;
+	list-style: none;
+	margin: 1%;
+	padding: 60px 0;
+	position: relative;
+	text-align: center;
+	-webkit-transition: .3s cubic-bezier(.3,0,0,1.3);
+	transition: .3s cubic-bezier(.3,0,0,1.3);
+	width: 31%;
+	border-radius: 4px;
+	font-weight: bold;
+}
+.blocks li:hover{
+	-webkit-transform: scale(.7);
+	-ms-transform: scale(.7);
+	transform: scale(.7);
+	z-index: 3000;
+}
+.popup{
+	background-color: rgb(112,97,78);
+	color: white !important;
+	height: 100%;
+	width: 100%;
+	left: 0;
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	padding: 15px;
+	border-radius: 4px;
+	-webkit-transition: .3s cubic-bezier(.3,0,0,1.37);
+	transition: .3s cubic-bezier(.3,0,0,1.37);
+}
+.popup span{
+	font-size: 12px;
+	font-weight: normal;
+	left: 0;
+	padding: 15px 25px;
+	position: absolute;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+.popup h3{
+	font-size: 13px;
+	margin: 0 0 5px;
+	padding: 0;
+}
+.blocks li:hover .popup{
+	opacity: 1;
+	-webkit-transform: scale(2);
+	-ms-transform: scale(2);
+	transform: scale(2);
+	box-shadow: 0 0 10px 2px rgba(0,0,0,.4);
+}
+<!--创始人控件 end-->
+	
+	
+	
+	
+	
 </style>
 </head>
 <body>
@@ -149,56 +259,66 @@
 		<!-- 网站顶部部导航菜单 -->
 		 <#include "head.html"/> 
 		<!-- 网站顶部导航菜单结束 -->
-		<div class="fh5co-pricing-style-2" style="background-color: #528B8B;">
-			<div class="container" style="margin-top: 100px;">
-				<div class="row">
-					<div class="row p-b">
-						<div class="col-md-6 col-md-offset-3 text-center">
-							<a name="founder" id="founder"></a>
-							<h1 class="cover-text-lead wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.5s">创始人介绍</h1>
-							<span class="companyEN">CREATOR INTROUDUCT</span>
-							<i class="companyLine"></i>
-							<p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay=".7s">研究创造价值，智慧创造财富，成功的基石不仅止于坚持，更需要专业的分工和科学的管理</p>
+		<div class="fh5co-cover fh5co-cover-style-2">
+			<div class="fh5co-overlay"></div>
+			<div class="fh5co-cover-text">
+				<div class="container">
+					<div class="row">
+						<div>
+							<div class="fh5co-cover-intro">
+								<h1 name="ourstrengths" class="cover-text-lead wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.5s">团队展示</h1>
+								<span class="companyEN">CHOOSE US</span>
+								<i class="companyLine"></i>
+								<h2 class="cover-text-sublead wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.8s">成功的基石不仅止于坚持，更需要专业的分工和科学的管理</h2>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="pricing">
-					             <div class="pricing-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.1s">
-					                 <h2 class="pricing-title" style="font-size: 25px; color: #DAA520">王慧</h2>
-					                 <p class="pricing-sentence">风控总监&nbsp;经济学专家</p>
-					                 <ul class="pricing-feature-list text-left crContent">
-					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.4s" align="center">联合创始人</li>
-					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.7s" align="center">经济学副教授</li>
-					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="2.0s" align="center">极度的保守主义者</li>
-					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="2.1s" align="center">能熟练运用数理统计模型</br>衡量市场的风险；</li>
-					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="2.3s" align="center">能用分型数学等解析市场</br>结构，理解市场混沌中的有序。</li>
-					                 </ul>
-					             </div>
-					             <div class="pricing-item pricing-item--featured wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.4s">
-					                 <h2 class="pricing-title" style="font-size: 25px; color: #DAA520">赵少康</h2>
-					                 <p class="pricing-sentence">总经理&nbsp;联合创始人</p>
-					                 <ul class="pricing-feature-list text-left crContent">
-					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="0.9s" align="center">中博建设集团总经理</li>
-					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.2s" align="center">加拿大多伦多大学商学学士</li>
-					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.5s" align="center">加拿大多伦多大学文学学士</li>
-					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.8s" align="center">加拿大多伦多大学金融学硕士</li>
-					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="2.1s" align="center">北京大学深圳汇丰商学院EMBA</li>
-					                 </ul>
-					             </div>
-					             <div class="pricing-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.7s">
-					                 <h2 class="pricing-title" style="font-size: 25px; color: #DAA520">曹双宁</h2>
-					                 <p class="pricing-sentence">投资总监&nbsp;联合创始人</p>
-					                 <ul class="pricing-feature-list text-left crContent">
-					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.4s" align="center">善于挖掘趋势下的价值投资机会</li>
-					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="1.7s" align="center">深刻理解市场盛衰循环</li>
-					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="2.0s" align="center">独创完美缺陷投资哲学体系</li>
-					                     <li class="pricing-feature wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="2.3s" align="center">二十年市场操作经验</li>
-					                 </ul>
-					             </div>
-					</div>
-		      		</div>
+				</div>	
 			</div>
+		</div>
+		<div class="fh5co-project-style-2">
+			<div class="comContentDiv">
+				<div class="compCulture">
+					<a name="ourstrengths" id="ourstrengths"></a>
+					<span class="compCuContent">创&nbsp;始&nbsp;人&nbsp;介&nbsp;绍</span>
+				</div>
+				<div class="container" style="width: 80%;">
+				<!--创始人控件 start-->
+					<ul class="blocks">
+						<li>
+							<font style="color:rgb(112,97,78);font-size:28px;">王&nbsp;&nbsp;慧<br><br></font>
+							<font color="black">风控总监&nbsp;经济学专家<br>联合创始人&nbsp;经济学副教授</font>
+							<div class="popup">
+								<span>
+									极度的保守主义者，能熟练运用数理统计模型，衡量市场的风险，能用分型数学等解析市场结构，理解市场混沌中的有序。
+								</span>
+							</div>
+						</li>
+						
+						<li>
+							<font style="color:rgb(112,97,78);font-size:28px;">赵&nbsp;少&nbsp;康<br><br></font>
+							<font color="black">总经理&nbsp;联合创始人<br>中博建设集团总经理</font>
+							<div class="popup">
+								<span>
+									加拿大多伦多大学商学学士、加拿大多伦多大学文学学士、加拿大多伦多大学金融学硕士、北京大学深圳汇丰商学院EMBA。
+								</span>
+							</div>
+						</li>
+						
+						<li>
+							<font style="color:rgb(112,97,78);font-size:28px;">曹&nbsp;双&nbsp;宁<br><br></font>
+							<font color="black">投资总监&nbsp;联合创始人<br>中博建设集团总经理</font>
+							<div class="popup">
+								<span>
+									善于挖掘趋势下的价值投资机会，深刻理解市场盛衰循环，独创完美缺陷投资哲学体系，二十年市场操作经验。
+								</span>
+							</div>
+						</li>
+						
+						
+					</ul>
+					<!--创始人控件 end-->
+				</div>
 		</div>
 
 		<div class="fh5co-testimonial-style-2">
