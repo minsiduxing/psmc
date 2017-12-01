@@ -17,11 +17,11 @@
 			<li ><label>新闻标题</label><br>
 				<input  id="newsTitle" name="newsTitle"></input>
 			</li>
-			 <li  ><label for="">新闻子标题</label><br>
+			<!--  <li  ><label for="">新闻子标题</label><br>
 				<input  id="newSubTitle" name="newSubTitle"></input>
-			</li> 
-			<li><label >内容摘要</label><br>
-				<input id="newsAbstarct" name="newsAbstarct" style="height:100px;"></input></li>
+			</li>  -->
+			<!-- <li><label >内容摘要</label><br>
+				<input id="newsAbstarct" name="newsAbstarct" style="height:100px;"></input></li> -->
 			<!-- <li><label>新闻配图</label><br>
 			<input type="hidden" id="hiddenfile" name="thumbnailImageUrl"/>
 			<div id="picpreview" >
@@ -94,7 +94,7 @@ function formInint(isEdit){
 				type : "text",
 				required : true
 			});
-			$('#newSubTitle').textbox({
+			/* $('#newSubTitle').textbox({
 				value : '${news.news_subtitle}',
 				type : "text"
 			});
@@ -102,7 +102,7 @@ function formInint(isEdit){
 				value : '${news.news_abstract}',
 				multiline:true,
 				type : "text"
-			});
+			}); */
 			$('#newsDate').datetimebox({
 				value :'${news.news_date}',
 				required : true,
@@ -121,7 +121,7 @@ function formInint(isEdit){
 			type : "text",
 			required : true
 		});
-		$('#newSubTitle').textbox({
+		/* $('#newSubTitle').textbox({
 			value : "",
 			type : "text"
 		});
@@ -130,7 +130,7 @@ function formInint(isEdit){
 			iconHight:28,
 			multiline:true,
 			type : "text"
-		});
+		}); */
 		$('#newsDate').datetimebox({
 			value : "",
 			required : true,

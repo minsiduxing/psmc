@@ -327,23 +327,23 @@
 	    		<div class="modal-content">
 	      			<div class="modal-header">
 		        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        			<h4 class="modal-title text-center" id="myModalLabel" >新闻标题</h4>
-		        			<h5 class="modal-title text-left" id="myModalLabelsub" >新闻标题</h5>
-		        			
+		        			<div class="modal-title text-center" id="myModalLabeltitle" ></div>
+		        	 		<div id="newsauthor" class="text-right">
+		        	 		   <span class="glyphicon glyphicon-user"></span><span id="author" ></span>
+					          <span id="newdate"></span>
+					         </div>
+		        			<h3 class="modal-title text-right" id="myModalLabelsub" ></h3>
 					</div>
-				<div class="modal-body">
-			           <div id="newabstract" class="text-left">
-					   </div>
-					   <hr>
+				   <div class="modal-body">
+			           <h3 id="newabstract" class="text-left">
+					   </h3>
 					<div id="myModalText" class="text-left">
 						
 					</div>
-					<hr>
-					   <div id="author" class="text-left"></div>
-					   <div id="newdate" class="text-left"></div>
+					  
 				</div>
 		      		<div class="modal-footer">
-				        	<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+				        	<button type="button" class="btn btn-default"   data-dismiss="modal">返回</button>
 		      		</div>
 	    		</div>
 	  	</div>
@@ -426,12 +426,12 @@ if($.cookie("userID")==null){
 				   url: _url,
 				   async: false,
 				   success: function(data){
-				        var news =  JSON.parse(data);
-					     $('#myModalLabel').html("<b>新闻标题</b>："+news.news_title);
-					      $('#myModalLabelsub').html("<b>新闻副标题</b>："+news.news_subtitle);
-				      $('#newabstract').html("<b>摘要</b>："+news.news_abstract);
-				       $('#author').html("<b>新闻作者</b>："+news.news_author);
-				        $('#newdate').html("<b>新闻日期</b>："+news.news_date);
+				         var news =  JSON.parse(data);
+			        $('#myModalLabeltitle').html(news.news_title);
+			       /*  $('#myModalLabelsub').html(news.news_subtitle); */
+				     /*  $('#newabstract').html("&nbsp;&nbsp;&nbsp;&nbsp;"+news.news_abstract); */
+				       $('#author').html("&nbsp;&nbsp;&nbsp;&nbsp;"+news.news_author+"");
+				        $('#newdate').html("&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-time'></span>&nbsp;&nbsp;&nbsp;&nbsp;"+news.news_date+"");
 				     $('#myModalText').html(news.news_content);
 				   },
 				   error:function(XMLHttpRequest, textStatus, errorThrown){

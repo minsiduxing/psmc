@@ -221,12 +221,28 @@
 		border:2px solid rgba(221, 221, 221, 1);
 		border-radius: 1%;
 	}
-		#myModalText h1{font-weight: normal;font-size:32px;}
-    #myModalText h2 {font-weight: normal;font-size:24px;}
-    #myModalText h3 {font-weight: normal;font-size:18.72px;}
-    #myModalText h4{font-weight: normal;font-size:16px;}
-    #myModalText h5 {font-weight: normal;font-size:13.28px;}
-    #myModalText  h6 {font-weight: normal;font-size:12px;}
+		<style>
+	.modal-content h1{font-weight: normal;font-size:32px;}
+    .modal-content h2 {font-weight: normal;font-size:24px;}
+    .modal-content h3 {font-weight: normal;font-size:18.72px;}
+    .modal-content h4{font-weight: normal;font-size:16px;}
+    .modal-content h5 {font-weight: normal;font-size:13.28px;}
+    .modal-content  h6 {font-weight: normal;font-size:12px;}    
+    .modal-content {
+       color: #4a4a4a;
+       background-color: #F5F5F5;
+      }
+    #myModalText{
+     font-size:14px;
+    font-style: normal;
+    font-family: Microsoft YaHei !important;
+    }
+    .modal-title {
+    margin-bottom: 24px;
+    line-height: 1.42857;
+    font-size: 24px !important;
+    font-weight:lighter;
+   }
     #myModalText a{color: -webkit-link;;
     text-decoration: underline;
     transition: background-color 0.1s ease-in 0s, color 0.2s ease-in 0s;
@@ -246,6 +262,14 @@
 }
  #myModalText b, strong {
     font-weight: bold;
+}
+	#newabstract{
+	font-size:17px;
+	}
+	.modal-header {
+    padding: 15px;
+    border-bottom:none;
+    min-height: 16.42857px;
 }
 	 /* 解决页面抖动*/
 	 body{ overflow: auto !important;} .modal{ overflow: auto !important;} 
@@ -327,23 +351,23 @@
 	    		<div class="modal-content">
 	      			<div class="modal-header">
 		        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        			<h4 class="modal-title text-center" id="myModalLabel" >新闻标题</h4>
-		        			<h5 class="modal-title text-left" id="myModalLabelsub" >新闻标题</h5>
-		        			
+		        			<div class="modal-title text-center" id="myModalLabeltitle" ></div>
+		        	 		<div id="newsauthor" class="text-right">
+		        	 		   <span class="glyphicon glyphicon-user"></span><span id="author" ></span>
+					          <span id="newdate"></span>
+					         </div>
+		        			<h3 class="modal-title text-right" id="myModalLabelsub" ></h3>
 					</div>
-				<div class="modal-body">
-			           <div id="newabstract" class="text-left">
-					   </div>
-					   <hr>
+				   <div class="modal-body">
+			           <h3 id="newabstract" class="text-left">
+					   </h3>
 					<div id="myModalText" class="text-left">
 						
 					</div>
-					<hr>
-					   <div id="author" class="text-left"></div>
-					   <div id="newdate" class="text-left"></div>
+					  
 				</div>
 		      		<div class="modal-footer">
-				        	<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+				        	<button type="button" class="btn btn-default"   data-dismiss="modal">返回</button>
 		      		</div>
 	    		</div>
 	  	</div>
@@ -421,11 +445,12 @@
 				   async: false,
 				   success: function(data){
 				        var news =  JSON.parse(data);
-					     $('#myModalLabel').html("<b>新闻标题</b>："+news.news_title);
-					      $('#myModalLabelsub').html("<b>新闻副标题</b>："+news.news_subtitle);
-				      $('#newabstract').html("<b>摘要</b>："+news.news_abstract);
-				       $('#author').html("<b>新闻作者</b>："+news.news_author);
-				        $('#newdate').html("<b>新闻日期</b>："+news.news_date);
+					       var news =  JSON.parse(data);
+			        $('#myModalLabeltitle').html(news.news_title);
+			       /*  $('#myModalLabelsub').html(news.news_subtitle); */
+				     /*  $('#newabstract').html("&nbsp;&nbsp;&nbsp;&nbsp;"+news.news_abstract); */
+				       $('#author').html("&nbsp;&nbsp;&nbsp;&nbsp;"+news.news_author+"");
+				        $('#newdate').html("&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-time'></span>&nbsp;&nbsp;&nbsp;&nbsp;"+news.news_date+"");
 				     $('#myModalText').html(news.news_content);
 				   },
 				   error:function(XMLHttpRequest, textStatus, errorThrown){
