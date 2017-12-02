@@ -176,7 +176,8 @@
 	            -ms-transform: scale(1.1, 1.1);
 	}
 	.productDiv>img{
-		width: 70%;
+		width: 130px;
+		margin:30px;
 	}
 	.imgContentText{
 		font-family: "Microsoft YaHei","微软雅黑";
@@ -233,7 +234,7 @@
 					 	<div class="col-md-3">
 					 		<div class="productDiv" id="productDiv01">
 					 			<p class="imgContentText">博汇康宁价值优选1期</br>私募证券投资基金</p>
-					 			<img src="images/product.png" id="img01">
+					 			<img src="images/product.png" id="img01" style="width:130px">
 					 			<button class="btn btn-default">至今</button>
 					 		</div>
 					 	</div>

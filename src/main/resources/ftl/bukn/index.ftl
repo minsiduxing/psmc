@@ -172,7 +172,8 @@
 	            -ms-transform: scale(1.1, 1.1);
 	}
 	.productDiv>img{
-		width: 70%;
+		width: 130px;
+		margin:30px;
 	}
 	.imgContentText{
 		font-family: "Microsoft YaHei","微软雅黑";
@@ -463,17 +464,15 @@
 				</div>
 								
 				<div class="container" style="width: 80%;">
-					<div class="row" style="text-align:center">
+
+					<div class="row" style="text-align:left;background:url(./images/diannao.png) no-repeat 0 0;background-size:50% 90%;background-position-x:75%">
 						<div class="col-md-3" style="width:100%;font-family:monospace">
 					 		<img src="./images/bhkn_rwm.png" style="width: 15%">
 					 		<p>联系地址:陕西省西安市科技路西段绿地鸿海大厦B座9层</p>
 							<p>联系电话:029-84536670</p>
 							<p>电子邮箱:bhkn@bohuikangning.com</p>
 					 	</div>
-					</div>
-					</br>
-					<div class="row">
-						<img src="./images/diannao.png" style="width:50%">
+					 	
 					 	<div class="col-md-3"  style="width:50%">
 					 		<!--百度地图容器-->
   							<div style="width:95%;height:300px;border:#ccc solid 1px;" id="dituContent"></div>	

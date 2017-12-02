@@ -15,9 +15,9 @@
 .f_main_nav li{height:244px;float:left;cursor:pointer;border-bottom:8px solid #fff;border-right:8px solid #fff;position:relative;}
 .f_main_nav .fm4,.f_main_nav .fm8{border-right:0;}
 .fm1,.fm2,.fm3,.fm4,.fm5,.fm6,.fm7,.fm8{background:url(../images/sprite_feature.png) no-repeat 0 0;position:relative;z-index:1;}
-.fm1{background:url(../images/u1.png) no-repeat 0 0;background-position:top;background-size:144px 144px;position:relative;z-index:1;background-color:rgb(169,126,74);width:244px;}
-.fm2{background:url(../images/u2.png) no-repeat 0 0;background-position:top;background-size:144px 144px;position:relative;z-index:1;background-color:rgb(245,245,245);width:244px;}
-.fm3{background:url(../images/u3.png) no-repeat 0 0;background-position:top;background-size:144px 144px;position:relative;z-index:1;background-color:rgb(169,126,74);width:244px;}
+.fm1{background:url(../images/u1.png) no-repeat 0 0;background-position:top;background-size:144px 164px;position:relative;z-index:1;background-color:rgb(169,126,74);width:244px;}
+.fm2{background:url(../images/u2.png) no-repeat 0 0;background-position:top;background-size:144px 164px;position:relative;z-index:1;background-color:rgb(245,245,245);width:244px;}
+.fm3{background:url(../images/u3.png) no-repeat 0 0;background-position:top;background-size:144px 164px;position:relative;z-index:1;background-color:rgb(169,126,74);width:244px;}
 .fm4{background-position:-705px 25px;background-color:#a8c194;width:224px;}
 .fm5{background-position:55px -220px;background-color:#cac69e;width:244px;}
 .fm6{background-position:-200px -220px;background-color:#abc2df;width:244px;}
@@ -33,7 +33,7 @@
 .fm6 span{background:#abc2df;top:-8px;width:244px;}
 .fm7 span{background:#bdbad7;top:-8px;width:244px;}
 .fm8 span{background:#92bccb;top:-8px;width:224px;}
-.fm_info{font-size:17px;color:#fff;text-align:center;margin-top:150px;font-family:sans-serif;}
+.fm_info{font-size:17px;color:#fff;text-align:center;margin-top:175px;font-family:sans-serif;}
 .f_main_con{position:absolute;z-index:2;}
 .f_main_con li{position:absolute;width:955px;height:244px;border:0;font-family:"Microsoft Yahei";color:#fff;}
 .fmc_info{width:725px;margin:45px 0 0 40px;}
