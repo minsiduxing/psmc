@@ -227,7 +227,7 @@
 		</div>
 		<div class="fh5co-project-style-2" style="background-color:white">
 			<div class="text-center" style="width: 80%;margin: 0 auto;">
-				<img src="./images/welcome.jpg" style="width: 100%;">
+				<img src="./images/welcome.png" style="width: 100%;">
 			</div>
 		</div>
 		<div class="fh5co-projects" style="background-color:#F5F5F5">
@@ -279,7 +279,7 @@
 		<!--我们的优势 start-->
 		<div class="fh5co-projects" style="background-color:white">
 				<div class="text-center" id="productlist" style="width: 80%;margin: 0 auto;">
-					<img src="./images/youshi.jpg" style="width: 100%">
+					<img src="./images/youshi.png" style="width: 100%">
 				</div>
 				<div class="container" style="width: 80%;">
 					<div class="row" style="text-align:-webkit-center">
@@ -312,7 +312,7 @@
 		<!--产品介绍-->
 		<div class="fh5co-projects" style="background-color:#F5F5F5">
 				<div class="text-center" id="productlist" style="width: 80%;margin: 0 auto;">
-					<img src="./images/product_introduction.jpg" style="width: 100%">
+					<img src="./images/product_introduction.png" style="width: 100%">
 				</div>
 				<div class="container" style="width: 80%;">
 					<div class="row">
