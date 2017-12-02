@@ -172,7 +172,7 @@
 	            -ms-transform: scale(1.1, 1.1);
 	}
 	.productDiv>img{
-		width: 100%;
+		width: 70%;
 	}
 	.imgContentText{
 		font-family: "Microsoft YaHei","微软雅黑";
@@ -248,7 +248,7 @@
 				<img src="./images/welcome.png" style="width: 100%;">
 			</div>
 		</div>
-		<div class="fh5co-projects" style="background-color:#F5F5F5">
+		<div class="fh5co-projects" style="background-color:white">
 			<!-- 企业文化的滚动模态框效果-->
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000">
 				<!-- Indicators -->
@@ -425,28 +425,28 @@
 					 	<div class="col-md-3">
 					 		<div class="productDiv" id="productDiv01">
 					 			<p class="imgContentText">博汇康宁价值优选1期</br>私募证券投资基金</p>
-					 			<img src="images/product.jpg" id="img01">
+					 			<img src="images/product.png" id="img01">
 					 			<button class="btn btn-default">至今</button>
 					 		</div>
 					 	</div>
 					  	<div class="col-md-3">
 					 		<div class="productDiv" id="productDiv02">
 					 			<p class="imgContentText">博汇康宁景博稳健1号</br>私募基金</p>
-					 			<img src="images/product.jpg" id="img01">
+					 			<img src="images/product.png" id="img01">
 					 			<button class="btn btn-default">2017-03-02~至今</button>
 					 		</div>
 					 	</div>
 					 	<div class="col-md-3">
 					 		<div class="productDiv" id="productDiv03">
 					 			<p class="imgContentText">博汇康宁股票型管理1期</br>私募证券投资基金</p>
-					 			<img src="images/product.jpg" id="img01">
+					 			<img src="images/product.png" id="img01">
 					 			<button class="btn btn-default">2017-03-31~至今</button>
 					 		</div>
 					 	</div>
 					 	<div class="col-md-3">
 					 		<div class="productDiv" id="productDiv02">
 					 			<p class="imgContentText">博汇康宁</br>中原1号</p>
-					 			<img src="images/product.jpg" id="img01">
+					 			<img src="images/product.png" id="img01">
 					 			<button class="btn btn-default">2017-07-25~至今</button>
 					 		</div>
 					 	</div>
@@ -463,7 +463,7 @@
 				</div>
 								
 				<div class="container" style="width: 80%;">
-					<div class="row" style="text-align:-webkit-center">
+					<div class="row" style="text-align:center">
 						<div class="col-md-3" style="width:100%;font-family:monospace">
 					 		<img src="./images/bhkn_rwm.png" style="width: 15%">
 					 		<p>联系地址:陕西省西安市科技路西段绿地鸿海大厦B座9层</p>
@@ -473,9 +473,10 @@
 					</div>
 					</br>
 					<div class="row">
-					 	<div class="col-md-3"  style="width: -webkit-fill-available;">
+						<img src="./images/diannao.png" style="width:50%">
+					 	<div class="col-md-3"  style="width:50%">
 					 		<!--百度地图容器-->
-  							<div style="width:95%;height:300px;border:#ccc solid 1px;" id="dituContent"></div>			
+  							<div style="width:95%;height:300px;border:#ccc solid 1px;" id="dituContent"></div>	
 					 	</div>
 					</div>
 				</div>
