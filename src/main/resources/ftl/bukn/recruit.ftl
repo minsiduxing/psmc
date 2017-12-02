@@ -329,11 +329,7 @@
 <script src="js/jquery.stellar.min.js"></script>
 <!--    countTo -->
 <script src="js/jquery.countTo.js"></script>
-<!--    WOW -->
-<script src="js/wow.min.js"></script>
-<script>
-	new WOW().init();
-</script>
+
 <!-- Main -->
 <script src="js/main.js"></script>
 <script>
