@@ -65,15 +65,15 @@
 	}
 	.dropdown>a, .index_color{
 		color: rgba(255, 255, 255, 0.5) !important;
-		font-weight: 600;
+		font-weight: 100;
 	}
 	.dropdown>a:hover, .index_color:hover{
 		ccolor: rgba(255, 255, 255, 0.5) !important;
-		font-weight: 600;
+		font-weight: 100;
 	}
 	.dropdown-menu>li>a, .index_colour{
 		color: rgba(255, 255, 255, 0.5) !important;
-		font-weight: 600;
+		font-weight: 100;
 	}
 	.index_color{
 		color: rgba(255, 255, 255, 0.5) !important;
@@ -109,7 +109,7 @@
 	.compCuContent{
 		width: 200px;
 		display: inline-block;
-		background-color: #FFFCEC;
+		background-color: #F5F5F5;
 		font-weight: 500;
 		line-height: 1.1;
 		font-size: 24px;
@@ -221,12 +221,28 @@
 		border:2px solid rgba(221, 221, 221, 1);
 		border-radius: 1%;
 	}
-		#myModalText h1{font-weight: normal;font-size:32px;}
-    #myModalText h2 {font-weight: normal;font-size:24px;}
-    #myModalText h3 {font-weight: normal;font-size:18.72px;}
-    #myModalText h4{font-weight: normal;font-size:16px;}
-    #myModalText h5 {font-weight: normal;font-size:13.28px;}
-    #myModalText  h6 {font-weight: normal;font-size:12px;}
+		<style>
+	.modal-content h1{font-weight: normal;font-size:32px;}
+    .modal-content h2 {font-weight: normal;font-size:24px;}
+    .modal-content h3 {font-weight: normal;font-size:18.72px;}
+    .modal-content h4{font-weight: normal;font-size:16px;}
+    .modal-content h5 {font-weight: normal;font-size:13.28px;}
+    .modal-content  h6 {font-weight: normal;font-size:12px;}    
+    .modal-content {
+       color: #4a4a4a;
+       background-color: #F5F5F5;
+      }
+    #myModalText{
+     font-size:14px;
+    font-style: normal;
+    font-family: Microsoft YaHei !important;
+    }
+    .modal-title {
+    margin-bottom: 24px;
+    line-height: 1.42857;
+    font-size: 24px !important;
+    font-weight:lighter;
+   }
     #myModalText a{color: -webkit-link;;
     text-decoration: underline;
     transition: background-color 0.1s ease-in 0s, color 0.2s ease-in 0s;
@@ -247,12 +263,20 @@
  #myModalText b, strong {
     font-weight: bold;
 }
+	#newabstract{
+	font-size:17px;
+	}
+	.modal-header {
+    padding: 15px;
+    border-bottom:none;
+    min-height: 16.42857px;
+}
 	 /* 解决页面抖动*/
 	 body{ overflow: auto !important;} .modal{ overflow: auto !important;} 
 </style>
 </head>
 <body>
-	<div id="fh5co-page" style="background-color: #FFFCEC">
+	<div id="fh5co-page" style="background-color: #F5F5F5">
 		<!-- 网站顶部部导航菜单 -->
 		 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.cookie.js"></script>
@@ -307,7 +331,7 @@
 
 
 			   <li>
-				 <a href="chooseus.html#investmentprocess">投资流程</a>
+				 <a href="chooseus.html#investmentprocess">组织架构</a>
 			   </li>
 
 								</ul>
@@ -362,11 +386,6 @@
 
 			   <li>
 				 <a href="teamshow.html#founder">创始人</a>
-			   </li>
-
-
-			   <li>
-				 <a href="teamshow.html#researchteam">研究团队</a>
 			   </li>
 
 
@@ -485,135 +504,13 @@ var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b
 
 <!-- 网站底部导航菜单 -->
 		<div class="fh5co-footer-style-3">
-			<div class="container" style="width: 90%;margin-top:-60px;margin-bottom:-65px;">
-				<div class="row p-b">
-				 <div class="col-md-2 col-sm-3 fh5co-footer-widget wow fadeInUp" style="margin-right:-1%;" data-wow-duration="1s" data-wow-delay=".8s" >
-					<p style=" font-size: 16px !important;color:white;"">关于我们</p>
-						<ul class="fh5co-links fh5co-social" id ="ful" style="font-size: 12px !important; margin-top:-8%;">
-
-
-			   <li>
-				 <a href="aboutus.html#businessculture">公司简介</a>
-			   </li>
-
-
-			   <li>
-				 <a href="aboutus.html#supervise">监管资质</a>
-			   </li>
-
-
-			   <li>
-				 <a href="aboutus.html#companyprocess">发展历程</a>
-			   </li>
-
-						</ul>
-				  </div>
-				 <div class="col-md-2 col-sm-3 fh5co-footer-widget wow fadeInUp" style="margin-right:-1%;" data-wow-duration="1s" data-wow-delay=".8s" >
-					<p style=" font-size: 16px !important;color:white;"">选择博汇康宁</p>
-						<ul class="fh5co-links fh5co-social" id ="ful" style="font-size: 12px !important; margin-top:-8%;">
-
-
-			   <li>
-				 <a href="chooseus.html#ourstrengths">我们的优势</a>
-			   </li>
-
-
-			   <li>
-				 <a href="chooseus.html#riskmanagement">风控体系</a>
-			   </li>
-
-
-			   <li>
-				 <a href="chooseus.html#coreteam">核心团队</a>
-			   </li>
-
-
-			   <li>
-				 <a href="chooseus.html#investmentprocess">投资流程</a>
-			   </li>
-
-						</ul>
-				  </div>
-				 <div class="col-md-2 col-sm-3 fh5co-footer-widget wow fadeInUp" style="margin-right:-1%;" data-wow-duration="1s" data-wow-delay=".8s" >
-					<p style=" font-size: 16px !important;color:white;"">产品一览</p>
-						<ul class="fh5co-links fh5co-social" id ="ful" style="font-size: 12px !important; margin-top:-8%;">
-
-
-			   <li>
-				 <a href="productlist.html#productview">产品一览</a>
-			   </li>
-
-
-			   <li>
-				 <a href="productlist.html#productlineview">产品线一览</a>
-			   </li>
-
-						</ul>
-				  </div>
-				 <div class="col-md-2 col-sm-3 fh5co-footer-widget wow fadeInUp" style="margin-right:-1%;" data-wow-duration="1s" data-wow-delay=".8s" >
-					<p style=" font-size: 16px !important;color:white;"">行情资讯</p>
-						<ul class="fh5co-links fh5co-social" id ="ful" style="font-size: 12px !important; margin-top:-8%;">
-
-
-			   <li>
-				 <a href="info.html#compCuContent">热点新闻</a>
-			   </li>
-
-
-			   <li>
-				 <a href="info.html#compCuContent">实时资讯</a>
-			   </li>
-
-
-			   <li>
-				 <a href="info.html#compCuContent">行业动向</a>
-			   </li>
-
-						</ul>
-				  </div>
-				 <div class="col-md-2 col-sm-3 fh5co-footer-widget wow fadeInUp" style="margin-right:-1%;" data-wow-duration="1s" data-wow-delay=".8s" >
-					<p style=" font-size: 16px !important;color:white;"">团队展示</p>
-						<ul class="fh5co-links fh5co-social" id ="ful" style="font-size: 12px !important; margin-top:-8%;">
-
-
-			   <li>
-				 <a href="teamshow.html#founder">创始人</a>
-			   </li>
-
-
-			   <li>
-				 <a href="teamshow.html#researchteam">研究团队</a>
-			   </li>
-
-
-			   <li>
-				 <a href="teamshow.html#coreteam">核心团队</a>
-			   </li>
-
-						</ul>
-				  </div>
-					<div class="col-md-2 col-sm-3 fh5co-footer-widget wow fadeInUp" data-wow-duration="1s" style="margin-right:-1%;" data-wow-delay=".5s">
-						<p style=" font-size: 16px !important; color:white;">联系我们</p>
-						<ul class="fh5co-links" id ="ful" style=" font-size: 12px !important; margin-top:-8%;>
-							<li><a href="javasript:void(0)">联系地址:</a></li>
-							<li><a href="javasript:void(0)">陕西省西安市科技路西</a></li>
-							<li><a href="javasript:void(0)">段绿地鸿海大厦B座9层</a></li>
-							<li><a href="javasript:void(0)">联系电话:</a></li>
-							<li><a href="javasript:void(0)">029-84536670</a></li>
-							<li><a href="javasript:void(0)">电子邮箱:</a></li>
-							<li><a href="javasript:void(0)">bhkn@bohuikangning.com</a></li>
-							<li><img src="images/1503125910(1).png"></li>
-						</ul>
-					</div>
-					<div class="clearfix visible-sm-block"></div>
-				</div>
-				
+			<div class="container" style="width: 90%;margin-top:-30px;margin-bottom:5px;">
 				<div class="row text-center">
 					<div class="col-md-12 wow fadeInUp" data-wow-duration="1s"s	tyle=" font-size: 12px !important; margin-top:-40px;" data-wow-delay=".5s">
-						<p>友情链接 | <a href="http://www.amac.org.cn/">中国证券投资基金业协会</a> | <a href="http://www.sac.net.cn/">中国证券业协会</a> | <a href="http://www.csrc.gov.cn/pub/newsite/">中国证券监督管理委员会</a> | <a href="http://www.szse.cn/">深圳证券交易所</a></p>
-						<p><a href="http://www.sse.com.cn/">上海证券交易所</a> | <a href="http://www.simuwang.com/?utm_source=12">私募排排网</a> | <a href="http://www.cicc.com/index_cn.xhtml?locale=zh_CN">中国国际金融股份有限公司</a> | <a href="http://www.sxzbjs.com/">陕西中博建设集团有限公司</a></p>
-						<p>Copyright&nbsp;&copy; 2017-2018 博汇康宁（深圳）投资基金管理有限公司 | 粤ICP备17132929号</p>
-						<p>技术支持 | 西安敏思笃行信息技术有限公司</p>
+						<p style="color:rgb(112,97,78);font-size:14px"><a href="http://www.amac.org.cn/">中国证券投资基金业协会</a> | <a href="http://www.sac.net.cn/">中国证券业协会</a> | <a href="http://www.csrc.gov.cn/pub/newsite/">中国证券监督管理委员会</a> | <a href="http://www.szse.cn/">深圳证券交易所</a></p>
+						<p style="color:rgb(112,97,78);font-size:14px"><a href="http://www.sse.com.cn/">上海证券交易所</a> | <a href="http://www.simuwang.com/?utm_source=12">私募排排网</a> | <a href="http://www.cicc.com/index_cn.xhtml?locale=zh_CN">中国国际金融股份有限公司</a> | <a href="http://www.sxzbjs.com/">陕西中博建设集团有限公司</a></p>
+						<p style="color:rgb(112,97,78);font-size:14px">Copyright&nbsp;&copy; 2017-2018 博汇康宁（深圳）投资基金管理有限公司 | 粤ICP备17132929号</p>
+						<p style="color:rgb(112,97,78);font-size:14px">技术支持 | 西安敏思笃行信息技术有限公司</p>
 					</div>
 				</div>
 			</div>
@@ -626,23 +523,23 @@ var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b
 	    		<div class="modal-content">
 	      			<div class="modal-header">
 		        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        			<h4 class="modal-title text-center" id="myModalLabel" >新闻标题</h4>
-		        			<h5 class="modal-title text-left" id="myModalLabelsub" >新闻标题</h5>
-		        			
+		        			<div class="modal-title text-center" id="myModalLabeltitle" ></div>
+		        	 		<div id="newsauthor" class="text-right">
+		        	 		   <span class="glyphicon glyphicon-user"></span><span id="author" ></span>
+					          <span id="newdate"></span>
+					         </div>
+		        			<h3 class="modal-title text-right" id="myModalLabelsub" ></h3>
 					</div>
-				<div class="modal-body">
-			           <div id="newabstract" class="text-left">
-					   </div>
-					   <hr>
+				   <div class="modal-body">
+			           <h3 id="newabstract" class="text-left">
+					   </h3>
 					<div id="myModalText" class="text-left">
 						
 					</div>
-					<hr>
-					   <div id="author" class="text-left"></div>
-					   <div id="newdate" class="text-left"></div>
+					  
 				</div>
 		      		<div class="modal-footer">
-				        	<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+				        	<button type="button" class="btn btn-default"   data-dismiss="modal">返回</button>
 		      		</div>
 	    		</div>
 	  	</div>
@@ -720,11 +617,12 @@ var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b
 				   async: false,
 				   success: function(data){
 				        var news =  JSON.parse(data);
-					     $('#myModalLabel').html("<b>新闻标题</b>："+news.news_title);
-					      $('#myModalLabelsub').html("<b>新闻副标题</b>："+news.news_subtitle);
-				      $('#newabstract').html("<b>摘要</b>："+news.news_abstract);
-				       $('#author').html("<b>新闻作者</b>："+news.news_author);
-				        $('#newdate').html("<b>新闻日期</b>："+news.news_date);
+					       var news =  JSON.parse(data);
+			        $('#myModalLabeltitle').html(news.news_title);
+			       /*  $('#myModalLabelsub').html(news.news_subtitle); */
+				     /*  $('#newabstract').html("&nbsp;&nbsp;&nbsp;&nbsp;"+news.news_abstract); */
+				       $('#author').html("&nbsp;&nbsp;&nbsp;&nbsp;"+news.news_author+"");
+				        $('#newdate').html("&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-time'></span>&nbsp;&nbsp;&nbsp;&nbsp;"+news.news_date+"");
 				     $('#myModalText').html(news.news_content);
 				   },
 				   error:function(XMLHttpRequest, textStatus, errorThrown){
@@ -733,13 +631,13 @@ var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b
 				});
 	 }
 	 /*分页显示三个模块的新闻列表*/
-	var hotNewsArry = [{"releaseAccName":"王笛","news_subtitle":"圖片","release_date":"2017-11-20 20:39:34.0","news_author":"11","uuid":"a23175141ee64084aac00b286dc180ee","news_title":"圖片","news_abstract":"圖片"},{"releaseAccName":"王笛","news_subtitle":"对齐方式","release_date":"2017-11-16 23:52:51.0","news_author":"加粗测试","uuid":"d01a5c20976a483d93fa7d7e43945f4f","news_title":" 测试","news_abstract":"加粗测试"},{"releaseAccName":"王笛","news_subtitle":"加粗测试","release_date":"2017-11-16 23:52:51.0","news_author":"加粗测试","uuid":"c9c585e7ee1947f59d7604f9dc7a4a89","news_title":"背景色测试","news_abstract":"加粗测试"},{"releaseAccName":"王笛","news_subtitle":"富文本h2测试","release_date":"2017-11-16 23:52:51.0","news_author":"富文本h1测试","uuid":"b52da163bf1c4eee9605a4e53b17555a","news_title":"富文本h2测试","news_abstract":"富文本h1测试富文本h1测试富文本h1测试"},{"releaseAccName":"王笛","news_subtitle":"加粗测试","release_date":"2017-11-16 23:52:51.0","news_author":"加粗测试","uuid":"be9e8d67fbbe457dba7db112d4102dfc","news_title":" 前景色测试","news_abstract":"加粗测试"},{"releaseAccName":"王笛","news_subtitle":"超链接测试2","release_date":"2017-11-16 23:52:51.0","news_author":"超链接测试2","uuid":"fd996b96ba034ac8acfccb02f87537ec","news_title":"超链接测试2","news_abstract":"超链接测试2"},{"releaseAccName":"王笛","news_subtitle":"加粗测试","release_date":"2017-11-16 23:52:51.0","news_author":"加粗测试","uuid":"f39667f2f077410485e617de50429d2c","news_title":"斜体测试、下划线、横线测试","news_abstract":"加粗测试"},{"releaseAccName":"王笛","news_subtitle":"加粗测试","release_date":"2017-11-16 23:52:51.0","news_author":"加粗测试","uuid":"f2069e9d9f1e47fea16a8c589d962128","news_title":"斜体测试、下划线、横线测试","news_abstract":"加粗测试"},{"releaseAccName":"王笛","news_subtitle":"富文本h1测试","release_date":"2017-11-16 23:52:51.0","news_author":"富文本h1测试","uuid":"e5ecbe39e94d4b6c9f20227e2b0f7435","news_title":"富文本h1测试","news_abstract":"富文本h1测试富文本h1测试富文本h1测试"},{"releaseAccName":"王笛","news_subtitle":"对齐方式","release_date":"2017-11-16 23:52:51.0","news_author":"加粗测试","uuid":"56b004f1cc36409b81acc7636f21f168","news_title":" 测试","news_abstract":"加粗测试"}];
+	var hotNewsArry = [{"releaseAccName":"王笛","news_subtitle":"新闻展示页面样式调整新闻展示页面样式调整新闻展示页面样式调整新闻展示页面样式调整新闻展示页面样式调整新闻展示页面样式调整副标题","release_date":"2017-11-30 23:27:05.0","news_author":"李四","uuid":"285adf4acf5b4fcc9616b2717a202e0b","news_title":"新闻展示页面样式调整","news_abstract":"     今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子今天是个好日子"},{"releaseAccName":"王笛","release_date":"2017-11-30 23:22:09.0","news_author":"发生","uuid":"bffc93b4636f4f3d8c731bd4b59291db","news_title":"新闻样式热点"},{"releaseAccName":"王笛","news_subtitle":"富文本h2测试","release_date":"2017-11-16 23:52:51.0","news_author":"富文本h1测试","uuid":"b52da163bf1c4eee9605a4e53b17555a","news_title":"富文本h2测试","news_abstract":"富文本h1测试富文本h1测试富文本h1测试"},{"releaseAccName":"王笛","news_subtitle":"超链接测试2","release_date":"2017-11-16 23:52:51.0","news_author":"超链接测试2","uuid":"fd996b96ba034ac8acfccb02f87537ec","news_title":"超链接测试2","news_abstract":"超链接测试2"},{"releaseAccName":"王笛","news_subtitle":"加粗测试","release_date":"2017-11-16 23:52:51.0","news_author":"加粗测试","uuid":"f2069e9d9f1e47fea16a8c589d962128","news_title":"斜体测试、下划线、横线测试","news_abstract":"加粗测试"},{"releaseAccName":"王笛","news_subtitle":"加粗测试","release_date":"2017-11-16 23:52:51.0","news_author":"加粗测试","uuid":"f39667f2f077410485e617de50429d2c","news_title":"斜体测试、下划线、横线测试","news_abstract":"加粗测试"},{"releaseAccName":"王笛","news_subtitle":"富文本h1测试","release_date":"2017-11-16 23:52:51.0","news_author":"富文本h1测试","uuid":"e5ecbe39e94d4b6c9f20227e2b0f7435","news_title":"富文本h1测试","news_abstract":"富文本h1测试富文本h1测试富文本h1测试"},{"releaseAccName":"王笛","news_subtitle":"对齐方式","release_date":"2017-11-16 23:52:51.0","news_author":"加粗测试","uuid":"56b004f1cc36409b81acc7636f21f168","news_title":" 测试","news_abstract":"加粗测试"},{"releaseAccName":"王笛","news_subtitle":"对齐方式","release_date":"2017-11-16 23:52:51.0","news_author":"加粗测试","uuid":"d01a5c20976a483d93fa7d7e43945f4f","news_title":" 测试","news_abstract":"加粗测试"},{"releaseAccName":"王笛","news_subtitle":"加粗测试","release_date":"2017-11-16 23:52:51.0","news_author":"加粗测试","uuid":"c9c585e7ee1947f59d7604f9dc7a4a89","news_title":"背景色测试","news_abstract":"加粗测试"},{"releaseAccName":"王笛","news_subtitle":"加粗测试","release_date":"2017-11-16 23:52:51.0","news_author":"加粗测试","uuid":"be9e8d67fbbe457dba7db112d4102dfc","news_title":" 前景色测试","news_abstract":"加粗测试"}];
 	//[{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻02_概要","news_author":"热点新闻02_作者","news_subtitle":"热点新闻02_副标题","news_title":"热点新闻02_标题","uuid":"002"},{"news_abstract":"热点新闻03_概要","news_author":"热点新闻03_作者","news_subtitle":"热点新闻03_副标题","news_title":"热点新闻03_标题","uuid":"003"},{"news_abstract":"热点新闻04_概要","news_author":"热点新闻04_作者","news_subtitle":"热点新闻04_副标题","news_title":"热点新闻04_标题","uuid":"004"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻06_概要","news_author":"热点新闻06_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻06_标题","uuid":"006"},{"news_abstract":"热点新闻07_概要","news_author":"热点新闻07_作者","news_subtitle":"热点新闻07_副标题","news_title":"热点新闻07_标题","uuid":"001"},{"news_abstract":"热点新闻08_概要","news_author":"热点新闻08_作者","news_subtitle":"热点新闻08_副标题","news_title":"热点新闻08_标题","uuid":"001"},{"news_abstract":"热点新闻09_概要","news_author":"热点新闻09_作者","news_subtitle":"热点新闻09_副标题","news_title":"热点新闻09_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻02_概要","news_author":"热点新闻02_作者","news_subtitle":"热点新闻02_副标题","news_title":"热点新闻02_标题","uuid":"002"},{"news_abstract":"热点新闻03_概要","news_author":"热点新闻03_作者","news_subtitle":"热点新闻03_副标题","news_title":"热点新闻03_标题","uuid":"003"},{"news_abstract":"热点新闻04_概要","news_author":"热点新闻04_作者","news_subtitle":"热点新闻04_副标题","news_title":"热点新闻04_标题","uuid":"004"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"},{"news_abstract":"热点新闻01_概要","news_author":"热点新闻01_作者","news_subtitle":"热点新闻01_副标题","news_title":"热点新闻01_标题","uuid":"001"}];
 
-	var timeNewsArray =  [{"releaseAccName":"王笛","news_subtitle":"超链接测试2","release_date":"2017-11-16 23:52:51.0","news_author":"2222 ","uuid":"baeac78b5ab54033b258efeb69e9309b","news_title":"超链接测试2","news_abstract":"超链接测试2超链接测试2超链接测试2超链接测试2"}];
+	var timeNewsArray =  [{"releaseAccName":"王笛","release_date":"2017-11-30 23:22:09.0","news_author":"11","uuid":"8e0041ca9ab14b8c8549d4b2eaa653fd","news_title":"实时资讯"},{"releaseAccName":"王笛","news_subtitle":"超链接测试2","release_date":"2017-11-16 23:52:51.0","news_author":"2222 ","uuid":"baeac78b5ab54033b258efeb69e9309b","news_title":"超链接测试2","news_abstract":"超链接测试2超链接测试2超链接测试2超链接测试2"}];
 	//[{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯02_概要","news_author":"实时资讯02_作者","news_subtitle":"实时资讯02_副标题","news_title":"实时资讯02_标题","uuid":"002"},{"news_abstract":"实时资讯03_概要","news_author":"实时资讯03_作者","news_subtitle":"实时资讯03_副标题","news_title":"实时资讯03_标题","uuid":"003"},{"news_abstract":"实时资讯04_概要","news_author":"实时资讯04_作者","news_subtitle":"实时资讯04_副标题","news_title":"实时资讯04_标题","uuid":"004"},{"news_abstract":"实时资讯05_概要","news_author":"实时资讯05_作者","news_subtitle":"实时资讯05_副标题","news_title":"实时资讯05_标题","uuid":"001"},{"news_abstract":"实时资讯06_概要","news_author":"实时资讯06_作者","news_subtitle":"实时资讯06_副标题","news_title":"实时资讯06_标题","uuid":"001"},{"news_abstract":"实时资讯07_概要","news_author":"实时资讯07_作者","news_subtitle":"实时资讯07_副标题","news_title":"实时资讯07_标题","uuid":"001"},{"news_abstract":"实时资讯08_概要","news_author":"实时资讯08_作者","news_subtitle":"实时资讯08_副标题","news_title":"实时资讯08_标题","uuid":"001"},{"news_abstract":"实时资讯09_概要","news_author":"实时资讯09_作者","news_subtitle":"实时资讯09_副标题","news_title":"实时资讯09_标题","uuid":"001"},{"news_abstract":"实时资讯10_概要","news_author":"实时资讯10_作者","news_subtitle":"实时资讯10_副标题","news_title":"实时资讯10_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"},{"news_abstract":"实时资讯01_概要","news_author":"实时资讯01_作者","news_subtitle":"实时资讯01_副标题","news_title":"实时资讯01_标题","uuid":"001"}];
 
-	var hyNewsArray = [{"releaseAccName":"王笛","news_subtitle":"加粗显示","release_date":"2017-11-17 00:22:39.0","news_author":"呃呃呃","uuid":"4fe37185677d4f1783b2f345b816871d","news_title":"加粗显示2334444 表格测试","news_abstract":"加粗显示"}];
+	var hyNewsArray = [{"releaseAccName":"王笛","release_date":"2017-11-30 23:22:09.0","news_author":"222","uuid":"9c7a78b8ccf84d98b9900de4ef7201fb","news_title":"行业动向样式"}];
 	//[{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"//行业动向01_标题","uuid":"001"},{"news_abstract":"行业动向01_概要","news_author":"行业动向01_作者","news_subtitle":"行业动向01_副标题","news_title":"行业动向01_标题","uuid":"001"}];
 
 	//初始化给页面渲染三个类型新闻列表信息
