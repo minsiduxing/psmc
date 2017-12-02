@@ -274,8 +274,43 @@
 			  	</a>		  	
 			</div>
 		</div>
-		<!--产品介绍-->
+		
+		
+		<!--我们的优势 start-->
 		<div class="fh5co-projects" style="background-color:white">
+				<div class="text-center" id="productlist" style="width: 80%;margin: 0 auto;">
+					<img src="./images/youshi.jpg" style="width: 100%">
+				</div>
+				<div class="container" style="width: 80%;">
+					<div class="row" style="text-align:-webkit-center">
+						<div class="shortcut">
+							<a href="#">
+								<img class="img" src="./images/u1_front.png" style="background:red" height="270" width="230" />
+								<img class="imgH" src=".images/u1_back.png" style="background:green" height="270" width="230" />
+							</a>
+							
+							<a href="#">
+								<img class="img" src="./images/u2_front.png" style="background:red" height="270" width="230" />
+								<img class="imgH" src=".images/u2_back.png" style="background:green" height="270" width="230" />
+							</a>
+							
+							<a href="#">
+								<img class="img" src="./images/u3_front.png" style="background:red" height="270" width="230" />
+								<img class="imgH" src=".images/u3_back.png" style="background:green" height="270" width="230" />
+							</a>
+							
+							<a href="#" target="_blank">
+								<img class="img" src="./images/u4_front.png" style="background:red" height="270" width="230" />
+								<img class="imgH" src=".images/u4_back.png" style="background:green" height="270" width="230" />
+							</a>
+						</div>
+					</div>
+				</div>
+		</div>
+		<!--我们的优势 end-->
+		
+		<!--产品介绍-->
+		<div class="fh5co-projects" style="background-color:#F5F5F5">
 				<div class="text-center" id="productlist" style="width: 80%;margin: 0 auto;">
 					<img src="./images/product_introduction.jpg" style="width: 100%">
 				</div>
@@ -314,39 +349,6 @@
 		</div>
 		<!--产品介绍 end-->
 
-		<!--我们的优势 start-->
-		<div class="fh5co-projects" style="background-color:#F5F5F5">
-				<div class="text-center" id="productlist" style="width: 80%;margin: 0 auto;">
-					<img src="./images/youshi.jpg" style="width: 100%">
-				</div>
-				<div class="container" style="width: 80%;">
-					<div class="row" style="text-align:-webkit-center">
-						<div class="shortcut">
-							<a href="#">
-								<img class="img" src="./images/u1_front.png" style="background:red" height="270" width="230" />
-								<img class="imgH" src=".images/u1_back.png" style="background:green" height="270" width="230" />
-							</a>
-							
-							<a href="#">
-								<img class="img" src="./images/u2_front.png" style="background:red" height="270" width="230" />
-								<img class="imgH" src=".images/u2_back.png" style="background:green" height="270" width="230" />
-							</a>
-							
-							<a href="#">
-								<img class="img" src="./images/u3_front.png" style="background:red" height="270" width="230" />
-								<img class="imgH" src=".images/u3_back.png" style="background:green" height="270" width="230" />
-							</a>
-							
-							<a href="#" target="_blank">
-								<img class="img" src="./images/u4_front.png" style="background:red" height="270" width="230" />
-								<img class="imgH" src=".images/u4_back.png" style="background:green" height="270" width="230" />
-							</a>
-						</div>
-					</div>
-				</div>
-		</div>
-		<!--我们的优势 end-->
-		
 		<!--联系我们 start-->
 		
 		<div class="fh5co-projects" style="background-color:white">
@@ -371,11 +373,10 @@
 					 	</div>
 					</div>
 				</div>
-				
+				</br>
 		</div>
 		<!--联系我们 end-->
-		</br>
-	
+
 		<!-- 网站底部导航菜单 -->
 		 <#include "footer.html"/>  
 		<!-- END footer -->

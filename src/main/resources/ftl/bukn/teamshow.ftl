@@ -196,7 +196,7 @@ html{font-family: 'Noto Sans' , serif;}
 	margin: 1%;
 	padding: 80px 0;
 	position: relative;
-	text-align: center;
+	text-align: -webkit-center;
 	-webkit-transition: .3s cubic-bezier(.3,0,0,1.3);
 	transition: .3s cubic-bezier(.3,0,0,1.3);
 	width: 31%;
@@ -227,7 +227,7 @@ html{font-family: 'Noto Sans' , serif;}
 	font-size: 12px;
 	font-weight: normal;
 	left: 0;
-	padding: 15px 25px;
+	//padding: 15px 25px;
 	position: absolute;
 	top: 50%;
 	-webkit-transform: translateY(-50%);
@@ -286,7 +286,7 @@ html{font-family: 'Noto Sans' , serif;}
 				<!--创始人控件 start-->
 					<ul class="blocks">
 						<li>
-							<font style="color:rgb(112,97,78);font-size:28px;">王&nbsp;&nbsp;慧<br><br></font>
+							<font style="color:rgb(112,97,78);font-size:22px;">王&nbsp;&nbsp;慧<br><br></font>
 							<font color="black">风控总监&nbsp;经济学专家<br>联合创始人&nbsp;经济学副教授</font>
 							<div class="popup">
 								<span>
@@ -296,7 +296,7 @@ html{font-family: 'Noto Sans' , serif;}
 						</li>
 						
 						<li>
-							<font style="color:rgb(112,97,78);font-size:28px;">赵&nbsp;少&nbsp;康<br><br></font>
+							<font style="color:rgb(112,97,78);font-size:22px;">赵&nbsp;少&nbsp;康<br><br></font>
 							<font color="black">总经理&nbsp;联合创始人<br>中博建设集团总经理</font>
 							<div class="popup">
 								<span>
@@ -306,7 +306,7 @@ html{font-family: 'Noto Sans' , serif;}
 						</li>
 						
 						<li>
-							<font style="color:rgb(112,97,78);font-size:28px;">曹&nbsp;双&nbsp;宁<br><br></font>
+							<font style="color:rgb(112,97,78);font-size:22px;">曹&nbsp;双&nbsp;宁<br><br></font>
 							<font color="black">投资总监&nbsp;联合创始人<br>中博建设集团总经理</font>
 							<div class="popup">
 								<span>
