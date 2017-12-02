@@ -32,7 +32,9 @@
 	
 	<!-- youshi -->
 	<link rel="stylesheet" href="css/youshi.css">
-	
+	<link href="css/page.css" type="text/css" rel="stylesheet" />
+
+
 	
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
@@ -43,6 +45,22 @@
 	
 	<!-- baidu -->
 	<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+	
+	<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+
+	<!-- youshi -->
+	<style type="text/css">
+		*{margin:0;padding:0;list-style-type:none;}
+		a,img{border:0;}
+		a{text-decoration:none;outline:none;}
+		html,body{font:12px/23px \u5B8B\u4F53;background: #e4e8ec;}
+		.clearfix:after{content: " ";display:block;clear: both;height: 0;line-height: 0;visibility: hidden;}
+		.clearfix{display: inline-block;}
+		.clearfix{display: block;}
+		/* warp */
+		.warp{width: 980px;margin: 0 auto;padding:35px 0 40px;}
+	</style>
+	
 	
 	<style type="text/css">
 		.dropdown-menu{
@@ -283,27 +301,115 @@
 				</div>
 				<div class="container" style="width: 80%;">
 					<div class="row" style="text-align:-webkit-center">
-						<div class="shortcut">
-							<a href="#">
-								<img class="img" src="./images/u1_front.png" style="background:red" height="270" width="230" />
-								<img class="imgH" src=".images/u1_back.png" style="background:green" height="270" width="230" />
-							</a>
-							
-							<a href="#">
-								<img class="img" src="./images/u2_front.png" style="background:red" height="270" width="230" />
-								<img class="imgH" src=".images/u2_back.png" style="background:green" height="270" width="230" />
-							</a>
-							
-							<a href="#">
-								<img class="img" src="./images/u3_front.png" style="background:red" height="270" width="230" />
-								<img class="imgH" src=".images/u3_back.png" style="background:green" height="270" width="230" />
-							</a>
-							
-							<a href="#" target="_blank">
-								<img class="img" src="./images/u4_front.png" style="background:red" height="270" width="230" />
-								<img class="imgH" src=".images/u4_back.png" style="background:green" height="270" width="230" />
-							</a>
-						</div>
+						<div class="warp">
+
+	<div id="f_main_nav" class="f_main_nav">
+		<ul class="clearfix">
+			<li class="fm1">
+				<p class="fm_info">专业化管理团队</p>
+				<span>&nbsp;</span>
+			</li>
+			<li class="fm2">
+				<p class="fm_info" style="color:rgb(169,126,74)">制度化管理体系</p>
+				<span>&nbsp;</span>
+			</li>
+			<li class="fm3">
+				<p class="fm_info">现代化金融服务企业</p>
+				<span>&nbsp;</span>
+			</li>
+			<!--
+			<li class="fm4">
+				<p class="fm_info"></p>
+				<span>&nbsp;</span>
+			</li>
+			 
+			<li class="fm5">
+				<p class="fm_info">短信，联系人，可编辑。</p>
+				<span>&nbsp;</span>
+			</li>
+			<li class="fm6">
+				<p class="fm_info">定制app标签</p>
+				<span>&nbsp;</span>
+			</li>
+			<li class="fm7">
+				<p class="fm_info">清理垃圾。</p>
+				<span>&nbsp;</span>
+			</li>
+			<li class="fm8">
+				<p class="fm_info">不同设备间资料共享</p>
+				<span>&nbsp;</span>
+			</li>
+			-->
+		</ul>
+	</div>
+		
+	<div id="f_main_con" class="f_main_con">
+		<ul>
+			<li class="fmc1">
+				<a class="dc_close" title="关闭" href="javascript:void(0);">关闭</a>
+				<div class="fmc_info">
+					<strong>专业化管理团队</strong>
+					<p>一支富有敬业精神和创造力、经验丰富、高素质和专业化的管理团队，
+					团队由金融、投资、企业管理、法律等领域的高端人才、权威专家组成。</p>
+				</div>
+			</li>
+			<li class="fmc2">
+				<a class="dr_close" title="关闭" href="javascript:void(0);">关闭</a>
+				<div class="fmc_info" style="color:rgb(169,126,74)">
+					<strong>制度化管理体系</strong>
+					<p>秉承“严谨、精细、执着、精益求精、专注、专业、认真”的运作原则专注于国内外资本市场，以市场化、商业化手段运作，以资深专家团队为依托，以高素质管理团队为核心，
+					高度重视对内部管理体制和投资项目的风险防范机制的健全和完善，形成了一套稳健、规范的制度化管理体系。</p>
+				</div>
+			</li>
+			<li class="fmc3">
+				<a class="de_close" title="关闭" href="javascript:void(0);">关闭</a>
+				<div class="fmc_info">
+					<strong>现代化金融服务企业</strong>
+					<p>以风险控制为前提，以市场为导向，以客户为中心，以效益为目标，追求可持续发展，力争发展成为“资本充足、运作安全、
+					内控严密、服务优质、效益良好、有核心竞争力”的现代化金融服务企业，致力于为客户提供优质、高效、专业的服务。</p>
+				</div>
+			</li>
+			<!-- 
+			<li class="fmc4">
+				<a class="df_close" title="关闭" href="javascript:void(0);">关闭</a>
+				<div class="fmc_info">
+					<strong></strong>
+					<p></p>
+				</div>
+			</li>
+			
+			<li class="fmc5">
+				<a class="dx_close" title="关闭" href="javascript:void(0);">关闭</a>
+				<div class="fmc_info">
+					<strong>短信，联系人，可编辑。</strong>
+					<p>短信内容，联系人信息，随意编辑，一键保存。</p>
+				</div>
+			</li>
+			<li class="fmc7">
+				<a class="app_close" title="关闭" href="javascript:void(0);">关闭</a>
+				<div class="fmc_info">
+					<strong>定制app标签。</strong>
+					<p>多人共用一台电脑，本地程序很多很杂怎么一键管理？iTools程序库里面的定制app标签功能，让你一键管理属于你的全部APP。</p>
+				</div>
+			</li>
+			<li class="fmc6">
+				<a class="clear_close" title="关闭" href="javascript:void(0);">关闭</a>
+				<div class="fmc_info">
+					<strong>清理垃圾。</strong>
+					<p>iTools首创的清理垃圾功能，让你的苹果设备更轻巧，运行更无负担！</p>
+				</div>
+			</li>
+			<li class="fmc8">
+				<a class="share_close" title="关闭" href="javascript:void(0);">关闭</a>
+				<div class="fmc_info"><strong>不同设备间资料共享。</strong>
+					<p>多台设备同时连接到电脑上，即可将软件同时安装到不同的设备上，最高可连接20台设备。如果你是手机销售商，这样的设计，一定让你的效率大大提高。</p>
+				</div>
+			</li>
+			-->
+		</ul>
+	</div>
+
+</div>
 					</div>
 				</div>
 		</div>
@@ -550,7 +656,30 @@ json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
     initMap();//创建和初始化地图
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){
 
+    var f_main_nav=$("#f_main_nav");
+    var f_main_con=$("#f_main_con");
+
+    f_main_nav.find("li").each(function(index){
+        $(this).click(function(){
+            if(f_main_con.find("li").eq(index).css("display")=="none"){
+                f_main_con.find("li").fadeOut("fast").eq(index).fadeIn("fast");
+                f_main_nav.find("span").fadeOut("fast").eq(index).fadeIn("fast");
+            }else{
+            	f_main_con.find("li").fadeOut("fast").eq(index).fadeOut("fast");
+                f_main_nav.find("span").fadeOut("fast").eq(index).fadeOut("fast");
+            }
+        });
+    });
+    f_main_con.find("a").click(function(){
+        $(this).parent().fadeOut("fast");
+        f_main_nav.find("span").fadeOut("fast");
+    });
+
+});
+</script>
 
 </body>
 </html>
