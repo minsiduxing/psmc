@@ -465,7 +465,7 @@
 								
 				<div class="container" style="width: 80%;">
 
-					<div class="row" style="text-align:left;background:url(./images/diannao.png) no-repeat 0 0;background-size:50% 90%;background-position-x:75%">
+					<div class="row" style="text-align:left;background:url(./images/diannao.png) no-repeat 0 0;background-size:90% 100%;background-position-x:230%;background-position-y:-30%">
 						<div class="col-md-3" style="width:100%;font-family:monospace">
 					 		<img src="./images/bhkn_rwm.png" style="width: 15%">
 					 		<p>联系地址:陕西省西安市科技路西段绿地鸿海大厦B座9层</p>
@@ -473,7 +473,7 @@
 							<p>电子邮箱:bhkn@bohuikangning.com</p>
 					 	</div>
 					 	
-					 	<div class="col-md-3"  style="width:50%">
+					 	<div class="col-md-3"  style="width:40%">
 					 		<!--百度地图容器-->
   							<div style="width:95%;height:300px;border:#ccc solid 1px;" id="dituContent"></div>	
 					 	</div>
