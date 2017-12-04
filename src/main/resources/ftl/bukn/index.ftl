@@ -58,7 +58,7 @@
 		.clearfix{display: inline-block;}
 		.clearfix{display: block;}
 		/* warp */
-		.warp{width: 980px;margin: 0 auto;padding:35px 0 40px;}
+		.warp{width: 85%;margin: 0 auto;padding:35px 0 40px;}
 	</style>
 	
 	
