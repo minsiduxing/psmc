@@ -16,9 +16,9 @@
 			<li class="li-input"><label for="" class="input-label">标题：</label>
 				<input class="myinput" id="newsTitle" name="newsTitle"></input>
 			</li>
-			<li class="li-input"><label for="" class="input-label">子标题：</label>
+		<!-- 	<li class="li-input"><label for="" class="input-label">子标题：</label>
 				<input class="myinput" id="newSubTitle" name="newSubTitle"></input>
-			</li>
+			</li> -->
 		<!-- 	<li class="li-input"><label for="" class="input-label">概要：</label>
 				<input id="newsAbstarct" name="newsAbstarct" ></input>
 			</li> -->
@@ -143,13 +143,13 @@ var priviewenews = '<c:url value="'+newsDo+'"/>?method=getNewsContent';
 $('#newsTitle').textbox({
 	type : "text"
 });
-$('#newSubTitle').textbox({
+/* $('#newSubTitle').textbox({
 	type : "text"
-});
-$('#newsAbstarct').textbox({
+}); */
+/* $('#newsAbstarct').textbox({
 	multiline:true,
 	type : "text"
-});
+}); */
 $('#newsDateBegin').datetimebox({
 });
 $('#newsDateEnd').datetimebox({

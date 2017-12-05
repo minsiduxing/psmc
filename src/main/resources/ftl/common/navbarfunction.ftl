@@ -4,14 +4,11 @@
 	<#list navs as nav>
 	<#if nav.parentMenuUuid??>
 			<#if nav.parentMenuUuid==menuid>
-
-			   <li>
-			   <#if "退出"==nav.menuName >
-			   <a href="${nav.menuUrl!''}" id="_logout" onclick="logout()" >${nav.menuName!''}</a>
-			   <#else>
-				 <a href="${nav.menuUrl!''}">${nav.menuName!''}</a>
-			</#if>
-			   </li>
+                <#if "退出"==nav.menuName >
+	            <li><a href="${nav.menuUrl!''}" id="_logout" onclick="logout()" >${nav.menuName!''}</a></li>
+	             <#else>
+	              <li><a href="${nav.menuUrl!''}" >${nav.menuName!''}</a></li>
+	           </#if>
 		<@getSubNavbar navs=navs  menuid=nav.menuUuid/>
 	</#if>	
 	</#if>			

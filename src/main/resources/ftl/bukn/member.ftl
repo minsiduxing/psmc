@@ -38,55 +38,6 @@
 <script src="js/respond.min.js"></script>
 <![endif]-->
 <style type="text/css" media="screen">
-	.dropdown-menu{
-		 background-color: transparent;
-	}
-	.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-		 background-color: transparent !important;
-	}
-	.dropdown-menu>li>a{
-			color: #fff !important;
-		}
-	.creatorImg{
-		width: 170px;
-		height: 250px;
-		margin: 0 auto;
-	}
-	.creatorImg>img{
-		width:auto;
-		 height:auto;
-		 max-width:100%;
-		 max-height:100%;
-	}
-	.index_font{
-		font-family: "Montserrat", Arial, sans-serif !important;
-		font-weight: 700 !important;
-		color: #fff !important;
-	}
-	.dropdown>a, .index_color{
-		color: rgba(255, 255, 255, 0.5) !important;
-		font-weight: 100;
-	}
-	.dropdown>a:hover, .index_color:hover{
-		ccolor: rgba(255, 255, 255, 0.5) !important;
-		font-weight: 100;
-	}
-	.dropdown-menu>li>a, .index_colour{
-		color: rgba(255, 255, 255, 0.5) !important;
-		font-weight: 100;
-	}
-	.index_color{
-		color: rgba(255, 255, 255, 0.5) !important;
-	}
-	h3{
-		font-family: "STHeiti Light" !important;
-		font-size: 15px !important;
-	}
-	.tip{
-		color: #fafafa;
-		letter-spacing: 0;
-		text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;
-	}
 	.fh5co-cover-intro{
 		text-align: center !important;
 		margin-top: 18%;

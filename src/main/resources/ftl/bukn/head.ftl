@@ -1,25 +1,127 @@
 <#import "../common/navbarfunction.ftl" as navf />
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.cookie.js"></script>
+<style type="text/css">
+		.dropdown-menu{
+		 	background-color: transparent;
+		}
+		.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+		  	background-color: transparent;
+		}
+		.adv_ul div:hover img{
+			-webkit-transform: rotate(360deg);
+			-moz-transform: rotate(360deg);
+			-ms-transform: rotate(360deg);
+			-o-transform: rotate(360deg);
+			transform: rotate(360deg);
+			-webkit-transition: all 0.8s ease 0s;
+			-moz-transition: all 0.8s ease 0s;
+			-ms-transition: all 0.8s ease 0s;
+			-o-transition: all 0.8s ease 0s;
+			transition: all 0.8s ease 0s;
+		}
+		.index_font{
+			font-family: "Montserrat", Arial, sans-serif !important;
+  			font-weight: 700 !important;
+			color: #fff !important;
+		}
+		.button_{
+  			color: #7c5a53 !important;
+  			font-weight: 600 !important;
+		}
+		.dropdown>a, .index_color{
+			color: #7c5a53 !important;
+		   font-size: 16px;
+           font-weight: 600;
+		}
+		.dropdown>a:hover, .index_color:hover{
+			color: #7c5a53 !important;
+			font-size: 16px;
+            font-weight: 600;
+		}
+		.dropdown-menu>li>a, .index_colour{
+			color: #7c5a53 !important;
+			font-size: 16px;
+            font-weight: 600;
+		}
+		.btn-primary:hover{
+			background-color: #45c46f !important;
+			border: 2px solid #fff !important;
+		}
+		.fh5co-category>a:hover{
+			background-color: #45c46f !important;
+			border: 1px solid #fff !important;
+		}
+		h3{
+			font-family: "STHeiti Light" !important;
+			font-size: 25px !important;
+		}
+		.col-md-6>p{
+			font-family: "STHeiti Light" !important;
+			font-size: 20px !important;
+		}
+		.carousel{
+			width: 70%;
+			margin: 0 auto;
+		}
+		.buttonNext{
+			border-bottom-color: rgb(128, 128, 128);
+			border-bottom-left-radius: 23px;
+			border-bottom-right-radius: 23px;
+			border-bottom-style: solid;
+			border-bottom-width: 2px;
+			border-left-color: rgb(128, 128, 128);
+			border-left-style: solid;
+			border-left-width: 2px;
+			border-right-color: rgb(128, 128, 128);
+			border-right-style: solid;
+			border-right-width: 2px;
+			border-top-color: rgb(128, 128, 128);
+			border-top-left-radius: 23px;
+			border-top-right-radius: 23px;
+			border-top-style: solid;
+			border-top-width: 2px;
+			box-sizing: border-box;
+			color: rgb(128, 128, 128);
+			display: block;
+			font-size: 13px;
+			font-weight: 400;
+			height: 41px;
+			text-align: center;
+			width: 26px;
+			margin: 0 auto;
+		}
+</style>
 <nav class="fh5co-nav-style-1" role="navigation" data-offcanvass-position="fh5co-offcanvass-left">
+			<div id="fh5co-page" style="background-color: #FFFCEC">
+		<nav class="fh5co-nav-style-1" role="navigation" data-offcanvass-position="fh5co-offcanvass-left">
 			<div class="container">
-				<div class="text-center fh5co-link-wrap index_font">
-					<ul data-offcanvass="yes">
+				<nav class="navbar navbar-default" style="background-color: transparent;border: none;">
+				  <div class="container-fluid">
+				    <!-- Brand and toggle get grouped for better mobile display -->
+				    <div class="navbar-header">
+				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+				      <img src="./images/LOGO.png" style="width: 80px;height: 100px;">
+				    </div>
+				     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				     <ul class="nav navbar-nav">
 					<#list navbars as nav>
 						<#if nav.menuLevel == 2>
 						<#if navf.haveSubMenu(navbars,nav.menuUuid)==0>
-						  <li class="wow index_color">
 						    <#if "退出"==nav.menuName >
-			                       <a href="${nav.menuUrl!''}" id="_logout" onclick="logout()" class="wow index_color">${nav.menuName!''}</a>
+						       <li><a href="${nav.menuUrl!''}"  id="_logout"   onclick="logout()" style="color: rgb(124, 90, 83);font-size: 16px;font-weight: 600;">${nav.menuName!''}</a></li>
 			                 <#else>
-							    <a href="${nav.menuUrl!''}" class="wow index_color" >${nav.menuName!''}</a>
+							   <li><a href="${nav.menuUrl!''}" style="color: rgb(124, 90, 83);font-size: 16px;font-weight: 600;">${nav.menuName!''}</a></li>
 								</#if>
-						        </li>
 						 </#if>
 						 <#if navf.haveSubMenu(navbars,nav.menuUuid)!=0 >
-							<li class="dropdown">
-							
-							 <a href="${nav.menuUrl!''}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${nav.menuName!''}<span class="caret"></span></a>
+							 <li class="dropdown">
+				            <a href="${nav.menuUrl!''}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${nav.menuName!''}<span class="caret"></span></a>
 								<ul class="dropdown-menu">
 								<@navf.getSubNavbar navs=navbars  menuid=nav.menuUuid/>
 								</ul>
@@ -27,7 +129,7 @@
 						</#if>
 					</#if>
 					</#list>
-					</ul>
+				</ul>
 		  </div> 
       </div>
 </nav>

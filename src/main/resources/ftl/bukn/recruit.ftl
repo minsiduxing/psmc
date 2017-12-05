@@ -41,50 +41,6 @@
 <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
 
 <style type="text/css" media="screen">
-	.dropdown-menu{
-		 background-color: transparent;
-	}
-	.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-		 background-color: transparent !important;
-	}
-	.dropdown-menu>li>a{
-			color: #fff !important;
-		}
-	.creatorImg{
-		width: 170px;
-		height: 250px;
-		margin: 0 auto;
-	}
-	.creatorImg>img{
-		width:auto;
-		 height:auto;
-		 max-width:100%;
-		 max-height:100%;
-	}
-	.index_font{
-		font-family: "Montserrat", Arial, sans-serif !important;
-		font-weight: 700 !important;
-		color: #fff !important;
-	}
-	.dropdown>a, .index_color{
-		color: rgba(255, 255, 255, 0.5) !important;
-		font-weight: 100;
-	}
-	.dropdown>a:hover, .index_color:hover{
-		ccolor: rgba(255, 255, 255, 0.5) !important;
-		font-weight: 100;
-	}
-	.dropdown-menu>li>a, .index_colour{
-		color: rgba(255, 255, 255, 0.5) !important;
-		font-weight: 100;
-	}
-	.index_color{
-		color: rgba(255, 255, 255, 0.5) !important;
-	}
-	h3{
-		font-family: "STHeiti Light" !important;
-		font-size: 15px !important;
-	}
 	.tip{
 		color: #fafafa;
 		letter-spacing: 0;
