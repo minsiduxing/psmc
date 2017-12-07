@@ -92,8 +92,7 @@
 			margin: 0 auto;
 		}
 </style>
-<nav class="fh5co-nav-style-1" role="navigation" data-offcanvass-position="fh5co-offcanvass-left">
-			<div id="fh5co-page" style="background-color: #FFFCEC">
+	<div id="fh5co-page" style="background-color: #FFFCEC">
 		<nav class="fh5co-nav-style-1" role="navigation" data-offcanvass-position="fh5co-offcanvass-left">
 			<div class="container">
 				<nav class="navbar navbar-default" style="background-color: transparent;border: none;">
@@ -130,8 +129,10 @@
 					</#if>
 					</#list>
 				</ul>
-		  </div> 
-      </div>
+             </div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+	</nav>
+	</div>
 </nav>
 <#--导航菜单测试-->
 <#--分页组件测试-->
