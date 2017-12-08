@@ -95,7 +95,7 @@ blockquote{background:#f9f9f9;padding:8px 20px;border:1px solid #ccc;}
 .event_list h3 { margin:0 0 10px 132px;font-size:24px;font-family:Georgia;color:rgb(112,97,78);padding-left:25px;background:url('../img/jian.png') 0 -45px no-repeat;height:38px;line-height:30px;font-style:italic; }
 .event_list li { background:url('../img/jian.png') 136px -80px no-repeat; }
 .event_list li span { width:127px;text-align:right;display:block;float:left;margin-top:10px; }
-.event_list li p { width:680px;margin-left:24px;display:inline-block;padding-left:10px;background:url('../img/jian.png') -21px 0 no-repeat;line-height:25px;_float:left; }
+.event_list li p { width:680px;margin-left:24px;display:inline-block;padding-left:10px;background:url('../img/jian.png') -21px 0 no-repeat;line-height:20px;_float:left; }
 .event_list li p span { width:650px;text-align:left;border-bottom:2px solid #DDD;padding:10px 15px;background:#FFF;margin:0; }
 
 .titlelist{line-height:24px;color: #8C8C8C;padding-bottom:20px;}
