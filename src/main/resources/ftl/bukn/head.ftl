@@ -92,8 +92,6 @@
 			margin: 0 auto;
 		}
 </style>
-	<div id="fh5co-page" style="background-color: #FFFCEC">
-		<nav class="fh5co-nav-style-1" role="navigation" data-offcanvass-position="fh5co-offcanvass-left">
 			<div class="container">
 				<nav class="navbar navbar-default" style="background-color: transparent;border: none;">
 				  <div class="container-fluid">
@@ -112,11 +110,11 @@
 					<#list navbars as nav>
 						<#if nav.menuLevel == 2>
 						<#if navf.haveSubMenu(navbars,nav.menuUuid)==0>
-						    <#if "退出"==nav.menuName >
+						    <#if "退出" ==nav.menuName >
 						       <li><a href="${nav.menuUrl!''}"  id="_logout"   onclick="logout()" style="color: rgb(124, 90, 83);font-size: 16px;font-weight: 600;">${nav.menuName!''}</a></li>
-			                 <#else>
+		                 <#else>
 							   <li><a href="${nav.menuUrl!''}" style="color: rgb(124, 90, 83);font-size: 16px;font-weight: 600;">${nav.menuName!''}</a></li>
-								</#if>
+							</#if>
 						 </#if>
 						 <#if navf.haveSubMenu(navbars,nav.menuUuid)!=0 >
 							 <li class="dropdown">
@@ -133,7 +131,6 @@
 	</div><!-- /.container-fluid -->
 	</nav>
 	</div>
-</nav>
 <#--导航菜单测试-->
 <#--分页组件测试-->
 </body>

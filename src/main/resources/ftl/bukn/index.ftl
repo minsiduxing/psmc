@@ -115,12 +115,10 @@
 	
 	</head>
 	<body>
-	
-<div id="fh5co-page" style="background-color: #F5F5F5">
 		<!-- 网站顶部部导航菜单 -->
 		 <#include "head.html"/> 
 		<!-- 网站顶部导航菜单结束 -->
-
+<div id="fh5co-page" style="background-color: #F5F5F5">
 		<!-- 网站顶部导航菜单结束 -->
 		<div class="fh5co-cover js-full-height" data-next="yes"  style="background-color: white;background-image: url(images/full_001.jpg); background-size:100%;background-repeat:no-repeat;background-position:top;">
 		</div>
