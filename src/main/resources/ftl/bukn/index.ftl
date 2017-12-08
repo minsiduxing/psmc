@@ -262,18 +262,13 @@
 						    <br>
 						    <br>
 					 		<img src="./images/bhkn_rwm.png" class="img-responsive" >
-					 		 <br>
-					 		<p>联系地址:陕西省西安市科技路西段绿地鸿海大厦B座9层</p>
-							<p>联系电话:029-84536670</p>
-							<p>电子邮箱:bhkn@bohuikangning.com</p>
+					 		
 					 	</div>
-					 	<div class="col-md-6">
-					 	<img src="./images/diannao.png" class="img-responsive" >
-					 	</div>
+					 	
 					</div>
 					 <br>
 					<div class="panel panel-default" style="background:#f5f5f5;">
-						  <div class="panel-body">
+						  <div class="panel-body" style="padding:0px">
 						  		<!--百度地图容器-->
 							<div style="height:300px;border:#ccc solid 0.1%;" id="dituContent"></div>	
 						  </div>
@@ -358,8 +353,8 @@
     //创建地图函数：
     function createMap(){
         var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
-        var point = new BMap.Point(108.847534,34.24549);//定义一个中心点坐标
-        map.centerAndZoom(point,17);//设定地图的中心点和坐标并将地图显示在地图容器中
+        var point = new BMap.Point(108.847594,34.244938);//定义一个中心点坐标
+        map.centerAndZoom(point,18);//设定地图的中心点和坐标并将地图显示在地图容器中
         window.map = map;//将map变量存储在全局
     }
     
@@ -374,9 +369,7 @@
     //地图控件添加函数：
     function addMapControl(){
         //向地图中添加缩放控件
-	var ctrl_nav = new BMap.NavigationControl
-
-({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_SMALL});
+	var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
 	map.addControl(ctrl_nav);
         //向地图中添加缩略图控件
 	var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:0});
@@ -387,9 +380,7 @@
     }
     
     //标注点数组
-    var markerArr = [{title:"我的标记",content:"我的备注",point:"108.846735|34.244849",isOpen:0,icon:
-
-{w:21,h:21,l:0,t:0,x:6,lb:5}}
+    var markerArr = [{title:"博汇康宁（深圳）投资基金管理有限公司",content:"联系地址：陕西省西安市科技路西段绿地鸿海大厦B座9层</br></br>联系电话:029-84536670",point:"108.846736|34.24496",isOpen:1,icon:{w:21,h:21,l:0,t:0,x:6,lb:5}}
 		 ];
     //创建marker
     function addMarker(){
@@ -401,9 +392,7 @@
 			var iconImg = createIcon(json.icon);
             var marker = new BMap.Marker(point,{icon:iconImg});
 			var iw = createInfoWindow(i);
-			var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-
-
-json.icon.x+10,-20)});
+			var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-json.icon.x+10,-20)});
 			marker.setLabel(label);
             map.addOverlay(marker);
             label.setStyle({
@@ -438,18 +427,12 @@ json.icon.x+10,-20)});
     //创建InfoWindow
     function createInfoWindow(i){
         var json = markerArr[i];
-        var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + 
-
-json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
+        var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
         return iw;
     }
     //创建一个Icon
     function createIcon(json){
-        var icon = new BMap.Icon("http://app.baidu.com/map/images/us_mk_icon.png", new BMap.Size
-
-(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb
-
-+5,1),offset:new BMap.Size(json.x,json.h)})
+        var icon = new BMap.Icon("http://app.baidu.com/map/images/us_mk_icon.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
         return icon;
     }
     
