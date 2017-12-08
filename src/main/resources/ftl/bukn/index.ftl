@@ -214,7 +214,7 @@
 					<img src="./images/product_introduction.png" style="width: 70%">
 				</div>
 				<div class="container" style="width: 80%;">
-					<div class="row">
+					<div class="row" style="padding:60px 0 60px 0;">
 					 	<div class="col-md-3">
 					 		<div class="productDiv" id="productDiv01">
 					 			<p class="imgContentText">博汇康宁价值优选1期</br>私募证券投资基金</p>
@@ -250,7 +250,7 @@
 
 		<!--联系我们 start-->
 		
-		<div class="fh5co-projects index_mod_div" style="background-color:#F5F5F5">
+		<div class="fh5co-projects index_mod_div" style="background-color:#F5F5F5;padding-bottom:60px">
 				<div class="text-center" id="productlist" style="width: 80%;margin: 0 auto;">
 					<img src="./images/contact_us.png" style="width: 70%">
 				</div>
@@ -272,14 +272,12 @@
 					 	</div>
 					</div>
 					 <br>
-					<div class="panel panel-default">
+					<div class="panel panel-default" style="background:#f5f5f5;">
 						  <div class="panel-body">
 						  		<!--百度地图容器-->
 							<div style="height:300px;border:#ccc solid 0.1%;" id="dituContent"></div>	
 						  </div>
 						</div>
-			
-					
 				</div>
 				</br>
 		</div>
