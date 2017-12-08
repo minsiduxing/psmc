@@ -3,7 +3,7 @@
 <script src="js/jquery.cookie.js"></script>
 <style type="text/css">
 		.dropdown-menu{
-		 	background-color: transparent;
+		 	background-color:#f5f5f5;
 		}
 		.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
 		  	background-color: transparent;
@@ -30,19 +30,20 @@
   			font-weight: 600 !important;
 		}
 		.dropdown>a, .index_color{
-			color: #7c5a53 !important;
-		   font-size: 16px;
-           font-weight: 600;
+			color:#333;
+			font-size:14px;
+			font-family:sans-serif;
 		}
 		.dropdown>a:hover, .index_color:hover{
-			color: #7c5a53 !important;
+			color: #333 !important;
 			font-size: 16px;
-            font-weight: 600;
+            font-weight: 400;
 		}
 		.dropdown-menu>li>a, .index_colour{
-			color: #7c5a53 !important;
-			font-size: 16px;
-            font-weight: 600;
+			color:#333;
+			font-size:14px;
+			font-family:sans-serif;
+			line-height:40px;
 		}
 		.btn-primary:hover{
 			background-color: #45c46f !important;
@@ -91,34 +92,42 @@
 			width: 26px;
 			margin: 0 auto;
 		}
+		
+		.nav_ftype{
+			color:#333;
+			font-size:15px;
+			font-weight:500;
+			font-family:sans-serif;
+		}
+		
 </style>
-			<div class="container">
+			<div class="container" style="background-color:#f5f5f5;width:100%">
 				<nav class="navbar navbar-default" style="background-color: transparent;border: none;">
-				  <div class="container-fluid">
+				  <div class="container-fluid" style="margin:25px 0 0 0">
 				    <!-- Brand and toggle get grouped for better mobile display -->
-				    <div class="navbar-header">
+				    <div class="navbar-header" style="margin-right:65px">
 				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 				        <span class="sr-only">Toggle navigation</span>
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-				      <img src="./images/LOGO.png" style="width: 80px;height: 100px;">
+				      <img src="./images/LOGO.png" style="width:200px">
 				    </div>
-				     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="float:right;">
 				     <ul class="nav navbar-nav">
 					<#list navbars as nav>
 						<#if nav.menuLevel == 2>
 						<#if navf.haveSubMenu(navbars,nav.menuUuid)==0>
 						    <#if "退出" ==nav.menuName >
-						       <li><a href="${nav.menuUrl!''}"  id="_logout"   onclick="logout()" style="color: rgb(124, 90, 83);font-size: 16px;font-weight: 600;">${nav.menuName!''}</a></li>
+						       <li><a href="${nav.menuUrl!''}"  id="_logout"   onclick="logout()" class="nav_ftype">${nav.menuName!''}</a></li>
 		                 <#else>
-							   <li><a href="${nav.menuUrl!''}" style="color: rgb(124, 90, 83);font-size: 16px;font-weight: 600;">${nav.menuName!''}</a></li>
+							   <li><a href="${nav.menuUrl!''}" class="nav_ftype">${nav.menuName!''}</a></li>
 							</#if>
 						 </#if>
 						 <#if navf.haveSubMenu(navbars,nav.menuUuid)!=0 >
 							 <li class="dropdown">
-				            <a href="${nav.menuUrl!''}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${nav.menuName!''}<span class="caret"></span></a>
+				            <a href="${nav.menuUrl!''}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="nav_ftype">${nav.menuName!''}<span class="caret"></span></a>
 								<ul class="dropdown-menu">
 								<@navf.getSubNavbar navs=navbars  menuid=nav.menuUuid/>
 								</ul>

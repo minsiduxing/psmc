@@ -58,7 +58,11 @@
 		.clearfix{display: inline-block;}
 		.clearfix{display: block;}
 		/* warp */
-		.warp{width: 85%;margin: 0 auto;padding:35px 0 40px;}
+		.warp{width: 100%;margin: 0 auto;padding:60px 0 60px;}
+		
+		.index_mod_div{
+			padding:60px 0px 0px 0px;
+		}		
 	</style>
 	
 	
@@ -118,13 +122,12 @@
 		<!-- 网站顶部部导航菜单 -->
 		 <#include "head.html"/> 
 		<!-- 网站顶部导航菜单结束 -->
-<div id="fh5co-page" style="background-color: #F5F5F5">
-		<!-- 网站顶部导航菜单结束 -->
-		<div class="fh5co-cover js-full-height" data-next="yes"  style="background-color: white;background-image: url(images/full_001.jpg); background-size:100%;background-repeat:no-repeat;background-position:top;">
+		<div id="fh5co-page" style="background-color: #F5F5F5">
+			<div class="fh5co-cover js-full-height" data-next="yes"  style="background-color: white;background-image: url(images/full_001.jpg); background-size:cover;background-repeat:no-repeat;background-position:top;">
 		</div>
-		<div class="fh5co-project-style-2" style="background-color:white">
+		<div class="fh5co-project-style-2 index_mod_div" style="background-color:white">
 			<div class="text-center" style="width: 80%;margin: 0 auto;">
-				<img src="./images/welcome.png" style="width: 100%;">
+				<img src="./images/welcome.png" style="width: 70%;">
 			</div>
 		</div>
 		<div class="fh5co-projects" style="background-color:white">
@@ -174,130 +177,41 @@
 		
 		
 		<!--我们的优势 start-->
-		<div class="fh5co-projects" style="background-color:white">
-				<div class="text-center" id="productlist" style="width: 80%;margin: 0 auto;">
-					<img src="./images/youshi.png" style="width: 100%">
+		<div class="fh5co-projects index_mod_div" style="background-color:#F5F5F5">
+				<div class="text-center" style="width: 80%;margin: 0 auto;">
+					<img src="./images/youshi.png" style="width: 70%">
 				</div>
-				<div class="container" style="width: 80%;">
-					<div class="row" style="text-align:-webkit-center">
+				<div class="text-center" style="width: 80%;margin: 0 auto;">
 						<div class="warp">
+							<div id="f_main_nav" class="f_main_nav">
+								<ul class="clearfix">
+									<li class="fm1">
+										<p class="fm_info">专业化管理团队</p>
+										<p>一支富有敬业精神和创造力、经验丰富、高素质和专业化的管理团队，</br>
+											团队由金融、投资、企业管理、法律等领域的高端人才、权威专家组成。</p>
+									</li>
+									<li class="fm2">
+										<p class="fm_info">制度化管理体系</p>
+										<p>秉承“严谨、精细、执着、精益求精、专注、专业、认真”的运作原则专注于国内外资本市场，</br>以市场化、商业化手段运作，以资深专家团队为依托，以高素质管理团队为核心，</br>
+											高度重视对内部管理体制和投资项目的风险防范机制的健全和完善，形成了一套稳健、规范的制度化管理体系。</p>
+									</li>
+									<li class="fm3">
+										<p class="fm_info">现代化金融服务企业</p>
+										<p>以风险控制为前提，以市场为导向，以客户为中心，以效益为目标，</br>追求可持续发展，力争发展成为“资本充足、运作安全、
+											内控严密、服务优质、效益良好、有核心竞争力”的现代化金融服务企业，</br>致力于为客户提供优质、高效、专业的服务。</p>
+									</li>
+								</ul>
+							</div>
 
-	<div id="f_main_nav" class="f_main_nav">
-		<ul class="clearfix">
-			<li class="fm1">
-				<p class="fm_info">专业化管理团队</p>
-				<span>&nbsp;</span>
-			</li>
-			<li class="fm2">
-				<p class="fm_info" style="color:rgb(169,126,74)">制度化管理体系</p>
-				<span>&nbsp;</span>
-			</li>
-			<li class="fm3">
-				<p class="fm_info">现代化金融服务企业</p>
-				<span>&nbsp;</span>
-			</li>
-			<!--
-			<li class="fm4">
-				<p class="fm_info"></p>
-				<span>&nbsp;</span>
-			</li>
-			 
-			<li class="fm5">
-				<p class="fm_info">短信，联系人，可编辑。</p>
-				<span>&nbsp;</span>
-			</li>
-			<li class="fm6">
-				<p class="fm_info">定制app标签</p>
-				<span>&nbsp;</span>
-			</li>
-			<li class="fm7">
-				<p class="fm_info">清理垃圾。</p>
-				<span>&nbsp;</span>
-			</li>
-			<li class="fm8">
-				<p class="fm_info">不同设备间资料共享</p>
-				<span>&nbsp;</span>
-			</li>
-			-->
-		</ul>
-	</div>
-		
-	<div id="f_main_con" class="f_main_con">
-		<ul>
-			<li class="fmc1">
-				<a class="dc_close" title="关闭" href="javascript:void(0);">关闭</a>
-				<div class="fmc_info">
-					<strong>专业化管理团队</strong>
-					<p>一支富有敬业精神和创造力、经验丰富、高素质和专业化的管理团队，
-					团队由金融、投资、企业管理、法律等领域的高端人才、权威专家组成。</p>
-				</div>
-			</li>
-			<li class="fmc2">
-				<a class="dr_close" title="关闭" href="javascript:void(0);">关闭</a>
-				<div class="fmc_info" style="color:rgb(169,126,74)">
-					<strong>制度化管理体系</strong>
-					<p>秉承“严谨、精细、执着、精益求精、专注、专业、认真”的运作原则专注于国内外资本市场，以市场化、商业化手段运作，以资深专家团队为依托，以高素质管理团队为核心，
-					高度重视对内部管理体制和投资项目的风险防范机制的健全和完善，形成了一套稳健、规范的制度化管理体系。</p>
-				</div>
-			</li>
-			<li class="fmc3">
-				<a class="de_close" title="关闭" href="javascript:void(0);">关闭</a>
-				<div class="fmc_info">
-					<strong>现代化金融服务企业</strong>
-					<p>以风险控制为前提，以市场为导向，以客户为中心，以效益为目标，追求可持续发展，力争发展成为“资本充足、运作安全、
-					内控严密、服务优质、效益良好、有核心竞争力”的现代化金融服务企业，致力于为客户提供优质、高效、专业的服务。</p>
-				</div>
-			</li>
-			<!-- 
-			<li class="fmc4">
-				<a class="df_close" title="关闭" href="javascript:void(0);">关闭</a>
-				<div class="fmc_info">
-					<strong></strong>
-					<p></p>
-				</div>
-			</li>
-			
-			<li class="fmc5">
-				<a class="dx_close" title="关闭" href="javascript:void(0);">关闭</a>
-				<div class="fmc_info">
-					<strong>短信，联系人，可编辑。</strong>
-					<p>短信内容，联系人信息，随意编辑，一键保存。</p>
-				</div>
-			</li>
-			<li class="fmc7">
-				<a class="app_close" title="关闭" href="javascript:void(0);">关闭</a>
-				<div class="fmc_info">
-					<strong>定制app标签。</strong>
-					<p>多人共用一台电脑，本地程序很多很杂怎么一键管理？iTools程序库里面的定制app标签功能，让你一键管理属于你的全部APP。</p>
-				</div>
-			</li>
-			<li class="fmc6">
-				<a class="clear_close" title="关闭" href="javascript:void(0);">关闭</a>
-				<div class="fmc_info">
-					<strong>清理垃圾。</strong>
-					<p>iTools首创的清理垃圾功能，让你的苹果设备更轻巧，运行更无负担！</p>
-				</div>
-			</li>
-			<li class="fmc8">
-				<a class="share_close" title="关闭" href="javascript:void(0);">关闭</a>
-				<div class="fmc_info"><strong>不同设备间资料共享。</strong>
-					<p>多台设备同时连接到电脑上，即可将软件同时安装到不同的设备上，最高可连接20台设备。如果你是手机销售商，这样的设计，一定让你的效率大大提高。</p>
-				</div>
-			</li>
-			-->
-		</ul>
-	</div>
-
-</div>
-					</div>
+						</div>
 				</div>
 		</div>
 		<!--我们的优势 end-->
 		
 		<!--产品介绍-->
-		<div class="fh5co-projects" style="background-color:#F5F5F5">
+		<div class="fh5co-projects index_mod_div" style="background-color:white">
 				<div class="text-center" id="productlist" style="width: 80%;margin: 0 auto;">
-					<img src="./images/product_introduction.png" style="width: 100%">
+					<img src="./images/product_introduction.png" style="width: 70%">
 				</div>
 				<div class="container" style="width: 80%;">
 					<div class="row">
@@ -336,9 +250,9 @@
 
 		<!--联系我们 start-->
 		
-		<div class="fh5co-projects" style="background-color:white">
+		<div class="fh5co-projects index_mod_div" style="background-color:#F5F5F5">
 				<div class="text-center" id="productlist" style="width: 80%;margin: 0 auto;">
-					<img src="./images/contact_us.png" style="width: 100%">
+					<img src="./images/contact_us.png" style="width: 70%">
 				</div>
 								
 				<div class="container" style="width: 80%;">
