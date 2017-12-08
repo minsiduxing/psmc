@@ -214,10 +214,10 @@
 	</style>
 </head>
 <body>
-	<div id="fh5co-page" style="background-color:#F5F5F5">
-		<!-- 网站顶部部导航菜单 -->
+<!-- 网站顶部部导航菜单 -->
 		 <#include "head.html"/> 
 		<!-- 网站顶部导航菜单结束 -->
+	<div id="fh5co-page" style="background-color:#F5F5F5">
 		<div class="fh5co-cover fh5co-cover-style-2">
 			<div class="fh5co-overlay"></div>
 			<div class="fh5co-cover-text">
