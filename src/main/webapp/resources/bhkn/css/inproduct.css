@@ -1,0 +1,110 @@
+body, html { font-size: 100%; 	padding: 0; margin: 0;}
+
+/* Reset */
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+/* Clearfix hack by Nicolas Gallagher: http://nicolasgallagher.com/micro-clearfix-hack/ */
+.clearfix:before,
+.clearfix:after {
+	content: " ";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+
+
+.demo{
+		padding: 2em;background: #fff;
+	}
+	.serviceBox{
+		border: 1px solid #ededed;
+		padding: 30px 30px 30px 90px;
+		position: relative;
+		transition: all 0.5s ease 0s;
+	}
+	.serviceBox:hover{
+		border-color: rgb(112,97,78);
+	}
+	
+	
+	
+	.serviceBox:before,
+	.serviceBox:after{
+		content: "";
+		display: block;
+		width: 70px;
+		height: 5px;
+		background: #D2691E;
+		position: absolute;
+		left: 0;
+		opacity: 0;
+		transition: all 0.5s ease 0s;
+	}
+	.serviceBox:before{
+		top: -3px;
+	}
+	.serviceBox:after{
+		bottom: -3px;
+	}
+	.serviceBox:hover:before,
+	.serviceBox:hover:after{
+		left: 40px;
+		opacity: 1;
+	}
+	
+	
+	
+	.serviceBox .service-icon{
+		display: block;
+		position: absolute;
+		top: 23%;
+		left: 10px;
+		width:80px;
+		height:100px;
+		color: aliceblue;
+		opacity: 0.7;
+		background-color:transparent;
+		transition: all 0.5s ease-in 0s;
+	}
+	.serviceBox:hover .service-icon{
+		opacity: 1;
+	}
+	.serviceBox .title{
+		font-size: 16px;
+		font-weight: 400;
+		color: rgb(112,97,78);
+		margin-bottom: 20px;
+	}
+	.serviceBox .description{
+		font-size: 13px;
+		color: #666;
+		line-height: 20px;
+	}
+	
+	
+	.serviceBox .service-icon{
+		background-image: url(../images/product.png);
+		background-repeat:no-repeat;
+		background-size:contain;
+		padding-right:2px;
+		
+	}
+	
+	.serviceBox .service-Content{
+		padding-left:17px;
+	}
+	
+	
+	@media only screen and (max-width: 990px){
+		.serviceBox{ margin-bottom: 30px; }
+	}
+

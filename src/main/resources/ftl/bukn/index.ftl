@@ -48,6 +48,10 @@
 	
 	<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
 
+	<!--产品介绍样式-->
+	<link rel="stylesheet" type="text/css" href="css/inproduct.css">
+	
+
 	<!-- youshi -->
 	<style type="text/css">
 		*{margin:0;padding:0;list-style-type:none;}
@@ -81,35 +85,7 @@
 	            -moz-transition: All 0.4s ease-in-out;
 	            -o-transition: All 0.4s ease-in-out;
 	}
-	.productDiv:hover{
-		transform: scale(1.1, 1.1);
-	            -webkit-transform: scale(1.1, 1.1);
-	            -moz-transform: scale(1.1, 1.1);
-	            -o-transform: scale(1.1, 1.1);
-	            -ms-transform: scale(1.1, 1.1);
-	}
-	.productDiv>img{
-		width: 130px;
-		margin:30px;
-	}
-	.imgContentText{
-		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 15px;
-		font-weight: 400;
-		line-height: 30px;
-		color: rgb(112,97,78);
-		margin-bottom: 0;
-	}
-	.btn-default{
-		margin-top: 20px;
-	}
-	.clearfix{
-		width: 80%;
-		margin: 0 auto;
-	}
-	.active{
-		font-weight: 800;
-	}
+	
 	
 	html,body{margin:0;padding:0;}
     .iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
@@ -215,34 +191,59 @@
 				</div>
 				<div class="container" style="width: 80%;">
 					<div class="row" style="padding:60px 0 60px 0;">
-					 	<div class="col-md-3">
-					 		<div class="productDiv" id="productDiv01">
-					 			<p class="imgContentText">博汇康宁价值优选1期</br>私募证券投资基金</p>
-					 			<img src="images/product.png" id="img01">
-					 			<button class="btn btn-default">至今</button>
-					 		</div>
-					 	</div>
-					  	<div class="col-md-3">
-					 		<div class="productDiv" id="productDiv02">
-					 			<p class="imgContentText">博汇康宁景博稳健1号</br>私募基金</p>
-					 			<img src="images/product.png" id="img01">
-					 			<button class="btn btn-default">2017-03-02~至今</button>
-					 		</div>
-					 	</div>
-					 	<div class="col-md-3">
-					 		<div class="productDiv" id="productDiv03">
-					 			<p class="imgContentText">博汇康宁股票型管理1期</br>私募证券投资基金</p>
-					 			<img src="images/product.png" id="img01">
-					 			<button class="btn btn-default">2017-03-31~至今</button>
-					 		</div>
-					 	</div>
-					 	<div class="col-md-3">
-					 		<div class="productDiv" id="productDiv02">
-					 			<p class="imgContentText">博汇康宁</br>中原1号</p>
-					 			<img src="images/product.png" id="img01">
-					 			<button class="btn btn-default">2017-07-25~至今</button>
-					 		</div>
-					 	</div>
+					 	<div class="col-md-4 col-sm-6">
+							<div class="serviceBox">
+								<div class="service-icon">
+								</div>
+								<div class="service-Content">
+									<p class="title">博汇康宁价值优选1期私募证券投资基金</p>
+									<p class="description">
+										&nbsp;
+									</p>
+								</div>
+							</div>
+						</div>
+			
+						<div class="col-md-4 col-sm-6">
+							<div class="serviceBox">
+								<div class="service-icon">
+								</div>
+								<div class="service-Content">
+									<p class="title">博汇康宁景博稳健1号私募基金</p>
+									<p class="description">
+										2017-3-2 至今
+									</p>
+								</div>
+							</div>
+						</div>
+			
+						<div class="col-md-4 col-sm-6">
+							<div class="serviceBox">
+								<div class="service-icon">
+								</div>
+								<div class="service-Content">
+									<p class="title">博汇康宁股票型管理1期私募证券投资基金</p>
+									<p class="description">
+										2017-3-31 至今
+									</p>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-4 col-sm-6">
+							<div class="serviceBox">
+								<div class="service-icon">
+								</div>
+								<div class="service-Content">
+									<p class="title">博汇康宁中原1号</p>
+									<p class="description">
+										2017-7-25 至今
+									</p>
+								</div>
+							</div>
+						</div>
+					 	
+					 	
 					</div>
 				</div>
 		</div>
