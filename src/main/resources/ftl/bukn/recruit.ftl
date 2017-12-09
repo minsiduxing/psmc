@@ -242,7 +242,7 @@
 		<div class="fh5co-projects" style="background-color:white">
 				</br>	
 				<div class="container" style="width: 80%;">
-					<div class="row" style="text-align:-webkit-center">
+					<div class="row" style="text-align:-center">
 						<div class="col-md-3" style="width:100%;font-family:monospace">
 					 		<img src="./images/bhkn_rwm.png" style="width: 15%">
 					 		</br></br></br>
@@ -253,7 +253,7 @@
 					</div>
 					</br>
 					<div class="row">
-					 	<div class="col-md-3"  style="width: -webkit-fill-available;">
+					 	<div class="col-md-3"  style="width: 100%;">
 					 		<!--百度地图容器-->
   							<div style="width:95%;height:300px;border:#ccc solid 1px;" id="dituContent"></div>			
 					 	</div>
