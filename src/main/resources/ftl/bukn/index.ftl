@@ -30,8 +30,6 @@
 	<!-- Cards -->
 	<link rel="stylesheet" href="css/cards.css">
 	
-	<!-- youshi -->
-	<link rel="stylesheet" href="css/youshi.css">
 	<link href="css/page.css" type="text/css" rel="stylesheet" />
 
 
@@ -42,17 +40,12 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-	
-	<!-- baidu -->
-	<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
-	
-	<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
 
 	<!--产品介绍样式-->
 	<link rel="stylesheet" type="text/css" href="css/inproduct.css">
 	
 
-	<!-- youshi -->
+	<!-- 我们的优势 控件 风格 start -->
 	<style type="text/css">
 		*{margin:0;padding:0;list-style-type:none;}
 		a,img{border:0;}
@@ -68,32 +61,22 @@
 			padding:60px 0px 0px 0px;
 		}		
 	</style>
+	<!-- 我们的优势 控件 风格 end -->
 	
+	
+	<!--百度地图 样式start-->
+	
+	<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+	<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
 	
 	<style type="text/css">
-		.productDiv{
-		display: block;
-		text-align: center;
-		box-shadow: 3px 3px 3px #ddd;
-		width: 98%;
-    		height: 98%;
-    		background-color: white;
-    		margin: 20px 0;
-    		padding-top: 10px; 
-    		transition: All 0.4s ease-in-out;
-	            -webkit-transition: All 0.4s ease-in-out;
-	            -moz-transition: All 0.4s ease-in-out;
-	            -o-transition: All 0.4s ease-in-out;
-	}
-	
-	
-	html,body{margin:0;padding:0;}
     .iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
     .iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
 	</style>
-	
+	<!--百度地图 样式end-->
 	
 	</head>
+	
 	<body>
 		<!-- 网站顶部部导航菜单 -->
 		 <#include "head.html"/> 
@@ -342,6 +325,7 @@
 
 </script>
 
+<!-- 百度地图 -->
 <script type="text/javascript">
     //创建和初始化地图函数：
     function initMap(){
@@ -439,6 +423,10 @@
     
     initMap();//创建和初始化地图
 </script>
+<!-- 百度地图 end -->
+
+
+<!-- 我们的优势控件start -->
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -464,6 +452,7 @@ $(document).ready(function(){
 
 });
 </script>
+<!-- 我们的优势控件end -->
 
 </body>
 </html>
