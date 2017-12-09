@@ -30,8 +30,6 @@
 	<!-- Cards -->
 	<link rel="stylesheet" href="css/cards.css">
 	
-	<!-- youshi -->
-	<link rel="stylesheet" href="css/youshi.css">
 	<link href="css/page.css" type="text/css" rel="stylesheet" />
 
 
@@ -42,13 +40,12 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-	
-	<!-- baidu -->
-	<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
-	
-	<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
 
-	<!-- youshi -->
+	<!--产品介绍样式-->
+	<link rel="stylesheet" type="text/css" href="css/inproduct.css">
+	
+
+	<!-- 我们的优势 控件 风格 start -->
 	<style type="text/css">
 		*{margin:0;padding:0;list-style-type:none;}
 		a,img{border:0;}
@@ -58,13 +55,35 @@
 		.clearfix{display: inline-block;}
 		.clearfix{display: block;}
 		/* warp */
-		.warp{width: 980px;margin: 0 auto;padding:35px 0 40px;}
+		.warp{width: 100%;margin: 0 auto;padding:60px 0 60px;}
+		
+		.index_mod_div{
+			padding:60px 0px 0px 0px;
+		}		
 	</style>
+	<!-- 我们的优势 控件 风格 end -->
 	
+	
+	<!--百度地图 样式start-->
+	
+	<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+	<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
 	
 	<style type="text/css">
+    .iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
+    .iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
+	</style>
+	<!--百度地图 样式end-->
+	
+	</head>
+	
+	<body>
+		<!-- 网站顶部部导航菜单 -->
+		 <script src="js/jquery.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<style type="text/css">
 		.dropdown-menu{
-		 	background-color: transparent;
+		 	background-color:#f5f5f5;
 		}
 		.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
 		  	background-color: transparent;
@@ -83,7 +102,7 @@
 		}
 		.index_font{
 			font-family: "Montserrat", Arial, sans-serif !important;
-  			font-weight: 600 !important;
+  			font-weight: 700 !important;
 			color: #fff !important;
 		}
 		.button_{
@@ -91,16 +110,20 @@
   			font-weight: 600 !important;
 		}
 		.dropdown>a, .index_color{
-			color: #FFFAFD !important;
-			font-weight: 100;
+			color:#333;
+			font-size:14px;
+			font-family:sans-serif;
 		}
 		.dropdown>a:hover, .index_color:hover{
-			color: #FFFAFD !important;
-			font-weight: 100;
+			color: #333 !important;
+			font-size: 16px;
+            font-weight: 400;
 		}
 		.dropdown-menu>li>a, .index_colour{
-			color: #FFFAFD !important;
-			font-weight: 100;
+			color:#333;
+			font-size:14px;
+			font-family:sans-serif;
+			line-height:40px;
 		}
 		.btn-primary:hover{
 			background-color: #45c46f !important;
@@ -112,14 +135,14 @@
 		}
 		h3{
 			font-family: "STHeiti Light" !important;
-			font-size: 18px !important;
+			font-size: 25px !important;
 		}
 		.col-md-6>p{
 			font-family: "STHeiti Light" !important;
 			font-size: 20px !important;
 		}
 		.carousel{
-			width: 80%;
+			width: 70%;
 			margin: 0 auto;
 		}
 		.buttonNext{
@@ -149,203 +172,140 @@
 			width: 26px;
 			margin: 0 auto;
 		}
-
-		.productDiv{
-		display: block;
-		text-align: center;
-		box-shadow: 3px 3px 3px #ddd;
-		width: 98%;
-    		height: 98%;
-    		background-color: white;
-    		margin: 20px 0;
-    		padding-top: 10px; 
-    		transition: All 0.4s ease-in-out;
-	            -webkit-transition: All 0.4s ease-in-out;
-	            -moz-transition: All 0.4s ease-in-out;
-	            -o-transition: All 0.4s ease-in-out;
-	}
-	.productDiv:hover{
-		transform: scale(1.1, 1.1);
-	            -webkit-transform: scale(1.1, 1.1);
-	            -moz-transform: scale(1.1, 1.1);
-	            -o-transform: scale(1.1, 1.1);
-	            -ms-transform: scale(1.1, 1.1);
-	}
-	.productDiv>img{
-		width: 100%;
-	}
-	.imgContentText{
-		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 15px;
-		font-weight: 400;
-		line-height: 30px;
-		color: rgb(112,97,78);
-		margin-bottom: 0;
-	}
-	.btn-default{
-		margin-top: 20px;
-	}
-	.clearfix{
-		width: 80%;
-		margin: 0 auto;
-	}
-	.active{
-		font-weight: 800;
-	}
-	
-	html,body{margin:0;padding:0;}
-    .iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
-    .iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
-	</style>
-	
-	
-	</head>
-	<body>
-	
-<div id="fh5co-page" style="background-color: #F5F5F5">
-		<!-- 网站顶部部导航菜单 -->
-<div id="fh5co-page" style="background-color: #F5F5F5">
-		<nav class="fh5co-nav-style-1" role="navigation" data-offcanvass-position="fh5co-offcanvass-left">	<div class="container">
-				<div class="text-center fh5co-link-wrap">
-					<ul data-offcanvass="yes">
-						<li>
-							<img src="./images/LOGO.png" style="width: 14%;">
-						</li>
-						
-						  <li class="wow index_color">
-							<a href="index.html" class="wow index_color" >首页</a>
-						  </li>
-							<li class="dropdown">
-							
-							 <a href="aboutus.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">关于我们<span class="caret"></span></a>
+		
+		.nav_ftype{
+			color:#333;
+			font-size:15px;
+			font-weight:500;
+			font-family:sans-serif;
+		}
+		
+</style>
+			<div class="container" style="background-color:#f5f5f5;width:100%">
+				<nav class="navbar navbar-default" style="background-color: transparent;border: none;">
+				  <div class="container-fluid" style="margin:25px 0 0 0">
+				    <!-- Brand and toggle get grouped for better mobile display -->
+				    <div class="navbar-header" style="margin-right:65px">
+				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+				      <img src="./images/LOGO.png" style="width:200px">
+				    </div>
+				     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="float:right;">
+				     <ul class="nav navbar-nav">
+							   <li><a href="index.html" class="nav_ftype">首页</a></li>
+							 <li class="dropdown">
+				            <a href="aboutus.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="nav_ftype">关于我们<span class="caret"></span></a>
 								<ul class="dropdown-menu">
 
+	              <li><a href="aboutus.html#businessculture" >公司简介</a></li>
 
-			   <li>
-				 <a href="aboutus.html#businessculture">公司简介</a>
-			   </li>
+	              <li><a href="aboutus.html#supervise" >监管资质</a></li>
 
-
-			   <li>
-				 <a href="aboutus.html#supervise">监管资质</a>
-			   </li>
-
-
-			   <li>
-				 <a href="aboutus.html#companyprocess">发展历程</a>
-			   </li>
+	              <li><a href="aboutus.html#companyprocess" >发展历程</a></li>
 
 								</ul>
 							</li>
-							<li class="dropdown">
-							
-							 <a href="chooseus.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">选择博汇康宁<span class="caret"></span></a>
+							 <li class="dropdown">
+				            <a href="chooseus.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="nav_ftype">选择博汇康宁<span class="caret"></span></a>
 								<ul class="dropdown-menu">
 
+	              <li><a href="chooseus.html#ourstrengths" >我们的优势</a></li>
 
-			   <li>
-				 <a href="chooseus.html#ourstrengths">我们的优势</a>
-			   </li>
+	              <li><a href="chooseus.html#riskmanagement" >风控体系</a></li>
 
+	              <li><a href="chooseus.html#coreteam" >核心团队</a></li>
 
-			   <li>
-				 <a href="chooseus.html#riskmanagement">风控体系</a>
-			   </li>
-
-
-			   <li>
-				 <a href="chooseus.html#coreteam">核心团队</a>
-			   </li>
-
-
-			   <li>
-				 <a href="chooseus.html#investmentprocess">组织架构</a>
-			   </li>
+	              <li><a href="chooseus.html#investmentprocess" >组织架构</a></li>
 
 								</ul>
 							</li>
-							<li class="dropdown">
-							
-							 <a href="productlist.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">产品一览<span class="caret"></span></a>
+							 <li class="dropdown">
+				            <a href="productlist.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="nav_ftype">产品一览<span class="caret"></span></a>
 								<ul class="dropdown-menu">
 
+	              <li><a href="productlist.html#productview" >产品一览</a></li>
 
-			   <li>
-				 <a href="productlist.html#productview">产品一览</a>
-			   </li>
-
-
-			   <li>
-				 <a href="productlist.html#productlineview">产品线一览</a>
-			   </li>
+	              <li><a href="productlist.html#productlineview" >产品线一览</a></li>
 
 								</ul>
 							</li>
-							<li class="dropdown">
-							
-							 <a href="info.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">行情资讯<span class="caret"></span></a>
+							 <li class="dropdown">
+				            <a href="info.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="nav_ftype">行情资讯<span class="caret"></span></a>
 								<ul class="dropdown-menu">
 
+	              <li><a href="info.html#compCuContent" >热点新闻</a></li>
 
-			   <li>
-				 <a href="info.html#compCuContent">热点新闻</a>
-			   </li>
+	              <li><a href="info.html#compCuContent" >实时资讯</a></li>
 
-
-			   <li>
-				 <a href="info.html#compCuContent">实时资讯</a>
-			   </li>
-
-
-			   <li>
-				 <a href="info.html#compCuContent">行业动向</a>
-			   </li>
+	              <li><a href="info.html#compCuContent" >行业动向</a></li>
 
 								</ul>
 							</li>
-						
-						  <li class="wow index_color">
-							<a href="member.html" class="wow index_color" >会员中心</a>
-						  </li>
-							<li class="dropdown">
-							
-							 <a href="teamshow.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">团队展示<span class="caret"></span></a>
+							   <li><a href="member.html" class="nav_ftype">会员中心</a></li>
+							 <li class="dropdown">
+				            <a href="teamshow.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="nav_ftype">团队展示<span class="caret"></span></a>
 								<ul class="dropdown-menu">
 
+	              <li><a href="teamshow.html#founder" >创始人</a></li>
 
-			   <li>
-				 <a href="teamshow.html#founder">创始人</a>
-			   </li>
-
-
-			   <li>
-				 <a href="teamshow.html#coreteam">核心团队</a>
-			   </li>
+	              <li><a href="teamshow.html#coreteam" >核心团队</a></li>
 
 								</ul>
 							</li>
-						
-						  <li class="wow index_color">
-							<a href="recruit.html" class="wow index_color" >加入我们</a>
-						  </li>
-						
-						  <li class="wow index_color">
-			                       <a href="#" id="_logout" onclick="logout()" class="wow index_color">退出</a>
-						  </li>
+							   <li><a href="recruit.html" class="nav_ftype">加入我们</a></li>
+						       <li><a href="#"  id="_logout"   onclick="logout()" class="nav_ftype">退出</a></li>
 				</ul>
-				</div> 
-			</div>
-		</nav>
-
-		<!-- 网站顶部导航菜单结束 -->
-		<div class="fh5co-cover js-full-height" data-next="yes"  style="background-color: white;background-image: url(images/full_001.jpg); background-size:100% 100%;background-repeat:no-repeat;background-position:center;">
+             </div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+	</nav>
+	</div>
+</body>
+<script>
+//判断用户cookie是否存在 
+if($.cookie("userID")==null){  
+  $('#_logout').css("display","none");
+}
+//退出登录
+function logout(){
+if(window.confirm("您确认退出登录吗？")){
+var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b&transmiturl=/website/backstage/webUserController.do?method=webuserloginout";
+		$.ajax({
+ 				async:false,
+ 				cache:false,
+ 				type:'POST',
+ 				dataType:"text",
+ 				url:_url,
+ 				success:function(data){
+ 					var dataObj = JSON.parse(data);
+ 					if(dataObj.res =="success"){
+ 						alert(dataObj.rmsg);
+ 						window.location.href="index.html";
+ 					}else{
+ 						writemsg(dataObj.rmsg);
+ 					}
+ 					
+ 				},
+ 				error:function (XMLHttpRequest, textStatus, errorThrown) {
+ 					
+ 				}
+ 			});
+	}
+}
+</script>
+</html>		<!-- 网站顶部导航菜单结束 -->
+		<div id="fh5co-page" style="background-color: #F5F5F5">
+			<div class="fh5co-cover js-full-height" data-next="yes"  style="background-color: white;background-image: url(images/full_001.jpg); background-size:cover;background-repeat:no-repeat;background-position:top;">
 		</div>
-		<div class="fh5co-project-style-2" style="background-color:white">
+		<div class="fh5co-project-style-2 index_mod_div" style="background-color:white">
 			<div class="text-center" style="width: 80%;margin: 0 auto;">
-				<img src="./images/welcome.png" style="width: 100%;">
+				<img src="./images/welcome.png" style="width: 70%;">
 			</div>
 		</div>
-		<div class="fh5co-projects" style="background-color:#F5F5F5">
+		<div class="fh5co-projects" style="background-color:white">
 			<!-- 企业文化的滚动模态框效果-->
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000">
 				<!-- Indicators -->
@@ -392,161 +352,97 @@
 		
 		
 		<!--我们的优势 start-->
-		<div class="fh5co-projects" style="background-color:white">
-				<div class="text-center" id="productlist" style="width: 80%;margin: 0 auto;">
-					<img src="./images/youshi.png" style="width: 100%">
+		<div class="fh5co-projects index_mod_div" style="background-color:#F5F5F5">
+				<div class="text-center" style="width: 80%;margin: 0 auto;">
+					<img src="./images/youshi.png" style="width: 70%">
 				</div>
-				<div class="container" style="width: 80%;">
-					<div class="row" style="text-align:-webkit-center">
+				<div class="text-center" style="width: 80%;margin: 0 auto;">
 						<div class="warp">
+							<div id="f_main_nav" class="f_main_nav">
+								<ul class="clearfix">
+									<li class="fm1">
+										<p class="fm_info">专业化管理团队</p>
+										<p style="text-align:justify">一支富有敬业精神和创造力、经验丰富、高素质和专业化的管理团队，
+											团队由金融、投资、企业管理、法律等领域的高端人才、权威专家组成。</p>
+									</li>
+									<li class="fm2">
+										<p class="fm_info">制度化管理体系</p>
+										<p style="text-align:justify">秉承“严谨、精细、执着、精益求精、专注、专业、认真”的运作原则专注于国内外资本市场，以市场化、商业化手段运作，以资深专家团队为依托，以高素质管理团队为核心，
+											高度重视对内部管理体制和投资项目的风险防范机制的健全和完善，形成了一套稳健、规范的制度化管理体系。</p>
+									</li>
+									<li class="fm3">
+										<p class="fm_info">现代化金融服务企业</p>
+										<p style="text-align:justify">以风险控制为前提，以市场为导向，以客户为中心，以效益为目标，追求可持续发展，力争发展成为“资本充足、运作安全、
+											内控严密、服务优质、效益良好、有核心竞争力”的现代化金融服务企业，致力于为客户提供优质、高效、专业的服务。</p>
+									</li>
+								</ul>
+							</div>
 
-	<div id="f_main_nav" class="f_main_nav">
-		<ul class="clearfix">
-			<li class="fm1">
-				<p class="fm_info">专业化管理团队</p>
-				<span>&nbsp;</span>
-			</li>
-			<li class="fm2">
-				<p class="fm_info" style="color:rgb(169,126,74)">制度化管理体系</p>
-				<span>&nbsp;</span>
-			</li>
-			<li class="fm3">
-				<p class="fm_info">现代化金融服务企业</p>
-				<span>&nbsp;</span>
-			</li>
-			<!--
-			<li class="fm4">
-				<p class="fm_info"></p>
-				<span>&nbsp;</span>
-			</li>
-			 
-			<li class="fm5">
-				<p class="fm_info">短信，联系人，可编辑。</p>
-				<span>&nbsp;</span>
-			</li>
-			<li class="fm6">
-				<p class="fm_info">定制app标签</p>
-				<span>&nbsp;</span>
-			</li>
-			<li class="fm7">
-				<p class="fm_info">清理垃圾。</p>
-				<span>&nbsp;</span>
-			</li>
-			<li class="fm8">
-				<p class="fm_info">不同设备间资料共享</p>
-				<span>&nbsp;</span>
-			</li>
-			-->
-		</ul>
-	</div>
-		
-	<div id="f_main_con" class="f_main_con">
-		<ul>
-			<li class="fmc1">
-				<a class="dc_close" title="关闭" href="javascript:void(0);">关闭</a>
-				<div class="fmc_info">
-					<strong>专业化管理团队</strong>
-					<p>一支富有敬业精神和创造力、经验丰富、高素质和专业化的管理团队，
-					团队由金融、投资、企业管理、法律等领域的高端人才、权威专家组成。</p>
-				</div>
-			</li>
-			<li class="fmc2">
-				<a class="dr_close" title="关闭" href="javascript:void(0);">关闭</a>
-				<div class="fmc_info" style="color:rgb(169,126,74)">
-					<strong>制度化管理体系</strong>
-					<p>秉承“严谨、精细、执着、精益求精、专注、专业、认真”的运作原则专注于国内外资本市场，以市场化、商业化手段运作，以资深专家团队为依托，以高素质管理团队为核心，
-					高度重视对内部管理体制和投资项目的风险防范机制的健全和完善，形成了一套稳健、规范的制度化管理体系。</p>
-				</div>
-			</li>
-			<li class="fmc3">
-				<a class="de_close" title="关闭" href="javascript:void(0);">关闭</a>
-				<div class="fmc_info">
-					<strong>现代化金融服务企业</strong>
-					<p>以风险控制为前提，以市场为导向，以客户为中心，以效益为目标，追求可持续发展，力争发展成为“资本充足、运作安全、
-					内控严密、服务优质、效益良好、有核心竞争力”的现代化金融服务企业，致力于为客户提供优质、高效、专业的服务。</p>
-				</div>
-			</li>
-			<!-- 
-			<li class="fmc4">
-				<a class="df_close" title="关闭" href="javascript:void(0);">关闭</a>
-				<div class="fmc_info">
-					<strong></strong>
-					<p></p>
-				</div>
-			</li>
-			
-			<li class="fmc5">
-				<a class="dx_close" title="关闭" href="javascript:void(0);">关闭</a>
-				<div class="fmc_info">
-					<strong>短信，联系人，可编辑。</strong>
-					<p>短信内容，联系人信息，随意编辑，一键保存。</p>
-				</div>
-			</li>
-			<li class="fmc7">
-				<a class="app_close" title="关闭" href="javascript:void(0);">关闭</a>
-				<div class="fmc_info">
-					<strong>定制app标签。</strong>
-					<p>多人共用一台电脑，本地程序很多很杂怎么一键管理？iTools程序库里面的定制app标签功能，让你一键管理属于你的全部APP。</p>
-				</div>
-			</li>
-			<li class="fmc6">
-				<a class="clear_close" title="关闭" href="javascript:void(0);">关闭</a>
-				<div class="fmc_info">
-					<strong>清理垃圾。</strong>
-					<p>iTools首创的清理垃圾功能，让你的苹果设备更轻巧，运行更无负担！</p>
-				</div>
-			</li>
-			<li class="fmc8">
-				<a class="share_close" title="关闭" href="javascript:void(0);">关闭</a>
-				<div class="fmc_info"><strong>不同设备间资料共享。</strong>
-					<p>多台设备同时连接到电脑上，即可将软件同时安装到不同的设备上，最高可连接20台设备。如果你是手机销售商，这样的设计，一定让你的效率大大提高。</p>
-				</div>
-			</li>
-			-->
-		</ul>
-	</div>
-
-</div>
-					</div>
+						</div>
 				</div>
 		</div>
 		<!--我们的优势 end-->
 		
 		<!--产品介绍-->
-		<div class="fh5co-projects" style="background-color:#F5F5F5">
+		<div class="fh5co-projects index_mod_div" style="background-color:white">
 				<div class="text-center" id="productlist" style="width: 80%;margin: 0 auto;">
-					<img src="./images/product_introduction.png" style="width: 100%">
+					<img src="./images/product_introduction.png" style="width: 70%">
 				</div>
 				<div class="container" style="width: 80%;">
-					<div class="row">
-					 	<div class="col-md-3">
-					 		<div class="productDiv" id="productDiv01">
-					 			<p class="imgContentText">博汇康宁价值优选1期</br>私募证券投资基金</p>
-					 			<img src="images/product.jpg" id="img01">
-					 			<button class="btn btn-default">至今</button>
-					 		</div>
-					 	</div>
-					  	<div class="col-md-3">
-					 		<div class="productDiv" id="productDiv02">
-					 			<p class="imgContentText">博汇康宁景博稳健1号</br>私募基金</p>
-					 			<img src="images/product.jpg" id="img01">
-					 			<button class="btn btn-default">2017-03-02~至今</button>
-					 		</div>
-					 	</div>
-					 	<div class="col-md-3">
-					 		<div class="productDiv" id="productDiv03">
-					 			<p class="imgContentText">博汇康宁股票型管理1期</br>私募证券投资基金</p>
-					 			<img src="images/product.jpg" id="img01">
-					 			<button class="btn btn-default">2017-03-31~至今</button>
-					 		</div>
-					 	</div>
-					 	<div class="col-md-3">
-					 		<div class="productDiv" id="productDiv02">
-					 			<p class="imgContentText">博汇康宁</br>中原1号</p>
-					 			<img src="images/product.jpg" id="img01">
-					 			<button class="btn btn-default">2017-07-25~至今</button>
-					 		</div>
-					 	</div>
+					<div class="row" style="padding:60px 0 60px 0;">
+					 	<div class="col-md-4 col-sm-6">
+							<div class="serviceBox">
+								<div class="service-icon">
+								</div>
+								<div class="service-Content">
+									<p class="title">博汇康宁价值优选1期私募证券投资基金</p>
+									<p class="description">
+										&nbsp;
+									</p>
+								</div>
+							</div>
+						</div>
+			
+						<div class="col-md-4 col-sm-6">
+							<div class="serviceBox">
+								<div class="service-icon">
+								</div>
+								<div class="service-Content">
+									<p class="title">博汇康宁景博稳健1号私募基金</p>
+									<p class="description">
+										2017-3-2 至今
+									</p>
+								</div>
+							</div>
+						</div>
+			
+						<div class="col-md-4 col-sm-6">
+							<div class="serviceBox">
+								<div class="service-icon">
+								</div>
+								<div class="service-Content">
+									<p class="title">博汇康宁股票型管理1期私募证券投资基金</p>
+									<p class="description">
+										2017-3-31 至今
+									</p>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-4 col-sm-6">
+							<div class="serviceBox">
+								<div class="service-icon">
+								</div>
+								<div class="service-Content">
+									<p class="title">博汇康宁中原1号</p>
+									<p class="description">
+										2017-7-25 至今
+									</p>
+								</div>
+							</div>
+						</div>
+					 	
+					 	
 					</div>
 				</div>
 		</div>
@@ -554,27 +450,29 @@
 
 		<!--联系我们 start-->
 		
-		<div class="fh5co-projects" style="background-color:white">
+		<div class="fh5co-projects index_mod_div" style="background-color:#F5F5F5;padding-bottom:60px">
 				<div class="text-center" id="productlist" style="width: 80%;margin: 0 auto;">
-					<img src="./images/contact_us.png" style="width: 100%">
+					<img src="./images/contact_us.png" style="width: 70%">
 				</div>
 								
 				<div class="container" style="width: 80%;">
-					<div class="row" style="text-align:-webkit-center">
-						<div class="col-md-3" style="width:100%;font-family:monospace">
-					 		<img src="./images/bhkn_rwm.png" style="width: 15%">
-					 		<p>联系地址:陕西省西安市科技路西段绿地鸿海大厦B座9层</p>
-							<p>联系电话:029-84536670</p>
-							<p>电子邮箱:bhkn@bohuikangning.com</p>
+
+					<div class="row" style="text-align:left; font-family:monospace">
+						<div class="col-md-6" style="text-align:left; font-family:monospace;color:rgb(112,97,78);font-size:14px">
+						    <br>
+						    <br>
+					 		<img src="./images/bhkn_rwm.png" class="img-responsive" >
+					 		
 					 	</div>
+					 	
 					</div>
-					</br>
-					<div class="row">
-					 	<div class="col-md-3"  style="width: -webkit-fill-available;">
-					 		<!--百度地图容器-->
-  							<div style="width:95%;height:300px;border:#ccc solid 1px;" id="dituContent"></div>			
-					 	</div>
-					</div>
+					 <br>
+					<div class="panel panel-default" style="background:#f5f5f5;">
+						  <div class="panel-body" style="padding:0px">
+						  		<!--百度地图容器-->
+							<div style="height:300px;border:#ccc solid 0.1%;" id="dituContent"></div>	
+						  </div>
+						</div>
 				</div>
 				</br>
 		</div>
@@ -584,11 +482,10 @@
 
 <!-- 网站底部导航菜单 -->
 		<div class="fh5co-footer-style-3">
-			<div class="container" style="width: 90%;margin-top:-30px;margin-bottom:5px;">
+			<div class="container" style="width: 100%;line-height:26px">
 				<div class="row text-center">
 					<div class="col-md-12 wow fadeInUp" data-wow-duration="1s"s	tyle=" font-size: 12px !important; margin-top:-40px;" data-wow-delay=".5s">
-						<p style="color:rgb(112,97,78);font-size:14px"><a href="http://www.amac.org.cn/">中国证券投资基金业协会</a> | <a href="http://www.sac.net.cn/">中国证券业协会</a> | <a href="http://www.csrc.gov.cn/pub/newsite/">中国证券监督管理委员会</a> | <a href="http://www.szse.cn/">深圳证券交易所</a></p>
-						<p style="color:rgb(112,97,78);font-size:14px"><a href="http://www.sse.com.cn/">上海证券交易所</a> | <a href="http://www.simuwang.com/?utm_source=12">私募排排网</a> | <a href="http://www.cicc.com/index_cn.xhtml?locale=zh_CN">中国国际金融股份有限公司</a> | <a href="http://www.sxzbjs.com/">陕西中博建设集团有限公司</a></p>
+						<p style="color:rgb(112,97,78);font-size:14px"><a href="http://www.amac.org.cn/">中国证券投资基金业协会</a> | <a href="http://www.sac.net.cn/">中国证券业协会</a> | <a href="http://www.csrc.gov.cn/pub/newsite/">中国证券监督管理委员会</a> | <a href="http://www.szse.cn/">深圳证券交易所</a>|<a href="http://www.sse.com.cn/">上海证券交易所</a> | <a href="http://www.simuwang.com/?utm_source=12">私募排排网</a> | <a href="http://www.cicc.com/index_cn.xhtml?locale=zh_CN">中国国际金融股份有限公司</a> | <a href="http://www.sxzbjs.com/">陕西中博建设集团有限公司</a></p>
 						<p style="color:rgb(112,97,78);font-size:14px">Copyright&nbsp;&copy; 2017-2018 博汇康宁（深圳）投资基金管理有限公司 | 粤ICP备17132929号</p>
 						<p style="color:rgb(112,97,78);font-size:14px">技术支持 | 西安敏思笃行信息技术有限公司</p>
 					</div>
@@ -656,6 +553,7 @@
 
 </script>
 
+<!-- 百度地图 -->
 <script type="text/javascript">
     //创建和初始化地图函数：
     function initMap(){
@@ -668,8 +566,8 @@
     //创建地图函数：
     function createMap(){
         var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
-        var point = new BMap.Point(108.847534,34.24549);//定义一个中心点坐标
-        map.centerAndZoom(point,17);//设定地图的中心点和坐标并将地图显示在地图容器中
+        var point = new BMap.Point(108.847594,34.244938);//定义一个中心点坐标
+        map.centerAndZoom(point,18);//设定地图的中心点和坐标并将地图显示在地图容器中
         window.map = map;//将map变量存储在全局
     }
     
@@ -684,9 +582,7 @@
     //地图控件添加函数：
     function addMapControl(){
         //向地图中添加缩放控件
-	var ctrl_nav = new BMap.NavigationControl
-
-({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_SMALL});
+	var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
 	map.addControl(ctrl_nav);
         //向地图中添加缩略图控件
 	var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:0});
@@ -697,9 +593,7 @@
     }
     
     //标注点数组
-    var markerArr = [{title:"我的标记",content:"我的备注",point:"108.846735|34.244849",isOpen:0,icon:
-
-{w:21,h:21,l:0,t:0,x:6,lb:5}}
+    var markerArr = [{title:"博汇康宁（深圳）投资基金管理有限公司",content:"联系地址：陕西省西安市科技路西段绿地鸿海大厦B座9层</br></br>联系电话:029-84536670",point:"108.846736|34.24496",isOpen:1,icon:{w:21,h:21,l:0,t:0,x:6,lb:5}}
 		 ];
     //创建marker
     function addMarker(){
@@ -711,9 +605,7 @@
 			var iconImg = createIcon(json.icon);
             var marker = new BMap.Marker(point,{icon:iconImg});
 			var iw = createInfoWindow(i);
-			var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-
-
-json.icon.x+10,-20)});
+			var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-json.icon.x+10,-20)});
 			marker.setLabel(label);
             map.addOverlay(marker);
             label.setStyle({
@@ -748,23 +640,21 @@ json.icon.x+10,-20)});
     //创建InfoWindow
     function createInfoWindow(i){
         var json = markerArr[i];
-        var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + 
-
-json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
+        var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
         return iw;
     }
     //创建一个Icon
     function createIcon(json){
-        var icon = new BMap.Icon("http://app.baidu.com/map/images/us_mk_icon.png", new BMap.Size
-
-(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb
-
-+5,1),offset:new BMap.Size(json.x,json.h)})
+        var icon = new BMap.Icon("http://app.baidu.com/map/images/us_mk_icon.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
         return icon;
     }
     
     initMap();//创建和初始化地图
 </script>
+<!-- 百度地图 end -->
+
+
+<!-- 我们的优势控件start -->
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -790,6 +680,7 @@ $(document).ready(function(){
 
 });
 </script>
+<!-- 我们的优势控件end -->
 
 </body>
 </html>

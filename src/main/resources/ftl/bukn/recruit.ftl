@@ -242,7 +242,7 @@
 		<div class="fh5co-projects" style="background-color:white">
 				</br>	
 				<div class="container" style="width: 80%;">
-					<div class="row" style="text-align:-center">
+					<div class="row" style="text-align:center">
 						<div class="col-md-3" style="width:100%;font-family:monospace">
 					 		<img src="./images/bhkn_rwm.png" style="width: 15%">
 					 		</br></br></br>
@@ -361,7 +361,7 @@
     }
     
     //标注点数组
-    var markerArr = [{title:"博汇康宁（深圳）投资基金管理有限公司",content:"联系地址：陕西省西安市科技路西段绿地鸿海大厦B座9层</br></br>联系电话:029-84536670",point:"108.846736|34.24496",isOpen:1,icon:{w:21,h:21,l:0,t:0,x:6,lb:5}}
+    var markerArr = [{title:"博汇康宁（深圳）投资基金管理有限公司",content:"联系地址：陕西省西安市科技路西段绿地鸿海大厦B座9层</br></br>联系电话:029-84536670</br></br>电子邮箱:bhkn@bohuikangning.com",point:"108.846736|34.24496",isOpen:1,icon:{w:21,h:21,l:0,t:0,x:6,lb:5}}
 		 ];
     //创建marker
     function addMarker(){
