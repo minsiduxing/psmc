@@ -157,7 +157,7 @@
 		font-size: 12px;
 	}
 	.newsInfoDiv{
-		width: 60%;
+		width: 75%;
 		margin: 30px auto;
 	}
 	.tabDiv{
@@ -580,9 +580,9 @@
 			var hotNews_subtitle = hotNewsArry[i].news_subtitle;
 			var hotNews_releaseDate = hotNewsArry[i].release_date;
 			if(i < 10){
-				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>热点新闻>"+hotNews_title+"</h3></div><div class='panel-body'>发布者："+hotNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hotNews_releaseDate+"</div></div>");
+				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><h5 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>热点新闻>"+hotNews_title+"</h5></div><div class='panel-body'>发布者："+hotNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hotNews_releaseDate+"</div></div>");
 			}else{
-				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal' >热点新闻>"+hotNews_title+"</h3></div><div class='panel-body'>发布者："+hotNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hotNews_releaseDate+"</div></div>");
+				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><h5 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal' >热点新闻>"+hotNews_title+"</h5></div><div class='panel-body'>发布者："+hotNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hotNews_releaseDate+"</div></div>");
 			}
 			
 		}
@@ -593,9 +593,9 @@
 			var timeNews_subtitle = timeNewsArray[i].news_subtitle;
 			var timeNews_releaseDate = timeNewsArray[i].release_date;
 			if(i < 10){
-				$("#newsBlock2").append("<div id='timeNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>实时资讯>"+timeNews_title+"</h3></div><div class='panel-body'>发布者："+timeNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+timeNews_releaseDate+"</div></div>");
+				$("#newsBlock2").append("<div id='timeNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><h5 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>实时资讯>"+timeNews_title+"</h5></div><div class='panel-body'>发布者："+timeNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+timeNews_releaseDate+"</div></div>");
 			}else{
-				$("#newsBlock2").append("<div id='timeNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>实时资讯>"+timeNews_title+"</h3></div><div class='panel-body'>发布者："+timeNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+timeNews_releaseDate+"</div></div>");
+				$("#newsBlock2").append("<div id='timeNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><h5 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>实时资讯>"+timeNews_title+"</h5></div><div class='panel-body'>发布者："+timeNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+timeNews_releaseDate+"</div></div>");
 			}
 			
 		}
@@ -606,9 +606,9 @@
 			var hyNews_subtitle = hyNewsArray[i].news_subtitle;
 			var hyNews_releaseDate = hyNewsArray[i].release_date;
 			if(i < 10){
-				$("#newsBlock3").append("<div id='hyNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>行业动向 >"+hyNews_title+"</h3></div><div class='panel-body' >发布者："+hyNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hyNews_releaseDate+"</div></div>");
+				$("#newsBlock3").append("<div id='hyNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><h5 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>行业动向 >"+hyNews_title+"</h5></div><div class='panel-body' >发布者："+hyNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hyNews_releaseDate+"</div></div>");
 			}else{
-				$("#newsBlock3").append("<div id='hyNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>行业动向>"+hyNews_title+"</h3></div><div class='panel-body' >发布者："+hyNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hyNews_releaseDate+"</div></div>");
+				$("#newsBlock3").append("<div id='hyNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><h5 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>行业动向>"+hyNews_title+"</h5></div><div class='panel-body' >发布者："+hyNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hyNews_releaseDate+"</div></div>");
 			}
 			
 		}
