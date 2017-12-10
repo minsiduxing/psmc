@@ -244,7 +244,7 @@
 				<div class="container" style="width: 80%;">
 					<div class="row" style="text-align:center">
 						<div class="col-md-3" style="width:100%;font-family:monospace">
-					 		<img src="./images/bhkn_rwm.png" style="width: 15%">
+					 		<img src="./images/rwm.png" style="width: 15%">
 					 		</br></br></br>
 					 		<p>联系地址:陕西省西安市科技路西段绿地鸿海大厦B座9层</p>
 							<p>联系电话:029-84536670</p>
