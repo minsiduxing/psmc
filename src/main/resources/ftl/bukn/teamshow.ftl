@@ -152,7 +152,7 @@ html{font-family: 'Noto Sans' , serif;}
 	margin: 1%;
 	padding: 80px 0;
 	position: relative;
-	text-align: -webkit-center;
+	text-align: center;
 	-webkit-transition: .3s cubic-bezier(.3,0,0,1.3);
 	transition: .3s cubic-bezier(.3,0,0,1.3);
 	width: 31%;
@@ -263,7 +263,7 @@ html{font-family: 'Noto Sans' , serif;}
 						
 						<li>
 							<font style="color:rgb(112,97,78);font-size:22px;">曹&nbsp;双&nbsp;宁<br><br></font>
-							<font color="black">投资总监&nbsp;联合创始人<br>中博建设集团总经理</font>
+							<font color="black">投资总监&nbsp;联合创始人<br>&nbsp;</font>
 							<div class="popup">
 								<span>
 									善于挖掘趋势下的价值投资机会，深刻理解市场盛衰循环，独创完美缺陷投资哲学体系，二十年市场操作经验。
