@@ -12,7 +12,6 @@
 	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 	<meta name="author" content="FREEHTML5.CO" />
-	<!-- Google Fonts -->
 	
 	
 	<!-- Animate.css -->
@@ -30,9 +29,9 @@
 	<!-- Cards -->
 	<link rel="stylesheet" href="css/cards.css">
 	
-	<link href="css/page.css" type="text/css" rel="stylesheet" />
 
-
+	<!--产品介绍 控件样式-->
+	<link rel="stylesheet" type="text/css" href="css/inproduct.css">
 	
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
@@ -41,11 +40,10 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 
-	<!--产品介绍样式-->
-	<link rel="stylesheet" type="text/css" href="css/inproduct.css">
-	
-
 	<!-- 我们的优势 控件 风格 start -->
+	
+	<link href="css/page.css" type="text/css" rel="stylesheet" />
+	
 	<style type="text/css">
 		*{margin:0;padding:0;list-style-type:none;}
 		a,img{border:0;}
