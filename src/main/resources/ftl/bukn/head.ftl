@@ -29,21 +29,32 @@
   			color: #7c5a53 !important;
   			font-weight: 600 !important;
 		}
+		
+		
+		.nav_ftype{
+			color:black !important;
+			font-size:25px;
+			font-weight:500;
+			font-family:sans-serif;
+		}
+		
 		.dropdown>a, .index_color{
-			color:#333;
-			font-size:14px;
+			color:black !important;
+			font-size:25px;
+			font-weight:500;
 			font-family:sans-serif;
 		}
 		.dropdown>a:hover, .index_color:hover{
-			color: #333 !important;
-			font-size: 16px;
-            font-weight: 400;
+			color:black !important;
+			font-size: 32px;
+            font-weight: 500;
 		}
 		.dropdown-menu>li>a, .index_colour{
-			color:#333;
-			font-size:14px;
+			color:black;
+			font-size:25px;
+			font-weight:500;
 			font-family:sans-serif;
-			line-height:40px;
+			line-height:60px;
 		}
 		.btn-primary:hover{
 			background-color: #45c46f !important;
@@ -93,12 +104,6 @@
 			margin: 0 auto;
 		}
 		
-		.nav_ftype{
-			color:#333;
-			font-size:15px;
-			font-weight:500;
-			font-family:sans-serif;
-		}
 		
 </style>
 			<div class="container" style="background-color:#f5f5f5;width:100%">
@@ -112,9 +117,11 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-				      <img src="./images/LOGO.png" style="width:200px">
+				     <div style="width:380px">
+				     	 <img src="./images/LOGO.png" style="width:100%">
+				     </div>
 				    </div>
-				     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="float:right;">
+				     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="float:right;margin:2%;">
 				     <ul class="nav navbar-nav">
 					<#list navbars as nav>
 						<#if nav.menuLevel == 2>
