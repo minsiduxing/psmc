@@ -191,23 +191,23 @@
 				<div class="text-center" style="width: 80%;margin: 0 auto;">
 					<img src="./images/youshi.png" style="width: 70%">
 				</div>
-				<div class="text-center" style="width: 80%;margin: 0 auto;">
+				<div class="container" style="width: 80%;">
 						<div class="warp">
 							<div id="f_main_nav" class="f_main_nav">
-								<ul class="clearfix">
+								<ul class="clearfix" style="margin:0%">
 									<li class="fm1">
 										<p class="fm_info">专业化管理团队</p>
-										<p style="text-align:justify">一支富有敬业精神和创造力、经验丰富、高素质和专业化的管理团队，
+										<p class="fm_info_1">一支富有敬业精神和创造力、经验丰富、高素质和专业化的管理团队，
 											团队由金融、投资、企业管理、法律等领域的高端人才、权威专家组成。</p>
 									</li>
 									<li class="fm2">
 										<p class="fm_info">制度化管理体系</p>
-										<p style="text-align:justify">秉承“严谨、精细、执着、精益求精、专注、专业、认真”的运作原则专注于国内外资本市场，以市场化、商业化手段运作，以资深专家团队为依托，以高素质管理团队为核心，
+										<p class="fm_info_1">秉承“严谨、精细、执着、精益求精、专注、专业、认真”的运作原则专注于国内外资本市场，以市场化、商业化手段运作，以资深专家团队为依托，以高素质管理团队为核心，
 											高度重视对内部管理体制和投资项目的风险防范机制的健全和完善，形成了一套稳健、规范的制度化管理体系。</p>
 									</li>
 									<li class="fm3">
 										<p class="fm_info">现代化金融服务企业</p>
-										<p style="text-align:justify">以风险控制为前提，以市场为导向，以客户为中心，以效益为目标，追求可持续发展，力争发展成为“资本充足、运作安全、
+										<p class="fm_info_1">以风险控制为前提，以市场为导向，以客户为中心，以效益为目标，追求可持续发展，力争发展成为“资本充足、运作安全、
 											内控严密、服务优质、效益良好、有核心竞争力”的现代化金融服务企业，致力于为客户提供优质、高效、专业的服务。</p>
 									</li>
 								</ul>
