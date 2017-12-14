@@ -18,8 +18,8 @@ html.mobile-menu-expanded {
 
 body {
   font-family: "Open Sans", Arial, sans-serif;
-  font-size: 16px;
-  line-height: 26px;
+  font-size: 26px;
+  line-height: 40px;
   color: gray;
   font-weight: 400;
 }
@@ -899,12 +899,13 @@ a:hover .lnk-icon-right {
   color: #fff;
 }
 .fh5co-cover .fh5co-cover-text .cover-text-sublead {
-  font-size: 16px;
+  font-size: 25px;
   font-family: "Open Sans", Arial, sans-serif;
-  font-weight: 400;
-  line-height: 26px;
+  font-weight: 300;
+  line-height: 33px;
   color: #fff;
 }
+
 .fh5co-cover .fh5co-cover-text .btn-outline {
   border: 2px solid #fff;
   color: #fff;

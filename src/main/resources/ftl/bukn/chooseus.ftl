@@ -50,91 +50,8 @@
 <!--[if lt IE 9]>
 <script src="js/respond.min.js"></script>
 <![endif]-->
-<style type="text/css" media="screen">
-	.tip{
-		color: #fafafa;
-		letter-spacing: 0;
-		text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;
-	}
-	.fh5co-cover-intro{
-		text-align: center !important;
-		margin-top: 18%;
-	}
-	.crContent{
-		font-family: "STHeiti Light" !important;
-		font-size: 15px !important;
-		color: #DAA520;
-	}
-	.comContentDiv{
-		margin-bottom: 100px;
-	}
-	.compCulture{
-		width: 80%;
-		height: 20px;
-		border-bottom: 1.5px solid #ddd;
-		margin: 30px auto;
-		text-align: center;
-	}
-	.compCuContent{
-		width: 200px;
-		display: inline-block;
-		background-color: #F5F5F5;
-		font-weight: 500;
-		line-height: 1.1;
-		font-size: 24px;
-	}
-	.fh5co-cover-style-2{
-		min-height: 500px !important;
-		background-image: url(images/full_1_1.jpg);
-	}
-	.cover-text-lead{
-		font-weight: 500 !important;
-		margin-bottom: 0;
-	}
-	.companyEN{
-		display: block;
-		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 23px;
-		font-weight: 100;
-		line-height: 37.15px;
-		opacity: 0.6;
-		color: #fff;
-	}
-	.companyLine{
-		border-top-style: solid;
-		border-top-color: rgb(255, 255, 255);
-		border-top-width: 2px;
-		display: block;
-		width: 80px; 
-		margin: 20px auto;
-	}
-	.col-md-4{
-		text-align: center;
-	}
-	.col-md-4>img{
-		transition: All 1s ease-in-out;
-	            -webkit-transition: All 1s ease-in-out;
-	            -moz-transition: All 1s ease-in-out;
-	            -o-transition: All 1s ease-in-out;
-	}
-	.col-md-4>img:hover{
-		transform: scale(1.2);
-	            -webkit-transform: scale(1.2);
-	            -moz-transform: scale(1.2);
-	            -o-transform: scale(1.2);
-	            -ms-transform: scale(1.2);
-	}
-	.windSystemContentDiv{
-		margin-top: 20px;
-		border: 5px solid #FFCC22;
-		border-radius: 8px;
-	}
-	.teamImg{
-		display: block;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+<link rel="stylesheet" href="css/custom.css">
+
 </head>
 <body>
 <!-- 网站顶部部导航菜单 -->
@@ -177,6 +94,9 @@
 					
 				</div>
 			</div>
+			
+			<!-- 风控体系 -->
+			
 			<div class="comContentDiv">
 				<div class="compCulture">
 					<a name="riskmanagement" id="riskmanagement"></a>
@@ -187,6 +107,8 @@
 					<img src="./images/fktx.png" style="width:75%;height:100%;">
 				</div>
 			</div>
+			
+			<!-- 核心团队 -->
 			<div class="comContentDiv">
 				<div class="compCulture">
 					<a name="coreteam" id="coreteam"></a>
@@ -205,6 +127,8 @@
 					</div>
 				</div>
 			</div>
+			
+			<!-- 组织架构 -->
 			<div class="comContentDiv">
 				<div class="compCulture">
 						<a name="investmentprocess" id="investmentprocess"></a>

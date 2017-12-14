@@ -37,178 +37,15 @@
 <!--[if lt IE 9]>
 <script src="js/respond.min.js"></script>
 <![endif]-->
+<link rel="stylesheet" href="css/custom.css">
+
 <!-- baidu -->
 <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
 
 <style type="text/css" media="screen">
-	.tip{
-		color: #fafafa;
-		letter-spacing: 0;
-		text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;
-	}
-	.fh5co-cover-intro{
-		text-align: center !important;
-		margin-top: 18%;
-	}
-	.crContent{
-		font-family: "STHeiti Light" !important;
-		font-size: 15px !important;
-		color: #DAA520;
-	}
-	.comContentDiv{
-		margin-bottom: 100px;
-	}
-	.compCulture{
-		width: 80%;
-		height: 20px;
-		border-bottom: 1.5px solid #ddd;
-		margin: 30px auto;
-		text-align: center;
-	}
-	.compCuContent{
-		width: 200px;
-		display: inline-block;
-		background-color: #F5F5F5;
-		font-weight: 500;
-		line-height: 1.1;
-		font-size: 24px;
-	}
-	.fh5co-cover-style-2{
-		min-height: 500px !important;
-		background-image: url(images/full_1_1.jpg);
-	}
-	.cover-text-lead{
-		font-weight: 500 !important;
-		margin-bottom: 0;
-	}
-	.companyEN{
-		display: block;
-		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 23px;
-		font-weight: 100;
-		line-height: 37.15px;
-		opacity: 0.6;
-		color: #fff;
-	}
-	.companyLine{
-		border-top-style: solid;
-		border-top-color: rgb(255, 255, 255);
-		border-top-width: 2px;
-		display: block;
-		width: 80px; 
-		margin: 20px auto;
-	}
-	.productDiv{
-		text-align: center;
-		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 20px;
-		font-weight: 500;
-		background-color: rgba(51, 122, 183, 1);
-	}
-	.productDiv>a{
-		border: none;
-	    	color: #fff;
-	    	padding: 15px 32px;
-	    	text-align: center;
-	    	text-decoration: none;
-	    	display: inline-block;
-	    	font-size: 16px;
-	}
-	.productDiv:hover{
-		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-	}
-	.hotNews{
-		background-color: red;
-	}
-	.timeNews{
-		background-color: green;
-	}
-	.hangYeMove{
-		background-color: #FFD700;
-	}
-	.newsBlock{
-		margin-top: 30px;
-	}
-	.carousel{
-		width: 80%;
-		margin: 0 auto;
-	}
-	.item{
-		height: 300px;
-	}
-	.newsContentWithImg{
-		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 20px;
-		font-weight: 500;
-		line-height: 37.15px;
-	}
-	.newsContent{
-		margin-top: 10px;
-	}
-	a {
-	  	cursor:pointer;
-	}
-	.newsContentWithImg>p{
-		margin-bottom: 0;
-	}
-	.contentTittle{
-		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 15px;
-	}
-	.contentText{
-		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 12px;
-	}
-	.newsInfoDiv{
-		width: 60%;
-		margin: 30px auto;
-	}
-	.tabDiv{
-		margin: 0 auto;
-		text-align: center;
-	}
-	.pagination>li>a{
-		color: rgb(128,128,128);
-	}
-	.panelGray{
-		background-color: #f5f5f5 !important;
-	}
-	.panel-title:hover{
-	 cursor:pointer;
-	 }
-	.infoBorder{
-		border:2px solid rgba(221, 221, 221, 1);
-		border-radius: 1%;
-	}
-		#myModalText h1{font-weight: normal;font-size:32px;}
-    #myModalText h2 {font-weight: normal;font-size:24px;}
-    #myModalText h3 {font-weight: normal;font-size:18.72px;}
-    #myModalText h4{font-weight: normal;font-size:16px;}
-    #myModalText h5 {font-weight: normal;font-size:13.28px;}
-    #myModalText  h6 {font-weight: normal;font-size:12px;}
-    #myModalText a{color: -webkit-link;;
-    text-decoration: underline;
-    transition: background-color 0.1s ease-in 0s, color 0.2s ease-in 0s;
-    -webkit-transition: background-color 0.1s ease-in 0s, color 0.2s ease-in 0s;}
-    #myModalText table td,   #myModalText tabletable th {
-    border-bottom: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    padding: 3px 5px;
-}
- #myModalText table {
- border-top: 1px solid #ccc;
-    border-left: 1px solid #ccc;
- }
-  #myModalText table th {
-    border: 2px solid #ccc;
-    text-align: center;
-}
- #myModalText b, strong {
-    font-weight: bold;
-}
 	 /* 解决页面抖动*/
 	 body{ overflow: auto !important;} .modal{ overflow: auto !important;} 
-	html,body{margin:0;padding:0;}
+	  /* 百度样式*/
     .iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
     .iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
 	</style>
@@ -242,8 +79,8 @@
 		<div class="fh5co-projects" style="background-color:white">
 				</br>	
 				<div class="container" style="width: 80%;">
-					<div class="row" style="text-align:center">
-						<div class="col-md-3" style="width:100%;font-family:monospace">
+					<div class="row" style="text-align:center;font-family:sans-serif;font-size:26px;">
+						<div class="col-md-3" style="width:100%;">
 					 		<img src="./images/rwm.png" style="width: 15%">
 					 		</br></br></br>
 					 		<p>联系地址:陕西省西安市科技路西段绿地鸿海大厦B座9层</p>
