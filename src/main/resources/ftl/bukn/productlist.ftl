@@ -81,9 +81,9 @@
 	}
 	.imgContentText{
 		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 15px;
+		font-size: 25px;
 		font-weight: 400;
-		line-height: 30px;
+		line-height: 50px;
 		color: rgb(112,97,78);
 		margin-bottom: 0;
 	}
@@ -135,28 +135,28 @@
 					 		<div class="productDiv" id="productDiv01">
 					 			<p class="imgContentText">博汇康宁价值优选1期</br>私募证券投资基金</p>
 					 			<img src="images/product.png" id="img01" style="width:130px">
-					 			<button class="btn btn-default">至今</button>
+					 			<button class="btn btn-default" style="font-size:20px;width:50%;margin-bottom:25px;">至今</button>
 					 		</div>
 					 	</div>
 					  	<div class="col-md-3">
 					 		<div class="productDiv" id="productDiv02">
 					 			<p class="imgContentText">博汇康宁景博稳健1号</br>私募基金</p>
 					 			<img src="images/product.png" id="img01">
-					 			<button class="btn btn-default">2017-03-02~至今</button>
+					 			<button class="btn btn-default" style="font-size:20px;margin-bottom:25px;">2017-03-02~至今</button>
 					 		</div>
 					 	</div>
 					 	<div class="col-md-3">
 					 		<div class="productDiv" id="productDiv03">
 					 			<p class="imgContentText">博汇康宁股票型管理1期</br>私募证券投资基金</p>
 					 			<img src="images/product.png" id="img01">
-					 			<button class="btn btn-default">2017-03-31~至今</button>
+					 			<button class="btn btn-default" style="font-size:20px;margin-bottom:25px;">2017-03-31~至今</button>
 					 		</div>
 					 	</div>
 					 	<div class="col-md-3">
 					 		<div class="productDiv" id="productDiv02">
 					 			<p class="imgContentText">博汇康宁</br>中原1号</p>
 					 			<img src="images/product.png" id="img01">
-					 			<button class="btn btn-default">2017-07-25~至今</button>
+					 			<button class="btn btn-default" style="font-size:20px;margin-bottom:25px;">2017-07-25~至今</button>
 					 		</div>
 					 	</div>
 					 	
@@ -168,9 +168,9 @@
 					<a name="productlineview" id="productlineview"></a>
 					<span class="compCuContent">产&nbsp;品&nbsp;线&nbsp;一&nbsp;览</span>
 				</div>
-				<div class="clearfix">
+				<div class="clearfix" style="font-size:23px;">
 					<table class="table table-hover">
-					 	<tr class="active">
+					 	<tr class="active" style="font-size:25px;">
 					 		<td>#</td>
 					 		<td>类别</td>
 					 		<td>策略</td>

@@ -120,10 +120,10 @@
 				<div class="container" style="width: 80%;">
 					<div class="row">
 					 	<div class="col-md-6 text-center">
-					 		<img src="images/yyzz.png" style="width: 335px; height: 415px;">
+					 		<img src="images/yyzz.png" style="width:100%;height:100%;">
 					 	</div>
 					 	<div class="col-md-6 text-center">
-					 		<img src="images/zzjg.jpg" style="width: 335px; height: 415px;">
+					 		<img src="images/zzjg.jpg" style="width:100%;height:100%;">
 					 	</div>
 					 </div>
 				</div>

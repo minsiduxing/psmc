@@ -39,16 +39,99 @@
 <![endif]-->
 <link rel="stylesheet" href="css/custom.css">
 
-<!-- baidu -->
-<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
 
 <style type="text/css" media="screen">
 	 /* 解决页面抖动*/
 	 body{ overflow: auto !important;} .modal{ overflow: auto !important;} 
-	  /* 百度样式*/
-    .iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
-    .iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
+</style>
+
+
+	<!--百度地图 样式start-->
+	
+	<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+	<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+	
+	<style type="text/css">
+    .iw_poi_title {color:#CC5522;font-size:25px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
+    .iw_poi_content {font:22px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
 	</style>
+	<!--百度地图 样式end-->
+
+
+<!--联系我们样式 -->
+		<style type="text/css">
+			
+			.cUl{
+				width:100%;
+				height:500px;
+				margin:2%;
+				
+			}
+			.csimg1{
+				width:100%;
+				height:50%;
+				background-image:url("./images/csub1.png");
+				background-repeat:no-repeat;
+				background-size:30%;
+				background-position:42%;
+			}
+			.csimg2{
+				width:100%;
+				height:50%;
+				background-image:url("./images/csub2.png");
+				background-repeat:no-repeat;
+				background-size:30%;
+				background-position:42%;
+			}
+			.csimg3{
+				width:100%;
+				height:50%;
+				background-image:url("./images/csub3.png");
+				background-repeat:no-repeat;
+				background-size:30%;
+				background-position:42%;
+			}
+			.csimg4{
+				width:100%;
+				height:50%;
+				background-image:url("./images/csub4.png");
+				background-repeat:no-repeat;
+				background-size:30%;
+				background-position:42%;
+			}
+			
+			.csub1,.csub2,.csub3,.csub4 {
+				width:25%;
+				min-width:350px;
+				height:100%;
+				background-repeat:no-repeat;
+				background-size:40% 40%;
+				float:left;
+			}
+			.cstitle{
+				display:block;
+				position:relative;
+				width:100%;
+				font-size:30px;
+				font-weight:bold;
+				color:black;
+				left:29%;
+				top:9;
+				
+			}
+			.cscontext{
+				width:59%;
+				display:block;
+				position:relative;
+				top:10%;
+				font-size:25px;
+				line-height:50px;
+				left:15%;
+				text-align:center;
+			}
+		</style>
+	<!--联系我们样式 end -->
+
 </head>
 <body>
 <!-- 网站顶部部导航菜单 -->
@@ -76,27 +159,46 @@
 		
 		<!--联系我们 start-->
 		
-		<div class="fh5co-projects" style="background-color:white">
-				</br>	
+		<div class="fh5co-projects index_mod_div" style="background-color:#F5F5F5;padding-bottom:60px">
+					
 				<div class="container" style="width: 80%;">
-					<div class="row" style="text-align:center;font-family:sans-serif;font-size:26px;">
-						<div class="col-md-3" style="width:100%;">
-					 		<img src="./images/rwm.png" style="width: 15%">
-					 		</br></br></br>
-					 		<p>联系地址:陕西省西安市科技路西段绿地鸿海大厦B座9层</p>
-							<p>联系电话:029-84536670</p>
-							<p>电子邮箱:bhkn@bohuikangning.com</p>
-					 	</div>
-					</div>
-					</br>
 					<div class="row">
-					 	<div class="col-md-3"  style="width: 100%;">
-					 		<!--百度地图容器-->
-  							<div style="width:95%;height:300px;border:#ccc solid 1px;" id="dituContent"></div>			
-					 	</div>
+						<div class="cUl">
+							<div class="csub1">
+								<div class="csimg1"></div>
+								<span class="cstitle">联系地址</span>
+								<span class="cscontext">陕西省西安市科技路西段绿地鸿海大厦B座9层</span>
+							</div>
+							<div class="csub2">
+								<div class="csimg2"></div>
+								<span class="cstitle">联系邮箱</span>
+								<span class="cscontext">bhkn@bohuikangning.com</span>	
+							</div>
+							<div class="csub3">
+								<div class="csimg3"></div>
+								<span class="cstitle">联系电话</span>
+								<span class="cscontext">029-84536670</span>
+							</div>
+							<div class="csub4">
+								<div class="csimg4"></div>
+								<span class="cstitle">公司微信</span>
+								<span class="cscontext"><img src="./images/rwm.png" style="width:150px;height:150px"></span>
+							</div>
+							
+							
+						</div>
 					</div>
+					
+					
+					<div class="row" style="background:#f5f5f5;margin-top:5%">
+						  		<!--百度地图容器-->
+							<div style="height:600px;border:#ccc solid 0.1%;" id="dituContent"></div>	
+					</div>
+					
 				</div>
-				</br>
+				
+				
+				
 		</div>
 		<!--联系我们 end-->
 		
@@ -197,8 +299,8 @@
 	map.addControl(ctrl_sca);
     }
     
-    //标注点数组
-    var markerArr = [{title:"博汇康宁（深圳）投资基金管理有限公司",content:"联系地址：陕西省西安市科技路西段绿地鸿海大厦B座9层</br></br>联系电话:029-84536670</br></br>电子邮箱:bhkn@bohuikangning.com",point:"108.846736|34.24496",isOpen:1,icon:{w:21,h:21,l:0,t:0,x:6,lb:5}}
+   //标注点数组
+    var markerArr = [{title:"博汇康宁（深圳）投资基金管理有限公司",content:"</br>联系地址：陕西省西安市科技路西段绿地鸿海大厦B座9层</br></br></br>",point:"108.846736|34.24496",isOpen:1,icon:{w:21,h:21,l:0,t:0,x:6,lb:5}}
 		 ];
     //创建marker
     function addMarker(){
