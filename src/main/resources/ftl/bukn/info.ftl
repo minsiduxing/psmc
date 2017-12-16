@@ -131,7 +131,8 @@
        background-color: #F5F5F5;
       }
     #myModalText{
-     font-size:14px;
+	font-size:25px;
+     line-height:50px;
     font-style: normal;
     font-family: Microsoft YaHei !important;
     }
@@ -246,7 +247,7 @@
 	</div>
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	  	<div class="modal-dialog" role="document">
+	  	<div class="modal-dialog" role="document"  style="width:100%;">
 	    		<div class="modal-content">
 	      			<div class="modal-header">
 		        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -266,7 +267,7 @@
 					  
 				</div>
 		      		<div class="modal-footer">
-				        	<button type="button" class="btn btn-default"   data-dismiss="modal">返回</button>
+				        	<button style="width:10%;font-size:25px;" type="button" class="btn btn-default"   data-dismiss="modal">返回</button>
 		      		</div>
 	    		</div>
 	  	</div>

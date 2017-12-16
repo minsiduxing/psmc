@@ -168,7 +168,6 @@ var _url ="/psmc/login?username=query&ppassword=c4ca4238a0b923820dcc509a6f75849b
  				success:function(data){
  					var dataObj = JSON.parse(data);
  					if(dataObj.res =="success"){
- 						alert(dataObj.rmsg);
  						window.location.href="index.html";
  					}else{
  						writemsg(dataObj.rmsg);

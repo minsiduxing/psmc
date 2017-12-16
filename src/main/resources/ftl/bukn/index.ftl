@@ -429,10 +429,7 @@
 	<script src="js/main.js">
 
 <script>
-	//判断用户cookie是否存在 
-    if($.cookie("userID")==null){  
-         $('#_logout').css("display","none");
-     }
+	
      //退出登录
 	function logout(){
 	if(window.confirm("您确认退出登录吗？")){
@@ -446,7 +443,6 @@
 	 				success:function(data){
 	 					var dataObj = JSON.parse(data);
 	 					if(dataObj.res =="success"){
-	 						alert(dataObj.rmsg);
 	 						window.location.href="index.html";
 	 					}else{
 	 						writemsg(dataObj.rmsg);
@@ -567,6 +563,13 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+
+	//判断用户cookie是否存在 
+    if($.cookie("userID")==null){  
+         $('#_logout').css("display","none");
+     }
+     
+     
 
     var f_main_nav=$("#f_main_nav");
     var f_main_con=$("#f_main_con");

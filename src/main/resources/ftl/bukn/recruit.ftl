@@ -245,7 +245,6 @@
 	 				success:function(data){
 	 					var dataObj = JSON.parse(data);
 	 					if(dataObj.res =="success"){
-	 						alert(dataObj.rmsg);
 	 						window.location.href="index.html";
 	 					}else{
 	 						writemsg(dataObj.rmsg);

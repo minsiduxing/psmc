@@ -29,71 +29,19 @@
 
 <!-- Cards -->
 <link rel="stylesheet" href="css/cards.css">
-<!-- 公司历程时间轴 -->
-<link href="css/timerStyle.css" rel="stylesheet">
+
 <!-- Modernizr JS -->
 <script src="js/modernizr-2.6.2.min.js"></script>
 <!-- FOR IE9 below -->
 <!--[if lt IE 9]>
 <script src="js/respond.min.js"></script>
 <![endif]-->
+<link rel="stylesheet" href="css/custom.css">
 <style type="text/css" media="screen">
-	.fh5co-cover-intro{
-		text-align: center !important;
-		margin-top: 18%;
-	}
-	.crContent{
-		font-family: "STHeiti Light" !important;
-		font-size: 15px !important;
-		color: #DAA520;
-	}
-	.comContentDiv{
-		margin-bottom: 100px;
-	}
-	.compCulture{
-		width: 80%;
-		height: 20px;
-		border-bottom: 1.5px solid #ddd;
-		margin: 30px auto;
-		text-align: center;
-	}
-	.compCuContent{
-		width: 200px;
-		display: inline-block;
-		background-color: #F5F5F5;
-		font-weight: 500;
-		line-height: 1.1;
-		font-size: 24px;
-	}
-	.fh5co-cover-style-2{
-		min-height: 500px !important;
-		background-image: url(images/full_1_1.jpg);
-	}
-	.cover-text-lead{
-		font-weight: 500 !important;
-		margin-bottom: 0;
-	}
-	.companyEN{
-		display: block;
-		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 23px;
-		font-weight: 100;
-		line-height: 37.15px;
-		opacity: 0.6;
-		color: #fff;
-	}
-	.companyLine{
-		border-top-style: solid;
-		border-top-color: rgb(255, 255, 255);
-		border-top-width: 2px;
-		display: block;
-		width: 80px; 
-		margin: 20px auto;
-	}
 	.productDiv{
 		text-align: center;
 		font-family: "Microsoft YaHei","微软雅黑";
-		font-size: 20px;
+		font-size: 25px;
 		font-weight: 500;
 		background-color: rgba(51, 122, 183, 1);
 	}
@@ -104,7 +52,7 @@
 	    	text-align: center;
 	    	text-decoration: none;
 	    	display: inline-block;
-	    	font-size: 16px;
+	    	font-size: 23px;
 	}
 	.productDiv:hover{
 		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
@@ -152,7 +100,7 @@
 		font-size: 12px;
 	}
 	.newsInfoDiv{
-		width: 60%;
+		width: 75%;
 		margin: 30px auto;
 	}
 	.tabDiv{
@@ -165,19 +113,36 @@
 	.panelGray{
 		background-color: #f5f5f5 !important;
 	}
-	.panel-title:hover{
+	.info-title:hover{
 	 cursor:pointer;
 	 }
 	.infoBorder{
 		border:2px solid rgba(221, 221, 221, 1);
 		border-radius: 1%;
 	}
-		#myModalText h1{font-weight: normal;font-size:32px;}
-    #myModalText h2 {font-weight: normal;font-size:24px;}
-    #myModalText h3 {font-weight: normal;font-size:18.72px;}
-    #myModalText h4{font-weight: normal;font-size:16px;}
-    #myModalText h5 {font-weight: normal;font-size:13.28px;}
-    #myModalText  h6 {font-weight: normal;font-size:12px;}
+	
+	.modal-content h1{font-weight: normal;font-size:32px;}
+    .modal-content h2 {font-weight: normal;font-size:24px;}
+    .modal-content h3 {font-weight: normal;font-size:18.72px;}
+    .modal-content h4{font-weight: normal;font-size:16px;}
+    .modal-content h5 {font-weight: normal;font-size:13.28px;}
+    .modal-content  h6 {font-weight: normal;font-size:12px;}    
+    .modal-content {
+       color: #4a4a4a;
+       background-color: #F5F5F5;
+      }
+    #myModalText{
+     font-size:25px;
+     line-height:50px;
+    font-style: normal;
+    font-family: Microsoft YaHei !important;
+    }
+    .modal-title {
+    margin-bottom: 24px;
+    line-height: 1.42857;
+    font-size: 36px !important;
+    font-weight:lighter;
+   }
     #myModalText a{color: -webkit-link;;
     text-decoration: underline;
     transition: background-color 0.1s ease-in 0s, color 0.2s ease-in 0s;
@@ -197,6 +162,14 @@
 }
  #myModalText b, strong {
     font-weight: bold;
+}
+	#newabstract{
+	font-size:17px;
+	}
+	.modal-header {
+    padding: 15px;
+    border-bottom:none;
+    min-height: 16.42857px;
 }
 	 /* 解决页面抖动*/
 	 body{ overflow: auto !important;} .modal{ overflow: auto !important;} 
@@ -274,7 +247,7 @@
 	</div>
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	  	<div class="modal-dialog" role="document">
+	  	<div class="modal-dialog" role="document" style="width:100%;">
 	    		<div class="modal-content">
 	      			<div class="modal-header">
 		        			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -294,7 +267,7 @@
 					  
 				</div>
 		      		<div class="modal-footer">
-				        	<button type="button" class="btn btn-default"   data-dismiss="modal">返回</button>
+				        	<button style="width:10%;font-size:25px;" type="button" class="btn btn-default"   data-dismiss="modal">返回</button>
 		      		</div>
 	    		</div>
 	  	</div>
@@ -321,7 +294,6 @@
 <script>
 //判断用户cookie是否存在 
 if($.cookie("userID")==null){  
-  alert("您还未登录请登录!");
   window.location.href="login.html";
 }
 	new WOW().init();
@@ -553,9 +525,9 @@ if($.cookie("userID")==null){
 			var hotNews_subtitle = hotNewsArry[i].news_subtitle;
 			var hotNews_releaseDate = hotNewsArry[i].release_date;
 			if(i < 10){
-				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>会员新闻>"+hotNews_title+"</h3></div><div class='panel-body'>发布者："+hotNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hotNews_releaseDate+"</div></div>");
+				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default'><div class='panel-heading panelGray'><span class='info-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal'>会员新闻>"+hotNews_title+"</span></div><div class='panel-body'>发布者："+hotNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hotNews_releaseDate+"</div></div>");
 			}else{
-				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><h3 class='panel-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal' >会员新闻>"+hotNews_title+"</h3></div><div class='panel-body'>发布者："+hotNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hotNews_releaseDate+"</div></div>");
+				$("#newsBlock1").append("<div id='hotNews_"+(i+1)+"' class='panel panel-default hidden'><div class='panel-heading panelGray'><span class='info-title' onclick='showDtail(\""+uuid+"\")' data-toggle='modal' data-target='#myModal' >会员新闻>"+hotNews_title+"</span></div><div class='panel-body'>发布者："+hotNews_author+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间："+hotNews_releaseDate+"</div></div>");
 			}
 			
 		}
