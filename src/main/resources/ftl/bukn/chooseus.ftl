@@ -104,7 +104,7 @@
 				</div>
 				</br>
 				<div class="container" style="text-align:center;">
-					<img src="./images/fktx.png" style="width:75%;height:100%;">
+					<img src="./images/fktx.png" style="width:90%;height:100%;">
 				</div>
 			</div>
 			
