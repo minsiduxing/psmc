@@ -19,23 +19,22 @@
 				<div id="large-header" class="large-header">
 					<canvas id="demo-canvas"></canvas>
 					<div class="logo_box">
-						<h3>博汇康宁欢迎你</h3>
 						<center><span id ="msg"style="color:red !important;"></span></center>
 						<br>
 						<form action="#" id="loginForm" name="f" method="post" autocomplete="off">
 							<div class="input_outer">
 								<span class="u_user"></span>
 
-								<input name="userId" id="username" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入用户名"/>
+								<input name="userId" id="username" class="text" style="color: #FFFFFF !important;font-size:25px;" type="text" placeholder="请输入用户名"/>
 
 							</div>
 							<div class="input_outer">
 								<span class="us_uer"></span>
-								<input name="password" id="password" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"value="" type="password" placeholder="请输入密码"/>
+								<input name="password" id="password" class="text" style="color: #FFFFFF !important;font-size:25px; position:absolute; z-index:100;"value="" type="password" placeholder="请输入密码"/>
 							</div>
-							<div class="mb2"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF" onclick="loginSubmit()">登录</a></div>
-
-							<div class="mb2"><a class="act-but submit" onclick="findPass()" href="javascript:;" style="color: #FFFFFF">忘记密码</a></div>
+							<div class="mb2"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF;font-size:25px;"  onclick="loginSubmit()">登录</a></div>
+							<div class="mb2"><a class="act-but submit" onclick="findPass()" href="javascript:;" style="color: #FFFFFF;font-size:25px;">忘记密码</a></div>
+							<div class="mb2"><a class="act-but submit" onclick="returnIndex()" href="javascript:;" style="color: #FFFFFF;font-size:25px;">返回首页</a></div>
 						</form>
 					</div>
 				</div>
@@ -122,6 +121,12 @@
 	function findPass(){
 		window.location.href="find.html";
 	}
+	function returnIndex(){
+		window.location.href="index.html";
+	}
+	
+	
+	
 </script>
 </span>
 </html>
