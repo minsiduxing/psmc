@@ -147,6 +147,30 @@
 		</style>
 	<!--联系我们样式 end -->
 	
+	<style type="text/css">
+					.ind_title{
+						text-align:center;
+						margin:30px auto;
+						height:200px;
+					}
+					.tit_name{
+						font-size:40px;
+						letter-spacing:8px;
+						font-weight:bold;
+						line-height:55px;
+					}
+					
+					.tit_span1{
+						position:relative;
+						color:rgb(112,97,78);
+					}
+					.sub_tit_name{
+						font-size:20px;
+						font-weight:700;
+					}
+
+	<style>
+	
 	
 	</head>
 	
@@ -158,60 +182,74 @@
 			<div class="fh5co-cover js-full-height" data-next="yes"  style="background-color: white;background-image: url(images/full_001.jpg); background-size:cover;background-repeat:no-repeat;background-position:top;">
 		</div>
 		<div class="fh5co-project-style-2 index_mod_div" style="background-color:white">
-			<div class="text-center" style="width: 80%;margin: 0 auto;">
-				<img src="./images/welcome.png" style="width: 70%;">
+			<div class="ind_title">
+					<div class="tit_name">
+						<p class="tit_span1">欢迎来到<font color="black">博汇康宁</font></p>
+						<p class="sub_tit_name">WELCOMETO BOHUIKANGNING FUNDS</p>
+					</div>
 			</div>
 		</div>
-		<div class="fh5co-projects" style="background-color:white">
-			<!-- 企业文化的滚动模态框效果-->
-			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000">
-				<!-- Indicators -->
-			  	<ol class="carousel-indicators">
-					<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-					<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-					<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-					<li data-target="#carousel-example-generic" data-slide-to="3"></li>
-				  </ol>
-			  	<!-- Wrapper for slides -->
-			  	<div class="carousel-inner" role="listbox">
-			    		<div class="item active">
-			      			<img src="images/full_401.jpg" alt="...">
-			      			<div class="carousel-caption">
-			      			</div>
-			    		</div>
-			   	 	<div class="item">
-			     			<img src="images/full_402.jpg" alt="...">
-			      			<div class="carousel-caption">
-			      			</div>
-			    		</div>
-			     		<div class="item">
-			      			<img src="images/full_403.jpg" alt="...">
-			      			<div class="carousel-caption">
-			      			</div>
-			    		</div>
-			    		<div class="item">
-			      			<img src="images/full_404.jpg" alt="...">
-			      			<div class="carousel-caption">
-			      			</div>
-			    		</div>
-			  	</div>
-			  	<!-- Controls -->
-			  	<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-			    		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-			    		<span class="sr-only">Previous</span>
-			  	</a>
-			  	<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-			    		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-			    		<span class="sr-only">Next</span>
-			  	</a>		  	
+		<div class="fh5co-projects" style="background-color:#F5F5F5">
+			
+			<div class="container" style="width: 80%">
+				<p style="position:relative;width:100%;text-align:left;line-height:32px;font-size:23px;letter-spacing:3px;color:black;">博汇康宁（深圳）投资基金管理有限公司是专业化投资基金管理公司，经深圳市市场监督管理局批准，在深圳注册成立。</p>
+				<p style="position:relative;width:100%;text-align:left;line-height:32px;font-size:23px;letter-spacing:3px;color:black;">2016年1月获得中国证券投资基金业协会颁发的“私募投资基金管理人登记证书”（编号：P1030701 ），成为具有从事私募证券投资、股权投资、创业投资等私募基金投资管理业务资格的金融公司。</p>
+				<!-- 企业文化的滚动模态框效果-->
+				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000"
+					style="width:100%">
+					<!-- Indicators -->
+				  	<ol class="carousel-indicators">
+						<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="3"></li>
+					  </ol>
+				  	<!-- Wrapper for slides -->
+				  	<div class="carousel-inner" role="listbox">
+				    		<div class="item active">
+				      			<img src="images/full_401.jpg" alt="...">
+				      			<div class="carousel-caption">
+				      			</div>
+				    		</div>
+				   	 	<div class="item">
+				     			<img src="images/full_402.jpg" alt="...">
+				      			<div class="carousel-caption">
+				      			</div>
+				    		</div>
+				     		<div class="item">
+				      			<img src="images/full_403.jpg" alt="...">
+				      			<div class="carousel-caption">
+				      			</div>
+				    		</div>
+				    		<div class="item">
+				      			<img src="images/full_404.jpg" alt="...">
+				      			<div class="carousel-caption">
+				      			</div>
+				    		</div>
+				  	</div>
+				  	<!-- Controls -->
+				  	<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+				    		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				    		<span class="sr-only">Previous</span>
+				  	</a>
+				  	<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+				    		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				    		<span class="sr-only">Next</span>
+				  	</a>		  	
+				</div>
+				
 			</div>
 		</div>
 		
 		
 		<!--我们的优势 start-->
 		<div class="fh5co-projects index_mod_div" style="background-color:#F5F5F5">
-				<div class="text-center" style="width: 80%;margin: 0 auto;">
-					<img src="./images/youshi.png" style="width: 70%">
+				<div class="ind_title">
+					<div class="tit_name">
+						<p class="tit_span1">我们的<font color="black">优势</font></p>
+						<p class="sub_tit_name">OUR ADVANTAGES</p>
+					</div>
+
 				</div>
 				<div class="container" style="width: 80%;">
 						<div class="warp">
@@ -242,8 +280,12 @@
 		
 		<!--产品介绍-->
 		<div class="fh5co-projects index_mod_div" style="background-color:white">
-				<div class="text-center" id="productlist" style="width: 80%;margin: 0 auto;">
-					<img src="./images/product_introduction.png" style="width: 70%">
+				<div class="ind_title">
+					<div class="tit_name">
+						<p class="tit_span1">产品<font color="black">介绍</font></p>
+						<p class="sub_tit_name">PRODUCT INTRODUCTION</p>
+					</div>
+				
 				</div>
 				<div class="container" style="width: 80%;">
 					<div class="row" style="padding:60px 0 60px 0;">
@@ -308,8 +350,12 @@
 		<!--联系我们 start-->
 		
 		<div class="fh5co-projects index_mod_div" style="background-color:#F5F5F5;padding-bottom:60px">
-				<div class="text-center"  style="width: 80%;margin: 0 auto;">
-					<img src="./images/contact_us.png" style="width: 70%">
+				
+				<div class="ind_title">
+					<div class="tit_name">
+						<p class="tit_span1">联系<font color="black">我们</font></p>
+						<p class="sub_tit_name">CONTACT US</p>
+					</div>
 				</div>
 								
 				<div class="container" style="width: 80%;">
