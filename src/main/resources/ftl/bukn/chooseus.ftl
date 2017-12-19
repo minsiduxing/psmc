@@ -79,7 +79,7 @@
 			<div class="comContentDiv">
 				<div class="compCulture">
 					<a name="ourstrengths" id="ourstrengths"></a>
-					<span class="compCuContent">我&nbsp;们&nbsp;的&nbsp;优&nbsp;势</span>
+					<span class="compCuContent">团&nbsp;队&nbsp;优&nbsp;势</span>
 				</div>
 				</br>
 				<div class="container" style="width: 80%;">
