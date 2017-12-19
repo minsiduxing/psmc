@@ -102,3 +102,8 @@ INSERT INTO tab_navigation_bar (menu_uuid, menu_name, menu_url, parent_menu_uuid
 
 update tab_navigation_bar  t set is_locked='1' where t.menu_name like '%研究团队%';
 update tab_navigation_bar  t set menu_name='组织架构' where t.menu_name like '%投资流程%';
+
+update tab_navigation_bar set menu_name='博汇康宁' where menu_uuid='9cdf2c2c88d44e4c8a26a565e9f0d03c';
+update tab_navigation_bar set menu_name='团队优势' where menu_uuid='45015de50581469aa954a8bdf4b6aa69';
+update tab_navigation_bar set is_locked=1 where menu_uuid='52bb245046c249ec83ac2908dd8ecf46';
+update tab_navigation_bar set is_locked=1 where menu_uuid='fbb16e0051bc4a7aa02e43ee776cc27b';

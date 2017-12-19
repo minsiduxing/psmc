@@ -53,10 +53,10 @@
 		.clearfix{display: inline-block;}
 		.clearfix{display: block;}
 		/* warp */
-		.warp{width: 100%;margin: 0 auto;padding:60px 0 60px;}
+		.warp{width: 100%;margin: 0 auto;padding:0px 0 60px;}
 		
 		.index_mod_div{
-			padding:60px 0px 0px 0px;
+			padding:60px 0px 10px 0px;
 		}		
 	</style>
 	<!-- 我们的优势 控件 风格 end -->
@@ -150,8 +150,7 @@
 	<style type="text/css">
 					.ind_title{
 						text-align:center;
-						margin:30px auto;
-						height:200px;
+						height:300px;
 					}
 					.tit_name{
 						font-size:40px;
@@ -178,20 +177,19 @@
 		<!-- 网站顶部部导航菜单 -->
 		 <#include "head.html"/> 
 		<!-- 网站顶部导航菜单结束 -->
-		<div id="fh5co-page" style="background-color: #F5F5F5">
-			<div class="fh5co-cover js-full-height" data-next="yes"  style="background-color: white;background-image: url(images/full_001.jpg); background-size:cover;background-repeat:no-repeat;background-position:top;">
+		<div id="fh5co-page" style="background-color: #F5F5F5;height:100%;">
+			<div class="fh5co-cover js-full-height" data-next="yes"  style="background-color: white;background-image: url(images/full_001.jpg); background-size:cover;background-repeat:no-repeat;background-position:top;max-height:930px;">
 		</div>
-		<div class="fh5co-project-style-2 index_mod_div" style="background-color:white">
-			<div class="ind_title">
+
+		<div class="fh5co-projects index_mod_div" style="background-color:#F5F5F5">
+			<div class="container" style="width: 80%">
+				<div class="ind_title">
 					<div class="tit_name">
 						<p class="tit_span1">欢迎来到<font color="black">博汇康宁</font></p>
-						<p class="sub_tit_name">WELCOMETO BOHUIKANGNING FUNDS</p>
+						<p class="sub_tit_name" style="margin:0px;">WELCOME TO BOHUIKANGNING FUNDS</p>
 					</div>
-			</div>
-		</div>
-		<div class="fh5co-projects" style="background-color:#F5F5F5">
-			
-			<div class="container" style="width: 80%">
+				</div>
+				
 				<p style="position:relative;width:100%;text-align:left;line-height:32px;font-size:23px;letter-spacing:3px;color:black;">博汇康宁（深圳）投资基金管理有限公司是专业化投资基金管理公司，经深圳市市场监督管理局批准，在深圳注册成立。</p>
 				<p style="position:relative;width:100%;text-align:left;line-height:32px;font-size:23px;letter-spacing:3px;color:black;">2016年1月获得中国证券投资基金业协会颁发的“私募投资基金管理人登记证书”（编号：P1030701 ），成为具有从事私募证券投资、股权投资、创业投资等私募基金投资管理业务资格的金融公司。</p>
 				<!-- 企业文化的滚动模态框效果-->
@@ -243,7 +241,7 @@
 		
 		
 		<!--我们的优势 start-->
-		<div class="fh5co-projects index_mod_div" style="background-color:#F5F5F5">
+		<div class="fh5co-projects index_mod_div" style="background-color:white;">
 				<div class="ind_title">
 					<div class="tit_name">
 						<p class="tit_span1">我们的<font color="black">优势</font></p>
@@ -279,7 +277,7 @@
 		<!--我们的优势 end-->
 		
 		<!--产品介绍-->
-		<div class="fh5co-projects index_mod_div" style="background-color:white">
+		<div class="fh5co-projects index_mod_div" style="background-color:#F5F5F5;">
 				<div class="ind_title">
 					<div class="tit_name">
 						<p class="tit_span1">产品<font color="black">介绍</font></p>
@@ -288,7 +286,7 @@
 				
 				</div>
 				<div class="container" style="width: 80%;">
-					<div class="row" style="padding:60px 0 60px 0;">
+					<div class="row" style="padding:0px 0 60px 0;">
 					 	<div class="col-md-4 col-sm-6">
 							<div class="serviceBox">
 								<div class="service-icon">
@@ -307,7 +305,7 @@
 								<div class="service-icon">
 								</div>
 								<div class="service-Content">
-									<p class="title">博汇康宁景博稳健1号私募基金</p>
+									<p class="title">博汇康宁景博稳健1号私募基金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
 									<p class="description">
 										2017-3-2 至今
 									</p>
@@ -349,7 +347,7 @@
 
 		<!--联系我们 start-->
 		
-		<div class="fh5co-projects index_mod_div" style="background-color:#F5F5F5;padding-bottom:60px">
+		<div class="fh5co-projects index_mod_div" style="background-color:white;padding-bottom:60px">
 				
 				<div class="ind_title">
 					<div class="tit_name">

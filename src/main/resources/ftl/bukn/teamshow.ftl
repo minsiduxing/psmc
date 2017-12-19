@@ -232,7 +232,7 @@ font-size:35px;
 				</div>
 			</div>
 		</div>
-			
+		<!-- 
 		<div class="fh5co-project-style-2">
 				<div class="compCulture">
 					<a name="ourstrengths" id="ourstrengths"></a>
@@ -311,6 +311,7 @@ font-size:35px;
 					</div>
 					<div class="clearfix visible-sm-block"></div>
 		</div>
+		-->
 	<!-- 网站底部导航菜单 -->
 		 <#include "footer.html"/>  
 		<!-- END footer -->
