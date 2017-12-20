@@ -1,0 +1,135 @@
+.productDiv{
+		text-align: center;
+		font-family: "Microsoft YaHei","微软雅黑";
+		font-size: 25px;
+		font-weight: 500;
+		background-color: rgba(51, 122, 183, 1);
+	}
+	.productDiv>a{
+		border: none;
+	    	color: #fff;
+	    	padding: 15px 32px;
+	    	text-align: center;
+	    	text-decoration: none;
+	    	display: inline-block;
+	    	font-size: 23px;
+	}
+	.productDiv:hover{
+		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+	}
+	.hotNews{
+		background-color: red;
+	}
+	.timeNews{
+		background-color: green;
+	}
+	.hangYeMove{
+		background-color: #FFD700;
+	}
+	.newsBlock{
+		margin-top: 30px;
+	}
+	.carousel{
+		width: 80%;
+		margin: 0 auto;
+	}
+	.item{
+		height: 300px;
+	}
+	.newsContentWithImg{
+		font-family: "Microsoft YaHei","微软雅黑";
+		font-size: 20px;
+		font-weight: 500;
+		line-height: 37.15px;
+	}
+	.newsContent{
+		margin-top: 10px;
+	}
+	a {
+	  	cursor:pointer;
+	}
+	.newsContentWithImg>p{
+		margin-bottom: 0;
+	}
+	.contentTittle{
+		font-family: "Microsoft YaHei","微软雅黑";
+		font-size: 15px;
+	}
+	.contentText{
+		font-family: "Microsoft YaHei","微软雅黑";
+		font-size: 12px;
+	}
+	.newsInfoDiv{
+		width: 75%;
+		margin: 30px auto;
+	}
+	.tabDiv{
+		margin: 0 auto;
+		text-align: center;
+	}
+	.pagination>li>a{
+		color: rgb(128,128,128);
+	}
+	.panelGray{
+		background-color: #f5f5f5 !important;
+	}
+	.info-title:hover{
+	 cursor:pointer;
+	 }
+	.infoBorder{
+		border:2px solid rgba(221, 221, 221, 1);
+		border-radius: 1%;
+	}
+	
+	.modal-content h1{font-weight: normal;font-size:32px;}
+    .modal-content h2 {font-weight: normal;font-size:24px;}
+    .modal-content h3 {font-weight: normal;font-size:18.72px;}
+    .modal-content h4{font-weight: normal;font-size:16px;}
+    .modal-content h5 {font-weight: normal;font-size:13.28px;}
+    .modal-content  h6 {font-weight: normal;font-size:12px;}    
+    .modal-content {
+       color: #4a4a4a;
+       background-color: #F5F5F5;
+      }
+    #myModalText{
+	font-size:25px;
+     line-height:50px;
+    font-style: normal;
+    font-family: Microsoft YaHei !important;
+    }
+    .modal-title {
+    margin-bottom: 24px;
+    line-height: 1.42857;
+    font-size: 36px !important;
+    font-weight:lighter;
+   }
+    #myModalText a{color: -webkit-link;;
+    text-decoration: underline;
+    transition: background-color 0.1s ease-in 0s, color 0.2s ease-in 0s;
+    -webkit-transition: background-color 0.1s ease-in 0s, color 0.2s ease-in 0s;}
+    #myModalText table td,   #myModalText tabletable th {
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 3px 5px;
+}
+ #myModalText table {
+ border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+ }
+  #myModalText table th {
+    border: 2px solid #ccc;
+    text-align: center;
+}
+ #myModalText b, strong {
+    font-weight: bold;
+}
+	#newabstract{
+	font-size:17px;
+	}
+	.modal-header {
+    padding: 15px;
+    border-bottom:none;
+    min-height: 16.42857px;
+}
+	 /* 解决页面抖动*/
+	 body{ overflow: auto !important;} .modal{ overflow: auto !important;} 
