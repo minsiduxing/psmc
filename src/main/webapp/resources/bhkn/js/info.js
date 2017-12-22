@@ -22,8 +22,8 @@ $(function() {
 
 //初始化新闻页面
 function initnews (){
+	$('#newsBlock1').hide();
 	$('#newsBlock2').hide();
-	$('#newsBlock3').hide();
 	 newsType = "hotNews";//初始化默认展示热点新闻
 	 newsArraySize = hotNewsArry.length; //初始化默认热点新闻长度
 	// 初始化给页面渲染三个类型新闻列表信息
