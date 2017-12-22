@@ -171,7 +171,7 @@
 				<div class="clearfix" style="font-size:23px;">
 					<table class="table table-hover">
 					 	<tr class="active" style="font-size:25px;">
-					 		<td>#</td>
+					 		<td>&nbsp;</td>
 					 		<td>类别</td>
 					 		<td>策略</td>
 					 		<td>风险收益特征</td>

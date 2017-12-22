@@ -210,8 +210,8 @@ font-size:35px;
 							<font class="ccc_title">赵&nbsp;少&nbsp;康<br><br></font>
 							<font class="ccc_sub_title">总经理&nbsp;联合创始人<br>中博建设集团总经理</font>
 							<div class="popup">
-								<span>
-									加拿大多伦多大学商学学士、加拿大多伦多大学文学学士、加拿大多伦多大学金融学硕士、北京大学深圳汇丰商学院EMBA。
+								<span style="margin:0px 20px;">
+									加拿大多伦多大学商学学士</br>加拿大多伦多大学文学学士</br>加拿大多伦多大学金融学硕士</br>北京大学深圳汇丰商学院EMBA
 								</span>
 							</div>
 						</li>

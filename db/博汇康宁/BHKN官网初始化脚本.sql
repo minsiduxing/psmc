@@ -107,3 +107,12 @@ update tab_navigation_bar set menu_name='博汇康宁' where menu_uuid='9cdf2c2c
 update tab_navigation_bar set menu_name='团队优势' where menu_uuid='45015de50581469aa954a8bdf4b6aa69';
 update tab_navigation_bar set is_locked=1 where menu_uuid='52bb245046c249ec83ac2908dd8ecf46';
 update tab_navigation_bar set is_locked=1 where menu_uuid='fbb16e0051bc4a7aa02e43ee776cc27b';
+update tab_navigation_bar t set t.is_locked=1 where menu_uuid='0adaed200eab4dcaaf29023e702ba762';
+update tab_navigation_bar  t set menu_name='公司历程',ordernum=12  where menu_uuid='943a2edac23e40d8a39c3e97afea6b84';
+update tab_navigation_bar  t set ordernum=13  where menu_uuid='4e669c7a8fe44c6db5487e825bb1b2a0';
+
+
+update tab_navigation_bar set is_locked=1 where menu_uuid='da4de3037f074465a700d957dbbc935c';
+update tab_navigation_bar set is_locked=1 where menu_uuid='81cb0cdb539249baad079d94192b36b9';
+update tab_navigation_bar set is_locked=1 where menu_uuid='3b50544383774cf9805e09d060ccccfe';
+update tab_person set person_name='博汇康宁' where uuid='bd474935a3894530af485bea128501ec';
