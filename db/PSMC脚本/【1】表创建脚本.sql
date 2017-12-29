@@ -89,3 +89,5 @@ CREATE TABLE tab_news (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 alter table tab_resource add column is_view integer  comment '是否展示?1是2否';  
+alter table tab_news modify column news_content text  CHARACTER SET utf8mb4 DEFAULT NULL;
+
