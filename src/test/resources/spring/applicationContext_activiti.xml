@@ -20,7 +20,7 @@
 	    <property name="asyncExecutorActivate" value="false" />
 	    <property name="deploymentResources">
 			<list>  
-               <value>classpath*:/priv/guchun/psmc/**/*.bpmn</value>  
+               <value>classpath*:/priv/guochun/psmc/**/*.bpmn</value>  
           	</list>  
 	    </property>
 	    <property name="eventListeners">

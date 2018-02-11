@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:cache="http://www.springframework.org/schema/cache"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache-4.3.xsd"
+    default-lazy-init="false" default-autowire="byName">
+
+	<cache:annotation-driven cache-manager="cacheManager"/>  
+	
+	<bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">  
+        <property name="configLocation" value="classpath:/ehcache.xml" />  
+    </bean>  
+      
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">      
+        <property name="cacheManager"  ref="cacheManagerFactory"/>      
+        <property name="transactionAware" value="false"/>  
+    </bean>  
+    
+    <!--自定义psmc缓存工厂-->
+    <bean id="psmcCacheFactory" class="priv.guochun.psmc.system.framework.cache.PsmcCacheFactoryImpl">      
+    	<property name="cacheManager"  ref="cacheManager"/>      
+    </bean>
+    
+    <!--缓存数据加载接口 -->
+    <bean id="psmcInitCacheTool" class="priv.guochun.psmc.system.framework.cache.PsmcInitCacheToolImpl"/>
+    
+    <!--缓存定时加载 -->
+	<bean id="initCacheTask" class="priv.guochun.psmc.system.framework.cache.InitCacheTask"/>
+	
+	
+	
+</beans>

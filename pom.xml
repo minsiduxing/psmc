@@ -10,6 +10,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.3.0.RELEASE</spring.version>  
+		<activiti.version>6.0.0</activiti.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -139,6 +140,14 @@
 		  <artifactId>spring-jdbc</artifactId>
 		  <version>${spring.version}</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.activiti/activiti-spring -->
+		<dependency>
+		    <groupId>org.activiti</groupId>
+		    <artifactId>activiti-spring</artifactId>
+		    <version>${activiti.version}</version>
+		</dependency>
+		
 		
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -324,7 +333,7 @@
 		<dependency>
 		    <groupId>org.activiti</groupId>
 		    <artifactId>activiti-engine</artifactId>
-		    <version>6.0.0</version>
+		    <version>${activiti.version}</version>
 		</dependency>
 		
 	</dependencies>
