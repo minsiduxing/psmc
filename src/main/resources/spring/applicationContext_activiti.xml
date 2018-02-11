@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
+	default-lazy-init="false" default-autowire="byName">
+	
+	<!-- activiti产品引擎配置 -->
+	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+	    <property name="dataSource" ref="dataSource" />
+	    <property name="transactionManager" ref="transactionManager" />
+	    <property name="databaseSchemaUpdate" value="true" />
+	    <property name="asyncExecutorActivate" value="false" />
+	    <property name="eventListeners">
+	      <list>
+	         <bean class="priv.guochun.psmc.system.framework.activiti.listener.PsmcActivitiEventListener" />
+	      </list>
+	    </property>
+	</bean>
+	
+	<!-- activiti处理引擎（工厂） -->
+	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+	  <property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+		
+	<!--这项服务提供运营管理和操纵deployments和process definitions -->
+	<bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
+  	
+  	<!-- 检索和存储的服务process variables。这是特定于给定流程实例的数据，可以被流程中的各种构造使用 -->
+  	<bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
+  	
+  	<!-- 需要由系统的实际用户执行的任务是诸如Activiti之类的BPM引擎的核心。任务周围的任务都被分组到TaskService中-->
+  	<bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
+  	
+  	<!-- Activiti的引擎收集的所有历史数据 -->
+  	<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
+  	
+  	<!-- 它允许检索有关数据库表和表元数据的信息。此外，它还暴露了查询功能和作业管理操作。
+  	Activiti中使用的工作包括定时器，异步延期，延迟挂起/激活等等 -->
+  	<bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
+
+
+
+</beans>
