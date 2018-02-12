@@ -18,6 +18,9 @@
 	    <property name="transactionManager" ref="transactionManager" />
 	    <property name="databaseSchemaUpdate" value="true" />
 	    <property name="asyncExecutorActivate" value="false" />
+	    <property name="idGenerator">
+		    <bean class="org.activiti.engine.impl.persistence.StrongUuidGenerator" />
+		</property>
 	    <property name="deploymentResources">
 			<list>  
                <value>classpath*:/priv/guochun/psmc/**/*.bpmn</value>  

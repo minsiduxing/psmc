@@ -5,6 +5,8 @@ import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.Gson;
+
 /**
  * 自定义Activiti流程事件监听器
  * <p>Title: </p>
@@ -34,10 +36,8 @@ public class PsmcActivitiEventListener implements ActivitiEventListener
     @Override
     public void onEvent(ActivitiEvent arg0)
     {
-        logger.debug("onEvent "+arg0.getExecutionId());
-        logger.debug("onEvent "+arg0.getProcessDefinitionId());
-        logger.debug("onEvent "+arg0.getProcessInstanceId());
-        
+    	//Gson gson = new Gson();
+        //logger.info("ActivitiEvent json str "+gson.toJson(arg0));
     }
 
 }
