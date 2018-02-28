@@ -1,19 +1,15 @@
 package priv.guochun.psmc.system.activiti;
 
-import java.util.List;
-
-import org.activiti.engine.ActivitiException;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.repository.ProcessDefinition;
-import org.activiti.engine.repository.ProcessDefinitionQuery;
-import org.activiti.engine.runtime.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import priv.guochun.psmc.system.BaseTestClass;
+import priv.guochun.psmc.system.activiti.service.PsmcActivitiOperService;
+import priv.guochun.psmc.system.activiti.service.impl.PsmcActivitiOperServiceImpl;
 
 public class BaseActivitiTest extends BaseTestClass {
 
@@ -25,6 +21,8 @@ public class BaseActivitiTest extends BaseTestClass {
 	
 	@Autowired
 	private RepositoryService repositoryService;
+	
+	private PsmcActivitiOperService psmcActivitiOperService;
 	
 	protected static final  Logger logger  = LoggerFactory.getLogger(BaseActivitiTest.class);
 	
@@ -59,6 +57,14 @@ public class BaseActivitiTest extends BaseTestClass {
 		
 	}
 
+	public PsmcActivitiOperService getPsmcActivitiOperService() {
+		return psmcActivitiOperService;
+	}
+
+	public void setPsmcActivitiOperService(PsmcActivitiOperService psmcActivitiOperService) {
+		this.psmcActivitiOperService = psmcActivitiOperService;
+	}
+	
 
 	
 	

@@ -3,7 +3,7 @@
   <process id="activitiFlow1" name="my_activiti_flow_one" isExecutable="true">
     <startEvent id="start" name="开始" activiti:formKey="wf:submitAdhocTask"></startEvent>
     <sequenceFlow id="flow1" sourceRef="start" targetRef="task1Id"></sequenceFlow>
-    <userTask id="task1Id" name="task1Name" activiti:assignee="guochun" activiti:formKey="wf:adhocTask"></userTask>
+    <userTask id="task1Id" name="task1Name" activiti:candidateGroups="taskTestGroup1" activiti:formKey="wf:adhocTask"></userTask>
     <sequenceFlow id="flow2" sourceRef="task1Id" targetRef="task2Id"></sequenceFlow>
     <userTask id="task2Id" name="task2Name" activiti:assignee="liuyan" activiti:formKey="wf:completedAdhocTask">
       <documentation>Verify the arbitrary task was completed.</documentation>

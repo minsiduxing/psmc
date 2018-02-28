@@ -18,9 +18,23 @@ public class BaseActivitiTest2Junit extends BaseActivitiTest {
 	
 	@Override
 	public void test() {
-		getTask();
-
+		completeTask(getTaskByProcessInstanceId("72dde8fb-1c5a-11e8-9c4e-74e50b897790"));
+		
 	}
+	
+	public Task getTaskByProcessInstanceId(String processInstanceId){
+		Task result = null;
+		List<Task> list = this.getTaskService().createTaskQuery().list();
+		for(int i=0;i<list.size();i++){
+			Task task = list.get(i);
+			String piid = task.getProcessInstanceId();
+			if(piid.equals(processInstanceId)){
+				result = task;
+			}
+		}
+		return result;
+	}
+	
 	
 	public void getTask(){
 				
@@ -48,12 +62,12 @@ public class BaseActivitiTest2Junit extends BaseActivitiTest {
 //		this.getRuntimeService().suspendProcessInstanceById(task.getProcessInstanceId());
 //		this.getRuntimeService().activateProcessInstanceById(task.getProcessInstanceId());
 		this.getTaskService().complete(task.getId());
-		logger.debug("task "+task.getId()+"complete成功!");
+		logger.info("task "+task.getId()+"complete成功!");
 	}
 	
 	public void completeTask(String taskId){
 		this.getTaskService().complete(taskId);
-		logger.debug("task "+taskId+"complete成功!");
+		logger.info("task "+taskId+"complete成功!");
 	}
 	
 	
