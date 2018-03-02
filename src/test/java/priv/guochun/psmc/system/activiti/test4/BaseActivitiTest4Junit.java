@@ -38,10 +38,13 @@ public class BaseActivitiTest4Junit extends BaseActivitiTest {
 	 * 测试sigal 启动流程
 	 */
 	public void signalStartFlow(){
-//		this.getTaskService().complete(query.getCurrentTaskBypiid("4dd5d041-1dc9-11e8-b816-74e50b897790").getId());
-//		this.getTaskService().complete(query.getCurrentTaskBypiid("4de67213-1dc9-11e8-b816-74e50b897790").getId());
+		this.getTaskService().complete(query.getCurrentTaskBypiid("6d0c3f63-1de7-11e8-8bc9-74e50b897790").getId());
+		this.getTaskService().complete(query.getCurrentTaskBypiid("e4973ecf-1dea-11e8-9ba5-74e50b897790").getId());
+		this.getTaskService().complete(query.getCurrentTaskBypiid("e4985041-1dea-11e8-9ba5-74e50b897790").getId());
 		
-		this.getRuntimeService().signalEventReceived("globalSigalName");
+		
+		
+//		this.getRuntimeService().signalEventReceived("globalSigalName");
 	}
 	
 	
