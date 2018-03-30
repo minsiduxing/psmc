@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * 自定义Activiti流程事件监听器
@@ -36,8 +37,8 @@ public class PsmcActivitiEventListener implements ActivitiEventListener
     @Override
     public void onEvent(ActivitiEvent arg0)
     {
-    	//Gson gson = new Gson();
-        //logger.info("ActivitiEvent json str "+gson.toJson(arg0));
+    	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+    	logger.info("ActivitiEvent json str "+arg0!=null?arg0.getType().name():"");
     }
 
 }
