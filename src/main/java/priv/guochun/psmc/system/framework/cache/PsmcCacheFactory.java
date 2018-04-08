@@ -22,5 +22,11 @@ public interface PsmcCacheFactory
      */
     public Cache getCacheSystem();
     
+    /**
+     * 得到key=CACHE_WORKFLOW工作流缓存对象
+     * @return
+     */
+    public Cache getWorkFlow();
+    
 
 }

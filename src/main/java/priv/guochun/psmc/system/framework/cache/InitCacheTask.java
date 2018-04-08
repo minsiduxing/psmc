@@ -37,7 +37,7 @@ public class InitCacheTask extends QuartzJobBean
     {
         if(psmcInitCacheTool!=null){
             logger.debug("InitCacheTask start! ");
-            psmcInitCacheTool.resourcePermitOperatesInit();
+            psmcInitCacheTool.initCache(CacheContants.CACHE_SYSTEM_RESOURCE_OPERATE);
             logger.debug("InitCacheTask end! ");
         }
     }

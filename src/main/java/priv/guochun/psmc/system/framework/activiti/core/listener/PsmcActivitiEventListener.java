@@ -1,4 +1,4 @@
-package priv.guochun.psmc.system.framework.activiti.listener;
+package priv.guochun.psmc.system.framework.activiti.core.listener;
 
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
@@ -38,7 +38,7 @@ public class PsmcActivitiEventListener implements ActivitiEventListener
     public void onEvent(ActivitiEvent arg0)
     {
     	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-    	logger.info("ActivitiEvent json str "+arg0!=null?arg0.getType().name():"");
+    	logger.debug("ActivitiEvent json str "+arg0!=null?arg0.getType().name():"");
     }
 
 }

@@ -15,6 +15,7 @@ public class PsmcCacheFactoryImpl implements PsmcCacheFactory
     protected static final  Logger logger  = LoggerFactory.getLogger(PsmcCacheFactoryImpl.class);
     
     private Cache cacheSystem = null;
+    private Cache workflowSystem = null;
     
     public Cache getCacheSystem(){
         if(cacheSystem == null){
@@ -22,6 +23,14 @@ public class PsmcCacheFactoryImpl implements PsmcCacheFactory
             cacheSystem = new CacheProxy(cacheObj,psmcInitCacheTool);
         }
         return cacheSystem;
+    }
+    
+    public Cache getWorkFlow(){
+    	 if(workflowSystem == null){
+             Cache cacheObj= getCacheByName(CacheContants.CACHE_WORKFLOW);
+             workflowSystem = new CacheProxy(cacheObj,psmcInitCacheTool);
+         }
+         return workflowSystem;
     }
     
     private Cache getCacheByName(String name){

@@ -45,6 +45,14 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
         logger.debug("开始加载缓存[系统属地]end!!!!!!!!!!!!!!");
     }
     
+    public void workFlowDefinitionInit(){
+        logger.debug("开始加载缓存[工作流表单配置]start!!!!!!!!!!!!!!");
+        List<Map<?,?>> sysResourcePermitOperates = cityService.getAllRegion();
+        Cache cache = psmcCacheFactory.getWorkFlow();
+        cache.put(CacheContants.CACHE_SYSTEM_WORKFOLW_DEFINITION, null);
+        logger.debug("开始加载缓存[工作流表单配置]end!!!!!!!!!!!!!!");
+    }
+    
     public void initCache(Object key){
         if(key == null)
             return;
@@ -55,6 +63,8 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
             dataDictInit();
         }else if(cacheKey.equals(CacheContants.CACHE_SYSTEM_DATA_CITY)){
             tabCityInit();
+        }else if(cacheKey.equals(CacheContants.CACHE_SYSTEM_WORKFOLW_DEFINITION)){
+        	
         }else{
             logger.warn("缓存["+cacheKey+"]没有可以进行初始化的方法!!!");
         }
