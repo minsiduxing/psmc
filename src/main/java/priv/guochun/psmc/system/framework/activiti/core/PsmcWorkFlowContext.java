@@ -4,11 +4,15 @@ import java.util.List;
 
 import org.activiti.engine.RuntimeService;
 
+import priv.guochun.psmc.system.common.log.service.TSysOperLogService;
+import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
+
 /**
  * psmc工作流上下文
  * @author Administrator
  */
 public interface PsmcWorkFlowContext {
+	
 	
 	public RuntimeService getRuntimeService();
 	
@@ -16,9 +20,15 @@ public interface PsmcWorkFlowContext {
 	public Integer getRetryCount();
 	
 	/**
-	 * 得到流程表单配置信息
+	 * 得到启用的流程表单配置信息
 	 */
-	public List<?> getWorkFlowDefinition();
+	public List<TFlowConfig> getWorkFlowDefinition();
+	/**
+	 * 根据表单编码获取启用的 最新的表单配置信息
+	 * @param formno
+	 * @return
+	 */
+	public TFlowConfig getWorkFlowDefinition(String formno);
 	
 	
 }

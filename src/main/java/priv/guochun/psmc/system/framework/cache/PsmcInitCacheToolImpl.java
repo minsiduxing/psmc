@@ -10,6 +10,9 @@ import org.springframework.cache.Cache;
 import priv.guochun.psmc.authentication.operate.service.TabOperateService;
 import priv.guochun.psmc.system.common.city.service.CityService;
 import priv.guochun.psmc.system.common.dict.service.TabDataDictService;
+import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
+import priv.guochun.psmc.system.framework.activiti.model.TFlowConfigExample;
+import priv.guochun.psmc.system.framework.activiti.service.TFlowConfigService;
 
 public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
 {
@@ -19,6 +22,8 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
     private TabOperateService tabOperateService;
     private TabDataDictService tabDataDictService;
     private CityService cityService;
+    private TFlowConfigService tFlowConfigService;
+    
     
     public void resourcePermitOperatesInit(){
         logger.debug("开始加载缓存[系统所有资源业务操作]start!!!!!!!!!!!!!!");
@@ -47,9 +52,13 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
     
     public void workFlowDefinitionInit(){
         logger.debug("开始加载缓存[工作流表单配置]start!!!!!!!!!!!!!!");
-        List<Map<?,?>> sysResourcePermitOperates = cityService.getAllRegion();
+        TFlowConfigExample example = new TFlowConfigExample();
+        example.setDistinct(true);
+        example.setOrderByClause("create_time desc");
+        example.createCriteria().andEnabledEqualTo(Short.valueOf("1"));
+        List<TFlowConfig> tflowConfigs = tFlowConfigService.getAllTFlowConfig(example);
         Cache cache = psmcCacheFactory.getWorkFlow();
-        cache.put(CacheContants.CACHE_SYSTEM_WORKFOLW_DEFINITION, null);
+        cache.put(CacheContants.CACHE_SYSTEM_WORKFOLW_DEFINITION, tflowConfigs);
         logger.debug("开始加载缓存[工作流表单配置]end!!!!!!!!!!!!!!");
     }
     
@@ -64,7 +73,7 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
         }else if(cacheKey.equals(CacheContants.CACHE_SYSTEM_DATA_CITY)){
             tabCityInit();
         }else if(cacheKey.equals(CacheContants.CACHE_SYSTEM_WORKFOLW_DEFINITION)){
-        	
+        	workFlowDefinitionInit();
         }else{
             logger.warn("缓存["+cacheKey+"]没有可以进行初始化的方法!!!");
         }
@@ -111,6 +120,14 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
     {
         this.cityService = cityService;
     }
+
+	public TFlowConfigService gettFlowConfigService() {
+		return tFlowConfigService;
+	}
+
+	public void settFlowConfigService(TFlowConfigService tFlowConfigService) {
+		this.tFlowConfigService = tFlowConfigService;
+	}
     
     
 

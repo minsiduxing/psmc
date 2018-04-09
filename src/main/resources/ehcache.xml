@@ -42,4 +42,17 @@
             diskExpiryThreadIntervalSeconds="300"
             memoryStoreEvictionPolicy="LRU"  
             />  
+            
+   		<cache 	
+   			name="CACHE_WORKFLOW" 
+   			maxElementsInMemory="1000" 
+   			eternal="false"  
+            timeToIdleSeconds="600" 
+            timeToLiveSeconds="600" 
+            overflowToDisk="false"  
+            diskPersistent="false" 
+            diskExpiryThreadIntervalSeconds="300"
+            memoryStoreEvictionPolicy="LRU"  
+            />              
+            
 </ehcache>  

@@ -10,17 +10,17 @@
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
-	default-lazy-init="false" default-autowire="byName">
-
-
-	<bean id="cityService" class="priv.guochun.psmc.system.common.city.service.impl.CityServiceImpl" />
-
-	<bean id="cityDao" class="priv.guochun.psmc.system.common.city.dao.CityDaoImplMybatis" />
+	default-lazy-init="false"  default-autowire="byName">
 	
-	<bean id="tabDataDictService" class="priv.guochun.psmc.system.common.dict.service.impl.TabDataDictServiceImpl" />
-
-	<bean id="tabDataDictDao" class="priv.guochun.psmc.system.common.dict.dao.TabDataDictDaoImplMybatis" />
+  	<!-- psmc封装的runtimeService对象 -->
+	<bean id="runtimeService" class="priv.guochun.psmc.system.framework.activiti.core.engine.PsmcProxyRuntimeService" />
 	
-	<bean id="tabDataDictDao" class=" priv.guochun.psmc.system.common.log.service.TSysOperLogServiceImpl" />
+  	<!-- psmc的activiti上下文对象 -->
+	<bean id="psmcWorkFlowContext" class="priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContextImpl" />
+	
+	<!-- 流程定义配置服务 -->
+	<bean id="tFlowConfigService" class="priv.guochun.psmc.system.framework.activiti.service.impl.TFlowConfigServiceImpl" />
+	
+	
 
 </beans>

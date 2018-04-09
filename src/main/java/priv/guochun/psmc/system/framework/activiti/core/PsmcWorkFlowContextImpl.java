@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.activiti.engine.RuntimeService;
 
+import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
 import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 
@@ -30,11 +31,25 @@ public class PsmcWorkFlowContextImpl implements PsmcWorkFlowContext {
 		return new Integer(3);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<?> getWorkFlowDefinition() {
-		List<?> list = psmcCacheFactory.getWorkFlow().get(CacheContants.CACHE_SYSTEM_WORKFOLW_DEFINITION,List.class);
+	public List<TFlowConfig> getWorkFlowDefinition() {
+		List<TFlowConfig> list = psmcCacheFactory.getWorkFlow().get(CacheContants.CACHE_SYSTEM_WORKFOLW_DEFINITION,List.class);
 		return list;
 	}
 
-	
+	public TFlowConfig getWorkFlowDefinition(String formno){
+		TFlowConfig result = null;
+		List<TFlowConfig> list = getWorkFlowDefinition();
+		if(list !=null && list.size()>0){
+			for(int i=0;i<list.size();i++){
+				TFlowConfig obj = list.get(i);
+				if(obj.getFlowNo().equals(formno)){
+					result = obj;
+					break;
+				}
+			}
+		}
+		return result;
+	}
 }

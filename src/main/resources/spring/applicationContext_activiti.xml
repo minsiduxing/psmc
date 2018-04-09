@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
-	default-lazy-init="false" default-autowire="byName">
+	default-lazy-init="false">
 	
 	<!-- activiti引擎配置 -->
 	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
@@ -47,12 +47,4 @@
   	<!-- Activiti的引擎收集的所有历史数据 -->
   	<bean id="realHistoryService" factory-bean="processEngine" factory-method="getHistoryService" />
   	
-  	<!-- psmc封装的runtimeService对象 -->
-	<bean id="runtimeService" class="priv.guochun.psmc.system.framework.activiti.core.engine.PsmcProxyRuntimeService" />
-	
-  	<!-- psmc的activiti上下文对象 -->
-	<bean id="psmcActivitiContext" class="priv.guochun.psmc.system.framework.activiti.core。PsmcWorkFlowContextImpl" />
-	
-	
-
 </beans>

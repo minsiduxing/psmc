@@ -23,25 +23,44 @@ import org.activiti.engine.task.Event;
 import org.activiti.engine.task.IdentityLink;
 import org.apache.commons.lang.StringUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import priv.guochun.psmc.authentication.login.service.LoginService;
+import priv.guochun.psmc.system.common.log.model.TSysOperLog;
+import priv.guochun.psmc.system.common.log.service.TSysOperLogService;
 import priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContext;
 import priv.guochun.psmc.system.framework.activiti.core.factory.PsmcActivitiExceptionFactory;
+import priv.guochun.psmc.system.framework.util.LogResultEnum;
+import priv.guochun.psmc.system.framework.util.LogTypeEnum;
+import priv.guochun.psmc.system.util.DateUtil;
+import priv.guochun.psmc.system.util.UUIDGenerator;
 
-public class PsmcProxyRuntimeService implements RuntimeService {
+/**
+ * RuntimeService的增强类，主要实现调用RuntimeServiceAPI时进行的附加操作可以动态拔插
+ * @author Administrator
+ *
+ */
+public class PsmcRuntimeServiceBoost implements RuntimeService {
 
-	//activiti的runtimeService对象
 	private RuntimeService realRuntimeService;
 	
 	private PsmcWorkFlowContext psmcWorkFlowContext;
 	
-	public PsmcProxyRuntimeService(){
-		
+	private TSysOperLogService tSysOperLogService;
+	
+	private LoginService loginService;
+	
+	public PsmcRuntimeServiceBoost(RuntimeService realRuntimeService){
+		this.realRuntimeService = realRuntimeService;
 	}
 	
 	@Override
 	public ProcessInstanceBuilder createProcessInstanceBuilder() {
 		return realRuntimeService.createProcessInstanceBuilder();
 	}
-
+	
+	
 	@Override
 	public ProcessInstance startProcessInstanceByKey(String processDefinitionKey) {
 		throw PsmcActivitiExceptionFactory.createNotAllowUeseApiException();
@@ -55,13 +74,30 @@ public class PsmcProxyRuntimeService implements RuntimeService {
 	@Override
 	public ProcessInstance startProcessInstanceByKey(String processDefinitionKey, Map<String, Object> variables) {
 		String startUserId = variables.get("startUserId").toString();
-		String formNo = variables.get("formNo").toString();
+		TSysOperLog sysOperLog = new TSysOperLog();
+		sysOperLog.setLogType(LogTypeEnum.LogTypeFlow.getIndex());
+		sysOperLog.setLogTypeName(LogTypeEnum.LogTypeFlow.getName());
+		sysOperLog.setOperDate(DateUtil.getCurrentTimstamp());
+		sysOperLog.setOperid(startUserId);
+		sysOperLog.setOpername(loginService.buildUser(startUserId).getPersonName());
+		sysOperLog.setUuid(UUIDGenerator.createUUID());
+		sysOperLog.setRemark("流程启动操作日志");
 		
-		ProcessInstance pi = realRuntimeService.startProcessInstanceByKey(processDefinitionKey,variables);
-		if(pi == null || StringUtils.isEmpty(pi.getProcessInstanceId())){
+		ProcessInstance pi = null;
+		try{
+			pi = realRuntimeService.startProcessInstanceByKey(processDefinitionKey,variables);
+			if(pi == null || StringUtils.isEmpty(pi.getProcessInstanceId()))
+				throw new RuntimeException();
+		}catch(Exception e){
+			e.printStackTrace();
+			//补偿
 			int flag = psmcWorkFlowContext.getRetryCount().intValue();
 			while(flag>=1){
-				pi = realRuntimeService.startProcessInstanceByKey(processDefinitionKey,variables);
+				try{
+					pi = realRuntimeService.startProcessInstanceByKey(processDefinitionKey,variables);
+				}catch(Exception e1){
+					e.printStackTrace();
+				}
 				if(pi == null || StringUtils.isEmpty(pi.getProcessInstanceId()))
 					flag--;
 				else
@@ -69,14 +105,19 @@ public class PsmcProxyRuntimeService implements RuntimeService {
 			}
 		}
 		
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		sysOperLog.setOperInput(gson.toJson(variables));
+		
 		if(pi == null || StringUtils.isEmpty(pi.getProcessInstanceId())){
-			// TODO 日志记录重试后无法启动流程
-			return null;
+			sysOperLog.setOperResult(LogResultEnum.error.getIndex());
 		}else{
-			// TODO 日志记录
+			sysOperLog.setOperResult(LogResultEnum.success.getIndex());
+			sysOperLog.setOperOutput(gson.toJson(pi));
 		}
+		tSysOperLogService.save(sysOperLog);
 		
 		return pi;
+		
 	}
 
 	@Override
@@ -608,10 +649,15 @@ public class PsmcProxyRuntimeService implements RuntimeService {
 		return realRuntimeService.getProcessInstanceEvents(processInstanceId);
 	}
 
-	public void setRealRuntimeService(RuntimeService realRuntimeService) {
-		this.realRuntimeService = realRuntimeService;
+	
+	public TSysOperLogService gettSysOperLogService() {
+		return tSysOperLogService;
 	}
 
+	public void settSysOperLogService(TSysOperLogService tSysOperLogService) {
+		this.tSysOperLogService = tSysOperLogService;
+	}
+	
 	
 	
 }
