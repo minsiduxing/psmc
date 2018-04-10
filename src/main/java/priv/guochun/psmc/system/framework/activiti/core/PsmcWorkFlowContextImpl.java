@@ -17,18 +17,32 @@ import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
  */
 public class PsmcWorkFlowContextImpl implements PsmcWorkFlowContext {
 
-	private RuntimeService proxyRuntimeService;
+	
+	private RuntimeService	runtimeService;
 	private PsmcCacheFactory psmcCacheFactory;
 	
 	@Override
+	public boolean enableEqualize(){
+		return true;
+	}
+	
+	@Override
+	public boolean enableAudit(){
+		return true;
+	}
+	
+	@Override
 	public RuntimeService getRuntimeService() {
-		return proxyRuntimeService;
+		return runtimeService;
 	}
 
 	@Override
 	public Integer getRetryCount() {
-		// TODO 目前写死 后续从系统配置获取
-		return new Integer(3);
+		if(enableEqualize()){
+			return new Integer(3);
+		}else
+			return new Integer(0);
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -52,4 +66,23 @@ public class PsmcWorkFlowContextImpl implements PsmcWorkFlowContext {
 		}
 		return result;
 	}
+
+	public void setRuntimeService(RuntimeService runtimeService) {
+		this.runtimeService = runtimeService;
+	}
+
+	public PsmcCacheFactory getPsmcCacheFactory() {
+		return psmcCacheFactory;
+	}
+
+	public void setPsmcCacheFactory(PsmcCacheFactory psmcCacheFactory) {
+		this.psmcCacheFactory = psmcCacheFactory;
+	}
+	
+	
+	
+	
+	
+	
+	
 }

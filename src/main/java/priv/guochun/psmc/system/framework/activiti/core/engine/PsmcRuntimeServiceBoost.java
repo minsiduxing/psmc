@@ -22,7 +22,11 @@ import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.activiti.engine.task.Event;
 import org.activiti.engine.task.IdentityLink;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.github.pagehelper.StringUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -51,6 +55,12 @@ public class PsmcRuntimeServiceBoost implements RuntimeService {
 	
 	private LoginService loginService;
 	
+	private final static  Logger logger  = LoggerFactory.getLogger(PsmcRuntimeServiceBoost.class.getName());
+	
+	public PsmcRuntimeServiceBoost(){
+		
+	}
+	
 	public PsmcRuntimeServiceBoost(RuntimeService realRuntimeService){
 		this.realRuntimeService = realRuntimeService;
 	}
@@ -78,29 +88,39 @@ public class PsmcRuntimeServiceBoost implements RuntimeService {
 		sysOperLog.setLogType(LogTypeEnum.LogTypeFlow.getIndex());
 		sysOperLog.setLogTypeName(LogTypeEnum.LogTypeFlow.getName());
 		sysOperLog.setOperDate(DateUtil.getCurrentTimstamp());
-		sysOperLog.setOperid(startUserId);
-		sysOperLog.setOpername(loginService.buildUser(startUserId).getPersonName());
+		if(!StringUtil.isEmpty(startUserId)){
+			sysOperLog.setOperid(startUserId);
+			sysOperLog.setOpername(loginService.buildUser(startUserId).getPersonName());
+		}
 		sysOperLog.setUuid(UUIDGenerator.createUUID());
 		sysOperLog.setRemark("流程启动操作日志");
 		
 		ProcessInstance pi = null;
+		
 		try{
 			pi = realRuntimeService.startProcessInstanceByKey(processDefinitionKey,variables);
 			if(pi == null || StringUtils.isEmpty(pi.getProcessInstanceId()))
 				throw new RuntimeException();
-		}catch(Exception e){
-			e.printStackTrace();
+		}catch(RuntimeException e){
 			//补偿
 			int flag = psmcWorkFlowContext.getRetryCount().intValue();
+			logger.debug("startProcessInstanceByKey API方法开始 进行补偿调用!");
 			while(flag>=1){
 				try{
-					pi = realRuntimeService.startProcessInstanceByKey(processDefinitionKey,variables);
-				}catch(Exception e1){
-					e.printStackTrace();
+					realRuntimeService.startProcessInstanceByKey(processDefinitionKey,variables);
+					if(pi == null || StringUtils.isEmpty(pi.getProcessInstanceId()))
+						throw new RuntimeException();
+				}catch(RuntimeException e1){
 				}
-				if(pi == null || StringUtils.isEmpty(pi.getProcessInstanceId()))
+				
+				if(pi == null || StringUtils.isEmpty(pi.getProcessInstanceId())){
 					flag--;
-				else
+					try {
+						Thread.sleep(3000);
+					} catch (InterruptedException e2) {
+						e2.printStackTrace();
+					}
+				}else
 					break;
 			}
 		}
@@ -112,9 +132,13 @@ public class PsmcRuntimeServiceBoost implements RuntimeService {
 			sysOperLog.setOperResult(LogResultEnum.error.getIndex());
 		}else{
 			sysOperLog.setOperResult(LogResultEnum.success.getIndex());
-			sysOperLog.setOperOutput(gson.toJson(pi));
+			sysOperLog.setOperOutput(pi.getProcessInstanceId());
 		}
-		tSysOperLogService.save(sysOperLog);
+		
+		//审计
+		if(psmcWorkFlowContext.enableAudit()){
+			tSysOperLogService.save(sysOperLog);
+		}
 		
 		return pi;
 		
@@ -656,6 +680,18 @@ public class PsmcRuntimeServiceBoost implements RuntimeService {
 
 	public void settSysOperLogService(TSysOperLogService tSysOperLogService) {
 		this.tSysOperLogService = tSysOperLogService;
+	}
+
+	public void setLoginService(LoginService loginService) {
+		this.loginService = loginService;
+	}
+
+	public void setRealRuntimeService(RuntimeService realRuntimeService) {
+		this.realRuntimeService = realRuntimeService;
+	}
+
+	public void setPsmcWorkFlowContext(PsmcWorkFlowContext psmcWorkFlowContext) {
+		this.psmcWorkFlowContext = psmcWorkFlowContext;
 	}
 	
 	

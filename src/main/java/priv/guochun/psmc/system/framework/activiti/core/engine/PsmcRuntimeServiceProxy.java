@@ -21,9 +21,9 @@ import org.activiti.engine.runtime.ProcessInstanceBuilder;
 import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.activiti.engine.task.Event;
 import org.activiti.engine.task.IdentityLink;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-
-import com.github.pagehelper.StringUtil;
 
 import priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContext;
 import priv.guochun.psmc.system.framework.activiti.core.factory.PsmcActivitiExceptionFactory;
@@ -31,7 +31,9 @@ import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowInstance;
 import priv.guochun.psmc.system.framework.activiti.service.TFlowInstanceService;
 import priv.guochun.psmc.system.framework.activiti.util.FlowContans;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.TimestampUtil;
+
 /**
  * RuntimeService的核心proxy类，主要用于RuntimeService的API调用时的附加操作的处理
  * @author Administrator
@@ -44,6 +46,8 @@ public class PsmcRuntimeServiceProxy implements RuntimeService {
 	private PsmcWorkFlowContext psmcWorkFlowContext;
 	
 	private TFlowInstanceService TFlowInstanceService;
+	
+	protected static final  Logger logger  = LoggerFactory.getLogger(PsmcRuntimeServiceProxy.class);
 	
 	public PsmcRuntimeServiceProxy(){
 		
@@ -66,28 +70,27 @@ public class PsmcRuntimeServiceProxy implements RuntimeService {
 
 	@Override
 	public ProcessInstance startProcessInstanceByKey(String processDefinitionKey, Map<String, Object> variables) {
-		String startUserId = variables.get("startUserId").toString();
 		TFlowConfig tFlowConfig = psmcWorkFlowContext.getWorkFlowDefinition(processDefinitionKey);
+		
 		if(tFlowConfig == null){
 			throw new IllegalArgumentException("流程启动初始化参数异常:formNo为"+processDefinitionKey+"的流程表单配置不存在!");
 		}
-		if(StringUtil.isEmpty(startUserId)){
-			throw new IllegalArgumentException("流程启动初始化参数异常:startUserId为"+startUserId);
-		}
-		
-		variables.put("remark",tFlowConfig.getFlowVersion().floatValue());
 		
 		TFlowInstance flowInstance = new TFlowInstance();
 		BeanUtils.copyProperties(tFlowConfig, flowInstance);
 		flowInstance.setFlowState(FlowContans.FLOW_STATE_STARTED);
 		flowInstance.setFlowStartTime(TimestampUtil.createCurTimestamp());
 		
-		//日志记录及补偿机制
-		RuntimeService psmcRuntimeServiceBoost = new PsmcRuntimeServiceBoost(realRuntimeService);
-		ProcessInstance pi = psmcRuntimeServiceBoost.startProcessInstanceByKey(processDefinitionKey, variables);
-		if(pi!=null)
+		ProcessInstance pi = null;
+		//日志记录(审计)及补偿机制
+		RuntimeService psmcRuntimeServiceBoost = (RuntimeService)MySpringApplicationContext.getObject("psmcRuntimeServiceBoost");
+		pi = psmcRuntimeServiceBoost.startProcessInstanceByKey(processDefinitionKey, variables);
+		
+		if(pi != null){
 			flowInstance.setTfiUuid(pi.getProcessInstanceId());
-		TFlowInstanceService.save(flowInstance);
+			TFlowInstanceService.save(flowInstance);
+		}
+			
 		return pi;
 	}
 

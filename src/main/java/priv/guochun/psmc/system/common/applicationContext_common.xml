@@ -21,6 +21,6 @@
 
 	<bean id="tabDataDictDao" class="priv.guochun.psmc.system.common.dict.dao.TabDataDictDaoImplMybatis" />
 	
-	<bean id="tabDataDictDao" class=" priv.guochun.psmc.system.common.log.service.TSysOperLogServiceImpl" />
+	<bean id="tSysOperLogService" class=" priv.guochun.psmc.system.common.log.service.impl.TSysOperLogServiceImpl" />
 
 </beans>

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.activiti.engine.RuntimeService;
 
-import priv.guochun.psmc.system.common.log.service.TSysOperLogService;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
 
 /**
@@ -14,9 +13,13 @@ import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
 public interface PsmcWorkFlowContext {
 	
 	
+	public boolean enableEqualize();
+	
+	public boolean enableAudit();
+	
 	public RuntimeService getRuntimeService();
 	
-	//获取API调用重试次数
+	//获取重试次数
 	public Integer getRetryCount();
 	
 	/**

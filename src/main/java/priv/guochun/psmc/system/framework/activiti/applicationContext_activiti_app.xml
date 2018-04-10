@@ -13,14 +13,19 @@
 	default-lazy-init="false"  default-autowire="byName">
 	
   	<!-- psmc封装的runtimeService对象 -->
-	<bean id="runtimeService" class="priv.guochun.psmc.system.framework.activiti.core.engine.PsmcProxyRuntimeService" />
+	<bean id="runtimeService" class="priv.guochun.psmc.system.framework.activiti.core.engine.PsmcRuntimeServiceProxy"/>
+	
+	<bean id="psmcRuntimeServiceBoost" class="priv.guochun.psmc.system.framework.activiti.core.engine.PsmcRuntimeServiceBoost"/>
+	
 	
   	<!-- psmc的activiti上下文对象 -->
-	<bean id="psmcWorkFlowContext" class="priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContextImpl" />
+	<bean id="psmcWorkFlowContext" class="priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContextImpl"/>
 	
 	<!-- 流程定义配置服务 -->
 	<bean id="tFlowConfigService" class="priv.guochun.psmc.system.framework.activiti.service.impl.TFlowConfigServiceImpl" />
 	
+	<bean id="psmcTjyFlowTestService" class="priv.guochun.psmc.system.framework.activiti.service.impl.PsmcTjyFlowTestServiceImpl" />
 	
+	<bean id="TFlowInstanceService" class="priv.guochun.psmc.system.framework.activiti.service.impl.TFlowInstanceServiceImpl" />
 
 </beans>
