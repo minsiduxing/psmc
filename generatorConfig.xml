@@ -5,19 +5,19 @@
     <jdbcConnection connectionURL="jdbc:mysql://47.94.252.55:3306/psmc?characterEncoding=UTF-8"
      driverClass="com.mysql.jdbc.Driver" password="3edc#EDC" userId="admin" />
     
-    <javaModelGenerator targetPackage="priv.guochun.psmc.system.framework.activiti.model" targetProject="psmc">
+    <javaModelGenerator targetPackage="priv.guochun.psmc.system.common.log.model" targetProject="psmc">
     		<!-- enableSubPackages:是否让schema作为包的后缀 -->  
             <property name="enableSubPackages" value="false" />  
             <!-- 从数据库返回的值被清理前后的空格 -->  
             <property name="trimStrings" value="true" />  
     </javaModelGenerator>
     
-    <sqlMapGenerator targetPackage="priv.guochun.psmc.system.framework.activiti.dao.mapper" targetProject="psmc">
+    <sqlMapGenerator targetPackage="priv.guochun.psmc.system.common.log.dao.mapper" targetProject="psmc">
     	<!-- enableSubPackages:是否让schema作为包的后缀 -->  
             <property name="enableSubPackages" value="false" />  
     </sqlMapGenerator>
     
-    <javaClientGenerator targetPackage="priv.guochun.psmc.system.framework.activiti.dao" targetProject="psmc" type="XMLMAPPER" />
-    <table schema="psmc" tableName="t_flow_instance"></table>
+    <javaClientGenerator targetPackage="priv.guochun.psmc.system.common.log.dao" targetProject="psmc" type="XMLMAPPER" />
+    <table schema="psmc" tableName="t_sys_oper_log"></table>
   </context>
 </generatorConfiguration>

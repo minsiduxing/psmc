@@ -85,15 +85,16 @@ public class PsmcRuntimeServiceBoost implements RuntimeService {
 	public ProcessInstance startProcessInstanceByKey(String processDefinitionKey, Map<String, Object> variables) {
 		String startUserId = variables.get("startUserId").toString();
 		TSysOperLog sysOperLog = new TSysOperLog();
-		sysOperLog.setLogType(LogTypeEnum.LogTypeFlow.getIndex());
-		sysOperLog.setLogTypeName(LogTypeEnum.LogTypeFlow.getName());
+		sysOperLog.setLogType(LogTypeEnum.LogTypeFlow1.getIndex());
+		sysOperLog.setLogTypeName(LogTypeEnum.LogTypeFlow1.getName());
+		sysOperLog.setLogSubType(LogTypeEnum.LogTypeFlow1_1.getIndex());
+		sysOperLog.setLogSubTypeName(LogTypeEnum.LogTypeFlow1_1.getName());
 		sysOperLog.setOperDate(DateUtil.getCurrentTimstamp());
 		if(!StringUtil.isEmpty(startUserId)){
 			sysOperLog.setOperid(startUserId);
 			sysOperLog.setOpername(loginService.buildUser(startUserId).getPersonName());
 		}
 		sysOperLog.setUuid(UUIDGenerator.createUUID());
-		sysOperLog.setRemark("流程启动操作日志");
 		
 		ProcessInstance pi = null;
 		
@@ -130,9 +131,11 @@ public class PsmcRuntimeServiceBoost implements RuntimeService {
 		
 		if(pi == null || StringUtils.isEmpty(pi.getProcessInstanceId())){
 			sysOperLog.setOperResult(LogResultEnum.error.getIndex());
+			sysOperLog.setOperResultDesc(LogResultEnum.error.getName());
 		}else{
 			sysOperLog.setOperResult(LogResultEnum.success.getIndex());
-			sysOperLog.setOperOutput(pi.getProcessInstanceId());
+			sysOperLog.setOperResultDesc(LogResultEnum.success.getName());
+			sysOperLog.setBussinessUuid(pi.getProcessInstanceId());
 		}
 		
 		//审计

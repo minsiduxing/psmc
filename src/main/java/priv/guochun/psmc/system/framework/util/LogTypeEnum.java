@@ -1,21 +1,23 @@
 package priv.guochun.psmc.system.framework.util;
 
+import java.math.BigDecimal;
+
 public enum LogTypeEnum
 {
-	LogTypeFlow("工作流",(short)1);
-    
+	LogTypeFlow1("工作流业务",new BigDecimal(1)),
+	LogTypeFlow1_1("流程发起",new BigDecimal(1.1));
     
     
     private String name;
-    private short index;
+    private BigDecimal index;
     
-    private LogTypeEnum(String name, Short index)
+    private LogTypeEnum(String name, BigDecimal index)
     {
         this.name = name;
         this.index = index;
     }
 
-    public static String getName(Short index)
+    public static String getName(BigDecimal index)
     {
         if(index == null) return null;
         
@@ -39,12 +41,12 @@ public enum LogTypeEnum
         this.name = name;
     }
 
-    public short getIndex()
+    public BigDecimal getIndex()
     {
         return index;
     }
 
-    public void setIndex(short index)
+    public void setIndex(BigDecimal index)
     {
         this.index = index;
     }
