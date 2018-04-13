@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import priv.guochun.psmc.system.BaseTestClass;
 import priv.guochun.psmc.system.activiti.service.PsmcActivitiOperService;
-import priv.guochun.psmc.system.activiti.service.impl.PsmcActivitiOperServiceImpl;
 
 public class BaseActivitiTest extends BaseTestClass {
 
@@ -21,7 +20,6 @@ public class BaseActivitiTest extends BaseTestClass {
 	
 	@Autowired
 	private RepositoryService repositoryService;
-	
 	private PsmcActivitiOperService psmcActivitiOperService;
 	
 	protected static final  Logger logger  = LoggerFactory.getLogger(BaseActivitiTest.class);

@@ -3,7 +3,7 @@
   <process id="tjyflowId" name="tjyflow" isExecutable="true" activiti:candidateStarterUsers="${role_requirement}">
     <documentation>测试流程</documentation>
     <startEvent id="startevent1" name="需求部申请"></startEvent>
-    <userTask id="audit" name="科长审核" activiti:candidateUsers="${role_chief}"></userTask>
+    <userTask id="audit" name="科长审核" activiti:candidateGroups="${role_chief}"></userTask>
     <userTask id="usertask2" name="业务部立项" activiti:candidateUsers="${role_businessment}"></userTask>
     <sequenceFlow id="flow4" sourceRef="startevent1" targetRef="usertask2"></sequenceFlow>
     <sequenceFlow id="flow5" sourceRef="usertask2" targetRef="audit"></sequenceFlow>

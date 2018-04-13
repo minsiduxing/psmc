@@ -17,7 +17,6 @@
 	
 	<bean id="psmcRuntimeServiceBoost" class="priv.guochun.psmc.system.framework.activiti.core.engine.PsmcRuntimeServiceBoost"/>
 	
-	
   	<!-- psmc的activiti上下文对象 -->
 	<bean id="psmcWorkFlowContext" class="priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContextImpl"/>
 	

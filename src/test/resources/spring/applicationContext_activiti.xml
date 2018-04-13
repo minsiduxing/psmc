@@ -26,11 +26,6 @@
                <value>classpath*:/priv/guochun/psmc/**/*.bpmn</value>  
           	</list>  
 	    </property>
-	    <property name="eventListeners">
-	      <list>
-	         <bean class="priv.guochun.psmc.system.framework.activiti.listener.PsmcActivitiEventListener" />
-	      </list>
-	    </property>
 	</bean>
 	
 	<!-- activiti处理引擎（工厂） -->
@@ -53,6 +48,9 @@
   	<!-- 它允许检索有关数据库表和表元数据的信息。此外，它还暴露了查询功能和作业管理操作。
   	Activiti中使用的工作包括定时器，异步延期，延迟挂起/激活等等 -->
   	<bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
+  	
+  	<bean id="psmcActivitiOperService" class="priv.guochun.psmc.system.activiti.service.impl.PsmcActivitiOperServiceImpl" />
+  	<bean id="psmcActivitiQueryService" class="priv.guochun.psmc.system.activiti.service.impl.PsmcActivitiQueryServiceImpl" />
 
 	
 	

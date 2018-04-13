@@ -24,7 +24,6 @@ import org.activiti.engine.task.IdentityLink;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.github.pagehelper.StringUtil;
 import com.google.gson.Gson;
