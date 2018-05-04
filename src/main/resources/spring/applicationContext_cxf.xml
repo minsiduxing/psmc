@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <beans xmlns="http://www.springframework.org/schema/beans"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+            xmlns:jaxws="http://cxf.apache.org/jaxws"
+            xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+            xmlns:jaxrsclient="http://cxf.apache.org/jaxrs-client"
+            xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans.xsd 
+            http://cxf.apache.org/jaxws 
+            http://cxf.apache.org/schemas/jaxws.xsd
+            http://cxf.apache.org/jaxrs
+            http://cxf.apache.org/schemas/jaxrs.xsd
+            http://cxf.apache.org/jaxrs-client
+            http://cxf.apache.org/schemas/jaxrs-client.xsd">
+            <!-- cxf服务servlet的初始化 -->
+            <import resource="classpath:META-INF/cxf/cxf.xml" />
+            <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+
+			<bean id="mycxfRealService" class="priv.guochun.psmc.system.common.city.service.impl.TestRfCxfServiceImpl" />
+			
+            <!-- 配置REST服务 -->
+
+            <!-- 
+                jaxrs:server:JAXRSServerFactoryBean+bean
+                address:请求分发的具体服务地址
+                serviceClass:sei接口
+             -->
+            <jaxrs:server id="testRfCxfService" address="/firstCxfService" >
+                <jaxrs:serviceBeans>
+                    <ref bean="mycxfRealService" />
+                </jaxrs:serviceBeans>
+                <!-- 输入日志拦截器 -->
+                <jaxrs:inInterceptors>
+                    <ref bean="loggingInInterceptor"/>
+                </jaxrs:inInterceptors>
+                <!-- 输出日志拦截器 -->
+                <jaxrs:outInterceptors>
+                    <ref bean="loggingOutInterceptor" />
+                </jaxrs:outInterceptors>
+                <!--对象转换-->
+        <jaxrs:providers>
+            <bean class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider"/>
+        </jaxrs:providers>
+            </jaxrs:server>
+            <!-- 输入日志拦截器 -->
+            <bean id="loggingInInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor"></bean>
+            <!-- 输出日志拦截器 -->
+            <bean id="loggingOutInterceptor" class="org.apache.cxf.interceptor.LoggingOutInterceptor"></bean>
+        </beans>
