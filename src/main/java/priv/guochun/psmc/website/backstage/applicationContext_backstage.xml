@@ -42,4 +42,9 @@
 	<!-- 网站用户管理service注入 -->
 	<bean id="tabWebUserService"
 		class="priv.guochun.psmc.website.backstage.webuser.service.impl.TabWebUserServiceImpl" />
+	
+	<!-- 公共dao注入 -->
+	<bean id="baseDao" class="priv.guochun.psmc.website.backstage.common.impl.BaseDaoImpl"/>	
+	<!-- 信息发布service注入 -->
+	<bean id="infoReleaseService" class="priv.guochun.psmc.website.backstage.InfoRelease.service.impl.InfoReleaseServiceImpl"/>
 </beans>

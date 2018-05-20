@@ -74,10 +74,11 @@ public class TabModuleServiceImpl implements TabModuleService {
 		}
 		//更新审核通过标示
 		tam.setAuditDate(DateUtil.getCurrentTimstamp());
-		tam.setModelUuid(auditUuid);
+//		tam.setModelUuid(auditUuid);
 		tam.setModifyDate(DateUtil.getCurrentTimstamp());
 		tam.setAudit(Integer.parseInt(ModuleEnum.AUDITED_PASS.getValue()));
 		tam.setAuditAccUuid(auditUuid);
+		tam.setModifyAccUuid(auditUuid);
 		//4.审核模块
 		tabModuleDao.excuteAudiTabModules(newsIds, tam);
 	}

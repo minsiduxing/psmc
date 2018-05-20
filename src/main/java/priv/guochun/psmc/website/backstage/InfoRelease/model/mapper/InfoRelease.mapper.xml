@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.website.backstage.InfoRelease.model.InfoRelease">  
+ 
+    <!--获取信息发布数据列表  -->
+   	<select id="getInfoReleaseList" resultType="java.util.Map" parameterType="hashmap">
+   		SELECT 
+   		 tn.uuid, 
+   		 tn.news_title, 
+   		 tn.news_subtitle,
+   		 tn.news_content, 
+   		 tn.news_date, 
+   		 tn.news_author, 
+   		 tn.thumbnail_image_url, 
+   		 tn.news_abstract ,
+   		 tpc.PERSON_NAME as createAccName, 
+   		 tm.create_date, 
+	   	 tpm.PERSON_NAME as modifyccName, 
+	     tm.modify_date, 
+	   	 tm.audit, 
+	   	 tpau.PERSON_NAME as auditAccName, 
+	   	 tm.audit_date, 
+	   	 tpr.PERSON_NAME as releaseAccName, 
+	   	 tm.release_date, 
+	   	 tm.one_level_classify, 
+	   	 tm.two_level_classify ,
+	   	 tm.release_status,
+	     tmpl.publish_expire_date
+   		 FROM tab_news tn
+   		 LEFT JOIN tab_module tm
+   		 ON 
+   		 	tm.uuid = tn.uuid
+   		 LEFT JOIN tab_person tpc
+   		 ON 
+   		 	tpc.uuid = tm.create_acc_uuid
+   		  LEFT JOIN tab_person tpm
+   		 ON 
+   		 	tpm.uuid = tm.modify_acc_uuid
+   		  LEFT JOIN tab_person tpau
+   		 ON 
+   		 	tpau.uuid = tm.audit_acc_uuid
+   		  LEFT JOIN tab_person tpr
+   		 ON 
+   		 	tpr.uuid = tm.release_acc_uuid
+   		 LEFT JOIN tab_module_publish tmpl
+   		 ON 
+   		 	tmpl.module_uuid = tm.uuid
+   			<where>
+   				<if test="newsTitle!=null and newsTitle!=''">
+   					and tn.news_title LIKE  concat(concat('%',#{newsTitle}),'%')
+   				</if>
+   				<if test="newSubTitle!=null and newSubTitle!=''">
+   					and tn.news_subtitle LIKE  concat(concat('%',#{newSubTitle}),'%')
+   				</if>
+   				<if test="newsDateBegin!=null and newsDateBegin !=''">  
+        		    and <![CDATA[ tn.news_date>=#{newsDateBegin} ]]>  
+      			 </if>  
+       			<if test="newsDateEnd!=null and newsDateEnd !=''" >  
+      		      and <![CDATA[tn.news_date<=#{newsDateEnd} ]]>  
+       			</if>  
+       			<if test="newAutor!=null and newAutor!=''">
+   					and tn.news_author LIKE  concat(concat('%',#{newAutor}),'%')
+   				</if>
+   				<if test="newsAbstarct!=null and newsAbstarct!=''">
+   					and tn.news_abstract LIKE  concat(concat('%',#{newsAbstarct}),'%')
+   				</if>
+   				<if test="createAccName!=null and createAccName!=''">
+   					and tm.create_acc_uuid in(
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{createAccName}),'%')
+			          )
+   				</if>
+   				<if test="createDateBegin!=null and createDateBegin !=''">  
+        		    and <![CDATA[tm.create_date>=#{createDateBegin} ]]>  
+      			 </if>  
+       			<if test="createDateEnd!=null and createDateEnd!=''" >  
+      		      and <![CDATA[tm.create_date<=#{createDateEnd} ]]>  
+       			</if>  
+       			<if test="modifyAccName!=null and modifyAccName!='' ">
+   					and tm.modify_acc_uuid in(
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{modifyAccName}),'%')
+			          )
+   				</if>
+   				<if test="modifyDateBegin!=null and modifyDateBegin!=''">  
+        		    and <![CDATA[tm.modify_date>=#{modifyDateBegin} ]]>  
+      			 </if>  
+       			<if test="modifyDateEnd!=null and modifyDateEnd!=''">  
+      		      and <![CDATA[tm.modify_date<=#{modifyDateEnd} ]]>  
+       			</if>  
+       			<if test="audit!=null and audit!=''">  
+      		      and  tm.audit =#{audit}
+       			</if>  
+       			<if test="auditAccName!=null and auditAccName!=''">
+   					and tm.audit_acc_uuid in(
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{auditAccName}),'%')
+			          )
+   				</if>
+   				<if test="auditDateBegin!=null and auditDateBegin!=''">  
+        		    and <![CDATA[tm.audit_date>=#{auditDateBegin}]]>  
+      			 </if>  
+       			<if test="auditDateEnd!=null and auditDateEnd!=''">  
+      		      and <![CDATA[tm.audit_date<=#{auditDateEnd})]]>  
+       			</if>  
+       			<if test="releaseAccName!=null and releaseAccName!=''">
+   					and tm.release_acc_uuid in(
+   					  SELECT tab_person.uuid FROM tab_person WHERE tab_person.person_name LIKE  concat(concat('%',#{releaseAccName}),'%')
+			          )
+   				</if>
+   				<if test="releaseDateBegin!=null and releaseDateBegin!=''">  
+        		    and <![CDATA[tm.release_date>=#{releaseDateBegin} ]]>  
+      			 </if>  
+       			<if test="releaseDateEnd!=null and releaseDateEnd!=''">  
+      		      and <![CDATA[tm.release_date<=#{releaseDateEnd} ]]>  
+       			</if>  
+       			<if test="oneLevelClassify!=null and oneLevelClassify!=''">  
+      		      and  tm.one_level_classify =#{oneLevelClassify}
+       			</if>  
+       			<if test="towLevelClassify!=null and towLevelClassify!=''">  
+      		      and  tm.two_level_classify =#{towLevelClassify}
+       			</if> 
+       			<if test="releaseStatus!=null and releaseStatus!=''">  
+      		      and  tm.release_status =#{releaseStatus}
+       			</if>
+       			<if test="publishExpireDateBegin!=null and publishExpireDateBegin !=''">  
+        		    and <![CDATA[tmpl.publish_expire_date>=#{publishExpireDateBegin} ]]>  
+      			 </if>  
+       			<if test="publishExpireDateEnd!=null and publishExpireDateEnd!=''" >  
+      		      and <![CDATA[tmpl.publish_expire_date<=#{publishExpireDateEnd} ]]>  
+       			</if> 
+       			<if test="userId!=null and userId!=''">
+   					and tm.create_acc_uuid =#{userId}
+   				</if>
+   			</where>
+   			 order by
+   			 tm.create_date desc
+   	</select>
+  	<!-- 根据id获取新闻详细内容 -->
+  	 <select id="getInfoReleaseByUuid" resultType="java.util.Map" parameterType="hashmap">
+  	 	SELECT uuid, news_title, news_subtitle, news_content, news_date, news_author, thumbnail_image_url, news_abstract FROM tab_news
+   			<where>
+   				<if test="newsUuid !=null and newsUuid!=''">
+   					and uuid = #{newsUuid}
+   				</if>
+   				</where>
+  	 	</select>
+  	 	<!-- 根据二级分类获取信息发布标题列表 -->
+  	<select id="getTitlesInfoListByTwoLevelClassify" resultType="java.util.Map" parameterType="hashmap">
+  	 	SELECT 
+	   		 tn.uuid, 
+	   		 tn.news_title, 
+	   		 tn.news_subtitle,
+	   		 tn.thumbnail_image_url, 
+	   		 tn.news_author,
+	   		 tn.news_abstract ,
+	   		 tm.release_date,
+	   		 tpr.PERSON_NAME as releaseAccName 
+	   	  FROM tab_news tn
+	   	  LEFT JOIN tab_module tm
+   		  ON 
+   		 	tm.uuid = tn.uuid
+   		  LEFT JOIN tab_module_publish tmpl
+   		  ON 
+   		 	tmpl.module_uuid = tm.uuid
+   		 LEFT JOIN tab_person tpr
+   		 ON 
+   		 	tpr.uuid = tmpl.publish_account_uuid
+   			<where>
+   				<if test="towLevelClassify !=null and towLevelClassify!=''">
+   					and tm.two_level_classify = #{towLevelClassify}
+   				</if>
+   				<if test="publishExpireDate!=null and publishExpireDate !=''">  
+        		    and <![CDATA[tmpl.publish_expire_date>=#{publishExpireDate} ]]>  
+      			 </if>  
+   			 and  tm.release_status =1
+   			 order by
+   			 tm.release_date desc
+   			</where>
+  	 	</select>
+
+  	<insert id="insertInfoRelease">
+  		INSERT INTO tab_news (uuid, news_title, news_subtitle, news_content, news_date, news_author, thumbnail_image_url, news_abstract) 
+  		VALUES (#{newsUuid},#{newsTitle}, #{newSubTitle}, #{newsContent}, #{newsDate}, #{newAutor}, #{thumbnailImageUrl}, #{newsAbstarct});
+
+  	</insert>
+  	
+  	<update id="updateInfoRelease" parameterType="priv.guochun.psmc.website.backstage.news.model.TabNews">
+  		UPDATE tab_news 
+  		<trim prefix="set" suffixOverrides=",">
+	  		<if test="newsUuid != null and newsUuid != ''">
+	  			uuid =#{newsUuid},
+	  		</if>
+	  		<if test="newsTitle != null and newsTitle != ''">
+	  			news_title =#{newsTitle},
+	  		</if>
+	  		<if test="newSubTitle != null and newSubTitle != ''">
+	  			news_subtitle =#{newSubTitle},
+	  		</if>
+	  		<if test="newsContent != null and newsContent != ''">
+	  			news_content =#{newsContent},
+	  		</if>
+	  		<if test="newsDate != null and newsDate != ''">
+	  			news_date =#{newsDate},
+	  		</if>
+	  		<if test="newAutor != null and newAutor != ''">
+	  			news_author =#{newAutor},
+	  		</if>
+	  		<if test="thumbnailImageUrl != null and thumbnailImageUrl != ''">
+	  			thumbnail_image_url =#{thumbnailImageUrl},
+	  		</if>
+	  		<if test="newsAbstarct != null and newsAbstarct != ''">
+	  			news_abstract =#{newsAbstarct},
+	  		</if>
+  		</trim>
+  		WHERE uuid = #{newsUuid}
+  	</update>
+  	
+  	
+    <delete id="deletesInfoReleaseByUuid" parameterType="hashmap">
+    	DELETE FROM  tab_news  where 1=1  and uuid in
+    	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+				  #{item}  
+		</foreach>  
+    </delete>
+</mapper>  

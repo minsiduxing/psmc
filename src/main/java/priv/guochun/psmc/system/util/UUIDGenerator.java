@@ -24,10 +24,10 @@ public class UUIDGenerator {
             ss[i] = createUUID();   
         }   
         return ss;   
-    }   
+    }    
   
     public static void main(String[] args) {   
-        String[] ss = createUUIDs(10);   
+        String[] ss = createUUIDs(4);   
         for (int i = 0; i < ss.length; i++) {   
             System.out.println("ss["+i+"]====="+ss[i]);   
         }   
