@@ -17,6 +17,8 @@ public interface TabAccountDao
      */
     public Map getTabAccount(String id);
     
+    public Map getTabAccountByPhone(String phone);
+    
     public Map getTabAccount(String username,String password);
     
     public List accountUniqueValidate(String username,String accountUuid);
