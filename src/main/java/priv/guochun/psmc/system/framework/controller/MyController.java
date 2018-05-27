@@ -24,6 +24,7 @@ import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.system.framework.excel.CreateExcelDataFileFactory;
 import priv.guochun.psmc.system.framework.myspringview.DownloadByFileView;
 import priv.guochun.psmc.system.framework.myspringview.DownloadByURLView;
+import priv.guochun.psmc.system.framework.util.GsonUtil;
 import priv.guochun.psmc.system.framework.util.ReturnModel;
 
 
@@ -168,6 +169,16 @@ public class MyController
         pw.append(jo.toString());
         pw.close();
     }
+    
+    protected void responseJson(Object obj,HttpServletResponse response) throws IOException{
+        response.setHeader("Content-type", "text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8"); 
+        PrintWriter pw =  response.getWriter();
+        pw.append(GsonUtil.toJsonForObject(obj));
+        pw.close();
+    }
+    
+    
     /**
 	 * 生成json串给前端
 	 * @param jo

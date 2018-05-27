@@ -1,15 +1,9 @@
 package priv.guochun.psmc.website.backstage.common.impl;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.Hashtable;
-import java.util.Map;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
+import priv.guochun.psmc.system.common.vcode.service.VerificationCodeService;
+import priv.guochun.psmc.system.enums.VerificationCodeTypeEnum;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
 import priv.guochun.psmc.website.backstage.common.ChjghWeChatService;
@@ -18,11 +12,17 @@ import priv.guochun.psmc.website.backstage.common.ChjghWeChatService;
 public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 
 	private LoginService loginService;
+	
+	private VerificationCodeService verificationCodeService;
+	
 	@Override
 	public String login(String phone, String code) {
 		MsgModel msg = null;
 		// TODO 验证码校验
-		
+		msg = verificationCodeService.validateCode(code, VerificationCodeTypeEnum.VCODE_LOGIN.getValue());
+		if(!msg.isSuccess()){
+			return GsonUtil.toJsonForObject(msg);
+		}
 		//用户校验
 		User user = loginService.buildUserByPhone(phone);
 		if(user == null){
@@ -45,6 +45,17 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	}
 	public void setLoginService(LoginService loginService) {
 		this.loginService = loginService;
+	}
+
+
+	public VerificationCodeService getVerificationCodeService() {
+		return verificationCodeService;
+	}
+
+
+	public void setVerificationCodeService(
+			VerificationCodeService verificationCodeService) {
+		this.verificationCodeService = verificationCodeService;
 	}
 
 	

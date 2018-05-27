@@ -63,7 +63,11 @@ public class MsgModel implements java.io.Serializable {
 		return obj;
 	}
 
-
+	public boolean isSuccess(){
+		if(result != null && result.flag == success)
+			return true;
+		return false;
+	}
 
 	public MobileReturnModel getResult() {
 		return result;

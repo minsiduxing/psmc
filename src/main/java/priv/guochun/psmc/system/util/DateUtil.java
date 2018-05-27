@@ -161,6 +161,22 @@ public class DateUtil {
 		return calendar.getTime();
 	}
 
+	public static Date getDateByAfterMin(Date date, int minute) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + minute);
+		return calendar.getTime();
+	}
+	
+	public static java.sql.Date getDateByAfterDays(Date date, BigDecimal days) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + days.intValue());
+		return new java.sql.Date(calendar.getTime().getTime());
+	}
+
+	
+	
 	public static Date getDateByLastMonth(Date date, int month) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
@@ -171,25 +187,6 @@ public class DateUtil {
 	
 	
 	
-	/**
-	 * <p>
-	 * Description: 获取指定日期N天以后的日期
-	 * <p>
-	 * 
-	 * @param date
-	 *            日期
-	 * @param days
-	 *            多少天以后
-	 * @return 日期
-	 * @author hanlin 2014-10-31
-	 */
-	public static java.sql.Date getDateByAfterDays(Date date, BigDecimal days) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + days.intValue());
-		return new java.sql.Date(calendar.getTime().getTime());
-	}
-
 	
 	public static void main(String []args){
 		Date date = new Date();

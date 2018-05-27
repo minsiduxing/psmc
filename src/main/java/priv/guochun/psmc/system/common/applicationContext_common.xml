@@ -22,5 +22,8 @@
 	<bean id="tabDataDictDao" class="priv.guochun.psmc.system.common.dict.dao.TabDataDictDaoImplMybatis" />
 	
 	<bean id="tSysOperLogService" class=" priv.guochun.psmc.system.common.log.service.impl.TSysOperLogServiceImpl" />
-
+	
+	<bean id="verificationCodeService" class=" priv.guochun.psmc.system.common.vcode.service.impl.VerificationCodeServiceImpl" />
+	
+	
 </beans>
