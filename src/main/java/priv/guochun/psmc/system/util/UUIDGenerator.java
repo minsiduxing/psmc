@@ -27,7 +27,7 @@ public class UUIDGenerator {
     }    
   
     public static void main(String[] args) {   
-        String[] ss = createUUIDs(4);   
+        String[] ss = createUUIDs(7);   
         for (int i = 0; i < ss.length; i++) {   
             System.out.println("ss["+i+"]====="+ss[i]);   
         }   

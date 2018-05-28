@@ -96,7 +96,8 @@ $('#updatePasswd').click(function(){
 
 function initsysFunctionDiv(){
 // 	addTab("欢迎页面","<c:url value='/jsp/welcome.html'/>");
-	addTab("欢迎页面","<c:url value='/website/backstage/tabNewsController.do?method=index'/>");
+//	addTab("欢迎页面","<c:url value='/website/backstage/tabNewsController.do?method=index'/>");
+	addTab("欢迎页面","<c:url value='/website/backstage/InfoReleaseController.do?method=infoReleaseList'/>");
 }
 
 function addTab(title, url){

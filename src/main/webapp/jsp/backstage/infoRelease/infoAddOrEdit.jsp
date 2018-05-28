@@ -12,8 +12,7 @@
   <%@ include file="../../../common.jsp"%>
   <body id="body">
 <form id="editForm" method="POST" class="newsForm" >
-	<input type="hidden" id="oneLevelClassify" name="oneLevelClassify" value='${oneLevelClassify}' />
-	<input type="hidden" id="towLevelClassify" name="towLevelClassify" value='${towLevelClassify}' />
+	<input type="hidden" id="towLevelClassify" name="towLevelClassify" value='${param.towLevelClassify}' />
 		<ul >
 			<li ><label>新闻标题</label><br>
 				<input  id="newsTitle" name="newsTitle"></input>
@@ -68,7 +67,7 @@
 var basePath = $("#basePath").val();
 //上传路径
 var uploadUrl = basePath+"/website/backstage/InfoReleaseController.do";
-uploadUrl ='<c:url value="'+uploadUrl+'"/>?method=uploadPic';
+uploadUrl ='<c:url value="'+uploadUrl+'"/>?method=uploadPicture';
 //获取图片路径
 var getImag='<c:url value="/system/freamwork/fileUploadController.do"/>?method=getImage&filePath=';
 var _url = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileDelete&filePath=';
@@ -76,7 +75,7 @@ var isEdit = "<c:out value='${isEdit}'/>";
 //图片上路经
 var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUpload';
 //修改保存路径
-var path = '<c:url value="'+ basePath+'/website/backstage/tabNewsController.do"/>?method=confirmPic';
+var path = '<c:url value="'+ basePath+'/website/backstage/InfoReleaseController.do"/>?method=confirmPicture';
 //表单数据初始化---------------------------------------------------
 var newsTitle = "${info.newsTitle}";
 var newscontent = '${info.news_content}';

@@ -1,5 +1,6 @@
 package priv.guochun.psmc.website.backstage.InfoRelease.service.impl;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class InfoReleaseServiceImpl implements InfoReleaseService{
     @Autowired
     private TabModuleService tabModuleService;
 	@Override
-	public void saveOrUpdateInfoRelease(InfoRelease infoRelease, TabModule tabModule) {
+	public void saveOrUpdateInfoReleaseBusinessMethod(InfoRelease infoRelease, TabModule tabModule) {
 		if(null==infoRelease || null == tabModule){
 			throw new PsmcBuisnessException("保存新闻参数出错！");
 		}
@@ -41,7 +42,6 @@ public class InfoReleaseServiceImpl implements InfoReleaseService{
 			String uuid = UUIDGenerator.createUUID();
 			tabModule.setModelUuid(uuid);
 			tabModule.setCreateDate(DateUtil.getCurrentTimstamp());
-			tabModule.setOneLevelClassify(ModuleEnum.ONE_LEVEL_CLASSIFY_NEWS.getValue());
 			tabModule.setReleaseStatus(ModuleEnum.NOT_RELEASE.getValue());
 			tabModule.setAudit(new Integer(ModuleEnum.NOT_AUDITED.getValue()));
 			//执行新闻初始化业务
@@ -59,7 +59,7 @@ public class InfoReleaseServiceImpl implements InfoReleaseService{
 	}
 	
 	@Override
-	public void deleteInfoReleaseByUuids(String uuids) {
+	public void deleteInfoReleaseByUuidsBusinessMethod(String uuids) {
 		//删除模块信息
 		tabModuleService.deleteTabModulebyUuids(uuids);
 		Map<String, Object> condition = new HashMap<String, Object>();
@@ -68,20 +68,35 @@ public class InfoReleaseServiceImpl implements InfoReleaseService{
 	}
 	
 	@Override
-	public Map<String, Object> getInfoReleaseByUuid(String uuid) {
+	public Map<String, Object> getInfoReleaseByUuidBusinessMethod(String uuid) {
 		Map<String,Object> condition = new HashMap<String,Object>();
         condition.put("newsUuid", uuid);
 		return (Map<String, Object>) baseDao.queryForObject(getInfoReleaseByUuid, condition);
 	}
 	
 	@Override
-	public MyPage getInfoReleaseList(MyPage myPage) {
+	public MyPage getInfoReleaseListBusinessMethod(MyPage myPage) {
 		Map<String,Object> condition = new HashMap<String,Object>();
 		 //查询参数添加
 		if(myPage.getQueryParams()!=null && myPage.getQueryParams().size()>0){
 			condition.putAll(myPage.getQueryParams());
 		}
 		return baseDao.getMyPage(myPage, getInfoReleaseList, condition);
+	}
+
+	@Override
+	public void executeAuditModuleBusinessMethod(String newsIds, String userId) {
+		tabModuleService.executeAuditModule(newsIds, userId);
+	}
+
+	@Override
+	public void executeReleaseModuleBusinessMethod(String newsIds, String userId, Timestamp publishExpireDate) {
+		TabModule module = new TabModule();
+		module.setReleaseStatus(ModuleEnum.IS_RELEASEED.getValue());
+		module.setReleaseAccUuid(userId);
+		module.setModifyAccUuid(userId);
+		module.setPublishExpireDate(publishExpireDate);
+		tabModuleService.executeReleaseModule(newsIds, module);
 	}
     
 }
