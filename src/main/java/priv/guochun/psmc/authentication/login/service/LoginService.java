@@ -27,6 +27,14 @@ public interface LoginService
     public User buildUser(String username);
     
     /**
+     * 
+     * @param username
+     * @return
+     */
+    public User buildUserByPhone(String phone);
+    
+    
+    /**
      * 获取某一个角色的系统导航栏资源菜单信息
      * <p>Description:<p>
      * @param role

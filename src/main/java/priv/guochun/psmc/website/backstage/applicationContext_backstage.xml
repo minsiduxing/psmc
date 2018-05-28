@@ -3,16 +3,39 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+    xmlns:jaxrsclient="http://cxf.apache.org/jaxrs-client"
 	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
-		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
-		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/jdbc 
+		http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/jee 
+		http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/data/jpa 
+		http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
 		http://www.springframework.org/schema/aop   
-    	http://www.springframework.org/schema/aop/spring-aop-4.3.xsd"
+    	http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+    	http://cxf.apache.org/jaxws 
+        http://cxf.apache.org/schemas/jaxws.xsd
+        http://cxf.apache.org/jaxrs
+        http://cxf.apache.org/schemas/jaxrs.xsd
+        http://cxf.apache.org/jaxrs-client
+        http://cxf.apache.org/schemas/jaxrs-client.xsd"
+    	
+    	
 	default-lazy-init="false" default-autowire="byName">
+	
+	
+    	<!-- cxf服务servlet的初始化 -->
+        <import resource="classpath:META-INF/cxf/cxf.xml" />
+        <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+            
 <!-- 网站前端导航栏dao注入 -->
 	<bean id="tabNavBarDao"
 		class="priv.guochun.psmc.website.backstage.navbar.dao.impl.TabNavBarDaoImpl" />
@@ -47,4 +70,27 @@
 	<bean id="baseDao" class="priv.guochun.psmc.website.backstage.common.impl.BaseDaoImpl"/>	
 	<!-- 信息发布service注入 -->
 	<bean id="infoReleaseService" class="priv.guochun.psmc.website.backstage.InfoRelease.service.impl.InfoReleaseServiceImpl"/>
+	
+	
+	<bean id="chjghWeChatService" class="priv.guochun.psmc.website.backstage.common.impl.ChjghWeChatServiceImpl" />
+	
+	 <jaxrs:server id="chjghWeChatCxfService" address="/chjgh" >
+                <jaxrs:serviceBeans>
+                    <ref bean="chjghWeChatService" />
+                </jaxrs:serviceBeans>
+                <!-- 输入日志拦截器 -->
+                <jaxrs:inInterceptors>
+                    <ref bean="loggingInInterceptor"/>
+                </jaxrs:inInterceptors>
+                <!-- 输出日志拦截器 -->
+                <jaxrs:outInterceptors>
+                    <ref bean="loggingOutInterceptor" />
+                </jaxrs:outInterceptors>
+                <!--对象转换-->
+		        <jaxrs:providers>
+		            <bean class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider"/>
+		        </jaxrs:providers>
+     </jaxrs:server>
+	
+	
 </beans>

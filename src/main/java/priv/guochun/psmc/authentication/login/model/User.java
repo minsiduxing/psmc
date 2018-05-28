@@ -14,6 +14,7 @@ public class User implements Serializable
 
 
 	private String accountName;
+	private String isLocked;
     
     private String personName;
     private String personTelephone;
@@ -26,6 +27,27 @@ public class User implements Serializable
     private String userUuid;
     
     
+    public User(Map tabAccount,Map tabPerson,Map tabRole){
+    	this.tabAccount = tabAccount;
+    	this.tabPerson = tabPerson;
+    	this.tabRole = tabRole;
+    	
+    	
+    	accountName = tabAccount.get("ACCOUNT_NAME").toString();
+    	isLocked = tabAccount.get("IS_LOCKED").toString();
+    	
+    	personName = tabPerson.get("PERSON_NAME").toString();
+    	personTelephone = tabPerson.get("TELEPHONE").toString();
+    	personEmail = tabPerson.get("EMAIL")!=null?
+    					tabPerson.get("EMAIL").toString():"";
+    	personCityId = tabPerson.get("CITYID").toString();
+    	userUuid =tabPerson.get("UUID").toString();
+    	roleUuid = tabRole.get("UUID").toString();
+    	roleNo = tabRole.get("ROLE_NO").toString();
+    	roleName = tabRole.get("ROLE_NAME").toString();
+    		
+    }
+    
     public User(Map tabAccount,Map tabPerson,Map tabRole,List operateList){
     	this.tabAccount = tabAccount;
     	this.tabPerson = tabPerson;
@@ -34,6 +56,7 @@ public class User implements Serializable
     	
     	
     	accountName = tabAccount.get("ACCOUNT_NAME").toString();
+    	isLocked = tabAccount.get("IS_LOCKED").toString();
     	
     	personName = tabPerson.get("PERSON_NAME").toString();
     	personTelephone = tabPerson.get("TELEPHONE").toString();
@@ -118,8 +141,18 @@ public class User implements Serializable
 	public Map getTabPerson() {
 		return tabPerson;
 	}
-    
 
+
+	public String getIsLocked() {
+		return isLocked;
+	}
+
+
+	public void setIsLocked(String isLocked) {
+		this.isLocked = isLocked;
+	}
+    
+	
 
 	
 

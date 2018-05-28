@@ -38,7 +38,15 @@ public class TabAccountDaoImplMybatis implements TabAccountDao
         Map map = (Map)sqlSession.selectOne(getTabAccountByCondition,condition);
         return map;
     }
-
+    
+    public Map getTabAccountByPhone(String phone){
+    	Map<String,Object> condition = new HashMap<String,Object>();
+        condition.put("telephone", phone);
+        Map map = (Map)sqlSession.selectOne(getTabAccountByCondition,condition);
+        return map;
+    }
+    
+    
     @Override
     public Map getTabAccount(String username, String password)
     {

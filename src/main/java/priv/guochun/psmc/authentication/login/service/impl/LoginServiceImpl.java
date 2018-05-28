@@ -62,6 +62,25 @@ public class LoginServiceImpl implements LoginService
     	return user;
     }
     
+    public User buildUserByPhone(String phone){
+    	 logger.debug("phone "+phone+" buildUser start");
+     	Map<?,?> accountMap = tabAccountDao.getTabAccountByPhone(phone);
+     	if(accountMap == null || accountMap.get("UUID") == null){
+     		return null;
+     	}
+     	
+     	String accountId = accountMap.get("UUID").toString();
+     	Map<?,?> personMap = tabPersonDao.getTabPersonByAccountId(accountId);
+     	List<?> accRoleLits = tabRoleDao.getAccountUnionRoleByAccount(accountId);
+     	Map<?,?> accRoleMap = (Map<?, ?>)accRoleLits.get(0);
+     	String roleUuid = accRoleMap.get("UUID").toString();
+     	Map<?, ?> roleMap = tabRoleDao.getTableRoleByUuid(roleUuid);
+//     	List<Map<?,?>> operrateMap = tabOperateDao.getPermitOperatesByRoleUuid(roleUuid);
+     	User user = new User(accountMap,personMap,roleMap);
+     	logger.debug("username "+phone+" buildUser end");
+     	return user;
+    }
+    
     @Override
     public List<Map<?,?>> getNavigationBarResourcesByRoleUuid(String roleUuid)
     {
