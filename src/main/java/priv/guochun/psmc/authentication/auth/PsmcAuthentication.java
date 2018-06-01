@@ -29,6 +29,7 @@ public class PsmcAuthentication
         List<Map<?,?>> list = cache.get(CacheContants.CACHE_SYSTEM_RESOURCE_OPERATE, List.class);
         for(int i = 0;i<list.size();i++){
             Map<?,?> map = list.get(i);
+            System.out.println(map.get("R_CLASS_METHOD").toString());
             if(visitKey.toString().equals(map.get("R_CLASS_METHOD").toString()))
             {
                 isAuth =true;

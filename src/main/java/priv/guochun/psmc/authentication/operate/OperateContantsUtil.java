@@ -71,4 +71,15 @@ public class OperateContantsUtil {
     public final static String WEB_USER_QUERY = "WEB_USER_QUERY";
     public final static String WEB_USER_EXPORT = "WEB_USER_EXPORT";
     
+    /**
+     * 信息操作编码
+     */
+    public final static String INFO_ADD = "INFO_ADD";
+    public final static String INFO_AUDIT = "INFO_AUDIT";
+    public final static String INFO_DEL = "INFO_DEL";
+    public final static String INFO_EDIT = "INFO_EDIT";
+    public final static String INFO_LIST = "INFO_LIST";
+    public final static String INFO_RELEASE = "INFO_RELEASE";
+    public final static String INFO_PREVIEW = "INFO_PREVIEW";
+    
 }

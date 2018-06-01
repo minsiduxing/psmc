@@ -98,19 +98,19 @@
  <table id="infoReleaseId" style="width:100%"></table>
   <!--工具栏  -->
 <div id="toolbarId">
-<g:auth operateNo="<%=OperateContantsUtil.NEWS_EDIT%>">
+<g:auth operateNo="<%=OperateContantsUtil.INFO_EDIT%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="edit">修改</a>
 </g:auth>
-<g:auth operateNo="<%=OperateContantsUtil.NEWS_DELETE%>">
+<g:auth operateNo="<%=OperateContantsUtil.INFO_DEL%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
 </g:auth>
-<g:auth operateNo="<%=OperateContantsUtil.NEWS_PRIVIEW%>">
+<g:auth operateNo="<%=OperateContantsUtil.INFO_PREVIEW%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">预览</a>
 </g:auth>
-<g:auth operateNo="<%=OperateContantsUtil.NEWS_AUDIT%>">
+<g:auth operateNo="<%=OperateContantsUtil.INFO_AUDIT%>">
 		<a href="#" id="auditNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-audit">审核</a>
 </g:auth>
-<g:auth operateNo="<%=OperateContantsUtil.NEWS_RELEASE%>">
+<g:auth operateNo="<%=OperateContantsUtil.INFO_RELEASE%>">
 		<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
 </g:auth>
 </div>
@@ -203,7 +203,7 @@ function publishNews(){
 	var _date = $("#publishExpireDate").datebox('getValue');;
 	if(_date!=''){
 		$('#dlg').dialog('close');
-		var _url = releaseInfo+"&newsIds="+uuids+"&publishExpireDate="+_date;
+		var _url = releaseInfo+"&uuids="+uuids+"&publishExpireDate="+_date;
 		$.messager.progress(); 
 		$.ajax({
 			   type: "POST",

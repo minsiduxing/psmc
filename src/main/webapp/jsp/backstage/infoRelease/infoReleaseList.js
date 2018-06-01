@@ -9,11 +9,11 @@ $(document).ready(function(){
 		           * 可以解决表格右边空白的问题，但是没办法自适应浏览器大小，暂时不用
 		           * width:parseInt($(this).width()*0.3)
 		           */
-		          {field:'uuid',title:'新闻标示',checkbox:true},
-		          {field:'news_title',title:'新闻标题',resizable:true},    
+		          {field:'uuid',title:'信息标示',checkbox:true},
+		          {field:'news_title',title:'信息标题',resizable:true},    
 		        /*  {field:'news_subtitle',title:'新闻副标题',resizable:true},  */
-		          {field:'news_date',title:'新闻日期'}, 
-		          {field:'news_author',title:'新闻作者'}, 
+		          {field:'news_date',title:'信息日期'}, 
+		          {field:'news_author',title:'信息作者'}, 
 		         /* {field:'news_abstract',title:'新闻概要',formatter: function (value, row, index) {
 	                     if(value.length>=10){return value.substring(0,10)+"......"; }	
 	                     if(value.length<10){return value; }
@@ -28,22 +28,23 @@ $(document).ready(function(){
                      if(value=='3'){return "审核不通过"; }
                                                   
                   }},
-		          {field:'auditAccName',title:'新闻审核人'}, 
-		          {field:'audit_date',title:'新闻审核时间',resizable:true}, 
-		          {field:'two_level_classify',title:'新闻分类',resizable:true,formatter: function (value, row, index) {
-	                     if(value=='1'){return "热点新闻"; }
-	                     if(value=='2'){return "实时资讯"; }
-	                     if(value=='3'){return "行业动向"; }
-	                     if(value=='4'){return "会员信息"; }
+		          {field:'auditAccName',title:'信息审核人'}, 
+		          {field:'audit_date',title:'信息审核时间',resizable:true}, 
+		          {field:'two_level_classify',title:'信息分类',resizable:true,formatter: function (value, row, index) {
+	                     if(value=='1401'){return "美味食谱"; }
+	                     if(value=='1402'){return "日常通知"; }
+	                     if(value=='1403'){return "大院新闻"; }
+	                     if(value=='1404'){return "便民电话"; }
+	                     if(value=='1405'){return "政策法律"; }
 	                  }},
 		          {field:'release_status',title:'发布状态',resizable:true,formatter: function (value, row, index) {
 	                     if(value=='0'){return "未发布"; }
 	                     if(value=='1'){return "已发布"; }
 	                                                  
 	                  }},
-		          {field:'releaseAccName',title:'新闻发布人'}, 
-		          {field:'release_date',title:'新闻发布时间'}, 
-		          {field:'publish_expire_date',title:'新闻过期时间'}
+		          {field:'releaseAccName',title:'信息发布人'}, 
+		          {field:'release_date',title:'信息发布时间'}, 
+		          {field:'publish_expire_date',title:'信息过期时间'}
 		         ] 
 		      ]
 	};
@@ -82,7 +83,7 @@ $("#remove").click(function(){
 			}
 			$.messager.confirm('提示', '该操作不可逆，您确认删除选中信息?', function(r){
 				if (r){
-					var _url = removeInfo+"&newsIds="+ids;
+					var _url = removeInfo+"&uuids="+ids;
 					$.messager.progress(); 
 					$.ajax({
 						   type: "POST",
@@ -130,7 +131,7 @@ $("#auditNews").click(function(){
 		
 		$.messager.confirm('提示', '确认选中的信息审核通过?', function(r){
 			if (r){
-			var _url = auditInfo+"&newsIds="+ids;
+			var _url = auditInfo+"&uuids="+ids;
 			$.messager.progress(); 
 			$.ajax({
 				   type: "POST",
@@ -159,7 +160,7 @@ $("#priview").click(function(){
 	if(rlength ==1){
 		var rowObj = eval(rows[0]);
 		 uuid = rowObj.uuid;
-		 window.location.href='/psmc/resources/bhkn/previewnews.html?id='+uuid;
+		 window.location.href='/psmc/resources/bhkn/previewInfo.html?id='+uuid;
 	}else{
 		commonObj.alert('请选择一条信息!',"warning");
 		return ;
