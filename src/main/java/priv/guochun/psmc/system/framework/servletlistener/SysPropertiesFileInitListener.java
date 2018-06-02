@@ -34,8 +34,9 @@ public class SysPropertiesFileInitListener implements ServletContextListener
         }else
             logger.error("systemPropertiesFileName  Does not exist,please add init-param 'systemPropertiesFileName' in web.xml.........");
         //初始化网站模板
-        GenerateStageHtmlService generateStageHtmlService =(GenerateStageHtmlService)MySpringApplicationContext.getObject("generateStageHtmlService");
-        generateStageHtmlService.genetateAllStageHtmls();
+        //cancel by guochun 2018.6.2
+//        GenerateStageHtmlService generateStageHtmlService =(GenerateStageHtmlService)MySpringApplicationContext.getObject("generateStageHtmlService");
+//        generateStageHtmlService.genetateAllStageHtmls();
        
     }
 

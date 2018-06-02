@@ -3,6 +3,8 @@ package priv.guochun.psmc.authentication.auth;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
 
 import priv.guochun.psmc.system.framework.cache.CacheContants;
@@ -11,7 +13,8 @@ import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 
 public class PsmcAuthentication
 {
-    
+	protected static final  Logger logger  = LoggerFactory.getLogger(PsmcAuthentication.class);
+	
     /**
      * 鉴权,检验当前角色是否拥有该资源的业务操作许可的验证
      * @param RoleUuid
@@ -29,7 +32,7 @@ public class PsmcAuthentication
         List<Map<?,?>> list = cache.get(CacheContants.CACHE_SYSTEM_RESOURCE_OPERATE, List.class);
         for(int i = 0;i<list.size();i++){
             Map<?,?> map = list.get(i);
-            System.out.println(map.get("R_CLASS_METHOD").toString());
+            logger.debug(map.get("R_CLASS_METHOD").toString());
             if(visitKey.toString().equals(map.get("R_CLASS_METHOD").toString()))
             {
                 isAuth =true;

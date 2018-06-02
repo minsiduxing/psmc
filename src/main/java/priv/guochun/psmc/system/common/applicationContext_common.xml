@@ -39,7 +39,7 @@
 	<!-- 调度触发器 -->
 	 <bean id="logOperCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		 <property name="jobDetail" ref="logOperJobDetail" />
-		 <!-- 每分钟执行一次	  -->
+		 <!-- 每10分钟执行一次	  -->
 		 <property name="cronExpression" value="0 * * * * ?" />
 	 </bean>
 	

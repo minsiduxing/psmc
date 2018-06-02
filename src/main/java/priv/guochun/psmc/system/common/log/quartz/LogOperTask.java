@@ -15,7 +15,11 @@ import priv.guochun.psmc.system.common.log.model.TSysOperLog;
 import priv.guochun.psmc.system.common.log.service.TSysOperLogService;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 
-
+/**
+ * 系统日志定时持久化任务类
+ * @author guochun
+ *
+ */
 public class LogOperTask extends QuartzJobBean
 {
     protected static final  Logger logger  = LoggerFactory.getLogger(LogOperTask.class);
@@ -39,12 +43,18 @@ public class LogOperTask extends QuartzJobBean
 		Set set = map.keySet();
 		if(set.size() == 0)
 			return;
+		logger.info("系统开始进行日志持久化操作,日志记录数:"+set.size());
 		Iterator<String> iter = set.iterator();
+		int flag=0;
     	while(iter.hasNext()){
     		String key = iter.next().toString();
-    		tSysOperLogService.save(map.get(key));
-//    		map.remove(key);
+    		try{
+        		tSysOperLogService.save(map.get(key));
+        	}catch(Exception e){
+        		e.printStackTrace();
+        	}
     		iter.remove();
+    		flag++;
     	}
     }
 
