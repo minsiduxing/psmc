@@ -71,8 +71,8 @@
 		<aop:aspect id="authaop" ref="authAdvice">
 				<aop:pointcut id="authpointcut" expression="execution(public * priv.guochun.psmc..*ServiceImpl.*BusinessMethod(..))"/>
 				<aop:before method="beforeAdvice" pointcut-ref="authpointcut"/>
-				<!--aop:around method="aroundAdvice" pointcut-ref="authpointcut"/>
 				<aop:after method="afterAdvice" pointcut-ref="authpointcut"/>
+				<!--aop:around method="aroundAdvice" pointcut-ref="authpointcut"/>
 				<aop:after-returning  method="afterRetunAdvice" pointcut-ref="authpointcut"/ -->
 				
 		</aop:aspect>

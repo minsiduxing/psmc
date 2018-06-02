@@ -98,7 +98,10 @@ public class DateUtil {
 	}
 
 
-
+	public static String getDateStr(Date date,String format){
+		SimpleDateFormat dd = new SimpleDateFormat(format);
+		return dd.format(date);
+	}
 	
 	public static Date getDate(String dateStr,String format) throws ParseException {
 		if (dateStr == null || "".equals(dateStr)) {

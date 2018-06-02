@@ -33,7 +33,7 @@ public class MsgModel implements java.io.Serializable {
 		return obj;
 	}
 	
-	public static MsgModel buildSuccess(String msg,Object data){
+	public static MsgModel buildDefaultSuccess(String msg,Object data){
 		MsgModel obj = new MsgModel();
 		MobileReturnModel temp = new MobileReturnModel(success,msg);
 		obj.result=temp;
@@ -41,7 +41,7 @@ public class MsgModel implements java.io.Serializable {
 		return obj;
 	}
 	
-	public static MsgModel buildSuccess(Object data){
+	public static MsgModel buildDefaultSuccess(Object data){
 		MsgModel obj = new MsgModel();
 		MobileReturnModel temp = new MobileReturnModel(success,"");
 		obj.result=temp;
@@ -49,14 +49,14 @@ public class MsgModel implements java.io.Serializable {
 		return obj;
 	}
 	
-	public static MsgModel buildError(){
+	public static MsgModel buildDefaultError(){
 		MsgModel obj = new MsgModel();
 		MobileReturnModel temp = new MobileReturnModel(error,"");
 		obj.result=temp;
 		return obj;
 	}
 	
-	public static MsgModel buildError(String msg){
+	public static MsgModel buildDefaultError(String msg){
 		MsgModel obj = new MsgModel();
 		MobileReturnModel temp = new MobileReturnModel(error,msg);
 		obj.result=temp;

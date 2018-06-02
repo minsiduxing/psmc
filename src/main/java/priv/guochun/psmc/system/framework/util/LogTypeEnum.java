@@ -5,7 +5,14 @@ import java.math.BigDecimal;
 public enum LogTypeEnum
 {
 	LogTypeFlow1("工作流业务",new BigDecimal(1)),
-	LogTypeFlow1_1("流程发起",new BigDecimal(1.1));
+	LogTypeFlow1_1("流程发起",new BigDecimal(1.1)),
+	
+	
+	
+	LogTypeSysOper2("系统操作",new BigDecimal(2)),
+	LogTypeSysOper2_1("登录",new BigDecimal(2.1)),
+	LogTypeSysOper2_2("登出",new BigDecimal(2.2)),
+	LogTypeSysOper2_3("日常操作",new BigDecimal(2.3));
     
     
     private String name;

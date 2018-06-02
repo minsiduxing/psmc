@@ -1,5 +1,9 @@
 package priv.guochun.psmc.authentication.aop.advice;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.JoinPoint;
@@ -8,12 +12,21 @@ import org.aspectj.lang.Signature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
 
 import priv.guochun.psmc.authentication.aop.exception.NotAllowedException;
 import priv.guochun.psmc.authentication.auth.PsmcAuthentication;
 import priv.guochun.psmc.authentication.login.model.User;
+import priv.guochun.psmc.system.common.log.factory.TSysOperLogMapFactory;
+import priv.guochun.psmc.system.common.log.model.TSysOperLog;
+import priv.guochun.psmc.system.common.log.service.TSysOperLogService;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.cache.PsmcInitCacheTool;
+import priv.guochun.psmc.system.framework.util.LogTypeEnum;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
+import priv.guochun.psmc.system.util.DateUtil;
+import priv.guochun.psmc.system.util.UUIDGenerator;
 
 public class AuthAdviceImpl implements BaseAdvice
 {
@@ -25,7 +38,6 @@ public class AuthAdviceImpl implements BaseAdvice
     
     @Autowired
     private HttpSession session;
-
     
     @Override
     public void beforeAdvice(JoinPoint jionpoint)
@@ -52,11 +64,56 @@ public class AuthAdviceImpl implements BaseAdvice
     }
    
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void afterAdvice(JoinPoint jionpoint)
     {
-    
+    	User user = (User)session.getAttribute("user");
+        String roleUuid = user.getRoleUuid();
+        Signature signature = jionpoint.getSignature();
+        String  whatClassName = signature.getDeclaringTypeName();
+        String  whatMethodName = signature.getName();
         
+        
+        String personName = user.getPersonName();
+        
+        TSysOperLog sysOperLog = new TSysOperLog();
+        sysOperLog.setUuid(UUIDGenerator.createUUID());
+        sysOperLog.setLogType(LogTypeEnum.LogTypeSysOper2.getIndex());
+        sysOperLog.setLogTypeName(LogTypeEnum.LogTypeSysOper2.getName());
+        sysOperLog.setLogSubType(LogTypeEnum.LogTypeSysOper2_3.getIndex());
+        sysOperLog.setLogSubTypeName(LogTypeEnum.LogTypeSysOper2_3.getName());
+        sysOperLog.setOperid(user.getUserUuid());
+        sysOperLog.setOpername(personName);
+        sysOperLog.setOperDate(DateUtil.getCurrentTimstamp());
+        
+        
+        StringBuffer visitKey = new StringBuffer();
+        visitKey.append(roleUuid+"_"+whatClassName+"_"+whatMethodName);
+        PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory)MySpringApplicationContext.getObject("psmcCacheFactory");
+        Cache cache = psmcCacheFactory.getCacheSystem();
+        List<Map<?,?>> list = cache.get(CacheContants.CACHE_SYSTEM_RESOURCE_OPERATE, List.class);
+        for(int i = 0;i<list.size();i++){
+            Map<?,?> map = list.get(i);
+            if(visitKey.toString().equals(map.get("R_CLASS_METHOD").toString()))
+            {
+                String RESOURCE_NAME = map.get("RESOURCE_NAME").toString();
+                String OPERATE_NAME = map.get("OPERATE_NAME").toString();
+                StringBuffer operResultDesc = new StringBuffer();
+                operResultDesc.append("用户");
+                operResultDesc.append(personName);
+                operResultDesc.append("在");
+                operResultDesc.append(DateUtil.getDateStr(new Date(), DateUtil.dateFormat3_contants));
+                operResultDesc.append("对");
+                operResultDesc.append(RESOURCE_NAME);
+                operResultDesc.append("进行");
+                operResultDesc.append(OPERATE_NAME);
+                operResultDesc.append("操作");
+                sysOperLog.setOperResultDesc(operResultDesc.toString());
+            }
+        }
+        
+        TSysOperLogMapFactory.getInstance().getTSysOperLog().put(sysOperLog.getUuid(), sysOperLog);
     }
     
     public void afterRetunAdvice(JoinPoint jionpoint){
@@ -101,6 +158,5 @@ public class AuthAdviceImpl implements BaseAdvice
     {
         this.psmcInitCacheTool = psmcInitCacheTool;
     }
-    
     
 }

@@ -100,17 +100,17 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 				if(DateUtil.getCurrentDateTime()>= ctimeLast.getTime()){
 					vcode.setState(VerificationCodeStateEnum.BE_OVERDUE.getValue());
 					mapper.updateByPrimaryKey(vcode);
-					return MsgModel.buildError(codeBeOverDue);
+					return MsgModel.buildDefaultError(codeBeOverDue);
 				}
 				
 				vcode.setState(VerificationCodeStateEnum.BE_USED.getValue());
 				mapper.updateByPrimaryKey(vcode);
-				return MsgModel.buildSuccess(code);
+				return MsgModel.buildDefaultSuccess(code);
 				
 			}else
-				return MsgModel.buildError(codeBeUsedWarn);
+				return MsgModel.buildDefaultError(codeBeUsedWarn);
 		}else{
-			return MsgModel.buildError(codeNotExsits);
+			return MsgModel.buildDefaultError(codeNotExsits);
 		}
 	}
 

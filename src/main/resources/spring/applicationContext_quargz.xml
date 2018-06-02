@@ -90,7 +90,7 @@
     <property name="autoStartup" value="true" />  
 	 <property name="triggers">
 	  <list>
-	   <ref bean="lisenceCronTrigger"/>
+	   <ref bean="logOperCronTrigger"/>
 	   <ref bean="cacheJobTaskTrigger"/>
 	  </list>
 	 </property>

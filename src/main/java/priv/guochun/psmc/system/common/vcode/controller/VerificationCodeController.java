@@ -37,7 +37,7 @@ public class VerificationCodeController extends MyController {
 	            HttpServletResponse response,long type) throws IOException{	
 			String custmerIp = request.getRemoteAddr();
 	        String code = verificationCodeService.createCode(type,custmerIp);
-	        super.responseJson(MsgModel.buildSuccess(code), response);
+	        super.responseJson(MsgModel.buildDefaultSuccess(code), response);
 	} 
 	
 	

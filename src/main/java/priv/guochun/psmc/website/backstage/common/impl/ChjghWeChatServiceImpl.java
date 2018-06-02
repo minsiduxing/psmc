@@ -26,16 +26,16 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		//用户校验
 		User user = loginService.buildUserByPhone(phone);
 		if(user == null){
-			msg = MsgModel.buildError("用户不存在");
+			msg = MsgModel.buildDefaultError("用户不存在");
 			return GsonUtil.toJsonForObject(msg);
 		}
 		
 		if("1".equals(user.getIsLocked())){
-			msg = MsgModel.buildError("用户已锁定");
+			msg = MsgModel.buildDefaultError("用户已锁定");
 			return GsonUtil.toJsonForObject(msg);
 		}
 		
-		msg = MsgModel.buildSuccess(user);
+		msg = MsgModel.buildDefaultSuccess(user);
 		return GsonUtil.toJsonForObject(msg);
 	}
 	
@@ -43,6 +43,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	public LoginService getLoginService() {
 		return loginService;
 	}
+	
 	public void setLoginService(LoginService loginService) {
 		this.loginService = loginService;
 	}

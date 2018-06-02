@@ -26,4 +26,21 @@
 	<bean id="verificationCodeService" class=" priv.guochun.psmc.system.common.vcode.service.impl.VerificationCodeServiceImpl" />
 	
 	
+	<bean id="logOperJobDetail"  
+	    class="org.springframework.scheduling.quartz.JobDetailFactoryBean">  
+	    <property name="jobClass">  
+	        <value>priv.guochun.psmc.system.common.log.quartz.LogOperTask</value>  
+	    </property>  
+	    <property name="name" value="logOperJobDetail"></property>  
+	    <property name="durability" value="true" />  
+	</bean>
+	
+	
+	<!-- 调度触发器 -->
+	 <bean id="logOperCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		 <property name="jobDetail" ref="logOperJobDetail" />
+		 <!-- 每分钟执行一次	  -->
+		 <property name="cronExpression" value="0 * * * * ?" />
+	 </bean>
+	
 </beans>
