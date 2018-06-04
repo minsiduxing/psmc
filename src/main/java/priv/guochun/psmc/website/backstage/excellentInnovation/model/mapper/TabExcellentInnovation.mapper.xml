@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.website.backstage.excellentInnovation.model.TabExcellentInnovation">
+  
+ 
+  <select id="excellentInnovationList" parameterType="hashmap" resultType="java.util.Map">
+      SELECT
+		    ti.*,
+		    tpc.PERSON_NAME AS createAccName,
+		    tm.create_date,
+		    tpm.PERSON_NAME AS modifyAccName,
+		    tm.modify_date,
+		    tm.audit,
+		    tpau.PERSON_NAME AS auditAccName,
+		    tm.audit_date,
+		    tpr.PERSON_NAME AS releaseAccName,
+		    tm.release_date,
+		    tm.one_level_classify,
+		    tm.release_status,
+		    tmpl.publish_expire_date
+		FROM
+		    tab_excellent_innovation ti
+		INNER JOIN
+		    tab_module tm
+		ON
+		    ti.innovation_uuid = tm.uuid
+		LEFT JOIN
+		    tab_person tpc
+		ON
+		    tpc.uuid = tm.create_acc_uuid
+		LEFT JOIN
+		    tab_person tpm
+		ON
+		    tpm.uuid = tm.modify_acc_uuid
+		LEFT JOIN
+		    tab_person tpau
+		ON
+		    tpau.uuid = tm.audit_acc_uuid
+		LEFT JOIN
+		    tab_person tpr
+		ON
+		    tpr.uuid = tm.release_acc_uuid
+		LEFT JOIN
+		    tab_module_publish tmpl
+		ON
+		    tmpl.module_uuid = tm.uuid
+    <where>
+    <if test="innovationUuid != null and innovationUuid != ''">
+        ti.innovation_uuid = #{innovationUuid}
+      </if>
+      <if test="orgName != null">
+        and ti.org_name LIKE concat(concat('%',#{orgName}),'%')
+      </if>
+      <if test="declarePerson != null and declarePerson != ''">
+        ti.declare_person LIKE concat(concat('%',#{declarePerson}),'%')
+      </if>
+      <if test="firstCompletePerson != null and firstCompletePerson != ''">
+        ti.first_complete_person LIKE concat(concat('%',#{firstCompletePerson}),'%')
+      </if>
+      <if test="deptName != null and deptName != ''">
+        ti.dept_name LIKE concat(concat('%',#{deptName}),'%')
+      </if>
+      <if test="otherCompletePerson != null and otherCompletePerson != ''">
+        ti.other_complete_person LIKE concat(concat('%',#{otherCompletePerson}),'%')
+      </if>
+      <if test="achievementName != null and achievementName !=''">
+        ti.achievement_name LIKE concat(concat('%',#{achievementName}),'%')
+      </if>
+      <if test="innovationDateBegin != null and innovationDateBegin != ''">  
+	    and <![CDATA[ti.innovation_date>=#{innovationDateBegin} ]]>  
+ 	  </if>  
+	  <if test="innovationDateEnd!=null and innovationDateEnd!=''">  
+        and <![CDATA[ti.innovation_date<=#{innovationDateEnd} ]]>  
+	  </if> 
+	  <if test="auditDateBegin!=null and auditDateBegin!=''">  
+		and <![CDATA[tm.audit_date>=#{auditDateBegin}]]>  
+	  </if>  
+	  <if test="auditDateEnd!=null and auditDateEnd!=''">  
+        and <![CDATA[tm.audit_date<=#{auditDateEnd})]]>  
+	  </if> 
+	  <if test="releaseDateBegin!=null and releaseDateBegin!=''">  
+		and <![CDATA[tm.release_date>=#{releaseDateBegin} ]]>  
+	  </if>  
+	  <if test="releaseDateEnd!=null and releaseDateEnd!=''">  
+        and <![CDATA[tm.release_date<=#{releaseDateEnd} ]]>  
+	  </if> 
+	  <if test="publishExpireDateBegin!=null and publishExpireDateBegin !=''">  
+		and <![CDATA[tmpl.publish_expire_date>=#{publishExpireDateBegin} ]]>  
+	  </if>  
+	  <if test="publishExpireDateEnd!=null and publishExpireDateEnd!=''" >  
+        and <![CDATA[tmpl.publish_expire_date<=#{publishExpireDateEnd} ]]>  
+	  </if>    
+    </where>
+    	order by tm.create_date desc
+  </select>
+  
+  
+  <select id="selectInnovationByPrimaryKey" parameterType="hashmap" resultType="java.util.Map">
+    select 
+	    innovation_uuid, org_name, declare_person, declare_phone, declare_email, first_complete_person, 
+	    sex, education, job, dept_name, major, occupation, other_complete_person, achievement_name, 
+	    achievement_form, realized_value, application_generalize, innovation_date, recommend_remark, 
+	    recommend_date, audit_remark, audit_date, achievement_content
+    from tab_excellent_innovation
+    where innovation_uuid = #{innovationUuid,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <delete id="deleteInnovationByPrimaryKey" parameterType="hashmap">
+    delete from tab_excellent_innovation
+    where innovation_uuid in
+    <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+		#{item}  
+	</foreach>  
+  </delete>
+  
+  
+  <insert id="insertExcellentInnovation" parameterType="priv.guochun.psmc.website.backstage.excellentInnovation.model.TabExcellentInnovation">
+    insert into tab_excellent_innovation (innovation_uuid, org_name, declare_person, 
+      declare_phone, declare_email, first_complete_person, 
+      sex, education, job, 
+      dept_name, major, occupation, 
+      other_complete_person, achievement_name, achievement_form, 
+      realized_value, application_generalize, innovation_date, 
+      recommend_remark, recommend_date, audit_remark, 
+      audit_date, achievement_content)
+    values (#{innovationUuid,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, #{declarePerson,jdbcType=VARCHAR}, 
+      #{declarePhone,jdbcType=VARCHAR}, #{declareEmail,jdbcType=VARCHAR}, #{firstCompletePerson,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=INTEGER}, #{education,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, 
+      #{deptName,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{occupation,jdbcType=INTEGER}, 
+      #{otherCompletePerson,jdbcType=VARCHAR}, #{achievementName,jdbcType=VARCHAR}, #{achievementForm,jdbcType=INTEGER}, 
+      #{realizedValue,jdbcType=VARCHAR}, #{applicationGeneralize,jdbcType=VARCHAR}, #{innovationDate,jdbcType=DATE}, 
+      #{recommendRemark,jdbcType=VARCHAR}, #{recommendDate,jdbcType=DATE}, #{auditRemark,jdbcType=VARCHAR}, 
+      #{auditDate,jdbcType=DATE}, #{achievementContent,jdbcType=LONGVARCHAR})
+  </insert>
+  
+  <insert id="insertInnovationSelective" parameterType="priv.guochun.psmc.website.backstage.excellentInnovation.model.TabExcellentInnovation">
+    insert into tab_excellent_innovation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="innovationUuid != null">
+        innovation_uuid,
+      </if>
+      <if test="orgName != null">
+        org_name,
+      </if>
+      <if test="declarePerson != null">
+        declare_person,
+      </if>
+      <if test="declarePhone != null">
+        declare_phone,
+      </if>
+      <if test="declareEmail != null">
+        declare_email,
+      </if>
+      <if test="firstCompletePerson != null">
+        first_complete_person,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="education != null">
+        education,
+      </if>
+      <if test="job != null">
+        job,
+      </if>
+      <if test="deptName != null">
+        dept_name,
+      </if>
+      <if test="major != null">
+        major,
+      </if>
+      <if test="occupation != null">
+        occupation,
+      </if>
+      <if test="otherCompletePerson != null">
+        other_complete_person,
+      </if>
+      <if test="achievementName != null">
+        achievement_name,
+      </if>
+      <if test="achievementForm != null">
+        achievement_form,
+      </if>
+      <if test="realizedValue != null">
+        realized_value,
+      </if>
+      <if test="applicationGeneralize != null">
+        application_generalize,
+      </if>
+      <if test="innovationDate != null">
+        innovation_date,
+      </if>
+      <if test="recommendRemark != null">
+        recommend_remark,
+      </if>
+      <if test="recommendDate != null">
+        recommend_date,
+      </if>
+      <if test="auditRemark != null">
+        audit_remark,
+      </if>
+      <if test="auditDate != null">
+        audit_date,
+      </if>
+      <if test="achievementContent != null">
+        achievement_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="innovationUuid != null">
+        #{innovationUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null">
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="declarePerson != null">
+        #{declarePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="declarePhone != null">
+        #{declarePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="declareEmail != null">
+        #{declareEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="firstCompletePerson != null">
+        #{firstCompletePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="education != null">
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null">
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="occupation != null">
+        #{occupation,jdbcType=INTEGER},
+      </if>
+      <if test="otherCompletePerson != null">
+        #{otherCompletePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="achievementName != null">
+        #{achievementName,jdbcType=VARCHAR},
+      </if>
+      <if test="achievementForm != null">
+        #{achievementForm,jdbcType=INTEGER},
+      </if>
+      <if test="realizedValue != null">
+        #{realizedValue,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationGeneralize != null">
+        #{applicationGeneralize,jdbcType=VARCHAR},
+      </if>
+      <if test="innovationDate != null">
+        #{innovationDate,jdbcType=DATE},
+      </if>
+      <if test="recommendRemark != null">
+        #{recommendRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendDate != null">
+        #{recommendDate,jdbcType=DATE},
+      </if>
+      <if test="auditRemark != null">
+        #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null">
+        #{auditDate,jdbcType=DATE},
+      </if>
+      <if test="achievementContent != null">
+        #{achievementContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <update id="updateInnovation" parameterType="priv.guochun.psmc.website.backstage.excellentInnovation.model.TabExcellentInnovation">
+    update tab_excellent_innovation
+    <set>
+      <if test="orgName != null">
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="declarePerson != null">
+        declare_person = #{declarePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="declarePhone != null">
+        declare_phone = #{declarePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="declareEmail != null">
+        declare_email = #{declareEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="firstCompletePerson != null">
+        first_complete_person = #{firstCompletePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="education != null">
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null">
+        dept_name = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="occupation != null">
+        occupation = #{occupation,jdbcType=INTEGER},
+      </if>
+      <if test="otherCompletePerson != null">
+        other_complete_person = #{otherCompletePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="achievementName != null">
+        achievement_name = #{achievementName,jdbcType=VARCHAR},
+      </if>
+      <if test="achievementForm != null">
+        achievement_form = #{achievementForm,jdbcType=INTEGER},
+      </if>
+      <if test="realizedValue != null">
+        realized_value = #{realizedValue,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationGeneralize != null">
+        application_generalize = #{applicationGeneralize,jdbcType=VARCHAR},
+      </if>
+      <if test="innovationDate != null">
+        innovation_date = #{innovationDate,jdbcType=DATE},
+      </if>
+      <if test="recommendRemark != null">
+        recommend_remark = #{recommendRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendDate != null">
+        recommend_date = #{recommendDate,jdbcType=DATE},
+      </if>
+      <if test="auditRemark != null">
+        audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null">
+        audit_date = #{auditDate,jdbcType=DATE},
+      </if>
+      <if test="achievementContent != null">
+        achievement_content = #{achievementContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where innovation_uuid = #{innovationUuid,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>
