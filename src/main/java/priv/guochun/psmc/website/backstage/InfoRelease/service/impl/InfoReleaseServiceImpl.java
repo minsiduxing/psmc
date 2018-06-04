@@ -8,7 +8,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
-import priv.guochun.psmc.system.framework.dao.IDaoTemplate;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
@@ -34,7 +33,7 @@ public class InfoReleaseServiceImpl implements InfoReleaseService{
 	@Override
 	public void saveOrUpdateInfoReleaseBusinessMethod(InfoRelease infoRelease, TabModule tabModule) {
 		if(null==infoRelease || null == tabModule){
-			throw new PsmcBuisnessException("保存新闻参数出错！");
+			throw new PsmcBuisnessException("保存信息参数出错！");
 		}
 		//判断是新增还是修改
 		if(StringUtils.isBlank(infoRelease.getNewsUuid())&&StringUtils.isBlank(tabModule.getModelUuid())){
@@ -52,7 +51,7 @@ public class InfoReleaseServiceImpl implements InfoReleaseService{
 			tabModule.setModifyDate(DateUtil.getCurrentTimstamp());
 			baseDao.update(updateInfoRelease, infoRelease);
 		}else{
-			throw new PsmcBuisnessException("保存新闻参数出错！");
+			throw new PsmcBuisnessException("保存信息参数出错！");
 		}
 		tabModuleService.saveOrupdateTabmodule(tabModule);		
 		

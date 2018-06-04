@@ -56,7 +56,7 @@
 		class="priv.guochun.psmc.authentication.operate.dao.impl.TabRoleOperateDaoImplMybatis" />
 
 	<bean id="licenseReaderService"
-		class="priv.guochun.psmc.authentication.license.sevice.LicenseReaderService" />
+		class="priv.guochun.psmc.authentication.license.sevice.impl.LicenseReaderServiceImpl" />
 	<bean id="counterDao"
 		class="priv.guochun.psmc.authentication.license.dao.impl.CounterDaoImpl" />
 		

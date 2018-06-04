@@ -70,6 +70,8 @@
 	<bean id="baseDao" class="priv.guochun.psmc.website.backstage.common.impl.BaseDaoImpl"/>	
 	<!-- 信息发布service注入 -->
 	<bean id="infoReleaseService" class="priv.guochun.psmc.website.backstage.InfoRelease.service.impl.InfoReleaseServiceImpl"/>
+	<!-- 优秀创新service注入 -->
+	<bean id="excellentInnovationService" class="priv.guochun.psmc.website.backstage.excellentInnovation.service.impl.ExcellentInnovationServiceImpl"/>
 	
 	
 	<bean id="chjghWeChatService" class="priv.guochun.psmc.website.backstage.common.impl.ChjghWeChatServiceImpl" />

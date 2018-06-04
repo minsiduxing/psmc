@@ -38,7 +38,7 @@ $(document).ready(function(){
 	                     if(value=='1405'){return "政策法律"; }
 	                  }},
 		          {field:'release_status',title:'发布状态',resizable:true,formatter: function (value, row, index) {
-	                     if(value=='0'){return "未发布"; }
+	                     if(value=='2'){return "未发布"; }
 	                     if(value=='1'){return "已发布"; }
 	                                                  
 	                  }},

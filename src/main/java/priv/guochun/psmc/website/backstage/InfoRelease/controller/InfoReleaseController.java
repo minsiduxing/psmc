@@ -19,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.Thumbnails.Builder;
@@ -32,12 +31,10 @@ import priv.guochun.psmc.system.framework.upload.util.PSMCFileUtils;
 import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
+import priv.guochun.psmc.website.backstage.InfoRelease.model.InfoImage;
 import priv.guochun.psmc.website.backstage.InfoRelease.model.InfoRelease;
 import priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
-import priv.guochun.psmc.website.backstage.module.service.TabModuleService;
-import priv.guochun.psmc.website.backstage.news.model.NewsImage;
-import priv.guochun.psmc.website.enums.ModuleEnum;
 
 @Controller
 @RequestMapping("/website/backstage/InfoReleaseController")
@@ -202,7 +199,7 @@ public class InfoReleaseController extends MyController{
 				BufferedImage bi2 = b.asBufferedImage();
 				b.toFile(newPath+"/"+newName);
 				//传递前台需要的参数
-				NewsImage nm = new NewsImage();
+				InfoImage nm = new InfoImage();
 				nm.setImgHeight(bi2.getHeight());
 				nm.setImgWidth(bi2.getWidth());
 				nm.setNewsPicWidth(new Double(newsw).intValue() );

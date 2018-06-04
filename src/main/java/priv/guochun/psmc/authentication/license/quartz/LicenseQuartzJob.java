@@ -4,6 +4,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import priv.guochun.psmc.authentication.license.sevice.LicenseReaderService;
@@ -13,7 +14,7 @@ import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 public class LicenseQuartzJob  extends QuartzJobBean {
 	
 	private static final  Logger logger  = LoggerFactory.getLogger(LicenseQuartzJob.class);
-	
+	@Autowired
 	private LicenseReaderService licenseReaderService;
 	
 	

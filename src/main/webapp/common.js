@@ -118,6 +118,8 @@ commonObj.initDictCombobox = function(id,dictNo,defaultValue,validate,isQuery){
 			// 修改ajax返回的值
 			if(isQuery){
 				data.unshift({'ID':'','NAME':'全部'});   //unshift方法添加到第一行，push方法添加到末尾
+			}else{
+				data.unshift({'ID':'','NAME':'请选择'}); //非查询，则第一行增加请选择
 			}
 			$('#'+id).combobox({  
 			    panelHeight:100,

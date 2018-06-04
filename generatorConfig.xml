@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-
-  <classPathEntry location="D:/apache-maven-3.3.9/localRepository/mysql/mysql-connector-java/5.1.41/mysql-connector-java-5.1.41.jar" />
+ <classPathEntry    location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.41\mysql-connector-java-5.1.41.jar"/>
   <context id="context1">
+      <commentGenerator>
+         <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+         <property name="suppressAllComments" value="true" />
+    </commentGenerator>
     <jdbcConnection connectionURL="jdbc:mysql://47.94.252.55:3306/psmc?characterEncoding=UTF-8"
      driverClass="com.mysql.jdbc.Driver" password="3edc#EDC" userId="admin" />
     
-    <javaModelGenerator targetPackage="priv.guochun.psmc.system.common.vcode.model" targetProject="psmc">
-    		<!-- enableSubPackages:是否让schema作为包的后缀 -->  
+    <javaModelGenerator targetPackage="priv.guochun.psmc.website.backstage.excellentInnovation.model" targetProject="psmc">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->  
             <property name="enableSubPackages" value="false" />  
             <!-- 从数据库返回的值被清理前后的空格 -->  
             <property name="trimStrings" value="true" />  
     </javaModelGenerator>
     
-    <sqlMapGenerator targetPackage="priv.guochun.psmc.system.common.vcode.dao.mapper" targetProject="psmc">
-    	<!-- enableSubPackages:是否让schema作为包的后缀 -->  
+    <sqlMapGenerator targetPackage="priv.guochun.psmc.website.backstage.excellentInnovation.model.mapper" targetProject="psmc">
+        <!-- enableSubPackages:是否让schema作为包的后缀 -->  
             <property name="enableSubPackages" value="false" />  
     </sqlMapGenerator>
     
-    <javaClientGenerator targetPackage="priv.guochun.psmc.system.common.vcode.dao" targetProject="psmc" type="XMLMAPPER" />
-    <table schema="psmc" tableName="tab_verification_code"></table>
+    
+    <table schema="psmc" tableName="tab_excellent_innovation" domainObjectName="TabExcellentInnovation"></table>
   </context>
 </generatorConfiguration>

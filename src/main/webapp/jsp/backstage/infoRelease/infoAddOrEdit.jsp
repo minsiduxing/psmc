@@ -17,18 +17,6 @@
 			<li ><label>新闻标题</label><br>
 				<input  id="newsTitle" name="newsTitle"></input>
 			</li>
-			<!--  <li  ><label for="">新闻子标题</label><br>
-				<input  id="newSubTitle" name="newSubTitle"></input>
-			</li>  -->
-			<!-- <li><label >内容摘要</label><br>
-				<input id="newsAbstarct" name="newsAbstarct" style="height:100px;"></input></li> -->
-			<!-- <li><label>新闻配图</label><br>
-			<input type="hidden" id="hiddenfile" name="thumbnailImageUrl"/>
-			<div id="picpreview" >
-			<div id="thumbnailImageUrl"></div>
-			
-			</div>
-			</li> -->
 			<li ><label >新闻内容</label><br>
 			 <!--非全屏模式-->
 			    <div id="container">
@@ -94,15 +82,6 @@ function formInint(isEdit){
 				type : "text",
 				required : true
 			});
-			/* $('#newSubTitle').textbox({
-				value : '${news.news_subtitle}',
-				type : "text"
-			});
-			$('#newsAbstarct').textbox({
-				value : '${news.news_abstract}',
-				multiline:true,
-				type : "text"
-			}); */
 			$('#newsDate').datetimebox({
 				value :'${info.news_date}',
 				required : true,
@@ -121,16 +100,6 @@ function formInint(isEdit){
 			type : "text",
 			required : true
 		});
-		/* $('#newSubTitle').textbox({
-			value : "",
-			type : "text"
-		});
-		$('#newsAbstarct').textbox({
-			value : "",
-			iconHight:28,
-			multiline:true,
-			type : "text"
-		}); */
 		$('#newsDate').datetimebox({
 			value : "",
 			required : true,
