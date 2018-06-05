@@ -25,6 +25,9 @@
 	
 	<bean id="verificationCodeService" class=" priv.guochun.psmc.system.common.vcode.service.impl.VerificationCodeServiceImpl" />
 	
+	<bean id="tSysOperLogDao" class="priv.guochun.psmc.system.common.log.dao.impl.TSysOperLogDaoImpl" />
+	
+	
 	
 	<bean id="logOperJobDetail"  
 	    class="org.springframework.scheduling.quartz.JobDetailFactoryBean">  

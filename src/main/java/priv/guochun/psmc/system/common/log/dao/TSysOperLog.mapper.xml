@@ -322,4 +322,32 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  
+  
+  <sql id="baseSelSql">
+   		SELECT uuid, log_sub_type_name, log_sub_type, log_type_name, log_type, bussiness_uuid, operid, opername, oper_date, oper_input, oper_output, oper_result_desc, oper_result 
+    	FROM t_sys_oper_log
+  </sql>
+  
+  
+  <select id="getMyPageOfTSysOperLog" resultType="java.util.Map" parameterType="hashmap">
+	   		<include refid="baseSelSql"/> 
+	   			<where>
+	   				<if test="log_sub_type !=null and log_sub_type != '' ">
+	   					and log_sub_type = #{log_sub_type}
+	   				</if>
+	   				<if test="log_type !=null and log_type != ''">
+	   					and log_type = #{log_type}
+	   				</if>
+	   				<if test="opername !=null and opername != ''">
+	   					and opername = #{opername}
+	   				</if>
+	   				<if test="orderBy !=null">
+	   					order by #{orderBy}
+	   				</if>
+
+	   			</where>
+  </select>
+  
+  
 </mapper>
