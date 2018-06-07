@@ -1,5 +1,12 @@
 package priv.guochun.psmc.website.backstage.common.impl;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.ws.WebServiceContext;
+
+import org.apache.cxf.jaxrs.ext.MessageContext;
+import org.apache.cxf.transport.http.AbstractHTTPDestination;
+
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
 import priv.guochun.psmc.system.common.vcode.service.VerificationCodeService;
@@ -15,6 +22,21 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	
 	private VerificationCodeService verificationCodeService;
 	
+	@Resource  
+	private WebServiceContext context;  
+	
+	@Override
+	public String createVcode(int type) {
+//		 MessageContext ctx = (MessageContext) context.getMessageContext();  
+//         HttpServletRequest request = (HttpServletRequest) ctx  
+//                 .get(AbstractHTTPDestination.HTTP_REQUEST);  
+//         String ip = request.getRemoteAddr();  
+		String ip ="127.0.0.1";
+         String code = verificationCodeService.createCode(type, ip);
+         return GsonUtil.toJsonForObject(MsgModel.buildDefaultSuccess(code));
+	}
+
+
 	@Override
 	public String login(String phone, String code) {
 		MsgModel msg = null;
@@ -57,6 +79,16 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	public void setVerificationCodeService(
 			VerificationCodeService verificationCodeService) {
 		this.verificationCodeService = verificationCodeService;
+	}
+
+
+	public WebServiceContext getContext() {
+		return context;
+	}
+
+
+	public void setContext(WebServiceContext context) {
+		this.context = context;
 	}
 
 	

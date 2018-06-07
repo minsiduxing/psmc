@@ -12,6 +12,17 @@ import javax.ws.rs.core.MediaType;
 @Consumes({MediaType.APPLICATION_JSON})
 public interface ChjghWeChatService {
 
+	
+	/**
+	 * 生成验证码
+	 * @param type
+	 * @return
+	 */
+	@Path("/getVcode")//某个方法的操作的资源
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+	public String createVcode(@QueryParam("type") int type);
+	
 	/**
 	 * 用户登录
 	 * @param phone 手机号
