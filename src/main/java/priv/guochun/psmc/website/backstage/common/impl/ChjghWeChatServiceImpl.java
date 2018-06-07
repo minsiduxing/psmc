@@ -1,19 +1,25 @@
 package priv.guochun.psmc.website.backstage.common.impl;
 
+
+import java.util.Map;
+
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.cxf.jaxrs.ext.MessageContext;
-import org.apache.cxf.transport.http.AbstractHTTPDestination;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
 import priv.guochun.psmc.system.common.vcode.service.VerificationCodeService;
 import priv.guochun.psmc.system.enums.VerificationCodeTypeEnum;
 import priv.guochun.psmc.system.framework.model.MsgModel;
+import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
+import priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService;
 import priv.guochun.psmc.website.backstage.common.ChjghWeChatService;
+import priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService;
+import priv.guochun.psmc.website.backstage.pageView.model.TabPageView;
+import priv.guochun.psmc.website.backstage.pageView.service.TabPageViewService;
 
 
 public class ChjghWeChatServiceImpl implements ChjghWeChatService {
@@ -22,6 +28,14 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	
 	private VerificationCodeService verificationCodeService;
 	
+	private ExcellentInnovationService excellentInnovationService;
+	
+	@Autowired
+	private InfoReleaseService infoReleaseService;
+	
+	@Autowired
+	private TabPageViewService tabPageViewService;
+
 	@Resource  
 	private WebServiceContext context;  
 	
@@ -35,7 +49,6 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
          String code = verificationCodeService.createCode(type, ip);
          return GsonUtil.toJsonForObject(MsgModel.buildDefaultSuccess(code));
 	}
-
 
 	@Override
 	public String login(String phone, String code) {
@@ -61,6 +74,43 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		return GsonUtil.toJsonForObject(msg);
 	}
 	
+	@Override
+	public String getInfoList(String infoType, String queryParameter, MyPage page) {
+		page = infoReleaseService.getInfoListToMobile(infoType, queryParameter, page);
+		MsgModel msg = MsgModel.buildDefaultSuccess(page);
+		return GsonUtil.toJsonForObject(msg); 
+	}
+
+
+	@Override
+	public String getDetailInfo(String uuid) {
+		Map<String, Object> dataMap = infoReleaseService.getInfoDetailToMobile(uuid);
+		tabPageViewService.saveOrUpdate(uuid);//保存或修改浏览量
+		TabPageView pageView = tabPageViewService.queryPageviewByUuid(uuid);//获取浏览量
+		dataMap.put("nums", pageView.getNums());
+		MsgModel msg = MsgModel.buildDefaultSuccess(dataMap);
+		return GsonUtil.toJsonForObject(msg); 
+	}
+
+
+	@Override
+	public String getInnovationList(String queryParameter, MyPage page) {
+		page = excellentInnovationService.getInnovationListToMobile(queryParameter, page);
+		MsgModel msg = MsgModel.buildDefaultSuccess(page);
+		return GsonUtil.toJsonForObject(msg); 
+	}
+
+
+	@Override
+	public String getDetailInnovation(String innovationUuid) {
+		Map<String, Object> dataMap = excellentInnovationService.getInnovationDetailToMobile(innovationUuid);
+		tabPageViewService.saveOrUpdate(innovationUuid);
+		TabPageView pageView = tabPageViewService.queryPageviewByUuid(innovationUuid);
+		dataMap.put("nums", pageView.getNums());
+		MsgModel msg = MsgModel.buildDefaultSuccess(dataMap);
+		return GsonUtil.toJsonForObject(msg); 
+	}
+
 	
 	public LoginService getLoginService() {
 		return loginService;
@@ -81,7 +131,6 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		this.verificationCodeService = verificationCodeService;
 	}
 
-
 	public WebServiceContext getContext() {
 		return context;
 	}
@@ -91,7 +140,4 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		this.context = context;
 	}
 
-	
-	
-	
 }

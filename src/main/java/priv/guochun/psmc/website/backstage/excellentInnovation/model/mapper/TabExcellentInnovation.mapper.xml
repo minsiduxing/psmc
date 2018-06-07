@@ -46,26 +46,27 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 		ON
 		    tmpl.module_uuid = tm.uuid
     <where>
+    	1=1
     <if test="innovationUuid != null and innovationUuid != ''">
-        ti.innovation_uuid = #{innovationUuid}
+        and ti.innovation_uuid = #{innovationUuid}
       </if>
       <if test="orgName != null">
         and ti.org_name LIKE concat(concat('%',#{orgName}),'%')
       </if>
       <if test="declarePerson != null and declarePerson != ''">
-        ti.declare_person LIKE concat(concat('%',#{declarePerson}),'%')
+        and ti.declare_person LIKE concat(concat('%',#{declarePerson}),'%')
       </if>
       <if test="firstCompletePerson != null and firstCompletePerson != ''">
-        ti.first_complete_person LIKE concat(concat('%',#{firstCompletePerson}),'%')
+        and ti.first_complete_person LIKE concat(concat('%',#{firstCompletePerson}),'%')
       </if>
       <if test="deptName != null and deptName != ''">
-        ti.dept_name LIKE concat(concat('%',#{deptName}),'%')
+        and ti.dept_name LIKE concat(concat('%',#{deptName}),'%')
       </if>
       <if test="otherCompletePerson != null and otherCompletePerson != ''">
-        ti.other_complete_person LIKE concat(concat('%',#{otherCompletePerson}),'%')
+        and ti.other_complete_person LIKE concat(concat('%',#{otherCompletePerson}),'%')
       </if>
       <if test="achievementName != null and achievementName !=''">
-        ti.achievement_name LIKE concat(concat('%',#{achievementName}),'%')
+        and ti.achievement_name LIKE concat(concat('%',#{achievementName}),'%')
       </if>
       <if test="innovationDateBegin != null and innovationDateBegin != ''">  
 	    and <![CDATA[ti.innovation_date>=#{innovationDateBegin} ]]>  
@@ -73,6 +74,12 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	  <if test="innovationDateEnd!=null and innovationDateEnd!=''">  
         and <![CDATA[ti.innovation_date<=#{innovationDateEnd} ]]>  
 	  </if> 
+	  <if test="audit != null and audit != ''">  
+        and  tm.audit =#{audit}
+      </if>  
+      <if test="releaseStatus != null and releaseStatus != ''">  
+      	and  tm.release_status =#{releaseStatus}
+	  </if>
 	  <if test="auditDateBegin!=null and auditDateBegin!=''">  
 		and <![CDATA[tm.audit_date>=#{auditDateBegin}]]>  
 	  </if>  
@@ -90,7 +97,17 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	  </if>  
 	  <if test="publishExpireDateEnd!=null and publishExpireDateEnd!=''" >  
         and <![CDATA[tmpl.publish_expire_date<=#{publishExpireDateEnd} ]]>  
-	  </if>    
+	  </if>  
+	  <if test="queryParameter != null and queryParameter != ''" >  
+       and (ti.first_complete_person LIKE concat(concat('%',#{queryParameter}),'%')
+       		or ti.achievement_name LIKE concat(concat('%',#{queryParameter}),'%')
+       		or ti.achievement_content LIKE concat(concat('%',#{queryParameter}),'%')
+       		or ti.declare_person LIKE concat(concat('%',#{queryParameter}),'%')
+       		or ti.org_name LIKE concat(concat('%',#{queryParameter}),'%')
+       		or ti.dept_name LIKE concat(concat('%',#{queryParameter}),'%')
+       		or ti.other_complete_person LIKE concat(concat('%',#{queryParameter}),'%')
+       	   )
+	  </if>  
     </where>
     	order by tm.create_date desc
   </select>

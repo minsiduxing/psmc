@@ -57,4 +57,19 @@ public interface ExcellentInnovationService {
 	 * @author wangtao 2018年5月14日
 	 */
 	public void executeReleaseBusinessMethod(String uuids, String userId, Timestamp publishExpireDate);
+	
+	/**
+	 * 移动端-优秀创新列表
+	 * @param queryParameter
+	 * @param page
+	 * @return
+	 */
+	public MyPage getInnovationListToMobile(String queryParameter, MyPage page);
+	
+	/**
+	 * 移动端-优秀创新详细信息
+	 * @param innovationUuid
+	 * @return
+	 */
+	public Map<String,Object> getInnovationDetailToMobile(String innovationUuid);
 }

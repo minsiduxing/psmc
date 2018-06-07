@@ -97,5 +97,25 @@ public class InfoReleaseServiceImpl implements InfoReleaseService{
 		module.setPublishExpireDate(publishExpireDate);
 		tabModuleService.executeReleaseModule(newsIds, module);
 	}
+
+	@Override
+	public MyPage getInfoListToMobile(String infoType, String queryParameter, MyPage page) {
+		Map<String,Object> condition = new HashMap<String,Object>();
+		if(StringUtils.isNotBlank(queryParameter)){
+			condition.put("queryParameter", queryParameter);
+		}
+		//审核通过已发布的信息
+		condition.put("audit", ModuleEnum.AUDITED_PASS);
+		condition.put("releaseStatus", ModuleEnum.IS_RELEASEED);
+		condition.put("oneLevelClassify", infoType);
+		return baseDao.getMyPage(page, getInfoReleaseList, condition);
+	}
+
+	@Override
+	public Map<String, Object> getInfoDetailToMobile(String uuid) {
+		Map<String,Object> condition = new HashMap<String,Object>();
+        condition.put("newsUuid", uuid);
+		return (Map<String, Object>) baseDao.queryForObject(getInfoReleaseByUuid, condition);
+	}
     
 }

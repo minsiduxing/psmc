@@ -47,6 +47,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    		 ON 
    		 	tmpl.module_uuid = tm.uuid
    			<where>
+   				1=1
    				<if test="newsTitle!=null and newsTitle!=''">
    					and tn.news_title LIKE  concat(concat('%',#{newsTitle}),'%')
    				</if>
@@ -129,6 +130,12 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
        			</if> 
        			<if test="userId!=null and userId!=''">
    					and tm.create_acc_uuid =#{userId}
+   				</if>
+   				<if test="queryParameter != null and queryParameter != ''">
+   					and (tn.news_title LIKE  concat(concat('%',#{queryParameter}),'%')
+   						 or tn.news_author LIKE  concat(concat('%',#{queryParameter}),'%')
+   						 or tn.news_content	LIKE  concat(concat('%',#{queryParameter}),'%')
+   						)
    				</if>
    			</where>
    			 order by
