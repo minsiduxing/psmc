@@ -1,9 +1,18 @@
 package priv.guochun.psmc.system.framework.sms.core;
 
 
-import java.util.Map;
+import java.util.Properties;
 
+import priv.guochun.psmc.system.common.log.factory.TSysOperLogMapFactory;
+import priv.guochun.psmc.system.common.log.model.TSysOperLog;
+import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
+import priv.guochun.psmc.system.framework.util.GsonUtil;
+import priv.guochun.psmc.system.framework.util.LogResultEnum;
+import priv.guochun.psmc.system.framework.util.LogTypeEnum;
+import priv.guochun.psmc.system.util.DateUtil;
+import priv.guochun.psmc.system.util.SystemPropertiesUtil;
+import priv.guochun.psmc.system.util.UUIDGenerator;
 
 
 /**
@@ -34,11 +43,31 @@ public class SmsSendRuleSolve
 	}
 
 
-	public void sendSms(SmsModel smsModel){
-		Map<String,Object> map = smsSendModeSrategy.sendSms(smsModel.getReceiveNo(),smsModel.getReceiveContext());
-		boolean flag = Boolean.getBoolean(map.get("flag").toString());
-		String returnmsg = map.get("returnmsg")!=null?map.get("returnmsg").toString():"";
-		//todo 这里可以统一处理短信的重发机制、日志记录等
+	public MsgModel sendSms(SmsModel smsModel){
+		Properties pp = SystemPropertiesUtil.getProps();
+		//是否正式环境
+		boolean is_publish =Boolean.parseBoolean(pp.getProperty("is_publish"));
+		MsgModel mm = null;
+		if(is_publish)
+			mm = smsSendModeSrategy.sendSms(smsModel.getReceiveNo(),smsModel.getReceiveContext());
+		else
+			mm = MsgModel.buildDefaultSuccess("非生产环境模拟短信发送成功!",null);
+		 //todo 这里可以统一处理短信的重发机制、日志记录等
+		 TSysOperLog sysOperLog = new TSysOperLog();
+	     sysOperLog.setUuid(UUIDGenerator.createUUID());
+	     sysOperLog.setLogType(LogTypeEnum.LogTypeSysOper3.getIndex());
+	     sysOperLog.setLogTypeName(LogTypeEnum.LogTypeSysOper3.getName());
+	     sysOperLog.setLogSubType(LogTypeEnum.LogTypeSysOper3_1.getIndex());
+	     sysOperLog.setLogSubTypeName(LogTypeEnum.LogTypeSysOper3_1.getName());
+	     sysOperLog.setOperDate(DateUtil.getCurrentTimstamp());
+	     
+	     sysOperLog.setOperInput(GsonUtil.toJsonForObject(smsModel));
+	     sysOperLog.setOperOutput(GsonUtil.toJsonForObject(mm));
+	     sysOperLog.setOperResult(true == mm.isSuccess()?LogResultEnum.success.getIndex():LogResultEnum.error.getIndex());
+	     sysOperLog.setOperResultDesc("系统发送短信日志记录!");
+	     TSysOperLogMapFactory.getInstance().getTSysOperLog().put(sysOperLog.getUuid(), sysOperLog);
+	     return mm;
+	     
 	}
 
 }

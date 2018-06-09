@@ -1,5 +1,6 @@
 package priv.guochun.psmc.system.framework.sms.service;
 
+import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 
 
@@ -10,7 +11,7 @@ public interface MobileSmsSendService {
 	 * @param mobile 手机号
 	 * @param content 短信内容
 	 */
-	public void sendSms(SmsModel smsModel);
+	public MsgModel sendSms(SmsModel smsModel);
 	
 
 }

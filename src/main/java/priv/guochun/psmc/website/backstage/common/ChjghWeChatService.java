@@ -23,7 +23,7 @@ public interface ChjghWeChatService {
 	@Path("/getVcode")//某个方法的操作的资源
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-	public String createVcode(@QueryParam("type") int type);
+	public String createVcode(@QueryParam("type") int type,@QueryParam("phone") String phone);
 	
 	/**
 	 * 用户登录

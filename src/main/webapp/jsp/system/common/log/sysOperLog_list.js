@@ -22,8 +22,8 @@ $(document).ready(function(){
 		          {field:'operid',hidden:true}, 
 		          {field:'opername',title:"操作人"},   
 		          {field:'oper_date',title:"操作时间"},
-		          {field:'oper_input',title:"输入"},
-		          {field:'oper_output',title:"输出"},
+		          {field:'oper_input',title:"输入",width:300,fixed:true},
+		          {field:'oper_output',title:"输出",width:300,fixed:true},
 		          {field:'oper_result_desc',title:"操作描述"},
 		          {field:'oper_result',title:"操作结果"}
 		         ] 

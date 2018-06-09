@@ -342,11 +342,8 @@
 	   				<if test="opername !=null and opername != ''">
 	   					and opername = #{opername}
 	   				</if>
-	   				<if test="orderBy !=null">
-	   					order by #{orderBy}
-	   				</if>
-
 	   			</where>
+	   			order by oper_date desc
   </select>
   
   

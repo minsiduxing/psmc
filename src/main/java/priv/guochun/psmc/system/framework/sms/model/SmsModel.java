@@ -1,6 +1,8 @@
 package priv.guochun.psmc.system.framework.sms.model;
 
-import org.apache.commons.net.ntp.TimeStamp;
+import java.sql.Timestamp;
+
+
 
 public class SmsModel {
 
@@ -9,7 +11,7 @@ public class SmsModel {
 	private String receiveNo;
 	private String receiveCnName;
 	private String receiveContext;
-	private TimeStamp createTime;
+	private Timestamp createTime;
 	 
 	public SmsModel(){
 		 
@@ -47,13 +49,15 @@ public class SmsModel {
 		this.receiveContext = receiveContext;
 	}
 
-	public TimeStamp getCreateTime() {
+	public Timestamp getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(TimeStamp createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
+
+	
 	
 	
 	 

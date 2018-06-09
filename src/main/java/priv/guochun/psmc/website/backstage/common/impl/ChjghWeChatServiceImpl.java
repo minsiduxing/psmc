@@ -4,8 +4,11 @@ package priv.guochun.psmc.website.backstage.common.impl;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
 
+import org.apache.cxf.jaxrs.ext.MessageContext;
+import org.apache.cxf.transport.http.AbstractHTTPDestination;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import priv.guochun.psmc.authentication.login.model.User;
@@ -14,7 +17,11 @@ import priv.guochun.psmc.system.common.vcode.service.VerificationCodeService;
 import priv.guochun.psmc.system.enums.VerificationCodeTypeEnum;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.framework.sms.model.SmsModel;
+import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
+import priv.guochun.psmc.system.util.TimestampUtil;
+import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService;
 import priv.guochun.psmc.website.backstage.common.ChjghWeChatService;
 import priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService;
@@ -31,6 +38,9 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	private ExcellentInnovationService excellentInnovationService;
 	
 	@Autowired
+	private MobileSmsSendService chjghMobileSmsSendService;
+	
+	@Autowired
 	private InfoReleaseService infoReleaseService;
 	
 	@Autowired
@@ -40,14 +50,23 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	private WebServiceContext context;  
 	
 	@Override
-	public String createVcode(int type) {
+	public String createVcode(int type,String phone) {
 //		 MessageContext ctx = (MessageContext) context.getMessageContext();  
 //         HttpServletRequest request = (HttpServletRequest) ctx  
 //                 .get(AbstractHTTPDestination.HTTP_REQUEST);  
-//         String ip = request.getRemoteAddr();  
-		String ip ="127.0.0.1";
+         
+         String ip = "localhost";
          String code = verificationCodeService.createCode(type, ip);
-         return GsonUtil.toJsonForObject(MsgModel.buildDefaultSuccess(code));
+         
+         SmsModel sm = new SmsModel();
+         sm.setCreateTime(TimestampUtil.createCurTimestamp());
+         sm.setReceiveContext("{\"code\":\""+code+"\"}");
+         sm.setReceiveNo(phone);
+         MsgModel mm = chjghMobileSmsSendService.sendSms(sm);
+         if(mm.isSuccess())
+        	 return GsonUtil.toJsonForObject(MsgModel.buildDefaultSuccess(code));
+         else
+        	 return GsonUtil.toJsonForObject(mm);
 	}
 
 	@Override
@@ -112,6 +131,40 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	}
 
 	
+	public ExcellentInnovationService getExcellentInnovationService() {
+		return excellentInnovationService;
+	}
+
+	public void setExcellentInnovationService(
+			ExcellentInnovationService excellentInnovationService) {
+		this.excellentInnovationService = excellentInnovationService;
+	}
+
+	public MobileSmsSendService getChjghMobileSmsSendService() {
+		return chjghMobileSmsSendService;
+	}
+
+	public void setChjghMobileSmsSendService(
+			MobileSmsSendService chjghMobileSmsSendService) {
+		this.chjghMobileSmsSendService = chjghMobileSmsSendService;
+	}
+
+	public InfoReleaseService getInfoReleaseService() {
+		return infoReleaseService;
+	}
+
+	public void setInfoReleaseService(InfoReleaseService infoReleaseService) {
+		this.infoReleaseService = infoReleaseService;
+	}
+
+	public TabPageViewService getTabPageViewService() {
+		return tabPageViewService;
+	}
+
+	public void setTabPageViewService(TabPageViewService tabPageViewService) {
+		this.tabPageViewService = tabPageViewService;
+	}
+
 	public LoginService getLoginService() {
 		return loginService;
 	}

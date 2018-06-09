@@ -94,5 +94,7 @@
 		        </jaxrs:providers>
      </jaxrs:server>
 	
+	 <bean id="chjghMobileSmsSendService" class="priv.guochun.psmc.system.framework.sms.service.impl.ChjghMobileSmsSendServiceImpl" />
+	
 	
 </beans>

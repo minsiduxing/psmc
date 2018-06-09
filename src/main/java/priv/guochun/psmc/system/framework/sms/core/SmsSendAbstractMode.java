@@ -1,6 +1,6 @@
 package priv.guochun.psmc.system.framework.sms.core;
 
-import java.util.Map;
+import priv.guochun.psmc.system.framework.model.MsgModel;
 
 
 /**
@@ -18,6 +18,6 @@ public abstract class SmsSendAbstractMode
 	 * @return {flag:true,returnmsg:value}
 	 * flag:短信发送成功失败标识 returnmsg:接口调用返回信息 
 	 */
-	public abstract Map<String,Object> sendSms(String mobile,String content);
+	public abstract MsgModel sendSms(String mobile,String content);
 
 }
