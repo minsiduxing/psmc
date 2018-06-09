@@ -8,37 +8,35 @@
 </head>
 <body>
 <form id="editForm" method="POST" class="addfrom">
+		<input class="myinput" id="id" name="id" type="hidden" value="${tabResource.id}" />
+		<input class="myinput" id="parentResourceUuid" name="parentResourceUuid" type="hidden" value="${tabResource.parentResourceUuid}" />
+		<input class="myinput" id="creatorName" name="creatorName" type="hidden" value="${tabResource.creatorName}" />
+		<input class="myinput" id="createTime" name="createTime" type="hidden" value="${tabResource.createTime}" />
+		<input class="myinput" id="ordernum" name="ordernum" type="hidden" value="${tabResource.ordernum}" />
+		
+		
 		<ul class="addform-subcontent">
-			<!-- <li class="li-input"><label for="" class="input-label">资源ID：</label> -->
-				<input class="myinput" id="id" name="id" type="hidden" value="${tabResource.id}" />
-			<!-- </li> -->
 			<li class="li-input" id="accountPassPanel" ><label for="" class="input-label">资源名称：</label>
 				<input class="myinput" class="" data-options="required:true" id="resourceName" name="resourceName" />
 			</li> 
-			<li class="li-input"><label for="" class="input-label">资源URL：</label>
-				<input class="myinput" id="resourceUrl" name="resourceUrl" />
-			</li>
+			
 			<li class="li-input"><label for="" class="input-label">资源类型：</label>
-				<input id="resourceType" name="resourceType"  editable="false"/>
+				<input id="resourceType" name="resourceType"/>
 			</li>
-			<!-- <li class="li-input"><label for="" class="input-label">上级资源ID：</label> -->
-				<input class="myinput" id="parentResourceUuid" name="parentResourceUuid" type="hidden" value="${tabResource.parentResourceUuid}" />
-			<!-- </li> -->
-			<!-- <li class="li-input"><label for="" class="input-label">创建人账号：</label> -->
-				<input class="myinput" id="creatorName" name="creatorName" type="hidden" value="${tabResource.creatorName}" />
-			<!-- </li> -->
-			<!-- <li class="li-input"><label for="" class="input-label">创建时间：</label> -->
-				<input class="myinput" id="createTime" name="createTime" type="hidden" value="${tabResource.createTime}" />
-			<!-- </li> -->
-			<li class="li-input"><label for="" class="input-label">备注：</label>
-				<input class="myinput" id="remark" name="remark" />
-			</li>
-			<!-- <li class="li-input"><label for="" class="input-label">排序号：</label> -->
-				<input class="myinput" id="ordernum" name="ordernum" type="hidden" value="${tabResource.ordernum}" />
-			<!-- </li> -->
+			
 			<li class="li-input"><label for="" class="input-label">是否展示：</label>
 				<input id="isView" name="isView"></input>
 			</li>
+		</ul>
+		<ul>	
+			<li class="li-input"><label for="" class="input-label">资源URL：</label>
+				<input class="myinput" id="resourceUrl" name="resourceUrl" style="width:530px;" />
+			</li>
+		</ul>
+		<ul>	
+			<li class="li-input"><label for="" class="input-label">备注：</label>
+				<input class="myinput" id="remark" name="remark" style="width:530px;"/>
+			</li>	
 		</ul>
 	</form>
 <script type="text/javascript">
@@ -103,8 +101,7 @@
 			required : true
 		}); 
 		
-		$('#resourceType').combobox('select','${tabResource.resourceType}');
-		
+		commonObj.initDictCombobox("resourceType","TAB_RESOURCE_TYPE","<c:out value="${tabResource.resourceType}"/>",true,false);
 		commonObj.initDictCombobox("isView","IF","<c:out value="${tabResource.isView}"/>",true,false);
 	});
 

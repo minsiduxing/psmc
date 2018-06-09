@@ -11,25 +11,27 @@
 <body>
 
 <input type="hidden" id="oper" name="oper" value="<c:out value="${oper}"/>"/>
-	<form id="editForm" method="POST">
-		
-		<table class="table">
+	<form id="editForm" method="POST" class="addfrom">
 		<input type="hidden" id="uuid" name="uuid" value="<c:out value="${role.UUID}"/>"/>
 		<input type="hidden" class="myinput" id="creator" value='<c:out value="${role.CREATOR}"/>'/>
 		<input type="hidden" class="myinput" id="createTime" value='<c:out value="${role.CREATE_TIME}"/>' />
-			<tr>
-				<td>角色编码</td>
-				<td class="inputTd"><input class="myinput" id="roleNo" name="roleNo" /></td>
-			</tr>
-			<tr>
-				<td>角色名称</td>
-				<td class="inputTd"><input class="myinput" id="roleName" name="roleName" /></td>
-			</tr>
-			<tr>
-				<td>角色描述</td>
-				<td class="inputTd"><input class="myinput" id="remark" name="remark" value='<c:out value="${role.REMARK}"/>'/></td>
-			</tr>
-		</table>
+		
+		
+		<ul class="addform-subcontent">
+			<li class="li-input" id="accountPassPanel" ><label for="" class="input-label">角色编码：</label>
+				<input class="myinput" id="roleNo" name="roleNo" />
+			</li> 
+			<li class="li-input" id="accountPassPanel" ><label for="" class="input-label">角色名称：</label>
+				<input class="myinput" id="roleName" name="roleName" />
+			</li> 
+		</ul>
+		
+		<ul class="addform-subcontent">
+			<li class="li-input" id="accountPassPanel" ><label for="" class="input-label">备注：</label>
+				<textarea id="remark" name="remark" rows="4" cols="50">${role.REMARK}</textarea>
+			</li> 
+		</ul>
+		
 	</form>
 	<script type="text/javascript">
 		$(function() {

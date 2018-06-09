@@ -35,8 +35,8 @@ function initDialog(){
 	editdialog = $("#editdialogDiv").dialog({
 		modal: true,
 		closed: true,
-	    width: 705,
-	    height: 280,
+	    width: 635,
+	    height: 480,
 	    resizable:true,
 	    cache: false,
 	    buttons:[{
@@ -78,6 +78,8 @@ $(document).ready(function(){
 		          {field:'SEXNAME',title:'性别'}, 
 		          {field:'AGE',title:'年龄'}, 
 		          {field:'TELEPHONE',title:'手机号'}, 
+		          {field:'GROUP_CODE',title:'隶属组编码'}, 
+		          {field:'GROUP_NAME',title:'隶属组名称'}, 
 		          {field:'EMAIL',title:'Email',resizable:true}
 		         ] 
 		      ]

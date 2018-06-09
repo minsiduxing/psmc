@@ -82,4 +82,15 @@ public class OperateContantsUtil {
     public final static String INFO_RELEASE = "INFO_RELEASE";
     public final static String INFO_PREVIEW = "INFO_PREVIEW";
     
+    
+    /**
+     * 用户组编码
+     */
+    public final static String USER_GROUP_QUERY = "USER_GROUP_QUERY";
+    public final static String USER_GROUP_PARENT_UPDATE = "USER_GROUP_PARENT_UPDATE";
+    public final static String USER_GROUP_ADD = "USER_GROUP_ADD";
+    public final static String USER_GROUP_UPDATE = "USER_GROUP_UPDATE";
+    public final static String USER_GROUP_DEL = "USER_GROUP_DEL";
+    
+    
 }

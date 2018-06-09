@@ -178,6 +178,14 @@ public class MyController
         pw.close();
     }
     
+    protected void responseJson(String str,HttpServletResponse response) throws IOException{
+        response.setHeader("Content-type", "text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8"); 
+        PrintWriter pw =  response.getWriter();
+        pw.append(str);
+        pw.close();
+    }
+    
     
     /**
 	 * 生成json串给前端

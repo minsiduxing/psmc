@@ -150,9 +150,9 @@ public class TabAccountController extends MyController {
 		List accountList = mypage.getDataList();
 		//2、将得到的数据封装到excel里
 		//2.1 设置属性列名
-		 this.setColumns(new String[]{"ACCOUNT_NAME","ISLOCKEDNAME","PERSON_NAME","SEXNAME","AGE","TELEPHONE","EMAIL"});
+		 this.setColumns(new String[]{"ACCOUNT_NAME","ISLOCKEDNAME","PERSON_NAME","SEXNAME","AGE","TELEPHONE","GROUP_CODE","GROUP_NAME","EMAIL"});
 		//2.2 设置表格的显示名
-		 this.setTitles(new String[]{"用户名","是否锁定","姓名","性别","年龄","电话","邮箱"});
+		 this.setTitles(new String[]{"用户名","是否锁定","姓名","性别","年龄","手机号","隶属组编码","隶属组名称","邮箱"});
 		 //2.3设置文件名
 		 this.setFileName("账户信息列表.xls");
 		//2.4 初始化数据

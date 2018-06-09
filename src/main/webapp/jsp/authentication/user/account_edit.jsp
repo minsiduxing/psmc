@@ -34,6 +34,15 @@
 				<input class="myinput" id="cityName" name="cityName"></input> <input
 				type="hidden" id="cityId" name="cityId" value="${person.CITYID}"></input>
 			</li>
+			<li>
+				<label for="" class="input-label">所属用户组：</label>
+				<input type="hidden" id="groupid" name="groupid" value="${account.GROUPID}"></input>
+				<input id="groupname" name="groupname"></input>
+			</li>
+			
+		</ul>
+		
+		<ul>
 			<li class="li-input"><label for="" class="input-label">所属角色：</label>
 				<input id="roleUuid" name="roleUuid"></input></li>
 		</ul>
@@ -43,6 +52,10 @@
 	function cityCallBack(ids, names) {
 		$("#cityId").val(ids);
 		$('#cityName').textbox('setValue', names);
+	}
+
+	function groupTreeChange(newval,oldval){
+		$("#groupid").val(newval);
 	}
 
 	var oper = "${oper}";
@@ -134,19 +147,32 @@
 		$('#roleUuid').combogrid(
 		{
 			value : "${account.ROLE_UUID}",
-			width : 200,
+			width : 310,
 			required : true,
-			panelMaxHeight : 100,
+			panelMaxHeight : 150,
 			editable : false,
 			idField : 'UUID',
 			textField : 'ROLE_NAME',
 			url: loadComboRoleList ,
 			columns:[[   
  				  {field:'UUID',title:'主键',hidden:true},    
-		          {field:'ROLE_NO',title:'角色编码',width:100},    
-		          {field:'ROLE_NAME',title:'角色名称',width:130}
+		          {field:'ROLE_NO',title:'角色编码',width:155},    
+		          {field:'ROLE_NAME',title:'角色名称',width:155}
 		      ]]  
-	});
+		});
+
+		var loadGroupTreeUrl =basePath+"/authentication/tabGroupController.do";
+		loadGroupTreeUrl = '<c:url value="'+loadGroupTreeUrl+'"/>?method=getTreeJson';
+		$('#groupname').combotree({    
+		    url: loadGroupTreeUrl,    
+		    required: true,
+		    lines:true,
+		    editable:false,
+		    value:'${account.GROUP_NAME}',
+		    onChange:groupTreeChange
+		});  
+
+		
 	
 	commonObj.initDictCombobox("isLocked","IF","<c:out value="${account.IS_LOCKED}"/>",true,false);
 	commonObj.initDictCombobox("sex","SEX","<c:out value="${person.SEX}"/>",true,false);

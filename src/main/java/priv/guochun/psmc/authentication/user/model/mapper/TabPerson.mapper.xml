@@ -25,8 +25,8 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
     
     
     <insert id="insertTabPerson">
-  		INSERT INTO TAB_PERSON(UUID,PERSON_NAME,SEX,AGE,TELEPHONE,EMAIL,ACC_UUID,CITY_ID) VALUES
-  		(#{uuid},#{personName},#{sex},#{age},#{telephone},#{email},#{accUuid},#{cityId})
+  		INSERT INTO TAB_PERSON(UUID,PERSON_NAME,SEX,AGE,TELEPHONE,EMAIL,ACC_UUID,CITY_ID,GROUPID) VALUES
+  		(#{uuid},#{personName},#{sex},#{age},#{telephone},#{email},#{accUuid},#{cityId},#{groupid})
   	</insert>
   	
   	<update id="updateTabPerson">
@@ -52,6 +52,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	  		</if>
 	  		<if test="cityId != null">
 	  			CITY_ID =#{cityId},
+	  		</if>
+	  		<if test="groupid != null">
+	  			GROUPID =#{groupid},
 	  		</if>
   		</trim>
   		where UUID=#{uuid}

@@ -23,7 +23,9 @@ public abstract class BaseTabPerson  implements Serializable {
 	public static String PROP_TELEPHONE = "Telephone";
 	public static String PROP_PERSON_NAME = "PersonName";
 	public static String PROP_SEX = "Sex";
-
+	
+	public static String GROUPID = "groupid";
+	
 
 	// constructors
 	public BaseTabPerson () {
@@ -55,7 +57,7 @@ public abstract class BaseTabPerson  implements Serializable {
 	private java.lang.String email;
 	private java.lang.String accUuid;
 	private java.lang.String cityId;
-
+	private java.lang.String groupid;
 
 
 	/**
@@ -199,6 +201,13 @@ public abstract class BaseTabPerson  implements Serializable {
 
 
 
+	public java.lang.String getGroupid() {
+		return groupid;
+	}
+
+	public void setGroupid(java.lang.String groupid) {
+		this.groupid = groupid;
+	}
 
 	public boolean equals (Object obj) {
 		if (null == obj) return false;

@@ -67,6 +67,14 @@
 	<bean id="tabPrivilegeDao"
 		class="priv.guochun.psmc.authentication.privilege.dao.impl.TabPrivilegeDaoImplMybatis" />
 	
+	
+	<bean id="tabGroupService"
+		class="priv.guochun.psmc.authentication.user.service.impl.TabGroupServiceImpl" />
+
+	<bean id="tabGroupDao"
+		class="priv.guochun.psmc.authentication.user.dao.impl.TabGroupDaoImplMybatis" />
+	
+	
 	<aop:config>
 		<aop:aspect id="authaop" ref="authAdvice">
 				<aop:pointcut id="authpointcut" expression="execution(public * priv.guochun.psmc..*ServiceImpl.*BusinessMethod(..))"/>
