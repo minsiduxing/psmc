@@ -52,6 +52,8 @@ public interface TabAccountService
      */
     public boolean saveOrUpdateBusinessMethod(TabAccount account,TabPerson person,String role_ids);
     
+    public boolean register(TabAccount account,TabPerson person,String role_ids);
+    
     /**
      * 批量删除账户信息,级联删除账户、用户、用户所属角色等信息
      * @param uuids

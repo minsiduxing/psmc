@@ -4,15 +4,15 @@ package priv.guochun.psmc.website.backstage.common.impl;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.cxf.jaxrs.ext.MessageContext;
-import org.apache.cxf.transport.http.AbstractHTTPDestination;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
+import priv.guochun.psmc.authentication.user.model.TabAccount;
+import priv.guochun.psmc.authentication.user.model.TabPerson;
+import priv.guochun.psmc.authentication.user.service.TabAccountService;
 import priv.guochun.psmc.system.common.vcode.service.VerificationCodeService;
 import priv.guochun.psmc.system.enums.VerificationCodeTypeEnum;
 import priv.guochun.psmc.system.framework.model.MsgModel;
@@ -27,6 +27,7 @@ import priv.guochun.psmc.website.backstage.common.ChjghWeChatService;
 import priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService;
 import priv.guochun.psmc.website.backstage.pageView.model.TabPageView;
 import priv.guochun.psmc.website.backstage.pageView.service.TabPageViewService;
+import priv.guochun.psmc.website.backstage.util.ChjghContants;
 
 
 public class ChjghWeChatServiceImpl implements ChjghWeChatService {
@@ -48,6 +49,9 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 
 	@Resource  
 	private WebServiceContext context;  
+	
+	@Autowired
+	private TabAccountService tabAccountService;
 	
 	@Override
 	public String createVcode(int type,String phone) {
@@ -91,6 +95,51 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		
 		msg = MsgModel.buildDefaultSuccess(user);
 		return GsonUtil.toJsonForObject(msg);
+	}
+	
+	@Override
+	public String register(String name,String phone,String code){
+		MsgModel msg = null;
+		// TODO 验证码校验
+		msg = verificationCodeService.validateCode(code, VerificationCodeTypeEnum.VCODE_REGISTER.getValue());
+		if(!msg.isSuccess()){
+			return GsonUtil.toJsonForObject(msg);
+		}
+		
+		User user = loginService.buildUserByPhone(phone);
+		if(user != null){
+			msg = MsgModel.buildDefaultError("该手机号已被注册!");
+			return GsonUtil.toJsonForObject(msg);
+		}
+		
+		TabAccount account = new TabAccount();
+		String accUuid = UUIDGenerator.createUUID();
+		String personUuid = UUIDGenerator.createUUID();
+		account.setUuid(accUuid);
+		account.setAccountName(phone);
+		account.setAccountPass(ChjghContants.WECHAT_PW);
+		account.setIsLocked("2");
+		
+		TabPerson person = new TabPerson();
+		person.setUuid(personUuid);
+		person.setAccUuid(accUuid);
+		person.setTelephone(phone);
+		person.setCityId("00");
+		person.setGroupid(ChjghContants.WECHAT_GROUP_CODE);
+		person.setPersonName(name);
+		person.setSex(3);
+		
+		boolean flag = tabAccountService.register(account, person, ChjghContants.WECHAT_ROLE_ID);
+		if(flag){
+			user = loginService.buildUserByPhone(phone);
+			msg = MsgModel.buildDefaultSuccess("用户注册成功!",user);
+			return GsonUtil.toJsonForObject(msg);
+		}else{
+			msg = MsgModel.buildDefaultError("用户注册失败,请联系管理员!");
+			return GsonUtil.toJsonForObject(msg);
+		}
+			
+		
 	}
 	
 	@Override
@@ -193,4 +242,12 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		this.context = context;
 	}
 
+	public TabAccountService getTabAccountService() {
+		return tabAccountService;
+	}
+
+	public void setTabAccountService(TabAccountService tabAccountService) {
+		this.tabAccountService = tabAccountService;
+	}
+	
 }

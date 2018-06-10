@@ -57,13 +57,16 @@ public class TabAccountServiceImpl implements TabAccountService
 	 }
 	 
 	 public boolean saveOrUpdateBusinessMethod(TabAccount account,TabPerson person,String role_ids){
+		 return this.register(account,person,role_ids);
+	 }
+    
+	 public boolean register(TabAccount account,TabPerson person,String role_ids){
 		 tabAccountDao.saveOrUpdateAccount(account);
 		 tabPersonService.saveOrUpdate(person);
 		 tabRoleService.deletesAccRoleRelationByAccUuids(account.getUuid());
 		 tabRoleService.saveAccRoleRelationByAccUuids(account.getUuid(), role_ids);
 		 return true;
 	 }
-    
 	
 	@Override
 	public boolean deletesBusinessMethod(String uuids) {

@@ -1,7 +1,9 @@
 package priv.guochun.psmc.website.backstage.common;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -35,6 +37,20 @@ public interface ChjghWeChatService {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
 	public String login(@QueryParam("phone") String phone,@QueryParam("code") String code);
+	
+	
+	/**
+	 * 用户注册
+	 * @param name
+	 * @param phone
+	 * @param code
+	 * @return
+	 */
+	@Path("/register")//某个方法的操作的资源
+    @POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String register(@FormParam("name") String name,@FormParam("phone") String phone,@FormParam("code") String code);
+	
 	
 	/**
 	 * 获取日常工作信息列表
