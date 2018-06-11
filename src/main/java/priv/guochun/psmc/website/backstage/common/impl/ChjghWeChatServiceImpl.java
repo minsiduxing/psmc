@@ -1,6 +1,8 @@
 package priv.guochun.psmc.website.backstage.common.impl;
 
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -15,19 +17,24 @@ import priv.guochun.psmc.authentication.user.model.TabPerson;
 import priv.guochun.psmc.authentication.user.service.TabAccountService;
 import priv.guochun.psmc.system.common.vcode.service.VerificationCodeService;
 import priv.guochun.psmc.system.enums.VerificationCodeTypeEnum;
+import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
+import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.TimestampUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService;
+import priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService;
 import priv.guochun.psmc.website.backstage.common.ChjghWeChatService;
 import priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService;
 import priv.guochun.psmc.website.backstage.pageView.model.TabPageView;
 import priv.guochun.psmc.website.backstage.pageView.service.TabPageViewService;
 import priv.guochun.psmc.website.backstage.util.ChjghContants;
+import priv.guochun.psmc.website.enums.ModuleEnum;
+
 
 
 public class ChjghWeChatServiceImpl implements ChjghWeChatService {
@@ -36,6 +43,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	
 	private VerificationCodeService verificationCodeService;
 	
+	@Autowired
 	private ExcellentInnovationService excellentInnovationService;
 	
 	@Autowired
@@ -46,6 +54,8 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	
 	@Autowired
 	private TabPageViewService tabPageViewService;
+	@Autowired
+	private TabActivityManageService tabActivityManageService;
 
 	@Resource  
 	private WebServiceContext context;  
@@ -144,41 +154,171 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	
 	@Override
 	public String getInfoList(String infoType, String queryParameter, MyPage page) {
-		page = infoReleaseService.getInfoListToMobile(infoType, queryParameter, page);
-		MsgModel msg = MsgModel.buildDefaultSuccess(page);
+		Map<String,Object> condition = new HashMap<String,Object>();
+		condition.put("queryParameter", queryParameter);
+		//审核通过已发布的信息
+		condition.put("audit", ModuleEnum.AUDITED_PASS);
+		condition.put("releaseStatus", ModuleEnum.IS_RELEASEED);
+		condition.put("oneLevelClassify", infoType);
+		//移动端只查询未过期的信息
+		condition.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
+		page.setQueryParams(condition);
+		MsgModel msg = null;
+		try {
+			page = infoReleaseService.getInfoReleaseListBusinessMethod(page);
+			msg = MsgModel.buildDefaultSuccess(page);
+		} catch (Exception e) {
+			msg = MsgModel.buildDefaultError("获取数据异常");
+		}
 		return GsonUtil.toJsonForObject(msg); 
 	}
 
 
 	@Override
 	public String getDetailInfo(String uuid) {
-		Map<String, Object> dataMap = infoReleaseService.getInfoDetailToMobile(uuid);
-		tabPageViewService.saveOrUpdate(uuid);//保存或修改浏览量
-		TabPageView pageView = tabPageViewService.queryPageviewByUuid(uuid);//获取浏览量
-		dataMap.put("nums", pageView.getNums());
-		MsgModel msg = MsgModel.buildDefaultSuccess(dataMap);
+		MsgModel msg = null;
+		try {
+			Map<String, Object> dataMap = infoReleaseService.getInfoReleaseByUuidBusinessMethod(uuid);
+			int nums = 0;
+			TabPageView pageView = tabPageViewService.queryPageviewByUuid(uuid);//获取浏览量
+			if(pageView != null){
+				nums = pageView.getNums();
+			}
+			//更新浏览次数
+			tabPageViewService.saveOrUpdate(uuid);
+			dataMap.put("nums", nums);
+			msg = MsgModel.buildDefaultSuccess(dataMap);
+		} catch (Exception e) {
+			msg = MsgModel.buildDefaultError("获取数据异常");
+		}
 		return GsonUtil.toJsonForObject(msg); 
 	}
 
 
 	@Override
 	public String getInnovationList(String queryParameter, MyPage page) {
-		page = excellentInnovationService.getInnovationListToMobile(queryParameter, page);
-		MsgModel msg = MsgModel.buildDefaultSuccess(page);
+		Map<String,Object> condition = new HashMap<String,Object>();
+		condition.put("queryParameter", queryParameter);
+		//审核通过已发布的信息
+		condition.put("audit", ModuleEnum.AUDITED_PASS);
+		condition.put("releaseStatus", ModuleEnum.IS_RELEASEED);
+		//移动端只查询未过期的信息
+		condition.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
+		page.setQueryParams(condition);
+		MsgModel msg = null;
+		try {
+			page = excellentInnovationService.getInnovationListBusinessMethod(page);
+			msg = MsgModel.buildDefaultSuccess(page);
+		} catch (Exception e) {
+			msg = MsgModel.buildDefaultError("获取数据异常");
+		}
 		return GsonUtil.toJsonForObject(msg); 
 	}
 
 
 	@Override
 	public String getDetailInnovation(String innovationUuid) {
-		Map<String, Object> dataMap = excellentInnovationService.getInnovationDetailToMobile(innovationUuid);
-		tabPageViewService.saveOrUpdate(innovationUuid);
-		TabPageView pageView = tabPageViewService.queryPageviewByUuid(innovationUuid);
-		dataMap.put("nums", pageView.getNums());
-		MsgModel msg = MsgModel.buildDefaultSuccess(dataMap);
+		MsgModel msg = null;
+		try {
+			Map<String, Object> dataMap = excellentInnovationService.getInnovationByUuidBusinessMethod(innovationUuid);
+			int nums = 0;
+			TabPageView pageView = tabPageViewService.queryPageviewByUuid(innovationUuid);//获取浏览量
+			if(pageView != null){
+				nums = pageView.getNums();
+			}
+			//更新浏览次数
+			tabPageViewService.saveOrUpdate(innovationUuid);
+			dataMap.put("nums", nums);
+			msg = MsgModel.buildDefaultSuccess(dataMap);
+		} catch (Exception e) {
+			msg = MsgModel.buildDefaultError("获取数据异常");
+		}
 		return GsonUtil.toJsonForObject(msg); 
 	}
 
+	@Override
+	public String getActivityList(String queryParameter, MyPage page){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("queryParameter", queryParameter);
+		//审核通过已发布的活动信息
+		paramMap.put("audit", ModuleEnum.AUDITED_PASS);
+		paramMap.put("releaseStatus", ModuleEnum.IS_RELEASEED);
+		//移动端只查询未过期的活动信息
+		paramMap.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
+		page.setQueryParams(paramMap);
+		MsgModel msg = null;
+		try {
+			page = tabActivityManageService.queryActivityList(page);
+			msg = MsgModel.buildDefaultSuccess(page);
+		} catch (Exception e) {
+			msg = MsgModel.buildDefaultError("获取数据异常");
+		}
+		return GsonUtil.toJsonForObject(msg);
+	}
+	
+	@Override
+	public String getActivityDetail(String activityUuid, String phone){
+		MsgModel msg = null;
+		try {
+			Map<String, Object> dataMap = tabActivityManageService.getActivityByUuid(activityUuid);
+			int nums = 0;
+			boolean isSignUp = false;
+			//获取浏览量
+			TabPageView pageView = tabPageViewService.queryPageviewByUuid(activityUuid);
+			if(pageView != null){
+				nums = pageView.getNums();
+			}
+			//更新浏览量
+			tabPageViewService.saveOrUpdate(activityUuid);
+			//判断当前用户是否已经报名
+			Map<String, Object> signUp = tabActivityManageService.getSignUpByActivityIdAndAccout(activityUuid, phone);
+			if(signUp != null && signUp.size() > 0){
+				isSignUp = true;
+			}
+			dataMap.put("isSignUp", isSignUp);
+			dataMap.put("nums", nums);
+			msg = MsgModel.buildDefaultSuccess(dataMap);
+		} catch (Exception e) {
+			msg = MsgModel.buildDefaultError("获取数据异常");
+		}
+		return GsonUtil.toJsonForObject(msg);
+	}
+	
+	@Override
+	public String signUp(String activityUuid, String phone){
+		MsgModel msg = null;
+		try {
+			tabActivityManageService.addSignUpInfo(activityUuid, phone);
+			msg = MsgModel.buildDefaultSuccess("报名成功", null);
+		} catch (PsmcBuisnessException e) {
+			msg = MsgModel.buildDefaultError(e.getMessage());
+		}
+		return GsonUtil.toJsonForObject(msg);
+	}
+	
+	@Override
+	public String cancelSignUp(String activityUuid, String phone){
+		MsgModel msg = null;
+		try {
+			tabActivityManageService.deleteSignInfo(activityUuid, phone);
+			msg = MsgModel.buildDefaultSuccess("取消报名成功", null);
+		} catch (Exception e) {
+			msg = MsgModel.buildDefaultError("操作失败");
+		}
+		return GsonUtil.toJsonForObject(msg);
+	}
+	
+	@Override
+	public String getSignUpList(String activityUuid){
+		MsgModel msg = null;
+		try {
+			List<Map<String, Object>> signUpList = tabActivityManageService.querySignUpInfoList(activityUuid);
+			msg = MsgModel.buildDefaultSuccess(signUpList);
+		} catch (Exception e) {
+			msg = MsgModel.buildDefaultError("获取数据异常");
+		}
+		return GsonUtil.toJsonForObject(msg);
+	}
 	
 	public ExcellentInnovationService getExcellentInnovationService() {
 		return excellentInnovationService;

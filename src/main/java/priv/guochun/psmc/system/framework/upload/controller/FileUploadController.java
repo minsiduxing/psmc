@@ -21,6 +21,7 @@ import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
 import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
 import priv.guochun.psmc.system.framework.upload.util.FtpUtil;
 import priv.guochun.psmc.system.framework.upload.util.PSMCFileUtils;
+import priv.guochun.psmc.system.util.ContantsUtil;
 @Scope("prototype")
 @Controller
 @RequestMapping("/system/freamwork/fileUploadController")
@@ -29,7 +30,8 @@ public class FileUploadController extends MyController {
 	private UploadAssemblyInterface uploadAssemblyInterface;
 	@RequestMapping(params="method=fileUpload")
 	@ResponseBody
-	public void fileUpload(HttpServletRequest request,HttpServletResponse response) throws IllegalStateException, IOException{
+	public void fileUpload(HttpServletRequest request,HttpServletResponse response,String oneLevelClassify) throws IllegalStateException, IOException{
+		request.setAttribute("imagePath", this.getImagePath(oneLevelClassify));
 		UploadFileModel upf = uploadAssemblyInterface.getFile(request);
 		FtpUtil ftu = FtpUtil.getFtputil();
 		String filepath = ftu.uploadFile(upf);
@@ -61,5 +63,26 @@ public class FileUploadController extends MyController {
 	    Map<String,Object> resm = ftu.getFileList(filePath);
 	    JSONObject jsob = new JSONObject(resm);
 		super.responseJson(jsob, response);
+	}
+	
+	private String getImagePath(String oneLevelClassify){
+		String imagePath = "";
+		switch (oneLevelClassify) {
+			case ContantsUtil.ONE_LEVEL_CLASSIFY_11:
+				imagePath = ContantsUtil.INNOVATION;
+				break;
+			case ContantsUtil.ONE_LEVEL_CLASSIFY_12:
+				imagePath = ContantsUtil.ASSISTANCE;
+				break;
+			case ContantsUtil.ONE_LEVEL_CLASSIFY_13:
+				imagePath = ContantsUtil.LITERARY_FORM;
+				break;
+			case ContantsUtil.ONE_LEVEL_CLASSIFY_14:
+				imagePath = ContantsUtil.LOGISTICS_CENTER;
+				break;
+		default:
+			break;
+		}
+		return imagePath;
 	}
 }

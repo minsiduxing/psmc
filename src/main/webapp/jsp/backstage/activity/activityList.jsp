@@ -4,37 +4,32 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>优秀创新信息列表页面</title>
+    <title>活动信息列表页面</title>
   </head>
-  <script type="text/javascript" src="<%=request.getContextPath()%>/jsp/backstage/innovation/innovationList.js"></script>
+  <script type="text/javascript" src="<%=request.getContextPath()%>/jsp/backstage/activity/activityList.js"></script>
   <body id="body">
   <!-- 信息查询 -->
 <div class="query-content panel easyui-accordion accordion " data-options="selected:false" style="width:100%"> 
  <div title="信息查询" > 
     <form id="searchform" method="POST" class="query-form" >
 	<ul class="">
-			<li class="li-input"><label for="" class="input-label">所属单位：</label>
-				<input class="myinput" id="orgName" name="orgName"/>
+			<li class="li-input"><label for="" class="input-label">活动名称：</label>
+				<input class="myinput" id="activityName" name="activityName"/>
 			</li>
-			<li class="li-input"><label for="" class="input-label">申报负责人：</label>
-				<input class="myinput" id="declarePerson" name="declarePerson"/>
+			<li class="li-input"><label for="" class="input-label">活动内容：</label>
+				<input class="myinput" id="activityContent" name="activityContent"/>
 			</li>
-			<li class="li-input"><label for="" class="input-label">成果名称：</label>
-				<input id="achievementName" name="achievementName" />
+			<li class="li-input"><label for="" class="input-label">活动创建人：</label>
+				<input id="createPerson" name="createPerson" />
 			</li>
-			<li class="li-input"><label for="" class="input-label">创新日期：</label>
-				<input id="innovationDateBegin" name="innovationDateBegin" value=""></input>
+			<li class="li-input"><label for="" class="input-label">创建时间：</label>
+				<input id="createBeginDate" name="createBeginDate" value=""></input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至</label>
-				<input id="innovationDateEnd" name="innovationDateEnd" />
+				<input id="createEndDate" name="createEndDate" />
 			
 			
-		    <li class="li-input"><label for="" class="input-label">第一完成人：</label>
-				<input id="firstCompletePerson" name="firstCompletePerson" />
-			</li> 
-			<li class="li-input"><label for="" class="input-label">所在部门：</label>
-				<input id="deptName" name="deptName" value=""/>
-			</li>
+		    
 			<li class="li-input"><label for="" class="input-label">是否审核：</label>
 				<input id="audit" name="audit" value=""/>
 			</li>
@@ -44,19 +39,28 @@
 			<li class="li-input"><label for="" class="input-label">至：</label>
 				<input id="auditDateEnd" name="auditDateEnd" />
 			</li>
-			
-			
-			<li class="li-input"><label for="" class="input-label">其他完成人：</label>
-				<input id="otherCompletePerson" name="otherCompletePerson"/> 
+			<li class="li-input"><label for="" class="input-label">活动开始时间：</label>
+				<input id="activityBeginDate1" name="activityBeginDate1"/> 
 			</li>
-		     <li class="li-input"><label for="" class="input-label">是否发布：</label>
+		     <li class="li-input"><label for="" class="input-label">至：</label>
+				<input id="activityBeginDate2" name="activityBeginDate2"/>
+			</li>
+			
+			
+			<li class="li-input"><label for="" class="input-label">是否发布：</label>
 				<input id="releaseStatus" name="releaseStatus"/>
 			</li>
-			<li class="li-input"><label for="" class="input-label">发布日期：</label>
+			<li class="li-input"><label for="" class="input-label">发布时间：</label>
 			<input id="releaseDateBegin" name="releaseDateBegin" />
 			</li>
 			<li class="li-input"><label for="" class="input-label">至：</label>
 				<input id="releaseDateEnd" name="releaseDateEnd" />
+			</li>
+			<li class="li-input"><label for="" class="input-label">活动结束时间：</label>
+			<input id="activityEndDate1" name="activityEndDate1" />
+			</li>
+			<li class="li-input"><label for="" class="input-label">至：</label>
+				<input id="activityEndDate2" name="activityEndDate2" />
 			</li>
 			
 			<!--  <li class="li-input"><label for="" class="input-label">到期日期：</label>
@@ -68,13 +72,13 @@
 	</ul>
 	</form>
 	<div class="query-oper">
-		<a href="#" class="easyui-linkbutton query-btn" onclick="commonObj.query('innovationList','searchform')" id="submit_search" plain="true" iconCls="icon-search">查询</a>
+		<a href="#" class="easyui-linkbutton query-btn" onclick="commonObj.query('activityList','searchform')" id="submit_search" plain="true" iconCls="icon-search">查询</a>
 	</div> 
  </div>
  </div>
  <!--信息查询结束  -->
 <!--data grid  -->
- <table id="innovationList" style="width:100%"></table>
+ <table id="activityList" style="width:100%"></table>
   <!--工具栏  -->
 <div id="toolbarId">
 <g:auth operateNo="<%=OperateContantsUtil.INFO_EDIT%>">
@@ -109,29 +113,32 @@
 
 <script type="text/javascript">
 var basePath = $("#basePath").val();
-var infoDo = basePath+"/website/backstage/ExcellentInnovationController.do";
-var getInfoDataUrl ='<c:url value="'+infoDo+'"/>?method=excellentInnovationList';
-var editInfoUrl ='<c:url value="'+infoDo+'"/>?method=innovationEdit';
+var infoDo = basePath+"/website/backstage/TabActivityManageController.do";
+var getInfoDataUrl ='<c:url value="'+infoDo+'"/>?method=queryActivityList';
+var editInfoUrl ='<c:url value="'+infoDo+'"/>?method=activityEdit';
 var removeInfo = '<c:url value="'+infoDo+'"/>?method=deleteByUuids';
 var auditInfo = '<c:url value="'+infoDo+'"/>?method=executeAudit';
 var releaseInfo = '<c:url value="'+infoDo+'"/>?method=executeRelease';
-var priviewInfo = '<c:url value="'+infoDo+'"/>?method=getInfoReleaseByUuid';
+
 //----------------------------查询框初始化开始
-$('#orgName').textbox({
+$('#activityName').textbox({
 });
-$('#declarePerson').textbox({
+$('#activityContent').textbox({
 });
-$('#achievementName').textbox({
+$('#createPerson').textbox({
 });
-$('#firstCompletePerson').textbox({
+
+$('#createBeginDate').datetimebox({
 });
-$('#deptName').textbox({
+$('#createEndDate').datetimebox({
 });
-$('#otherCompletePerson').textbox({
+$('#activityBeginDate1').datetimebox({
 });
-$('#innovationDateBegin').datetimebox({
+$('#activityBeginDate2').datetimebox({
 });
-$('#innovationDateEnd').datetimebox({
+$('#activityEndDate1').datetimebox({
+});
+$('#activityEndDate2').datetimebox({
 });
 $('#auditDateBegin').datetimebox({
 });
@@ -141,6 +148,7 @@ $('#releaseDateBegin').datetimebox({
 });
 $('#releaseDateEnd').datetimebox({
 });
+
 $('#publishExpireDateBegin').datetimebox({
 });
 $('#publishExpireDateEnd').datetimebox({
@@ -153,7 +161,7 @@ commonObj.initDictCombobox("releaseStatus","IF","",false,true);
 //表单提交成功后的回调方法
 function successCallback(data){
 	$.messager.progress("close");
-	$("#innovationList").datagrid('reload');
+	$("#activityList").datagrid('reload');
 	commonObj.showResponse(data);
 }
 var uuids="";

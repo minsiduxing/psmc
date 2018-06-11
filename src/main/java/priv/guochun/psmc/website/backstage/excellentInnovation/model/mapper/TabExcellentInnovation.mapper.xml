@@ -115,12 +115,20 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   
   <select id="selectInnovationByPrimaryKey" parameterType="hashmap" resultType="java.util.Map">
     select 
-	    innovation_uuid, org_name, declare_person, declare_phone, declare_email, first_complete_person, 
-	    sex, education, job, dept_name, major, occupation, other_complete_person, achievement_name, 
-	    achievement_form, realized_value, application_generalize, innovation_date, recommend_remark, 
-	    recommend_date, audit_remark, audit_date, achievement_content
-    from tab_excellent_innovation
-    where innovation_uuid = #{innovationUuid,jdbcType=VARCHAR}
+	    t1.*,
+	    t2.release_date,
+		t3.person_name AS releasePerson
+    from 
+    	tab_excellent_innovation t1
+    INNER JOIN
+	    tab_module t2
+	ON
+	    t1.innovation_uuid = t2.uuid
+	LEFT JOIN
+	    tab_person t3
+	ON
+	    t2.release_acc_uuid = t3.uuid
+    where t1.innovation_uuid = #{innovationUuid,jdbcType=VARCHAR}
   </select>
   
   

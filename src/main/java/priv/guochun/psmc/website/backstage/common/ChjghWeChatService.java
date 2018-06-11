@@ -53,8 +53,8 @@ public interface ChjghWeChatService {
 	
 	
 	/**
-	 * 获取日常工作信息列表
-	 * @param infoType 信息类别
+	 * 获取日常工作信息列表(工作管理、法条维护、工作发布、早知道列表均使用此接口)
+	 * @param infoType 信息一级分类
 	 * @param queryParameter 查询参数
 	 * @param page 分页信息
 	 * @return
@@ -62,7 +62,7 @@ public interface ChjghWeChatService {
 	public String getInfoList(String infoType, String queryParameter, MyPage page);
 	
 	/**
-	 * 获取日常工作详细信息
+	 * 获取日常工作详细信息（工作管理、法条维护、工作发布、早知道详细信息均使用此接口）
 	 * @param newsUuid 信息主键
 	 * @return
 	 */
@@ -82,5 +82,44 @@ public interface ChjghWeChatService {
 	 * @return
 	 */
 	public String getDetailInnovation(String innovationUuid);
+	
+	/**
+	 * 查询活动列表
+	 * @param queryParameter 查询参数
+	 * @param page 分页信息
+	 * @return
+	 */
+	public String getActivityList(String queryParameter, MyPage page);
+	
+	/**
+	 * 查看活动详情
+	 * @param activityUuid 活动id
+	 * @param phone 用户手机号（账号）
+	 * @return
+	 */
+	public String getActivityDetail(String activityUuid, String phone);
+	
+	/**
+	 * 报名
+	 * @param activityUuid 活动ID
+	 * @param phone 用户手机号（账号）
+	 * @return
+	 */
+	public String signUp(String activityUuid, String phone);
+	
+	/**
+	 * 取消报名
+	 * @param activityUuid 活动ID
+	 * @param phone 用户手机号（账号）
+	 * @return
+	 */
+	public String cancelSignUp(String activityUuid, String phone);
+	
+	/**
+	 * 获取报名人员列表
+	 * @param activityUuid 活动ID
+	 * @return
+	 */
+	public String getSignUpList(String activityUuid);
 
 }

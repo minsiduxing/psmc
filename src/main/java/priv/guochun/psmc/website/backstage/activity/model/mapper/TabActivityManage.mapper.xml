@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.guochun.psmc.website.backstage.activity.model.mapper.TabActivityManageMapper">
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.activity.model.TabActivityManage">
+    <id column="activity_uuid" jdbcType="VARCHAR" property="activityUuid" />
+    <result column="activity_name" jdbcType="VARCHAR" property="activityName" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="create_person" jdbcType="VARCHAR" property="createPerson" />
+    <result column="sign_up_end_date" jdbcType="TIMESTAMP" property="signUpEndDate" />
+    <result column="activity_content" jdbcType="LONGVARCHAR" property="activityContent" />
+  </resultMap>
+  
+  
+  <select id="selectActivityList" parameterType="hashmap" resultType="java.util.Map">
+	    SELECT
+		    t1.*,
+		    t2.audit,
+		    t2.audit_date,
+		    t2.release_status,
+		    t2.release_date,
+		    t3.person_name AS auditAccName,
+		    t4.person_name AS releaseAccName,
+		    t5.publish_expire_date,
+		    (CASE WHEN t6.nums = null then 0 else t6.nums end) as signUpNums
+		FROM
+		    tab_activity_manage t1
+		INNER JOIN
+		    tab_module t2
+		ON
+		    t1.activity_uuid = t2.uuid
+		LEFT JOIN
+		    tab_person t3
+		ON
+		    t2.audit_acc_uuid = t3.uuid
+		LEFT JOIN
+		    tab_person t4
+		ON
+		    t2.release_acc_uuid = t4.uuid
+		LEFT JOIN
+		    tab_module_publish t5
+		ON
+		    t2.uuid = t5.module_uuid
+		LEFT JOIN
+    	(
+	        SELECT
+	            activity_uuid,
+	            COUNT(*) AS nums
+	        FROM
+	            tab_sign_up_info
+	        GROUP BY
+	            activity_uuid 
+	    )t6
+		ON
+    		t1.activity_uuid = t6.activity_uuid    
+    <where>
+	   	1 = 1
+	    <if test="activityUuid != null and activityUuid != ''">
+	      and t1.activity_uuid = #{activityUuid}
+	    </if>
+	    <if test="activityName != null and activityName != ''">
+	      and t1.activity_name like concat(concat('%',#{activityName}),'%')
+	    </if>
+	    <if test="activityBeginDate1 != null and activityBeginDate1 != ''">
+	      and <![CDATA[t1.start_date >=#{activityBeginDate1}]]>  
+	    </if>
+	    <if test="activityBeginDate2 != null and activityBeginDate2 != ''">
+	      and <![CDATA[t1.start_date <=#{activityBeginDate2}]]>  
+	    </if>
+	    <if test="activityEndDate1 != null and activityEndDate1 != ''">
+	      and <![CDATA[t1.end_date >=#{activityEndDate1}]]>  
+	    </if>
+	    <if test="activityEndDate2 != null and activityEndDate2 != ''">
+	      and <![CDATA[t1.end_date <=#{activityEndDate2}]]>  
+	    </if>
+	    <if test="createBeginDate != null and createBeginDate != ''">
+	      and <![CDATA[t1.create_date >=#{createBeginDate}]]>  
+	    </if>
+	    <if test="createEndDate != null and createEndDate != ''">
+	      and <![CDATA[t1.create_date <=#{createEndDate}]]>  
+	    </if>
+	    <if test="createPerson != null and createPerson != ''">
+	      and t1.create_person like concat(concat('%',#{createPerson}),'%')
+	    </if>
+	    <if test="activityUuid != null and activityUuid != ''">
+	      and t1.sign_up_end_date = #{activityUuid}
+	    </if>
+	    <if test="activityContent != null and activityContent != ''">
+	      and t1.activity_content like concat(concat('%',#{activityContent}),'%')
+	    </if>
+	    <if test="audit != null and audit != ''">  
+	      and  t2.audit =#{audit}
+	    </if>  
+	      <if test="releaseStatus != null and releaseStatus != ''">  
+	      	and  t2.release_status =#{releaseStatus}
+		  </if>
+		  <if test="auditDateBegin!=null and auditDateBegin!=''">  
+			and <![CDATA[t2.audit_date>=#{auditDateBegin}]]>  
+		  </if>  
+		  <if test="auditDateEnd!=null and auditDateEnd!=''">  
+	        and <![CDATA[t2.audit_date<=#{auditDateEnd})]]>  
+		  </if> 
+		  <if test="releaseDateBegin!=null and releaseDateBegin!=''">  
+			and <![CDATA[t2.release_date>=#{releaseDateBegin} ]]>  
+		  </if>  
+		  <if test="releaseDateEnd!=null and releaseDateEnd!=''">  
+	        and <![CDATA[t2.release_date<=#{releaseDateEnd} ]]>  
+		  </if> 
+		  <if test="publishExpireDateBegin!=null and publishExpireDateBegin !=''">  
+			and <![CDATA[t5.publish_expire_date>=#{publishExpireDateBegin} ]]>  
+		  </if>  
+		  <if test="publishExpireDateEnd!=null and publishExpireDateEnd!=''" >  
+	        and <![CDATA[t5.publish_expire_date<=#{publishExpireDateEnd} ]]>  
+		  </if>  
+		  <if test="queryParameter != null and queryParameter != ''" >  
+	       and (t1.activity_name LIKE concat(concat('%',#{queryParameter}),'%')
+	       		or t1.activity_content LIKE concat(concat('%',#{queryParameter}),'%')
+	       		or t1.create_person LIKE concat(concat('%',#{queryParameter}),'%')
+	       	   )
+		  </if>  
+    </where>
+  </select>
+  
+  <select id="selectActivityByPrimaryKey" parameterType="hashmap" resultType="java.util.Map">
+    select 
+    	t1.* , 
+    	t2.release_date,
+    	t3.person_name AS releasePerson,
+    	t4.signUpNums
+    from 
+    	tab_activity_manage t1
+    INNER JOIN
+	    tab_module t2
+	ON
+	    t1.activity_uuid = t2.uuid
+	LEFT JOIN
+	    tab_person t3
+	ON 
+	    t2.release_acc_uuid = t3.uuid 
+	LEFT JOIN
+    (
+        SELECT
+            activity_uuid,
+            COUNT(*) AS signUpNums
+        FROM
+            tab_sign_up_info
+        GROUP BY
+            activity_uuid 
+     )t4
+	ON t1.activity_uuid = t4.activity_uuid
+    where t1.activity_uuid = #{activityUuid,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <delete id="deleteActivity" parameterType="hashmap">
+    delete from tab_activity_manage
+    where activity_uuid in 
+    <foreach item="item" index="index" collection="activityUuids" open="(" separator="," close=")">  
+		#{item}  
+	</foreach> 
+  </delete>
+  
+  <insert id="insertActivity" parameterType="priv.guochun.psmc.website.backstage.activity.model.TabActivityManage">
+    insert into tab_activity_manage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="activityUuid != null">
+        activity_uuid,
+      </if>
+      <if test="activityName != null">
+        activity_name,
+      </if>
+      <if test="startDate != null">
+        start_date,
+      </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createPerson != null">
+        create_person,
+      </if>
+      <if test="signUpEndDate != null">
+        sign_up_end_date,
+      </if>
+      <if test="activityContent != null">
+        activity_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="activityUuid != null">
+        #{activityUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="activityName != null">
+        #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=DATE},
+      </if>
+      <if test="createPerson != null">
+        #{createPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="signUpEndDate != null">
+        #{signUpEndDate,jdbcType=DATE},
+      </if>
+      <if test="activityContent != null">
+        #{activityContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateActivity" parameterType="priv.guochun.psmc.website.backstage.activity.model.TabActivityManage">
+    update tab_activity_manage
+    <set>
+      <if test="activityName != null">
+        activity_name = #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        start_date = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=DATE},
+      </if>
+      <if test="createPerson != null">
+        create_person = #{createPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="signUpEndDate != null">
+        sign_up_end_date = #{signUpEndDate,jdbcType=DATE},
+      </if>
+      <if test="activityContent != null">
+        activity_content = #{activityContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where activity_uuid = #{activityUuid,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

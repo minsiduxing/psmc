@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.guochun.psmc.website.backstage.activity.model.mapper.TabSignUpInfoMapper">
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.activity.model.TabSignUpInfo">
+    <id column="sign_up_uuid" jdbcType="VARCHAR" property="signUpUuid" />
+    <result column="activity_uuid" jdbcType="VARCHAR" property="activityUuid" />
+    <result column="person_account" jdbcType="VARCHAR" property="personAccount" />
+    <result column="person_name" jdbcType="VARCHAR" property="personName" />
+    <result column="person_mobile" jdbcType="VARCHAR" property="personMobile" />
+    <result column="sign_up_date" jdbcType="DATE" property="signUpDate" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List">
+    sign_up_uuid, activity_uuid, person_account, person_name, person_mobile, sign_up_date
+  </sql>
+  
+  <select id="selectSignUpInfoList" parameterType="hashmap" resultType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from tab_sign_up_info
+    <where>
+    	1=1
+    	<if test="signUpUuid != null and signUpUuid != ''">
+    		and sign_up_uuid = #{signUpUuid}
+    	</if>
+    	<if test="activityUuid != null and activityUuid != ''">
+    		and activity_uuid = #{activityUuid}
+    	</if>
+    	<if test="personAccount != null and personAccount != ''">
+    		and person_account = #{personAccount}
+    	</if>
+    	<if test="personName != null and personName != ''">
+    		and person_name like concat(concat('%',#{personName}),'%')
+    	</if>
+    	<if test="personMobile != null and personMobile != ''">
+    		and person_mobile like concat(concat('%',#{personMobile}),'%')
+    	</if>
+    	<if test="signUpBeginDate != null and signUpBeginDate != ''">
+    		and <![CDATA[sign_up_date >=#{signUpBeginDate}]]> 
+    	</if>
+    	<if test="signUpEndDate != null and signUpEndDate != ''">
+    		and <![CDATA[sign_up_date <=#{signUpEndDate}]]> 
+    	</if>
+    </where>
+  </select>
+  
+  
+  <select id="selectSignUpInfoByPrimaryKey" parameterType="hashmap" resultType="java.util.Map">
+    select 
+    <include refid="Base_Column_List" />
+    from tab_sign_up_info
+    where sign_up_uuid = #{signUpUuid,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteSignUpInfoByPrimaryKey" parameterType="hashmap">
+    delete from tab_sign_up_info
+    where sign_up_uuid = #{signUpUuid,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  <delete id="deleteSignUpInfoByAccount" parameterType="hashmap">
+    delete from tab_sign_up_info
+    where person_account = #{personAccount,jdbcType=VARCHAR}
+    and activity_uuid = #{activityUuid,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  <insert id="insertSignUpInfo" parameterType="priv.guochun.psmc.website.backstage.activity.model.TabSignUpInfo">
+    insert into tab_sign_up_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="signUpUuid != null">
+        sign_up_uuid,
+      </if>
+      <if test="activityUuid != null">
+        activity_uuid,
+      </if>
+      <if test="personAccount != null">
+        person_account,
+      </if>
+      <if test="personName != null">
+        person_name,
+      </if>
+      <if test="personMobile != null">
+        person_mobile,
+      </if>
+      <if test="signUpDate != null">
+        sign_up_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="signUpUuid != null">
+        #{signUpUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="activityUuid != null">
+        #{activityUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="personAccount != null">
+        #{personAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="personName != null">
+        #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="personMobile != null">
+        #{personMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="signUpDate != null">
+        #{signUpDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  
+  <update id="updateSignUpInfo" parameterType="priv.guochun.psmc.website.backstage.activity.model.TabSignUpInfo">
+    update tab_sign_up_info
+    <set>
+      <if test="activityUuid != null">
+        activity_uuid = #{activityUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="personAccount != null">
+        person_account = #{personAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="personName != null">
+        person_name = #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="personMobile != null">
+        person_mobile = #{personMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="signUpDate != null">
+        sign_up_date = #{signUpDate,jdbcType=DATE},
+      </if>
+    </set>
+    where sign_up_uuid = #{signUpUuid,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

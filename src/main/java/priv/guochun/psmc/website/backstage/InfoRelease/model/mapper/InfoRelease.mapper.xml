@@ -143,12 +143,27 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    	</select>
   	<!-- 根据id获取新闻详细内容 -->
   	 <select id="getInfoReleaseByUuid" resultType="java.util.Map" parameterType="hashmap">
-  	 	SELECT uuid, news_title, news_subtitle, news_content, news_date, news_author, thumbnail_image_url, news_abstract FROM tab_news
-   			<where>
-   				<if test="newsUuid !=null and newsUuid!=''">
-   					and uuid = #{newsUuid}
-   				</if>
-   				</where>
+  	 	SELECT
+		    t1.*,
+		    t2.release_date,
+		    t2.one_level_classify,
+		    t2.two_level_classify,
+		    t3.person_name AS releasePerson
+		FROM
+		    tab_news t1
+		INNER JOIN
+		    tab_module t2
+		ON
+		    t1.uuid = t2.uuid
+		LEFT JOIN
+		    tab_person t3
+		ON
+		    t2.release_acc_uuid = t3.uuid
+		<where>
+			<if test="newsUuid !=null and newsUuid!=''">
+				and t1.uuid = #{newsUuid}
+			</if>
+		</where>
   	 	</select>
   	 	<!-- 根据二级分类获取信息发布标题列表 -->
   	<select id="getTitlesInfoListByTwoLevelClassify" resultType="java.util.Map" parameterType="hashmap">

@@ -26,11 +26,10 @@
   <body id="body">
 <form id="innovationForm" method="POST" >
 
-	<div class=" panel-default">
+	<div class=" panel-default" style="margin-top:15px; border: 1px solid #ddd;">
        <div class="panel-heading">
           <label style="background-color:006699; color: #ffffff">单位信息</label>
        </div>
-       <div class="panel-body">
 		<table class="table table-hover" style="font-size:12px; width:75%; border-collapse:separate; border-spacing:10px;">
 			<tr>
 				<td class="tds">所属单位名称：</td>
@@ -45,13 +44,11 @@
 				<td width="30%"><input id="declareEmail" name="declareEmail" value="${info.declare_email}" style="width:70%;"/></td>
 			</tr>
 		</table>
-		</div>
 	</div>
-	<div class=" panel-default">
+	<div class=" panel-default" style="border: 1px solid #ddd;">
 		<div class="panel-heading">
             <label style="background-color:006699; color: #ffffff">第一完成人</label>
         </div>
-        <div class="panel-body">
 		<table class="table table-hover" style="font-size:12px; width:75%; border-collapse:separate; border-spacing:10px;">
 			<tr>
 				<td class="tds">姓名：</td>
@@ -83,13 +80,11 @@
 				<td width="30%"><input id="otherCompletePerson" name="otherCompletePerson" value="${info.other_complete_person}" style="width:70%;"/></td>
 			</tr>
 		</table>
-		</div>
 	</div>
-	<div class=" panel-default">
+	<div class=" panel-default" style="border: 1px solid #ddd;">
 		<div class="panel-heading">
             <label style="background-color:006699; color: #ffffff">成果信息</label>
         </div>
-        <div class="panel-body">
 		<table class="table table-hover" style="font-size:12px; width:75%; border-collapse:separate; border-spacing:10px;" >
 			<tr>
 				<td class="tds">成果名称：</td>
@@ -130,12 +125,11 @@
 				<td width="30%"><input id="auditDate" name="auditDate" value="${info.audit_date}" style="width:70%;"/></td>
 			</tr>
 		</table>
-		</div>
 	</div>
 		
 		<input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
-		 <input type="hidden" id="innovationUuid" name=innovationUuid value="${info.innovation_uuid}"/>
-		 <div style= "width:75%; margin-top: 10px" class="operButon" align="center">
+		 <input type="hidden" id="innovationUuid" name="innovationUuid" value="${info.innovation_uuid}"/>
+		 <div style= "width:75%; margin-top: 20px" class="operButon" align="center">
 		   <input id="submitbtn" type="button" class="easyui-linkbutton" onclick="save()" value="提交"/>
 		   <input id="reset" type="reset" class="easyui-linkbutton" onclick=" "  value="重置"/>
 		   <input id="button" type="button" class="easyui-linkbutton" onclick="retList()"  value="返回列表"/></td>

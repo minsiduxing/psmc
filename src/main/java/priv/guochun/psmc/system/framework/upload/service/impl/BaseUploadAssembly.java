@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,6 +43,7 @@ public class BaseUploadAssembly implements UploadAssemblyInterface
           if(multipartResolver.isMultipart(request)){  
               //转换成多部分request    
               MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;  
+              String imagePath = String.valueOf(request.getAttribute("imagePath"));
               //取得request中的所有文件名  
               Iterator<String> iter = multiRequest.getFileNames();  
               while(iter.hasNext()){
@@ -64,9 +66,17 @@ public class BaseUploadAssembly implements UploadAssemblyInterface
                           String fileSuffix = model.getSuffix();
                           String fileTempAllPath = SystemPropertiesUtil.getUploadTempPathPropertyValue() +fileSystemName+"."+fileSuffix; 
                           String fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+fileSystemName+"."+fileSuffix;
+                          if(StringUtils.isNotBlank(imagePath)){
+                              fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+imagePath+"/"+fileSystemName+"."+fileSuffix;
+                          }
                           //如果文件为图片则新建imag文件夹
                           if(PSMCFileUtils.isPicture(fileSuffix)){
-                        	  fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+"image/"+fileSystemName+"."+fileSuffix;
+                        	  if(StringUtils.isNotBlank(imagePath)){
+                        		  fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+"image/"+imagePath+"/"+fileSystemName+"."+fileSuffix;
+                        	  }else{
+                        		  fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+"image/"+fileSystemName+"."+fileSuffix;
+                        	  }
+                        	  
                           }
                           File localFile = new File(fileTempAllPath);  
                           if(!localFile.exists()){

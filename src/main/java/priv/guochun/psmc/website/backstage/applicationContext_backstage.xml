@@ -72,7 +72,10 @@
 	<bean id="infoReleaseService" class="priv.guochun.psmc.website.backstage.InfoRelease.service.impl.InfoReleaseServiceImpl"/>
 	<!-- 优秀创新service注入 -->
 	<bean id="excellentInnovationService" class="priv.guochun.psmc.website.backstage.excellentInnovation.service.impl.ExcellentInnovationServiceImpl"/>
-	
+	<!-- 浏览量service注入 -->
+	<bean id="tabPageViewService" class="priv.guochun.psmc.website.backstage.pageView.service.impl.TabPageViewServiceImpl"/>
+	<!-- 活动信息service注入 -->
+	<bean id="tabActivityManageService" class="priv.guochun.psmc.website.backstage.activity.service.impl.TabActivityManageServiceImpl"/>
 	
 	<bean id="chjghWeChatService" class="priv.guochun.psmc.website.backstage.common.impl.ChjghWeChatServiceImpl" />
 	

@@ -25,10 +25,10 @@
 			<li class="li-input"><label for="" class="input-label">作者：</label>
 				<input id="newAutor" name="newAutor" value=""></input>
 			</li>
-			 <li class="li-input"><label for="" class="input-label">新闻分类：</label>
+			 <li class="li-input"><label for="" class="input-label">信息分类：</label>
 				<input id="towLevelClassify" name="towLevelClassify"> </input>
 			</li>
-			<li class="li-input"><label for="" class="input-label">新闻日期：</label>
+			<li class="li-input"><label for="" class="input-label">信息日期：</label>
 				<input id="newsDateBegin" name="newsDateBegin" value=""></input>
 			</li>
 			
@@ -86,7 +86,9 @@
 			<!-- <li class="li-input"><label for="" class="input-label">至：</label>
 					<input id="createDateEnd" name="createDateEnd" />
 			</li> -->
+			
 	</ul>
+		<input type="hidden" id="oneLevelClassify" name="oneLevelClassify" value="${param.oneLevelClassify}"/>
 	</form>
 	<div class="query-oper">
 		<a href="#" class="easyui-linkbutton query-btn" onclick="commonObj.query('infoReleaseId','searchform')" id="submit_search" plain="true" iconCls="icon-search">查询</a>
@@ -131,7 +133,7 @@
 <script type="text/javascript">
 var basePath = $("#basePath").val();
 var infoDo = basePath+"/website/backstage/InfoReleaseController.do";
-var getInfoDataUrl ='<c:url value="'+infoDo+'"/>?method=getInfoReleaseList';
+var getInfoDataUrl ='<c:url value="'+infoDo+'"/>?method=getInfoReleaseList&oneLevelClassify='+$("#oneLevelClassify").val();
 var editInfoUrl ='<c:url value="'+infoDo+'"/>?method=infoEdit';
 var removeInfo = '<c:url value="'+infoDo+'"/>?method=infoDelete';
 var auditInfo = '<c:url value="'+infoDo+'"/>?method=executeAuditInfo';

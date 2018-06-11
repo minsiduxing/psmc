@@ -45,4 +45,9 @@ public class ContantsUtil {
      */
     public final static String ONE_LEVEL_CLASSIFY_14 = "14";
     
+    //各分类的图片路径
+    public final static String INNOVATION = "innovation"; //创新工作室
+    public final static String ASSISTANCE = "assistance"; //援助帮扶
+    public final static String LITERARY_FORM = "literaryForm"; //文体协会
+    public final static String LOGISTICS_CENTER = "logisticsCenter"; //后勤中心
 }

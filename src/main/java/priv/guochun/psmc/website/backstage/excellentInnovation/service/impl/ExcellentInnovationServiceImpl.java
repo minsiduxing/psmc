@@ -100,23 +100,4 @@ public class ExcellentInnovationServiceImpl implements ExcellentInnovationServic
 		
 	}
 
-	@Override
-	public MyPage getInnovationListToMobile(String queryParameter, MyPage page) {
-		Map<String,Object> condition = new HashMap<String,Object>();
-		if(StringUtils.isNotBlank(queryParameter)){
-			condition.put("queryParameter", queryParameter);
-		}
-		//审核通过已发布的信息
-		condition.put("audit", ModuleEnum.AUDITED_PASS);
-		condition.put("releaseStatus", ModuleEnum.IS_RELEASEED);
-		return baseDao.getMyPage(page, excellentInnovationList, condition);
-	}
-
-	@Override
-	public Map<String, Object> getInnovationDetailToMobile(String innovationUuid) {
-		Map<String,Object> condition = new HashMap<String,Object>();
-        condition.put("innovationUuid", innovationUuid);
-		Map<String, Object> innovationMap = (Map<String, Object>)baseDao.queryForObject(selectInnovationByPrimaryKey, condition);
-		return innovationMap;
-	}
 }

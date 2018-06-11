@@ -2,9 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
 EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
 <mapper namespace="priv.guochun.psmc.website.backstage.pageView.model.TabPageView">  
- 
+ <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.pageView.model.TabPageView">
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="nums" jdbcType="VARCHAR" property="nums" />
+  </resultMap>
   	
-  	<select id="getPageViewByUuid" resultType="priv.guochun.psmc.website.backstage.pageView.model.TabPageView" parameterType="hashmap">
+  	<select id="getPageViewByUuid" resultMap="BaseResultMap" parameterType="hashmap">
   	 	SELECT uuid, nums FROM tab_page_view where uuid = #{uuid}
   	</select>
 

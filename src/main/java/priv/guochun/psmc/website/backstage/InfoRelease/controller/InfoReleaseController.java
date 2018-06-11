@@ -53,16 +53,15 @@ public class InfoReleaseController extends MyController{
 	 */
 	@RequestMapping(params="method=getInfoReleaseList")
 	@ResponseBody
-	public void getInfoReleaseList(HttpServletRequest request, MyPage myPage, HttpServletResponse response) throws IOException{
-		//获取当前用户角色
-		String userRole = this.getUserBySeesion(request).getRoleNo();
-		//获取信息分类
-		String oneLevelClassify = getOneLevelClassify(userRole);
-		Map<String,Object> parameterMap = new HashMap<String,Object>();
+	public void getInfoReleaseList(MyPage myPage, String oneLevelClassify) throws IOException{
+		Map<String,Object> parameterMap = myPage.getQueryParams();
+		if(parameterMap == null){
+			parameterMap = new HashMap<String, Object>();
+		}
 		parameterMap.put("oneLevelClassify", oneLevelClassify);
 		myPage.setQueryParams(parameterMap);
 		myPage = infoReleaseService.getInfoReleaseListBusinessMethod(myPage);
-		super.responseJson(JsonUtil.convertToJSONObject(myPage), response);
+		super.responseJson(JsonUtil.convertToJSONObject(myPage), this.response());
 	}
 	
 	/**
@@ -77,11 +76,7 @@ public class InfoReleaseController extends MyController{
 	@RequestMapping(params="method=saveOrUpdateInfoRelease")
 	public void saveOrUpdateInfoRelease(HttpServletRequest request,InfoRelease infoRelease,TabModule module,String isEdit,HttpServletResponse response) throws IOException{
 		if(StringUtils.isBlank(isEdit)){
-			String userRole = this.getUserBySeesion(request).getRoleNo();
-			//获取信息分类
-			String oneLevelClassify = getOneLevelClassify(userRole);
 			module.setCreateAccUuid(this.getUserBySeesion(request).getUserUuid());
-			module.setOneLevelClassify(oneLevelClassify);
 		}else{
 			module.setModelUuid(infoRelease.getNewsUuid());
 			module.setModifyAccUuid(this.getUserBySeesion(request).getUserUuid());

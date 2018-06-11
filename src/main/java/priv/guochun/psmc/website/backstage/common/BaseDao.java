@@ -1,9 +1,6 @@
 package priv.guochun.psmc.website.backstage.common;
 
-import java.sql.SQLException;
 import java.util.List;
-
-import org.apache.ibatis.session.SqlSession;
 
 import priv.guochun.psmc.system.framework.page.MyPage;
 
