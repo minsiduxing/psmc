@@ -58,4 +58,13 @@ public interface ExcellentInnovationService {
 	 */
 	public void executeReleaseBusinessMethod(String uuids, String userId, Timestamp publishExpireDate);
 	
+	/**
+	 * 查看优秀创新详情 - mobile
+	 * @param uuid
+	 * @return
+	 */
+	public Map<String,Object> getInnovationDetailToMobile(String uuid);
+	
+	public MyPage queryInnovationListToMobile(MyPage myPage);
+	
 }

@@ -91,3 +91,70 @@ CREATE TABLE tab_news (
 alter table tab_resource add column is_view integer  comment '是否展示?1是2否';  
 alter table tab_news modify column news_content text  CHARACTER SET utf8mb4 DEFAULT NULL;
 
+----优秀创新成果表
+drop table tab_excellent_innovation;
+create table tab_excellent_innovation 
+(
+        innovation_uuid varchar(32) not null comment '主键UUID',
+        org_name varchar(128) comment '所属单位名称',
+        declare_person varchar(100) comment '申报负责人姓名',
+        declare_phone varchar(20) comment '申报负责人电话',
+        declare_email varchar(100) comment '申报负责人邮箱',
+        first_complete_person varchar(100) comment '第一完成人姓名',
+        sex int comment '性别',
+        education varchar(100) comment '学历',
+        job varchar(100) comment '职务',
+        dept_name varchar(100) comment '所在部门',
+        major varchar(200) comment '专业或特长',
+        occupation int comment '职业身份',
+        other_complete_person varchar(200) comment '其他完成人',
+        achievement_name varchar(200) comment '成果名称',
+        achievement_form int comment '体现形式',
+        realized_value varchar(1024) comment '实现价值',
+        application_generalize varchar(1024) comment '应用推广',
+        innovation_date timestamp comment '创新时间',
+        achievement_content text COLLATE utf8mb4_general_ci comment '成果内容',
+        recommend_remark varchar(200) comment '推荐人意见',
+        recommend_date timestamp comment '推荐时间',
+        audit_remark varchar(200) comment '审核意见',
+        audit_date timestamp comment '审核时间',
+        constraint tab_excellent_innovation primary key (innovation_uuid)
+) comment '优秀创新成果申报表';
+
+
+-- 浏览量记录表
+drop table tab_page_view;
+create table tab_page_view
+(
+        uuid varchar(64) not null comment '主键UUID(对应信息ID)',
+        nums int comment '浏览量',
+        constraint tab_page_view primary key (uuid)
+) comment '浏览量记录表'
+
+--活动管理信息表
+drop table tab_activity_manage;
+create table tab_activity_manage
+(
+        activity_uuid varchar(32) not null comment '活动管理主键',
+        activity_name varchar(100) comment '活动名称',
+        activity_content text COLLATE utf8mb4_general_ci comment '活动内容',
+        start_date timestamp comment '活动开始时间',
+        end_date timestamp comment '活动结束时间',
+        create_date timestamp comment '活动创建时间',
+        create_person varchar(100) comment '活动创建人',
+        sign_up_end_date timestamp comment '报名截止日期',
+        constraint tab_activity_manage primary key (activity_uuid)
+) comment '活动管理表';
+
+--报名信息表
+drop table tab_sign_up_info;
+create table tab_sign_up_info
+(
+        sign_up_uuid varchar(32) not null comment '报名信息主键',
+        activity_uuid varchar(32) not null comment '活动管理主键',
+        person_account varchar(100) comment '报名人账号ID',
+        person_name varchar(50) comment '报名人姓名',  
+        person_mobile varchar(20) comment '报名人电话',
+        sign_up_date timestamp  comment '报名时间',
+        constraint tab_sign_up_info primary key (sign_up_uuid)
+) comment '报名信息表';

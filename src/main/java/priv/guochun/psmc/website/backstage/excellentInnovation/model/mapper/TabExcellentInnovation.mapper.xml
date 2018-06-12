@@ -13,7 +13,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 		    tm.modify_date,
 		    tm.audit,
 		    tpau.PERSON_NAME AS auditAccName,
-		    tm.audit_date,
+		    tm.audit_date AS auditTime,
 		    tpr.PERSON_NAME AS releaseAccName,
 		    tm.release_date,
 		    tm.one_level_classify,

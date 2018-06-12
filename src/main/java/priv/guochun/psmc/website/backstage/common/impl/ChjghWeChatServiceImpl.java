@@ -10,6 +10,10 @@ import javax.xml.ws.WebServiceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
+
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
 import priv.guochun.psmc.authentication.user.model.TabAccount;
@@ -43,24 +47,23 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	
 	private VerificationCodeService verificationCodeService;
 	
-	@Autowired
+	
 	private ExcellentInnovationService excellentInnovationService;
 	
-	@Autowired
+	
 	private MobileSmsSendService chjghMobileSmsSendService;
 	
-	@Autowired
+	
 	private InfoReleaseService infoReleaseService;
 	
-	@Autowired
+	
 	private TabPageViewService tabPageViewService;
-	@Autowired
+	
 	private TabActivityManageService tabActivityManageService;
 
 	@Resource  
 	private WebServiceContext context;  
 	
-	@Autowired
 	private TabAccountService tabAccountService;
 	
 	@Override
@@ -153,19 +156,22 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	}
 	
 	@Override
-	public String getInfoList(String infoType, String queryParameter, MyPage page) {
-		Map<String,Object> condition = new HashMap<String,Object>();
-		condition.put("queryParameter", queryParameter);
+	public String getInfoList(String pageJson) {
+		MyPage page = JSON.parseObject(pageJson, MyPage.class) ;
+		Map<String, Object> paramMap = page.getQueryParams();
+		if(paramMap == null){
+			paramMap = new HashMap<String, Object>();
+		}
 		//审核通过已发布的信息
-		condition.put("audit", ModuleEnum.AUDITED_PASS);
-		condition.put("releaseStatus", ModuleEnum.IS_RELEASEED);
-		condition.put("oneLevelClassify", infoType);
+		paramMap.put("audit", ModuleEnum.AUDITED_PASS.getValue());
+		paramMap.put("releaseStatus", ModuleEnum.IS_RELEASEED.getValue());
+		//paramMap.put("oneLevelClassify", infoType);
 		//移动端只查询未过期的信息
-		condition.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
-		page.setQueryParams(condition);
+		paramMap.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
+		page.setQueryParams(paramMap);
 		MsgModel msg = null;
 		try {
-			page = infoReleaseService.getInfoReleaseListBusinessMethod(page);
+			page = infoReleaseService.queryInfoListToMobile(page);
 			msg = MsgModel.buildDefaultSuccess(page);
 		} catch (Exception e) {
 			msg = MsgModel.buildDefaultError("获取数据异常");
@@ -175,10 +181,10 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 
 
 	@Override
-	public String getDetailInfo(String uuid) {
+	public String infoDetail(String uuid) {
 		MsgModel msg = null;
 		try {
-			Map<String, Object> dataMap = infoReleaseService.getInfoReleaseByUuidBusinessMethod(uuid);
+			Map<String, Object> dataMap = infoReleaseService.getInfoDetailToMobile(uuid);
 			int nums = 0;
 			TabPageView pageView = tabPageViewService.queryPageviewByUuid(uuid);//获取浏览量
 			if(pageView != null){
@@ -196,18 +202,21 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 
 
 	@Override
-	public String getInnovationList(String queryParameter, MyPage page) {
-		Map<String,Object> condition = new HashMap<String,Object>();
-		condition.put("queryParameter", queryParameter);
+	public String getInnovationList(String pageJson) {
+		MyPage page = JSON.parseObject(pageJson, MyPage.class) ;
+		Map<String, Object> paramMap = page.getQueryParams();
+		if(paramMap == null){
+			paramMap = new HashMap<String, Object>();
+		}
 		//审核通过已发布的信息
-		condition.put("audit", ModuleEnum.AUDITED_PASS);
-		condition.put("releaseStatus", ModuleEnum.IS_RELEASEED);
+		paramMap.put("audit", ModuleEnum.AUDITED_PASS.getValue());
+		paramMap.put("releaseStatus", ModuleEnum.IS_RELEASEED.getValue());
 		//移动端只查询未过期的信息
-		condition.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
-		page.setQueryParams(condition);
+		paramMap.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
+		page.setQueryParams(paramMap); 
 		MsgModel msg = null;
 		try {
-			page = excellentInnovationService.getInnovationListBusinessMethod(page);
+			page = excellentInnovationService.queryInnovationListToMobile(page);
 			msg = MsgModel.buildDefaultSuccess(page);
 		} catch (Exception e) {
 			msg = MsgModel.buildDefaultError("获取数据异常");
@@ -217,10 +226,10 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 
 
 	@Override
-	public String getDetailInnovation(String innovationUuid) {
+	public String innovationDetail(String innovationUuid) {
 		MsgModel msg = null;
 		try {
-			Map<String, Object> dataMap = excellentInnovationService.getInnovationByUuidBusinessMethod(innovationUuid);
+			Map<String, Object> dataMap = excellentInnovationService.getInnovationDetailToMobile(innovationUuid);
 			int nums = 0;
 			TabPageView pageView = tabPageViewService.queryPageviewByUuid(innovationUuid);//获取浏览量
 			if(pageView != null){
@@ -237,12 +246,15 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	}
 
 	@Override
-	public String getActivityList(String queryParameter, MyPage page){
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("queryParameter", queryParameter);
+	public String getActivityList(String pageJson){
+		MyPage page = JSON.parseObject(pageJson, MyPage.class) ;
+		Map<String, Object> paramMap = page.getQueryParams();
+		if(paramMap == null){
+			paramMap = new HashMap<String, Object>();
+		}
 		//审核通过已发布的活动信息
-		paramMap.put("audit", ModuleEnum.AUDITED_PASS);
-		paramMap.put("releaseStatus", ModuleEnum.IS_RELEASEED);
+		paramMap.put("audit", ModuleEnum.AUDITED_PASS.getValue());
+		paramMap.put("releaseStatus", ModuleEnum.IS_RELEASEED.getValue());
 		//移动端只查询未过期的活动信息
 		paramMap.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
 		page.setQueryParams(paramMap);
@@ -257,7 +269,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	}
 	
 	@Override
-	public String getActivityDetail(String activityUuid, String phone){
+	public String activityDetail(String activityUuid, String phone){
 		MsgModel msg = null;
 		try {
 			Map<String, Object> dataMap = tabActivityManageService.getActivityByUuid(activityUuid);
@@ -388,6 +400,20 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 
 	public void setTabAccountService(TabAccountService tabAccountService) {
 		this.tabAccountService = tabAccountService;
+	}
+
+	/**
+	 * @return the tabActivityManageService
+	 */
+	public TabActivityManageService getTabActivityManageService() {
+		return tabActivityManageService;
+	}
+
+	/**
+	 * @param tabActivityManageService the tabActivityManageService to set
+	 */
+	public void setTabActivityManageService(TabActivityManageService tabActivityManageService) {
+		this.tabActivityManageService = tabActivityManageService;
 	}
 	
 }

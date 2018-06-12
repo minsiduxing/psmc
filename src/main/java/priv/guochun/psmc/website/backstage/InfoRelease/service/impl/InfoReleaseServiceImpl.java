@@ -97,5 +97,22 @@ public class InfoReleaseServiceImpl implements InfoReleaseService{
 		module.setPublishExpireDate(publishExpireDate);
 		tabModuleService.executeReleaseModule(newsIds, module);
 	}
+
+	@Override
+	public Map<String, Object> getInfoDetailToMobile(String uuid) {
+		Map<String,Object> condition = new HashMap<String,Object>();
+        condition.put("newsUuid", uuid);
+		return (Map<String, Object>) baseDao.queryForObject(getInfoReleaseByUuid, condition);
+	}
+
+	@Override
+	public MyPage queryInfoListToMobile(MyPage myPage) {
+		Map<String,Object> condition = new HashMap<String,Object>();
+		 //查询参数添加
+		if(myPage.getQueryParams()!=null && myPage.getQueryParams().size()>0){
+			condition.putAll(myPage.getQueryParams());
+		}
+		return baseDao.getMyPage(myPage, getInfoReleaseList, condition);
+	}
     
 }

@@ -100,4 +100,22 @@ public class ExcellentInnovationServiceImpl implements ExcellentInnovationServic
 		
 	}
 
+	@Override
+	public Map<String, Object> getInnovationDetailToMobile(String uuid) {
+		Map<String,Object> condition = new HashMap<String,Object>();
+        condition.put("innovationUuid", uuid);
+		Map<String, Object> innovationMap = (Map<String, Object>)baseDao.queryForObject(selectInnovationByPrimaryKey, condition);
+		return innovationMap;
+	}
+
+	@Override
+	public MyPage queryInnovationListToMobile(MyPage myPage) {
+		Map<String,Object> condition = new HashMap<String,Object>();
+		 //查询参数添加
+		if(myPage.getQueryParams()!=null && myPage.getQueryParams().size()>0){
+			condition.putAll(myPage.getQueryParams());
+		}
+		return baseDao.getMyPage(myPage, excellentInnovationList, condition);
+	}
+
 }

@@ -21,7 +21,11 @@ $(document).ready(function(){
 		          {field:'end_date',title:'活动结束时间'}, 
 		          {field:'sign_up_end_date',title:'报名截止时间'}, 
 		          {field:'signUpNums',title:'已报名人数',formatter:function(value, row, index){
-		        	  if(value==null || value==''){return 0;}
+		        	  if(value==null || value==''){
+		        		  return 0;
+		        	  }else{
+		        		  return value;
+		        	  }
 		          }},
 		          {field:'audit',title:'审核状态',formatter: function (value, row, index) {
                      if(value=='1'){return "审核通过"; }

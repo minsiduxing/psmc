@@ -53,4 +53,18 @@ public interface InfoReleaseService {
 	 */
 	public void executeReleaseModuleBusinessMethod(String newsIds, String userId, Timestamp publishExpireDate);
 	
+	/**
+	 * 查看信息详情 - mobile
+	 * @param uuid
+	 * @return
+	 */
+	public Map<String,Object> getInfoDetailToMobile(String uuid);
+	
+	/**
+	 * 获取信息列表 - mobile
+	 * @param mypage
+	 * @return
+	 */
+	public MyPage queryInfoListToMobile(MyPage mypage);
+	
 }

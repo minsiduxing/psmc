@@ -9,6 +9,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.web.bind.annotation.RequestBody;
+
 import priv.guochun.psmc.system.framework.page.MyPage;
 
 @Path("/weChatService")
@@ -54,42 +56,53 @@ public interface ChjghWeChatService {
 	
 	/**
 	 * 获取日常工作信息列表(工作管理、法条维护、工作发布、早知道列表均使用此接口)
-	 * @param infoType 信息一级分类
-	 * @param queryParameter 查询参数
-	 * @param page 分页信息
+	 * @param pageJson 查询参数
 	 * @return
 	 */
-	public String getInfoList(String infoType, String queryParameter, MyPage page);
+	@Path("/getInfoList")
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON})
+	public String getInfoList(String pageJson);
 	
 	/**
 	 * 获取日常工作详细信息（工作管理、法条维护、工作发布、早知道详细信息均使用此接口）
 	 * @param newsUuid 信息主键
 	 * @return
 	 */
-	public String getDetailInfo(String newsUuid);
+	@Path("/getDetailInfo")
+    @POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String infoDetail(@FormParam("uuid") String uuid);
 	
 	/**
 	 * 获取优秀创新列表
-	 * @param queryParameter 查询参数
-	 * @param page 分页信息
+	 * @param pageJson 查询参数
 	 * @return
 	 */
-	public String getInnovationList(String queryParameter, MyPage page);
+	@Path("/getInnovationList")
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON})
+	public String getInnovationList(String pageJson);
 	
 	/**
 	 * 获取优秀创新详细信息
 	 * @param innovationUuid 优秀创新信息主键
 	 * @return
 	 */
-	public String getDetailInnovation(String innovationUuid);
+	@Path("/getDetailInnovation")
+    @POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String innovationDetail(@FormParam("innovationUuid") String innovationUuid);
 	
 	/**
 	 * 查询活动列表
-	 * @param queryParameter 查询参数
-	 * @param page 分页信息
+	 * @param pageJson 查询参数
 	 * @return
 	 */
-	public String getActivityList(String queryParameter, MyPage page);
+	@Path("/getActivityList")
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON})
+	public String getActivityList(String pageJson);
 	
 	/**
 	 * 查看活动详情
@@ -97,7 +110,10 @@ public interface ChjghWeChatService {
 	 * @param phone 用户手机号（账号）
 	 * @return
 	 */
-	public String getActivityDetail(String activityUuid, String phone);
+	@Path("/getActivityDetail")
+    @POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String activityDetail(@FormParam("activityUuid") String activityUuid, @FormParam("phone") String phone);
 	
 	/**
 	 * 报名
@@ -105,7 +121,10 @@ public interface ChjghWeChatService {
 	 * @param phone 用户手机号（账号）
 	 * @return
 	 */
-	public String signUp(String activityUuid, String phone);
+	@Path("/signUp")
+    @POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String signUp(@FormParam("activityUuid") String activityUuid,@FormParam("phone") String phone);
 	
 	/**
 	 * 取消报名
@@ -113,13 +132,19 @@ public interface ChjghWeChatService {
 	 * @param phone 用户手机号（账号）
 	 * @return
 	 */
-	public String cancelSignUp(String activityUuid, String phone);
+	@Path("/cancelSignUp")
+    @POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String cancelSignUp(@FormParam("activityUuid") String activityUuid,@FormParam("phone") String phone);
 	
 	/**
 	 * 获取报名人员列表
 	 * @param activityUuid 活动ID
 	 * @return
 	 */
-	public String getSignUpList(String activityUuid);
+	@Path("/getSignUpList")
+    @POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String getSignUpList(@FormParam("activityUuid") String activityUuid);
 
 }

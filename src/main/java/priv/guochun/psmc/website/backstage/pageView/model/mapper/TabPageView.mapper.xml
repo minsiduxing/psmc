@@ -12,7 +12,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   	</select>
 
   	<insert id="insertPageView" parameterType="priv.guochun.psmc.website.backstage.pageView.model.TabPageView">
-  		INSERT INTO tab_page_view (uuid, nums) VALUES (#{newsUuid},#{newsTitle});
+  		INSERT INTO tab_page_view (uuid, nums) VALUES (#{uuid},#{nums});
 
   	</insert>
   	

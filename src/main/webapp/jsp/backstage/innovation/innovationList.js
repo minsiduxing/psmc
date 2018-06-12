@@ -29,7 +29,7 @@ $(document).ready(function(){
                                                   
                   }},
 		          {field:'auditAccName',title:'信息审核人'}, 
-		          {field:'audit_date',title:'信息审核时间',resizable:true}, 
+		          {field:'auditTime',title:'信息审核时间',resizable:true}, 
 		          {field:'release_status',title:'发布状态',resizable:true,formatter: function (value, row, index) {
                      if(value=='2'){return "未发布"; }
                      if(value=='1'){return "已发布"; }
