@@ -75,6 +75,12 @@
 	<!-- 浏览量service注入 -->
 	<bean id="tabPageViewService" class="priv.guochun.psmc.website.backstage.pageView.service.impl.TabPageViewServiceImpl"/>
 	<!-- 活动信息service注入 -->
+	<!-- 申报service 注入-->
+	<bean id="reportService" class="priv.guochun.psmc.website.backstage.report.service.impl.ReportServiceImpl"/>
+	<!-- 申报回复service 注入 -->
+	<bean id="reportReplyRelService" class="priv.guochun.psmc.website.backstage.report.service.impl.ReportReplyRelServiceImpl"/>
+	<!--申报、回复关联关系service注入-->
+	<bean id="replyService" class="priv.guochun.psmc.website.backstage.report.service.impl.ReplyServiceImpl"/>
 	<bean id="tabActivityManageService" class="priv.guochun.psmc.website.backstage.activity.service.impl.TabActivityManageServiceImpl"/>
 	
 	<bean id="chjghWeChatService" class="priv.guochun.psmc.website.backstage.common.impl.ChjghWeChatServiceImpl" />

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="priv.guochun.psmc.website.backstage.report.model.TabReport" >
+
+  <delete id="deleteByReportPrimaryKeys" parameterType="hashmap" >
+    delete from tab_report
+    where REPORT_UUID in
+    <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+				  #{item}  
+		</foreach> 
+  </delete>
+  <insert id="insertReport" parameterType="priv.guochun.psmc.website.backstage.report.model.TabReport" >
+    insert into tab_report (REPORT_UUID,REPORT_TITLE, REPORT_CONTENT, REPORT_USER_NAME,
+      REPORT_USER_UUID, REPORT_TIME, REPORT_TYPE, 
+      LAST_MODIFY_TIME, REPORT_UPDATE_UUID,REPORT_STAUS)
+    values (#{reportUuid,jdbcType=VARCHAR},#{reportTitle,jdbcType=VARCHAR}, #{reportContent,jdbcType=VARCHAR}, #{reportUserName,jdbcType=VARCHAR},
+      #{reportUserUuid,jdbcType=VARCHAR}, #{reportTime,jdbcType=TIMESTAMP}, #{reportType,jdbcType=VARCHAR}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{reportUpdateUuid,jdbcType=VARCHAR},#{reportStaus,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByReportPrimaryKey" parameterType="priv.guochun.psmc.website.backstage.report.model.TabReport" >
+    update tab_report
+    set
+     <if test="reportTitle != null and reportTitle != ''">
+         REPORT_TITLE = #{reportTitle,jdbcType=VARCHAR},
+     </if>
+      <if test="reportUserName != null and reportUserName != ''">
+        REPORT_USER_NAME = #{reportUserName,jdbcType=VARCHAR},
+     </if>
+     <if test="reportContent != null and reportContent != ''">
+        REPORT_CONTENT = #{reportContent,jdbcType=VARCHAR},
+     </if>
+      <if test="reportUserUuid != null and reportUserUuid != ''">
+        REPORT_USER_UUID = #{reportUserUuid,jdbcType=VARCHAR},
+     </if>
+      <if test="reportTime!=null and reportTime!=''">  
+	   REPORT_TIME = #{reportTime,jdbcType=TIMESTAMP},
+	  </if>  
+	  <if test="reportType != null and reportType != ''">
+        REPORT_TYPE = #{reportType,jdbcType=VARCHAR},
+     </if>
+     <if test="lastModifyTime != null and lastModifyTime != ''">
+        LAST_MODIFY_TIME = #{lastModifyTime,jdbcType=TIMESTAMP},
+     </if>
+      <if test="reportUpdateUuid != null and reportUpdateUuid != ''">
+        REPORT_UPDATE_UUID = #{reportUpdateUuid,jdbcType=VARCHAR}
+     </if>
+      <if test="reportStaus != null and reportStaus != ''">
+          REPORT_STAUS = #{reportStaus,jdbcType=VARCHAR}
+      </if>
+       where REPORT_UUID = #{reportUuid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByReportPrimaryKey" resultType="java.util.Map" parameterType="java.lang.String" >
+        SELECT
+        tr.REPORT_UUID as  reportUuid,
+        tr.REPORT_TITLE as reportTitle,
+        tr.REPORT_CONTENT as reportContent,
+        tr.REPORT_USER_NAME as reportUserName,
+        tr.REPORT_USER_UUID as reportUserUuid,
+        tr.REPORT_TIME as reportTime,
+        tr. REPORT_TYPE as reportType,
+        tr.REPORT_STAUS as reportStaus,
+        tr. LAST_MODIFY_TIME as lastModifyTime,
+        tr. REPORT_UPDATE_UUID as reportUpdateUuid,
+        trr.REPLY_CONTENT as replyContent,
+        trr.REPLY_TIME as replyTime,
+        trr.REPLY_USER_NAME as replyUserName ,
+        trr.REPLY_USER_UUID as replyUserUuid
+    FROM
+        tab_report tr
+    LEFT JOIN
+        psmc.tab_report_reply_rel trrr
+    ON
+        tr.REPORT_UUID = trrr.REPORT_UUID
+    LEFT JOIN
+        tab_report_reply trr
+    ON
+        trr.REPLY_UUID= trrr.REPLY_UUID
+        where tr.REPORT_UUID = #{reportUuid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectReportAll" parameterType="hashmap" resultType="java.util.Map" >
+    select
+      REPORT_UUID as  reportUuid,
+      REPORT_TITLE as reportTitle,
+      REPORT_CONTENT as reportContent,
+      REPORT_USER_NAME as reportUserName,
+      REPORT_USER_UUID as reportUserUuid,
+      REPORT_TIME as reportTime,
+      REPORT_TYPE as reportType,
+      REPORT_STAUS as reportStaus,
+      LAST_MODIFY_TIME as lastModifyTime,
+      REPORT_UPDATE_UUID as reportUpdateUuid
+    from tab_report
+    <where>
+    	1=1
+     <if test="reportUuid != null and reportUuid != ''">
+        and REPORT_UUID = #{reportUuid}
+     </if>
+      <if test="reportTitle != null and reportTitle != ''">
+        and REPORT_TITLE LIKE concat(concat('%',#{reportTitle}),'%')
+     </if>
+      <if test="reportUserName != null and reportUserName != ''">
+        and REPORT_USER_NAME LIKE concat(concat('%',#{reportUserName}),'%')
+     </if>
+     <if test="reportContent != null and reportContent != ''">
+        and REPORT_CONTENT LIKE concat(concat('%',#{reportContent}),'%')
+     </if>
+      <if test="reportUserUuid != null and reportUserUuid != ''">
+        and REPORT_UUID = #{reportUserUuid}
+     </if>
+      <if test="reportTimeBegin!=null and reportTimeBegin!=''">  
+		and <![CDATA[REPORT_TIME>=#{reportTimeBegin}]]>
+	  </if>  
+	  <if test="reportTimeEnd!=null and reportTimeEnd!=''">  
+        and <![CDATA[REPORT_TIME<=#{reportTimeEnd})]]>
+	  </if> 
+	  <if test="reportType != null and reportType != ''">
+        and REPORT_TYPE = #{reportType}
+     </if>
+        <if test="reportStaus != null and reportStaus != ''">
+            and REPORT_STAUS = #{reportStaus}
+        </if>
+        <if test="queryParameter != null and queryParameter != ''">
+            and (
+                 REPORT_TITLE LIKE concat(concat('%',#{queryParameter}),'%')
+                or REPORT_USER_NAME LIKE concat(concat('%',#{queryParameter}),'%')
+                or REPORT_CONTENT LIKE concat(concat('%',#{queryParameter}),'%')
+                or REPORT_TYPE = #{queryParameter}
+            )
+        </if>
+  </where>
+  </select>
+</mapper>

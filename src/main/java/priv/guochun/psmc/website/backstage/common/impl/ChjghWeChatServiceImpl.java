@@ -1,19 +1,9 @@
 package priv.guochun.psmc.website.backstage.common.impl;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.xml.ws.WebServiceContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonObject;
-
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
 import priv.guochun.psmc.authentication.user.model.TabAccount;
@@ -36,8 +26,17 @@ import priv.guochun.psmc.website.backstage.common.ChjghWeChatService;
 import priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService;
 import priv.guochun.psmc.website.backstage.pageView.model.TabPageView;
 import priv.guochun.psmc.website.backstage.pageView.service.TabPageViewService;
+import priv.guochun.psmc.website.backstage.report.model.TabReport;
+import priv.guochun.psmc.website.backstage.report.service.ReportService;
 import priv.guochun.psmc.website.backstage.util.ChjghContants;
 import priv.guochun.psmc.website.enums.ModuleEnum;
+
+import javax.annotation.Resource;
+import javax.xml.ws.WebServiceContext;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 
 
@@ -65,6 +64,9 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	private WebServiceContext context;  
 	
 	private TabAccountService tabAccountService;
+
+	@Autowired
+	private ReportService reportService;
 	
 	@Override
 	public String createVcode(int type,String phone) {
@@ -331,7 +333,49 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		}
 		return GsonUtil.toJsonForObject(msg);
 	}
-	
+	@Override
+	public String getReportListInfo( String pageSize,
+									 String pageIndex,
+									 String queryParameter){
+		MyPage myPagep = new MyPage();
+		if(StringUtils.isBlank(pageSize)||StringUtils.isBlank(pageIndex)){
+			MsgModel msg = MsgModel.buildDefaultError("page prams is null ");
+			return  GsonUtil.toJsonForObject(msg);
+		}
+		Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+		if(!pattern.matcher(pageSize).matches() || !pattern.matcher(pageIndex).matches()){
+			MsgModel msg = MsgModel.buildDefaultError("the pageIndex Or pageSize  is null ");
+			return  GsonUtil.toJsonForObject(msg);
+		}
+		myPagep = reportService.findReportPageToMobile(myPagep,queryParameter);
+		MsgModel msg = MsgModel.buildDefaultSuccess(myPagep);
+		return  GsonUtil.toJsonForObject(msg);
+	}
+
+	@Override
+	public String getReportInfoDetail(String reportUUid) {
+		if(StringUtils.isBlank(reportUUid)){
+			MsgModel msg = MsgModel.buildDefaultError("reportUUid is null ");
+			return  GsonUtil.toJsonForObject(msg);
+		}
+		Map<String, Object> result = reportService.getReportDetailToMobile(reportUUid);
+		if(null==result || result.isEmpty()){
+			MsgModel msg = MsgModel.buildDefaultError("error the report not exits ");
+			return  GsonUtil.toJsonForObject(msg);
+		}
+		MsgModel msg = MsgModel.buildDefaultSuccess(result);
+		return  GsonUtil.toJsonForObject(msg);
+	}
+
+	@Override
+	public String addReport(TabReport report) {
+		if(null == report){
+			MsgModel msg = MsgModel.buildDefaultError("error add report is null  ");
+			return  GsonUtil.toJsonForObject(msg);
+		}
+		reportService.saveOrUpdateReportToMobile(report);
+		return GsonUtil.toJsonForObject( MsgModel.buildDefaultSuccess("add success"));
+	}
 	public ExcellentInnovationService getExcellentInnovationService() {
 		return excellentInnovationService;
 	}

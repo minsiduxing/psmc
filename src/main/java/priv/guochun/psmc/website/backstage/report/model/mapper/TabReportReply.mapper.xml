@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="priv.guochun.psmc.website.backstage.report.model.TabReportReply" >
+  <delete id="deleteByReplyPrimaryKey" parameterType="hashmap" >
+    delete from tab_report_reply
+    where REPLY_UUID in
+    <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <delete id="deleteByReportuuids" parameterType="hashmap" >
+    delete from tab_report_reply
+    where REPLY_UUID in( select  REPLY_UUID from  tab_report_reply_rel  where REPORT_UUID in
+    <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+      #{item}
+    </foreach>)
+  </delete>
+  <insert id="insertReply" parameterType="priv.guochun.psmc.website.backstage.report.model.TabReportReply" >
+    insert into tab_report_reply (REPLY_CONTENT, REPLY_USER_UUID, REPLY_USER_NAME, 
+      REPLY_TIME, LAST_MODIFY_TIME, LAST_MODIFY_USER_UUID,REPLY_UUID
+      )
+    values (#{replyContent,jdbcType=VARCHAR}, #{replyUserUuid,jdbcType=VARCHAR}, #{replyUserName,jdbcType=VARCHAR}, 
+      #{replyTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}, #{lastModifyUserUuid,jdbcType=VARCHAR},#{replyUuid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByReplyPrimaryKey" parameterType="priv.guochun.psmc.website.backstage.report.model.TabReportReply" >
+    update tab_report_reply
+    set REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR},
+      REPLY_USER_UUID = #{replyUserUuid,jdbcType=VARCHAR},
+      REPLY_USER_NAME = #{replyUserName,jdbcType=VARCHAR},
+      REPLY_TIME = #{replyTime,jdbcType=TIMESTAMP},
+      LAST_MODIFY_TIME = #{lastModifyTime,jdbcType=TIMESTAMP},
+      LAST_MODIFY_USER_UUID = #{lastModifyUserUuid,jdbcType=VARCHAR}
+    where REPLY_UUID = #{replyUuid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByReplyPrimaryKey" resultType="java.util.Map" parameterType="java.lang.String" >
+    select REPLY_UUID, REPLY_CONTENT, REPLY_USER_UUID, REPLY_USER_NAME, REPLY_TIME, LAST_MODIFY_TIME, 
+    LAST_MODIFY_USER_UUID
+    from tab_report_reply
+    where REPLY_UUID = #{replyUuid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectReplyAll" resultType="java.util.Map" >
+    select REPLY_UUID, REPLY_CONTENT, REPLY_USER_UUID, REPLY_USER_NAME, REPLY_TIME, LAST_MODIFY_TIME, 
+    LAST_MODIFY_USER_UUID
+    from tab_report_reply
+  </select>
+</mapper>

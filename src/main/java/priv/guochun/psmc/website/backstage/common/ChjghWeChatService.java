@@ -1,17 +1,12 @@
 package priv.guochun.psmc.website.backstage.common;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.website.backstage.report.model.TabReport;
 
 @Path("/weChatService")
 @Produces({MediaType.APPLICATION_JSON})
@@ -146,5 +141,34 @@ public interface ChjghWeChatService {
     @POST
 	@Consumes("application/x-www-form-urlencoded")
 	public String getSignUpList(@FormParam("activityUuid") String activityUuid);
-
+	/**
+	 * 查询申报列表
+	 * @param page 分页信息
+	 * @return
+	 */
+	@Path("/report_list/{pageSize}/{pageIndex}")
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	public String getReportListInfo(@PathParam("pageSize") String pageSize,
+									@PathParam("pageIndex") String pageIndex,
+									@QueryParam("queryParameter") String queryParameter
+	);
+	/**
+	 * 查询申报明细
+	 * @param reportUUid 查询参数
+	 * @return
+	 */
+	@Path("/report_detail")
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	public String getReportInfoDetail(@QueryParam("reportUUid")String reportUUid);
+	/**
+	 * 新增申报信息
+	 * @param report 新增的申报信息
+	 * @return
+	 */
+	@Path("/report_add")
+	@POST
+	@Produces({MediaType.APPLICATION_JSON})
+	public String addReport(@RequestBody TabReport report);
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="priv.guochun.psmc.website.backstage.report.model.TabReportReplyRel" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tab_report_reply_rel
+    where REL_UUID = #{relUuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByPReportUuid" parameterType="hashmap" >
+    delete from tab_report_reply_rel
+    where  REPORT_UUID in
+    <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <insert id="insertReportRel" parameterType="priv.guochun.psmc.website.backstage.report.model.TabReportReplyRel" >
+    insert into tab_report_reply_rel (REPORT_UUID, REPLY_UUID,REL_UUID)
+    values (#{reportUuid,jdbcType=VARCHAR}, #{replyUuid,jdbcType=VARCHAR}, #{relUuid,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="priv.guochun.psmc.website.backstage.report.model.TabReportReplyRel" >
+    update tab_report_reply_rel
+    set REPORT_UUID = #{reportUuid,jdbcType=VARCHAR},
+      REPLY_UUID = #{replyUuid,jdbcType=VARCHAR}
+    where REL_UUID = #{relUuid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultType="java.util.Map" parameterType="java.lang.String" >
+    select REL_UUID, REPORT_UUID, REPLY_UUID
+    from tab_report_reply_rel
+    where REL_UUID = #{relUuid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectRelAll" resultType="java.util.Map" >
+    select REL_UUID, REPORT_UUID, REPLY_UUID
+    from tab_report_reply_rel
+  </select>
+  <!--根据reportUUid查询关联关系-->
+  <select id="selectByReportUuid" resultType="java.util.Map" parameterType="java.lang.String">
+    select REL_UUID, REPORT_UUID, REPLY_UUID
+    from tab_report_reply_rel
+    where  1=1
+    <if test="reportUuid !=null and reportUuid !='' ">
+      and REPORT_UUID = #{reportUuid,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

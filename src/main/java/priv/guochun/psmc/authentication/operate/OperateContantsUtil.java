@@ -91,6 +91,14 @@ public class OperateContantsUtil {
     public final static String USER_GROUP_ADD = "USER_GROUP_ADD";
     public final static String USER_GROUP_UPDATE = "USER_GROUP_UPDATE";
     public final static String USER_GROUP_DEL = "USER_GROUP_DEL";
+
+    /**
+     * 申报信息操作
+     */
+    public final static String INFO_REPORT_REPLY = "INFO_REPORT_REPLY";
+    public final static String INFO_REPORT_DELETE = "INFO_REPORT_DELETE";
+    public final static String INFO_REPORT_LIST = "INFO_REPORT_LIST";
+
     
     
 }
