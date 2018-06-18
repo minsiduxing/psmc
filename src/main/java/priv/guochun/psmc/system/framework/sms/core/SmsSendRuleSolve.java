@@ -46,9 +46,9 @@ public class SmsSendRuleSolve
 	public MsgModel sendSms(SmsModel smsModel){
 		Properties pp = SystemPropertiesUtil.getProps();
 		//是否正式环境
-		boolean is_publish =Boolean.parseBoolean(pp.getProperty("is_publish"));
+		boolean sms_enable =Boolean.parseBoolean(pp.getProperty("sms_enable"));
 		MsgModel mm = null;
-		if(is_publish)
+		if(sms_enable)
 			mm = smsSendModeSrategy.sendSms(smsModel.getReceiveNo(),smsModel.getReceiveContext());
 		else
 			mm = MsgModel.buildDefaultSuccess("非生产环境模拟短信发送成功!",null);
@@ -61,7 +61,7 @@ public class SmsSendRuleSolve
 	     sysOperLog.setLogSubTypeName(LogTypeEnum.LogTypeSysOper3_1.getName());
 	     sysOperLog.setOperDate(DateUtil.getCurrentTimstamp());
 	     
-	     sysOperLog.setOperInput(GsonUtil.toJsonForObject(smsModel));
+//	     sysOperLog.setOperInput(GsonUtil.toJsonForObject(smsModel));
 	     sysOperLog.setOperOutput(GsonUtil.toJsonForObject(mm));
 	     sysOperLog.setOperResult(true == mm.isSuccess()?LogResultEnum.success.getIndex():LogResultEnum.error.getIndex());
 	     sysOperLog.setOperResultDesc("系统发送短信日志记录!");

@@ -1,14 +1,25 @@
 package priv.guochun.psmc.website.backstage.common.impl;
 
 
-import com.alibaba.fastjson.JSON;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+import javax.annotation.Resource;
+import javax.xml.ws.WebServiceContext;
+
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
 import priv.guochun.psmc.authentication.user.model.TabAccount;
 import priv.guochun.psmc.authentication.user.model.TabPerson;
 import priv.guochun.psmc.authentication.user.service.TabAccountService;
+import priv.guochun.psmc.system.common.vcode.model.TabVerificationCode;
 import priv.guochun.psmc.system.common.vcode.service.VerificationCodeService;
 import priv.guochun.psmc.system.enums.VerificationCodeTypeEnum;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
@@ -31,16 +42,13 @@ import priv.guochun.psmc.website.backstage.report.service.ReportService;
 import priv.guochun.psmc.website.backstage.util.ChjghContants;
 import priv.guochun.psmc.website.enums.ModuleEnum;
 
-import javax.annotation.Resource;
-import javax.xml.ws.WebServiceContext;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
+import com.alibaba.fastjson.JSON;
 
 
 
 public class ChjghWeChatServiceImpl implements ChjghWeChatService {
+	
+	protected static final  Logger logger  = LoggerFactory.getLogger(ChjghWeChatServiceImpl.class);
 
 	private LoginService loginService;
 	
@@ -75,7 +83,8 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 //                 .get(AbstractHTTPDestination.HTTP_REQUEST);  
          
          String ip = "localhost";
-         String code = verificationCodeService.createCode(type, ip);
+         TabVerificationCode verificationCode = verificationCodeService.createCode(type, ip);
+         String code =  verificationCode.getCode();
          
          SmsModel sm = new SmsModel();
          sm.setCreateTime(TimestampUtil.createCurTimestamp());
@@ -83,16 +92,20 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
          sm.setReceiveNo(phone);
          MsgModel mm = chjghMobileSmsSendService.sendSms(sm);
          if(mm.isSuccess())
-        	 return GsonUtil.toJsonForObject(MsgModel.buildDefaultSuccess(code));
-         else
+        	 return GsonUtil.toJsonForObject(MsgModel.buildDefaultSuccess());
+         else{
+        	 logger.warn("获取验证码短信发送失败 "+GsonUtil.toJsonForObject(mm));
+        	 verificationCodeService.deleteCode(verificationCode.getUuid());
         	 return GsonUtil.toJsonForObject(mm);
+         }
+        	 
 	}
 
 	@Override
 	public String login(String phone, String code) {
 		MsgModel msg = null;
-		// TODO 验证码校验
-		msg = verificationCodeService.validateCode(code, VerificationCodeTypeEnum.VCODE_LOGIN.getValue());
+		//这里校验不会改变验证码状态
+		msg = verificationCodeService.validateCode(code, VerificationCodeTypeEnum.VCODE_LOGIN.getValue(),null);
 		if(!msg.isSuccess()){
 			return GsonUtil.toJsonForObject(msg);
 		}
@@ -109,20 +122,25 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		}
 		
 		msg = MsgModel.buildDefaultSuccess(user);
+		if(msg.isSuccess()){
+			//这里校验会改变验证码状态
+			verificationCodeService.validateCode(code, VerificationCodeTypeEnum.VCODE_LOGIN.getValue());
+		}
 		return GsonUtil.toJsonForObject(msg);
 	}
 	
 	@Override
 	public String register(String name,String phone,String code){
 		MsgModel msg = null;
-		// TODO 验证码校验
-		msg = verificationCodeService.validateCode(code, VerificationCodeTypeEnum.VCODE_REGISTER.getValue());
+		//这里校验不会改变验证码状态
+		msg = verificationCodeService.validateCode(code, VerificationCodeTypeEnum.VCODE_REGISTER.getValue(),null);
 		if(!msg.isSuccess()){
 			return GsonUtil.toJsonForObject(msg);
 		}
 		
 		User user = loginService.buildUserByPhone(phone);
 		if(user != null){
+			verificationCodeService.validateCode(code, VerificationCodeTypeEnum.VCODE_REGISTER.getValue());
 			msg = MsgModel.buildDefaultError("该手机号已被注册!");
 			return GsonUtil.toJsonForObject(msg);
 		}
@@ -148,6 +166,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		if(flag){
 			user = loginService.buildUserByPhone(phone);
 			msg = MsgModel.buildDefaultSuccess("用户注册成功!",user);
+			verificationCodeService.validateCode(code, VerificationCodeTypeEnum.VCODE_REGISTER.getValue());
 			return GsonUtil.toJsonForObject(msg);
 		}else{
 			msg = MsgModel.buildDefaultError("用户注册失败,请联系管理员!");

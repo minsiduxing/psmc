@@ -26,7 +26,7 @@ public class MsgModel implements java.io.Serializable {
 	}
 	
 
-	public static MsgModel buildSuccess(){
+	public static MsgModel buildDefaultSuccess(){
 		MsgModel obj = new MsgModel();
 		MobileReturnModel temp = new MobileReturnModel(success,"");
 		obj.result=temp;

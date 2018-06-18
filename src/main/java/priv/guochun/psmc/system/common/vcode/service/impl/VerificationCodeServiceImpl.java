@@ -39,7 +39,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 	protected static final  Logger logger  = LoggerFactory.getLogger(VerificationCodeServiceImpl.class);
 	
 	@Override
-	public String createCode(long type,String customerIp) {
+	public TabVerificationCode createCode(long type,String customerIp) {
 		String code = null;
 		TabVerificationCodeMapper mapper = sqlSession.getMapper(TabVerificationCodeMapper.class);
 		TabVerificationCodeExample example = new TabVerificationCodeExample();
@@ -58,14 +58,17 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 				logger.debug("未使用的验证码已超期，将该验证码设置为超期");
 				vcode.setState(VerificationCodeStateEnum.BE_OVERDUE.getValue());
 				mapper.updateByPrimaryKey(vcode);
-			}else
-				return vcode.getCode();
+			}else{
+				vcode.setCreateTime(new Date());
+				mapper.updateByPrimaryKey(vcode);
+				return vcode;
+			}
+				
 		}
 		
 		if(code == null || "".equals(code)){
 			code = VerificationCodeFactory.getInstance().getCode();
 		}
-		
 		
 		TabVerificationCode record = new TabVerificationCode();
 		record.setCode(code);
@@ -77,12 +80,18 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 		record.setIp(customerIp);
 		mapper.insert(record);
 		
-		return code;
+		return record;
 	}
 	
 
 	@Override
 	public MsgModel validateCode(String code, long type) {
+		return validateCode(code,type,VerificationCodeStateEnum.BE_USED.getValue());
+	}
+	
+	
+	@Override
+	public MsgModel validateCode(String code, long type,Long state) {
 		TabVerificationCodeMapper mapper = sqlSession.getMapper(TabVerificationCodeMapper.class);
 		TabVerificationCodeExample example = new TabVerificationCodeExample();
 		Criteria ct = example.createCriteria();
@@ -103,7 +112,9 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 					return MsgModel.buildDefaultError(codeBeOverDue);
 				}
 				
-				vcode.setState(VerificationCodeStateEnum.BE_USED.getValue());
+				if(state != null)
+					vcode.setState(state.longValue());
+				
 				mapper.updateByPrimaryKey(vcode);
 				return MsgModel.buildDefaultSuccess(code);
 				
@@ -112,6 +123,11 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 		}else{
 			return MsgModel.buildDefaultError(codeNotExsits);
 		}
+	}
+	
+	public void deleteCode(String uuid){
+		TabVerificationCodeMapper mapper = sqlSession.getMapper(TabVerificationCodeMapper.class);
+		mapper.deleteByPrimaryKey(uuid);
 	}
 
 
