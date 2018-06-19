@@ -151,7 +151,9 @@ public interface ChjghWeChatService {
 	@Produces({MediaType.APPLICATION_JSON})
 	public String getReportListInfo(@PathParam("pageSize") String pageSize,
 									@PathParam("pageIndex") String pageIndex,
-									@QueryParam("queryParameter") String queryParameter
+									@QueryParam("queryParameter") String queryParameter,
+									@QueryParam("reportType")String reportType
+
 	);
 	/**
 	 * 查询申报明细

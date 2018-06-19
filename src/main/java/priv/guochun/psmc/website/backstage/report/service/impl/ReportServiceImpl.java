@@ -65,9 +65,10 @@ public class ReportServiceImpl implements ReportService{
 	}
 
 	@Override
-	public MyPage findReportPageToMobile( MyPage page,String queryParameter) {
+	public MyPage findReportPageToMobile( MyPage page,String queryParameter,String reportType) {
 		Map<String,Object> condition = new HashMap<String,Object>();
 			condition.put("queryParameter",queryParameter);
+		condition.put("reportType",reportType);
 		return baseDao.getMyPage(page, selectAll, condition);
 	}
 

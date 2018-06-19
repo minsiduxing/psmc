@@ -355,7 +355,8 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	@Override
 	public String getReportListInfo( String pageSize,
 									 String pageIndex,
-									 String queryParameter){
+									 String queryParameter,
+									 String reportType){
 		MyPage myPagep = new MyPage();
 		if(StringUtils.isBlank(pageSize)||StringUtils.isBlank(pageIndex)){
 			MsgModel msg = MsgModel.buildDefaultError("page prams is null ");
@@ -366,7 +367,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			MsgModel msg = MsgModel.buildDefaultError("the pageIndex Or pageSize  is null ");
 			return  GsonUtil.toJsonForObject(msg);
 		}
-		myPagep = reportService.findReportPageToMobile(myPagep,queryParameter);
+		myPagep = reportService.findReportPageToMobile(myPagep,queryParameter,reportType);
 		MsgModel msg = MsgModel.buildDefaultSuccess(myPagep);
 		return  GsonUtil.toJsonForObject(msg);
 	}

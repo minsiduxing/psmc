@@ -48,7 +48,7 @@ public interface ReportService {
 	 * @return
 	 * @author wanglei 2018年6月10日
 	 */
-	MyPage findReportPageToMobile( MyPage page,String queryParameter);
+	MyPage findReportPageToMobile( MyPage page,String queryParameter,String reportType);
 	/**
 	 * <p>Description:5.根据主键查询申报信息<p>
 	 * @param reportUuid 申报主键
