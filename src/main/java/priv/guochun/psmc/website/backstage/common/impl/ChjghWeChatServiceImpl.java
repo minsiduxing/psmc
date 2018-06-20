@@ -77,13 +77,8 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	private ReportService reportService;
 	
 	@Override
-	public String createVcode(int type,String phone) {
-//		 MessageContext ctx = (MessageContext) context.getMessageContext();  
-//         HttpServletRequest request = (HttpServletRequest) ctx  
-//                 .get(AbstractHTTPDestination.HTTP_REQUEST);  
-         
-         String ip = "localhost";
-         TabVerificationCode verificationCode = verificationCodeService.createCode(type, ip);
+	public String createVcode(int type,String phone) {         
+         TabVerificationCode verificationCode = verificationCodeService.createCode(type, phone);
          String code =  verificationCode.getCode();
          
          SmsModel sm = new SmsModel();

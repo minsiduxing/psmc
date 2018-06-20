@@ -15,7 +15,7 @@ public interface VerificationCodeService {
 	 * @param type
 	 * @return
 	 */
-	public TabVerificationCode createCode(long type,String customerIp);
+	public TabVerificationCode createCode(long type,String phone);
 	
 	
 	/**

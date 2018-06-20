@@ -39,12 +39,12 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 	protected static final  Logger logger  = LoggerFactory.getLogger(VerificationCodeServiceImpl.class);
 	
 	@Override
-	public TabVerificationCode createCode(long type,String customerIp) {
+	public TabVerificationCode createCode(long type,String phone) {
 		String code = null;
 		TabVerificationCodeMapper mapper = sqlSession.getMapper(TabVerificationCodeMapper.class);
 		TabVerificationCodeExample example = new TabVerificationCodeExample();
 		Criteria ct = example.createCriteria();
-		ct.andIpEqualTo(customerIp);
+		ct.andPhoneEqualTo(phone);
 		ct.andTypeEqualTo(type);
 		ct.andStateEqualTo(VerificationCodeStateEnum.NOT_USE.getValue());
 		List<TabVerificationCode>  list = mapper.selectByExample(example);
@@ -77,7 +77,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 		record.setState(VerificationCodeStateEnum.NOT_USE.getValue());
 		record.setType(type);
 		record.setEffectiveTime(effectiveTime);
-		record.setIp(customerIp);
+		record.setPhone(phone);
 		mapper.insert(record);
 		
 		return record;
