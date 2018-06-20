@@ -12,10 +12,10 @@
   <insert id="insertReport" parameterType="priv.guochun.psmc.website.backstage.report.model.TabReport" >
     insert into tab_report (REPORT_UUID,REPORT_TITLE, REPORT_CONTENT, REPORT_USER_NAME,
       REPORT_USER_UUID, REPORT_TIME, REPORT_TYPE, 
-      LAST_MODIFY_TIME, REPORT_UPDATE_UUID,REPORT_STAUS)
+      LAST_MODIFY_TIME, REPORT_UPDATE_UUID,REPORT_STAUS,REPORT_TEL)
     values (#{reportUuid,jdbcType=VARCHAR},#{reportTitle,jdbcType=VARCHAR}, #{reportContent,jdbcType=VARCHAR}, #{reportUserName,jdbcType=VARCHAR},
       #{reportUserUuid,jdbcType=VARCHAR}, #{reportTime,jdbcType=TIMESTAMP}, #{reportType,jdbcType=VARCHAR}, 
-      #{lastModifyTime,jdbcType=TIMESTAMP}, #{reportUpdateUuid,jdbcType=VARCHAR},#{reportStaus,jdbcType=VARCHAR})
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{reportUpdateUuid,jdbcType=VARCHAR},#{reportStaus,jdbcType=VARCHAR},#{reportTel,jdbcType=VARCHAR})
   </insert>
   <update id="updateByReportPrimaryKey" parameterType="priv.guochun.psmc.website.backstage.report.model.TabReport" >
     update tab_report
@@ -47,6 +47,9 @@
       <if test="reportStaus != null and reportStaus != ''">
           REPORT_STAUS = #{reportStaus,jdbcType=VARCHAR}
       </if>
+      <if test="reportTel != null and reportTel != ''">
+          REPORT_TEL = #{reportTel,jdbcType=VARCHAR}
+      </if>
        where REPORT_UUID = #{reportUuid,jdbcType=VARCHAR}
   </update>
   <select id="selectByReportPrimaryKey" resultType="java.util.Map" parameterType="java.lang.String" >
@@ -61,6 +64,7 @@
         tr.REPORT_STAUS as reportStaus,
         tr. LAST_MODIFY_TIME as lastModifyTime,
         tr. REPORT_UPDATE_UUID as reportUpdateUuid,
+        tr.REPORT_TEL as reportTel,
         trr.REPLY_CONTENT as replyContent,
         trr.REPLY_TIME as replyTime,
         trr.REPLY_USER_NAME as replyUserName ,
@@ -88,7 +92,8 @@
       REPORT_TYPE as reportType,
       REPORT_STAUS as reportStaus,
       LAST_MODIFY_TIME as lastModifyTime,
-      REPORT_UPDATE_UUID as reportUpdateUuid
+      REPORT_UPDATE_UUID as reportUpdateUuid,
+      REPORT_TEL as reportTel
     from tab_report
     <where>
     	1=1
@@ -116,14 +121,18 @@
 	  <if test="reportType != null and reportType != ''">
         and REPORT_TYPE = #{reportType}
      </if>
-        <if test="reportStaus != null and reportStaus != ''">
-            and REPORT_STAUS = #{reportStaus}
-        </if>
+    <if test="reportStaus != null and reportStaus != ''">
+        and REPORT_STAUS = #{reportStaus}
+    </if>
+    <if test="reportTel != null and reportTel != ''">
+        and REPORT_TEL LIKE concat(concat('%',#{reportTel}),'%')
+    </if>
         <if test="queryParameter != null and queryParameter != ''">
             and (
                  REPORT_TITLE LIKE concat(concat('%',#{queryParameter}),'%')
                 or REPORT_USER_NAME LIKE concat(concat('%',#{queryParameter}),'%')
                 or REPORT_CONTENT LIKE concat(concat('%',#{queryParameter}),'%')
+                or REPORT_TEL LIKE concat(concat('%',#{reportTel}),'%')
                 or REPORT_TYPE = #{queryParameter}
             )
         </if>

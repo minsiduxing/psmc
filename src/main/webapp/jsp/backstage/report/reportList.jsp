@@ -28,6 +28,9 @@
                 <li class="li-input"><label for="" class="input-label">是否回复：</label>
                     <input id="reportStaus" name="reportStaus" />
                 </li>
+                <li class="li-input"><label for="" class="input-label">申报电话	：</label>
+                    <input class="myinput" id="reportTel" name="reportTel"/>
+                </li>
                 <li class="li-input"><label for="" class="input-label">申报日期：</label>
                     <input id="reportTimeBegin" name="reportTimeBegin" value=""></input>
                 </li>
@@ -73,6 +76,8 @@
     $('#reportTitle').textbox({
     });
     $('#reportUserName').textbox({
+    });
+    $('#reportTel').textbox({
     });
     $('#reportTimeBegin').datetimebox({
     });

@@ -2,37 +2,66 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+    <style type="text/css">
+        .ibox {
+            clear: both;
+            margin-bottom: 25px;
+            margin-top: 0;
+            padding: 0
+        }
+        .tds{
+            text-align:right;
+            width:15%
+        }
+
+    </style>
 </head>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/news/news${csssuffix}" type="text/css">
 <%@ include file="../../../common.jsp"%>
 <body id="body">
 <form id="editForm" method="POST" class="newsForm" >
     <input type="hidden" id="reportUuid" name="reportUuid" value='${report.reportUuid}' readonly="readonly"/>
-    <ul >
-        <li ><label>申报标题</label><br>
-            <input  id="reportTitle" name="newsTitle"/>
-        </li>
-        <li><label>申报内容</label><br>
-            <input  id="reportContent" name="newsTitle" style="height: 200px;width: 450px;" editable="false"/>
-        </li>
-        <li ><label>申报人姓名</label><br>
-            <input  id="reportUserName" name="newsTitle"/>
-        </li>
-        <li ><label >申报时间</label><br>
-            <input  id="reportTime" name="newsTitle"/>
-        </li>
-        <li ><label >回复内容</label><br>
-            <input  id="replyContent" name="replyContent" class="easyui-textbox" style="height: 200px;width: 450px;" editable="false" value="${report.replyContent}"/>
-        </li>
-        <li ><label >回复人</label><br>
-            <input  id="replyUserName" name="replyUserName" editable="false" value="${report.replyUserName}"/>
-        </li>
-        <li ><label >回复时间</label><br>
-            <input  id="replyTime" name="replyUserName" editable="false" value="${report.replyTime}"/>
-        </li>
-    </ul>
-
-    <div class="operButon">
+    <div class=" panel-default" style="margin-top:15px; border: 1px solid #ddd;">
+        <div class="panel-heading">
+            <label style="background-color:#006699; color: #ffffff">申报信息</label>
+        </div>
+        <table class="table table-hover" style="font-size:12px; width:75%; border-collapse:separate; border-spacing:10px;">
+            <tr>
+                <td class="tds">申报标题：</td>
+                <td width="30%"> <input  id="reportTitle" name="newsTitle" style="width:70%;"/></td>
+                <td class="tds">申报电话：</td>
+                <td width="30%"> <input  id="reportTel" name="reportTel" style="width:70%;"/></td>
+            </tr>
+            <tr>
+                <td class="tds">申报人姓名：</td>
+                <td width="30%">  <input  id="reportUserName" name="newsTitle" style="width:70%;"/></td>
+                <td class="tds">申报时间：</td>
+                <td width="30%"><input  id="reportTime" name="newsTitle"  editable="false" style="width:70%;"/></td>
+            </tr>
+            <tr>
+                <td class="tds">申报内容：</td>
+                <td width="30%" colspan="4"><input  id="reportContent" name="newsTitle" style="width:86%; height: 200px; border-radius:5px; border: 1px solid #ccc;"   editable="false" /></td>
+            </tr>
+        </table>
+    </div>
+    <div class=" panel-default" style=" border: 1px solid #ddd;">
+        <div class="panel-heading">
+            <label style="background-color:#006699; color: #ffffff">回复信息</label>
+        </div>
+        <table class="table table-hover" style="font-size:12px; width:75%; border-collapse:separate; border-spacing:10px;">
+            <tr>
+                <td class="tds">回复人：</td>
+                <td width="30%"><input  id="replyUserName" name="replyUserName" editable="false" value="${report.replyUserName}" style="width:70%;"/></td>
+                <td class="tds">回复时间：</td>
+                <td width="30%"> <input  id="replyTime" name="replyUserName" editable="false" value="${report.replyTime}" style="width:70%;"/></td>
+            </tr>
+            <tr>
+                <td class="tds">回复内容：</td>
+                <td width="30%" colspan="4"> <input  id="replyContent" name="replyContent" class="easyui-textbox" editable="false" value="${report.replyContent}" style="height: 200px; width:86%; border-radius:5px; border: 1px solid #ccc;"/></td>
+            </tr>
+        </table>
+    </div>
+    <div style= "width:75%; margin-top: 20px" class="operButon" align="center">
         <input id="submitbtn" type="button" class="easyui-linkbutton" onclick=" exceReply()" value="回复"/>
         <input id="button" type="reset" class="easyui-linkbutton" onclick="retList()"  value="返回列表"/>
     </div>
@@ -62,18 +91,23 @@
             editable:false,
             type : "text"
         });
+        $('#reportTel').textbox({
+            value : "${report.reportTel}",
+            editable:false,
+            type : "text"
+        });
         $('#reportUserName').textbox({
             value : "${report.reportUserName}",
             editable:false,
             type : "text"
         });
         $('#reportTime').textbox({
-            value : '<fmt:formatDate value="${report.reportTime}" pattern="yyyy年MM月dd日HH点mm分ss秒" />',
+            value : '<fmt:formatDate value="${report.reportTime}" pattern="yyyy-MM-dd HH:mm:ss" />',
             editable:false,
             type : "text"
         });
         $('#replyTime').textbox({
-            value : '<fmt:formatDate value="${report.replyTime}" pattern="yyyy年MM月dd日HH点mm分ss秒" />',
+            value : '<fmt:formatDate value="${report.replyTime}" pattern="yyyy-MM-dd HH:mm:ss"  />',
             editable:false,
             type : "text"
         });

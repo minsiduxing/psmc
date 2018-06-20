@@ -16,9 +16,10 @@ $(document).ready(function(){
                       }},
 		          {field:'reportUserName',title:'申报人姓名',resizable:true},
 		          {field:'reportTime',title:'申报时间'},
+                  {field:'reportTel',title:'申报电话'},
 		          {field:'reportStaus',title:'是否回复',resizable:true,formatter:function(value, row, index){
-		        	  if(value=='0'){return "否";}
-		        	  if(value=='1'){return "是";}
+                          if(value=='2'){return "否";}
+                          if(value=='1'){return "是";}
 		          }}
 		         ]
 		      ]

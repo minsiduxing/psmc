@@ -22,11 +22,19 @@ public class TabReport implements Serializable {
 
     private String reportUpdateUuid;
     private String reportStaus;
-
+    private String reportTel;
     private static final long serialVersionUID = 1L;
 
     public String getReportStaus() {
         return reportStaus;
+    }
+
+    public String getReportTel() {
+        return reportTel;
+    }
+
+    public void setReportTel(String reportTel) {
+        this.reportTel = reportTel;
     }
 
     public void setReportStaus(String reportStaus) {
