@@ -21,7 +21,6 @@ function sbmit (e){
 		commonObj.alert ("新闻配图不能为空!","warning");
 		return false;
 	}*/
-	debugger;
 	var formdata = $("#editForm").serialize();
 	var _addUrl = addUrl;
 	if(Boolean(result)){

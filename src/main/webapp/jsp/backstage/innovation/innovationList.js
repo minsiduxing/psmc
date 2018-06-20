@@ -46,7 +46,6 @@ $(document).ready(function(){
 	//编辑
 	$("#edit").click(function(){
 		var rows = $("#innovationList").datagrid('getChecked');
-		debugger;
 		if (rows.length == 1){
 			var rowObj = eval(rows[0]);
 			if(rowObj.audit==1){

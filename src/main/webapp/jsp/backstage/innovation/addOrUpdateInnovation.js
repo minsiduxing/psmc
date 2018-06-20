@@ -10,7 +10,6 @@ function save(e){
 		$.messager.alert('警告','请填写必填项！','warning');
 		return;
 	}
-	debugger;
 	var innovationdata = $("#innovationForm").serialize();
 	var url = addUrl;
 	$.messager.progress(); 
@@ -23,7 +22,6 @@ function save(e){
 				commonObj.showResponse(data);
 		   },
 		   error:function(XMLHttpRequest, textStatus, errorThrown){
-			   debugger;
 			   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
 			   $.messager.progress("close");
 		   }
