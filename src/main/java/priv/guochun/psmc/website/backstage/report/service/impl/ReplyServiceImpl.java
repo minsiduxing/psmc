@@ -32,7 +32,10 @@ public class ReplyServiceImpl implements ReplyService{
                 if(StringUtils.isBlank(tabReportReply.getReplyUuid())){
                     tabReportReply.setReplyUuid(UUIDGenerator.createUUID());
                 }
-                tabReportReply.setReplyTime(DateUtil.getCurrentTimstamp());
+                //如果没有传则默认
+                if(null==tabReportReply.getReplyTime()){
+                    tabReportReply.setReplyTime(DateUtil.getCurrentTimstamp());
+                }
                 baseDao.insert(insert, tabReportReply);
             }else{
                 tabReportReply.setLastModifyTime(DateUtil.getCurrentTimstamp());

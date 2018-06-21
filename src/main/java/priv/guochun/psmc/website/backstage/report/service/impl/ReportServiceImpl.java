@@ -128,7 +128,10 @@ public class ReportServiceImpl implements ReportService{
 			reportUuid = UUIDGenerator.createUUID();
 			report.setReportUuid(reportUuid);
 			report.setReportStaus(ReportEnum.REPORT_STAUS_WAIT_REPLY.getValue());
-			report.setReportTime(DateUtil.getCurrentTimstamp());
+			//如果没有传则默认
+			if(null!=report.getReportTime()){
+				report.setReportTime(DateUtil.getCurrentTimstamp());
+			}
 			baseDao.insert(insert, report);
 		}else{
 			//修改
