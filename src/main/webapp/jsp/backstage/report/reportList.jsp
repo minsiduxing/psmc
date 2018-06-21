@@ -59,17 +59,14 @@
 
 </body>
 </html>
-
 <script type="text/javascript">
     var basePath = $("#basePath").val();
     //申报controller
     var reportDo = basePath+"/website/backstage/reportController.do";
     //获取数据Url
     var getReportList = '<c:url value="'+reportDo+'"/>?method=get_report_page&reportType=${type}';
-    //申报明细
-    var getReportDetail = '<c:url value="'+reportDo+'"/>?method=to_report_detail&reportUuid=';
-    //申报回复
-    var getReportReply = '<c:url value="'+reportDo+'"/>?method=to_report';
+    //申报回复、明细
+    var getReportReply = '<c:url value="'+reportDo+'"/>?method=to_report&reportUuid=';
     //删除信息
     var removeRport =   '<c:url value="'+reportDo+'"/>?method=delete';
     //----------------------------查询框初始化开始

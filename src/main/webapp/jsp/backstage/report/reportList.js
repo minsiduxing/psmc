@@ -12,7 +12,7 @@ $(document).ready(function(){
 		          {field:'reportUuid',title:'申报主键',checkbox:true},
 		          {field:'reportTitle',title:'申报标题',resizable:true,
                       formatter:function(value, row, index){
-                        return "<a href='"+getReportDetail+row.reportUuid+"'>"+value+"</a>";
+                        return "<a href='"+getReportReply+row.reportUuid+"'>"+value+"</a>";
                       }},
 		          {field:'reportUserName',title:'申报人姓名',resizable:true},
 		          {field:'reportTime',title:'申报时间'},
@@ -82,7 +82,7 @@ $("#replyReport").click(function(){
 			if(i<rlength-1)
 				ids+=",";
 		}
-		var _url = getReportReply+"&reportUuid="+ids;
+		var _url = getReportReply+ids;
 		 window.location.href =_url;
 	}else{
 		commonObj.alert('请选择一条信息!',"warning");

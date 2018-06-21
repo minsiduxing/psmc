@@ -106,11 +106,6 @@
             editable:false,
             type : "text"
         });
-        $('#replyTime').textbox({
-            value : '<fmt:formatDate value="${report.replyTime}" pattern="yyyy-MM-dd HH:mm:ss"  />',
-            editable:false,
-            type : "text"
-        });
         relelyDisply();
     });
     //返回申报列表
@@ -136,6 +131,11 @@
                 required : true,
                 type : "text"
             });
+            $('#replyTime').datetimebox({
+                value : '<fmt:formatDate value="${report.replyTime}" pattern="yyyy-MM-dd HH:mm:ss"  />',
+                editable:true,
+                type : "text"
+            });
         }else if("1"==status){
             $('#replyContent').textbox({
                 value : "${report.replyContent}",
@@ -145,6 +145,11 @@
             });
             $('#replyUserName').textbox({
                 value : "${report.replyUserName}",
+                editable:false,
+                type : "text"
+            });
+            $('#replyTime').textbox({
+                value : '<fmt:formatDate value="${report.replyTime}" pattern="yyyy-MM-dd HH:mm:ss"  />',
                 editable:false,
                 type : "text"
             });

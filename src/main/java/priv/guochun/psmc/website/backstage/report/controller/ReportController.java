@@ -8,10 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
 import priv.guochun.psmc.website.backstage.report.model.TabReportReply;
 import priv.guochun.psmc.website.backstage.report.service.ReportService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
@@ -38,14 +40,10 @@ public class ReportController extends MyController {
         return "backstage/report/reportList";
     }
     @RequestMapping(params="method=to_report")
-    public String toReport(String reportUuid, Model model){
+    public String toReport(String reportUuid, Model model, HttpServletRequest request){
         Map<String,Object> report = reportService.findReportByUuidBusinessMethod(reportUuid);
-        model.addAttribute("report",report);
-        return "backstage/report/reportReply";
-    }
-    @RequestMapping(params="method=to_report_detail")
-    public String toReportDetail(String reportUuid,Model model){
-        Map<String,Object> report = reportService.findReportByUuidBusinessMethod(reportUuid);
+        report.put("replyUserName", this.getUserBySeesion(request).getPersonName());
+        report.put("replyTime", DateUtil.getCurrentTimstamp());
         model.addAttribute("report",report);
         return "backstage/report/reportReply";
     }
