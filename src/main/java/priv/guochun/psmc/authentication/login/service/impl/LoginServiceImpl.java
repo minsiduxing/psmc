@@ -13,7 +13,9 @@ import priv.guochun.psmc.authentication.operate.dao.TabOperateDao;
 import priv.guochun.psmc.authentication.resource.dao.TabResourceDao;
 import priv.guochun.psmc.authentication.role.dao.TabRoleDao;
 import priv.guochun.psmc.authentication.user.dao.TabAccountDao;
+import priv.guochun.psmc.authentication.user.dao.TabGroupDao;
 import priv.guochun.psmc.authentication.user.dao.TabPersonDao;
+import priv.guochun.psmc.authentication.user.model.TabGroup;
 import priv.guochun.psmc.system.enums.IfEnum;
 import priv.guochun.psmc.system.framework.util.ResourceEnum;
 
@@ -26,6 +28,7 @@ public class LoginServiceImpl implements LoginService
     private TabRoleDao tabRoleDao;
     private TabOperateDao tabOperateDao;
     private TabResourceDao tabResourceDao;
+    private TabGroupDao tabGroupDao;
     
     @Override
     public String isVaild(String username, String password)
@@ -52,12 +55,14 @@ public class LoginServiceImpl implements LoginService
     	Map<?,?> accountMap = tabAccountDao.getTabAccount(username, null);
     	String accountId = accountMap.get("UUID").toString();
     	Map<?,?> personMap = tabPersonDao.getTabPersonByAccountId(accountId);
+    	TabGroup group = tabGroupDao.getTabGroupsBygroupCode(personMap.get("groupid").toString());
     	List<?> accRoleLits = tabRoleDao.getAccountUnionRoleByAccount(accountId);
     	Map<?,?> accRoleMap = (Map<?, ?>)accRoleLits.get(0);
     	String roleUuid = accRoleMap.get("UUID").toString();
     	Map<?, ?> roleMap = tabRoleDao.getTableRoleByUuid(roleUuid);
     	List<Map<?,?>> operrateMap = tabOperateDao.getPermitOperatesByRoleUuid(roleUuid);
     	User user = new User(accountMap,personMap,roleMap,operrateMap);
+    	user.setGroupName(group.getGroupName());
     	logger.debug("username "+username+" buildUser end");
     	return user;
     }
@@ -162,6 +167,14 @@ public class LoginServiceImpl implements LoginService
     {
         this.tabResourceDao = tabResourceDao;
     }
+
+	public TabGroupDao getTabGroupDao() {
+		return tabGroupDao;
+	}
+
+	public void setTabGroupDao(TabGroupDao tabGroupDao) {
+		this.tabGroupDao = tabGroupDao;
+	}
 
     
 

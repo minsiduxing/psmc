@@ -52,6 +52,7 @@ public class ExcellentInnovationController extends MyController{
 			module.setModelUuid(innovation.getInnovationUuid());
 			module.setModifyAccUuid(this.getUserBySeesion(this.request()).getUserUuid());
 		}
+		module.setAuditDate(null);
 		excellentInnovationService.saveOrUpdateInnovationBusinessMethod(innovation, module);
 		super.responseJson(true, "操作成功!", this.response());
 	}

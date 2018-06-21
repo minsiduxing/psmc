@@ -26,6 +26,8 @@ public class User implements Serializable
     private String roleName;
     private String userUuid;
     
+    private String groupName;
+    
     
     public User(Map tabAccount,Map tabPerson,Map tabRole){
     	this.tabAccount = tabAccount;
@@ -150,6 +152,14 @@ public class User implements Serializable
 
 	public void setIsLocked(String isLocked) {
 		this.isLocked = isLocked;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
     
 	

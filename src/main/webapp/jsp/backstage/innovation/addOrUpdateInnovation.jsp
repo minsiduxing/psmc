@@ -45,6 +45,7 @@
 			</tr>
 		</table>
 	</div>
+	
 	<div class=" panel-default" style="border: 1px solid #ddd;">
 		<div class="panel-heading">
             <label style="background-color:006699; color: #ffffff">第一完成人</label>
@@ -147,10 +148,19 @@ var retrunUrl =  '<c:url value="/website/backstage/ExcellentInnovationController
 
 commonObj.initDictCombobox("sex","SEX","<c:out value="${info.sex}"/>",true,false);
 commonObj.initDictCombobox("occupation","ACCUPATION","<c:out value="${info.occupation}"/>",true,false);
-commonObj.initDictCombobox("achievementForm","ACHIEVEMENT_FORM","<c:out value="${info.achievementForm}"/>",true,false);
+commonObj.initDictCombobox("achievementForm","ACHIEVEMENT_FORM","<c:out value="${info.achievement_form}"/>",true,false);
 if(!$("#isEdit").val()){
 	$("#button").hide();
+	var personName = "${sessionScope.user.personName}"
+	var phone = "${sessionScope.user.personTelephone}"
+	var email = "${sessionScope.user.personEmail}"
+	var groupName = "${sessionScope.user.groupName}"
+     $("#declarePerson").val(personName);
+     $("#declarePhone").val(phone);
+     $("#declareEmail").val(email);
+     $("#orgName").val(groupName);
 }
+
 $('#orgName').textbox({
 	type : "text",
 	required : true
@@ -203,8 +213,10 @@ $('#innovationDate').datetimebox({
 	required : true
 });
 $('#recommendDate').datetimebox({
+	required : true
 });
 $('#auditDate').datetimebox({
+	required : true
 });
 
 </script>

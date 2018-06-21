@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
 import priv.guochun.psmc.website.backstage.activity.model.TabActivityManage;
 import priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService;
@@ -46,6 +47,8 @@ public class TabActivityManageController extends MyController{
 	@RequestMapping(params="method=addOrUpdate")
 	public void addOrUpdate(TabActivityManage activity,TabModule module,String isEdit) throws IOException{
 		if(StringUtils.isBlank(isEdit)){
+			activity.setCreateDate(DateUtil.getCurrentTimstamp());
+			activity.setCreatePerson(this.getUserBySeesion(this.request()).getPersonName());
 			module.setCreateAccUuid(this.getUserBySeesion(this.request()).getUserUuid());
 		}else{
 			module.setModelUuid(activity.getActivityUuid());

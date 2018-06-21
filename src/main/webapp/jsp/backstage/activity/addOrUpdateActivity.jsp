@@ -32,14 +32,6 @@
 			<tr>
 				<td class="tds">活动名称：</td>
 				<td width="30%"><input id="activityName" name="activityName" value="${info.activity_name}" style="width:70%;"/></td>
-				<td class="tds">创建人：</td>
-				<td width="30%">
-					<input id="createPerson" name="createPerson" value="${info.create_person }" style="width:70%;"/>
-				</td>
-			</tr>
-			<tr>
-				<td class="tds">创建时间：</td>
-				<td width="30%"><input id="createDate" name="createDate" value="${info.create_date}" style="width:70%;"/></td>
 				<td class="tds">活动开始时间：</td>
 				<td width="30%"><input id="startDate" name="startDate" value="${info.start_date}" style="width:70%;"/></td>
 			</tr>
@@ -85,18 +77,11 @@ $('#activityName').textbox({
 	type : "text",
 	required : true
 });
-$('#createPerson').textbox({
-	type : "text",
-	required : true
-});
 $("#activityContent").validatebox({
 	required: true,    
     validType: "text"
 });
 
-$('#createDate').datetimebox({
-	required : true
-});
 $('#startDate').datetimebox({
 	required : true
 });

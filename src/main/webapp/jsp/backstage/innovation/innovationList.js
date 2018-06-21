@@ -176,7 +176,7 @@ $("#releaseNews").click(function(){
 			return ;
 		}
 		if(releasestatus==1){
-			commonObj.alert('选择的新闻中存在发布过的信息!',"warning");
+			commonObj.alert('选择的信息中存在发布过的信息!',"warning");
 			return ;
 		}
 		uuids+=newsid;
