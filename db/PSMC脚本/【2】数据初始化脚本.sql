@@ -648,6 +648,28 @@ insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_metho
 insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
 ('8615ca6386f340b48e1992c676ee2606','0b62d21d1ecd471f958d96b43471dcca','607e8bc6f9bb4afa9be3cfdc72a1a326',
 'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','saveOrUpdateInfoReleaseBusinessMethod','工作发布信息添加','添加',1,'INFO_ADD');
+--初始化操作信息(文体协会-活动管理)
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('d499b27d37764d719c765dc9a0e6f5c1','cae199e1e01f4bcf80ae2e2976fd15b9','756d6e80c9d74b4389c918ab50ee19c3',
+'priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService','queryActivityList','活动管理信息列表','活动管理信息列表',1,'INFO_LIST');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('06d02a7ff6564dae85cdc48885623cc4','cae199e1e01f4bcf80ae2e2976fd15b9','dec3b327b8a54d66bd644c544ea65c5e',
+'priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService','deleteActivity','活动管理信息删除','删除',1,'INFO_DEL');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('a0270b1c88174a1090113d8d83f7c6ea','cae199e1e01f4bcf80ae2e2976fd15b9','022a43088dcd46d4b201b43b32d3d85a',
+'priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService','executeAudit','活动管理信息审核','审核',1,'INFO_AUDIT');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('5640c01f7cf1497aadf3a40080a817de','cae199e1e01f4bcf80ae2e2976fd15b9','022a43088dcd46d4b201b43b32d3d85a',
+'priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService','executeRelease','活动管理信息发布','发布',1,'INFO_RELEASE');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('1f63d3e4ad2b4d8aaed19ccf5882cf8e','cae199e1e01f4bcf80ae2e2976fd15b9','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService','addOrupdateActivity','活动管理信息编辑','编辑',1,'INFO_EDIT');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('41ce7b762e914acda3c92a7ce31285a6','cae199e1e01f4bcf80ae2e2976fd15b9','022a43088dcd46d4b201b43b32d3d85a',
+'priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService','getActivityByUuid','活动管理信息查看','查看',1,'INFO_PREVIEW');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('80cd2c458d52436eb3648a6fde2fc151','cae199e1e01f4bcf80ae2e2976fd15b9','607e8bc6f9bb4afa9be3cfdc72a1a326',
+'priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService','addOrupdateActivity','活动管理信息添加','添加',1,'INFO_ADD');
 
 --初始化操作信息(后勤中心-早知道)
 insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
@@ -707,6 +729,14 @@ insert into tab_role_operate (role_uuid, operate_uuid) values ('b91d300182804a6e
 insert into tab_role_operate (role_uuid, operate_uuid) values ('b91d300182804a6eafa85a14698dbcef', '28979cdd48d04f83b5f79abf813e769c');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('b91d300182804a6eafa85a14698dbcef', '1f96c131e4b3436486f7e4c92e8399df');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('b91d300182804a6eafa85a14698dbcef', '8615ca6386f340b48e1992c676ee2606');
+----角色操作（文体协会-活动管理）
+insert into tab_role_operate (role_uuid, operate_uuid) values ('b91d300182804a6eafa85a14698dbcef', '06d02a7ff6564dae85cdc48885623cc4');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('b91d300182804a6eafa85a14698dbcef', 'a0270b1c88174a1090113d8d83f7c6ea');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('b91d300182804a6eafa85a14698dbcef', '5640c01f7cf1497aadf3a40080a817de');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('b91d300182804a6eafa85a14698dbcef', '1f63d3e4ad2b4d8aaed19ccf5882cf8e');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('b91d300182804a6eafa85a14698dbcef', '41ce7b762e914acda3c92a7ce31285a6');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('b91d300182804a6eafa85a14698dbcef', '80cd2c458d52436eb3648a6fde2fc151');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('b91d300182804a6eafa85a14698dbcef', 'd499b27d37764d719c765dc9a0e6f5c1');
 
 ----角色操作（后勤中心-早知道）
 insert into tab_role_operate (role_uuid, operate_uuid) values ('17b40fc1df514e0d843f5b9a8964460c', 'f0ccd87dbc684eeca5b72a1bedbcb23e');
