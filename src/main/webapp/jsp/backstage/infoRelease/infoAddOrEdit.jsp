@@ -28,8 +28,8 @@
 				<td width="25%"><input id="newAutor" name="newAutor" style="width:50%;" value="${info.news_author}"/></td>
 			</tr>
 			<tr>
-				<td class="tds">信息时间：</td>
-				<td width="25%"><input id="newsDate" name="newsDate" style="width:50%;" value="${info.news_date}"/></td>
+				<%-- <td class="tds">信息时间：</td>
+				<td width="25%"><input id="newsDate" name="newsDate" style="width:50%;" value="${info.news_date}"/></td> --%>
 				<td class="tds" style="display: none;">信息分类：</td>
 				<td width="25%" style="display: none;"><input id="towLevelClassify" name="towLevelClassify" style="width:50%;"/></td>
 			</tr>
@@ -46,7 +46,7 @@
 				            </div>
 				        </div>
 				        <input id="hiddencontent" type="hidden" name="newsContent"/>
-				        <div id="newsContent" class="newsContent" >
+				        <div id="newsContent" class="newsContent">
 				      
 				       </div>
 	                </div>
@@ -125,17 +125,24 @@ function formInint(isEdit){
 		$("#reset").hide();
 		$('input,select',$('#editForm')).attr('readonly',true);
 		$("#newsDate").attr("readonly", true);
+	}else if(isEdit == "add"){
+		var personName = "${sessionScope.user.personName}"
+	    $("#newAutor").val(personName);
 	}
 	
 	$('#newsTitle').textbox({
+		type:"text",
+        required : true
+
 	});
 	$('#newsDate').datetimebox({
+		required : true,
 		editable:false
 	});
 	$('#newAutor').textbox({
+		type:"text",
+        required : true
 	});
-		
-
 }
 
 </script>

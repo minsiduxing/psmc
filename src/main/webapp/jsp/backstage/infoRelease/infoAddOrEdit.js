@@ -17,6 +17,10 @@ function sbmit (e){
 	event.preventDefault();
 	var result = $('#editForm').form("validate");
 	$("#hiddencontent").val(editor.txt.html());
+	if(editor.txt.text()=="" || editor.txt.text()==null){
+		commonObj.alert ("信息不能为空!","warning");
+		return;
+	}
 	/*if($("#hiddenfile").val()==''){
 		commonObj.alert ("新闻配图不能为空!","warning");
 		return false;

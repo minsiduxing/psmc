@@ -29,6 +29,7 @@ import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface
 import priv.guochun.psmc.system.framework.upload.util.FtpUtil;
 import priv.guochun.psmc.system.framework.upload.util.PSMCFileUtils;
 import priv.guochun.psmc.system.util.ContantsUtil;
+import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.website.backstage.InfoRelease.model.InfoImage;
@@ -76,6 +77,7 @@ public class InfoReleaseController extends MyController{
 	@RequestMapping(params="method=saveOrUpdateInfoRelease")
 	public void saveOrUpdateInfoRelease(HttpServletRequest request,InfoRelease infoRelease,TabModule module,String isEdit,HttpServletResponse response) throws IOException{
 		if(isEdit.equals("add")){
+			infoRelease.setNewsDate(DateUtil.getCurrentTimstamp());
 			module.setCreateAccUuid(this.getUserBySeesion(request).getUserUuid());
 		}else{
 			module.setModelUuid(infoRelease.getNewsUuid());

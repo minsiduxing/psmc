@@ -12,8 +12,8 @@ $(document).ready(function(){
 		          {field:'uuid',title:'信息标示',checkbox:true},
 		          {field:'news_title',title:'信息标题',resizable:true},    
 		        /*  {field:'news_subtitle',title:'新闻副标题',resizable:true},  */
-		          {field:'news_date',title:'信息日期'}, 
-		          {field:'news_author',title:'信息作者'}, 
+		          {field:'news_date',title:'创建日期'}, 
+		          {field:'news_author',title:'信息创建人'}, 
 		         /* {field:'news_abstract',title:'新闻概要',formatter: function (value, row, index) {
 	                     if(value.length>=10){return value.substring(0,10)+"......"; }	
 	                     if(value.length<10){return value; }
