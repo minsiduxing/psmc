@@ -53,7 +53,6 @@ $(document).ready(function(){
 	
 	//新增
 	$("#add").click(function(){
-		debugger;
 		var oneLevelClassify = $("#oneLevelClassify").val();
 		var _url = editInfoUrl+"&isEdit="+"add"+"&oneLevelClassify="+oneLevelClassify;
 		window.location.href=_url;
