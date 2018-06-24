@@ -110,7 +110,7 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.INFO_PREVIEW%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">预览</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">查看</a>
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.INFO_AUDIT%>">
 			<a href="#" id="auditNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-audit">审核</a>
@@ -154,28 +154,40 @@ $('#newsTitle').textbox({
 	type : "text"
 }); */
 $('#newsDateBegin').datetimebox({
+	editable:false
 });
 $('#newsDateEnd').datetimebox({
+	editable:false
 });
 $('#createDateBegin').datetimebox({
+	editable:false
 });
 $('#createDateEnd').datetimebox({
+	editable:false
 });
 $('#modifyDateBegin').datetimebox({
+	editable:false
 });
 $('#modifyDateEnd').datetimebox({
+	editable:false
 });
 $('#auditDateBegin').datetimebox({
+	editable:false
 });
 $('#auditDateEnd').datetimebox({
+	editable:false
 });
 $('#releaseDateBegin').datetimebox({
+	editable:false
 });
 $('#releaseDateEnd').datetimebox({
+	editable:false
 });
 $('#publishExpireDateBegin').datetimebox({
+	editable:false
 });
 $('#publishExpireDateEnd').datetimebox({
+	editable:false
 });
 $('#newAutor').textbox({
 	type : "text"

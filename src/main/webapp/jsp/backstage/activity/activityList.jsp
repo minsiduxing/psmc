@@ -132,29 +132,41 @@ $('#createPerson').textbox({
 });
 
 $('#createBeginDate').datetimebox({
+	editable:false
 });
 $('#createEndDate').datetimebox({
+	editable:false
 });
 $('#activityBeginDate1').datetimebox({
+	editable:false
 });
 $('#activityBeginDate2').datetimebox({
+	editable:false
 });
 $('#activityEndDate1').datetimebox({
+	editable:false
 });
 $('#activityEndDate2').datetimebox({
+	editable:false
 });
 $('#auditDateBegin').datetimebox({
+	editable:false
 });
 $('#auditDateEnd').datetimebox({
+	editable:false
 });
 $('#releaseDateBegin').datetimebox({
+	editable:false
 });
 $('#releaseDateEnd').datetimebox({
+	editable:false
 });
 
 $('#publishExpireDateBegin').datetimebox({
+	editable:false
 });
 $('#publishExpireDateEnd').datetimebox({
+	editable:false
 });
 commonObj.initDictCombobox("audit","IF","",false,true);
 commonObj.initDictCombobox("releaseStatus","IF","",false,true);

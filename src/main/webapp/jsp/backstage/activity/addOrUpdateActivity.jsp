@@ -86,12 +86,15 @@ $("#activityContent").validatebox({
 });
 
 $('#startDate').datetimebox({
+	editable:false,
 	required : true
 });
 $('#endDate').datetimebox({
+	editable:false,
 	required : true
 });
 $('#signUpEndDate').datetimebox({
+	editable:false,
 	required : true
 });
 

@@ -216,12 +216,15 @@ $("#achievementContent").validatebox({
 $('#recommendRemark').textbox({});
 $('#auditRemark').textbox({});
 $('#innovationDate').datetimebox({
+    editable:false,
 	required : true
 });
 $('#recommendDate').datetimebox({
+	editable:false,
 	required : true
 });
 $('#auditDate').datetimebox({
+	editable:false,
 	required : true
 });
 

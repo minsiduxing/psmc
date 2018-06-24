@@ -79,6 +79,21 @@ $(document).ready(function(){
 		event.preventDefault();
 	});
 	
+	//查看
+	$("#priview").click(function(){
+		var rows = $("#infoReleaseId").datagrid('getChecked');
+		var oneLevelClassify = $("#oneLevelClassify").val();
+		if (rows.length == 1){
+			var rowObj = eval(rows[0]);
+			var uuid = rowObj.uuid;
+			var _url = editInfoUrl+"&uuid="+uuid+"&isEdit="+"query"+"&oneLevelClassify="+oneLevelClassify;
+			window.location.href=_url;
+		}else{
+			commonObj.alert("请选择一条记录!","warning");
+		}
+		event.preventDefault();
+	});
+	
 	//删除
 $("#remove").click(function(){
 		var rows = $("#infoReleaseId").datagrid('getChecked');
@@ -164,7 +179,7 @@ $("#auditNews").click(function(){
 	$.messager.progress("close");
 	event.preventDefault();
 });
-//预览
+/*//预览
 $("#priview").click(function(){
 	var rows = $("#infoReleaseId").datagrid('getChecked');
 	var rlength = rows.length;
@@ -178,7 +193,7 @@ $("#priview").click(function(){
 	}
 	$.messager.progress("close");
 	event.preventDefault();
-});
+});*/
 //发布
 $("#releaseNews").click(function(){
 	var rows = $("#infoReleaseId").datagrid('getChecked');

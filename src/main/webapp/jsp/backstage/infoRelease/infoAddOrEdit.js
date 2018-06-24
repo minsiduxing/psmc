@@ -219,6 +219,10 @@ function  wangEditorInit(isEdit){
           if (isEdit=="edit") {
         	  editor.txt.html(newscontent) ;
           }
+          if(isEdit=="query"){
+        	  editor.txt.html(newscontent) ;
+        	  editor.$textElem.attr('contenteditable', false);
+          }
           // 获取使用到的元素
           var toolbarContaner = document.getElementById('toolbar-container');
           var editorText = document.getElementById('newsContent');

@@ -23,13 +23,13 @@
 		<table class="table table-hover" style="font-size:12px; width:75%; border-collapse:separate; border-spacing:10px;">
 			<tr>
 				<td class="tds">信息名称：</td>
-				<td width="25%"><input id="newsTitle" name="newsTitle" style="width:50%;"/></td>
+				<td width="25%"><input id="newsTitle" name="newsTitle" style="width:50%;" value="${info.news_title}"/></td>
 				<td class="tds">信息创建人：</td>
-				<td width="25%"><input id="newAutor" name="newAutor" style="width:50%;"/></td>
+				<td width="25%"><input id="newAutor" name="newAutor" style="width:50%;" value="${info.news_author}"/></td>
 			</tr>
 			<tr>
 				<td class="tds">信息时间：</td>
-				<td width="25%"><input id="newsDate" name="newsDate" style="width:50%;"/></td>
+				<td width="25%"><input id="newsDate" name="newsDate" style="width:50%;" value="${info.news_date}"/></td>
 				<td class="tds" style="display: none;">信息分类：</td>
 				<td width="25%" style="display: none;"><input id="towLevelClassify" name="towLevelClassify" style="width:50%;"/></td>
 			</tr>
@@ -120,45 +120,22 @@ var editnewssrc = "${info.thumbnail_image_url}";
 var addUrl = '<c:url value="/website/backstage/InfoReleaseController.do"/>?method=saveOrUpdateInfoRelease';
 var retrunUrl =  '<c:url value="/website/backstage/InfoReleaseController.do"/>?method=infoReleaseList&oneLevelClassify='+$("#oneLevelClassify").val();
 function formInint(isEdit){
-	$('#newsDate').datetimebox({   
-		editable:true   
-	});
+	if(isEdit == "query"){
+		$("#submitbtn").hide();
+		$("#reset").hide();
+		$('input,select',$('#editForm')).attr('readonly',true);
+		$("#newsDate").attr("readonly", true);
+	}
 	
-	if (isEdit=="edit") {
-		$('#button').css("display","inline");
-			$('#newsTitle').textbox({
-				value : '${info.news_title}',
-				type : "text",
-				required : true
-			});
-			$('#newsDate').datetimebox({
-				value :'${info.news_date}',
-				required : true,
-				editable:true  
-			});
-			$('#newAutor').textbox({
-				value : '${info.news_author}',
-				type : "text",
-				required : true
-			});
-	}
-	else{
-		$('#newsTitle').textbox({
-			value : "",
-			type : "text",
-			required : true
-		});
-		$('#newsDate').datetimebox({
-			value : "",
-			required : true,
-			editable:true  
-		});
-		$('#newAutor').textbox({
-			value : "",
-			type : "text",
-			required : true
-		});
-	}
+	$('#newsTitle').textbox({
+	});
+	$('#newsDate').datetimebox({
+		editable:false
+	});
+	$('#newAutor').textbox({
+	});
+		
+
 }
 
 </script>

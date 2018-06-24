@@ -133,20 +133,28 @@ $('#deptName').textbox({
 $('#otherCompletePerson').textbox({
 });
 $('#innovationDateBegin').datetimebox({
+	editable:false
 });
 $('#innovationDateEnd').datetimebox({
+	editable:false
 });
 $('#auditDateBegin').datetimebox({
+	editable:false
 });
 $('#auditDateEnd').datetimebox({
+	editable:false
 });
 $('#releaseDateBegin').datetimebox({
+	editable:false
 });
 $('#releaseDateEnd').datetimebox({
+	editable:false
 });
 $('#publishExpireDateBegin').datetimebox({
+	editable:false
 });
 $('#publishExpireDateEnd').datetimebox({
+	editable:false
 });
 commonObj.initDictCombobox("audit","IF","",false,true);
 commonObj.initDictCombobox("releaseStatus","IF","",false,true);
