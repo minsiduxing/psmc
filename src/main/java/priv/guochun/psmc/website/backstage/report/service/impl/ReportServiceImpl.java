@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.DateUtil;
+import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
 import priv.guochun.psmc.website.backstage.report.enums.ReportEnum;
@@ -131,6 +132,11 @@ public class ReportServiceImpl implements ReportService{
 			//如果没有传则默认
 			if(null!=report.getReportTime()){
 				report.setReportTime(DateUtil.getCurrentTimstamp());
+			}
+			if("report".equals(report.getReportType())){
+				report.setImagePath(SystemPropertiesUtil.getHelpDeclareImagePath());
+			}else{
+				report.setImagePath(SystemPropertiesUtil.getLawHelpImagePath());
 			}
 			baseDao.insert(insert, report);
 		}else{

@@ -128,8 +128,9 @@
 		</table>
 	</div>
 		
-		<input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
+		 <input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 		 <input type="hidden" id="innovationUuid" name="innovationUuid" value="${info.innovation_uuid}"/>
+		 <input type="hidden" id="imagePath" name="imagePath" value="" />
 		 <div style= "width:75%; margin-top: 20px" class="operButon" align="center">
 		   <input id="submitbtn" type="button" class="easyui-linkbutton" onclick="save()" value="提交"/>
 		   <input id="reset" type="reset" class="easyui-linkbutton" onclick=" "  value="重置"/>
@@ -149,8 +150,13 @@ var retrunUrl =  '<c:url value="/website/backstage/ExcellentInnovationController
 commonObj.initDictCombobox("sex","SEX","<c:out value="${info.sex}"/>",true,false);
 commonObj.initDictCombobox("occupation","ACCUPATION","<c:out value="${info.occupation}"/>",true,false);
 commonObj.initDictCombobox("achievementForm","ACHIEVEMENT_FORM","<c:out value="${info.achievement_form}"/>",true,false);
-if(!$("#isEdit").val()){
-	$("#button").hide();
+
+//如果是查看，不能编辑表单，隐藏按钮
+if($("#isEdit").val() == 'query'){
+	$("#submitbtn").hide();
+	$("#reset").hide();
+	$('input,select,textarea',$('#innovationForm')).attr('readonly',true);
+}else if($("#isEdit").val() == 'add'){
 	var personName = "${sessionScope.user.personName}"
 	var phone = "${sessionScope.user.personTelephone}"
 	var email = "${sessionScope.user.personEmail}"

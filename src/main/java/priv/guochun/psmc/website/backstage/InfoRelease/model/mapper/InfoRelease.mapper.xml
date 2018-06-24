@@ -14,6 +14,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    		 tn.news_author, 
    		 tn.thumbnail_image_url, 
    		 tn.news_abstract ,
+   		 tn.image_path,
    		 tpc.PERSON_NAME as createAccName, 
    		 tm.create_date, 
 	   	 tpm.PERSON_NAME as modifyccName, 
@@ -174,6 +175,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	   		 tn.thumbnail_image_url, 
 	   		 tn.news_author,
 	   		 tn.news_abstract ,
+	   		 tn.image_path,
 	   		 tm.release_date,
 	   		 tpr.PERSON_NAME as releaseAccName 
 	   	  FROM tab_news tn
@@ -200,8 +202,8 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   	 	</select>
 
   	<insert id="insertInfoRelease">
-  		INSERT INTO tab_news (uuid, news_title, news_subtitle, news_content, news_date, news_author, thumbnail_image_url, news_abstract) 
-  		VALUES (#{newsUuid},#{newsTitle}, #{newSubTitle}, #{newsContent}, #{newsDate}, #{newAutor}, #{thumbnailImageUrl}, #{newsAbstarct});
+  		INSERT INTO tab_news (uuid, news_title, news_subtitle, news_content, news_date, news_author, thumbnail_image_url, news_abstract, image_path) 
+  		VALUES (#{newsUuid},#{newsTitle}, #{newSubTitle}, #{newsContent}, #{newsDate}, #{newAutor}, #{thumbnailImageUrl}, #{newsAbstarct}, #{imagePath});
 
   	</insert>
   	
@@ -231,6 +233,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	  		</if>
 	  		<if test="newsAbstarct != null and newsAbstarct != ''">
 	  			news_abstract =#{newsAbstarct},
+	  		</if>
+	  		<if test="imagePath != null and imagePath != ''">
+	  			image_path =#{imagePath},
 	  		</if>
   		</trim>
   		WHERE uuid = #{newsUuid}

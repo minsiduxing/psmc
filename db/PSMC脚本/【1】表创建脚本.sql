@@ -85,6 +85,7 @@ CREATE TABLE tab_news (
   news_author varchar(200) DEFAULT NULL,
   thumbnail_image_url varchar(200) DEFAULT NULL,
   news_abstract varchar(500) DEFAULT NULL,
+  image_path varchar(200),
   PRIMARY KEY (uuid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -118,6 +119,7 @@ create table tab_excellent_innovation
         recommend_date timestamp comment '推荐时间',
         audit_remark varchar(200) comment '审核意见',
         audit_date timestamp comment '审核时间',
+        image_path varchar(200) comment '优秀创新配图',
         constraint tab_excellent_innovation primary key (innovation_uuid)
 ) comment '优秀创新成果申报表';
 
@@ -143,6 +145,7 @@ create table tab_activity_manage
         create_date timestamp comment '活动创建时间',
         create_person varchar(100) comment '活动创建人',
         sign_up_end_date timestamp comment '报名截止日期',
+        image_path varchar(200) comment '活动配图',
         constraint tab_activity_manage primary key (activity_uuid)
 ) comment '活动管理表';
 

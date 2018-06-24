@@ -54,6 +54,7 @@
 		
 		<input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 		 <input type="hidden" id="activityUuid" name="activityUuid" value="${info.activity_uuid}"/>
+		 <input type="hidden" id="imagePath" name="imagePath" value="" />
 		 <div style= "width:75%; margin-top: 20px" class="operButon" align="center">
 		   <input id="submitbtn" type="button" class="easyui-linkbutton" onclick="save()" value="提交"/>
 		   <input id="reset" type="reset" class="easyui-linkbutton" onclick=" "  value="重置"/>
@@ -70,8 +71,10 @@ var infoDo = basePath+"/website/backstage/TabActivityManageController.do";
 var addUrl = '<c:url value="/website/backstage/TabActivityManageController.do"/>?method=addOrUpdate';
 var retrunUrl =  '<c:url value="/website/backstage/TabActivityManageController.do"/>?method=activityList';
 
-if(!$("#isEdit").val()){
-	$("#button").hide();
+if($("#isEdit").val() == 'query'){
+	$("#submitbtn").hide();
+	$("#reset").hide();
+	$('input,select,textarea',$('#activityForm')).attr('readonly',true);
 }
 $('#activityName').textbox({
 	type : "text",

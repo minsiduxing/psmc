@@ -19,11 +19,13 @@ public class TabReport implements Serializable {
     private String reportType;
 
     private Date lastModifyTime;
-
+    
     private String reportUpdateUuid;
     private String reportStaus;
     private String reportTel;
     private static final long serialVersionUID = 1L;
+    
+    private String imagePath;
 
     public String getReportStaus() {
         return reportStaus;
@@ -113,7 +115,15 @@ public class TabReport implements Serializable {
         this.reportUpdateUuid = reportUpdateUuid == null ? null : reportUpdateUuid.trim();
     }
 
-    @Override
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	@Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
@@ -128,7 +138,8 @@ public class TabReport implements Serializable {
         sb.append(", reportType=").append(reportType);
         sb.append(", lastModifyTime=").append(lastModifyTime);
         sb.append(", reportUpdateUuid=").append(reportUpdateUuid);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append(", imagePath=").append(imagePath);
+        sb.append(", serialVersionUID=").append(serialVersionUID); 
         sb.append("]");
         return sb.toString();
     }

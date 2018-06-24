@@ -109,7 +109,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
        	   )
 	  </if>  
     </where>
-    	order by tm.create_date desc
+    	order by ti.innovation_date desc
   </select>
   
   
@@ -149,7 +149,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       other_complete_person, achievement_name, achievement_form, 
       realized_value, application_generalize, innovation_date, 
       recommend_remark, recommend_date, audit_remark, 
-      audit_date, achievement_content)
+      audit_date, achievement_content, image_path)
     values (#{innovationUuid,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, #{declarePerson,jdbcType=VARCHAR}, 
       #{declarePhone,jdbcType=VARCHAR}, #{declareEmail,jdbcType=VARCHAR}, #{firstCompletePerson,jdbcType=VARCHAR}, 
       #{sex,jdbcType=INTEGER}, #{education,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, 
@@ -157,7 +157,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       #{otherCompletePerson,jdbcType=VARCHAR}, #{achievementName,jdbcType=VARCHAR}, #{achievementForm,jdbcType=INTEGER}, 
       #{realizedValue,jdbcType=VARCHAR}, #{applicationGeneralize,jdbcType=VARCHAR}, #{innovationDate,jdbcType=DATE}, 
       #{recommendRemark,jdbcType=VARCHAR}, #{recommendDate,jdbcType=DATE}, #{auditRemark,jdbcType=VARCHAR}, 
-      #{auditDate,jdbcType=DATE}, #{achievementContent,jdbcType=LONGVARCHAR})
+      #{auditDate,jdbcType=DATE}, #{achievementContent,jdbcType=LONGVARCHAR}, #{imagePath,jdbcType=VARCHAR})
   </insert>
   
   <insert id="insertInnovationSelective" parameterType="priv.guochun.psmc.website.backstage.excellentInnovation.model.TabExcellentInnovation">
@@ -232,6 +232,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       <if test="achievementContent != null">
         achievement_content,
       </if>
+      <if test="imagePath != null">
+      	image_path,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="innovationUuid != null">
@@ -302,6 +305,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       </if>
       <if test="achievementContent != null">
         #{achievementContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imagePath != null">
+        #{imagePath,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -375,6 +381,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       </if>
       <if test="achievementContent != null">
         achievement_content = #{achievementContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imagePath != null">
+        image_path = #{imagePath,jdbcType=VARCHAR},
       </if>
     </set>
     where innovation_uuid = #{innovationUuid,jdbcType=VARCHAR}

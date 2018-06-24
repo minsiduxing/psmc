@@ -15,6 +15,7 @@ import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
+import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.website.backstage.activity.model.TabActivityManage;
 import priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
@@ -46,13 +47,17 @@ public class TabActivityManageController extends MyController{
 	 */
 	@RequestMapping(params="method=addOrUpdate")
 	public void addOrUpdate(TabActivityManage activity,TabModule module,String isEdit) throws IOException{
-		if(StringUtils.isBlank(isEdit)){
+		if(isEdit.equals("add")){
 			activity.setCreateDate(DateUtil.getCurrentTimstamp());
 			activity.setCreatePerson(this.getUserBySeesion(this.request()).getPersonName());
 			module.setCreateAccUuid(this.getUserBySeesion(this.request()).getUserUuid());
 		}else{
 			module.setModelUuid(activity.getActivityUuid());
 			module.setModifyAccUuid(this.getUserBySeesion(this.request()).getUserUuid());
+		}
+		//如果配图为空，则添加默认配图
+		if(StringUtils.isBlank(activity.getImagePath())){
+			activity.setImagePath(SystemPropertiesUtil.getActivityImagePath());
 		}
 		tabActivityManageService.addOrupdateActivity(activity, module);
 		super.responseJson(true, "操作成功!", this.response());
@@ -107,14 +112,17 @@ public class TabActivityManageController extends MyController{
 	/**
 	 * 跳转到活动信息编辑页面
 	 * @param uuid
+	 * @param isEdit
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(params="method=activityEdit")
-	public String activityEdit(String uuid,Model model){
-		Map<String,Object> activity = tabActivityManageService.getActivityByUuid(uuid);
-		model.addAttribute("info", activity);
-		model.addAttribute("isEdit", "isEdit");
+	public String activityEdit(String uuid, String isEdit, Model model){
+		if(StringUtils.isNotBlank(uuid)){
+			Map<String,Object> activity = tabActivityManageService.getActivityByUuid(uuid);
+			model.addAttribute("info", activity);
+		}
+		model.addAttribute("isEdit", isEdit);
 		return "backstage/activity/addOrUpdateActivity";
 	}
 }

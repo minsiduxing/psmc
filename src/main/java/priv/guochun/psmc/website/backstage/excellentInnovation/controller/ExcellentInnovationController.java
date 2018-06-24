@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.JsonUtil;
+import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.website.backstage.excellentInnovation.model.TabExcellentInnovation;
 import priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
@@ -46,11 +47,15 @@ public class ExcellentInnovationController extends MyController{
 	 */
 	@RequestMapping(params="method=saveOrUpdate")
 	public void saveOrUpdate(TabExcellentInnovation innovation,TabModule module,String isEdit) throws IOException{
-		if(StringUtils.isBlank(isEdit)){
+		if(isEdit.equals("add")){
 			module.setCreateAccUuid(this.getUserBySeesion(this.request()).getUserUuid());
 		}else{
 			module.setModelUuid(innovation.getInnovationUuid());
 			module.setModifyAccUuid(this.getUserBySeesion(this.request()).getUserUuid());
+		}
+		//如果信息配图为空，则添加默认配图
+		if(StringUtils.isBlank(innovation.getImagePath())){
+			innovation.setImagePath(SystemPropertiesUtil.getInnovationImagePath());
 		}
 		module.setAuditDate(null);
 		excellentInnovationService.saveOrUpdateInnovationBusinessMethod(innovation, module);
@@ -119,16 +124,20 @@ public class ExcellentInnovationController extends MyController{
 	}
 	
 	/**
-	 * 跳转到优秀成果信息编辑页面
+	 * 跳转到优秀成果信息新增、编辑、查看页面
 	 * @param uuid
+	 * @param isEdit
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(params="method=innovationEdit")
-	public String innovationEdit(String uuid,Model model){
-		Map<String,Object> innovation = excellentInnovationService.getInnovationByUuidBusinessMethod(uuid);
-		model.addAttribute("info", innovation);
-		model.addAttribute("isEdit", "isEdit");
+	public String innovationEdit(String uuid, String isEdit, Model model){
+		if(StringUtils.isNotBlank(uuid)){
+			Map<String,Object> innovation = excellentInnovationService.getInnovationByUuidBusinessMethod(uuid);
+			model.addAttribute("info", innovation);
+		}
+		model.addAttribute("isEdit", isEdit);
 		return "backstage/innovation/addOrUpdateInnovation";
 	}
+	
 }

@@ -72,6 +72,19 @@ public class SystemPropertiesUtil
     private static final String is_publish ="is_publish";
     
     /**
+     * 信息自定义配图上传路径
+     */
+    private static final String custom_image_upload_path = "custom_image_upload_path";
+    /** 信息默认配图图片路径 **/
+    private static final String help_declare_image_path = "help_declare_image_path"; //帮扶申报
+    private static final String law_help_image_path = "law_help_image_path"; //法律援助
+    private static final String Legal_provisions_image_path = "Legal_provisions_image_path"; //法条维护
+    private static final String work_manage_image_path = "work_manage_image_path"; //工作管理
+    private static final String work_release_image_path = "work_release_image_path"; //工作发布
+    private static final String activity_image_path = "activity_image_path";// 活动管理
+    private static final String innovation_image_path = "innovation_image_path"; //优秀创新
+    
+    /**
      * 初始化system.propeties
      * <p>Description:<p>
      * @author guochun 2016-6-29
@@ -151,6 +164,31 @@ public class SystemPropertiesUtil
 
 	public static String getIsPublish() {
 		return getPropertyValue(is_publish);
+	}
+	
+	public static String getCustomImageUploadPath(){
+		return getPropertyValue(custom_image_upload_path);
+	}
+	public static String getHelpDeclareImagePath(){
+		return getPropertyValue(help_declare_image_path);
+	}
+	public static String getLawHelpImagePath(){
+		return getPropertyValue(law_help_image_path);
+	}
+	public static String getLegalProvisionsImagePath(){
+		return getPropertyValue(Legal_provisions_image_path);
+	}
+	public static String getWorkManageImagePath(){
+		return getPropertyValue(work_manage_image_path);
+	}
+	public static String getWorkReleaseImagePath(){
+		return getPropertyValue(work_release_image_path);
+	}
+	public static String getActivityImagePath(){
+		return getPropertyValue(activity_image_path);
+	}
+	public static String getInnovationImagePath(){
+		return getPropertyValue(innovation_image_path);
 	}
 
 	public static String getPropertyValue(String key){

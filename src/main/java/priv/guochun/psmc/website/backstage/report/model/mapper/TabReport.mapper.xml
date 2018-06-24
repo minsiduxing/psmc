@@ -12,10 +12,11 @@
   <insert id="insertReport" parameterType="priv.guochun.psmc.website.backstage.report.model.TabReport" >
     insert into tab_report (REPORT_UUID,REPORT_TITLE, REPORT_CONTENT, REPORT_USER_NAME,
       REPORT_USER_UUID, REPORT_TIME, REPORT_TYPE, 
-      LAST_MODIFY_TIME, REPORT_UPDATE_UUID,REPORT_STAUS,REPORT_TEL)
+      LAST_MODIFY_TIME, REPORT_UPDATE_UUID,REPORT_STAUS,REPORT_TEL,IMAGE_PATH)
     values (#{reportUuid,jdbcType=VARCHAR},#{reportTitle,jdbcType=VARCHAR}, #{reportContent,jdbcType=VARCHAR}, #{reportUserName,jdbcType=VARCHAR},
       #{reportUserUuid,jdbcType=VARCHAR}, #{reportTime,jdbcType=TIMESTAMP}, #{reportType,jdbcType=VARCHAR}, 
-      #{lastModifyTime,jdbcType=TIMESTAMP}, #{reportUpdateUuid,jdbcType=VARCHAR},#{reportStaus,jdbcType=VARCHAR},#{reportTel,jdbcType=VARCHAR})
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{reportUpdateUuid,jdbcType=VARCHAR},#{reportStaus,jdbcType=VARCHAR},#{reportTel,jdbcType=VARCHAR}
+      #{imagePath,jdbcType=VARCHAR})
   </insert>
   <update id="updateByReportPrimaryKey" parameterType="priv.guochun.psmc.website.backstage.report.model.TabReport" >
     update tab_report
@@ -65,6 +66,7 @@
         tr. LAST_MODIFY_TIME as lastModifyTime,
         tr. REPORT_UPDATE_UUID as reportUpdateUuid,
         tr.REPORT_TEL as reportTel,
+        tr.IMAGE_PATH as imagePath,
         trr.REPLY_CONTENT as replyContent,
         trr.REPLY_TIME as replyTime,
         trr.REPLY_USER_NAME as replyUserName ,
@@ -93,7 +95,8 @@
       REPORT_STAUS as reportStaus,
       LAST_MODIFY_TIME as lastModifyTime,
       REPORT_UPDATE_UUID as reportUpdateUuid,
-      REPORT_TEL as reportTel
+      REPORT_TEL as reportTel,
+      IMAGE_PATH as imagePath
     from tab_report
     <where>
     	1=1
@@ -132,7 +135,7 @@
                  REPORT_TITLE LIKE concat(concat('%',#{queryParameter}),'%')
                 or REPORT_USER_NAME LIKE concat(concat('%',#{queryParameter}),'%')
                 or REPORT_CONTENT LIKE concat(concat('%',#{queryParameter}),'%')
-                or REPORT_TEL LIKE concat(concat('%',#{reportTel}),'%')
+                or REPORT_TEL LIKE concat(concat('%',#{queryParameter}),'%')
                 or REPORT_TYPE = #{queryParameter}
             )
         </if>

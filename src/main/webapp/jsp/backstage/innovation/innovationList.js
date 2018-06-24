@@ -43,6 +43,13 @@ $(document).ready(function(){
 	};
 	//初始化优秀创新列表
 	commonObj.initPaginationGrid(innovationOption);
+	//新增
+	$("#add").click(function(){
+		var _url = editInfoUrl+"&isEdit="+"add";
+		window.location.href=_url;
+		event.preventDefault();
+	});
+	
 	//编辑
 	$("#edit").click(function(){
 		var rows = $("#innovationList").datagrid('getChecked');
@@ -53,13 +60,29 @@ $(document).ready(function(){
 				return;
 			}
 			var uuid = rowObj.innovation_uuid;
-			var _url = editInfoUrl+"&uuid="+uuid;
+			var _url = editInfoUrl+"&uuid="+uuid+"&isEdit="+"edit";
 			window.location.href=_url;
 		}else{
 			commonObj.alert("请选择一条记录!","warning");
 		}
 		event.preventDefault();
 	});
+	
+	//查看
+	$("#priview").click(function(){
+		var rows = $("#innovationList").datagrid('getChecked');
+		if (rows.length == 1){
+			var rowObj = eval(rows[0]);
+			var uuid = rowObj.innovation_uuid;
+			var _url = editInfoUrl+"&uuid="+uuid+"&isEdit="+"query";
+			window.location.href=_url;
+		}else{
+			commonObj.alert("请选择一条记录!","warning");
+			return;
+		}
+		event.preventDefault();
+	});
+	
 	//删除
 $("#remove").click(function(){
 		var rows = $("#innovationList").datagrid('getChecked');
@@ -145,21 +168,7 @@ $("#auditNews").click(function(){
 	$.messager.progress("close");
 	event.preventDefault();
 });
-//预览
-$("#priview").click(function(){
-	var rows = $("#innovationList").datagrid('getChecked');
-	var rlength = rows.length;
-	if(rlength ==1){
-		var rowObj = eval(rows[0]);
-		 uuid = rowObj.innovation_uuid;
-		 window.location.href='/psmc/resources/bhkn/previewInfo.html?id='+uuid;
-	}else{
-		commonObj.alert('请选择一条信息!',"warning");
-		return ;
-	}
-	$.messager.progress("close");
-	event.preventDefault();
-});
+
 //发布
 $("#releaseNews").click(function(){
 	var rows = $("#innovationList").datagrid('getChecked');

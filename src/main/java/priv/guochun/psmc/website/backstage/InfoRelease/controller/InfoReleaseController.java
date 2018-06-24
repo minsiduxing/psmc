@@ -75,11 +75,22 @@ public class InfoReleaseController extends MyController{
 	 */
 	@RequestMapping(params="method=saveOrUpdateInfoRelease")
 	public void saveOrUpdateInfoRelease(HttpServletRequest request,InfoRelease infoRelease,TabModule module,String isEdit,HttpServletResponse response) throws IOException{
-		if(StringUtils.isBlank(isEdit)){
+		if(isEdit.equals("add")){
 			module.setCreateAccUuid(this.getUserBySeesion(request).getUserUuid());
 		}else{
 			module.setModelUuid(infoRelease.getNewsUuid());
 			module.setModifyAccUuid(this.getUserBySeesion(request).getUserUuid());
+		}
+		if(StringUtils.isBlank(infoRelease.getImagePath())){
+			if(ContantsUtil.ONE_LEVEL_CLASSIFY_11.equals(module.getOneLevelClassify())){
+				infoRelease.setImagePath(SystemPropertiesUtil.getWorkManageImagePath());
+			}
+			if(ContantsUtil.ONE_LEVEL_CLASSIFY_12.equals(module.getOneLevelClassify())){
+				infoRelease.setImagePath(SystemPropertiesUtil.getLegalProvisionsImagePath());			
+			}
+			if(ContantsUtil.ONE_LEVEL_CLASSIFY_13.equals(module.getOneLevelClassify())){
+				infoRelease.setImagePath(SystemPropertiesUtil.getWorkReleaseImagePath());
+			}
 		}
 		infoReleaseService.saveOrUpdateInfoReleaseBusinessMethod(infoRelease, module);
 		super.responseJson(true, "操作成功!", response);
@@ -149,18 +160,22 @@ public class InfoReleaseController extends MyController{
 	/**
 	 * 跳转到信息添加或编辑页面
 	 * @param uuid
+	 * @param isEdit
+	 * @param oneLevelClassify
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(params="method=infoEdit")
-	public String infoEdit(String uuid,Model model,HttpServletRequest request){
-		Map<String,Object> InfoRelease = infoReleaseService.getInfoReleaseByUuidBusinessMethod(uuid);
-		//获取当前用户角色
-		String userRole = this.getUserBySeesion(request).getRoleNo();
-		//获取信息分类
-		String oneLevelClassify = getOneLevelClassify(userRole);
-		model.addAttribute("info", InfoRelease);
-		model.addAttribute("isEdit", "isEdit");
+	public String infoEdit(String uuid, String isEdit, String oneLevelClassify,Model model){
+		if(StringUtils.isNotBlank(uuid)){
+			Map<String,Object> InfoRelease = infoReleaseService.getInfoReleaseByUuidBusinessMethod(uuid);
+//			//获取当前用户角色
+//			String userRole = this.getUserBySeesion(this.request()).getRoleNo();
+//			//获取信息分类
+//			String oneLevelClassify = getOneLevelClassify(userRole);
+			model.addAttribute("info", InfoRelease);
+		}
+		model.addAttribute("isEdit", isEdit);
 		model.addAttribute("oneLevelClassify", oneLevelClassify);
 		return "backstage/infoRelease/infoAddOrEdit";
 	}

@@ -50,10 +50,20 @@ $(document).ready(function(){
 	};
 	//初始化新闻列表
 	commonObj.initPaginationGrid(option);
+	
+	//新增
+	$("#add").click(function(){
+		debugger;
+		var oneLevelClassify = $("#oneLevelClassify").val();
+		var _url = editInfoUrl+"&isEdit="+"add"+"&oneLevelClassify="+oneLevelClassify;
+		window.location.href=_url;
+		event.preventDefault();
+	});
+	
 	//编辑
 	$("#edit").click(function(){
 		var rows = $("#infoReleaseId").datagrid('getChecked');
-		
+		var oneLevelClassify = $("#oneLevelClassify").val();
 		if (rows.length == 1){
 			var rowObj = eval(rows[0]);
 			if(rowObj.audit==1){
@@ -61,13 +71,14 @@ $(document).ready(function(){
 				return;
 			}
 			var uuid = rowObj.uuid;
-			var _url = editInfoUrl+"&uuid="+uuid;
+			var _url = editInfoUrl+"&uuid="+uuid+"&isEdit="+"edit"+"&oneLevelClassify="+oneLevelClassify;
 			window.location.href=_url;
 		}else{
 			commonObj.alert("请选择一条记录!","warning");
 		}
 		event.preventDefault();
 	});
+	
 	//删除
 $("#remove").click(function(){
 		var rows = $("#infoReleaseId").datagrid('getChecked');

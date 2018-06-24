@@ -216,7 +216,7 @@ function  wangEditorInit(isEdit){
         		    }
         		}
           editor.create();  
-          if (isEdit=="isEdit") {
+          if (isEdit=="edit") {
         	  editor.txt.html(newscontent) ;
           }
           // 获取使用到的元素

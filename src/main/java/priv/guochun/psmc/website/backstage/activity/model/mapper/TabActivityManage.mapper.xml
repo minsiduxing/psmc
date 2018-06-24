@@ -120,6 +120,7 @@
 	       	   )
 		  </if>  
     </where>
+    	order by t1.create_date desc
   </select>
   
   <select id="selectActivityByPrimaryKey" parameterType="hashmap" resultType="java.util.Map">
@@ -188,6 +189,9 @@
       <if test="activityContent != null">
         activity_content,
       </if>
+      <if test="imagePath != null">
+        image_path,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="activityUuid != null">
@@ -213,6 +217,9 @@
       </if>
       <if test="activityContent != null">
         #{activityContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imagePath != null">
+        #{imagePath,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -241,6 +248,9 @@
       </if>
       <if test="activityContent != null">
         activity_content = #{activityContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imagePath != null">
+        image_path = #{imagePath,jdbcType=VARCHAR},
       </if>
     </set>
     where activity_uuid = #{activityUuid,jdbcType=VARCHAR}

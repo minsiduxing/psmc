@@ -120,6 +120,11 @@ public class TabExcellentInnovation implements Serializable {
      *成果内容
      */
     private String achievementContent;
+    
+    /**
+     * 创新成果配图（移动端展示用）
+     */
+    private String imagePath;
 
    
     public String getInnovationUuid() {
@@ -305,16 +310,25 @@ public class TabExcellentInnovation implements Serializable {
     public void setAchievementContent(String achievementContent) {
         this.achievementContent = achievementContent == null ? null : achievementContent.trim();
     }
-    public TabExcellentInnovation() {
+    
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	public TabExcellentInnovation() {
 		super();
 	}
     
     
     public TabExcellentInnovation(String innovationUuid, String orgName, String declarePerson, String declarePhone,
 			String declareEmail, String firstCompletePerson, Integer sex, String education, String job, String deptName,
-			String major, Integer occupation, String otherCompletePerson, String achievementName,
-			Integer achievementForm, String realizedValue, String applicationGeneralize, Timestamp innovationDate,
-			String recommendRemark, Timestamp recommendDate, String auditRemark, Timestamp auditDate, String achievementContent) {
+			String major, Integer occupation, String otherCompletePerson, String achievementName,Integer achievementForm, 
+			String realizedValue, String applicationGeneralize, Timestamp innovationDate,String recommendRemark, 
+			Timestamp recommendDate, String auditRemark, Timestamp auditDate, String achievementContent, String imagePath) {
 		super();
 		this.innovationUuid = innovationUuid;
 		this.orgName = orgName;
@@ -339,6 +353,7 @@ public class TabExcellentInnovation implements Serializable {
 		this.auditRemark = auditRemark;
 		this.auditDate = auditDate;
 		this.achievementContent = achievementContent;
+		this.imagePath = imagePath;
 	}
 
 	/* (non-Javadoc)
@@ -354,7 +369,7 @@ public class TabExcellentInnovation implements Serializable {
 				+ ", achievementForm=" + achievementForm + ", realizedValue=" + realizedValue
 				+ ", applicationGeneralize=" + applicationGeneralize + ", innovationDate=" + innovationDate
 				+ ", recommendRemark=" + recommendRemark + ", recommendDate=" + recommendDate + ", auditRemark="
-				+ auditRemark + ", auditDate=" + auditDate + ", achievementContent=" + achievementContent + "]";
+				+ auditRemark + ", auditDate=" + auditDate + ", achievementContent=" + achievementContent + ", imagePath=" + imagePath + "]";
 	}
 	
 }

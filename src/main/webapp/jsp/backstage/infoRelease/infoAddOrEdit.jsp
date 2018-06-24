@@ -2,6 +2,13 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
+  <style type="text/css">
+	.tds{
+		text-align:right;
+		width:10%
+	}
+	
+  </style>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -12,15 +19,52 @@
   <%@ include file="../../../common.jsp"%>
   <body id="body">
 <form id="editForm" method="POST" class="newsForm" >
+	<div class=" panel-default" style="margin-top:15px; border: 1px solid #ddd;">
+		<table class="table table-hover" style="font-size:12px; width:75%; border-collapse:separate; border-spacing:10px;">
+			<tr>
+				<td class="tds">信息名称：</td>
+				<td width="25%"><input id="newsTitle" name="newsTitle" style="width:50%;"/></td>
+				<td class="tds">信息创建人：</td>
+				<td width="25%"><input id="newAutor" name="newAutor" style="width:50%;"/></td>
+			</tr>
+			<tr>
+				<td class="tds">信息时间：</td>
+				<td width="25%"><input id="newsDate" name="newsDate" style="width:50%;"/></td>
+				<td class="tds" style="display: none;">信息分类：</td>
+				<td width="25%" style="display: none;"><input id="towLevelClassify" name="towLevelClassify" style="width:50%;"/></td>
+			</tr>
+			<tr>
+				<td class="tds">信息内容：</td>
+				<td colspan="3" width="100%">
+					<!--非全屏模式-->
+				    <div id="container">
+				        <!--菜单栏-->
+				        <div id="toolbar-container">
+				            <div id="editor-toolbar"></div>
+				            <div id="btn-container">
+				                <button id="btn1">全屏</button>
+				            </div>
+				        </div>
+				        <input id="hiddencontent" type="hidden" name="newsContent"/>
+				        <div id="newsContent" class="newsContent" >
+				      
+				       </div>
+	                </div>
+				</td>
+				
+			</tr>
+		</table>
+	</div>
 
-		<ul >
-			<li ><label>信息标题</label><br>
+
+		<!-- <ul >
+			<li ><label>信息标题：</label>
 				<input  id="newsTitle" name="newsTitle"></input>
 			</li>
 			<li ><label >信息内容</label><br>
-			 <!--非全屏模式-->
+			 非全屏模式
 			    <div id="container">
-			        <!--菜单栏-->
+			        菜单栏
 			        <div id="toolbar-container">
 			            <div id="editor-toolbar"></div>
 			            <div id="btn-container">
@@ -37,12 +81,13 @@
 				<input id="newsDate" name="newsDate" editable="false" ></input></li>
 			<li ><label >信息创建人：</label><br>
 				<input  id="newAutor" name="newAutor"></input></li>
-		</ul>
-	 <input type="hidden" id="isedit" name="isEdit" value="${isEdit}"/>
+		</ul> -->
+	 <input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 	 <input type="hidden" id="newsUuid" name=newsUuid value="${info.uuid }"/>
-	 <input type="hidden" id="oneLevelClassify" name="oneLevelClassify" value="${param.oneLevelClassify}"/>
-	 <input type="hidden" id="towLevelClassify" name="towLevelClassify" value='${param.towLevelClassify}' />
-	  <div class="operButon">
+	 <input type="hidden" id="oneLevelClassify" name="oneLevelClassify" value="${oneLevelClassify}"/>
+	 <%-- <input type="hidden" id="towLevelClassify" name="towLevelClassify" value='${param.towLevelClassify}' /> --%>
+	 <input type="hidden" id="imagePath" name="imagePath" value="" />
+	  <div style= "width:75%; margin-top: 20px" class="operButon" align="center">
 			<input id="submitbtn" type="button" class="easyui-linkbutton" onclick=" sbmit()" value="提交"/>
 			<input id="reset" type="reset" class="easyui-linkbutton" onclick=" "  value="重置"/>
 			
@@ -54,11 +99,8 @@
   </body>
 </html>
 <script type="text/javascript">
-var isEdit = "<c:out value='${isEdit}'/>";
-if(isEdit){
-	$("#oneLevelClassify").val('${info.one_level_classify}');
-	$('#towLevelClassify').val('${info.two_level_classify}');
-}
+var isEdit = $("#isEdit").val();
+
 var basePath = $("#basePath").val();
 //上传路径
 var uploadUrl = basePath+"/website/backstage/InfoReleaseController.do";
@@ -81,8 +123,8 @@ function formInint(isEdit){
 	$('#newsDate').datetimebox({   
 		editable:true   
 	});
-	$('#button').css("display","none");
-	if (isEdit=="isEdit") {
+	
+	if (isEdit=="edit") {
 		$('#button').css("display","inline");
 			$('#newsTitle').textbox({
 				value : '${info.news_title}',
@@ -99,8 +141,6 @@ function formInint(isEdit){
 				type : "text",
 				required : true
 			});
-			$('#towLevelClassify').val('${info.two_level_classify}');
-			$("#oneLevelClassify").val('${info.one_level_classify}');
 	}
 	else{
 		$('#newsTitle').textbox({

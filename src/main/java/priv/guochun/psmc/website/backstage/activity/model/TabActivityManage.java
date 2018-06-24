@@ -47,6 +47,11 @@ public class TabActivityManage {
      * 活动内容
      */
     private String activityContent;
+    
+    /**
+     * 活动配图（手机端展示用）
+     */
+    private String imagePath;
 
     public String getActivityUuid() {
         return activityUuid;
@@ -111,6 +116,14 @@ public class TabActivityManage {
     public void setActivityContent(String activityContent) {
         this.activityContent = activityContent == null ? null : activityContent.trim();
     }
+    
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -119,8 +132,10 @@ public class TabActivityManage {
 	public String toString() {
 		return "TabActivityManage [activityUuid=" + activityUuid + ", activityName=" + activityName + ", startDate="
 				+ startDate + ", endDate=" + endDate + ", createDate=" + createDate + ", createPerson=" + createPerson
-				+ ", signUpEndDate=" + signUpEndDate + ", activityContent=" + activityContent + "]";
+				+ ", signUpEndDate=" + signUpEndDate + ", activityContent=" + activityContent + ", imagePath=" + imagePath +"]";
 	}
+
+	
     
     
 }
