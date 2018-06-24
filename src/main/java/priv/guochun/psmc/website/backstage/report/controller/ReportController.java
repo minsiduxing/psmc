@@ -42,8 +42,10 @@ public class ReportController extends MyController {
     @RequestMapping(params="method=to_report")
     public String toReport(String reportUuid, Model model, HttpServletRequest request){
         Map<String,Object> report = reportService.findReportByUuidBusinessMethod(reportUuid);
-        report.put("replyUserName", this.getUserBySeesion(request).getPersonName());
-        report.put("replyTime", DateUtil.getCurrentTimstamp());
+        if(null==report.get("replyUserName") || StringUtils.isBlank(report.get("replyUserName").toString())){
+            report.put("replyUserName", this.getUserBySeesion(request).getPersonName());
+            report.put("replyTime", DateUtil.getCurrentTimstamp());
+        }
         model.addAttribute("report",report);
         return "backstage/report/reportReply";
     }

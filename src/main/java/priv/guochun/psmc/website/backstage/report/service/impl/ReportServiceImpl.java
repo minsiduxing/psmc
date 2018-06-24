@@ -85,19 +85,19 @@ public class ReportServiceImpl implements ReportService{
 	public void executeReplyReportBusinessMethod(String reportUuid, TabReportReply reportReply) {
 		//判断是否存在对应数据
 		if(StringUtils.isBlank(reportUuid)){
-			throw new PsmcBuisnessException("reportUuid is null reply error!");
+			throw new PsmcBuisnessException("申报标识不能为空!");
 		}
 		if(null == this.findReportByUuidBusinessMethod(reportUuid)){
-			throw new PsmcBuisnessException("report not exits ,reply error!");
+			throw new PsmcBuisnessException("申报内容不存在不能回复!");
 		}
 		//判断是否已经回复过了,如果后期需要多次回复可以注释掉
 		List tempList = reportReplyRelService.findTabReportReplyRelByreportUuid(reportUuid);
 		if(null != tempList && tempList.size()>0){
-			   throw new PsmcBuisnessException("this report already reply!");
+			   throw new PsmcBuisnessException("该申请已经回复!");
 		}
 		//检查回复数据是否为空
 		if(null == reportReply){
-			   throw new PsmcBuisnessException("reportReply data is null !");
+			   throw new PsmcBuisnessException("回复内容不能为空 !");
 		}
 		//新增回复数据
 		 String replyUuid =  UUIDGenerator.createUUID();

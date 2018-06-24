@@ -53,7 +53,7 @@
                 <td class="tds">回复人：</td>
                 <td width="30%"><input  id="replyUserName" name="replyUserName" editable="false" value="${report.replyUserName}" style="width:70%;"/></td>
                 <td class="tds">回复时间：</td>
-                <td width="30%"> <input  id="replyTime" name="replyUserName" editable="false" value="${report.replyTime}" style="width:70%;"/></td>
+                <td width="30%"> <input  id="replyTime" name="replyTime" editable="false" value="${report.replyTime}" style="width:70%;"/></td>
             </tr>
             <tr>
                 <td class="tds">回复内容：</td>
@@ -133,7 +133,7 @@
             });
             $('#replyTime').datetimebox({
                 value : '<fmt:formatDate value="${report.replyTime}" pattern="yyyy-MM-dd HH:mm:ss"  />',
-                editable:true,
+                editable:false,
                 type : "text"
             });
         }else if("1"==status){
