@@ -26,7 +26,6 @@ $(document).ready(function(){
 	};
 	//初始化申报列表
 	commonObj.initPaginationGrid(reportListData);
-    commonObj.query('reportList','searchform');
 	//删除
 $("#remove").click(function(){
 		var rows = $("#reportList").datagrid('getChecked');

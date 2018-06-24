@@ -362,6 +362,8 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			MsgModel msg = MsgModel.buildDefaultError("the pageIndex Or pageSize  is null ");
 			return  GsonUtil.toJsonForObject(msg);
 		}
+		myPagep.setPageSize(Integer.parseInt(pageSize));
+		myPagep.setPageIndex(Integer.parseInt(pageIndex));
 		myPagep = reportService.findReportPageToMobile(myPagep,queryParameter,reportType);
 		MsgModel msg = MsgModel.buildDefaultSuccess(myPagep);
 		return  GsonUtil.toJsonForObject(msg);
