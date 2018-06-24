@@ -15,7 +15,7 @@
       LAST_MODIFY_TIME, REPORT_UPDATE_UUID,REPORT_STAUS,REPORT_TEL,IMAGE_PATH)
     values (#{reportUuid,jdbcType=VARCHAR},#{reportTitle,jdbcType=VARCHAR}, #{reportContent,jdbcType=VARCHAR}, #{reportUserName,jdbcType=VARCHAR},
       #{reportUserUuid,jdbcType=VARCHAR}, #{reportTime,jdbcType=TIMESTAMP}, #{reportType,jdbcType=VARCHAR}, 
-      #{lastModifyTime,jdbcType=TIMESTAMP}, #{reportUpdateUuid,jdbcType=VARCHAR},#{reportStaus,jdbcType=VARCHAR},#{reportTel,jdbcType=VARCHAR}
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{reportUpdateUuid,jdbcType=VARCHAR},#{reportStaus,jdbcType=VARCHAR},#{reportTel,jdbcType=VARCHAR},
       #{imagePath,jdbcType=VARCHAR})
   </insert>
   <update id="updateByReportPrimaryKey" parameterType="priv.guochun.psmc.website.backstage.report.model.TabReport" >
