@@ -49,12 +49,22 @@
 <table id="reportList" style="width:100%"></table>
 <!--工具栏  -->
 <div id="toolbarId">
+<c:if test="${type=='report'}">
     <g:auth operateNo="<%=OperateContantsUtil.INFO_REPORT_DELETE%>">
         <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
     </g:auth>
     <g:auth operateNo="<%=OperateContantsUtil.INFO_REPORT_REPLY%>">
         <a href="#" id="replyReport" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">回复</a>
     </g:auth>
+</c:if>
+<c:if test="${type=='help'}">
+    <g:auth operateNo="<%=OperateContantsUtil.INFO_HELP_DELETE%>">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
+    </g:auth>
+    <g:auth operateNo="<%=OperateContantsUtil.INFO_HELP_REPLY%>">
+        <a href="#" id="replyReport" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">回复</a>
+    </g:auth>
+</c:if>
 </div>
 
 </body>

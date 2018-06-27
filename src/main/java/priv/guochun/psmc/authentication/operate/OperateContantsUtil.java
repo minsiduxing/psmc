@@ -98,7 +98,12 @@ public class OperateContantsUtil {
     public final static String INFO_REPORT_REPLY = "INFO_REPORT_REPLY";
     public final static String INFO_REPORT_DELETE = "INFO_REPORT_DELETE";
     public final static String INFO_REPORT_LIST = "INFO_REPORT_LIST";
-
+    /**
+     * 法律援助操作
+     */
+    public final static String INFO_HELP_REPLY = "INFO_HELP_REPLY";
+    public final static String INFO_HELP_DELETE = "INFO_HELP_DELETE";
+    public final static String INFO_HELP_LIST = "INFO_HELP_LIST";
     
     
 }
