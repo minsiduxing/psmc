@@ -97,7 +97,7 @@
 	</g:auth>
 </div>
 
-<div id="dlg" class="easyui-dialog" title="新闻到期日期" style="width:200px;height:120px;padding:10px"
+<div id="dlg" class="easyui-dialog" title="信息到期日期" style="width:200px;height:120px;padding:10px"
 			data-options="
 				iconCls: 'icon-save',buttons:'#dlg-buttons'
 			" closed="true" >
