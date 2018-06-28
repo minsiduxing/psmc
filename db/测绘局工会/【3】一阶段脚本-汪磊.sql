@@ -60,6 +60,31 @@ create table TAB_REPORT_REPLY_REL
 );
 
 alter table TAB_REPORT_REPLY_REL comment '上报答复关联关系表';
+
+
+
+
+delete from tab_role_operate where operate_uuid='043e42a525e242fcb37595a5b07ffa75';
+delete from tab_role_operate where operate_uuid='14dd01a1dad34c91a849762436509f98';
+delete from tab_role_operate where operate_uuid='4820df18ecdc4ac4b88207b1009291ea';
+delete from tab_role_operate where operate_uuid='7c8adc0a99104f4a9b2091fc2006af90';
+delete from tab_role_operate where operate_uuid='043e42a525e242fcb37595a5b07ffa7e';
+delete from tab_role_operate where operate_uuid='14dd01a1dad34c91a849762436509498';
+delete from tab_role_operate where operate_uuid='4820df18ecdc4ac4b88207b10092914a';
+delete from tab_role_operate where operate_uuid='7c8adc0a99104f4a9b2091fc2006af96';
+
+delete from tab_role_resource where resource_id='115132658260463bb6f01b3108d11145';
+delete from tab_role_resource where resource_id='aa1cb8b91b504dcfb2f7fa14cc94ac7c';
+
+delete from tab_operate where resource_uuid='115132658260463bb6f01b3108d11145';
+delete from tab_operate where resource_uuid='aa1cb8b91b504dcfb2f7fa14cc94ac7c';
+
+delete from tab_resource where uuid='115132658260463bb6f01b3108d11145';
+delete from tab_resource where uuid='aa1cb8b91b504dcfb2f7fa14cc94ac7c';
+
+
+
+
 --帮扶申报资源
 INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum, is_view) VALUES ('115132658260463bb6f01b3108d11145', '帮扶申报', 3, '/website/backstage/reportController.do?method=index&type=report', 'a365f66231c049169cbcc0d9572043ba', 'admin', '2018-05-20 00:00:00', '帮扶申报菜单', 4, 1);
 INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum, is_view) VALUES ('aa1cb8b91b504dcfb2f7fa14cc94ac7c', '法律援助', 3, '/website/backstage/reportController.do?method=index&type=help', 'a365f66231c049169cbcc0d9572043ba', 'admin', '2018-05-20 00:00:00', '法律援助菜单', 3, 1);
