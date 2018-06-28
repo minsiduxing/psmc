@@ -26,7 +26,7 @@ function initDialog() {
     editdialog = $("#editdialogDiv").dialog({
         modal: true,
         closed: true,
-        width: 300,
+        width: 450,
         height: 280,
         resizable: true,
         cache: false,
@@ -203,7 +203,7 @@ $(function() {
             privilegeSetdialog = $("#privilegeSetdialogDiv").dialog({
             	modal: true,
         		closed: true,
-                width: 720,
+                width: 800,
                 height: 420,
                 draggable:true,
                 minimizable:true,

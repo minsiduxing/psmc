@@ -42,7 +42,7 @@
 				        <div id="toolbar-container">
 				            <div id="editor-toolbar"></div>
 				            <div id="btn-container">
-				                <button id="btn1">全屏</button>
+				               <!--  <button id="btn1">全屏</button> -->
 				            </div>
 				        </div>
 				        <input id="hiddencontent" type="hidden" name="newsContent"/>

@@ -24,13 +24,16 @@
 			<li class="li-input" id="accountPassPanel" ><label for="" class="input-label">角色名称：</label>
 				<input class="myinput" id="roleName" name="roleName" />
 			</li> 
-		</ul>
-		
-		<ul class="addform-subcontent">
-			<li class="li-input" id="accountPassPanel" ><label for="" class="input-label">备注：</label>
-				<textarea id="remark" name="remark" rows="4" cols="50">${role.REMARK}</textarea>
+			<li class="li-input" id="accountPassPanel" ><label for="" class="input-label">备注：</label><br>
+				<br><textarea id="remark" name="remark" rows="4" cols="40" style="border-radius:5px; border: 1px solid #ccc;">${role.REMARK}</textarea>
 			</li> 
 		</ul>
+		
+		<%-- <ul class="addform-subcontent">
+			<li class="li-input" id="accountPassPanel" ><label for="" class="input-label">备注：</label>
+				<textarea id="remark" name="remark" rows="4" cols="30" style="border-radius:5px; border: 1px solid #ccc;">${role.REMARK}</textarea>
+			</li> 
+		</ul> --%>
 		
 	</form>
 	<script type="text/javascript">

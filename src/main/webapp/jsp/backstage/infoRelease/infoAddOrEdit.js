@@ -234,7 +234,7 @@ function  wangEditorInit(isEdit){
           var container = document.getElementById('container');
           $("#newsContent").css("z-index","998");
           // 全屏事件
-          function doFullScreen() {
+          /*function doFullScreen() {
               cover.style.display = 'block';
               $("#cover").addClass("cover");
               editorText.style.height = '90%';
@@ -247,6 +247,7 @@ function  wangEditorInit(isEdit){
 
           // 退出全屏事件
           function unDoFullScreen() {
+        	  debugger;
         	  event.preventDefault();
               container.appendChild(toolbarContaner);
               container.appendChild(editorText);
@@ -270,7 +271,7 @@ function  wangEditorInit(isEdit){
                   isFullScreen = true;
                   doFullScreen();
               }
-          }, false);
+          }, false);*/
     }
 //富文本编辑器结束-----------------------------
 function retList(){
