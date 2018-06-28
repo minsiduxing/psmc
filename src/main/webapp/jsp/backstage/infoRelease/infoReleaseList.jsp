@@ -100,24 +100,86 @@
  <table id="infoReleaseId" style="width:100%"></table>
   <!--工具栏  -->
 <div id="toolbarId">
-	<g:auth operateNo="<%=OperateContantsUtil.INFO_ADD%>">
+<c:if test="${param.oneLevelClassify=='11'}">
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_MANAGER_ADD%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
 	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.INFO_EDIT%>">
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_MANAGER_EDIT%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="edit">修改</a>
 	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.INFO_DEL%>">
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_MANAGER_DEL%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
 	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.INFO_PREVIEW%>">
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_MANAGER_PREVIEW%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">查看</a>
 	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.INFO_AUDIT%>">
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_MANAGER_AUDIT%>">
 			<a href="#" id="auditNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-audit">审核</a>
 	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.INFO_RELEASE%>">
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_MANAGER_RELEASE%>">
 			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
 	</g:auth>
+</c:if>
+<c:if test="${param.oneLevelClassify=='12'}">
+	<g:auth operateNo="<%=OperateContantsUtil.LEGAL_PROVISIONS_ADD%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.LEGAL_PROVISIONS_EDIT%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="edit">修改</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.LEGAL_PROVISIONS_DEL%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.LEGAL_PROVISIONS_PREVIEW%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">查看</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.LEGAL_PROVISIONS_AUDIT%>">
+			<a href="#" id="auditNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-audit">审核</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.LEGAL_PROVISIONS_RELEASE%>">
+			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
+	</g:auth>
+</c:if>
+<c:if test="${param.oneLevelClassify=='13'}">
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_RELEASE_ADD%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_RELEASE_EDIT%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="edit">修改</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_RELEASE_DEL%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_RELEASE_PREVIEW%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">查看</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_RELEASE_AUDIT%>">
+			<a href="#" id="auditNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-audit">审核</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_RELEASE_RELEASE%>">
+			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
+	</g:auth>
+</c:if>
+<c:if test="${param.oneLevelClassify=='14'}">
+	<g:auth operateNo="<%=OperateContantsUtil.EARLY_KNOW_ADD%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.EARLY_KNOW_EDIT%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="edit">修改</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.EARLY_KNOW_DEL%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.EARLY_KNOW_PREVIEW%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">查看</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.EARLY_KNOW_AUDIT%>">
+			<a href="#" id="auditNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-audit">审核</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.EARLY_KNOW_RELEASE%>">
+			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
+	</g:auth>
+</c:if>
 </div>
 
 <div id="dlg" class="easyui-dialog" title="信息到期日期" style="width:200px;height:120px;padding:10px"
