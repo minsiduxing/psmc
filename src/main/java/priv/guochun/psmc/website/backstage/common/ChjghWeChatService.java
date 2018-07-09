@@ -152,7 +152,9 @@ public interface ChjghWeChatService {
 	public String getReportListInfo(@PathParam("pageSize") String pageSize,
 									@PathParam("pageIndex") String pageIndex,
 									@QueryParam("queryParameter") String queryParameter,
-									@QueryParam("reportType")String reportType
+									@QueryParam("reportType")String reportType,
+									@QueryParam("reportUserUuid")String reportUserUuid
+
 
 	);
 	/**

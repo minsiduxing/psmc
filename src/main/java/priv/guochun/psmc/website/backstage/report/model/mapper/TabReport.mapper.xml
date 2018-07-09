@@ -53,6 +53,17 @@
       </if>
        where REPORT_UUID = #{reportUuid,jdbcType=VARCHAR}
   </update>
+    <update id="dealReport" parameterType="hashmap" >
+        update tab_report
+        set
+        <if test="reportStaus != null and reportStaus != ''">
+            REPORT_STAUS = #{reportStaus,jdbcType=VARCHAR}
+        </if>
+        where REPORT_UUID in
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
   <select id="selectByReportPrimaryKey" resultType="java.util.Map" parameterType="java.lang.String" >
         SELECT
         tr.REPORT_UUID as  reportUuid,
@@ -63,6 +74,7 @@
         tr.REPORT_TIME as reportTime,
         tr. REPORT_TYPE as reportType,
         tr.REPORT_STAUS as reportStaus,
+        tdic.DICT_NAME as reportStatusName,
         tr. LAST_MODIFY_TIME as lastModifyTime,
         tr. REPORT_UPDATE_UUID as reportUpdateUuid,
         tr.REPORT_TEL as reportTel,
@@ -81,7 +93,12 @@
         tab_report_reply trr
     ON
         trr.REPLY_UUID= trrr.REPLY_UUID
+     LEFT JOIN
+        tab_data_dict tdic
+    ON
+        tdic.DICT_ID= tr.REPORT_STAUS
         where tr.REPORT_UUID = #{reportUuid,jdbcType=VARCHAR}
+        and tdic.DICT_NO = 'REPORT_STAUS'
   </select>
   <select id="selectReportAll" parameterType="hashmap" resultType="java.util.Map" >
     select
@@ -93,13 +110,19 @@
       REPORT_TIME as reportTime,
       REPORT_TYPE as reportType,
       REPORT_STAUS as reportStaus,
+      tdic.DICT_NAME as reportStatusName,
       LAST_MODIFY_TIME as lastModifyTime,
       REPORT_UPDATE_UUID as reportUpdateUuid,
       REPORT_TEL as reportTel,
       IMAGE_PATH as imagePath
     from tab_report
+    LEFT JOIN
+      tab_data_dict tdic
+    ON
+      tdic.DICT_ID= REPORT_STAUS
     <where>
     	1=1
+        and tdic.DICT_NO = 'REPORT_STAUS'
      <if test="reportUuid != null and reportUuid != ''">
         and REPORT_UUID = #{reportUuid}
      </if>
@@ -113,7 +136,7 @@
         and REPORT_CONTENT LIKE concat(concat('%',#{reportContent}),'%')
      </if>
       <if test="reportUserUuid != null and reportUserUuid != ''">
-        and REPORT_UUID = #{reportUserUuid}
+        and REPORT_USER_UUID = #{reportUserUuid}
      </if>
       <if test="reportTimeBegin!=null and reportTimeBegin!=''">  
 		and <![CDATA[REPORT_TIME>=#{reportTimeBegin}]]>

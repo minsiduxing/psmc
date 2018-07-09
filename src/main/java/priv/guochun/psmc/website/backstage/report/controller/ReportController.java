@@ -10,6 +10,7 @@ import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
+import priv.guochun.psmc.website.backstage.report.model.TabReport;
 import priv.guochun.psmc.website.backstage.report.model.TabReportReply;
 import priv.guochun.psmc.website.backstage.report.service.ReportService;
 
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -81,5 +83,19 @@ public class ReportController extends MyController {
        }
         reportService.executeReplyReportBusinessMethod(reportUuid,reportReply);
         this.responseJson(true,"回复成功！",response);
+    }
+    @RequestMapping(params="method=deal_report",method = RequestMethod.PUT)
+    @ResponseBody
+    public void  dealReport(HttpServletResponse response,String reportUuids,String reportStatus) throws IOException {
+        if(StringUtils.isBlank(reportUuids)){
+            this.responseJson(false,"更新失败",response);
+            return ;
+        }
+        if(StringUtils.isBlank(reportStatus)){
+            this.responseJson(false,"更新失败!",response);
+            return ;
+        }
+        reportService.dealReportBusinessMethod(reportUuids,reportStatus);
+        this.responseJson(true,"操作成功！",response);
     }
 }

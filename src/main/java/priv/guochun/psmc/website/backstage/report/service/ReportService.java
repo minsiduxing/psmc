@@ -48,7 +48,7 @@ public interface ReportService {
 	 * @return
 	 * @author wanglei 2018年6月10日
 	 */
-	MyPage findReportPageToMobile( MyPage page,String queryParameter,String reportType);
+	MyPage findReportPageToMobile( MyPage page,String queryParameter,String reportType,String reportUserUuid);
 	/**
 	 * <p>Description:5.根据主键查询申报信息<p>
 	 * @param reportUuid 申报主键
@@ -71,4 +71,6 @@ public interface ReportService {
 	Map<String,Object> getReportDetailToMobile(String reportUuid);
 
 	 void saveOrUpdateReportToMobile(TabReport report);
+
+	 void  dealReportBusinessMethod(String reportUuids,String reportStatus);
 }

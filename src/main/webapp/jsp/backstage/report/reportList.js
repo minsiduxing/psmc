@@ -17,10 +17,8 @@ $(document).ready(function(){
 		          {field:'reportUserName',title:'申报人姓名',resizable:true},
 		          {field:'reportTime',title:'申报时间'},
                   {field:'reportTel',title:'申报电话'},
-		          {field:'reportStaus',title:'是否回复',resizable:true,formatter:function(value, row, index){
-                          if(value=='2'){return "否";}
-                          if(value=='1'){return "是";}
-		          }}
+                  {field:'reportStatusName',title:'状态'},
+		          {field:'reportStaus',title:'状态',hidden:true}
 		         ]
 		      ]
 	};
@@ -90,11 +88,124 @@ $("#replyReport").click(function(){
 	$.messager.progress("close");
 	event.preventDefault();
 });
-
+//处理
+    $("#reportDeal").click(function(){
+        var rows = $("#reportList").datagrid('getChecked');
+        var rlength = rows.length;
+        var ids="";
+        if (rlength >= 1){
+            for(var i=0;i<rlength;i++){
+                var rowObj = eval(rows[i]);
+                var newsid = rowObj.reportUuid;
+                var reportStaus = rowObj.reportStaus;
+                if(reportStaus==3){
+                    commonObj.alert('请选择未处理的申报信息！',"warning");
+                    return ;
+                }
+                ids+=newsid;
+                if(i<rlength-1)
+                    ids+=",";
+            }
+            var _url = updateRport+"&reportUuids="+ids+"&reportStatus=3";
+            $.messager.progress();
+            $.ajax({
+                type: "PUT",
+                url: _url,
+                success: function(data){
+                    successCallback(data);
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+                    $.messager.progress("close");
+                }
+            });
+        }else{
+            commonObj.alert('请至少选择一条信息!',"warning");
+            return ;
+        }
+        $.messager.progress("close");
+        event.preventDefault();
+    });
+//受理
+    $("#reportAccept").click(function(){
+        var rows = $("#reportList").datagrid('getChecked');
+        var rlength = rows.length;
+        var ids="";
+        if (rlength >= 1){
+            for(var i=0;i<rlength;i++){
+                var rowObj = eval(rows[i]);
+                var newsid = rowObj.reportUuid;
+                var reportStaus = rowObj.reportStaus;
+                if(reportStaus==4){
+                    commonObj.alert('请选择未受理的申报信息！',"warning");
+                    return ;
+                }
+                ids+=newsid;
+                if(i<rlength-1)
+                    ids+=",";
+            }
+            var _url = updateRport+"&reportUuids="+ids+"&reportStatus=4";
+            $.messager.progress();
+            $.ajax({
+                type: "PUT",
+                url: _url,
+                success: function(data){
+                    successCallback(data);
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+                    $.messager.progress("close");
+                }
+            });
+        }else{
+            commonObj.alert('请至少选择一条信息!',"warning");
+            return ;
+        }
+        $.messager.progress("close");
+        event.preventDefault();
+    });
+    //备案
+    $("#reportRecord").click(function(){
+        var rows = $("#reportList").datagrid('getChecked');
+        var rlength = rows.length;
+        var ids="";
+        if (rlength >= 1){
+            for(var i=0;i<rlength;i++){
+                var rowObj = eval(rows[i]);
+                var newsid = rowObj.reportUuid;
+                var reportStaus = rowObj.reportStaus;
+                if(reportStaus==5){
+                    commonObj.alert('请选择未备案的申报信息！',"warning");
+                    return ;
+                }
+                ids+=newsid;
+                if(i<rlength-1)
+                    ids+=",";
+            }
+            var _url = updateRport+"&reportUuids="+ids+"&reportStatus=5";
+            $.messager.progress();
+            $.ajax({
+                type: "PUT",
+                url: _url,
+                success: function(data){
+                    successCallback(data);
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+                    $.messager.progress("close");
+                }
+            });
+        }else{
+            commonObj.alert('请至少选择一条信息!',"warning");
+            return ;
+        }
+        $.messager.progress("close");
+        event.preventDefault();
+    });
 //表单提交成功后的回调方法
 function successCallback(data){
 	$.messager.progress("close");
-	$("#innovationList").datagrid('reload');
+	$("#reportList").datagrid('reload');
 	commonObj.showResponse(data);
 }
 

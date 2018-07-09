@@ -28,6 +28,8 @@ public class ReportServiceImpl implements ReportService{
 	public final static String updateByPrimaryKey="updateByReportPrimaryKey";
 	public final static String selectByPrimaryKey="selectByReportPrimaryKey";
 	public final static String selectAll="selectReportAll";
+	public final static String dealReport="dealReport";
+
 	
 	@Autowired
 	private BaseDao baseDao;
@@ -66,10 +68,11 @@ public class ReportServiceImpl implements ReportService{
 	}
 
 	@Override
-	public MyPage findReportPageToMobile( MyPage page,String queryParameter,String reportType) {
+	public MyPage findReportPageToMobile( MyPage page,String queryParameter,String reportType,String reportUserUuid) {
 		Map<String,Object> condition = new HashMap<String,Object>();
 			condition.put("queryParameter",queryParameter);
 		condition.put("reportType",reportType);
+		condition.put("reportUserUuid", reportUserUuid);
 		return baseDao.getMyPage(page, selectAll, condition);
 	}
 
@@ -144,5 +147,15 @@ public class ReportServiceImpl implements ReportService{
 			report.setLastModifyTime(DateUtil.getCurrentTimstamp());
 			baseDao.update(updateByPrimaryKey,report);
 		}
+	}
+	@Override
+	public void  dealReportBusinessMethod(String reportUuids,String reportStatus){
+		Map<String,Object> condition = new HashMap<String,Object>();
+		if(StringUtils.isBlank(reportUuids)){
+			throw new PsmcBuisnessException("id为空处理失败!");
+		}
+		condition.put("reportStaus",reportStatus);
+		condition.put("ids",reportUuids.split(","));
+		baseDao.update(dealReport, condition);
 	}
 }

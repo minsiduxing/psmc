@@ -25,7 +25,7 @@
                 <li class="li-input"><label for="" class="input-label">申报人	：</label>
                     <input class="myinput" id="reportUserName" name="reportUserName"/>
                 </li>
-                <li class="li-input"><label for="" class="input-label">是否回复：</label>
+                <li class="li-input"><label for="" class="input-label">状态：</label>
                     <input id="reportStaus" name="reportStaus" />
                 </li>
                 <li class="li-input"><label for="" class="input-label">申报电话	：</label>
@@ -53,8 +53,17 @@
     <g:auth operateNo="<%=OperateContantsUtil.INFO_REPORT_DELETE%>">
         <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
     </g:auth>
-    <g:auth operateNo="<%=OperateContantsUtil.INFO_REPORT_REPLY%>">
-        <a href="#" id="replyReport" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">回复</a>
+    <%--<g:auth operateNo="<%=OperateContantsUtil.INFO_REPORT_REPLY%>">--%>
+        <%--<a href="#" id="replyReport" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">回复</a>--%>
+    <%--</g:auth>--%>
+    <g:auth operateNo="<%=OperateContantsUtil.INFO_REPORT_DEAL%>">
+        <a href="#" id="reportDeal" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">处理</a>
+    </g:auth>
+    <g:auth operateNo="<%=OperateContantsUtil.INFO_REPORT_ACCEPT%>">
+        <a href="#" id="reportAccept" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">受理</a>
+    </g:auth>
+    <g:auth operateNo="<%=OperateContantsUtil.INFO_REPORT_RECORD%>">
+        <a href="#" id="reportRecord" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">备案</a>
     </g:auth>
 </c:if>
 <c:if test="${type=='help'}">
@@ -79,6 +88,8 @@
     var getReportReply = '<c:url value="'+reportDo+'"/>?method=to_report&reportUuid=';
     //删除信息
     var removeRport =   '<c:url value="'+reportDo+'"/>?method=delete';
+    //更新申报信息
+    var updateRport =   '<c:url value="'+reportDo+'"/>?method=deal_report';
     //----------------------------查询框初始化开始
     $('#reportTitle').textbox({
     });
@@ -90,7 +101,7 @@
     });
     $('#reportTimeEnd').datetimebox({
     });
-    commonObj.initDictCombobox("reportStaus","IF","",false,true);
+    commonObj.initDictCombobox("reportStaus","REPORT_STAUS","",false,true);
 
     //----------------------------查询框初始化结束
 </script>

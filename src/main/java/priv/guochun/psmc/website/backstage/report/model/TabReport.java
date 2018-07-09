@@ -22,6 +22,7 @@ public class TabReport implements Serializable {
     
     private String reportUpdateUuid;
     private String reportStaus;
+    private String reportStatusName;
     private String reportTel;
     private static final long serialVersionUID = 1L;
     
@@ -123,7 +124,19 @@ public class TabReport implements Serializable {
 		this.imagePath = imagePath;
 	}
 
-	@Override
+    public String getReportStatusName() {
+        return reportStatusName;
+    }
+
+    public void setReportStatusName(String reportStatusName) {
+        this.reportStatusName = reportStatusName;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());

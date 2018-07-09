@@ -44,27 +44,30 @@
             </tr>
         </table>
     </div>
-    <div class=" panel-default" style=" border: 1px solid #ddd;">
-        <div class="panel-heading">
-            <label style="background-color:#006699; color: #ffffff">回复信息</label>
+    <c:if test="${report.reportType =='help'}">
+        <div class=" panel-default" style=" border: 1px solid #ddd;">
+            <div class="panel-heading">
+                <label style="background-color:#006699; color: #ffffff">回复信息</label>
+            </div>
+            <table class="table table-hover" style="font-size:12px; width:75%; border-collapse:separate; border-spacing:10px;">
+                <tr>
+                    <td class="tds">回复人：</td>
+                    <td width="30%"><input  id="replyUserName" name="replyUserName" editable="false" value="${report.replyUserName}" style="width:70%;"/></td>
+                    <td class="tds">回复时间：</td>
+                    <td width="30%"> <input  id="replyTime" name="replyTime" editable="false" value="${report.replyTime}" style="width:70%;"/></td>
+                </tr>
+                <tr>
+                    <td class="tds">回复内容：</td>
+                    <td width="30%" colspan="4"> <input  id="replyContent" name="replyContent" class="easyui-textbox" editable="false" value="${report.replyContent}" style="height: 200px; width:86%; border-radius:5px; border: 1px solid #ccc;"/></td>
+                </tr>
+            </table>
         </div>
-        <table class="table table-hover" style="font-size:12px; width:75%; border-collapse:separate; border-spacing:10px;">
-            <tr>
-                <td class="tds">回复人：</td>
-                <td width="30%"><input  id="replyUserName" name="replyUserName" editable="false" value="${report.replyUserName}" style="width:70%;"/></td>
-                <td class="tds">回复时间：</td>
-                <td width="30%"> <input  id="replyTime" name="replyTime" editable="false" value="${report.replyTime}" style="width:70%;"/></td>
-            </tr>
-            <tr>
-                <td class="tds">回复内容：</td>
-                <td width="30%" colspan="4"> <input  id="replyContent" name="replyContent" class="easyui-textbox" editable="false" value="${report.replyContent}" style="height: 200px; width:86%; border-radius:5px; border: 1px solid #ccc;"/></td>
-            </tr>
-        </table>
-    </div>
-    <div style= "width:75%; margin-top: 20px" class="operButon" align="center">
-        <input id="submitbtn" type="button" class="easyui-linkbutton" onclick=" exceReply()" value="回复"/>
-        <input id="button" type="reset" class="easyui-linkbutton" onclick="retList()"  value="返回列表"/>
-    </div>
+        <div style= "width:75%; margin-top: 20px" class="operButon" align="center">
+            <input id="submitbtn" type="button" class="easyui-linkbutton" onclick=" exceReply()" value="回复"/>
+            <input id="button" type="reset" class="easyui-linkbutton" onclick="retList()"  value="返回列表"/>
+        </div>
+    </c:if>
+
 </form>
 <!--全屏模式-->
 <div id="cover" ></div>

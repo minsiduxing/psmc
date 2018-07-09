@@ -163,6 +163,10 @@ public class OperateContantsUtil {
     public final static String INFO_REPORT_REPLY = "INFO_REPORT_REPLY";
     public final static String INFO_REPORT_DELETE = "INFO_REPORT_DELETE";
     public final static String INFO_REPORT_LIST = "INFO_REPORT_LIST";
+    public final static String INFO_REPORT_DEAL= "INFO_REPORT_DEAL";
+    public final static String INFO_REPORT_ACCEPT = "INFO_REPORT_ACCEPT";
+    public final static String INFO_REPORT_RECORD = "INFO_REPORT_RECORD";
+
     /**
      * 法律援助操作
      */
