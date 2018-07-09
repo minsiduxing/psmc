@@ -18,8 +18,13 @@ import org.slf4j.LoggerFactory;
 
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
+import priv.guochun.psmc.system.common.log.factory.TSysOperLogMapFactory;
+import priv.guochun.psmc.system.common.log.model.TSysOperLog;
+import priv.guochun.psmc.system.framework.util.LogTypeEnum;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
+import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
+import priv.guochun.psmc.system.util.UUIDGenerator;
 
 
 
@@ -60,6 +65,23 @@ public class LoginServlet extends HttpServlet {
 	                logger.info("--------------------用户登录系统失败！原因："+msg);
 	        }else{
 	        	if(httpSession.getAttribute("user")!=null){
+	        		User user = (User)httpSession.getAttribute("user");
+	        		 	TSysOperLog sysOperLog = new TSysOperLog();
+				        sysOperLog.setUuid(UUIDGenerator.createUUID());
+				        sysOperLog.setLogType(LogTypeEnum.LogTypeSysOper2.getIndex());
+				        sysOperLog.setLogTypeName(LogTypeEnum.LogTypeSysOper2.getName());
+				        sysOperLog.setLogSubType(LogTypeEnum.LogTypeSysOper2_1.getIndex());
+				        sysOperLog.setLogSubTypeName(LogTypeEnum.LogTypeSysOper2_1.getName());
+				        sysOperLog.setOperid(user.getUserUuid());
+				        sysOperLog.setOpername(user.getPersonName());
+				        sysOperLog.setOperDate(DateUtil.getCurrentTimstamp());
+				        
+				        StringBuffer operResultDesc = new StringBuffer();
+		                operResultDesc.append(LogTypeEnum.LogTypeSysOper2_1.getName());
+		                operResultDesc.append("操作");
+				        sysOperLog.setOperResultDesc(operResultDesc.toString());
+				        TSysOperLogMapFactory.getInstance().getTSysOperLog().put(sysOperLog.getUuid(), sysOperLog);
+				        
 	        		 if(StringUtils.isNotBlank(transmiturl)) {
 			        	 	request.getRequestDispatcher(transmiturl).forward(request, response);
 			        	 	return;
@@ -76,15 +98,33 @@ public class LoginServlet extends HttpServlet {
 	            if("success".equals(returnValue)){
 	            	User user = service.buildUser(username);
 	            	logger.info("--------------------用户"+username +"的信息植入session容器成功！");
-	             httpSession.setAttribute("user",user);
-	             resMap = new HashMap<String,String>();
-		         resMap.put("msg", "success");
-		         logger.info("--------------------用户"+username +"成功登录系统！");
-		         countLonin(application,httpSession);
-		         if(StringUtils.isNotBlank(transmiturl)) {
-		        	 	request.getRequestDispatcher(transmiturl).forward(request, response);
-		        	 	return;
-		         }
+		            httpSession.setAttribute("user",user);
+		            resMap = new HashMap<String,String>();
+			        resMap.put("msg", "success");
+			        logger.info("--------------------用户"+username +"成功登录系统！");
+			        
+			        TSysOperLog sysOperLog = new TSysOperLog();
+			        sysOperLog.setUuid(UUIDGenerator.createUUID());
+			        sysOperLog.setLogType(LogTypeEnum.LogTypeSysOper2.getIndex());
+			        sysOperLog.setLogTypeName(LogTypeEnum.LogTypeSysOper2.getName());
+			        sysOperLog.setLogSubType(LogTypeEnum.LogTypeSysOper2_1.getIndex());
+			        sysOperLog.setLogSubTypeName(LogTypeEnum.LogTypeSysOper2_1.getName());
+			        sysOperLog.setOperid(user.getUserUuid());
+			        sysOperLog.setOpername(user.getPersonName());
+			        sysOperLog.setOperDate(DateUtil.getCurrentTimstamp());
+			        
+			        StringBuffer operResultDesc = new StringBuffer();
+	                operResultDesc.append(LogTypeEnum.LogTypeSysOper2_1.getName());
+	                operResultDesc.append("操作");
+			        sysOperLog.setOperResultDesc(operResultDesc.toString());
+			        TSysOperLogMapFactory.getInstance().getTSysOperLog().put(sysOperLog.getUuid(), sysOperLog);
+			        
+			        
+			        countLonin(application,httpSession);
+			        if(StringUtils.isNotBlank(transmiturl)) {
+			        	 request.getRequestDispatcher(transmiturl).forward(request, response);
+			        	 return;
+			        }
 	            }else{
 	            	  resMap = new HashMap<String,String>();
 		          resMap.put("msg", returnValue);
