@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import priv.guochun.psmc.authentication.login.model.User;
+import priv.guochun.psmc.system.util.IpUtil;
 
 public class LoginFilter implements Filter
 {
@@ -76,6 +77,7 @@ public class LoginFilter implements Filter
         logger.debug("request.getRemoteHost() {}",remoteHost);
         logger.debug("getRemotePort() {}",remotePort);
         logger.debug("request.getRemoteAddr() {}",remoteAddr);
+        logger.debug("IpUtil.getIpAddr() {}",IpUtil.getIpAddr(httpServletRequest));
         logger.debug("requestedSessionId: {}",sessionid);
         logger.debug("getRequestURL----------: {}",requestURL);
         logger.debug("requestUrl----------: {}",requestUrl);

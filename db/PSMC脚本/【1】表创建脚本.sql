@@ -131,7 +131,7 @@ create table tab_page_view
         uuid varchar(64) not null comment '主键UUID(对应信息ID)',
         nums int comment '浏览量',
         constraint tab_page_view primary key (uuid)
-) comment '浏览量记录表'
+) comment '浏览量记录表';
 
 --活动管理信息表
 drop table tab_activity_manage;
