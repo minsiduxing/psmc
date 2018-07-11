@@ -333,3 +333,116 @@ insert into tab_data_dict (DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,id,DICT_N
 insert into tab_data_dict (DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,id,DICT_NO) values ('1','创新技术、应用新技术成果','体现形式','4','1','9','ACHIEVEMENT_FORM');
 insert into tab_data_dict (DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,id,DICT_NO) values ('2','创新工艺、提出新的操作法','体现形式','4','2','10','ACHIEVEMENT_FORM');
 insert into tab_data_dict (DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,id,DICT_NO) values ('3','研发新工具、改造老设备','体现形式','4','3','11','ACHIEVEMENT_FORM');
+
+
+------------------------------------------------------------------------------------------------
+--创建部门信息表
+drop table tab_dept;
+create table tab_dept(
+        dept_uuid varchar(32) not null comment '部门uuid',
+        dept_name varchar(100) not null comment '部门名称',
+        dept_introduction varchar(1000) comment '部门简介',
+        dept_regulation text COLLATE utf8mb4_general_ci comment '规范管理办法',
+        elegant_demeanour text COLLATE utf8mb4_general_ci comment '风采展示',
+        dept_type integer comment '部门类型（1创新工作室，2问题协会）',  
+        create_person varchar(100) comment '创建人',
+        create_date timestamp  comment '创建时间',
+        last_modify_time timestamp comment '最后修改时间',
+        last_modify_person varchar(100) comment '最后修改人',
+        image_path VARCHAR(200) COMMENT '部门信息配图',
+        constraint tab_dept primary key (dept_uuid)
+) comment '部门信息表';
+
+--添加部门字段关联
+alter table tab_activity_manage add dept_uuid varchar(32) comment '部门ID';
+alter table tab_excellent_innovation add dept_uuid varchar(32) comment '部门ID';
+--删除字段
+alter table tab_excellent_innovation drop column dept_name;
+
+--删除要废弃的数据
+delete from tab_role_resource where resource_id='48711882b7e04641a5d8f4994a97ef5f';
+delete from tab_role_resource where resource_id='0b62d21d1ecd471f958d96b43471dcca';
+delete from tab_role_operate where operate_uuid in(select uuid from tab_operate where resource_uuid='48711882b7e04641a5d8f4994a97ef5f');
+delete from tab_role_operate where operate_uuid in(select uuid from tab_operate where resource_uuid='0b62d21d1ecd471f958d96b43471dcca');
+delete from tab_operate where resource_uuid='48711882b7e04641a5d8f4994a97ef5f';
+delete from tab_operate where resource_uuid='0b62d21d1ecd471f958d96b43471dcca';
+delete from tab_resource where uuid='48711882b7e04641a5d8f4994a97ef5f';
+delete from tab_resource where uuid='0b62d21d1ecd471f958d96b43471dcca';
+
+---初始化数据
+delete from tab_role_resource where resource_id='bf5cdda0af224da2a2ed33360364b967';
+delete from tab_role_resource where resource_id='7c0f15982df64a8081507bfb1cfce5aa';
+delete from tab_role_operate where operate_uuid in(select uuid from tab_operate where resource_uuid='bf5cdda0af224da2a2ed33360364b967');
+delete from tab_role_operate where operate_uuid in(select uuid from tab_operate where resource_uuid='7c0f15982df64a8081507bfb1cfce5aa');
+delete from tab_operate where resource_uuid='bf5cdda0af224da2a2ed33360364b967';
+delete from tab_operate where resource_uuid='7c0f15982df64a8081507bfb1cfce5aa';
+delete from tab_resource where uuid='bf5cdda0af224da2a2ed33360364b967';
+delete from tab_resource where uuid='7c0f15982df64a8081507bfb1cfce5aa';
+
+insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('bf5cdda0af224da2a2ed33360364b967','创新工作室',3,'/website/backstage/TabDeptController.do?method=toDeptList&deptType=1','42a1745009b849c38743a08922da0c4f','admin',str_to_date('2018-07-09','%Y-%m-%d %T'),'创新工作室管理菜单',1,1);
+insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
+('7c0f15982df64a8081507bfb1cfce5aa','文体协会',3,'/website/backstage/TabDeptController.do?method=toDeptList&deptType=2','8e059c578c204fbbb29086aa72ec88f9','admin',str_to_date('2018-07-09','%Y-%m-%d %T'),'文体协会管理菜单',1,1);
+
+insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', 'bf5cdda0af224da2a2ed33360364b967');
+insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '7c0f15982df64a8081507bfb1cfce5aa');
+
+--创新工作室操作编码
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('0efc306c941046e5929e3b1f90ea8bc7','bf5cdda0af224da2a2ed33360364b967','756d6e80c9d74b4389c918ab50ee19c3',
+'priv.guochun.psmc.website.backstage.dept.service.TabDeptService','findDeptListBusinessMethod','查询','查询',1,'WORK_ROOM_LIST');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('29e8967129b94140a851471e25294a28','bf5cdda0af224da2a2ed33360364b967','dec3b327b8a54d66bd644c544ea65c5e',
+'priv.guochun.psmc.website.backstage.dept.service.TabDeptService','deleteDeptBusinessMethod','删除','删除',1,'WORK_ROOM_DEL');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('2096dcba8bef465eab0d9be51cf3b207','bf5cdda0af224da2a2ed33360364b967','022a43088dcd46d4b201b43b32d3d85a',
+'priv.guochun.psmc.website.backstage.dept.service.TabDeptService','auditDeptBusinessMethod','审核','审核',1,'WORK_ROOM_AUDIT');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('dc639064ff504f3aaa702bf19c7aee95','bf5cdda0af224da2a2ed33360364b967','022a43088dcd46d4b201b43b32d3d85a',
+'priv.guochun.psmc.website.backstage.dept.service.TabDeptService','releaseDeptBusinessMethod','发布','发布',1,'WORK_ROOM_RELEASE');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('441dd4fdbb7f431e853c3148bdedc502','bf5cdda0af224da2a2ed33360364b967','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.dept.service.TabDeptService','saveOrUpdateDeptBusinessMethod','编辑','编辑',1,'WORK_ROOM_EDIT');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('4861f5bc9c044faa8043995841111508','bf5cdda0af224da2a2ed33360364b967','022a43088dcd46d4b201b43b32d3d85a',
+'priv.guochun.psmc.website.backstage.dept.service.TabDeptService','queryDeptByUuidBusinessMethod','查看','查看',1,'WORK_ROOM_PREVIEW');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('487db4feec264ba188ea566f57d85ac7','bf5cdda0af224da2a2ed33360364b967','607e8bc6f9bb4afa9be3cfdc72a1a326',
+'priv.guochun.psmc.website.backstage.dept.service.TabDeptService','saveOrUpdateDeptBusinessMethod','添加','添加',1,'WORK_ROOM_ADD');
+--文体协会操作编码
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('16241ad65a4349ceb80a2a8ad5ad0608','7c0f15982df64a8081507bfb1cfce5aa','756d6e80c9d74b4389c918ab50ee19c3',
+'priv.guochun.psmc.website.backstage.dept.service.TabDeptService','findDeptListBusinessMethod','查询','查询',1,'ASSOCIATION_LIST');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('0df343c47b364949a52869f928a55ec8','7c0f15982df64a8081507bfb1cfce5aa','dec3b327b8a54d66bd644c544ea65c5e',
+'priv.guochun.psmc.website.backstage.dept.service.TabDeptService','deleteDeptBusinessMethod','删除','删除',1,'ASSOCIATION_DEL');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('0fe442adbd69476f9b8889a769102cec','7c0f15982df64a8081507bfb1cfce5aa','022a43088dcd46d4b201b43b32d3d85a',
+'priv.guochun.psmc.website.backstage.dept.service.TabDeptService','auditDeptBusinessMethod','审核','审核',1,'ASSOCIATION_AUDIT');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('a85d8a477b854bf5b1ae3d7dbe7a8c1a','7c0f15982df64a8081507bfb1cfce5aa','022a43088dcd46d4b201b43b32d3d85a',
+'priv.guochun.psmc.website.backstage.dept.service.TabDeptService','releaseDeptBusinessMethod','发布','发布',1,'ASSOCIATION_RELEASE');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('8d7dd38cfa9649288dfb396c9db4b8af','7c0f15982df64a8081507bfb1cfce5aa','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.dept.service.TabDeptService','saveOrUpdateDeptBusinessMethod','编辑','编辑',1,'ASSOCIATION_EDIT');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('35ee206a3b1e4cbba7f658a9ad220058','7c0f15982df64a8081507bfb1cfce5aa','022a43088dcd46d4b201b43b32d3d85a',
+'priv.guochun.psmc.website.backstage.dept.service.TabDeptService','queryDeptByUuidBusinessMethod','查看','查看',1,'ASSOCIATION_PREVIEW');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('0b4c1834cfda43b4aa76822b4bd8ba6e','7c0f15982df64a8081507bfb1cfce5aa','607e8bc6f9bb4afa9be3cfdc72a1a326',
+'priv.guochun.psmc.website.backstage.dept.service.TabDeptService','saveOrUpdateDeptBusinessMethod','添加','添加',1,'ASSOCIATION_ADD');
+
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '0efc306c941046e5929e3b1f90ea8bc7');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '29e8967129b94140a851471e25294a28');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '2096dcba8bef465eab0d9be51cf3b207');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', 'dc639064ff504f3aaa702bf19c7aee95');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '441dd4fdbb7f431e853c3148bdedc502');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '4861f5bc9c044faa8043995841111508');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '487db4feec264ba188ea566f57d85ac7');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '16241ad65a4349ceb80a2a8ad5ad0608');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '0df343c47b364949a52869f928a55ec8');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '0fe442adbd69476f9b8889a769102cec');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', 'a85d8a477b854bf5b1ae3d7dbe7a8c1a');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '8d7dd38cfa9649288dfb396c9db4b8af');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '35ee206a3b1e4cbba7f658a9ad220058');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '0b4c1834cfda43b4aa76822b4bd8ba6e');
