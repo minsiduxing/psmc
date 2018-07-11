@@ -34,6 +34,7 @@ import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService;
 import priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService;
 import priv.guochun.psmc.website.backstage.common.ChjghWeChatService;
+import priv.guochun.psmc.website.backstage.dept.service.TabDeptService;
 import priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService;
 import priv.guochun.psmc.website.backstage.pageView.model.TabPageView;
 import priv.guochun.psmc.website.backstage.pageView.service.TabPageViewService;
@@ -75,6 +76,8 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 
 	@Autowired
 	private ReportService reportService;
+	
+	private TabDeptService tabDeptService;
 	
 	@Override
 	public String createVcode(int type,String phone) {         
@@ -397,6 +400,39 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	public ExcellentInnovationService getExcellentInnovationService() {
 		return excellentInnovationService;
 	}
+	
+	@Override
+	public String getDeptList(String pageJson) {
+		MyPage page = JSON.parseObject(pageJson, MyPage.class) ;
+		Map<String, Object> paramMap = page.getQueryParams();
+		if(paramMap == null){
+			paramMap = new HashMap<String, Object>();
+		}
+		//审核通过已发布的信息
+		paramMap.put("audit", ModuleEnum.AUDITED_PASS.getValue());
+		paramMap.put("releaseStatus", ModuleEnum.IS_RELEASEED.getValue());
+		page.setQueryParams(paramMap); 
+		MsgModel msg = null;
+		try {
+			page = tabDeptService.queryDeptListToMobile(page);
+			msg = MsgModel.buildDefaultSuccess(page);
+		} catch (Exception e) {
+			msg = MsgModel.buildDefaultError("获取数据异常");
+		}
+		return GsonUtil.toJsonForObject(msg); 
+	}
+	
+	@Override
+	public String deptDetail(String deptUuid) {
+		MsgModel msg = null;
+		try {
+			Map<String, Object> dataMap = tabDeptService.getDeptDetailToMobile(deptUuid);
+			msg = MsgModel.buildDefaultSuccess(dataMap);
+		} catch (Exception e) {
+			msg = MsgModel.buildDefaultError("获取数据异常");
+		}
+		return GsonUtil.toJsonForObject(msg); 
+	}
 
 	public void setExcellentInnovationService(
 			ExcellentInnovationService excellentInnovationService) {
@@ -476,6 +512,14 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	 */
 	public void setTabActivityManageService(TabActivityManageService tabActivityManageService) {
 		this.tabActivityManageService = tabActivityManageService;
+	}
+
+	public TabDeptService getTabDeptService() {
+		return tabDeptService;
+	}
+
+	public void setTabDeptService(TabDeptService tabDeptService) {
+		this.tabDeptService = tabDeptService;
 	}
 	
 }

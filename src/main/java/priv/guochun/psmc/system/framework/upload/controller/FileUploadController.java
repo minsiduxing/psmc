@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -67,7 +68,8 @@ public class FileUploadController extends MyController {
 	
 	private String getImagePath(String oneLevelClassify){
 		String imagePath = "";
-		switch (oneLevelClassify) {
+		if(StringUtils.isNotBlank(oneLevelClassify)){
+			switch (oneLevelClassify) {
 			case ContantsUtil.ONE_LEVEL_CLASSIFY_11:
 				imagePath = ContantsUtil.INNOVATION;
 				break;
@@ -80,8 +82,15 @@ public class FileUploadController extends MyController {
 			case ContantsUtil.ONE_LEVEL_CLASSIFY_14:
 				imagePath = ContantsUtil.LOGISTICS_CENTER;
 				break;
-		default:
-			break;
+			case ContantsUtil.DEPT_TYPE_1:
+				imagePath = ContantsUtil.DEPT_INNOVATION;
+				break;
+			case ContantsUtil.DEPT_TYPE_2:
+				imagePath = ContantsUtil.DEPT_LITERARY_FORM;
+				break;
+			default:
+				break;
+			}
 		}
 		return imagePath;
 	}

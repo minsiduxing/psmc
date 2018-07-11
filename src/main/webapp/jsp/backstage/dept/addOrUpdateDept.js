@@ -1,14 +1,60 @@
+
+
+/**
+ * 页面初始化
+ */
+
 $(function(){
 	//富文本编辑器初始化
-	wangEditorInit($("#isEdit").val());
+	wangEditorInit(isEdit);
+	//表单初始化
+	formInint(isEdit);
+	/*//图片初始化
+	newsPicInit(isEdit);*/
 });
 var editor;
+function sbmit (e){
+	event.preventDefault();
+	var result = $('#editForm').form("validate");
+	$("#hiddencontent").val(editor.txt.html());
+	if(editor.txt.text()=="" || editor.txt.text()==null){
+		commonObj.alert ("风采展示不能为空!","warning");
+		return;
+	}
+	var formdata = $("#editForm").serialize();
+	var _addUrl = addUrl;
+	if(Boolean(result)){
+		$.messager.progress(); 
+		$.ajax({
+			   type: "POST",
+			   url: _addUrl,
+			   data:formdata,
+			   success: function(data){
+				   successCallback(data);
+			   },
+			   error:function(XMLHttpRequest, textStatus, errorThrown){
+				   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+				   $.messager.progress("close");
+			   }
+			});
+		return true;
+	}else{
+		return false;
+	}
+}
+//表单提交成功后的回调方法
+function successCallback(data){
+	$.messager.progress("close");
+	$("#accountTableId").datagrid('reload');
+	commonObj.showResponse(data);
+}
+
 /**
  * 富文本编辑器初始化-----------------------------------
  */
 function  wangEditorInit(isEdit){
     	  var E = window.wangEditor
-          editor = new E('#editor-toolbar','#newsContent');
+           editor = new E('#editor-toolbar','#newsContent');
           editor.customConfig.uploadImgServer = imageuploadsrc;  // 上传图片到服务器
           editor.customConfig.uploadImgHooks = {
         		    // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
@@ -27,10 +73,10 @@ function  wangEditorInit(isEdit){
         		}
           editor.create();  
           if (isEdit=="edit") {
-        	  editor.txt.html(newsContent) ;
+        	  editor.txt.html(newscontent) ;
           }
           if(isEdit=="query"){
-        	  editor.txt.html(newsContent) ;
+        	  editor.txt.html(newscontent) ;
         	  editor.$textElem.attr('contenteditable', false);
           }
           // 获取使用到的元素
@@ -58,8 +104,8 @@ function  wangEditorInit(isEdit){
               container.appendChild(toolbarContaner);
               container.appendChild(editorText);
               editorText.style.height = '100%';
-              editorText.style.width = '88.5%';
-              toolbarContaner.style.width = '88.5%';
+              editorText.style.width = '80%';
+              toolbarContaner.style.width = '80%';
               $("#cover").removeClass("cover");
               $('#btn1').text("全屏");
           }
@@ -80,45 +126,7 @@ function  wangEditorInit(isEdit){
           }, false);*/
     }
 //富文本编辑器结束-----------------------------
-/**
- * 提交
- * @returns
- */
-function save(e){
-	event.preventDefault();
-	$("#hiddencontent").val(editor.txt.html());
-	var result = $('#innovationForm').form("validate");
-	if(!Boolean(result)){
-		$.messager.alert('警告','请填写必填项！','warning');
-		return;
-	}
-	if(editor.txt.text()=="" || editor.txt.text()==null){
-		commonObj.alert ("成果内容不能为空!","warning");
-		return;
-	}
-	var innovationdata = $("#innovationForm").serialize();
-	var url = addUrl;
-	$.messager.progress(); 
-	$.ajax({
-		   type: "POST",
-		   url: url,
-		   data:innovationdata,
-		   success: function(data){
-			   $.messager.progress("close");
-				commonObj.showResponse(data);
-		   },
-		   error:function(XMLHttpRequest, textStatus, errorThrown){
-			   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
-			   $.messager.progress("close");
-		   }
-	});
-	
-}
-
-/**
- * 返回列表
- * @returns
- */
 function retList(){
 	window.location.href=retrunUrl;
 }
+//表单数据初始化结束--------------------------------------

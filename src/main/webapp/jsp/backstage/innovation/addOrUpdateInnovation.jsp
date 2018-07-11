@@ -68,7 +68,7 @@
 			</tr>
 			<tr>
 				<td class="tds">所属单位部门：</td>
-				<td width="30%"><input id="deptName" name="deptName" value="${info.dept_name}" style="width:70%;"/></td>
+				<td width="30%"><input id="deptUuid" name="deptUuid" value="" style="width:70%;"/></td>
 				<td class="tds">专业及特长：</td>
 				<td width="30%"><input id="major" name="major" value="${info.major}" style="width:70%;"/></td>
 			</tr>
@@ -104,8 +104,22 @@
 			
 			<tr>
 				<td class="tds">成果内容：</td>
-				<td width="30%" colspan="3">
-					<textarea style="width:88.5%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="achievementContent" name="achievementContent">${info.achievement_content}</textarea>
+				<td width="100%" colspan="3">
+					<!--非全屏模式-->
+				    <div id="container">
+				        <!--菜单栏-->
+				        <div id="toolbar-container" style="width:88.4%;">
+				            <div id="editor-toolbar"></div>
+				            <div id="btn-container">
+				               <!--  <button id="btn1">全屏</button> -->
+				            </div>
+				        </div>
+				        <input id="hiddencontent" type="hidden" name="achievementContent"/>
+				        <div id="newsContent" class="newsContent" style="width:88.4%;"> 
+				      
+				       </div>
+	                </div>
+					<%-- <textarea style="width:88.5%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="achievementContent" name="achievementContent">${info.achievement_content}</textarea> --%>
 				</td>
 			</tr>	
 			<tr>
@@ -146,11 +160,15 @@ var basePath = $("#basePath").val();
 var infoDo = basePath+"/website/backstage/ExcellentInnovationController.do";
 var addUrl = '<c:url value="/website/backstage/ExcellentInnovationController.do"/>?method=saveOrUpdate';
 var retrunUrl =  '<c:url value="/website/backstage/ExcellentInnovationController.do"/>?method=innovationList';
-
+//图片上路经
+var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUpload&oneLevelClassify='+$("#oneLevelClassify").val();
+//获取图片路径
+var getImag='<c:url value="/system/freamwork/fileUploadController.do"/>?method=getImage&filePath=';
+var newsContent = '${info.achievement_content}';
 commonObj.initDictCombobox("sex","SEX","<c:out value="${info.sex}"/>",true,false);
 commonObj.initDictCombobox("occupation","ACCUPATION","<c:out value="${info.occupation}"/>",true,false);
 commonObj.initDictCombobox("achievementForm","ACHIEVEMENT_FORM","<c:out value="${info.achievement_form}"/>",true,false);
-
+commonObj.initDeptCombobox("deptUuid","1","<c:out value="${info.dept_uuid}"/>",true);
 //如果是查看，不能编辑表单，隐藏按钮
 if($("#isEdit").val() == 'query'){
 	$("#submitbtn").hide();

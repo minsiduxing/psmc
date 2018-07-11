@@ -10,6 +10,7 @@
     <result column="create_person" jdbcType="VARCHAR" property="createPerson" />
     <result column="sign_up_end_date" jdbcType="TIMESTAMP" property="signUpEndDate" />
     <result column="activity_content" jdbcType="LONGVARCHAR" property="activityContent" />
+    <result column="dept_uuid" jdbcType="VARCHAR" property="deptUuid" />
   </resultMap>
   
   
@@ -23,7 +24,8 @@
 		    t3.person_name AS auditAccName,
 		    t4.person_name AS releaseAccName,
 		    t5.publish_expire_date,
-		    (CASE WHEN t6.nums = null then 0 else t6.nums end) as signUpNums
+		    (CASE WHEN t6.nums = null then 0 else t6.nums end) as signUpNums,
+		    t7.dept_name
 		FROM
 		    tab_activity_manage t1
 		INNER JOIN
@@ -53,7 +55,11 @@
 	            activity_uuid 
 	    )t6
 		ON
-    		t1.activity_uuid = t6.activity_uuid    
+    		t1.activity_uuid = t6.activity_uuid
+    	LEFT JOIN
+    		tab_dept t7
+    	ON
+    		t1.dept_uuid = t7.dept_uuid   
     <where>
 	   	1 = 1
 	    <if test="activityUuid != null and activityUuid != ''">
@@ -113,6 +119,9 @@
 		  <if test="publishExpireDateEnd!=null and publishExpireDateEnd!=''" >  
 	        and <![CDATA[t5.publish_expire_date<=#{publishExpireDateEnd} ]]>  
 		  </if>  
+		  <if test="deptUuid != null and deptUuid != ''">  
+	      	and  t1.dept_uuid =#{deptUuid}
+		  </if>
 		  <if test="queryParameter != null and queryParameter != ''" >  
 	       and (t1.activity_name LIKE concat(concat('%',#{queryParameter}),'%')
 	       		or t1.activity_content LIKE concat(concat('%',#{queryParameter}),'%')
@@ -128,7 +137,8 @@
     	t1.* , 
     	t2.release_date,
     	t3.person_name AS releasePerson,
-    	t4.signUpNums
+    	t4.signUpNums,
+    	t5.dept_name
     from 
     	tab_activity_manage t1
     INNER JOIN
@@ -149,7 +159,12 @@
         GROUP BY
             activity_uuid 
      )t4
-	ON t1.activity_uuid = t4.activity_uuid
+	ON 
+		t1.activity_uuid = t4.activity_uuid
+	LEFT JOIN
+   		tab_dept t5
+   	ON
+   		t1.dept_uuid = t5.dept_uuid 
     where t1.activity_uuid = #{activityUuid,jdbcType=VARCHAR}
   </select>
   
@@ -192,6 +207,9 @@
       <if test="imagePath != null">
         image_path,
       </if>
+      <if test="deptUuid != null">
+        dept_uuid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="activityUuid != null">
@@ -220,6 +238,9 @@
       </if>
       <if test="imagePath != null">
         #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="deptUuid != null">
+        #{deptUuid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -251,6 +272,9 @@
       </if>
       <if test="imagePath != null">
         image_path = #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="deptUuid != null">
+        dept_uuid = #{deptUuid,jdbcType=VARCHAR},
       </if>
     </set>
     where activity_uuid = #{activityUuid,jdbcType=VARCHAR}

@@ -43,6 +43,9 @@
 				
 			</tr>
 			<tr>
+				<td class="tds">所属协会：</td>
+				<td width="30%"><input id="deptUuid" name="deptUuid" value="" style="width:70%;"/></td>
+			<tr>
 				<td class="tds">活动内容：</td>
 				<td width="30%" colspan="3">
 					<textarea style="width:88.5%; border-radius:5px; border: 1px solid #ccc;" rows="10" cols="" id="activityContent" name="activityContent">${info.activity_content}</textarea>
@@ -70,7 +73,7 @@ var basePath = $("#basePath").val();
 var infoDo = basePath+"/website/backstage/TabActivityManageController.do";
 var addUrl = '<c:url value="/website/backstage/TabActivityManageController.do"/>?method=addOrUpdate';
 var retrunUrl =  '<c:url value="/website/backstage/TabActivityManageController.do"/>?method=activityList';
-
+commonObj.initDeptCombobox("deptUuid","2","<c:out value="${info.dept_uuid}"/>",true);
 if($("#isEdit").val() == 'query'){
 	$("#submitbtn").hide();
 	$("#reset").hide();

@@ -174,5 +174,26 @@ public class OperateContantsUtil {
     public final static String INFO_HELP_DELETE = "INFO_HELP_DELETE";
     public final static String INFO_HELP_LIST = "INFO_HELP_LIST";
     
+    /**
+     * 创新工作室操作编码
+     */
+    public final static String WORK_ROOM_ADD = "WORK_ROOM_ADD";
+    public final static String WORK_ROOM_AUDIT = "WORK_ROOM_AUDIT";
+    public final static String WORK_ROOM_DEL = "WORK_ROOM_DEL";
+    public final static String WORK_ROOM_EDIT = "WORK_ROOM_EDIT";
+    public final static String WORK_ROOM_LIST = "WORK_ROOM_LIST";
+    public final static String WORK_ROOM_RELEASE = "WORK_ROOM_RELEASE";
+    public final static String WORK_ROOM_PREVIEW = "WORK_ROOM_PREVIEW";
+    
+    /**
+     * 文体协会操作编码
+     */
+    public final static String ASSOCIATION_ADD = "ASSOCIATION_ADD";
+    public final static String ASSOCIATION_AUDIT = "ASSOCIATION_AUDIT";
+    public final static String ASSOCIATION_DEL = "ASSOCIATION_DEL";
+    public final static String ASSOCIATION_EDIT = "ASSOCIATION_EDIT";
+    public final static String ASSOCIATION_LIST = "ASSOCIATION_LIST";
+    public final static String ASSOCIATION_RELEASE = "ASSOCIATION_RELEASE";
+    public final static String ASSOCIATION_PREVIEW = "ASSOCIATION_PREVIEW";
     
 }

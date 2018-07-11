@@ -18,7 +18,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 		    tm.release_date,
 		    tm.one_level_classify,
 		    tm.release_status,
-		    tmpl.publish_expire_date
+		    tmpl.publish_expire_date,
+		    td.dept_uuid,
+		    td.dept_name
 		FROM
 		    tab_excellent_innovation ti
 		INNER JOIN
@@ -45,6 +47,10 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 		    tab_module_publish tmpl
 		ON
 		    tmpl.module_uuid = tm.uuid
+		LEFT JOIN
+			tab_dept td
+		ON  
+			ti.dept_uuid = td.dept_uuid
     <where>
     	1=1
     <if test="innovationUuid != null and innovationUuid != ''">
@@ -60,7 +66,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
         and ti.first_complete_person LIKE concat(concat('%',#{firstCompletePerson}),'%')
       </if>
       <if test="deptName != null and deptName != ''">
-        and ti.dept_name LIKE concat(concat('%',#{deptName}),'%')
+        and td.dept_name LIKE concat(concat('%',#{deptName}),'%')
       </if>
       <if test="otherCompletePerson != null and otherCompletePerson != ''">
         and ti.other_complete_person LIKE concat(concat('%',#{otherCompletePerson}),'%')
@@ -97,14 +103,17 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	  </if>  
 	  <if test="publishExpireDateEnd!=null and publishExpireDateEnd!=''" >  
         and <![CDATA[tmpl.publish_expire_date<=#{publishExpireDateEnd} ]]>  
-	  </if>  
+	  </if> 
+	  <if test="deptUuid != null and deptUuid != ''">  
+      	and  ti.dept_uuid =#{deptUuid}
+	  </if> 
 	  <if test="queryParameter != null and queryParameter != ''" >  
        and (ti.first_complete_person LIKE concat(concat('%',#{queryParameter}),'%')
        		or ti.achievement_name LIKE concat(concat('%',#{queryParameter}),'%')
        		or ti.achievement_content LIKE concat(concat('%',#{queryParameter}),'%')
        		or ti.declare_person LIKE concat(concat('%',#{queryParameter}),'%')
        		or ti.org_name LIKE concat(concat('%',#{queryParameter}),'%')
-       		or ti.dept_name LIKE concat(concat('%',#{queryParameter}),'%')
+       		or td.dept_name LIKE concat(concat('%',#{queryParameter}),'%')
        		or ti.other_complete_person LIKE concat(concat('%',#{queryParameter}),'%')
        	   )
 	  </if>  
@@ -117,7 +126,8 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
     select 
 	    t1.*,
 	    t2.release_date,
-		t3.person_name AS releasePerson
+		t3.person_name AS releasePerson,
+		t4.dept_name
     from 
     	tab_excellent_innovation t1
     INNER JOIN
@@ -128,6 +138,10 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	    tab_person t3
 	ON
 	    t2.release_acc_uuid = t3.uuid
+	LEFT JOIN
+		tab_dept t4
+	ON 
+		t1.dept_uuid = t4.dept_uuid
     where t1.innovation_uuid = #{innovationUuid,jdbcType=VARCHAR}
   </select>
   
@@ -145,19 +159,19 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
     insert into tab_excellent_innovation (innovation_uuid, org_name, declare_person, 
       declare_phone, declare_email, first_complete_person, 
       sex, education, job, 
-      dept_name, major, occupation, 
+      major, occupation, 
       other_complete_person, achievement_name, achievement_form, 
       realized_value, application_generalize, innovation_date, 
       recommend_remark, recommend_date, audit_remark, 
-      audit_date, achievement_content, image_path)
+      audit_date, achievement_content, image_path, dept_uuid)
     values (#{innovationUuid,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, #{declarePerson,jdbcType=VARCHAR}, 
       #{declarePhone,jdbcType=VARCHAR}, #{declareEmail,jdbcType=VARCHAR}, #{firstCompletePerson,jdbcType=VARCHAR}, 
       #{sex,jdbcType=INTEGER}, #{education,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, 
-      #{deptName,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{occupation,jdbcType=INTEGER}, 
+      #{major,jdbcType=VARCHAR}, #{occupation,jdbcType=INTEGER}, 
       #{otherCompletePerson,jdbcType=VARCHAR}, #{achievementName,jdbcType=VARCHAR}, #{achievementForm,jdbcType=INTEGER}, 
       #{realizedValue,jdbcType=VARCHAR}, #{applicationGeneralize,jdbcType=VARCHAR}, #{innovationDate,jdbcType=DATE}, 
       #{recommendRemark,jdbcType=VARCHAR}, #{recommendDate,jdbcType=DATE}, #{auditRemark,jdbcType=VARCHAR}, 
-      #{auditDate,jdbcType=DATE}, #{achievementContent,jdbcType=LONGVARCHAR}, #{imagePath,jdbcType=VARCHAR})
+      #{auditDate,jdbcType=DATE}, #{achievementContent,jdbcType=LONGVARCHAR}, #{imagePath,jdbcType=VARCHAR}, #{deptUuid,jdbcType=VARCHAR})
   </insert>
   
   <insert id="insertInnovationSelective" parameterType="priv.guochun.psmc.website.backstage.excellentInnovation.model.TabExcellentInnovation">
@@ -189,9 +203,6 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       </if>
       <if test="job != null">
         job,
-      </if>
-      <if test="deptName != null">
-        dept_name,
       </if>
       <if test="major != null">
         major,
@@ -234,6 +245,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       </if>
       <if test="imagePath != null">
       	image_path,
+      </if>
+      <if test="deptUuid != null">
+      	dept_uuid,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -309,6 +323,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       <if test="imagePath != null">
         #{imagePath,jdbcType=VARCHAR},
       </if>
+      <if test="deptUuid != null">
+        #{deptUuid,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   
@@ -339,9 +356,6 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       </if>
       <if test="job != null">
         job = #{job,jdbcType=VARCHAR},
-      </if>
-      <if test="deptName != null">
-        dept_name = #{deptName,jdbcType=VARCHAR},
       </if>
       <if test="major != null">
         major = #{major,jdbcType=VARCHAR},
@@ -384,6 +398,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       </if>
       <if test="imagePath != null">
         image_path = #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="deptUuid != null">
+        dept_uuid = #{deptUuid,jdbcType=VARCHAR},
       </if>
     </set>
     where innovation_uuid = #{innovationUuid,jdbcType=VARCHAR}

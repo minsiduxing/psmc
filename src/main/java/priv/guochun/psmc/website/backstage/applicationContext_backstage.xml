@@ -84,6 +84,8 @@
 	<bean id="tabActivityManageService" class="priv.guochun.psmc.website.backstage.activity.service.impl.TabActivityManageServiceImpl"/>
 	
 	<bean id="chjghWeChatService" class="priv.guochun.psmc.website.backstage.common.impl.ChjghWeChatServiceImpl" />
+	<!-- 部门信息service注入 -->
+	<bean id="tabDeptService" class="priv.guochun.psmc.website.backstage.dept.service.impl.TabDeptServiceImpl" />
 	
 	 <jaxrs:server id="chjghWeChatCxfService" address="/chjgh" >
                 <jaxrs:serviceBeans>

@@ -52,11 +52,6 @@ public class TabExcellentInnovation implements Serializable {
     private String job;
 
     /**
-     *部门名称
-     */
-    private String deptName;
-
-    /**
      *专业特长
      */
     private String major;
@@ -125,6 +120,11 @@ public class TabExcellentInnovation implements Serializable {
      * 创新成果配图（移动端展示用）
      */
     private String imagePath;
+    
+    /**
+     * 部门id
+     */
+    private String deptUuid;
 
    
     public String getInnovationUuid() {
@@ -197,14 +197,6 @@ public class TabExcellentInnovation implements Serializable {
 
     public void setJob(String job) {
         this.job = job == null ? null : job.trim();
-    }
-
-    public String getDeptName() {
-        return deptName;
-    }
-
-    public void setDeptName(String deptName) {
-        this.deptName = deptName == null ? null : deptName.trim();
     }
 
     public String getMajor() {
@@ -318,6 +310,14 @@ public class TabExcellentInnovation implements Serializable {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
+	
+	public String getDeptUuid() {
+		return deptUuid;
+	}
+
+	public void setDeptUuid(String deptUuid) {
+		this.deptUuid = deptUuid;
+	}
 
 	public TabExcellentInnovation() {
 		super();
@@ -325,10 +325,10 @@ public class TabExcellentInnovation implements Serializable {
     
     
     public TabExcellentInnovation(String innovationUuid, String orgName, String declarePerson, String declarePhone,
-			String declareEmail, String firstCompletePerson, Integer sex, String education, String job, String deptName,
+			String declareEmail, String firstCompletePerson, Integer sex, String education, String job, 
 			String major, Integer occupation, String otherCompletePerson, String achievementName,Integer achievementForm, 
 			String realizedValue, String applicationGeneralize, Timestamp innovationDate,String recommendRemark, 
-			Timestamp recommendDate, String auditRemark, Timestamp auditDate, String achievementContent, String imagePath) {
+			Timestamp recommendDate, String auditRemark, Timestamp auditDate, String achievementContent, String imagePath,String deptUuid) {
 		super();
 		this.innovationUuid = innovationUuid;
 		this.orgName = orgName;
@@ -339,7 +339,6 @@ public class TabExcellentInnovation implements Serializable {
 		this.sex = sex;
 		this.education = education;
 		this.job = job;
-		this.deptName = deptName;
 		this.major = major;
 		this.occupation = occupation;
 		this.otherCompletePerson = otherCompletePerson;
@@ -354,6 +353,7 @@ public class TabExcellentInnovation implements Serializable {
 		this.auditDate = auditDate;
 		this.achievementContent = achievementContent;
 		this.imagePath = imagePath;
+		this.deptUuid = deptUuid;
 	}
 
 	/* (non-Javadoc)
@@ -364,12 +364,13 @@ public class TabExcellentInnovation implements Serializable {
 		return "TabExcellentInnovation [innovationUuid=" + innovationUuid + ", orgName=" + orgName + ", declarePerson="
 				+ declarePerson + ", declarePhone=" + declarePhone + ", declareEmail=" + declareEmail
 				+ ", firstCompletePerson=" + firstCompletePerson + ", sex=" + sex + ", education=" + education
-				+ ", job=" + job + ", deptName=" + deptName + ", major=" + major + ", occupation=" + occupation
+				+ ", job=" + job + ", major=" + major + ", occupation=" + occupation
 				+ ", otherCompletePerson=" + otherCompletePerson + ", achievementName=" + achievementName
 				+ ", achievementForm=" + achievementForm + ", realizedValue=" + realizedValue
 				+ ", applicationGeneralize=" + applicationGeneralize + ", innovationDate=" + innovationDate
 				+ ", recommendRemark=" + recommendRemark + ", recommendDate=" + recommendDate + ", auditRemark="
-				+ auditRemark + ", auditDate=" + auditDate + ", achievementContent=" + achievementContent + ", imagePath=" + imagePath + "]";
+				+ auditRemark + ", auditDate=" + auditDate + ", achievementContent=" + achievementContent 
+				+ ", imagePath=" + imagePath + ", deptUuid=" + deptUuid + "]";
 	}
-	
+
 }

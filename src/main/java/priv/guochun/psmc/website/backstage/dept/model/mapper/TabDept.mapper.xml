@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.guochun.psmc.website.backstage.dept.model.mapper.TabDeptMapper">
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.dept.model.TabDept">
+    <id column="dept_uuid" jdbcType="VARCHAR" property="deptUuid" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="dept_introduction" jdbcType="VARCHAR" property="deptIntroduction" />
+    <result column="dept_regulation" jdbcType="VARCHAR" property="deptRegulation" />
+    <result column="elegant_demeanour" jdbcType="VARCHAR" property="elegantDemeanour" />
+    <result column="dept_type" jdbcType="INTEGER" property="deptType" />
+    <result column="create_person" jdbcType="VARCHAR" property="createPerson" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="last_modify_person" jdbcType="VARCHAR" property="lastModifyPerson" />
+    <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime" />
+    <result column="image_path" jdbcType="VARCHAR" property="imagePath" />
+  </resultMap>
+ 
+  
+  <select id="selectDeptList" parameterType="hashmap" resultType="java.util.Map">
+	    select
+	    	t1.*,
+	    	t3.person_name AS createPersonName,
+	    	t4.person_name AS lastModifyPersonName,
+	    	t2.audit,
+		    t2.audit_date,
+		    t2.release_date,
+		    t2.release_status,
+		    t5.PERSON_NAME AS auditAccName,
+		    t6.PERSON_NAME AS releaseAccName
+	    from 
+	    	tab_dept t1
+	    INNER JOIN
+		    tab_module t2
+		ON
+			t1.dept_uuid = t2.uuid
+	    LEFT JOIN
+			tab_person t3
+		ON 
+			t1.create_person = t3.uuid
+		LEFT JOIN
+			tab_person t4
+		ON 
+			t1.last_modify_person = t4.uuid
+		LEFT JOIN
+			tab_person t5
+		ON 
+			t2.audit_acc_uuid = t5.uuid
+		LEFT JOIN
+			tab_person t6
+		ON 
+			t2.release_acc_uuid = t6.uuid
+		<where>
+		   	1 = 1
+		    <if test="deptName != null and deptName != ''">
+		       and t1.dept_name like concat(concat('%',#{deptName}),'%')
+		    </if>
+		    <if test="deptIntroduction != null and deptIntroduction != '' ">
+		    	and t1.dept_introduction like concat(concat('%',#{deptIntroduction}),'%')
+		    </if>
+		    <if test="deptRegulation != null and deptRegulation != '' ">
+		    	and t1.dept_regulation like concat(concat('%',#{deptRegulation}),'%')
+		    </if>
+		    <if test="createPerson != null and createPerson != '' ">
+		    	and t3.person_name like concat(concat('%',#{createPerson}),'%')
+		    </if>
+		    <if test="lastModifyPersonName != null and lastModifyPersonName != '' ">
+		    	and t4.person_name like concat(concat('%',#{lastModifyPersonName}),'%')
+		    </if>
+		    <if test="createBeginDate != null and createBeginDate != '' ">
+		    	and <![CDATA[t1.create_date>=#{createBeginDate})]]>
+		    </if>
+		    <if test="createEndDate != null and createEndDate != '' ">
+		    	and <![CDATA[t1.create_date<=#{createEndDate})]]>
+		    </if>
+		    <if test="lastModifyTimeBegin != null and lastModifyTimeBegin != '' ">
+		    	and <![CDATA[t1.last_modify_time>=#{lastModifyTimeBegin})]]>
+		    </if>
+		    <if test="lastModifyTimeEnd != null and lastModifyTimeEnd != '' ">
+		    	and <![CDATA[t1.last_modify_time<=#{lastModifyTimeEnd})]]>
+		    </if>
+		    <if test="deptUuid != null and deptUuid != ''">
+		    	and t1.dept_uuid = #{deptUuid}
+		    </if>
+		    <if test="deptType != null and deptType != ''">
+		    	and t1.dept_type = #{deptType}
+		    </if>
+	    </where>
+	    order by t1.create_date desc
+  </select>
+  
+  
+  <select id="selectDeptByPrimaryKey" parameterType="hashmap" resultType="java.util.Map">
+    	select 
+    		t1.*,
+	    	t2.person_name AS create_person_name 
+	    from 
+	    	tab_dept t1
+	    LEFT JOIN
+			tab_person t2
+		ON t1.create_person = t2.uuid
+    	where dept_uuid = #{deptUuid,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectDeptByDeptType" parameterType="hashmap" resultType="java.util.Map">
+    	select 
+    		dept_uuid AS ID,
+	    	dept_name AS NAME
+	    from 
+	    	tab_dept 
+    	where dept_type = #{deptType,jdbcType=INTEGER}
+  </select>
+  
+  
+  <delete id="deleteDeptByPrimaryKey" parameterType="hashmap">
+    delete from tab_dept
+    where dept_uuid in 
+    <foreach item="item" index="index" collection="deptUuids" open="(" separator="," close=")">  
+		#{item}  
+	</foreach> 
+  </delete>
+  
+  
+  <insert id="insertDept" parameterType="priv.guochun.psmc.website.backstage.dept.model.TabDept">
+    insert into tab_dept
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deptUuid != null">
+        dept_uuid,
+      </if>
+      <if test="deptName != null">
+        dept_name,
+      </if>
+      <if test="deptIntroduction != null">
+        dept_introduction,
+      </if>
+      <if test="deptRegulation != null">
+        dept_regulation,
+      </if>
+      <if test="elegantDemeanour != null">
+        elegant_demeanour,
+      </if>
+      <if test="deptType != null">
+        dept_type,
+      </if>
+      <if test="createPerson != null">
+        create_person,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="lastModifyPerson != null">
+        last_modify_person,
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time,
+      </if>
+      <if test="imagePath != null">
+        image_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deptUuid != null">
+        #{deptUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null">
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptIntroduction != null">
+        #{deptIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="deptRegulation != null">
+        #{deptRegulation,jdbcType=VARCHAR},
+      </if>
+      <if test="elegantDemeanour != null">
+        #{elegantDemeanour,jdbcType=VARCHAR},
+      </if>
+      <if test="deptType != null">
+        #{deptType,jdbcType=INTEGER},
+      </if>
+      <if test="createPerson != null">
+        #{createPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyPerson != null">
+        #{lastModifyPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null">
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imagePath != null">
+        #{imagePath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+
+  <update id="updateDeptByPrimaryKey" parameterType="priv.guochun.psmc.website.backstage.dept.model.TabDept">
+    update tab_dept
+    <set>
+      <if test="deptName != null">
+        dept_name = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptIntroduction != null">
+        dept_introduction = #{deptIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="deptRegulation != null">
+        dept_regulation = #{deptRegulation,jdbcType=VARCHAR},
+      </if>
+      <if test="elegantDemeanour != null">
+        elegant_demeanour = #{elegantDemeanour,jdbcType=VARCHAR},
+      </if>
+      <if test="deptType != null">
+        dept_type = #{deptType,jdbcType=INTEGER},
+      </if>
+      <if test="createPerson != null">
+        create_person = #{createPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyPerson != null">
+        last_modify_person = #{lastModifyPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imagePath != null">
+        image_path = #{imagePath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dept_uuid = #{deptUuid,jdbcType=VARCHAR}
+  </update>
+ 
+</mapper>

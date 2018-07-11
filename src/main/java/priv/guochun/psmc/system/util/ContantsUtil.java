@@ -45,9 +45,17 @@ public class ContantsUtil {
      */
     public final static String ONE_LEVEL_CLASSIFY_14 = "14";
     
+    /**
+     * 部门类型
+     */
+    public final static String DEPT_TYPE_1 = "1"; //创新工作室
+    public final static String DEPT_TYPE_2 = "2"; //文体协会
+    
     //各分类的图片路径
-    public final static String INNOVATION = "innovation"; //创新工作室
+    public final static String INNOVATION = "innovation"; //优秀创新
     public final static String ASSISTANCE = "assistance"; //援助帮扶
     public final static String LITERARY_FORM = "literaryForm"; //文体协会
     public final static String LOGISTICS_CENTER = "logisticsCenter"; //后勤中心
+    public final static String DEPT_INNOVATION = "deptInnovation";//创新工作室
+    public final static String DEPT_LITERARY_FORM = "deptLiteraryForm";//文体协会
 }

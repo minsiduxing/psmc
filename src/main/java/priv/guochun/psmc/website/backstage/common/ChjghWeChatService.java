@@ -175,4 +175,24 @@ public interface ChjghWeChatService {
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 	public String addReport(@RequestBody TabReport report);
+	
+	/**
+	 * 查询部门列表
+	 * @param pageJson 查询参数
+	 * @return
+	 */
+	@Path("/getDeptList")
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON})
+	public String getDeptList(String pageJson) ;
+	
+	/**
+	 * 获取部门详情
+	 * @param deptUuid
+	 * @return
+	 */
+	@Path("/deptDetail")
+    @POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String deptDetail(@FormParam("deptUuid") String deptUuid);
 }

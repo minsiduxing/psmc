@@ -35,7 +35,11 @@
 var basePath = $("#basePath").val();
 //查询数据字典URL变量定义
 var initDictUrl=basePath+"/system/common/dictController.do";
+//部门信息变量定义
+var initDeptUrl=basePath+"/website/backstage/TabDeptController.do";
+
 initDictUrl ='<c:url value="'+initDictUrl+'"/>?method=loadDict';
+initDeptUrl ='<c:url value="'+initDeptUrl+'"/>?method=loadDept';
 //查询属地树URL变量定义
 var regionTreeDiaLogUrl =basePath+"/jsp/system/common/city/cityTree.jsp";
 regionTreeDiaLogUrl ='<c:url value="'+regionTreeDiaLogUrl+'"/>';

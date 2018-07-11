@@ -135,6 +135,32 @@ commonObj.initDictCombobox = function(id,dictNo,defaultValue,validate,isQuery){
 	});
 };
 
+/**
+ *  初始化部门的combobox
+ *  @param id input id
+ *  @param deptType 部门类型
+ *  @param defaultValue 默认选中的值
+ */
+commonObj.initDeptCombobox = function(id,deptType,defaultValue,validate){
+	var url = initDeptUrl+'&deptType='+deptType;
+	$.ajax({ 
+		url: url,
+		dataType: 'json', 
+		success: function(data){   
+			// 修改ajax返回的值
+			data.unshift({'ID':'','NAME':'请选择'}); //非查询，则第一行增加请选择
+			$('#'+id).combobox({  
+			    panelHeight:100,
+			    data:data,
+			    valueField:'ID',    
+			    textField:'NAME',
+			    value:defaultValue,
+			    required:validate,
+			    editable:false
+			});    
+		}
+	});
+};
 
 /**
  *easyui表单提交后的统一处理
