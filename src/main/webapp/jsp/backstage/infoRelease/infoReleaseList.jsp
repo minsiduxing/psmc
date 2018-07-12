@@ -16,12 +16,6 @@
 			<li class="li-input"><label for="" class="input-label">标题：</label>
 				<input class="myinput" id="newsTitle" name="newsTitle"></input>
 			</li>
-		<!-- 	<li class="li-input"><label for="" class="input-label">子标题：</label>
-				<input class="myinput" id="newSubTitle" name="newSubTitle"></input>
-			</li> -->
-		<!-- 	<li class="li-input"><label for="" class="input-label">概要：</label>
-				<input id="newsAbstarct" name="newsAbstarct" ></input>
-			</li> -->
 			<li class="li-input"><label for="" class="input-label">作者：</label>
 				<input id="newAutor" name="newAutor" value=""></input>
 			</li>
@@ -45,15 +39,6 @@
 			<li class="li-input"><label for="" class="input-label">审核人：</label>
 				<input id="auditAccName" name="auditAccName" ></input>
 			</li>
-			<!-- <li class="li-input"><label for="" class="input-label">修改人：</label>
-				<input id="modifyAccName" name="modifyAccName" ></input>
-			</li> -->
-				<!-- <li class="li-input"><label for="" class="input-label">修改日期：</label>
-				<input id="modifyDateBegin" name="modifyDateBegin" ></input>
-			</li>
-			<li class="li-input"><label for="" class="input-label">至：</label>
-				<input id="modifyDateEnd" name="modifyDateEnd" />
-			</li> -->
 			<li class="li-input"><label for="" class="input-label">审核是否通过：</label>
 				<input id="audit" name="audit" value=""></input>
 			</li>

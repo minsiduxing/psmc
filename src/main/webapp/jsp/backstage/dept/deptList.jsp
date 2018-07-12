@@ -13,25 +13,50 @@
  <div title="信息查询" > 
     <form id="searchform" method="POST" class="query-form" >
 	<ul class="">
-			<li class="li-input"><label for="" class="input-label">部门名称：</label>
+		<c:if test="${param.deptType=='1'}">
+			<li class="li-input"><label for="" class="input-label">工作室名称：</label>
 				<input class="myinput" id="deptName" name="deptName"/>
 			</li>
-			<li class="li-input"><label for="" class="input-label">部门简介：</label>
-				<input class="myinput" id="deptIntroduction" name="deptIntroduction"/>
+		</c:if>
+		<c:if test="${param.deptType=='2'}">
+			<li class="li-input"><label for="" class="input-label">协会名称：</label>
+				<input class="myinput" id="deptName" name="deptName"/>
 			</li>
+		</c:if>
 			<li class="li-input"><label for="" class="input-label">创建人：</label>
 				<input id="createPerson" name="createPerson" />
+			</li>
+			<li class="li-input"><label for="" class="input-label">是否审核：</label>
+				<input id="audit" name="audit" value=""/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">创建时间：</label>
 				<input id="createBeginDate" name="createBeginDate" value=""></input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至</label>
 				<input id="createEndDate" name="createEndDate" />
+			</li>
+			
+			
+			<li class="li-input"><label for="" class="input-label">审核日期：</label>
+			<input id="auditDateBegin" name="auditDateBegin" />
+			</li>
+			<li class="li-input"><label for="" class="input-label">至：</label>
+				<input id="auditDateEnd" name="auditDateEnd" />
+			</li>
+			<li class="li-input"><label for="" class="input-label">是否发布：</label>
+				<input id="releaseStatus" name="releaseStatus"/>
+			</li>
+			<li class="li-input"><label for="" class="input-label">发布日期：</label>
+			<input id="releaseDateBegin" name="releaseDateBegin" />
+			</li>
+			<li class="li-input"><label for="" class="input-label">至：</label>
+				<input id="releaseDateEnd" name="releaseDateEnd" />
+			</li>
 	</ul>
 		<input type="hidden" id="deptType" name="deptType" value="${param.deptType}" />
 	</form>
 	<div class="query-oper">
-		<a href="#" class="easyui-linkbutton query-btn" onclick="commonObj.query('activityList','searchform')" id="submit_search" plain="true" iconCls="icon-search">查询</a>
+		<a href="#" class="easyui-linkbutton query-btn" onclick="commonObj.query('deptList','searchform')" id="submit_search" plain="true" iconCls="icon-search">查询</a>
 	</div> 
  </div>
  </div>
@@ -40,6 +65,7 @@
  <table id="deptList" style="width:100%"></table>
   <!--工具栏  -->
 <div id="toolbarId">
+<c:if test="${param.deptType=='1'}">
 	<g:auth operateNo="<%=OperateContantsUtil.WORK_ROOM_ADD%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
 	</g:auth>
@@ -58,6 +84,27 @@
 	<g:auth operateNo="<%=OperateContantsUtil.WORK_ROOM_RELEASE%>">
 			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
 	</g:auth>
+</c:if>
+<c:if test="${param.deptType=='2'}">
+	<g:auth operateNo="<%=OperateContantsUtil.ASSOCIATION_ADD%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.ASSOCIATION_EDIT%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="edit">修改</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.ASSOCIATION_DEL%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.ASSOCIATION_PREVIEW%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">查看</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.ASSOCIATION_AUDIT%>">
+			<a href="#" id="auditNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-audit">审核</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.ASSOCIATION_RELEASE%>">
+			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
+	</g:auth>
+</c:if>
 </div>
 
 </body>
@@ -71,7 +118,6 @@ var toDeptEditUrl ='<c:url value="'+deptDo+'"/>?method=toDeptEdit&deptType='+$("
 var removeDept = '<c:url value="'+deptDo+'"/>?method=deleteDept';
 var auditDept = '<c:url value="'+deptDo+'"/>?method=auditDept';
 var releaseDept = '<c:url value="'+deptDo+'"/>?method=releaseDept';
-
 //----------------------------查询框初始化开始
 $('#deptName').textbox({
 });
@@ -86,6 +132,20 @@ $('#createBeginDate').datetimebox({
 $('#createEndDate').datetimebox({
 	editable:false
 });
+$('#auditDateBegin').datetimebox({
+	editable:false
+});
+$('#auditDateEnd').datetimebox({
+	editable:false
+});
+$('#releaseDateBegin').datetimebox({
+	editable:false
+});
+$('#releaseDateEnd').datetimebox({
+	editable:false
+});
+commonObj.initDictCombobox("audit","IF","",false,true);
+commonObj.initDictCombobox("releaseStatus","IF","",false,true);
 
 
 //----------------------------查询框初始化结束

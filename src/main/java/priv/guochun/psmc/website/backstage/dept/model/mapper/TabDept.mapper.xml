@@ -67,16 +67,16 @@
 		    	and t4.person_name like concat(concat('%',#{lastModifyPersonName}),'%')
 		    </if>
 		    <if test="createBeginDate != null and createBeginDate != '' ">
-		    	and <![CDATA[t1.create_date>=#{createBeginDate})]]>
+		    	and <![CDATA[t1.create_date>=#{createBeginDate}]]>
 		    </if>
 		    <if test="createEndDate != null and createEndDate != '' ">
-		    	and <![CDATA[t1.create_date<=#{createEndDate})]]>
+		    	and <![CDATA[t1.create_date<=#{createEndDate}]]>
 		    </if>
 		    <if test="lastModifyTimeBegin != null and lastModifyTimeBegin != '' ">
-		    	and <![CDATA[t1.last_modify_time>=#{lastModifyTimeBegin})]]>
+		    	and <![CDATA[t1.last_modify_time>=#{lastModifyTimeBegin}]]>
 		    </if>
 		    <if test="lastModifyTimeEnd != null and lastModifyTimeEnd != '' ">
-		    	and <![CDATA[t1.last_modify_time<=#{lastModifyTimeEnd})]]>
+		    	and <![CDATA[t1.last_modify_time<=#{lastModifyTimeEnd}]]>
 		    </if>
 		    <if test="deptUuid != null and deptUuid != ''">
 		    	and t1.dept_uuid = #{deptUuid}
@@ -84,6 +84,30 @@
 		    <if test="deptType != null and deptType != ''">
 		    	and t1.dept_type = #{deptType}
 		    </if>
+		    <if test="audit != null and audit != ''">  
+		        and  t2.audit =#{audit}
+		     </if>  
+		     <if test="releaseStatus != null and releaseStatus != ''">  
+		      	and  t2.release_status =#{releaseStatus}
+			 </if>
+			 <if test="auditDateBegin!=null and auditDateBegin!=''">  
+				and <![CDATA[t2.audit_date>=#{auditDateBegin}]]>  
+			 </if>  
+			 <if test="auditDateEnd!=null and auditDateEnd!=''">  
+		        and <![CDATA[t2.audit_date<=#{auditDateEnd}]]>  
+			 </if> 
+			 <if test="releaseDateBegin!=null and releaseDateBegin!=''">  
+				and <![CDATA[t2.release_date>=#{releaseDateBegin} ]]>  
+			 </if>  
+			 <if test="releaseDateEnd!=null and releaseDateEnd!=''">  
+		        and <![CDATA[t2.release_date<=#{releaseDateEnd} ]]> 
+		     </if> 
+		     <if test="queryParameter != null and queryParameter != ''">
+					and (t1.dept_name LIKE  concat(concat('%',#{queryParameter}),'%')
+						 or t1.dept_introduction LIKE  concat(concat('%',#{queryParameter}),'%')
+						 or tn.dept_regulation LIKE  concat(concat('%',#{queryParameter}),'%')
+						)
+   			</if>
 	    </where>
 	    order by t1.create_date desc
   </select>

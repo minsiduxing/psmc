@@ -105,7 +105,7 @@
 			and <![CDATA[t2.audit_date>=#{auditDateBegin}]]>  
 		  </if>  
 		  <if test="auditDateEnd!=null and auditDateEnd!=''">  
-	        and <![CDATA[t2.audit_date<=#{auditDateEnd})]]>  
+	        and <![CDATA[t2.audit_date<=#{auditDateEnd}]]>  
 		  </if> 
 		  <if test="releaseDateBegin!=null and releaseDateBegin!=''">  
 			and <![CDATA[t2.release_date>=#{releaseDateBegin} ]]>  

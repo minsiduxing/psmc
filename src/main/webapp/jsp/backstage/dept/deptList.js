@@ -1,4 +1,14 @@
 $(document).ready(function(){ 
+	var deptType = $("#deptType").val();
+	var dept_name;
+	var dept_introduction;
+	if(deptType == '1'){
+		 dept_name = '工作室名称';
+		 dept_introduction = '工作室简介';
+	 }else{
+		 dept_name = '协会名称';
+		 dept_introduction = '协会简介';
+	 }
 	//new datagrid 初始化 
 	var deptOption = {
 		tabId:"deptList",
@@ -6,8 +16,8 @@ $(document).ready(function(){
 		url:deptDataListUrl,
 		columns:[[   
 		          {field:'dept_uuid',title:'部门主键标识',checkbox:true},
-		          {field:'dept_name',title:'部门名称',resizable:true},    
-		          {field:'dept_introduction',title:'部门简介',formatter: function (value, row, index) {
+		          {field:'dept_name',title:dept_name,resizable:true},    
+		          {field:'dept_introduction',title:dept_introduction,formatter: function (value, row, index) {
 	                     if(value.length>=15){return value.substring(0,15)+"......"; }	
 	                     if(value.length<15){return value; }
 		          }}, 
@@ -38,6 +48,17 @@ $(document).ready(function(){
 		         ] 
 		      ]
 	};
+	/*debugger;
+	 var bcolumn1 = $('#deptList').datagrid('getColumnOption','dept_name');
+	 var bcolumn2 = $('#deptList').datagrid('getColumnOption','dept_introduction');
+	 if(deptType == '1'){
+		 bcolumn1.title = '工作室名称';
+		 bcolumn2.title = '工作室简介';
+	 }else{
+		 bcolumn1.title = '协会名称';
+		 bcolumn2.title = '协会简介';
+	 }
+	 $('#deptList').datagrid();*/
 	//初始化部门信息列表
 	commonObj.initPaginationGrid(deptOption);
 	

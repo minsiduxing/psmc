@@ -101,7 +101,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
         		    and <![CDATA[tm.audit_date>=#{auditDateBegin}]]>  
       			 </if>  
        			<if test="auditDateEnd!=null and auditDateEnd!=''">  
-      		      and <![CDATA[tm.audit_date<=#{auditDateEnd})]]>  
+      		      and <![CDATA[tm.audit_date<=#{auditDateEnd}]]>  
        			</if>  
        			<if test="releaseAccName!=null and releaseAccName!=''">
    					and tm.release_acc_uuid in(
