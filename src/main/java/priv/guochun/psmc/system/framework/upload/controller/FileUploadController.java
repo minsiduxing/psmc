@@ -46,6 +46,7 @@ public class FileUploadController extends MyController {
 	}
 	@RequestMapping(params="method=getImage")
 	public void getImage(HttpServletRequest request,HttpServletResponse response,String filePath) throws Exception{
+		filePath = PSMCFileUtils.decodedFileName(filePath);
 		FtpUtil ftu = FtpUtil.getFtputil();
 		File resFiel = ftu.downloadFileByFtp(filePath);
 		this.responseImage(response, resFiel);
