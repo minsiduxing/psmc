@@ -156,12 +156,11 @@
   </body>
 </html>
 <script type="text/javascript">
-var basePath = $("#basePath").val();
-var infoDo = basePath+"/website/backstage/ExcellentInnovationController.do";
+
 var addUrl = '<c:url value="/website/backstage/ExcellentInnovationController.do"/>?method=saveOrUpdate';
 var retrunUrl =  '<c:url value="/website/backstage/ExcellentInnovationController.do"/>?method=innovationList';
 //图片上路经
-var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUpload&oneLevelClassify='+$("#oneLevelClassify").val();
+var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUpload&oneLevelClassify=11';
 //获取图片路径
 var getImag='<c:url value="/system/freamwork/fileUploadController.do"/>?method=getImage&filePath=';
 var newsContent = '${info.achievement_content}';
@@ -175,10 +174,10 @@ if($("#isEdit").val() == 'query'){
 	$("#reset").hide();
 	$('input,select,textarea',$('#innovationForm')).attr('readonly',true);
 }else if($("#isEdit").val() == 'add'){
-	var personName = "${sessionScope.user.personName}"
-	var phone = "${sessionScope.user.personTelephone}"
-	var email = "${sessionScope.user.personEmail}"
-	var groupName = "${sessionScope.user.groupName}"
+	var personName = "${sessionScope.user.personName}";
+	var phone = "${sessionScope.user.personTelephone}";
+	var email = "${sessionScope.user.personEmail}";
+	var groupName = "${sessionScope.user.groupName}";
      $("#declarePerson").val(personName);
      $("#declarePhone").val(phone);
      $("#declareEmail").val(email);

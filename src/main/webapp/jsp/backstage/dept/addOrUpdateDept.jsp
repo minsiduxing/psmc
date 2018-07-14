@@ -22,10 +22,18 @@
 	<div class=" panel-default" style="margin-top:15px; border: 1px solid #ddd;">
 		<table class="table table-hover" style="font-size:12px; width:75%; border-collapse:separate; border-spacing:10px;">
 			<tr>
-				<td class="tds">部门名称：</td>
-				<td width="30%"><input id="deptName" name="deptName" style="width:52%;" value="${dept.dept_name}"/></td>
-				<td class="tds">部门简介：</td>
-				<td width="30%"><input id="deptIntroduction" name="deptIntroduction" style="width:52%;" value="${dept.dept_introduction}"/></td>
+				<c:if test="${deptType == '1'}">
+					<td class="tds">工作室名称：</td>
+					<td width="30%"><input id="deptName" name="deptName" style="width:52%;" value="${dept.dept_name}"/></td>
+					<td class="tds">工作室简介：</td>
+					<td width="30%"><input id="deptIntroduction" name="deptIntroduction" style="width:52%;" value="${dept.dept_introduction}"/></td>
+				</c:if>
+				<c:if test="${deptType == '2'}">
+					<td class="tds">协会名称：</td>
+					<td width="30%"><input id="deptName" name="deptName" style="width:52%;" value="${dept.dept_name}"/></td>
+					<td class="tds">协会简介：</td>
+					<td width="30%"><input id="deptIntroduction" name="deptIntroduction" style="width:52%;" value="${dept.dept_introduction}"/></td>
+				</c:if>	
 			</tr>
 			<tr>
 				<td class="tds" >规范管理办法：</td>

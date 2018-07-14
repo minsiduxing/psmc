@@ -48,17 +48,7 @@ $(document).ready(function(){
 		         ] 
 		      ]
 	};
-	/*debugger;
-	 var bcolumn1 = $('#deptList').datagrid('getColumnOption','dept_name');
-	 var bcolumn2 = $('#deptList').datagrid('getColumnOption','dept_introduction');
-	 if(deptType == '1'){
-		 bcolumn1.title = '工作室名称';
-		 bcolumn2.title = '工作室简介';
-	 }else{
-		 bcolumn1.title = '协会名称';
-		 bcolumn2.title = '协会简介';
-	 }
-	 $('#deptList').datagrid();*/
+	
 	//初始化部门信息列表
 	commonObj.initPaginationGrid(deptOption);
 	
@@ -75,6 +65,10 @@ $(document).ready(function(){
 		if (rows.length == 1){
 			var rowObj = eval(rows[0]);
 			var uuid = rowObj.dept_uuid;
+			if(rowObj.audit==1){
+				commonObj.alert("该信息已经审核通过不能修改!","warning");
+				return;
+			}
 			var _url = toDeptEditUrl+"&deptUuid="+uuid+"&isEdit="+"edit";
 			window.location.href=_url;
 		}else{

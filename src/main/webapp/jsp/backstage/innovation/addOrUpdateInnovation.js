@@ -7,7 +7,7 @@ var editor;
  * 富文本编辑器初始化-----------------------------------
  */
 function  wangEditorInit(isEdit){
-    	  var E = window.wangEditor
+    	  var E = window.wangEditor;
           editor = new E('#editor-toolbar','#newsContent');
           editor.customConfig.uploadImgServer = imageuploadsrc;  // 上传图片到服务器
           editor.customConfig.uploadImgHooks = {
