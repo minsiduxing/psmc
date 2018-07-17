@@ -96,9 +96,12 @@ public class TabDeptServiceImpl implements TabDeptService {
 	}
 	
 	@Override
-	public List<Map<?, ?>> getDeptListByDeptType(String deptType) {
+	public List<Map<?, ?>> getDeptListByDeptType(String deptType, String groupid) {
 		Map<String, Object> condition = new HashMap<String, Object>();
 		condition.put("deptType", deptType);
+		condition.put("groupid", groupid);
+		//下拉列表只能选择已经发布的部门
+		condition.put("releaseStatus", ModuleEnum.IS_RELEASEED.getValue());
 		return baseDao.queryForList(selectDeptByDeptType, condition);
 	}
 

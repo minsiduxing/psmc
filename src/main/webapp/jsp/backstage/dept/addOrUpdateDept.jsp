@@ -21,20 +21,32 @@
 <form id="editForm" method="POST" class="newsForm" >
 	<div class=" panel-default" style="margin-top:15px; border: 1px solid #ddd;">
 		<table class="table table-hover" style="font-size:12px; width:75%; border-collapse:separate; border-spacing:10px;">
-			<tr>
-				<c:if test="${deptType == '1'}">
+			
+			<c:if test="${deptType == '1'}">
+				<tr>
 					<td class="tds">工作室名称：</td>
-					<td width="30%"><input id="deptName" name="deptName" style="width:52%;" value="${dept.dept_name}"/></td>
+					<td width="30%"><input id="deptName" name="deptName" style="width:30%;" value="${dept.dept_name}"/></td>
+				</tr>
+				<tr>	
 					<td class="tds">工作室简介：</td>
-					<td width="30%"><input id="deptIntroduction" name="deptIntroduction" style="width:52%;" value="${dept.dept_introduction}"/></td>
-				</c:if>
-				<c:if test="${deptType == '2'}">
+					<td width="100%" colspan="3">
+						<textarea style="width:80%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="deptIntroduction" name="deptIntroduction">${dept.dept_introduction}</textarea>
+					</td>
+				</tr>	
+			</c:if>
+			<c:if test="${deptType == '2'}">
+				<tr>
 					<td class="tds">协会名称：</td>
-					<td width="30%"><input id="deptName" name="deptName" style="width:52%;" value="${dept.dept_name}"/></td>
+					<td width="30%"><input id="deptName" name="deptName" style="width:30%;" value="${dept.dept_name}"/></td>
+				</tr>
+				<tr>
 					<td class="tds">协会简介：</td>
-					<td width="30%"><input id="deptIntroduction" name="deptIntroduction" style="width:52%;" value="${dept.dept_introduction}"/></td>
-				</c:if>	
-			</tr>
+					<td width="100%" colspan="3">
+						<textarea style="width:80%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="deptIntroduction" name="deptIntroduction">${dept.dept_introduction}</textarea>
+					</td>
+				</tr>	
+			</c:if>	
+			
 			<tr>
 				<td class="tds" >规范管理办法：</td>
 				<td width="100%" colspan="3">
@@ -99,7 +111,7 @@ function formInint(isEdit){
         required : true
 
 	});
-	$('#deptIntroduction').textbox({
+	$('#deptIntroduction').validatebox({
 		type:"text",
         required : true
 	});

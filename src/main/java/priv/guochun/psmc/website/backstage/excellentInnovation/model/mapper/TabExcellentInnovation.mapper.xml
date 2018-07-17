@@ -107,6 +107,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	  <if test="deptUuid != null and deptUuid != ''">  
       	and  ti.dept_uuid =#{deptUuid}
 	  </if> 
+	  <if test="groupid != null and groupid != ''">  
+      	and  td.groupid =#{groupid}
+	  </if>
 	  <if test="queryParameter != null and queryParameter != ''" >  
        and (ti.first_complete_person LIKE concat(concat('%',#{queryParameter}),'%')
        		or ti.achievement_name LIKE concat(concat('%',#{queryParameter}),'%')

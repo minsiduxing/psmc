@@ -84,6 +84,9 @@
 		    <if test="deptType != null and deptType != ''">
 		    	and t1.dept_type = #{deptType}
 		    </if>
+		    <if test="groupid != null and groupid != ''">
+		    	and t1.groupid = #{groupid}
+		    </if>
 		    <if test="audit != null and audit != ''">  
 		        and  t2.audit =#{audit}
 		     </if>  
@@ -105,7 +108,7 @@
 		     <if test="queryParameter != null and queryParameter != ''">
 					and (t1.dept_name LIKE  concat(concat('%',#{queryParameter}),'%')
 						 or t1.dept_introduction LIKE  concat(concat('%',#{queryParameter}),'%')
-						 or tn.dept_regulation LIKE  concat(concat('%',#{queryParameter}),'%')
+						 or t1.dept_regulation LIKE  concat(concat('%',#{queryParameter}),'%')
 						)
    			</if>
 	    </where>
@@ -130,8 +133,15 @@
     		dept_uuid AS ID,
 	    	dept_name AS NAME
 	    from 
-	    	tab_dept 
-    	where dept_type = #{deptType,jdbcType=INTEGER}
+	    	tab_dept t1
+	    INNER JOIN
+		    tab_module t2
+		ON
+			t1.dept_uuid = t2.uuid
+    	where 1 = 1
+    	and t2.release_status =#{releaseStatus,jdbcType=VARCHAR}
+    	and t1.dept_type = #{deptType,jdbcType=INTEGER}
+    	and t1.groupid = #{groupid,jdbcType=VARCHAR}
   </select>
   
   
@@ -180,6 +190,9 @@
       <if test="imagePath != null">
         image_path,
       </if>
+      <if test="groupid != null">
+      	groupid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="deptUuid != null">
@@ -214,6 +227,9 @@
       </if>
       <if test="imagePath != null">
         #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+      	#{groupid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -251,6 +267,9 @@
       </if>
       <if test="imagePath != null">
         image_path = #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+      	groupid = #{groupid,jdbcType=VARCHAR},
       </if>
     </set>
     where dept_uuid = #{deptUuid,jdbcType=VARCHAR}

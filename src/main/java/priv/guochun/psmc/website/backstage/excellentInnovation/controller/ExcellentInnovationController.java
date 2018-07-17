@@ -2,6 +2,7 @@ package priv.guochun.psmc.website.backstage.excellentInnovation.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -34,6 +35,14 @@ public class ExcellentInnovationController extends MyController{
 	@RequestMapping(params="method=excellentInnovationList")
 	@ResponseBody
 	public void excellentInnovationList(MyPage myPage) throws IOException{
+		// 获取当前用户的用户组，只能查询属于本组的信息
+		Object groupid = this.getUserBySeesion(this.request()).getTabPerson().get("groupid");
+		Map<String, Object> paramsMap = myPage.getQueryParams();
+		if(paramsMap == null){
+			paramsMap = new HashMap<String, Object>();
+		}
+		paramsMap.put("groupid", groupid);
+		myPage.setQueryParams(paramsMap);
 		myPage = excellentInnovationService.getInnovationListBusinessMethod(myPage);
 		super.responseJson(JsonUtil.convertToJSONObject(myPage), this.response());
 	}

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import priv.guochun.psmc.authentication.login.model.User;
+import priv.guochun.psmc.authentication.user.model.TabPerson;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.ContantsUtil;
@@ -42,6 +43,9 @@ public class TabDeptController extends MyController{
 		if(parameterMap == null){
 			parameterMap = new HashMap<String, Object>();
 		}
+		//根据当前用户的分组编码过滤数据
+		Map<String, TabPerson> person = this.getUserBySeesion(this.request()).getTabPerson();
+		parameterMap.put("groupid", person.get("groupid"));
 		parameterMap.put("deptType", deptType);
 		myPage.setQueryParams(parameterMap);
 		myPage = tabDeptService.findDeptListBusinessMethod(myPage);
@@ -61,6 +65,7 @@ public class TabDeptController extends MyController{
 		if("add".equals(isEdit)){
 			dept.setCreatePerson(user.getUserUuid());
 			dept.setLastModifyPerson(user.getUserUuid());
+			dept.setGroupid(String.valueOf(user.getTabPerson().get("groupid")));
 			module.setCreateAccUuid(user.getUserUuid());
 		}else{
 			dept.setLastModifyPerson(user.getUserUuid());
@@ -142,8 +147,8 @@ public class TabDeptController extends MyController{
 	 */
 	@RequestMapping(params="method=loadDept")
 	@ResponseBody
-	public void loadDept(String deptType) throws IOException{
-		List<Map<?, ?>> list = tabDeptService.getDeptListByDeptType(deptType);
+	public void loadDept(String deptType, String groupid) throws IOException{
+		List<Map<?, ?>> list = tabDeptService.getDeptListByDeptType(deptType, groupid);
 		JSONArray ja = JsonUtil.convertToJSONArray(list);
         super.responseJson(ja, this.response());
 	}

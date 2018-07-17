@@ -73,7 +73,8 @@ var basePath = $("#basePath").val();
 var infoDo = basePath+"/website/backstage/TabActivityManageController.do";
 var addUrl = '<c:url value="/website/backstage/TabActivityManageController.do"/>?method=addOrUpdate';
 var retrunUrl =  '<c:url value="/website/backstage/TabActivityManageController.do"/>?method=activityList';
-commonObj.initDeptCombobox("deptUuid","2","<c:out value="${info.dept_uuid}"/>",true);
+var groupid = "${sessionScope.user.tabPerson.groupid}";
+commonObj.initDeptCombobox("deptUuid","2", groupid,"<c:out value="${info.dept_uuid}"/>",true);
 if($("#isEdit").val() == 'query'){
 	$("#submitbtn").hide();
 	$("#reset").hide();

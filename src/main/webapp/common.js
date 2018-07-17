@@ -141,14 +141,14 @@ commonObj.initDictCombobox = function(id,dictNo,defaultValue,validate,isQuery){
  *  @param deptType 部门类型
  *  @param defaultValue 默认选中的值
  */
-commonObj.initDeptCombobox = function(id,deptType,defaultValue,validate){
-	var url = initDeptUrl+'&deptType='+deptType;
+commonObj.initDeptCombobox = function(id,deptType, groupid,defaultValue,validate){
+	var url = initDeptUrl+'&deptType='+deptType + '&groupid='+groupid;
 	$.ajax({ 
 		url: url,
 		dataType: 'json', 
 		success: function(data){   
-			// 修改ajax返回的值
-			data.unshift({'ID':'','NAME':'请选择'}); //非查询，则第一行增加请选择
+			// 第一行增加请选择
+			data.unshift({'ID':'','NAME':'请选择'}); 
 			$('#'+id).combobox({  
 			    panelHeight:100,
 			    data:data,

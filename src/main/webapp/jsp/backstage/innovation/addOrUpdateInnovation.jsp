@@ -164,10 +164,12 @@ var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>
 //获取图片路径
 var getImag='<c:url value="/system/freamwork/fileUploadController.do"/>?method=getImage&filePath=';
 var newsContent = '${info.achievement_content}';
+
+var groupid = "${sessionScope.user.tabPerson.groupid}";
 commonObj.initDictCombobox("sex","SEX","<c:out value="${info.sex}"/>",true,false);
 commonObj.initDictCombobox("occupation","ACCUPATION","<c:out value="${info.occupation}"/>",true,false);
 commonObj.initDictCombobox("achievementForm","ACHIEVEMENT_FORM","<c:out value="${info.achievement_form}"/>",true,false);
-commonObj.initDeptCombobox("deptUuid","1","<c:out value="${info.dept_uuid}"/>",true);
+commonObj.initDeptCombobox("deptUuid","1", groupid,"<c:out value="${info.dept_uuid}"/>",true);
 //如果是查看，不能编辑表单，隐藏按钮
 if($("#isEdit").val() == 'query'){
 	$("#submitbtn").hide();

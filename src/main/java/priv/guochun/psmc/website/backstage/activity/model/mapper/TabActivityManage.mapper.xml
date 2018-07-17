@@ -122,6 +122,9 @@
 		  <if test="deptUuid != null and deptUuid != ''">  
 	      	and  t1.dept_uuid =#{deptUuid}
 		  </if>
+		  <if test="groupid != null and groupid != ''">  
+	      	and  t7.groupid =#{groupid}
+		  </if>
 		  <if test="queryParameter != null and queryParameter != ''" >  
 	       and (t1.activity_name LIKE concat(concat('%',#{queryParameter}),'%')
 	       		or t1.activity_content LIKE concat(concat('%',#{queryParameter}),'%')

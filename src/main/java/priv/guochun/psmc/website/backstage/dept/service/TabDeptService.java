@@ -60,7 +60,7 @@ public interface TabDeptService {
 	 * @param deptType
 	 * @return
 	 */
-	public List<Map<?, ?>> getDeptListByDeptType(String deptType);
+	public List<Map<?, ?>> getDeptListByDeptType(String deptType, String groupid);
 	
 	/**
 	 * 查看信息详情 - mobile

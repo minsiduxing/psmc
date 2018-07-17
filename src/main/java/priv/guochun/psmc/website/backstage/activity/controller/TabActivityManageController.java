@@ -2,6 +2,7 @@ package priv.guochun.psmc.website.backstage.activity.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import priv.guochun.psmc.authentication.user.model.TabPerson;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.DateUtil;
@@ -34,6 +36,14 @@ public class TabActivityManageController extends MyController{
 	@RequestMapping(params="method=queryActivityList")
 	@ResponseBody
 	public void queryActivityList(MyPage myPage) throws IOException{
+		Map<String,Object> parameterMap = myPage.getQueryParams();
+		if(parameterMap == null){
+			parameterMap = new HashMap<String, Object>();
+		}
+		//根据当前用户的分组编码过滤数据
+		Map<String, TabPerson> person = this.getUserBySeesion(this.request()).getTabPerson();
+		parameterMap.put("groupid", person.get("groupid"));
+		myPage.setQueryParams(parameterMap);
 		myPage = tabActivityManageService.queryActivityList(myPage);
 		super.responseJson(JsonUtil.convertToJSONObject(myPage), this.response());
 	}

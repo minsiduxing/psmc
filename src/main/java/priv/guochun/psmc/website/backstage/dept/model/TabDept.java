@@ -53,6 +53,8 @@ public class TabDept {
      * 部门信息配图
      */
     private String imagePath;
+    
+    private String groupid;
 
     public String getDeptUuid() {
         return deptUuid;
@@ -142,12 +144,22 @@ public class TabDept {
 		this.imagePath = imagePath;
 	}
 
+	public String getGroupid() {
+		return groupid;
+	}
+
+	public void setGroupid(String groupid) {
+		this.groupid = groupid;
+	}
+
 	@Override
 	public String toString() {
 		return "TabDept [deptUuid=" + deptUuid + ", deptName=" + deptName + ", deptIntroduction=" + deptIntroduction
 				+ ", deptRegulation=" + deptRegulation + ", elegantDemeanour=" + elegantDemeanour + ", deptType="
 				+ deptType + ", createPerson=" + createPerson + ", createDate=" + createDate + ", lastModifyPerson="
-				+ lastModifyPerson + ", lastModifyTime=" + lastModifyTime + ", imagePath=" + imagePath + "]";
+				+ lastModifyPerson + ", lastModifyTime=" + lastModifyTime + ", imagePath=" + imagePath + ", groupid="
+				+ groupid + "]";
 	}
+
 	
 }
