@@ -85,7 +85,7 @@
 		    	and t1.dept_type = #{deptType}
 		    </if>
 		    <if test="groupid != null and groupid != ''">
-		    	and t1.groupid = #{groupid}
+		    	and t1.groupid like concat(concat('%',#{groupid}),'%')
 		    </if>
 		    <if test="audit != null and audit != ''">  
 		        and  t2.audit =#{audit}
@@ -141,7 +141,7 @@
     	where 1 = 1
     	and t2.release_status =#{releaseStatus,jdbcType=VARCHAR}
     	and t1.dept_type = #{deptType,jdbcType=INTEGER}
-    	and t1.groupid = #{groupid,jdbcType=VARCHAR}
+    	and t1.groupid like concat(concat('%',#{groupid}),'%')
   </select>
   
   
