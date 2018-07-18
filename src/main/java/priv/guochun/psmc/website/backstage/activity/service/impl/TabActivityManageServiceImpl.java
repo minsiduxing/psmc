@@ -141,6 +141,13 @@ public class TabActivityManageServiceImpl implements TabActivityManageService{
 
 	@Override
 	public void deleteSignInfo(String activityUuid, String accout) {
+		Map<String, Object> activity = this.getActivityByUuid(activityUuid);
+		if(activity == null || activity.size() == 0){
+			throw new PsmcBuisnessException("活动信息不存在！");
+		}
+		if(DateUtil.getCurrentTimstamp().after(DateUtil.getTime(activity.get("sign_up_end_date").toString()))){
+			throw new PsmcBuisnessException("报名截止时间已过，不能取消！");
+		}
 		Map<String, Object> condition = new HashMap<String, Object>();
 		condition.put("personAccount", accout);
 		condition.put("activityUuid", activityUuid);

@@ -17,6 +17,7 @@
   <select id="selectActivityList" parameterType="hashmap" resultType="java.util.Map">
 	    SELECT
 		    t1.*,
+		    <![CDATA[(case when t1.start_date > NOW() then 0 else (case when (t1.end_date>= NOW() and t1.start_date <= NOW()) then 1 else 2 end) end)]]> as activityStatus,
 		    t2.audit,
 		    t2.audit_date,
 		    t2.release_status,
@@ -138,6 +139,7 @@
   <select id="selectActivityByPrimaryKey" parameterType="hashmap" resultType="java.util.Map">
     select 
     	t1.* , 
+    	<![CDATA[(case when t1.start_date > NOW() then 0 else (case when (t1.end_date>= NOW() and t1.start_date <= NOW()) then 1 else 2 end) end)]]> as activityStatus,
     	t2.release_date,
     	t3.person_name AS releasePerson,
     	t4.signUpNums,
