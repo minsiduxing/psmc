@@ -1,6 +1,7 @@
 package priv.guochun.psmc.website.backstage.report.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class TabReportReply implements Serializable {
@@ -12,7 +13,7 @@ public class TabReportReply implements Serializable {
 
     private String replyUserName;
 
-    private Date replyTime;
+    private Timestamp replyTime;
 
     private Date lastModifyTime;
 
@@ -52,11 +53,11 @@ public class TabReportReply implements Serializable {
         this.replyUserName = replyUserName == null ? null : replyUserName.trim();
     }
 
-    public Date getReplyTime() {
+    public Timestamp getReplyTime() {
         return replyTime;
     }
 
-    public void setReplyTime(Date replyTime) {
+    public void setReplyTime(Timestamp replyTime) {
         this.replyTime = replyTime;
     }
 
