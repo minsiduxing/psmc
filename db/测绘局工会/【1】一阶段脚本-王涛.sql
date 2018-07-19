@@ -451,3 +451,6 @@ insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02
 update tab_resource set resource_name = '法条信息列表' where uuid = '1b0cd1d267c948e2886ef98e5a76a578';
 update tab_resource set resource_name = '创新成果列表' where uuid = 'c712464e336d4ae6988bd27ba35f17d4';
 update tab_resource set resource_name = '最新活动列表' where uuid = 'cae199e1e01f4bcf80ae2e2976fd15b9';
+
+--部门表增加分组编码字段
+alter table tab_dept add groupid varchar(100) comment '分组编码';

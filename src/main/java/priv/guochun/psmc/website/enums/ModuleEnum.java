@@ -24,7 +24,10 @@ public enum ModuleEnum {
     //模块二级分类-行业动向
     TOW_LEVEL_LATES_TRENDS("TOW_LEVEL_LATES_TRENDS","3"),
     //模块二级分类-行业动向
-    TOW_LEVEL_MEMBER_INFORMATION("TOW_LEVEL_MEMBER INFORMATION","4")
+    TOW_LEVEL_MEMBER_INFORMATION("TOW_LEVEL_MEMBER INFORMATION","4"),
+    //部门分类
+    DEPT_TYPE_1("创新工作室","1"),
+    DEPT_TYPE_2("文体协会","2"),
     ;
 
 	private String name;

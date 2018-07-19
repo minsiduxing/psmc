@@ -93,6 +93,7 @@ $(document).ready(function(){
 	
 	//删除
 $("#remove").click(function(){
+		var deptType =  $("#deptType").val();
 		var rows = $("#deptList").datagrid('getChecked');
 		var rlength = rows.length;
 		var ids="";
@@ -104,9 +105,15 @@ $("#remove").click(function(){
 				if(i<rlength-1)
 					ids+=",";
 			}
-			$.messager.confirm('提示', '该操作不可逆，您确认删除选中信息?', function(r){
+			var msg = "";
+			if(deptType == '1'){
+				msg = "删除选中的信息会同步删除该工作室下的所有创新成果信息，您确认删除吗？";
+			}else{
+				msg = "删除选中的信息会同步删除该协会下的所有活动信息，您确认删除吗？";
+			}
+			$.messager.confirm('提示', msg, function(r){
 				if (r){
-					var _url = removeDept+"&uuids="+ids;
+					var _url = removeDept+"&uuids="+ids+"&deptType="+deptType;
 					$.messager.progress(); 
 					$.ajax({
 						   type: "POST",

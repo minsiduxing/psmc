@@ -39,7 +39,7 @@ public interface TabDeptService {
 	 * 删除部门信息
 	 * @param ids
 	 */
-	public void deleteDeptBusinessMethod(String ids);
+	public void deleteDeptBusinessMethod(String ids, String deptType);
 	
 	/**
 	 * 审核部门信息

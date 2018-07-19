@@ -148,7 +148,7 @@ commonObj.initDeptCombobox = function(id,deptType, groupid,defaultValue,validate
 		dataType: 'json', 
 		success: function(data){   
 			// 第一行增加请选择
-			data.unshift({'ID':'','NAME':'请选择'}); 
+			//data.unshift({'ID':'','NAME':'请选择'}); 
 			$('#'+id).combobox({  
 			    panelHeight:100,
 			    data:data,

@@ -86,8 +86,8 @@ public class TabDeptController extends MyController{
 	 * @throws IOException
 	 */
 	@RequestMapping(params="method=deleteDept")
-	public void deleteDept(String uuids) throws IOException{
-		tabDeptService.deleteDeptBusinessMethod(uuids);
+	public void deleteDept(String uuids, String deptType) throws IOException{
+		tabDeptService.deleteDeptBusinessMethod(uuids, deptType);
 		super.responseJson(true, "部门删除成功!", this.response());
 	}
 	

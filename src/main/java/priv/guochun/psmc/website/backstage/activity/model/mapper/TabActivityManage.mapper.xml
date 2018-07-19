@@ -175,9 +175,37 @@
   
   
   <delete id="deleteActivity" parameterType="hashmap">
-    delete from tab_activity_manage
-    where activity_uuid in 
+    delete 
+        tab_activity_manage,tab_sign_up_info
+    from  
+        tab_activity_manage  
+    left join 
+        tab_sign_up_info 
+    on 
+        tab_activity_manage.activity_uuid = tab_sign_up_info.activity_uuid
+    where
+        tab_activity_manage.dept_uuid in 
     <foreach item="item" index="index" collection="activityUuids" open="(" separator="," close=")">  
+		#{item}  
+	</foreach> 
+  </delete>
+  
+  <delete id="deleteActivityByDeptUuid" parameterType="hashmap">
+    delete 
+        tab_activity_manage, tab_module,tab_sign_up_info
+    from  
+    	tab_activity_manage  
+    inner 
+    	join tab_module 
+    on 
+    	tab_activity_manage.activity_uuid = tab_module.uuid
+    left join 
+    	tab_sign_up_info 
+    on 
+    	tab_activity_manage.activity_uuid = tab_sign_up_info.activity_uuid
+    where 
+    	tab_activity_manage.dept_uuid in 
+    <foreach item="item" index="index" collection="deptUuids" open="(" separator="," close=")">  
 		#{item}  
 	</foreach> 
   </delete>

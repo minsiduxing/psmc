@@ -59,6 +59,11 @@ public interface TabActivityManageService {
 	public void executeRelease(String activityUuids, String userId, Timestamp publishExpireDate);
 	
 	/**
+	 * 根据部门ID删除活动信息
+	 * @param deptUuids
+	 */
+	public void deleteActivityByDeptUuid(String deptUuids);
+	/**
 	 * 活动报名
 	 * @param signUp
 	 */

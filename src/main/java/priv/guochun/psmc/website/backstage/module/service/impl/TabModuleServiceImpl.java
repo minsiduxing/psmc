@@ -31,13 +31,13 @@ public class TabModuleServiceImpl implements TabModuleService {
 	@Override
 	public void deleteTabModulebyUuids(String ids) {
 		List<TabModule> modeuls = tabModuleDao.getModulesByUuids(ids);
-		List<TabModulePublish>  tamps = tabModulePublishService.getTabModulePublishsByModuleids(ids);
+		//List<TabModulePublish>  tamps = tabModulePublishService.getTabModulePublishsByModuleids(ids);
 		//判断模块是否存在
 		if(null==modeuls){
 			throw new PsmcBuisnessException("删除的模块不存在不能删除");
 		}
 		//判断是否已经发布
-		if(null!=tamps && tamps.size()>=1){
+		/*if(null!=tamps && tamps.size()>=1){
 			for(TabModulePublish tamp:tamps){
 				//判断所发布的模块中是否存在到期的模块
 				if(DateUtil.getCurrentTimstamp().before(tamp.getPublishExpireDate())){
@@ -47,7 +47,9 @@ public class TabModuleServiceImpl implements TabModuleService {
 		}else{
 			tabModulePublishService.deleteTabModulePublishByids(ids);
 			tabModuleDao.deleteTabModule(ids);
-		}
+		}*/
+		tabModulePublishService.deleteTabModulePublishByids(ids);
+		tabModuleDao.deleteTabModule(ids);
 	}
 
 	@Override

@@ -11,9 +11,11 @@ import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
+import priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
 import priv.guochun.psmc.website.backstage.dept.model.TabDept;
 import priv.guochun.psmc.website.backstage.dept.service.TabDeptService;
+import priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
 import priv.guochun.psmc.website.backstage.module.service.TabModuleService;
 import priv.guochun.psmc.website.enums.ModuleEnum;
@@ -32,6 +34,12 @@ public class TabDeptServiceImpl implements TabDeptService {
 	
 	@Autowired
     private TabModuleService tabModuleService;
+	
+	@Autowired
+	private ExcellentInnovationService excellentInnovationService;
+	
+	@Autowired
+	private TabActivityManageService tabActivityManageService;
 	
 	@Override
 	public MyPage findDeptListBusinessMethod(MyPage page) {
@@ -73,12 +81,21 @@ public class TabDeptServiceImpl implements TabDeptService {
 	}
 
 	@Override
-	public void deleteDeptBusinessMethod(String ids) {
+	public void deleteDeptBusinessMethod(String ids, String deptType) {
+		//删除模块信息
+		tabModuleService.deleteTabModulebyUuids(ids);
 		Map<String, Object> condition = new HashMap<String, Object>();
 		if(StringUtils.isNotBlank(ids)){
 			condition.put("deptUuids", ids.split(","));
 		}
+		//删除部门信息
 		baseDao.delete(deleteDeptByPrimaryKey, condition);
+		//删除部门下的创新成果或活动信息
+		if(ModuleEnum.DEPT_TYPE_1.getValue().equals(deptType)){
+			excellentInnovationService.deleteInnovationByDeptUuid(ids);
+		}else{
+			tabActivityManageService.deleteActivityByDeptUuid(ids);
+		}
 	}
 
 	@Override

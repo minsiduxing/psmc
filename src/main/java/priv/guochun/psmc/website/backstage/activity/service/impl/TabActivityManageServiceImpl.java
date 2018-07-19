@@ -33,6 +33,7 @@ public class TabActivityManageServiceImpl implements TabActivityManageService{
 	private static final String selectSignUpInfoByPrimaryKey = "selectSignUpInfoByPrimaryKey";
 	private static final String deleteSignUpInfoByAccount = "deleteSignUpInfoByAccount";
 	private static final String insertSignUpInfo = "insertSignUpInfo";
+	private static final String deleteActivityByDeptUuid = "deleteActivityByDeptUuid";
 	
 	@Autowired
 	private BaseDao baseDao;
@@ -89,6 +90,8 @@ public class TabActivityManageServiceImpl implements TabActivityManageService{
 
 	@Override
 	public void deleteActivity(String activityUuids) {
+		//删除模块信息
+		tabModuleService.deleteTabModulebyUuids(activityUuids);
 		Map<String,Object> condition = new HashMap<String,Object>();
 		condition.put("activityUuids", activityUuids.split(","));
 		baseDao.delete(deleteActivity, condition);
@@ -108,6 +111,14 @@ public class TabActivityManageServiceImpl implements TabActivityManageService{
 		module.setPublishExpireDate(publishExpireDate);
 		tabModuleService.executeReleaseModule(activityUuids, module);
 		
+	}
+	
+	@Override
+	public void deleteActivityByDeptUuid(String deptUuids){
+		//根据deptUUid删除活动、报名及模块信息
+		Map<String, Object> condition = new HashMap<String, Object>();
+		condition.put("deptUuids", deptUuids.split(","));
+		baseDao.delete(deleteActivityByDeptUuid, condition);
 	}
 
 	@Override

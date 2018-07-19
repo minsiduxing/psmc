@@ -25,6 +25,7 @@ public class ExcellentInnovationServiceImpl implements ExcellentInnovationServic
     public static final String deleteInnovationByPrimaryKey="deleteInnovationByPrimaryKey";
     public static final String insertExcellentInnovation="insertExcellentInnovation";
     public static final String updateInnovation="updateInnovation";
+    public static final String deleteInnovationByDeptUuid = "deleteInnovationByDeptUuid";
 
     @Autowired
     private BaseDao baseDao;
@@ -98,6 +99,13 @@ public class ExcellentInnovationServiceImpl implements ExcellentInnovationServic
 		module.setPublishExpireDate(publishExpireDate);
 		tabModuleService.executeReleaseModule(uuids, module);
 		
+	}
+	
+	public void deleteInnovationByDeptUuid(String deptUuids){
+		//根据deptUUid删除优秀创新及模块信息
+		Map<String, Object> condition = new HashMap<String, Object>();
+		condition.put("deptUuids", deptUuids.split(","));
+		baseDao.delete(deleteInnovationByDeptUuid, condition);
 	}
 
 	@Override

@@ -157,6 +157,15 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	</foreach>  
   </delete>
   
+  <delete id="deleteInnovationByDeptUuid" parameterType="hashmap">
+    delete tab_excellent_innovation, tab_module 
+    from  tab_excellent_innovation  
+    inner join tab_module on tab_excellent_innovation.innovation_uuid = tab_module.uuid 
+    where tab_excellent_innovation.dept_uuid in
+    <foreach item="item" index="index" collection="deptUuids" open="(" separator="," close=")">  
+		#{item}  
+	</foreach>  
+  </delete>
   
   <insert id="insertExcellentInnovation" parameterType="priv.guochun.psmc.website.backstage.excellentInnovation.model.TabExcellentInnovation">
     insert into tab_excellent_innovation (innovation_uuid, org_name, declare_person, 
