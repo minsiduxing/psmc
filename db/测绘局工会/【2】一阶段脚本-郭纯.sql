@@ -2,7 +2,7 @@ alter table tab_person drop column groupid;
 /**增加用户所属组ID*/
 alter table tab_person add groupid varchar(100) ;
 
-update  TAB_PERSON b set b.groupid='e30f6d26f09646aaa18460c086a206da'; 
+update  TAB_PERSON b set b.groupid='10000'; 
 
 
 /**系统日志表*/
@@ -17,13 +17,14 @@ CREATE TABLE t_sys_oper_log (
     bussiness_uuid   	varchar(100) NULL,
     operid           	varchar(64) NULL,
     opername         	varchar(30) NULL,
-    oper_date        	timestamp AUTO_INCREMENT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    oper_date        	timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP,
     oper_input       	varchar(500) NULL,
     oper_output      	varchar(500) NULL,
     oper_result_desc 	varchar(100) NULL,
     oper_result      	decimal(1,0) NULL 
     )
 ;
+
 
 
 drop table if exists tab_verification_code;
@@ -99,6 +100,8 @@ insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb
 
 
 
+
+
 /**初始化组织机构*/
 
 
@@ -110,50 +113,50 @@ INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_cod
 INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
     VALUES('c07266dcbdbf4ba3b5ba44bdc2769d71', '陕西省第一测绘工程院', 2, '1000001', '10000', 'admin','2018-6-8 00:00:00' , '单位', 2);
 
-INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
-    VALUES('a2497358e5874ca3ad6f2c7e969dc778', '大地测量职工创新工作室', 3, '100000101', '1000001', 'admin','2018-6-8 00:00:00' , '部门', 3);
+--INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
+--    VALUES('a2497358e5874ca3ad6f2c7e969dc778', '大地测量职工创新工作室', 3, '100000101', '1000001', 'admin','2018-6-8 00:00:00' , '部门', 3);
 
 
 INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
     VALUES('a883e8e647d74b99989294b79f5f2d38', '陕西省第二测绘工程院', 2, '1000002', '10000', 'admin','2018-6-8 00:00:00' , '单位', 4);
 
-INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
-    VALUES('44c8a26562b1412d8bfc9fdf521eaf05', 'GEO+职工创新工作室', 3, '100000201', '1000002', 'admin','2018-6-8 00:00:00' , '部门', 5);
+--INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
+--    VALUES('44c8a26562b1412d8bfc9fdf521eaf05', 'GEO+职工创新工作室', 3, '100000201', '1000002', 'admin','2018-6-8 00:00:00' , '部门', 5);
 
 
 INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
     VALUES('3440e5df5216443aaff1c5517d5a9de2', '陕西省第三测绘工程院', 2, '1000003', '10000', 'admin','2018-6-8 00:00:00' , '单位', 6);
 
-INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
-    VALUES('1a319870604f4657b2b64c9301dedfb7', '工程测量职工创新工作室', 3, '100000301', '1000003', 'admin','2018-6-8 00:00:00' , '部门', 7);
+--INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
+--    VALUES('1a319870604f4657b2b64c9301dedfb7', '工程测量职工创新工作室', 3, '100000301', '1000003', 'admin','2018-6-8 00:00:00' , '部门', 7);
 
 
 INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
     VALUES('54ff62ab2211477a9557bc56551b9e61', '陕西省第四测绘工程院', 2, '1000004', '10000', 'admin','2018-6-8 00:00:00' , '单位', 8);
 
-INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
-    VALUES('b0675dcd4502457c8b5ed54ec5d64ca0', '大地测量数据处理职工创新工作室', 3, '100000401', '1000004', 'admin','2018-6-8 00:00:00' , '部门', 9);
+--INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
+--    VALUES('b0675dcd4502457c8b5ed54ec5d64ca0', '大地测量数据处理职工创新工作室', 3, '100000401', '1000004', 'admin','2018-6-8 00:00:00' , '部门', 9);
 
 
 INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
     VALUES('8c0bbe74086c408cb27d2b52e0bc0c25', '陕西省第五测绘工程院', 2, '1000005', '10000', 'admin','2018-6-8 00:00:00' , '单位', 10);
 
-INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
-    VALUES('7a816ca0ded34dceb07fcdaa75fac716', '遥感技术应用职工创新工作室', 3, '100000501', '1000005', 'admin','2018-6-8 00:00:00' , '部门', 11);
+--INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
+--    VALUES('7a816ca0ded34dceb07fcdaa75fac716', '遥感技术应用职工创新工作室', 3, '100000501', '1000005', 'admin','2018-6-8 00:00:00' , '部门', 11);
 
 
 INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
     VALUES('389479b39cf6431f9c18da5e459ba945', '陕西省第六测绘地理信息工程院', 2, '1000006', '10000', 'admin','2018-6-8 00:00:00' , '单位', 12);
 
-INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
-    VALUES('1457290efc9f4c9796ffa70a466d420e', '地图科学职工创新工作室', 3, '100000601', '1000006', 'admin','2018-6-8 00:00:00' , '部门', 13);
+--INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
+--    VALUES('1457290efc9f4c9796ffa70a466d420e', '地图科学职工创新工作室', 3, '100000601', '1000006', 'admin','2018-6-8 00:00:00' , '部门', 13);
 
 
 INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
     VALUES('5a814082143c4c3d8383b350e3e3dba0', '陕西省基础地理信息中心', 2, '1000007', '10000', 'admin','2018-6-8 00:00:00' , '单位', 14);
 
-INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
-    VALUES('b2e6945a3e184a3b945d373af3567657', '天地图陕西职工创新工作室', 3, '100000701', '1000007', 'admin','2018-6-8 00:00:00' , '部门', 15);
+--INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
+--    VALUES('b2e6945a3e184a3b945d373af3567657', '天地图陕西职工创新工作室', 3, '100000701', '1000007', 'admin','2018-6-8 00:00:00' , '部门', 15);
 
 
 INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
@@ -172,8 +175,8 @@ INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_cod
 INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
     VALUES('154ed9e2f5f44cf1bc9b4a75a8697b01', '陕西省测绘产品质量监督检验站', 2, '1000011', '10000', 'admin','2018-6-8 00:00:00' , '单位', 19);
 
-INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
-    VALUES('0fed2e1ce84f46b2b907e3d430d0b22d', '测绘质检职工创新工作室', 3, '100001101', '1000011', 'admin','2018-6-8 00:00:00' , '部门', 20);
+--INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
+--    VALUES('0fed2e1ce84f46b2b907e3d430d0b22d', '测绘质检职工创新工作室', 3, '100001101', '1000011', 'admin','2018-6-8 00:00:00' , '部门', 20);
 
 
 INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
@@ -187,6 +190,12 @@ INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_cod
 
 INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
     VALUES('26259f2cce9d427a9d69744b38fd9882', '陕西测绘地理信息局机关', 2, '1000015', '10000', 'admin','2018-6-8 00:00:00' , '单位', 24);
+    
+/**订阅号网站用户虚拟组*/
+
+INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
+    VALUES('bcd9ba7b601343daa4a0c68c80bd0d57', '用户虚拟组(勿删)', 2, '1000016', '10000', 'admin','2018-6-8 00:00:00' , '单位', 25);
+
 
 /**用户组列表菜单*/
 
@@ -278,8 +287,5 @@ insert into tab_role (uuid, role_no, role_name, creator, create_time, remark)
 values('e8d791272c7e437c8f8a72355bb0c231','WECHAT_USER','订阅号网站用户角色','admin',str_to_date('2018-6-10','%Y-%m-%d %T'),'请勿删除');
 
 
-/**订阅号网站用户虚拟组*/
-delete from tab_group where uuid='bcd9ba7b601343daa4a0c68c80bd0d57';
-INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) 
-    VALUES('bcd9ba7b601343daa4a0c68c80bd0d57', '订阅号网站用户虚拟组', 2, '1000016', '10000', 'admin','2018-6-8 00:00:00' , '单位', 25);
+
     

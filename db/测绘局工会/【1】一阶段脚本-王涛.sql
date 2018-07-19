@@ -115,9 +115,9 @@ insert into tab_resource (uuid, resource_name, resource_type, resource_url, pare
 insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
 ('1b0cd1d267c948e2886ef98e5a76a578','法条维护信息列表',3,'/website/backstage/InfoReleaseController.do?method=infoReleaseList&oneLevelClassify=12','a365f66231c049169cbcc0d9572043ba','admin',str_to_date('2018-05-13','%Y-%m-%d %T'),'法条维护菜单',1,1);
 insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('aa1cb8b91b504dcfb2f7fa14cc94ac7c','法律援助',3,'','a365f66231c049169cbcc0d9572043ba','admin',str_to_date('2018-05-13','%Y-%m-%d %T'),'法律援助菜单',3,1);
+('aa1cb8b91b504dcfb2f7fa14cc94ac7c','法律援助列表',3,'','a365f66231c049169cbcc0d9572043ba','admin',str_to_date('2018-05-13','%Y-%m-%d %T'),'法律援助菜单',3,1);
 insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('115132658260463bb6f01b3108d11145','困难申报',3,'','a365f66231c049169cbcc0d9572043ba','admin',str_to_date('2018-05-13','%Y-%m-%d %T'),'困难申报菜单',4,1);
+('115132658260463bb6f01b3108d11145','困难申报列表',3,'','a365f66231c049169cbcc0d9572043ba','admin',str_to_date('2018-05-13','%Y-%m-%d %T'),'困难申报菜单',4,1);
 --初始化菜单(文体协会)
 insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
 ('0b62d21d1ecd471f958d96b43471dcca','工作发布信息列表',3,'/website/backstage/InfoReleaseController.do?method=infoReleaseList&oneLevelClassify=13','8e059c578c204fbbb29086aa72ec88f9','admin',str_to_date('2018-05-13','%Y-%m-%d %T'),'工作发布菜单',1,1);
@@ -380,9 +380,9 @@ delete from tab_resource where uuid='bf5cdda0af224da2a2ed33360364b967';
 delete from tab_resource where uuid='7c0f15982df64a8081507bfb1cfce5aa';
 
 insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('bf5cdda0af224da2a2ed33360364b967','创新工作室',3,'/website/backstage/TabDeptController.do?method=toDeptList&deptType=1','42a1745009b849c38743a08922da0c4f','admin',str_to_date('2018-07-09','%Y-%m-%d %T'),'创新工作室管理菜单',1,1);
+('bf5cdda0af224da2a2ed33360364b967','创新工作室列表',3,'/website/backstage/TabDeptController.do?method=toDeptList&deptType=1','42a1745009b849c38743a08922da0c4f','admin',str_to_date('2018-07-09','%Y-%m-%d %T'),'创新工作室管理菜单',1,1);
 insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('7c0f15982df64a8081507bfb1cfce5aa','文体协会',3,'/website/backstage/TabDeptController.do?method=toDeptList&deptType=2','8e059c578c204fbbb29086aa72ec88f9','admin',str_to_date('2018-07-09','%Y-%m-%d %T'),'文体协会管理菜单',1,1);
+('7c0f15982df64a8081507bfb1cfce5aa','文体协会列表',3,'/website/backstage/TabDeptController.do?method=toDeptList&deptType=2','8e059c578c204fbbb29086aa72ec88f9','admin',str_to_date('2018-07-09','%Y-%m-%d %T'),'文体协会管理菜单',1,1);
 
 insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', 'bf5cdda0af224da2a2ed33360364b967');
 insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '7c0f15982df64a8081507bfb1cfce5aa');
@@ -448,6 +448,6 @@ insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '0b4c1834cfda43b4aa76822b4bd8ba6e');
 
 ----修改资源名称
-update tab_resource set resource_name = '法条信息' where uuid = '1b0cd1d267c948e2886ef98e5a76a578';
-update tab_resource set resource_name = '最新成果' where uuid = 'c712464e336d4ae6988bd27ba35f17d4';
-update tab_resource set resource_name = '最新活动' where uuid = 'cae199e1e01f4bcf80ae2e2976fd15b9';
+update tab_resource set resource_name = '法条信息列表' where uuid = '1b0cd1d267c948e2886ef98e5a76a578';
+update tab_resource set resource_name = '创新成果列表' where uuid = 'c712464e336d4ae6988bd27ba35f17d4';
+update tab_resource set resource_name = '最新活动列表' where uuid = 'cae199e1e01f4bcf80ae2e2976fd15b9';
