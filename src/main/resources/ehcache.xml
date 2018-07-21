@@ -19,24 +19,24 @@
                         默认策略是LRU（最近最少使用）。你可以设置为FIFO（先进先出）或是LFU（较少使用）。  
        clearOnFlush：内存数量最大时是否清除。  
     -->  
-    	<defaultCache  
-            maxElementsInMemory="1000"  
-            eternal="false"  
-            timeToIdleSeconds="600"  
-            timeToLiveSeconds="600"  
-            overflowToDisk="true"  
-            maxElementsOnDisk="10000000"  
-            diskPersistent="false"  
-            diskExpiryThreadIntervalSeconds="300"  
-            memoryStoreEvictionPolicy="LRU"  
-            />  
+<!--     	<defaultCache   -->
+<!--             maxElementsInMemory="100"   -->
+<!--             eternal="false"   -->
+<!--             timeToIdleSeconds="120"   -->
+<!--             timeToLiveSeconds="120"   -->
+<!--             overflowToDisk="true"   -->
+<!--             maxElementsOnDisk="10000000"   -->
+<!--             diskPersistent="false"   -->
+<!--             diskExpiryThreadIntervalSeconds="120"   -->
+<!--             memoryStoreEvictionPolicy="LRU"   -->
+<!--             />   -->
   
    		<cache 	
    			name="CACHE_SYSTEM" 
-   			maxElementsInMemory="1000" 
-   			eternal="false"  
-            timeToIdleSeconds="600" 
-            timeToLiveSeconds="600" 
+   			maxElementsInMemory="50" 
+   			eternal="true"  
+            timeToIdleSeconds="0" 
+            timeToLiveSeconds="0" 
             overflowToDisk="false"  
             diskPersistent="false" 
             diskExpiryThreadIntervalSeconds="300"
@@ -45,10 +45,10 @@
             
    		<cache 	
    			name="CACHE_WORKFLOW" 
-   			maxElementsInMemory="1000" 
-   			eternal="false"  
-            timeToIdleSeconds="600" 
-            timeToLiveSeconds="600" 
+   			maxElementsInMemory="50" 
+   			eternal="true"  
+            timeToIdleSeconds="0" 
+            timeToLiveSeconds="0" 
             overflowToDisk="false"  
             diskPersistent="false" 
             diskExpiryThreadIntervalSeconds="300"

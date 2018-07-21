@@ -3,7 +3,7 @@ alter table tab_person drop column groupid;
 alter table tab_person add groupid varchar(100) ;
 
 update  TAB_PERSON b set b.groupid='10000'; 
-
+update tab_accounts t set t.account_pass='c4ca4238a0b923820dcc509a6f75849b';
 
 /**系统日志表*/
 drop table if exists t_sys_oper_log;

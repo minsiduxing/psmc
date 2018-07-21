@@ -15,7 +15,7 @@
 				您好：<c:out value='${user.accountName}'/>，欢迎您登入系统！
 				当前系统时间：<span id="stime" name="stime"></span>
 				<input type="hidden" id="serverTime" name="serverTime" value="<c:out value='${serverTime}'/>">
-				当前在线人数:<c:out value='${applicationScope.sessionsNum}'/>人
+<%-- 				当前在线人数:<c:out value='${applicationScope.sessionsNum}'/>人 --%>
 				</div>
 				<div class="topRightBtndiv">
 				<a id="updatePasswd" style="width:90px;" href="#" class="easyui-linkbutton topRightMenuBtn" data-options="iconCls:'icon-lock'">修改密码</a>
@@ -50,7 +50,7 @@ $(document).ready(function(){
 	//初始化功能栏
 	initsysFunctionDiv();
 	startTime();
-	$("#layoutId").layout("collapse", "west");
+	//$("#layoutId").layout("collapse", "west");
 
 	
 });
@@ -95,7 +95,7 @@ $('#updatePasswd').click(function(){
 });
 
 function initsysFunctionDiv(){
- 	addTab("欢迎页面","");
+//addTab("欢迎页面","");
 //	addTab("欢迎页面","<c:url value='/website/backstage/tabNewsController.do?method=index'/>");
 //	addTab("欢迎页面","<c:url value='/website/backstage/InfoReleaseController.do?method=infoReleaseList'/>");
 }

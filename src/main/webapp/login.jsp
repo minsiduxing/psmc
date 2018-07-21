@@ -1,7 +1,8 @@
-<!DOCTYPE html>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<!DOCTYPE html>
 <html>
 <head>
 <%@ include file="common.jsp"%>
@@ -10,22 +11,23 @@
 </head>
 
 <body>
-<form method="post" id="loginForm" onkeydown='on_return()'>
+<form method="post" id="loginForm">
   	<div id="loginDiv" class="loginDiv">
   		<div id="formDiv" class="formDiv">
   			<img src="images/login.jpg"/>	
   			<div class="formInputDiv">
 				<p>
+					<span>账号：</span>
 					<input class="input" id="username" name="username">
 				</p>
-				<div class="formPwInputDiv">
-					<p>
-						<input class="input" id="ppassword" name="ppassword"  type="password">
-					</p>
-					<div class="formButtonDiv">
-						<input id="submitbtn" type="button" value="" onclick="loginSubmit();"/>
-					</div>
-				</div>
+				<p>
+					<span>密码：</span>
+					<input class="input" id="ppassword" name="ppassword"  type="password">
+				</p>
+				<p>
+					<input id="submitbtn" class="button"  type="button" value="登录" onclick="loginSubmit();"/>
+					<input id="resetbtn" class="button" style="margin-right:115px;" type="button" value="重置" onclick="loginReset();"/>
+				</p>
 			</div>
 		</div>  	
   	</div>
@@ -65,6 +67,12 @@
 		}
 		return false;
 	}
+
+	function loginReset(){
+		$('#username').val("");
+		$('#ppassword').val("");
+	}
+	
 	//用户登录
 	function loginSubmit(){
 		//密码md5加密
@@ -88,6 +96,7 @@
  					}else{
  						$.messager.progress('close');
  	 					commonObj.alert(dataObj.msg,"warning");
+ 	 					loginReset();
  					}
  					
  				},
@@ -100,7 +109,8 @@
 	}
 	//点击enter 登录
 	function on_return(){
-		 if(window.event.keyCode == 13){
+		console.info("aa");
+		if(window.event.keyCode == 13){
 		  if (document.all('submitbtn')!=null){
 		   document.all('submitbtn').click();
 		   }

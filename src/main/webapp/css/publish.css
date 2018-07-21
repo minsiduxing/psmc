@@ -77,7 +77,7 @@ input{
 .topLeftContent{
 	float:left;
 	position:absolute;
-	right:211px;
+	right:17%;
 	margin-top:2.5%;
 	font-family:monospace;
 	font-weight:900;
@@ -85,7 +85,7 @@ input{
 .topRightBtndiv{
 	float:left;
 	position:absolute;
-	right:10px;
+	right:2%;
 	margin-top:2%;
 }
 /* ---------------------系统顶部工具栏样式-------------------------------- */

@@ -24,7 +24,7 @@
 		<property name="username" value="${jdbc_username}" />
 		<property name="password" value="${jdbc_password}" />
 		<!-- 池启动时创建的连接数量 -->
-        <property name="initialSize" value="5"/>
+        <property name="initialSize" value="10"/>
         <!-- 同一时间可以从池分配的最多连接数量。设置为0时表示无限制。 -->
         <property name="maxActive" value="30"/>
         <!-- 连接池中最大的空闲的连接数，超过的空闲连接将被释放 -->
