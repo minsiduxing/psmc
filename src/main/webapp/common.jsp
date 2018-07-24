@@ -28,7 +28,11 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/zTree_v3-master/js/jquery.ztree.core${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/zTree_v3-master/js/jquery.ztree.excheck${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/zTree_v3-master/js/jquery.ztree.exedit${jssuffix}"></script>
-
+<!-- jcrop图片上传裁剪 -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery.Jcrop${csssuffix}" type="text/css" />
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jcrop/jquery.color${jssuffix}"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jcrop/jquery.Jcrop${jssuffix}"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jcrop/jquery.Jcrop.min${jssuffix}"></script>
 <input type="hidden" id="basePath" name="basePath" value="<%=request.getContextPath()%>"/>
 
 <script type="text/javascript">

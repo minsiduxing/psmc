@@ -45,6 +45,8 @@
 			<tr>
 				<td class="tds">所属协会：</td>
 				<td width="30%"><input id="deptUuid" name="deptUuid" value="" style="width:70%;"/></td>
+				<td class="tds">活动配图：</td>
+				<td width="30%"><input type="button" value="上传图片" style="width:70%;" onclick="openUploadDialog()"/></td>
 			<tr>
 				<td class="tds">活动内容：</td>
 				<td width="30%" colspan="3">
@@ -54,7 +56,7 @@
 		</table>
 		</div>
 	</div>
-		
+		<div id="uploadImageDiv"></div>
 		<input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 		 <input type="hidden" id="activityUuid" name="activityUuid" value="${info.activity_uuid}"/>
 		 <input type="hidden" id="imagePath" name="imagePath" value="" />
@@ -73,7 +75,12 @@ var basePath = $("#basePath").val();
 var infoDo = basePath+"/website/backstage/TabActivityManageController.do";
 var addUrl = '<c:url value="/website/backstage/TabActivityManageController.do"/>?method=addOrUpdate';
 var retrunUrl =  '<c:url value="/website/backstage/TabActivityManageController.do"/>?method=activityList';
-commonObj.initDeptCombobox("deptUuid","2","<c:out value="${info.dept_uuid}"/>",true);
+
+var toImageUpload =  '<c:url value="/website/backstage/uploadImageController.do"/>?method=toImageUplodDialog';
+
+var groupid = "${sessionScope.user.tabPerson.groupid}";
+commonObj.initDeptCombobox("deptUuid","2", groupid,"<c:out value="${info.dept_uuid}"/>",true);
+
 if($("#isEdit").val() == 'query'){
 	$("#submitbtn").hide();
 	$("#reset").hide();
@@ -104,6 +111,5 @@ $('#signUpEndDate').datetimebox({
 </script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/wangEditor/wangEditor.min${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/uploadfy/jquery.Huploadify${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/browser${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/jquery.Jcrop.min${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/activity/addOrUpdateActivity.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/uploadImage/uploadImage.js"></script>
