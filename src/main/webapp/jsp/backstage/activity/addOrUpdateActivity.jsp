@@ -76,8 +76,10 @@ var infoDo = basePath+"/website/backstage/TabActivityManageController.do";
 var addUrl = '<c:url value="/website/backstage/TabActivityManageController.do"/>?method=addOrUpdate';
 var retrunUrl =  '<c:url value="/website/backstage/TabActivityManageController.do"/>?method=activityList';
 
+//弹出图片上传窗口
 var toImageUpload =  '<c:url value="/website/backstage/uploadImageController.do"/>?method=toImageUplodDialog';
-
+//上传图片
+var uploadPhoto = '<c:url value="/website/backstage/uploadImageController.do"/>?method=uploadPhoto';
 var groupid = "${sessionScope.user.tabPerson.groupid}";
 commonObj.initDeptCombobox("deptUuid","2", groupid,"<c:out value="${info.dept_uuid}"/>",true);
 

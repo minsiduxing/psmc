@@ -5,29 +5,10 @@ function initDialog(){
 	editdialog = $("#uploadImageDiv").dialog({
 		modal: true,
 		closed: true,
-	    width: 460,
-	    height: 450,
+	    width: 480,
+	    height: 460,
 	    resizable:true,
 	    cache: false
-	    /*buttons:[{
-			text:'保存',
-			iconCls:'icon-save'
-			handler:function(){
-					$('#editForm').form({    
-					    url:saveAccountUrl,    
-					    onSubmit: function(){
-					    	return onSubmit();
-					    },    
-					    success:function(data){
-					    	successCallback(data);
-					    }
-					}); 
-					convertMd5();
-					$('#editForm').submit(); 
-					//$("#editdialogDiv").dialog('close');
-			}
-		}]*/
-		
 	});
 }
 
@@ -155,85 +136,36 @@ function createJCrop(divId) {
      };
 }
 
-//截取图片后保存
-$("#uploadform").ajaxForm({
-    //url:"/BML/file/proimg/uploadImg?point="+cutPoint,
-    type:"post",
-    dataType:"json",
-    success:function(data){
-        var browserVersion= window.navigator.userAgent.toUpperCase();
-        if(jcrop_api!=null){
-        	jcrop_api.destroy();    
-        }
-        if (browserVersion.indexOf("MSIE")>-1){
-            if(browserVersion.indexOf("MSIE 6")>-1){//ie6                    
-                $("#target1").attr("src","/BML/files/proInfo/"+data.seriName);
-            }else{//ie[7-9]
-                $("#target1").attr("src","/BML/files/proInfo/"+data.seriName);
-                //document.getElementById("targetNew").setAttribute("src","/BML/files/proInfo/"+data.seriName);
-            }
-        }else{
-            $("#target1").attr("src","/BML/files/proInfo/"+data.seriName);
-        }
-        $("#picpath0").val(data.seriName);
-    },error:function(){
-         alert(getMessage(msgE0043));
-    }
-});
+function imageUpload(){
+	var uploadUrl = uploadPhoto;
+	$("#upload-file").ajaxSubmit({
+	    url:uploadUrl,
+	    type:"post",
+	    dataType:"json",
+	    success:function(data){
+	        var browserVersion= window.navigator.userAgent.toUpperCase();
+	        if(jcrop_api!=null){
+	        	jcrop_api.destroy();    
+	        }
+	        $("#imagePath").val(data.rmsg);
+//	        if (browserVersion.indexOf("MSIE")>-1){
+//	            if(browserVersion.indexOf("MSIE 6")>-1){//ie6                    
+//	                $("#target1").attr("src","/BML/files/proInfo/"+data.seriName);
+//	            }else{//ie[7-9]
+//	                $("#target1").attr("src","/BML/files/proInfo/"+data.seriName);
+//	                //document.getElementById("targetNew").setAttribute("src","/BML/files/proInfo/"+data.seriName);
+//	            }
+//	        }else{
+//	            $("#target1").attr("src","/BML/files/proInfo/"+data.seriName);
+//	        }
+//	        $("#picpath0").val(data.seriName);
+	    },error:function(){
+	    	commonObj.alert ("上传失败!","warning");
+	    }
+	});
+}
 
-
-closeDiv('imgEditArea');
-
-//onchange事件
-function fileUpload(){
-
-    if(!$('#upload_btn').val()){
-    	return;
-    }
-    var str1 = $('#upload_btn').val();
-    $('#target').attr('src',$('#upload_btn').val()); 
-    
-//    Ext.getCmp('idFakeFileInput').setValue($('#upload_btn').val());
-//    var account = Ext.getCmp('idExpertCode').getValue();
-//    $('#idTagDivPhoto img').remove();                    //移除jcrop的渲染
-//    $('#idTagDivPhoto div').remove();
-//    $('#aa img').remove();
-//    $('#idTagDivPhoto').prepend('<img id = "target" src="none.png" width="240px" height="300px" class="jcrop-preview">');
-//    $('#aa').prepend('<img id = "preview" src="none.png" width="112px" height="132px" class="jcrop-preview" alt="预览" >');
-//    var type = $('#upload_btn').val().split('.')[$('#upload_btn').val().split('.').length-1];
-//    if(type.toLowerCase()!='jpg' && type.toLowerCase()!='png'){
-//        Ext.MessageBox.alert("提示","请选择 jpg 或者 png 格式的图片");
-//        $('#upload_btn').val('');
-//        Ext.getCmp('idFakeFileInput').setValue('');
-//        return;
-//    }
-//    if($('#upload_btn').val()){
-//        var form = $('#upload-file');
-//        var options  = {    
-//                url:getPath()+'/ExpertLibController.json?photoUpload=true',    
-//                type:'post',    
-//                data : {
-//                    userAccount:account,
-//                    state:'original',
-//                    oldName:$('#idPhotoEditWin').data('photoName')
-//                },
-//                success:function(data){
-//                    debugger;
-//                     var obj = Ext.util.JSON.decode(data);
-//                     if(obj['success']=='false'){
-//                         Ext.MessageBox.alert("提示",obj['msg']);
-//                         $('#upload_btn').val('');
-//                         Ext.getCmp('idFakeFileInput').setValue('');
-//                         return;
-//                     }
-//                     //D:\JavaEE\workspaces\eclipseTest\.metadata\.plugins\org.eclipse.wst.server.core\tmp4\wtpwebapps\zjInfoOS\zjfxjk\expertsLib\photos
-//                     $('#target').attr('src','photos/'+obj['msg']+'');
-//                     $('#preview').attr('src','photos/'+obj['msg']+'');
-//                     $('#idPhotoEditWin').data('photoName',obj['msg']);            //注意，在头像编辑窗口中保存该属性
-//                     methods.jcropTackle();
-//                }
-//            };
-//        form.ajaxSubmit(options);
-//    }
+function closeDialog(){
+	$('#uploadImageDiv').dialog('close');
 }
 
