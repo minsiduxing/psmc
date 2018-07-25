@@ -28,10 +28,10 @@
 				<td width="25%"><input id="newAutor" name="newAutor" style="width:50%;" value="${info.news_author}"/></td>
 			</tr>
 			<tr>
-				<%-- <td class="tds">信息时间：</td>
-				<td width="25%"><input id="newsDate" name="newsDate" style="width:50%;" value="${info.news_date}"/></td> --%>
-				<td class="tds" style="display: none;">信息分类：</td>
-				<td width="25%" style="display: none;"><input id="towLevelClassify" name="towLevelClassify" style="width:50%;"/></td>
+				<c:if test="${oneLevelClassify == '14'}">
+					<td class="tds">信息分类：</td>
+					<td width="25%"><input id="towLevelClassify" name="towLevelClassify" style="width:50%;"/></td>
+				</c:if>
 			</tr>
 			<tr>
 				<td class="tds">信息内容：</td>
@@ -119,6 +119,7 @@ var newscontent = '${info.news_content}';
 var editnewssrc = "${info.thumbnail_image_url}";
 var addUrl = '<c:url value="/website/backstage/InfoReleaseController.do"/>?method=saveOrUpdateInfoRelease';
 var retrunUrl =  '<c:url value="/website/backstage/InfoReleaseController.do"/>?method=infoReleaseList&oneLevelClassify='+$("#oneLevelClassify").val();
+commonObj.initDictCombobox("towLevelClassify","INFO_TYPE","<c:out value="${info.towLevelClassify}"/>",true,false);
 function formInint(isEdit){
 	if(isEdit == "query"){
 		$("#submitbtn").hide();
