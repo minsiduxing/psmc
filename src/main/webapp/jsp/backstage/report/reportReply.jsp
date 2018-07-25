@@ -44,7 +44,7 @@
             </tr>
         </table>
     </div>
-    <c:if test="${report.reportType =='help'}">
+    <c:if test="${report.reportType =='help' || report.reportType =='repair'}">
         <div class=" panel-default" style=" border: 1px solid #ddd;">
             <div class="panel-heading">
                 <label style="background-color:#006699; color: #ffffff">回复信息</label>

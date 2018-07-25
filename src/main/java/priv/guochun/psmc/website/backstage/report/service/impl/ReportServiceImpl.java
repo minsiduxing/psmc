@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import priv.guochun.psmc.authentication.user.service.TabPersonService;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.DateUtil;
@@ -20,6 +21,8 @@ import priv.guochun.psmc.website.backstage.report.model.TabReportReplyRel;
 import priv.guochun.psmc.website.backstage.report.service.ReplyService;
 import priv.guochun.psmc.website.backstage.report.service.ReportReplyRelService;
 import priv.guochun.psmc.website.backstage.report.service.ReportService;
+import priv.guochun.psmc.website.backstage.webuser.model.TabWebUser;
+import priv.guochun.psmc.website.backstage.webuser.service.TabWebUserService;
 
 
 public class ReportServiceImpl implements ReportService{
@@ -37,6 +40,8 @@ public class ReportServiceImpl implements ReportService{
 	ReportReplyRelService reportReplyRelService;
 	@Autowired
 	ReplyService replyService;
+	@Autowired
+	TabPersonService tabPersonService;
 	@Override
 	public void saveOrUpdateReportBusinessMethod(TabReport report) {
 		addRport(report);
@@ -48,10 +53,10 @@ public class ReportServiceImpl implements ReportService{
 	@Override
 	public void deleteReportBusinessMethod(String ids) {
 		if(StringUtils.isBlank(ids)){throw new PsmcBuisnessException("delete key is null！");}
-		//删除回复关联关系
-	 	reportReplyRelService.deleteReportReplyRelByReportUids(ids);
 		//删除回复数据
 		replyService.deleteByReportuuids(ids);
+		//删除回复关联关系
+	 	reportReplyRelService.deleteReportReplyRelByReportUids(ids);
 		//删除申报数据
 		Map<String, Object> condition = new HashMap<String, Object>();
 		condition.put("ids", ids.split(","));
@@ -113,8 +118,10 @@ public class ReportServiceImpl implements ReportService{
 		reportReplyRel.setReportUuid(reportUuid);
 		reportReplyRelService.saveReportReplyRel(reportReplyRel);
 		//更新repor的状态
-		TabReport report =  new TabReport();
+		Map<String,Object> reportMap =  this.findReportByUuidBusinessMethod(reportUuid);
+		TabReport report = new TabReport();
 		report.setReportUuid(reportUuid);
+		report.setReportUserUuid(reportMap.get("reportUserUuid").toString());
 		report.setReportStaus(ReportEnum.REPORT_STAUS_REPLY.getValue());
 		this.saveOrUpdateReportBusinessMethod(report);
 	}
@@ -127,6 +134,12 @@ public class ReportServiceImpl implements ReportService{
 		if(null == report){ throw new PsmcBuisnessException("operte data is null！");}
 		//根据主键是否为空判断是判断还是新增
 		String reportUuid = report.getReportUuid();
+		String addUserID = report.getReportUserUuid();
+		if(StringUtils.isBlank(addUserID)){ throw new PsmcBuisnessException("申报人不存在！");}
+		Map tempWebUser = tabPersonService.getTabPersonById(addUserID);
+		if(null == tempWebUser || tempWebUser.isEmpty()){
+			throw new PsmcBuisnessException("申报人不存在！");
+		}
 		if(StringUtils.isBlank(reportUuid)){
 			//新增
 			reportUuid = UUIDGenerator.createUUID();

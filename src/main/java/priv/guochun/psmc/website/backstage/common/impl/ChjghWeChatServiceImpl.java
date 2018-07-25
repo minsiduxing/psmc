@@ -19,6 +19,7 @@ import priv.guochun.psmc.authentication.login.service.LoginService;
 import priv.guochun.psmc.authentication.user.model.TabAccount;
 import priv.guochun.psmc.authentication.user.model.TabPerson;
 import priv.guochun.psmc.authentication.user.service.TabAccountService;
+import priv.guochun.psmc.authentication.user.service.TabPersonService;
 import priv.guochun.psmc.system.common.vcode.model.TabVerificationCode;
 import priv.guochun.psmc.system.common.vcode.service.VerificationCodeService;
 import priv.guochun.psmc.system.enums.VerificationCodeTypeEnum;
@@ -78,7 +79,8 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	private ReportService reportService;
 	
 	private TabDeptService tabDeptService;
-	
+	@Autowired
+	TabPersonService tabPersonService;
 	@Override
 	public String createVcode(int type,String phone) {         
          TabVerificationCode verificationCode = verificationCodeService.createCode(type, phone);
@@ -393,6 +395,12 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		if(null == report){
 			MsgModel msg = MsgModel.buildDefaultError("error add report is null  ");
 			return  GsonUtil.toJsonForObject(msg);
+		}
+		String addUserID = report.getReportUserUuid();
+		if(StringUtils.isBlank(addUserID)){ return GsonUtil.toJsonForObject( MsgModel.buildDefaultError("申报人不存在"));}
+		Map tempWebUser = tabPersonService.getTabPersonById(addUserID);
+		if(null == tempWebUser || tempWebUser.isEmpty()){
+			return GsonUtil.toJsonForObject( MsgModel.buildDefaultError("申报人不存在"));
 		}
 		reportService.saveOrUpdateReportToMobile(report);
 		return GsonUtil.toJsonForObject( MsgModel.buildDefaultSuccess("add success"));
