@@ -14,6 +14,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    		 tn.news_author, 
    		 tn.thumbnail_image_url, 
    		 tn.news_abstract ,
+   		 tn.is_custom,
    		 tn.image_path,
    		 tpc.PERSON_NAME as createAccName, 
    		 tm.create_date, 
@@ -202,8 +203,8 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   	 	</select>
 
   	<insert id="insertInfoRelease">
-  		INSERT INTO tab_news (uuid, news_title, news_subtitle, news_content, news_date, news_author, thumbnail_image_url, news_abstract, image_path) 
-  		VALUES (#{newsUuid},#{newsTitle}, #{newSubTitle}, #{newsContent}, #{newsDate}, #{newAutor}, #{thumbnailImageUrl}, #{newsAbstarct}, #{imagePath});
+  		INSERT INTO tab_news (uuid, news_title, news_subtitle, news_content, news_date, news_author, thumbnail_image_url, news_abstract, image_path, is_custom) 
+  		VALUES (#{newsUuid},#{newsTitle}, #{newSubTitle}, #{newsContent}, #{newsDate}, #{newAutor}, #{thumbnailImageUrl}, #{newsAbstarct}, #{imagePath}, #{isCustom});
 
   	</insert>
   	
@@ -237,6 +238,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	  		<if test="imagePath != null and imagePath != ''">
 	  			image_path =#{imagePath},
 	  		</if>
+	  		<if test="isCustom !=null and isCustom != ''">
+		      	is_custom = #{isCustom,jdbcType=INTEGER},
+		    </if>
   		</trim>
   		WHERE uuid = #{newsUuid}
   	</update>

@@ -83,7 +83,7 @@ public class InfoReleaseController extends MyController{
 			module.setModelUuid(infoRelease.getNewsUuid());
 			module.setModifyAccUuid(this.getUserBySeesion(request).getUserUuid());
 		}
-		if(StringUtils.isBlank(infoRelease.getImagePath())){
+		if(ContantsUtil.IS_CUSTOM_0.equals(infoRelease.getIsCustom()) && StringUtils.isBlank(infoRelease.getImagePath())){
 			if(ContantsUtil.ONE_LEVEL_CLASSIFY_11.equals(module.getOneLevelClassify())){
 				infoRelease.setImagePath(SystemPropertiesUtil.getWorkManageImagePath());
 			}

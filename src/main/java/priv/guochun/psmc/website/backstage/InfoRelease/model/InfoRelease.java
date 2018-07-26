@@ -54,9 +54,14 @@ public class InfoRelease extends TabModule implements Serializable{
 	 */
 	private String imagePath;
 	
+	/**
+     * 是否自定义配图
+     */
+    private Integer isCustom;
+	
 	public InfoRelease(String newsUuid, String newsTitle,
 			String newSubTitle, String newsContent, String newsAbstarct,
-			Timestamp newsDate, String newAutor, String thumbnailImageUrl, String imagepath) {
+			Timestamp newsDate, String newAutor, String thumbnailImageUrl, String imagepath,Integer isCustom) {
 		this.newsUuid = newsUuid;
 		this.newsTitle = newsTitle;
 		this.newSubTitle = newSubTitle;
@@ -66,6 +71,7 @@ public class InfoRelease extends TabModule implements Serializable{
 		this.newAutor = newAutor;
 		this.thumbnailImageUrl = thumbnailImageUrl;
 		this.imagePath = imagePath;
+		this.isCustom = isCustom;
 	}
 	public InfoRelease() {
 	}
@@ -123,13 +129,18 @@ public class InfoRelease extends TabModule implements Serializable{
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
+	public Integer getIsCustom() {
+		return isCustom;
+	}
+	public void setIsCustom(Integer isCustom) {
+		this.isCustom = isCustom;
+	}
 	@Override
 	public String toString() {
-		return "TabNews [newsUuid=" + newsUuid + ", newsTitle=" + newsTitle
-				+ ", newSubTitle=" + newSubTitle + ", newsContent="
-				+ newsContent + ", newsAbstarct=" + newsAbstarct
-				+ ", newsDate=" + newsDate + ", newAutor=" + newAutor
-				+ ", thumbnailImageUrl=" + thumbnailImageUrl 
-				+ ", imagePath=" + imagePath + "]";
+		return "InfoRelease [newsUuid=" + newsUuid + ", newsTitle=" + newsTitle + ", newSubTitle=" + newSubTitle
+				+ ", newsContent=" + newsContent + ", newsAbstarct=" + newsAbstarct + ", newsDate=" + newsDate
+				+ ", newAutor=" + newAutor + ", thumbnailImageUrl=" + thumbnailImageUrl + ", imagePath=" + imagePath
+				+ ", isCustom=" + isCustom + "]";
 	}
+	
 }

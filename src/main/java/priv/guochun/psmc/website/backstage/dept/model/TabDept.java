@@ -53,6 +53,10 @@ public class TabDept {
      * 部门信息配图
      */
     private String imagePath;
+    /**
+     * 是否自定义配图
+     */
+    private Integer isCustom;
 
     public String getDeptUuid() {
         return deptUuid;
@@ -142,12 +146,21 @@ public class TabDept {
 		this.imagePath = imagePath;
 	}
 
+	public Integer getIsCustom() {
+		return isCustom;
+	}
+
+	public void setIsCustom(Integer isCustom) {
+		this.isCustom = isCustom;
+	}
+
 	@Override
 	public String toString() {
 		return "TabDept [deptUuid=" + deptUuid + ", deptName=" + deptName + ", deptIntroduction=" + deptIntroduction
 				+ ", deptRegulation=" + deptRegulation + ", elegantDemeanour=" + elegantDemeanour + ", deptType="
 				+ deptType + ", createPerson=" + createPerson + ", createDate=" + createDate + ", lastModifyPerson="
-				+ lastModifyPerson + ", lastModifyTime=" + lastModifyTime + ", imagePath=" + imagePath + "]";
+				+ lastModifyPerson + ", lastModifyTime=" + lastModifyTime + ", imagePath=" + imagePath + ", isCustom="
+				+ isCustom + "]";
 	}
-	
+
 }

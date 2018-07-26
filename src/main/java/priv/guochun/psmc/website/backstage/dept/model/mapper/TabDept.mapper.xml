@@ -180,6 +180,9 @@
       <if test="imagePath != null">
         image_path,
       </if>
+      <if test="isCustom != null">
+      	is_custom,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="deptUuid != null">
@@ -214,6 +217,9 @@
       </if>
       <if test="imagePath != null">
         #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isCustom != null">
+      	#{isCustom,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -251,6 +257,9 @@
       </if>
       <if test="imagePath != null">
         image_path = #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isCustom !=null ">
+      	is_custom = #{isCustom,jdbcType=INTEGER},
       </if>
     </set>
     where dept_uuid = #{deptUuid,jdbcType=VARCHAR}

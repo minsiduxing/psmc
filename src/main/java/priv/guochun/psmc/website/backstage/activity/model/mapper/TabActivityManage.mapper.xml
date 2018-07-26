@@ -210,6 +210,9 @@
       <if test="deptUuid != null">
         dept_uuid,
       </if>
+      <if test="isCustom != null">
+      	is_custom,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="activityUuid != null">
@@ -241,6 +244,9 @@
       </if>
       <if test="deptUuid != null">
         #{deptUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="isCustom != null">
+      	#{isCustom,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -275,6 +281,9 @@
       </if>
       <if test="deptUuid != null">
         dept_uuid = #{deptUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="isCustom !=null ">
+      	is_custom = #{isCustom,jdbcType=INTEGER},
       </if>
     </set>
     where activity_uuid = #{activityUuid,jdbcType=VARCHAR}

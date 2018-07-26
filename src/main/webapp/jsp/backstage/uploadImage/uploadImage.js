@@ -5,9 +5,9 @@ function initDialog(){
 	editdialog = $("#uploadImageDiv").dialog({
 		modal: true,
 		closed: true,
-	    width: 480,
-	    height: 460,
-	    resizable:true,
+	    width: 615,
+	    height: 550,
+	    modal: true,
 	    cache: false
 	});
 }
@@ -37,6 +37,7 @@ function previewImage(fileObj){
     var extention=fileObj.value.substring(fileObj.value.lastIndexOf(".")+1).toLowerCase();            
     var browserVersion= window.navigator.userAgent.toUpperCase();
     if(allowExtention.indexOf(extention)>-1){ 
+    	$("#"+imgPreviewId).css({"max-width":"100%", "max-height":"100%", "width":"auto", "height":"auto"});
         if(fileObj.files){//HTML5实现预览，兼容chrome、火狐7+等
             if(window.FileReader){
                 var reader = new FileReader(); 
@@ -46,23 +47,7 @@ function previewImage(fileObj){
                     createJCrop(imgPreviewId);
                 };  
                 reader.readAsDataURL(fileObj.files[0]);
-            }else if(browserVersion.indexOf("SAFARI")>-1){
-                alert(getMessage(msgE0042));
             }
-        }else if (browserVersion.indexOf("MSIE")>-1){
-            $("#uploadform").ajaxForm({
-                url:"/BML/file/proimg/iesrc",
-                type:"post",
-                dataType:"json",
-                success:function(data){
-                $("#"+imgPreviewId).attr("src","/BML/files/proInfo/temp/"+data.seriName);
-                $("#preview").attr("src","/BML/files/proInfo/temp/"+data.seriName);
-                createJCrop(imgPreviewId);
-                },error:function(){
-                    alert(getMessage(msgE0005, uploadPic));
-                }
-             });
-            $("#uploadform").submit();
         }else if(browserVersion.indexOf("FIREFOX")>-1){//firefox
             var firefoxVersion= parseFloat(browserVersion.toLowerCase().match(/firefox\/([\d.]+)/)[1]);
             if(firefoxVersion<7){//firefox7以下版本

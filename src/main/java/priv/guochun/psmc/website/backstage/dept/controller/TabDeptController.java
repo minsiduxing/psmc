@@ -68,7 +68,7 @@ public class TabDeptController extends MyController{
 			module.setModifyAccUuid(user.getUserUuid());
 		}
 		//如果配图为空，则添加默认配图
-		if(StringUtils.isBlank(dept.getImagePath())){
+		if(ContantsUtil.IS_CUSTOM_0.equals(dept.getIsCustom()) && StringUtils.isBlank(dept.getImagePath())){
 			dept.setImagePath(SystemPropertiesUtil.getWorkManageImagePath());
 		}
 		tabDeptService.saveOrUpdateDeptBusinessMethod(dept, module);

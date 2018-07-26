@@ -7,41 +7,36 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id="idPhotoEditWin">
+	<div id="idPhotoEditWin" align="center">
 	<form id="upload-file" method="post" enctype="multipart/form-data" >  
-     <table  style="width:392px;height:356px;border:0;">
-         <tr style="height:36px;">
-             <td  style="border: 0px solid red;" colspan="2">
-                 <table style="width:100%">
-                     <tr>
-                         <td id="idTagFakeFileInput" style="width:80%">
-                         	
-			                     <input id="upload_btn" name="image" type="file" style="width:100%;border:1px solid #ececec;" value="" onchange="previewImage(this)"/>  
-			                 	 <!-- 图片长宽高隐藏域 -->
-			                     <input type="hidden" id="x" name="x" /> 
-			                     <input type="hidden" id="y" name="y" /> 
-			                     <input type="hidden" id="w" name="w" /> 
-			                     <input type="hidden" id="h" name="h" />
-			                     <input type="hidden" id="boundx" name="boundx" >
-			                     <input type="hidden" id="boundy" name="boundy" >
-                         </td>
-                     </tr>
-                 </table>
-                  
-             </td>
+     <table  style="border:0; width: 580px;height: 500px">
+         <tr style="height:40px;width: 560px">
+              <td id="idTagFakeFileInput" colspan="2" align="left">
+              	<div style="width:530px;margin-left: 14px;">
+              		<input id="upload_btn" name="image" type="file" style="width:400px;border:1px solid #ececec;" value="" onchange="previewImage(this)"/>  
+		         	 <!-- 图片长宽高隐藏域 -->
+		             <input type="hidden" id="x" name="x" /> 
+		             <input type="hidden" id="y" name="y" /> 
+		             <input type="hidden" id="w" name="w" /> 
+		             <input type="hidden" id="h" name="h" />
+		             <input type="hidden" id="boundx" name="boundx" >
+		             <input type="hidden" id="boundy" name="boundy" >
+              	</div>
+              </td>
+                    
          </tr>
-         <tr style="height:320px;">
-             <td>
-                 <div id="idTagDivPhoto" style="width:300px;height:300px;border:1px solid #ececec;">
-                     <img id = "target" src="<%=request.getContextPath()%>/images/touxiang_default.png" width="300px" height="300px" class="jcrop-preview" alt="附件">
+         <tr style="height:420px;width: 560px">
+             <td align="center" >
+                 <div id="idTagDivPhoto" style="width:400px;height:400px;border:1px solid #ececec;">
+                     <img id = "target" src="<%=request.getContextPath()%>/images/touxiang_default.png" style="max-width:100%; max-height:100%; width:auto; height:auto;" class="jcrop-preview" alt="附件">
                  </div>
              </td>
-             <td colspan="2">
+             <td  align="center">
                  
-                 <div id="preview-panel" style="width:120px;height:130px;border:0px solid green;margin-top:100px;">
+                 <div id="preview-panel" style="width:130px;height:140px;border:0px solid green;margin-top:100px;">
                  	<div>预览：</div>
-                      <div class = "previewDiv" style="width: 120px;height: 120px;overflow: hidden;border:1px solid #ececec" >
-                            <img id = "preview" src="<%=request.getContextPath()%>/images/touxiang_default.png" width="120px" height="120px" class="jcrop-preview" alt="预览" >
+                      <div class = "previewDiv" style="width: 130px;height: 130px;overflow: hidden;border:1px solid #ececec" >
+                            <img id = "preview" src="<%=request.getContextPath()%>/images/touxiang_default.png" width="130px" height="130px" class="jcrop-preview" alt="预览" >
                       </div>
                  </div>
              </td>

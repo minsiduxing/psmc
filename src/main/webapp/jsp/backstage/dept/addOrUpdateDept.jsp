@@ -13,8 +13,6 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/news/news${csssuffix}" type="text/css">
-<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/css/Huploadify${csssuffix}" type="text/css">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/jcrop/css/jquery.Jcrop${csssuffix}"/> --%>
   </head>
   <%@ include file="../../../common.jsp"%>
   <body id="body">
@@ -24,8 +22,18 @@
 			<tr>
 				<td class="tds">部门名称：</td>
 				<td width="30%"><input id="deptName" name="deptName" style="width:52%;" value="${dept.dept_name}"/></td>
+				<td class="tds">自定义配图：</td>
+				<td width="30%">
+	                <input type="radio" name="isCustom1" <c:if test="${dept.is_custom == '0'}">checked</c:if> value="0" style="width:5%;margin-right: 0">否</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                <input type="radio" name="isCustom1" <c:if test="${dept.is_custom == '1'}">checked</c:if> value="1" style="width:5%;margin-right: 0" onclick="openUploadDialog()">是</input>
+	                <input type="hidden" id="isCustom" name="isCustom" value="${dept.is_custom}"/>
+				</td>
+			</tr>
+			<tr>
 				<td class="tds">部门简介：</td>
-				<td width="30%"><input id="deptIntroduction" name="deptIntroduction" style="width:52%;" value="${dept.dept_introduction}"/></td>
+				<td width="100%"  colspan="3">
+					<textarea style="width:80%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="deptIntroduction" name="deptIntroduction" >${dept.dept_introduction}</textarea> 
+				</td>
 			</tr>
 			<tr>
 				<td class="tds" >规范管理办法：</td>
@@ -54,6 +62,7 @@
 			</tr>
 		</table>
 	</div>
+	 <div id="uploadImageDiv"></div>
 	 <input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 	 <input type="hidden" id="deptUuid" name="deptUuid" value="${dept.dept_uuid }"/>
 	 <input type="hidden" id="deptType" name="deptType" value="${deptType}"/>
@@ -79,11 +88,22 @@ var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>
 var newscontent = '${dept.elegant_demeanour}';
 var addUrl = '<c:url value="/website/backstage/TabDeptController.do"/>?method=saveOrUpdateDept';
 var retrunUrl =  '<c:url value="/website/backstage/TabDeptController.do"/>?method=toDeptList&deptType='+$("#deptType").val();
+//弹出图片上传窗口
+var toImageUpload =  '<c:url value="/website/backstage/uploadImageController.do"/>?method=toImageUplodDialog';
+//上传配图
+var uploadPhoto = '<c:url value="/website/backstage/uploadImageController.do"/>?method=uploadPhoto';
+
+//默认选中否
+if($("#isCustom").val() == "" || $("#isCustom").val() == null){
+	$("input[name='isCustom1']:eq(0)").attr("checked",'checked');
+}
+
 function formInint(isEdit){
 	if(isEdit == "query"){
 		$("#submitbtn").hide();
 		$("#reset").hide();
 		$('input,textarea',$('#editForm')).attr('readonly',true);
+		$("input[name='isCustom1']").attr("disabled",true);
 	}
 	
 	$('#deptName').textbox({
@@ -91,7 +111,7 @@ function formInint(isEdit){
         required : true
 
 	});
-	$('#deptIntroduction').textbox({
+	$('#deptIntroduction').validatebox({
 		type:"text",
         required : true
 	});
@@ -105,5 +125,5 @@ function formInint(isEdit){
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/wangEditor/wangEditor.min${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/uploadfy/jquery.Huploadify${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/browser${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/jquery.Jcrop.min${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/dept/addOrUpdateDept.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/uploadImage/uploadImage.js"></script>

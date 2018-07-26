@@ -13,7 +13,6 @@
 		text-align:right;
 		width:15%
 	}
-	
   </style>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
@@ -45,8 +44,12 @@
 			<tr>
 				<td class="tds">所属协会：</td>
 				<td width="30%"><input id="deptUuid" name="deptUuid" value="" style="width:70%;"/></td>
-				<td class="tds">活动配图：</td>
-				<td width="30%"><input type="button" value="上传图片" style="width:70%;" onclick="openUploadDialog()"/></td>
+				<td class="tds">自定义配图：</td>
+				<td width="30%">
+	                <input type="radio" name="isCustom1" <c:if test="${info.is_custom == '0'}">checked</c:if> value="0" style="width:5%;margin-right: 0">否</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                <input type="radio" name="isCustom1" <c:if test="${info.is_custom == '1'}">checked</c:if> value="1" style="width:5%;margin-right: 0" onclick="openUploadDialog()">是</input>
+	                <input type="hidden" id="isCustom" name="isCustom" value="${info.is_custom}"/>
+				</td>
 			<tr>
 				<td class="tds">活动内容：</td>
 				<td width="30%" colspan="3">
@@ -59,7 +62,7 @@
 		<div id="uploadImageDiv"></div>
 		<input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 		 <input type="hidden" id="activityUuid" name="activityUuid" value="${info.activity_uuid}"/>
-		 <input type="hidden" id="imagePath" name="imagePath" value="" />
+		 <input type="hidden" id="imagePath" name="imagePath" value="${info.image_path}" />
 		 <div style= "width:75%; margin-top: 20px" class="operButon" align="center">
 		   <input id="submitbtn" type="button" class="easyui-linkbutton" onclick="save()" value="提交"/>
 		   <input id="reset" type="reset" class="easyui-linkbutton" onclick=" "  value="重置"/>
@@ -83,10 +86,16 @@ var uploadPhoto = '<c:url value="/website/backstage/uploadImageController.do"/>?
 var groupid = "${sessionScope.user.tabPerson.groupid}";
 commonObj.initDeptCombobox("deptUuid","2", groupid,"<c:out value="${info.dept_uuid}"/>",true);
 
+//默认选中否
+if($("#isCustom").val() == "" || $("#isCustom").val() == null){
+	$("input[name='isCustom1']:eq(0)").attr("checked",'checked');
+}
+
 if($("#isEdit").val() == 'query'){
 	$("#submitbtn").hide();
 	$("#reset").hide();
 	$('input,select,textarea',$('#activityForm')).attr('readonly',true);
+	$("input[name='isCustom1']").attr("disabled",true);
 }
 $('#activityName').textbox({
 	type : "text",

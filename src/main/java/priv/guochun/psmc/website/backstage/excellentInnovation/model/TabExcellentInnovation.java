@@ -125,6 +125,10 @@ public class TabExcellentInnovation implements Serializable {
      * 部门id
      */
     private String deptUuid;
+    /**
+     * 是否自定义配图
+     */
+    private Integer isCustom;
 
    
     public String getInnovationUuid() {
@@ -319,6 +323,14 @@ public class TabExcellentInnovation implements Serializable {
 		this.deptUuid = deptUuid;
 	}
 
+	public Integer getIsCustom() {
+		return isCustom;
+	}
+
+	public void setIsCustom(Integer isCustom) {
+		this.isCustom = isCustom;
+	}
+
 	public TabExcellentInnovation() {
 		super();
 	}
@@ -328,7 +340,7 @@ public class TabExcellentInnovation implements Serializable {
 			String declareEmail, String firstCompletePerson, Integer sex, String education, String job, 
 			String major, Integer occupation, String otherCompletePerson, String achievementName,Integer achievementForm, 
 			String realizedValue, String applicationGeneralize, Timestamp innovationDate,String recommendRemark, 
-			Timestamp recommendDate, String auditRemark, Timestamp auditDate, String achievementContent, String imagePath,String deptUuid) {
+			Timestamp recommendDate, String auditRemark, Timestamp auditDate, String achievementContent, String imagePath,String deptUuid,Integer isCustom) {
 		super();
 		this.innovationUuid = innovationUuid;
 		this.orgName = orgName;
@@ -354,23 +366,22 @@ public class TabExcellentInnovation implements Serializable {
 		this.achievementContent = achievementContent;
 		this.imagePath = imagePath;
 		this.deptUuid = deptUuid;
+		this.isCustom = isCustom;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return "TabExcellentInnovation [innovationUuid=" + innovationUuid + ", orgName=" + orgName + ", declarePerson="
 				+ declarePerson + ", declarePhone=" + declarePhone + ", declareEmail=" + declareEmail
 				+ ", firstCompletePerson=" + firstCompletePerson + ", sex=" + sex + ", education=" + education
-				+ ", job=" + job + ", major=" + major + ", occupation=" + occupation
-				+ ", otherCompletePerson=" + otherCompletePerson + ", achievementName=" + achievementName
-				+ ", achievementForm=" + achievementForm + ", realizedValue=" + realizedValue
-				+ ", applicationGeneralize=" + applicationGeneralize + ", innovationDate=" + innovationDate
-				+ ", recommendRemark=" + recommendRemark + ", recommendDate=" + recommendDate + ", auditRemark="
-				+ auditRemark + ", auditDate=" + auditDate + ", achievementContent=" + achievementContent 
-				+ ", imagePath=" + imagePath + ", deptUuid=" + deptUuid + "]";
+				+ ", job=" + job + ", major=" + major + ", occupation=" + occupation + ", otherCompletePerson="
+				+ otherCompletePerson + ", achievementName=" + achievementName + ", achievementForm=" + achievementForm
+				+ ", realizedValue=" + realizedValue + ", applicationGeneralize=" + applicationGeneralize
+				+ ", innovationDate=" + innovationDate + ", recommendRemark=" + recommendRemark + ", recommendDate="
+				+ recommendDate + ", auditRemark=" + auditRemark + ", auditDate=" + auditDate + ", achievementContent="
+				+ achievementContent + ", imagePath=" + imagePath + ", deptUuid=" + deptUuid + ", isCustom=" + isCustom
+				+ "]";
 	}
+
 
 }

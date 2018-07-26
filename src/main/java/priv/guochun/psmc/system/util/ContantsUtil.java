@@ -58,4 +58,10 @@ public class ContantsUtil {
     public final static String LOGISTICS_CENTER = "logisticsCenter"; //后勤中心
     public final static String DEPT_INNOVATION = "deptInnovation";//创新工作室
     public final static String DEPT_LITERARY_FORM = "deptLiteraryForm";//文体协会
+    
+    /**
+     * 是否自定义配图
+     */
+    public final static Integer IS_CUSTOM_0 = 0; //否
+    public final static Integer IS_CUSTOM_1 = 1; //是
 }
