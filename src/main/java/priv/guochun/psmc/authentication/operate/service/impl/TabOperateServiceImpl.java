@@ -9,6 +9,8 @@ import priv.guochun.psmc.authentication.operate.dao.TabOperateDao;
 import priv.guochun.psmc.authentication.operate.dao.TabRoleOperateDao;
 import priv.guochun.psmc.authentication.operate.model.TabOperate;
 import priv.guochun.psmc.authentication.operate.service.TabOperateService;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcInitCacheTool;
 import priv.guochun.psmc.system.util.UUIDGenerator;
 
 public class TabOperateServiceImpl implements TabOperateService {
@@ -16,6 +18,8 @@ public class TabOperateServiceImpl implements TabOperateService {
 	private TabOperateDao tabOperateDao;
 	
 	private TabRoleOperateDao tabRoleOperateDao;
+	
+	private PsmcInitCacheTool psmcInitCacheTool;
 	
 	@Override
 	public List<Map<?,?>> getPermitOperatesByRoleUuid(String role_uuid) {
@@ -31,6 +35,8 @@ public class TabOperateServiceImpl implements TabOperateService {
 	@Override
 	public boolean deleteTabOperatesByResourceUuid(String resourceUuid){
 		tabOperateDao.deleteTabOperatesByResourceUuid(resourceUuid);
+		//刷新缓存
+	    psmcInitCacheTool.initCache(CacheContants.CACHE_SYSTEM_RESOURCE_OPERATE);
 		return true;
 	}
 	
@@ -57,6 +63,9 @@ public class TabOperateServiceImpl implements TabOperateService {
             tabResourceOperate.setUuid(uuid);
             tabOperateDao.saveResOperateConfig(tabResourceOperate);
         }
+        
+        //刷新缓存
+	    psmcInitCacheTool.initCache(CacheContants.CACHE_SYSTEM_RESOURCE_OPERATE);
     }
 
     @Override
@@ -70,6 +79,8 @@ public class TabOperateServiceImpl implements TabOperateService {
     public int deleteOperateBusinessMethod(String operateUuid)
     {
         int count = tabOperateDao.deleteOperate(operateUuid);
+        //刷新缓存
+	    psmcInitCacheTool.initCache(CacheContants.CACHE_SYSTEM_RESOURCE_OPERATE);
         return count;
     }
     
@@ -101,5 +112,15 @@ public class TabOperateServiceImpl implements TabOperateService {
     public void setTabRoleOperateDao(TabRoleOperateDao tabRoleOperateDao)
     {
         this.tabRoleOperateDao = tabRoleOperateDao;
+    }
+    
+    public PsmcInitCacheTool getPsmcInitCacheTool()
+    {
+        return psmcInitCacheTool;
+    }
+
+    public void setPsmcInitCacheTool(PsmcInitCacheTool psmcInitCacheTool)
+    {
+        this.psmcInitCacheTool = psmcInitCacheTool;
     }
 }

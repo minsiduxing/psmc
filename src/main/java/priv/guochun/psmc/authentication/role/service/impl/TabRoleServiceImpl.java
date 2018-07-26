@@ -10,6 +10,8 @@ import priv.guochun.psmc.authentication.resource.dao.TabRoleResourceDao;
 import priv.guochun.psmc.authentication.role.dao.TabRoleDao;
 import priv.guochun.psmc.authentication.role.model.TabRole;
 import priv.guochun.psmc.authentication.role.service.TabRoleService;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcInitCacheTool;
 import priv.guochun.psmc.system.framework.page.MyPage;
 
 public class TabRoleServiceImpl implements TabRoleService {
@@ -19,6 +21,8 @@ public class TabRoleServiceImpl implements TabRoleService {
 	private TabRoleResourceDao tabRoleResourceDao;
 	
 	private TabRoleOperateDao tabRoleOperateDao;
+	
+	private PsmcInitCacheTool psmcInitCacheTool;
 
 	@Override
 	public Map<?, ?> getTableRoleByUuid(String uuid) {
@@ -66,6 +70,8 @@ public class TabRoleServiceImpl implements TabRoleService {
 	@Override
 	public boolean saveOrUpdateRoleBusinessMethod(TabRole role) {
 	    tabRoleDao.saveOrUpdateTabRole(role);
+	    //刷新缓存
+	    psmcInitCacheTool.initCache(CacheContants.CACHE_SYSTEM_RESOURCE_OPERATE);
 	    return true;
 	}
 	
@@ -82,6 +88,9 @@ public class TabRoleServiceImpl implements TabRoleService {
             tabRoleOperateDao.deleteRoleOperateRelationByRoleUuids(uuids);
             //删除角色
             tabRoleDao.deletesRoles(uuids);
+            
+            //刷新缓存
+    	    psmcInitCacheTool.initCache(CacheContants.CACHE_SYSTEM_RESOURCE_OPERATE);
             
             return true;
         }
@@ -128,5 +137,13 @@ public class TabRoleServiceImpl implements TabRoleService {
         this.tabRoleOperateDao = tabRoleOperateDao;
     }
     
-    
+    public PsmcInitCacheTool getPsmcInitCacheTool()
+    {
+        return psmcInitCacheTool;
+    }
+
+    public void setPsmcInitCacheTool(PsmcInitCacheTool psmcInitCacheTool)
+    {
+        this.psmcInitCacheTool = psmcInitCacheTool;
+    }
 }
