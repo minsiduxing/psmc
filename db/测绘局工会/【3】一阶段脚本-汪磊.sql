@@ -129,3 +129,21 @@ INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, 
 INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('5', '已备案', '困难申报状态', 9, 5, 16, 'REPORT_STAUS');
 
 
+--维护保修
+delete from tab_role_operate where operate_uuid in(
+select uuid from tab_operate where resource_uuid='ad705f6bb26948609e1aa55e86330d05'
+);
+delete from tab_operate where resource_uuid='ad705f6bb26948609e1aa55e86330d05';
+delete from tab_role_resource where resource_id='ad705f6bb26948609e1aa55e86330d05';
+delete from tab_resource where uuid='ad705f6bb26948609e1aa55e86330d05';
+
+
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum, is_view) VALUES ('ad705f6bb26948609e1aa55e86330d05', '维护报修', 3, '/website/backstage/reportController.do?method=index&type=repair', '769a2c0484dd43749ed12b607102d688', 'admin', '2018-05-13 00:00:00', '维护报修菜单', 7, 1);
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'ad705f6bb26948609e1aa55e86330d05');
+
+--操作
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('863c2be59f01456a9341d1405793e309', 'ad705f6bb26948609e1aa55e86330d05', 'dec3b327b8a54d66bd644c544ea65c5e', 'deleteReportBusinessMethod', 'deleteReportBusinessMethod', 'INFO_REPAIR_DELETE', '维护保修删除', '维护保修删除', 43);
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('b8a561c0601d4cf4a691c363e73b525e', 'ad705f6bb26948609e1aa55e86330d05', 'fe755fa4bd25475fa1a9d841caa16f44', 'priv.guochun.psmc.website.backstage.report.service.ReportService', 'executeReplyReportBusinessMethod', 'INFO_REPAIR_REPLY', '维护保修', '维护保修', 42);
+--角色操作
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '863c2be59f01456a9341d1405793e309');
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'b8a561c0601d4cf4a691c363e73b525e');

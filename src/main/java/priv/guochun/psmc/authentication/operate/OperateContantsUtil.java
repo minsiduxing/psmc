@@ -173,7 +173,12 @@ public class OperateContantsUtil {
     public final static String INFO_HELP_REPLY = "INFO_HELP_REPLY";
     public final static String INFO_HELP_DELETE = "INFO_HELP_DELETE";
     public final static String INFO_HELP_LIST = "INFO_HELP_LIST";
-    
+    /**
+     * 维护保修操作
+     */
+    public final static String INFO_REPAIR_REPLY = "INFO_REPAIR_REPLY";
+    public final static String INFO_REPAIR_DELETE = "INFO_REPAIR_DELETE";
+    public final static String INFO_REPAIR_LIST = "INFO_REPAIR_LIST";
     /**
      * 创新工作室操作编码
      */
