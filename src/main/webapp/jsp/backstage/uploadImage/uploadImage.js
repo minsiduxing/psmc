@@ -123,34 +123,26 @@ function createJCrop(divId) {
 
 function imageUpload(){
 	var uploadUrl = uploadPhoto;
+	$.messager.progress(); 
 	$("#upload-file").ajaxSubmit({
 	    url:uploadUrl,
 	    type:"post",
 	    dataType:"json",
 	    success:function(data){
-	        var browserVersion= window.navigator.userAgent.toUpperCase();
-	        if(jcrop_api!=null){
-	        	jcrop_api.destroy();    
-	        }
 	        $("#imagePath").val(data.rmsg);
-//	        if (browserVersion.indexOf("MSIE")>-1){
-//	            if(browserVersion.indexOf("MSIE 6")>-1){//ie6                    
-//	                $("#target1").attr("src","/BML/files/proInfo/"+data.seriName);
-//	            }else{//ie[7-9]
-//	                $("#target1").attr("src","/BML/files/proInfo/"+data.seriName);
-//	                //document.getElementById("targetNew").setAttribute("src","/BML/files/proInfo/"+data.seriName);
-//	            }
-//	        }else{
-//	            $("#target1").attr("src","/BML/files/proInfo/"+data.seriName);
-//	        }
-//	        $("#picpath0").val(data.seriName);
+	        $.messager.progress("close");
+	        commonObj.alert ("上传成功!","info");
 	    },error:function(){
+	    	$.messager.progress("close");
 	    	commonObj.alert ("上传失败!","warning");
 	    }
 	});
 }
 
 function closeDialog(){
+	if(jcrop_api!=null){
+    	jcrop_api.destroy();    
+    }
 	$('#uploadImageDiv').dialog('close');
 }
 

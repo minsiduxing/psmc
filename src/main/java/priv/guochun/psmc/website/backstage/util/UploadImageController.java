@@ -1,35 +1,21 @@
 package priv.guochun.psmc.website.backstage.util;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.CropImageFilter;
 import java.awt.image.FilteredImageSource;
 import java.awt.image.ImageFilter;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -38,7 +24,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.upload.factory.MyCommonsMultipartResolverFactory;
 import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
-import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
 import priv.guochun.psmc.system.framework.upload.util.FtpUtil;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
@@ -47,9 +32,6 @@ import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 @RequestMapping("/website/backstage/uploadImageController")
 public class UploadImageController extends MyController{
 
-	@Autowired
-	private UploadAssemblyInterface uploadAssemblyInterface;
-	
 	/**
 	 * 打开图片上传界面
 	 * @return

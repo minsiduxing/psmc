@@ -148,7 +148,7 @@ commonObj.initDeptCombobox = function(id,deptType,defaultValue,validate){
 		dataType: 'json', 
 		success: function(data){   
 			// 修改ajax返回的值
-			data.unshift({'ID':'','NAME':'请选择'}); //非查询，则第一行增加请选择
+			//data.unshift({'ID':'','NAME':'请选择'}); //非查询，则第一行增加请选择
 			$('#'+id).combobox({  
 			    panelHeight:100,
 			    data:data,
