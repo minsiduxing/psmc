@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tab_block" >
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.topics.model.TabBlock" >
+    <id column="block_uuid" property="blockUuid" jdbcType="VARCHAR" />
+    <result column="block_name" property="blockName" jdbcType="VARCHAR" />
+    <result column="block_key" property="blockKey" jdbcType="VARCHAR" />
+    <result column="block_info" property="blockInfo" jdbcType="VARCHAR" />
+    <result column="last_topic_uuid" property="lastTopicUuid" jdbcType="VARCHAR" />
+    <result column="last_topic_person_uuid" property="lastTopicPersonUuid" jdbcType="VARCHAR" />
+    <result column="last_topic_date" property="lastTopicDate" jdbcType="TIMESTAMP" />
+    <result column="block_status" property="blockStatus" jdbcType="INTEGER" />
+    <result column="create_person_uuid" property="createPersonUuid" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    block_uuid, block_name, block_key, block_info, last_topic_uuid, last_topic_person_uuid, 
+    last_topic_date, block_status, create_person_uuid, create_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabBlockExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tab_block
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tab_block
+    where block_uuid = #{blockUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tab_block
+    where block_uuid = #{blockUuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabBlockExample" >
+    delete from tab_block
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabBlock" >
+    insert into tab_block (block_uuid, block_name, block_key, 
+      block_info, last_topic_uuid, last_topic_person_uuid, 
+      last_topic_date, block_status, create_person_uuid, 
+      create_date)
+    values (#{blockUuid,jdbcType=VARCHAR}, #{blockName,jdbcType=VARCHAR}, #{blockKey,jdbcType=VARCHAR}, 
+      #{blockInfo,jdbcType=VARCHAR}, #{lastTopicUuid,jdbcType=VARCHAR}, #{lastTopicPersonUuid,jdbcType=VARCHAR}, 
+      #{lastTopicDate,jdbcType=TIMESTAMP}, #{blockStatus,jdbcType=INTEGER}, #{createPersonUuid,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabBlock" >
+    insert into tab_block
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="blockUuid != null" >
+        block_uuid,
+      </if>
+      <if test="blockName != null" >
+        block_name,
+      </if>
+      <if test="blockKey != null" >
+        block_key,
+      </if>
+      <if test="blockInfo != null" >
+        block_info,
+      </if>
+      <if test="lastTopicUuid != null" >
+        last_topic_uuid,
+      </if>
+      <if test="lastTopicPersonUuid != null" >
+        last_topic_person_uuid,
+      </if>
+      <if test="lastTopicDate != null" >
+        last_topic_date,
+      </if>
+      <if test="blockStatus != null" >
+        block_status,
+      </if>
+      <if test="createPersonUuid != null" >
+        create_person_uuid,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="blockUuid != null" >
+        #{blockUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="blockName != null" >
+        #{blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="blockKey != null" >
+        #{blockKey,jdbcType=VARCHAR},
+      </if>
+      <if test="blockInfo != null" >
+        #{blockInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTopicUuid != null" >
+        #{lastTopicUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTopicPersonUuid != null" >
+        #{lastTopicPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTopicDate != null" >
+        #{lastTopicDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blockStatus != null" >
+        #{blockStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createPersonUuid != null" >
+        #{createPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabBlockExample" resultType="java.lang.Integer" >
+    select count(*) from tab_block
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tab_block
+    <set >
+      <if test="record.blockUuid != null" >
+        block_uuid = #{record.blockUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blockName != null" >
+        block_name = #{record.blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blockKey != null" >
+        block_key = #{record.blockKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blockInfo != null" >
+        block_info = #{record.blockInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastTopicUuid != null" >
+        last_topic_uuid = #{record.lastTopicUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastTopicPersonUuid != null" >
+        last_topic_person_uuid = #{record.lastTopicPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastTopicDate != null" >
+        last_topic_date = #{record.lastTopicDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.blockStatus != null" >
+        block_status = #{record.blockStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createPersonUuid != null" >
+        create_person_uuid = #{record.createPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tab_block
+    set block_uuid = #{record.blockUuid,jdbcType=VARCHAR},
+      block_name = #{record.blockName,jdbcType=VARCHAR},
+      block_key = #{record.blockKey,jdbcType=VARCHAR},
+      block_info = #{record.blockInfo,jdbcType=VARCHAR},
+      last_topic_uuid = #{record.lastTopicUuid,jdbcType=VARCHAR},
+      last_topic_person_uuid = #{record.lastTopicPersonUuid,jdbcType=VARCHAR},
+      last_topic_date = #{record.lastTopicDate,jdbcType=TIMESTAMP},
+      block_status = #{record.blockStatus,jdbcType=INTEGER},
+      create_person_uuid = #{record.createPersonUuid,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabBlock" >
+    update tab_block
+    <set >
+      <if test="blockName != null" >
+        block_name = #{blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="blockKey != null" >
+        block_key = #{blockKey,jdbcType=VARCHAR},
+      </if>
+      <if test="blockInfo != null" >
+        block_info = #{blockInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTopicUuid != null" >
+        last_topic_uuid = #{lastTopicUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTopicPersonUuid != null" >
+        last_topic_person_uuid = #{lastTopicPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTopicDate != null" >
+        last_topic_date = #{lastTopicDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blockStatus != null" >
+        block_status = #{blockStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createPersonUuid != null" >
+        create_person_uuid = #{createPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where block_uuid = #{blockUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabBlock" >
+    update tab_block
+    set block_name = #{blockName,jdbcType=VARCHAR},
+      block_key = #{blockKey,jdbcType=VARCHAR},
+      block_info = #{blockInfo,jdbcType=VARCHAR},
+      last_topic_uuid = #{lastTopicUuid,jdbcType=VARCHAR},
+      last_topic_person_uuid = #{lastTopicPersonUuid,jdbcType=VARCHAR},
+      last_topic_date = #{lastTopicDate,jdbcType=TIMESTAMP},
+      block_status = #{blockStatus,jdbcType=INTEGER},
+      create_person_uuid = #{createPersonUuid,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where block_uuid = #{blockUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

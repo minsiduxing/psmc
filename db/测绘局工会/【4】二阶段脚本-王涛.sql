@@ -50,3 +50,77 @@ alter table tab_dept add is_custom integer comment '是否自定义配图';
 alter table tab_excellent_innovation add is_custom integer comment '是否自定义配图';
 alter table tab_activity_manage add is_custom integer comment '是否自定义配图';
 alter table tab_news add is_custom integer comment '是否自定义配图';
+
+/*==============================================================*/
+/* Table: tab_block                                             */
+/*==============================================================*/
+drop table tab_block;
+create table tab_block
+(
+    block_uuid varchar(32) primary key comment '版块uuid',  
+    block_name varchar(100) not null comment '版块名称',
+    block_key varchar(100) comment '版块类型key',
+    block_info varchar(500) comment '版块介绍',
+    last_topic_uuid varchar(32) comment '最后发表主题ID',
+    last_topic_person_uuid varchar(100) comment '最后发表人账号id',
+    last_topic_date timestamp comment '最后发表时间',
+    block_status integer comment '板块状态(1正常，2暂停，3删除)',
+    create_person_uuid varchar(100) comment '创建人id',
+    create_date timestamp comment '创建时间'  
+)comment '版块信息表';
+
+/*==============================================================*/
+/* Table: tab_topics                                            */
+/*==============================================================*/
+drop table tab_topics;
+create table tab_topics
+(
+   topic_uuid varchar(32) primary key comment '主题信息ID',
+   topic_name varchar(100) comment '主题名称',
+   topic_content text COLLATE utf8mb4_general_ci comment'主题内容',
+   topic_status integer comment '主题状态(1正常，2暂停，3删除)',
+   block_uuid varchar(100) comment '所属版块uuid',
+   create_person_uuid varchar(100) comment '创建人id',
+   create_person_name varchar(50) comment '创建人姓名',
+   telephone varchar(20) comment'联系电话',
+   create_date timestamp comment '创建时间',
+   last_comment_person_uuid varchar(100) comment'最后评论人id',
+   last_comment_date timestamp comment '最后评论时间',
+   last_comment_uuid varchar(32) comment '最后评论id' 
+) comment '主题信息表';
+
+/*==============================================================*/
+/* Table: tab_comment                                            */
+/*==============================================================*/
+drop table tab_comment;
+create table tab_comment
+(
+   comment_uuid varchar(32) primary key comment '评论信息ID',
+   topic_uuid varchar(32) not null comment '主题信息ID',
+   comment_content varchar(1000) not null comment '评论内容',
+   comment_person_uuid varchar(100) comment '评论人id',
+   comment_person_name varchar(50) comment '评论人姓名',
+   comment_date timestamp comment '评论时间',
+   comment_status integer comment '评论状态(1正常，2屏蔽，3删除)',
+   to_person_uuid varchar(100) comment '评论目标用户id',
+   to_person_name varchar(50) comment '评论目标用户姓名'
+      
+)comment '评论信息表';
+
+/*==============================================================*/
+/* Table: tab_attachment                                            */
+/*==============================================================*/
+drop table tab_attachment;
+create table tab_attachment
+(
+   attachment_uuid varchar(32) primary key comment '主键',
+   business_uuid varchar(100) not null comment '关联的业务信息id',
+   file_prefix varchar(100) not null comment '文件前缀',
+   file_path varchar(300) not null comment '文件路径',
+   file_name varchar(100) comment '文件名称',
+   file_real_name varchar(100) comment '文件真实名称',
+   file_suffix varchar(20) comment '文件后缀名',
+   upload_acc_uuid varchar(100) comment '上传人accUuid',
+   upload_date timestamp comment '上传时间',
+   sort integer comment '排序'
+) comment '附件信息表';

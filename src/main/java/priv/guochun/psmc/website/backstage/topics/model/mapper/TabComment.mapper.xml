@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tab_comment" >
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.topics.model.TabComment" >
+    <id column="comment_uuid" property="commentUuid" jdbcType="VARCHAR" />
+    <result column="topic_uuid" property="topicUuid" jdbcType="VARCHAR" />
+    <result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
+    <result column="comment_person_uuid" property="commentPersonUuid" jdbcType="VARCHAR" />
+    <result column="comment_person_name" property="commentPersonName" jdbcType="VARCHAR" />
+    <result column="comment_date" property="commentDate" jdbcType="TIMESTAMP" />
+    <result column="comment_status" property="commentStatus" jdbcType="INTEGER" />
+    <result column="to_person_uuid" property="toPersonUuid" jdbcType="VARCHAR" />
+    <result column="to_person_name" property="toPersonName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    comment_uuid, topic_uuid, comment_content, comment_person_uuid, comment_person_name, 
+    comment_date, comment_status, to_person_uuid, to_person_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tab_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tab_comment
+    where comment_uuid = #{commentUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tab_comment
+    where comment_uuid = #{commentUuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabCommentExample" >
+    delete from tab_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabComment" >
+    insert into tab_comment (comment_uuid, topic_uuid, comment_content, 
+      comment_person_uuid, comment_person_name, comment_date, 
+      comment_status, to_person_uuid, to_person_name
+      )
+    values (#{commentUuid,jdbcType=VARCHAR}, #{topicUuid,jdbcType=VARCHAR}, #{commentContent,jdbcType=VARCHAR}, 
+      #{commentPersonUuid,jdbcType=VARCHAR}, #{commentPersonName,jdbcType=VARCHAR}, #{commentDate,jdbcType=TIMESTAMP}, 
+      #{commentStatus,jdbcType=INTEGER}, #{toPersonUuid,jdbcType=VARCHAR}, #{toPersonName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabComment" >
+    insert into tab_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentUuid != null" >
+        comment_uuid,
+      </if>
+      <if test="topicUuid != null" >
+        topic_uuid,
+      </if>
+      <if test="commentContent != null" >
+        comment_content,
+      </if>
+      <if test="commentPersonUuid != null" >
+        comment_person_uuid,
+      </if>
+      <if test="commentPersonName != null" >
+        comment_person_name,
+      </if>
+      <if test="commentDate != null" >
+        comment_date,
+      </if>
+      <if test="commentStatus != null" >
+        comment_status,
+      </if>
+      <if test="toPersonUuid != null" >
+        to_person_uuid,
+      </if>
+      <if test="toPersonName != null" >
+        to_person_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentUuid != null" >
+        #{commentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="topicUuid != null" >
+        #{topicUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null" >
+        #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentPersonUuid != null" >
+        #{commentPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="commentPersonName != null" >
+        #{commentPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentDate != null" >
+        #{commentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentStatus != null" >
+        #{commentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="toPersonUuid != null" >
+        #{toPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="toPersonName != null" >
+        #{toPersonName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabCommentExample" resultType="java.lang.Integer" >
+    select count(*) from tab_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tab_comment
+    <set >
+      <if test="record.commentUuid != null" >
+        comment_uuid = #{record.commentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.topicUuid != null" >
+        topic_uuid = #{record.topicUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentContent != null" >
+        comment_content = #{record.commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentPersonUuid != null" >
+        comment_person_uuid = #{record.commentPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentPersonName != null" >
+        comment_person_name = #{record.commentPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentDate != null" >
+        comment_date = #{record.commentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.commentStatus != null" >
+        comment_status = #{record.commentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.toPersonUuid != null" >
+        to_person_uuid = #{record.toPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toPersonName != null" >
+        to_person_name = #{record.toPersonName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tab_comment
+    set comment_uuid = #{record.commentUuid,jdbcType=VARCHAR},
+      topic_uuid = #{record.topicUuid,jdbcType=VARCHAR},
+      comment_content = #{record.commentContent,jdbcType=VARCHAR},
+      comment_person_uuid = #{record.commentPersonUuid,jdbcType=VARCHAR},
+      comment_person_name = #{record.commentPersonName,jdbcType=VARCHAR},
+      comment_date = #{record.commentDate,jdbcType=TIMESTAMP},
+      comment_status = #{record.commentStatus,jdbcType=INTEGER},
+      to_person_uuid = #{record.toPersonUuid,jdbcType=VARCHAR},
+      to_person_name = #{record.toPersonName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabComment" >
+    update tab_comment
+    <set >
+      <if test="topicUuid != null" >
+        topic_uuid = #{topicUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null" >
+        comment_content = #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentPersonUuid != null" >
+        comment_person_uuid = #{commentPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="commentPersonName != null" >
+        comment_person_name = #{commentPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentDate != null" >
+        comment_date = #{commentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentStatus != null" >
+        comment_status = #{commentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="toPersonUuid != null" >
+        to_person_uuid = #{toPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="toPersonName != null" >
+        to_person_name = #{toPersonName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where comment_uuid = #{commentUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabComment" >
+    update tab_comment
+    set topic_uuid = #{topicUuid,jdbcType=VARCHAR},
+      comment_content = #{commentContent,jdbcType=VARCHAR},
+      comment_person_uuid = #{commentPersonUuid,jdbcType=VARCHAR},
+      comment_person_name = #{commentPersonName,jdbcType=VARCHAR},
+      comment_date = #{commentDate,jdbcType=TIMESTAMP},
+      comment_status = #{commentStatus,jdbcType=INTEGER},
+      to_person_uuid = #{toPersonUuid,jdbcType=VARCHAR},
+      to_person_name = #{toPersonName,jdbcType=VARCHAR}
+    where comment_uuid = #{commentUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>
