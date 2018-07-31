@@ -1,24 +1,48 @@
 package priv.guochun.psmc.website.backstage.topics.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
+/**
+ * 评论信息实体类
+ * @author Administrator
+ *
+ */
 public class TabComment {
+	/**
+	 * 评论id
+	 */
     private String commentUuid;
-
+    /**
+	 * 主题id
+	 */
     private String topicUuid;
-
+    /**
+	 * 评论内容
+	 */
     private String commentContent;
-
+    /**
+	 * 评论人id
+	 */
     private String commentPersonUuid;
-
+    /**
+	 * 评论人姓名
+	 */
     private String commentPersonName;
-
-    private Date commentDate;
-
+    /**
+	 * 评论时间
+	 */
+    private Timestamp commentDate;
+    /**
+	 * 评论状态（1正常，2屏蔽，3删除）
+	 */
     private Integer commentStatus;
-
+    /**
+	 * 评论目标人id
+	 */
     private String toPersonUuid;
-
+    /**
+	 * 评论目标人姓名
+	 */
     private String toPersonName;
 
     public String getCommentUuid() {
@@ -61,11 +85,11 @@ public class TabComment {
         this.commentPersonName = commentPersonName == null ? null : commentPersonName.trim();
     }
 
-    public Date getCommentDate() {
+    public Timestamp getCommentDate() {
         return commentDate;
     }
 
-    public void setCommentDate(Date commentDate) {
+    public void setCommentDate(Timestamp commentDate) {
         this.commentDate = commentDate;
     }
 
@@ -92,4 +116,12 @@ public class TabComment {
     public void setToPersonName(String toPersonName) {
         this.toPersonName = toPersonName == null ? null : toPersonName.trim();
     }
+
+	@Override
+	public String toString() {
+		return "TabComment [commentUuid=" + commentUuid + ", topicUuid=" + topicUuid + ", commentContent="
+				+ commentContent + ", commentPersonUuid=" + commentPersonUuid + ", commentPersonName="
+				+ commentPersonName + ", commentDate=" + commentDate + ", commentStatus=" + commentStatus
+				+ ", toPersonUuid=" + toPersonUuid + ", toPersonName=" + toPersonName + "]";
+	}
 }

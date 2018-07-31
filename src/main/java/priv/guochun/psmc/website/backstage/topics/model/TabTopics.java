@@ -1,30 +1,60 @@
 package priv.guochun.psmc.website.backstage.topics.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
+/**
+ * 主题信息实体类
+ * @author Administrator
+ *
+ */
 public class TabTopics {
+	/**
+	 * 主题id
+	 */
     private String topicUuid;
-
+	/**
+	 * 主题名称
+	 */
     private String topicName;
-
+	/**
+	 * 主题状态（1正常，2暂停，3删除）
+	 */
     private Integer topicStatus;
-
+	/**
+	 * 所属板块id
+	 */
     private String blockUuid;
-
+	/**
+	 * 创建人id
+	 */
     private String createPersonUuid;
-
+	/**
+	 * 创建人姓名
+	 */
     private String createPersonName;
-
+	/**
+	 * 创建人联系电话
+	 */
     private String telephone;
-
-    private Date createDate;
-
+	/**
+	 * 创建时间
+	 */
+    private Timestamp createDate;
+	/**
+	 * 最后评论人id
+	 */
     private String lastCommentPersonUuid;
-
-    private Date lastCommentDate;
-
+	/**
+	 * 最后评论时间
+	 */
+    private Timestamp lastCommentDate;
+	/**
+	 * 最后评论信息id
+	 */
     private String lastCommentUuid;
-
+	/**
+	 * 主题内容
+	 */
     private String topicContent;
 
     public String getTopicUuid() {
@@ -83,11 +113,11 @@ public class TabTopics {
         this.telephone = telephone == null ? null : telephone.trim();
     }
 
-    public Date getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
 
@@ -99,11 +129,11 @@ public class TabTopics {
         this.lastCommentPersonUuid = lastCommentPersonUuid == null ? null : lastCommentPersonUuid.trim();
     }
 
-    public Date getLastCommentDate() {
+    public Timestamp getLastCommentDate() {
         return lastCommentDate;
     }
 
-    public void setLastCommentDate(Date lastCommentDate) {
+    public void setLastCommentDate(Timestamp lastCommentDate) {
         this.lastCommentDate = lastCommentDate;
     }
 
@@ -122,4 +152,13 @@ public class TabTopics {
     public void setTopicContent(String topicContent) {
         this.topicContent = topicContent == null ? null : topicContent.trim();
     }
+
+	@Override
+	public String toString() {
+		return "TabTopics [topicUuid=" + topicUuid + ", topicName=" + topicName + ", topicStatus=" + topicStatus
+				+ ", blockUuid=" + blockUuid + ", createPersonUuid=" + createPersonUuid + ", createPersonName="
+				+ createPersonName + ", telephone=" + telephone + ", createDate=" + createDate
+				+ ", lastCommentPersonUuid=" + lastCommentPersonUuid + ", lastCommentDate=" + lastCommentDate
+				+ ", lastCommentUuid=" + lastCommentUuid + ", topicContent=" + topicContent + "]";
+	}
 }

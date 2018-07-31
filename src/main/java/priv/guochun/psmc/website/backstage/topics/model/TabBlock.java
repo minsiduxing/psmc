@@ -1,28 +1,55 @@
 package priv.guochun.psmc.website.backstage.topics.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
+/**
+ * 版块信息实体类
+ * @author Administrator
+ *
+ */
 public class TabBlock {
+	
+	/**
+	 * 版块id
+	 */
     private String blockUuid;
-
+    /**
+	 * 版块名称
+	 */
     private String blockName;
-
+    /**
+	 * 版块类型key
+	 */
     private String blockKey;
-
+    /**
+	 * 版块介绍
+	 */
     private String blockInfo;
-
+    /**
+	 * 最后发表主题id
+	 */
     private String lastTopicUuid;
-
+    /**
+	 * 最后发表人id
+	 */
     private String lastTopicPersonUuid;
-
-    private Date lastTopicDate;
-
+    /**
+	 * 最后发表时间
+	 */
+    private Timestamp lastTopicDate;
+    /**
+	 * 版块状态（1正常，2暂停，3删除）
+	 */
     private Integer blockStatus;
-
+    /**
+	 * 创建人id
+	 */
     private String createPersonUuid;
-
-    private Date createDate;
-
+    /**
+	 * 创建时间
+	 */
+    private Timestamp createDate;
+    
     public String getBlockUuid() {
         return blockUuid;
     }
@@ -71,11 +98,11 @@ public class TabBlock {
         this.lastTopicPersonUuid = lastTopicPersonUuid == null ? null : lastTopicPersonUuid.trim();
     }
 
-    public Date getLastTopicDate() {
+    public Timestamp getLastTopicDate() {
         return lastTopicDate;
     }
 
-    public void setLastTopicDate(Date lastTopicDate) {
+    public void setLastTopicDate(Timestamp lastTopicDate) {
         this.lastTopicDate = lastTopicDate;
     }
 
@@ -95,11 +122,19 @@ public class TabBlock {
         this.createPersonUuid = createPersonUuid == null ? null : createPersonUuid.trim();
     }
 
-    public Date getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
+
+	@Override
+	public String toString() {
+		return "TabBlock [blockUuid=" + blockUuid + ", blockName=" + blockName + ", blockKey=" + blockKey
+				+ ", blockInfo=" + blockInfo + ", lastTopicUuid=" + lastTopicUuid + ", lastTopicPersonUuid="
+				+ lastTopicPersonUuid + ", lastTopicDate=" + lastTopicDate + ", blockStatus=" + blockStatus
+				+ ", createPersonUuid=" + createPersonUuid + ", createDate=" + createDate + "]";
+	}
 }

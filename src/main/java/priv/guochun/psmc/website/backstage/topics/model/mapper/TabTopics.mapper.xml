@@ -14,135 +14,95 @@
     <result column="last_comment_date" property="lastCommentDate" jdbcType="TIMESTAMP" />
     <result column="last_comment_uuid" property="lastCommentUuid" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="priv.guochun.psmc.website.backstage.topics.model.TabTopics" extends="BaseResultMap" >
-    <result column="topic_content" property="topicContent" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
+  
+ 
   <sql id="Base_Column_List" >
     topic_uuid, topic_name, topic_status, block_uuid, create_person_uuid, create_person_name, 
     telephone, create_date, last_comment_person_uuid, last_comment_date, last_comment_uuid
   </sql>
-  <sql id="Blob_Column_List" >
-    topic_content
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabTopicsExample" >
+
+
+  <select id="selectTopicsList" parameterType="hashmap" resultType="java.util.Map">
     select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from tab_topics
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+    	t1.*,
+    	t2.nums,
+    	t3.person_name as lastCommentPerson
+    from 
+    	tab_topics t1
+    left join 
+    	tab_page_view t2
+    on 
+    	t1.topic_uuid = t2.uuid
+    left join
+    	tab_person t3
+    on
+    	t1.last_comment_person_uuid = t3.uuid
+    <where>
+    	  1 = 1
+	    <if test="topicUuid != null and topicUuid != ''">
+	      and t1.topic_uuid = #{topicUuid}
+	    </if>
+	    <if test="blockUuid != null and blockUuid != ''">
+	      and t1.block_uuid = #{blockUuid}
+	    </if>
+	    <if test="topicName != null and topicName != ''">
+	      and t1.topic_name like concat(concat('%',#{topicName}),'%')
+	    </if>
+	    <if test="topicContent != null and topicContent != ''">
+	      and t1.topic_content like concat(concat('%',#{topicContent}),'%')
+	    </if>
+	    <if test="createPersonName != null and createPersonName != ''">
+	      and t1.create_person_name like concat(concat('%',#{createPersonName}),'%')
+	    </if>
+	    <if test="telephone != null and telephone != ''">
+	      and t1.telephone like concat(concat('%',#{telephone}),'%')
+	    </if>
+	    <if test="lastCommentPerson != null and lastCommentPerson != ''">
+	      and t1.t3.person_name like concat(concat('%',#{lastCommentPerson}),'%')
+	    </if>
+	    <if test="createDateBegin != null and createDateBegin != ''">
+	      and <![CDATA[t1.create_date >=#{createDateBegin}]]>  
+	    </if>
+	    <if test="createDateEnd != null and createDateEnd != ''">
+	      and <![CDATA[t1.create_date <=#{createDateEnd}]]>  
+	    </if>
+	    <if test="lastCommentDateBegin != null and lastCommentDateBegin != ''">
+	      and <![CDATA[t1.last_comment_date >=#{lastCommentDateBegin}]]>  
+	    </if>
+	    <if test="lastCommentDateEnd != null and lastCommentDateEnd != ''">
+	      and <![CDATA[t1.last_comment_date <=#{lastCommentDateEnd}]]>  
+	    </if>
+	    <if test="queryParameter != null and queryParameter != ''" >  
+	       and (t1.topic_name like concat(concat('%',#{queryParameter}),'%')
+	       		or t1.topic_content LIKE concat(concat('%',#{queryParameter}),'%')
+	       		or t1.create_person_name LIKE concat(concat('%',#{queryParameter}),'%')
+	       		or t1.telephone like concat(concat('%',#{queryParameter}),'%')
+	       	   )
+		  </if>  
+    </where>
+      order by create_date desc
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabTopicsExample" >
+  
+  <select id="selectTopicsByPrimaryKey"parameterType="hashmap" resultType="java.util.Map" >
     select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from tab_topics
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+    	t1.*,
+    	t2.nums,
+    	t3.person_name as lastCommentPerson
+    from 
+    	tab_topics t1
+    left join 
+    	tab_page_view t2
+    on 
+    	t1.topic_uuid = t2.uuid
+    left join
+    	tab_person t3
+    on
+    	t1.last_comment_person_uuid = t3.uuid
+    where t1.topic_uuid = #{topicUuid,jdbcType=VARCHAR}
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from tab_topics
-    where topic_uuid = #{topicUuid,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from tab_topics
-    where topic_uuid = #{topicUuid,jdbcType=VARCHAR}
-  </delete>
-  <delete id="deleteByExample" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabTopicsExample" >
-    delete from tab_topics
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabTopics" >
-    insert into tab_topics (topic_uuid, topic_name, topic_status, 
-      block_uuid, create_person_uuid, create_person_name, 
-      telephone, create_date, last_comment_person_uuid, 
-      last_comment_date, last_comment_uuid, topic_content
-      )
-    values (#{topicUuid,jdbcType=VARCHAR}, #{topicName,jdbcType=VARCHAR}, #{topicStatus,jdbcType=INTEGER}, 
-      #{blockUuid,jdbcType=VARCHAR}, #{createPersonUuid,jdbcType=VARCHAR}, #{createPersonName,jdbcType=VARCHAR}, 
-      #{telephone,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{lastCommentPersonUuid,jdbcType=VARCHAR}, 
-      #{lastCommentDate,jdbcType=TIMESTAMP}, #{lastCommentUuid,jdbcType=VARCHAR}, #{topicContent,jdbcType=LONGVARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabTopics" >
+  
+
+  <insert id="insertTopics" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabTopics" >
     insert into tab_topics
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="topicUuid != null" >
@@ -221,92 +181,8 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabTopicsExample" resultType="java.lang.Integer" >
-    select count(*) from tab_topics
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update tab_topics
-    <set >
-      <if test="record.topicUuid != null" >
-        topic_uuid = #{record.topicUuid,jdbcType=VARCHAR},
-      </if>
-      <if test="record.topicName != null" >
-        topic_name = #{record.topicName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.topicStatus != null" >
-        topic_status = #{record.topicStatus,jdbcType=INTEGER},
-      </if>
-      <if test="record.blockUuid != null" >
-        block_uuid = #{record.blockUuid,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createPersonUuid != null" >
-        create_person_uuid = #{record.createPersonUuid,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createPersonName != null" >
-        create_person_name = #{record.createPersonName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.telephone != null" >
-        telephone = #{record.telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createDate != null" >
-        create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.lastCommentPersonUuid != null" >
-        last_comment_person_uuid = #{record.lastCommentPersonUuid,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lastCommentDate != null" >
-        last_comment_date = #{record.lastCommentDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.lastCommentUuid != null" >
-        last_comment_uuid = #{record.lastCommentUuid,jdbcType=VARCHAR},
-      </if>
-      <if test="record.topicContent != null" >
-        topic_content = #{record.topicContent,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update tab_topics
-    set topic_uuid = #{record.topicUuid,jdbcType=VARCHAR},
-      topic_name = #{record.topicName,jdbcType=VARCHAR},
-      topic_status = #{record.topicStatus,jdbcType=INTEGER},
-      block_uuid = #{record.blockUuid,jdbcType=VARCHAR},
-      create_person_uuid = #{record.createPersonUuid,jdbcType=VARCHAR},
-      create_person_name = #{record.createPersonName,jdbcType=VARCHAR},
-      telephone = #{record.telephone,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      last_comment_person_uuid = #{record.lastCommentPersonUuid,jdbcType=VARCHAR},
-      last_comment_date = #{record.lastCommentDate,jdbcType=TIMESTAMP},
-      last_comment_uuid = #{record.lastCommentUuid,jdbcType=VARCHAR},
-      topic_content = #{record.topicContent,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update tab_topics
-    set topic_uuid = #{record.topicUuid,jdbcType=VARCHAR},
-      topic_name = #{record.topicName,jdbcType=VARCHAR},
-      topic_status = #{record.topicStatus,jdbcType=INTEGER},
-      block_uuid = #{record.blockUuid,jdbcType=VARCHAR},
-      create_person_uuid = #{record.createPersonUuid,jdbcType=VARCHAR},
-      create_person_name = #{record.createPersonName,jdbcType=VARCHAR},
-      telephone = #{record.telephone,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      last_comment_person_uuid = #{record.lastCommentPersonUuid,jdbcType=VARCHAR},
-      last_comment_date = #{record.lastCommentDate,jdbcType=TIMESTAMP},
-      last_comment_uuid = #{record.lastCommentUuid,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabTopics" >
+  
+  <update id="updateTopics" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabTopics" >
     update tab_topics
     <set >
       <if test="topicName != null" >
@@ -345,33 +221,5 @@
     </set>
     where topic_uuid = #{topicUuid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabTopics" >
-    update tab_topics
-    set topic_name = #{topicName,jdbcType=VARCHAR},
-      topic_status = #{topicStatus,jdbcType=INTEGER},
-      block_uuid = #{blockUuid,jdbcType=VARCHAR},
-      create_person_uuid = #{createPersonUuid,jdbcType=VARCHAR},
-      create_person_name = #{createPersonName,jdbcType=VARCHAR},
-      telephone = #{telephone,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      last_comment_person_uuid = #{lastCommentPersonUuid,jdbcType=VARCHAR},
-      last_comment_date = #{lastCommentDate,jdbcType=TIMESTAMP},
-      last_comment_uuid = #{lastCommentUuid,jdbcType=VARCHAR},
-      topic_content = #{topicContent,jdbcType=LONGVARCHAR}
-    where topic_uuid = #{topicUuid,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabTopics" >
-    update tab_topics
-    set topic_name = #{topicName,jdbcType=VARCHAR},
-      topic_status = #{topicStatus,jdbcType=INTEGER},
-      block_uuid = #{blockUuid,jdbcType=VARCHAR},
-      create_person_uuid = #{createPersonUuid,jdbcType=VARCHAR},
-      create_person_name = #{createPersonName,jdbcType=VARCHAR},
-      telephone = #{telephone,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      last_comment_person_uuid = #{lastCommentPersonUuid,jdbcType=VARCHAR},
-      last_comment_date = #{lastCommentDate,jdbcType=TIMESTAMP},
-      last_comment_uuid = #{lastCommentUuid,jdbcType=VARCHAR}
-    where topic_uuid = #{topicUuid,jdbcType=VARCHAR}
-  </update>
+  
 </mapper>
