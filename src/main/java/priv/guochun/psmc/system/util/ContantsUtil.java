@@ -64,4 +64,11 @@ public class ContantsUtil {
      */
     public final static Integer IS_CUSTOM_0 = 0; //否
     public final static Integer IS_CUSTOM_1 = 1; //是
+    
+    /**
+     * 版块、话题、评论状态
+     */
+    public final static Integer BLOCK_STATUS_1 = 1; //正常
+    public final static Integer BLOCK_STATUS_2 = 2; //暂停（屏蔽）
+    public final static Integer BLOCK_STATUS_3 = 3; //删除
 }

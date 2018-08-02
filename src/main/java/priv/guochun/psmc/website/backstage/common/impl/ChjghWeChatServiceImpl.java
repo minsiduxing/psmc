@@ -14,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alibaba.fastjson.JSON;
+
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
 import priv.guochun.psmc.authentication.user.model.TabAccount;
@@ -27,6 +29,7 @@ import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
+import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.TimestampUtil;
@@ -40,10 +43,12 @@ import priv.guochun.psmc.website.backstage.pageView.model.TabPageView;
 import priv.guochun.psmc.website.backstage.pageView.service.TabPageViewService;
 import priv.guochun.psmc.website.backstage.report.model.TabReport;
 import priv.guochun.psmc.website.backstage.report.service.ReportService;
+import priv.guochun.psmc.website.backstage.topics.model.TabComment;
+import priv.guochun.psmc.website.backstage.topics.model.TabTopics;
+import priv.guochun.psmc.website.backstage.topics.service.TabCommentService;
+import priv.guochun.psmc.website.backstage.topics.service.TabTopicsService;
 import priv.guochun.psmc.website.backstage.util.ChjghContants;
 import priv.guochun.psmc.website.enums.ModuleEnum;
-
-import com.alibaba.fastjson.JSON;
 
 
 
@@ -78,6 +83,9 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	private ReportService reportService;
 	
 	private TabDeptService tabDeptService;
+	private TabTopicsService tabTopicsService;
+	private TabCommentService tabCommentService;
+	private UploadAssemblyInterface uploadAssemblyInterface;
 	
 	@Override
 	public String createVcode(int type,String phone) {         
@@ -397,9 +405,6 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		reportService.saveOrUpdateReportToMobile(report);
 		return GsonUtil.toJsonForObject( MsgModel.buildDefaultSuccess("add success"));
 	}
-	public ExcellentInnovationService getExcellentInnovationService() {
-		return excellentInnovationService;
-	}
 	
 	@Override
 	public String getDeptList(String pageJson) {
@@ -415,7 +420,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		MsgModel msg = null;
 		try {
 			page = tabDeptService.queryDeptListToMobile(page);
-			msg = MsgModel.buildDefaultSuccess(page);
+			msg = MsgModel.buildDefaultSuccess("获取数据成功", page);
 		} catch (Exception e) {
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
@@ -427,13 +432,75 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		MsgModel msg = null;
 		try {
 			Map<String, Object> dataMap = tabDeptService.getDeptDetailToMobile(deptUuid);
-			msg = MsgModel.buildDefaultSuccess(dataMap);
+			msg = MsgModel.buildDefaultSuccess("获取数据成功", dataMap);
 		} catch (Exception e) {
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
 	}
-
+	
+	public String addTopics(TabTopics tabTopics){
+		MsgModel msg = null;
+		try {
+			tabTopicsService.saveOrUpdateToMobile(tabTopics);
+			msg = MsgModel.buildDefaultSuccess("保存成功", null);
+		} catch (Exception e) {
+			msg = MsgModel.buildDefaultError("操作异常");
+		}
+		return GsonUtil.toJsonForObject(msg); 
+	}
+	
+	public String queryTopicsList(String pageJson){
+		MsgModel msg = null;
+		try {
+			MyPage page = JSON.parseObject(pageJson, MyPage.class) ;
+			page = tabTopicsService.queryTopicListToMobile(page);
+			msg = MsgModel.buildDefaultSuccess("获取数据成功", page);
+		} catch (Exception e) {
+			msg = MsgModel.buildDefaultError("获取数据异常");
+		}
+		return GsonUtil.toJsonForObject(msg);
+	}
+	
+	public String queryTopicsDetail(String pageJson){
+		MsgModel msg = null;
+		try {
+			MyPage myPage = JSON.parseObject(pageJson, MyPage.class) ;
+			Map<String, Object> paramMap = myPage.getQueryParams();
+			if(paramMap != null && paramMap.get("topicUuid") != null){
+				Map<String, Object> dataMap = new HashMap<String, Object>();
+				//主题信息详情
+				Map<String, Object> topicMap = tabTopicsService.queryTopicsToMobile(paramMap.get("topicUuid").toString());
+				//评论信息列表
+				myPage = tabCommentService.queryCommentListToMobile(myPage);
+				dataMap.put("topicMap", topicMap);
+				dataMap.put("myPage", myPage);
+				msg = MsgModel.buildDefaultSuccess("获取数据成功", dataMap);
+			}else{
+				msg = MsgModel.buildDefaultError("查询参数为空");
+			}
+			
+		} catch (Exception e) {
+			msg = MsgModel.buildDefaultError("获取数据异常");
+		}
+		return GsonUtil.toJsonForObject(msg); 
+	}
+	
+	public String addTabComment(TabComment tabComment){
+		MsgModel msg = null;
+		try {
+			tabCommentService.saveOrUpdateToMobile(tabComment);
+			msg = MsgModel.buildDefaultSuccess("保存成功", null);
+		} catch (Exception e) {
+			msg = MsgModel.buildDefaultError("操作异常");
+		}
+		return GsonUtil.toJsonForObject(msg); 
+	}
+	
+	public ExcellentInnovationService getExcellentInnovationService() {
+		return excellentInnovationService;
+	}
+	
 	public void setExcellentInnovationService(
 			ExcellentInnovationService excellentInnovationService) {
 		this.excellentInnovationService = excellentInnovationService;
@@ -520,6 +587,30 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 
 	public void setTabDeptService(TabDeptService tabDeptService) {
 		this.tabDeptService = tabDeptService;
+	}
+
+	public TabTopicsService getTabTopicsService() {
+		return tabTopicsService;
+	}
+
+	public void setTabTopicsService(TabTopicsService tabTopicsService) {
+		this.tabTopicsService = tabTopicsService;
+	}
+
+	public TabCommentService getTabCommentService() {
+		return tabCommentService;
+	}
+
+	public void setTabCommentService(TabCommentService tabCommentService) {
+		this.tabCommentService = tabCommentService;
+	}
+
+	public UploadAssemblyInterface getUploadAssemblyInterface() {
+		return uploadAssemblyInterface;
+	}
+
+	public void setUploadAssemblyInterface(UploadAssemblyInterface uploadAssemblyInterface) {
+		this.uploadAssemblyInterface = uploadAssemblyInterface;
 	}
 	
 }

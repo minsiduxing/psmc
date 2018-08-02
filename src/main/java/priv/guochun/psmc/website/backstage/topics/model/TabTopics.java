@@ -1,6 +1,7 @@
 package priv.guochun.psmc.website.backstage.topics.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * 主题信息实体类
@@ -56,6 +57,10 @@ public class TabTopics {
 	 * 主题内容
 	 */
     private String topicContent;
+    /**
+     * 文件路径（非持久化字段）
+     */
+    private String filePaths;
 
     public String getTopicUuid() {
         return topicUuid;
@@ -160,5 +165,13 @@ public class TabTopics {
 				+ createPersonName + ", telephone=" + telephone + ", createDate=" + createDate
 				+ ", lastCommentPersonUuid=" + lastCommentPersonUuid + ", lastCommentDate=" + lastCommentDate
 				+ ", lastCommentUuid=" + lastCommentUuid + ", topicContent=" + topicContent + "]";
+	}
+
+	public String getFilePaths() {
+		return filePaths;
+	}
+
+	public void setFilePaths(String filePaths) {
+		this.filePaths = filePaths;
 	}
 }

@@ -14,13 +14,6 @@
     <result column="last_comment_date" property="lastCommentDate" jdbcType="TIMESTAMP" />
     <result column="last_comment_uuid" property="lastCommentUuid" jdbcType="VARCHAR" />
   </resultMap>
-  
- 
-  <sql id="Base_Column_List" >
-    topic_uuid, topic_name, topic_status, block_uuid, create_person_uuid, create_person_name, 
-    telephone, create_date, last_comment_person_uuid, last_comment_date, last_comment_uuid
-  </sql>
-
 
   <select id="selectTopicsList" parameterType="hashmap" resultType="java.util.Map">
     select
@@ -39,6 +32,7 @@
     	t1.last_comment_person_uuid = t3.uuid
     <where>
     	  1 = 1
+    	  and t1.topic_status != 3
 	    <if test="topicUuid != null and topicUuid != ''">
 	      and t1.topic_uuid = #{topicUuid}
 	    </if>
@@ -83,7 +77,7 @@
       order by create_date desc
   </select>
   
-  <select id="selectTopicsByPrimaryKey"parameterType="hashmap" resultType="java.util.Map" >
+  <select id="selectTopicsByPrimaryKey" parameterType="hashmap" resultType="java.util.Map" >
     select
     	t1.*,
     	t2.nums,

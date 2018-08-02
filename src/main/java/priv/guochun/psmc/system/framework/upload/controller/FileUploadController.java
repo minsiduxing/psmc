@@ -3,6 +3,8 @@ package priv.guochun.psmc.system.framework.upload.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,6 +68,30 @@ public class FileUploadController extends MyController {
 		super.responseJson(jsob, response);
 	}
 	
+	/**
+	 * 文件批量上传
+	 * @param request
+	 * @param response
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=fileBatchUpload")
+	@ResponseBody
+	public void fileBatchUpload(HttpServletRequest request,HttpServletResponse response) throws IllegalStateException, IOException{
+		
+		List<UploadFileModel> uploadFileModelList = uploadAssemblyInterface.getFiles(request);
+		FtpUtil ftu = FtpUtil.getFtputil();
+		String paths = null;
+		for (UploadFileModel uploadFileModel : uploadFileModelList) {
+			String filepath = ftu.uploadFile(uploadFileModel);
+			if(paths != null) {
+				paths = paths + ",";
+			}
+			paths = paths + filepath;
+		}
+		super.responseJson(true,paths, response);
+	}
+
 	private String getImagePath(String oneLevelClassify){
 		String imagePath = "";
 		if(StringUtils.isNotBlank(oneLevelClassify)){

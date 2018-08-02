@@ -74,7 +74,7 @@ public class SystemPropertiesUtil
     /**
      * 信息自定义配图上传路径
      */
-    private static final String custom_image_upload_path = "custom_image_upload_path";
+    private static final String file_prefix_path = "file_prefix_path";
     /** 信息默认配图图片路径 **/
     private static final String help_declare_image_path = "help_declare_image_path"; //帮扶申报
     private static final String law_help_image_path = "law_help_image_path"; //法律援助
@@ -167,7 +167,7 @@ public class SystemPropertiesUtil
 	}
 	
 	public static String getCustomImageUploadPath(){
-		return getPropertyValue(custom_image_upload_path);
+		return getPropertyValue(file_prefix_path);
 	}
 	public static String getHelpDeclareImagePath(){
 		return getPropertyValue(help_declare_image_path);
