@@ -86,6 +86,13 @@
 	<bean id="chjghWeChatService" class="priv.guochun.psmc.website.backstage.common.impl.ChjghWeChatServiceImpl" />
 	<!-- 部门信息service注入 -->
 	<bean id="tabDeptService" class="priv.guochun.psmc.website.backstage.dept.service.impl.TabDeptServiceImpl" />
+	<!-- 主题信息service注入 -->
+	<bean id="tabTopicsService" class="priv.guochun.psmc.website.backstage.topics.service.impl.TabTopicsServiceImpl"/>
+	<!-- 评论信息service注入 -->
+	<bean id="tabCommentService" class="priv.guochun.psmc.website.backstage.topics.service.impl.TabCommentServiceImpl"/>
+	<!-- 附件信息service注入 -->
+	<bean id="tabAttachmentService" class="priv.guochun.psmc.website.backstage.attachment.service.impl.TabAttachmentServiceImpl"/>
+
 	
 	 <jaxrs:server id="chjghWeChatCxfService" address="/chjgh" >
                 <jaxrs:serviceBeans>

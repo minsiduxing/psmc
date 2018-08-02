@@ -36,6 +36,7 @@ import priv.guochun.psmc.system.util.TimestampUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService;
 import priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService;
+import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentService;
 import priv.guochun.psmc.website.backstage.common.ChjghWeChatService;
 import priv.guochun.psmc.website.backstage.dept.service.TabDeptService;
 import priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService;
@@ -86,7 +87,16 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	private TabTopicsService tabTopicsService;
 	private TabCommentService tabCommentService;
 	private UploadAssemblyInterface uploadAssemblyInterface;
+	private TabAttachmentService tabAttachmentService;
 	
+	public TabAttachmentService getTabAttachmentService() {
+		return tabAttachmentService;
+	}
+
+	public void setTabAttachmentService(TabAttachmentService tabAttachmentService) {
+		this.tabAttachmentService = tabAttachmentService;
+	}
+
 	@Override
 	public String createVcode(int type,String phone) {         
          TabVerificationCode verificationCode = verificationCodeService.createCode(type, phone);
@@ -462,18 +472,23 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		return GsonUtil.toJsonForObject(msg);
 	}
 	
-	public String queryTopicsDetail(String pageJson){
+	public String topicsDetail(String pageJson){
 		MsgModel msg = null;
 		try {
 			MyPage myPage = JSON.parseObject(pageJson, MyPage.class) ;
 			Map<String, Object> paramMap = myPage.getQueryParams();
 			if(paramMap != null && paramMap.get("topicUuid") != null){
 				Map<String, Object> dataMap = new HashMap<String, Object>();
+				//更新浏览量
+				tabPageViewService.saveOrUpdate(paramMap.get("topicUuid").toString());
 				//主题信息详情
 				Map<String, Object> topicMap = tabTopicsService.queryTopicsToMobile(paramMap.get("topicUuid").toString());
+				//附件信息
+				List<Map<String, Object>> attachmentList = tabAttachmentService.queryAttachmentList(paramMap.get("topicUuid").toString());
 				//评论信息列表
 				myPage = tabCommentService.queryCommentListToMobile(myPage);
 				dataMap.put("topicMap", topicMap);
+				dataMap.put("attachmentList", attachmentList);
 				dataMap.put("myPage", myPage);
 				msg = MsgModel.buildDefaultSuccess("获取数据成功", dataMap);
 			}else{

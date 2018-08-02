@@ -13,7 +13,6 @@ import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.attachment.model.TabAttachment;
 import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentService;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
-import priv.guochun.psmc.website.backstage.topics.model.TabTopics;
 
 public class TabAttachmentServiceImpl implements TabAttachmentService {
 
@@ -46,7 +45,6 @@ public class TabAttachmentServiceImpl implements TabAttachmentService {
 			//文件路径前缀
 			String filePrefix = SystemPropertiesUtil.getCustomImageUploadPath();
 			for (String filePath : filePathArayy) {
-				filePath.lastIndexOf("/");
 				String fileName = filePath.substring(filePath.lastIndexOf("/")+1, filePath.lastIndexOf("."));
 				String fileSuffix = filePath.substring(filePath.lastIndexOf(".")+1, filePath.length());
 				TabAttachment attachment = new TabAttachment();

@@ -21,10 +21,10 @@
     <where>
     	1=1
     	<if test="attachmentUuid != null and attachmentUuid != '' ">
-    		attachment_uuid = #{attachmentUuid}
+    		and attachment_uuid = #{attachmentUuid}
     	</if>
     	<if test="businessUuid != null and businessUuid != '' ">
-    		business_uuid = #{businessUuid}
+    		and business_uuid = #{businessUuid}
     	</if>
     </where>
   </select>

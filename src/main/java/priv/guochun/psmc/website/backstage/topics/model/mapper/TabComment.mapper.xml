@@ -14,7 +14,7 @@
   </resultMap>
   
   
-  <select id="selectBlockList" parameterType="hashmap" resultType="java.util.Map" >
+  <select id="selectCommentList" parameterType="hashmap" resultType="java.util.Map" >
     select
     	comment_uuid, topic_uuid, comment_content, comment_person_uuid, comment_person_name, 
     	comment_date, comment_status, to_person_uuid, to_person_name

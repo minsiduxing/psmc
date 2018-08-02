@@ -211,7 +211,7 @@ public interface ChjghWeChatService {
 	 */
 	@Path("/addTopics")
 	@POST
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_JSON})
 	public String addTopics(@RequestBody TabTopics tabTopics);
 	
 	/**
@@ -229,10 +229,10 @@ public interface ChjghWeChatService {
 	 * @param pageJson 查询参数
 	 * @return
 	 */
-	@Path("/queryTopicsDetail")
+	@Path("/topicsDetail")
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
-	public String queryTopicsDetail(String pageJson);
+	public String topicsDetail(String pageJson);
 	
 	/**
 	 * 新增评论信息

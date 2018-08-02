@@ -63,10 +63,10 @@ create table tab_block
     block_info varchar(500) comment '版块介绍',
     last_topic_uuid varchar(32) comment '最后发表主题ID',
     last_topic_person_uuid varchar(100) comment '最后发表人账号id',
-    last_topic_date timestamp comment '最后发表时间',
+    last_topic_date timestamp null comment '最后发表时间',
     block_status integer comment '板块状态(1正常，2暂停，3删除)',
     create_person_uuid varchar(100) comment '创建人id',
-    create_date timestamp comment '创建时间'  
+    create_date timestamp null comment '创建时间'  
 )comment '版块信息表';
 
 /*==============================================================*/
@@ -83,9 +83,9 @@ create table tab_topics
    create_person_uuid varchar(100) comment '创建人id',
    create_person_name varchar(50) comment '创建人姓名',
    telephone varchar(20) comment'联系电话',
-   create_date timestamp comment '创建时间',
+   create_date timestamp null comment '创建时间',
    last_comment_person_uuid varchar(100) comment'最后评论人id',
-   last_comment_date timestamp comment '最后评论时间',
+   last_comment_date timestamp null comment '最后评论时间',
    last_comment_uuid varchar(32) comment '最后评论id' 
 ) comment '主题信息表';
 
@@ -100,7 +100,7 @@ create table tab_comment
    comment_content varchar(1000) not null comment '评论内容',
    comment_person_uuid varchar(100) comment '评论人id',
    comment_person_name varchar(50) comment '评论人姓名',
-   comment_date timestamp comment '评论时间',
+   comment_date timestamp null comment '评论时间',
    comment_status integer comment '评论状态(1正常，2屏蔽，3删除)',
    to_person_uuid varchar(100) comment '评论目标用户id',
    to_person_name varchar(50) comment '评论目标用户姓名'
@@ -121,6 +121,6 @@ create table tab_attachment
    file_real_name varchar(100) comment '文件真实名称',
    file_suffix varchar(20) comment '文件后缀名',
    upload_acc_uuid varchar(100) comment '上传人accUuid',
-   upload_date timestamp comment '上传时间',
+   upload_date timestamp null comment '上传时间',
    sort integer comment '排序'
 ) comment '附件信息表';

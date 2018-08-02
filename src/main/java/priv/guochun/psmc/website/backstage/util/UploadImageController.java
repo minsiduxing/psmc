@@ -146,12 +146,10 @@ public class UploadImageController extends MyController{
 			     model.setFileRealName(filename);
 			     model.setSuffix(suffix);
 			     model.setFile(imageFile);
-			     String fileSystemName = DateUtil.getCurrentDateTime()+"-"+filename;
+			     String fileSystemName = filename;
 			     model.setFileSystemName(fileSystemName);
-			     //重命名上传后的文件名  
-			     String fileSuffix = model.getSuffix();
-			     String fileTempAllPath = SystemPropertiesUtil.getUploadTempPathPropertyValue() +fileSystemName+"."+fileSuffix; 
-			     String fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+"custom/"+fileSystemName+"."+fileSuffix;
+			     String fileTempAllPath = SystemPropertiesUtil.getUploadTempPathPropertyValue() +fileSystemName+"."+suffix; 
+			     String fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+"custom/"+fileSystemName+"."+suffix;
 			     model.setFile_upload_real_path(fileRealAllPath);
 			     model.setTemp_file_path(fileTempAllPath);
 			}
@@ -171,7 +169,7 @@ public class UploadImageController extends MyController{
 	    String fileName = file.getOriginalFilename();  
 	    String[] suffixNameArr = fileName.split("\\."); 
 	    String suffixName = suffixNameArr[suffixNameArr.length-1]; 
-	    return getTime() + "."+suffixName; 
+	    return getTime() + "_" + suffixNameArr[0] + "."+suffixName; 
 	  } 
 	    
 	  public String getTime(){ 
