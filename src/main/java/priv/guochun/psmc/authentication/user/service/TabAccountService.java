@@ -1,5 +1,6 @@
 package priv.guochun.psmc.authentication.user.service;
 
+import java.util.List;
 import java.util.Map;
 
 import priv.guochun.psmc.authentication.user.model.TabAccount;
@@ -33,6 +34,12 @@ public interface TabAccountService
      * @return
      */
     public MyPage getTabAccountsBusinessMethod(MyPage myPage);
+    /**
+     * 得到全部用户列表
+     * @param myPage
+     * @return
+     */
+    public List<?> getAllTabAccountsBusinessMethod(MyPage myPage);
     
     /**
      * 账号是否唯一 

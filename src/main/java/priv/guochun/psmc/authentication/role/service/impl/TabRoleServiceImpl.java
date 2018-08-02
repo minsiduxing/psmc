@@ -43,6 +43,13 @@ public class TabRoleServiceImpl implements TabRoleService {
 	public MyPage getRolesListBusinessMethod(MyPage mypage) {
 	    return this.tabRoleDao.getMyPageOfTabRoles(mypage);
 	}
+	
+	@Override
+	public List<?> getAllRolesListBusinessMethod(MyPage mypage){
+		mypage.setPageIndex(-1);
+		mypage = this.tabRoleDao.getMyPageOfTabRoles(mypage);
+		return mypage.getDataList();
+	}
 
 	public List<Map<?, ?>> getAllPageRolesList(TabRole role){
 	    return this.tabRoleDao.getAllPageOfTabRoles(role);

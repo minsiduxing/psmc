@@ -45,13 +45,13 @@ public class SmsSendRuleSolve
 
 	public MsgModel sendSms(SmsModel smsModel){
 		Properties pp = SystemPropertiesUtil.getProps();
-		//是否正式环境
+		//短信是否开启
 		boolean sms_enable =Boolean.parseBoolean(pp.getProperty("sms_enable"));
 		MsgModel mm = null;
 		if(sms_enable)
 			mm = smsSendModeSrategy.sendSms(smsModel.getReceiveNo(),smsModel.getReceiveContext());
 		else
-			mm = MsgModel.buildDefaultSuccess("非生产环境模拟短信发送成功!",null);
+			mm = MsgModel.buildDefaultSuccess("非生产环境模拟短信发送成功:"+smsModel.getReceiveContext(),null);
 		 //todo 这里可以统一处理短信的重发机制、日志记录等
 		 TSysOperLog sysOperLog = new TSysOperLog();
 	     sysOperLog.setUuid(UUIDGenerator.createUUID());

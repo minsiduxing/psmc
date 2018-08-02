@@ -143,8 +143,7 @@ public class TabRoleController extends MyController {
 	@RequestMapping(params="method=exportRole")
 	public View exportAccount( HttpServletRequest request,HttpServletResponse response,MyPage mypage) throws IOException{
 		//1、根据条件查询出角色账号
-		mypage = tabRoleService.getRolesListBusinessMethod(mypage);
-		List roleList = mypage.getDataList();
+		List roleList = tabRoleService.getAllRolesListBusinessMethod(mypage);
 		//2、将得到的数据封装到excel里
 		//2.1 设置属性列名
 		 this.setColumns(new String[]{"ROLE_NO","ROLE_NAME","CREATOR","CREATE_TIME","REMARK"});

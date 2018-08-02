@@ -39,9 +39,10 @@ public class TabAccountDaoImplMybatis implements TabAccountDao
         return map;
     }
     
-    public Map getTabAccountByPhone(String phone){
+    public Map getTabAccountByPhone(String phone,int accountType){
     	Map<String,Object> condition = new HashMap<String,Object>();
         condition.put("telephone", phone);
+        condition.put("accountType", accountType);
         Map map = (Map)sqlSession.selectOne(getTabAccountByCondition,condition);
         return map;
     }
@@ -70,12 +71,16 @@ public class TabAccountDaoImplMybatis implements TabAccountDao
 
     @Override
 	 public MyPage getMyPageOfTabAccounts(MyPage mapage){
+    	
         Map<String,Object> condition = new HashMap<String,Object>();
-        condition.put("dict_no", ContantsUtil.DICTY_TYPE_SEX);
+        condition.put("sex_dict_no", ContantsUtil.DICTY_TYPE_SEX);
+        condition.put("acctype_dict_no", ContantsUtil.DICTY_ACC_TYPE);
+        
         //查询参数添加
         if(mapage.getQueryParams()!=null && mapage.getQueryParams().size()>0){
         	condition.putAll(mapage.getQueryParams());
         }
+    	
     	return iDaoTemplate.getMyPage(mapage, getMyPageOfTabAccounts, condition);
 	 }
 

@@ -16,8 +16,13 @@ public interface TabAccountDao
      * @author guochun 2016-8-19
      */
     public Map getTabAccount(String id);
-    
-    public Map getTabAccountByPhone(String phone);
+    /**
+     * 根据手机号+账户类型获取一条账户信息
+     * @param phone
+     * @param accountType
+     * @return
+     */
+    public Map getTabAccountByPhone(String phone,int accountType);
     
     public Map getTabAccount(String username,String password);
     

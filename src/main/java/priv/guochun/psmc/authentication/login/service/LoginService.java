@@ -27,11 +27,11 @@ public interface LoginService
     public User buildUser(String username);
     
     /**
-     * 
+     * 根据手机号+账户类型构建User对象
      * @param username
      * @return
      */
-    public User buildUserByPhone(String phone);
+    public User buildUserByPhone(String phone,int accountType);
     
     
     /**

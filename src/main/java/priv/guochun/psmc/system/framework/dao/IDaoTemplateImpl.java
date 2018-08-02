@@ -17,14 +17,24 @@ public class IDaoTemplateImpl implements IDaoTemplate {
     
 	@Override
 	public MyPage getMyPage(MyPage myPage, String statement, Object parameter) {
-		  if(myPage!=null){
-			  List<?> list = sqlSession.selectList(statement,parameter,
+			List<?> list = null;
+			if(myPage!=null){
+			  if(myPage.getPageIndex()<=0){
+				  list = sqlSession.selectList(statement,parameter);
+				  myPage.buildMyPage(list);
+				  return myPage;
+			  }
+			  
+			  list = sqlSession.selectList(statement,parameter,
 						new RowBounds(myPage.getPageIndex(),myPage.getPageSize()));
 			  myPage.buildMyPage(list);
+			  
+			  
+			  
 			  return myPage;
 		  }else{
-			  throw new IllegalArgumentException("myPage参数为空,无法进行分页查询!");
-		  }  
+			  throw new RuntimeException("myPage参数为空,无法进行分页查询");
+		  } 
 	}
 
 	public SqlSessionTemplate getSqlSession() {

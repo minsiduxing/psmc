@@ -80,7 +80,8 @@ $(document).ready(function(){
 		          {field:'TELEPHONE',title:'手机号'}, 
 		          {field:'GROUP_CODE',title:'隶属组编码'}, 
 		          {field:'GROUP_NAME',title:'隶属组名称'}, 
-		          {field:'EMAIL',title:'Email',resizable:true}
+		          {field:'EMAIL',title:'Email',resizable:true},
+		          {field:'ACCOUNT_TYPE_NAME',title:'账户类型'}
 		         ] 
 		      ]
 	};

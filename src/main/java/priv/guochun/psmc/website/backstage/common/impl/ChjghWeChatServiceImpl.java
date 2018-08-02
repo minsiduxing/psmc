@@ -4,6 +4,7 @@ package priv.guochun.psmc.website.backstage.common.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
@@ -22,6 +23,8 @@ import priv.guochun.psmc.authentication.user.service.TabAccountService;
 import priv.guochun.psmc.authentication.user.service.TabPersonService;
 import priv.guochun.psmc.system.common.vcode.model.TabVerificationCode;
 import priv.guochun.psmc.system.common.vcode.service.VerificationCodeService;
+import priv.guochun.psmc.system.enums.AccountLockEnum;
+import priv.guochun.psmc.system.enums.AccountTypeEnum;
 import priv.guochun.psmc.system.enums.VerificationCodeTypeEnum;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.framework.model.MsgModel;
@@ -30,6 +33,7 @@ import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
 import priv.guochun.psmc.system.util.DateUtil;
+import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.system.util.TimestampUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService;
@@ -82,7 +86,22 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	@Autowired
 	TabPersonService tabPersonService;
 	@Override
-	public String createVcode(int type,String phone) {         
+	public String createVcode(int type,String phone) {
+		 
+		if((type != VerificationCodeTypeEnum.VCODE_LOGIN.getValue().intValue()
+				&& type != VerificationCodeTypeEnum.VCODE_REGISTER.getValue().intValue())
+			 	|| StringUtils.isBlank(phone)){
+			 return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("非法参数!"));
+		 }
+		 
+		 if(type == VerificationCodeTypeEnum.VCODE_LOGIN.getValue().intValue()){
+			 	//如果是登录，需要验证该手机号为注册用户
+			 User user = loginService.buildUserByPhone(phone,AccountTypeEnum.WECHAT_USER.getValue().intValue());
+			 if(user == null){
+				 return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("该手机号未注册,请先进行注册!"));
+			 }
+		 }
+		 
          TabVerificationCode verificationCode = verificationCodeService.createCode(type, phone);
          String code =  verificationCode.getCode();
          
@@ -91,9 +110,15 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
          sm.setReceiveContext("{\"code\":\""+code+"\"}");
          sm.setReceiveNo(phone);
          MsgModel mm = chjghMobileSmsSendService.sendSms(sm);
-         if(mm.isSuccess())
-        	 return GsonUtil.toJsonForObject(MsgModel.buildDefaultSuccess());
-         else{
+         if(mm.isSuccess()){
+        	Properties pp = SystemPropertiesUtil.getProps();
+        	//短信是否开启
+     		boolean sms_enable =Boolean.parseBoolean(pp.getProperty("sms_enable"));
+     		if(sms_enable)
+     			return GsonUtil.toJsonForObject(MsgModel.buildDefaultSuccess());
+     		else
+     			return GsonUtil.toJsonForObject(MsgModel.buildDefaultSuccess(code));
+         }else{
         	 logger.warn("获取验证码短信发送失败 "+GsonUtil.toJsonForObject(mm));
         	 verificationCodeService.deleteCode(verificationCode.getUuid());
         	 return GsonUtil.toJsonForObject(mm);
@@ -103,6 +128,10 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 
 	@Override
 	public String login(String phone, String code) {
+		if(StringUtils.isBlank(phone) || StringUtils.isBlank(code)){
+			 return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("非法参数!"));
+		}
+		
 		MsgModel msg = null;
 		//这里校验不会改变验证码状态
 		msg = verificationCodeService.validateCode(code, VerificationCodeTypeEnum.VCODE_LOGIN.getValue(),null);
@@ -110,13 +139,13 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			return GsonUtil.toJsonForObject(msg);
 		}
 		//用户校验
-		User user = loginService.buildUserByPhone(phone);
+		User user = loginService.buildUserByPhone(phone,AccountTypeEnum.WECHAT_USER.getValue().intValue());
 		if(user == null){
 			msg = MsgModel.buildDefaultError("用户不存在");
 			return GsonUtil.toJsonForObject(msg);
 		}
 		
-		if("1".equals(user.getIsLocked())){
+		if(String.valueOf(AccountLockEnum.LOCKED.getValue().intValue()).equals(user.getIsLocked())){
 			msg = MsgModel.buildDefaultError("用户已锁定");
 			return GsonUtil.toJsonForObject(msg);
 		}
@@ -131,6 +160,9 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	
 	@Override
 	public String register(String name,String phone,String code){
+		if(StringUtils.isBlank(name) || StringUtils.isBlank(code) || StringUtils.isBlank(code)){
+			 return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("非法参数!"));
+		}
 		MsgModel msg = null;
 		//这里校验不会改变验证码状态
 		msg = verificationCodeService.validateCode(code, VerificationCodeTypeEnum.VCODE_REGISTER.getValue(),null);
@@ -138,7 +170,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			return GsonUtil.toJsonForObject(msg);
 		}
 		
-		User user = loginService.buildUserByPhone(phone);
+		User user = loginService.buildUserByPhone(phone,AccountTypeEnum.WECHAT_USER.getValue().intValue());
 		if(user != null){
 			verificationCodeService.validateCode(code, VerificationCodeTypeEnum.VCODE_REGISTER.getValue());
 			msg = MsgModel.buildDefaultError("该手机号已被注册!");
@@ -151,7 +183,8 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		account.setUuid(accUuid);
 		account.setAccountName(phone);
 		account.setAccountPass(ChjghContants.WECHAT_PW);
-		account.setIsLocked("2");
+		account.setIsLocked(String.valueOf(AccountLockEnum.NO_LOCKED.getValue().intValue()));
+		account.setAccountType(AccountTypeEnum.WECHAT_USER.getValue().intValue());
 		
 		TabPerson person = new TabPerson();
 		person.setUuid(personUuid);
@@ -164,7 +197,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		
 		boolean flag = tabAccountService.register(account, person, ChjghContants.WECHAT_ROLE_ID);
 		if(flag){
-			user = loginService.buildUserByPhone(phone);
+			user = loginService.buildUserByPhone(phone,AccountTypeEnum.WECHAT_USER.getValue().intValue());
 			msg = MsgModel.buildDefaultSuccess("用户注册成功!",user);
 			verificationCodeService.validateCode(code, VerificationCodeTypeEnum.VCODE_REGISTER.getValue());
 			return GsonUtil.toJsonForObject(msg);

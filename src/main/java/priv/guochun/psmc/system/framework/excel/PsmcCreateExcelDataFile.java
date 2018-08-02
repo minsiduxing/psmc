@@ -108,7 +108,7 @@ public class PsmcCreateExcelDataFile implements CreateExcelDataFileInterface {
 	
 				Date fileWriteEndDate = new Date();
 				
-				long second = (fileWriteStartDate.getTime() - fileWriteEndDate.getTime());
+				long second = (fileWriteEndDate.getTime() - fileWriteStartDate.getTime());
 				float millSec = second/1000;
 				float min = millSec/60;
 				

@@ -67,9 +67,9 @@ public class LoginServiceImpl implements LoginService
     	return user;
     }
     
-    public User buildUserByPhone(String phone){
+    public User buildUserByPhone(String phone,int accountType){
     	 logger.debug("phone "+phone+" buildUser start");
-     	Map<?,?> accountMap = tabAccountDao.getTabAccountByPhone(phone);
+     	Map<?,?> accountMap = tabAccountDao.getTabAccountByPhone(phone,accountType);
      	if(accountMap == null || accountMap.get("UUID") == null){
      		return null;
      	}

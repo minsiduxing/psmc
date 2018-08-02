@@ -68,7 +68,10 @@ public class MyPage implements Serializable {
             Page<?> page = (Page<?>) list;
             this.setTotalData((int)page.getTotal());
             this.dataList = page;
+        }else{
+        	this.dataList=list;
         }
+        	
     }
     
     /** 

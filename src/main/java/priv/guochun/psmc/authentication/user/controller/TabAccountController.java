@@ -24,6 +24,7 @@ import priv.guochun.psmc.authentication.user.model.TabAccount;
 import priv.guochun.psmc.authentication.user.model.TabPerson;
 import priv.guochun.psmc.authentication.user.service.TabAccountService;
 import priv.guochun.psmc.authentication.user.service.TabPersonService;
+import priv.guochun.psmc.system.enums.AccountTypeEnum;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.JsonUtil;
@@ -89,7 +90,8 @@ public class TabAccountController extends MyController {
 			account = new HashMap<String, String>();
 			String accUuid = UUIDGenerator.createUUID();
 			account.put("UUID", accUuid);
-			
+			//新增的用户默认都是pc端用户
+			account.put("ACCOUNT_TYPE", AccountTypeEnum.PC_USER.getValue().intValue());
 			String personUuid = UUIDGenerator.createUUID();
 			person = new HashMap<String, String>();
 			person.put("UUID", personUuid);
@@ -146,14 +148,13 @@ public class TabAccountController extends MyController {
 	@RequestMapping(params="method=exportAccount")
 	public View exportAccount( HttpServletRequest request,HttpServletResponse response,MyPage mypage) throws IOException{
 		//1、根据条件查询出列表账号
-		mypage = tabAccountService.getTabAccountsBusinessMethod(mypage);
-		List accountList = mypage.getDataList();
+		List accountList = tabAccountService.getAllTabAccountsBusinessMethod(mypage);
 		//2、将得到的数据封装到excel里
 		//2.1 设置属性列名
-		 this.setColumns(new String[]{"ACCOUNT_NAME","ISLOCKEDNAME","PERSON_NAME","SEXNAME","AGE","TELEPHONE","GROUP_CODE","GROUP_NAME","EMAIL"});
+		 this.setColumns(new String[]{"ACCOUNT_NAME","ISLOCKEDNAME","PERSON_NAME","SEXNAME","AGE","TELEPHONE","GROUP_CODE","GROUP_NAME","EMAIL","ACCOUNT_TYPE_NAME"});
 		//2.2 设置表格的显示名
-		 this.setTitles(new String[]{"用户名","是否锁定","姓名","性别","年龄","手机号","隶属组编码","隶属组名称","邮箱"});
-		 //2.3设置文件名
+		 this.setTitles(new String[]{"用户名","是否锁定","姓名","性别","年龄","手机号","隶属组编码","隶属组名称","邮箱","账户类型"});
+		 //2.3设置文件名			
 		 this.setFileName("账户信息列表.xls");
 		//2.4 初始化数据
 		 this.setExportList(accountList);

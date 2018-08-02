@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import priv.guochun.psmc.authentication.user.dao.TabAccountDao;
 import priv.guochun.psmc.authentication.user.dao.TabPersonDao;
+import priv.guochun.psmc.system.enums.AccountTypeEnum;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.DateUtil;
@@ -134,7 +135,7 @@ public class TabActivityManageServiceImpl implements TabActivityManageService{
 		if(DateUtil.getCurrentTimstamp().after(DateUtil.getTime(activity.get("sign_up_end_date").toString()))){
 			throw new PsmcBuisnessException("已过报名截止时间！");
 		}
-		Map<?,?> accountMap = tabAccountDao.getTabAccountByPhone(accout);
+		Map<?,?> accountMap = tabAccountDao.getTabAccountByPhone(accout,AccountTypeEnum.WECHAT_USER.getValue().intValue());
      	if(accountMap == null || accountMap.get("UUID") == null){
      		throw new PsmcBuisnessException("用户信息不存在！");
      	}

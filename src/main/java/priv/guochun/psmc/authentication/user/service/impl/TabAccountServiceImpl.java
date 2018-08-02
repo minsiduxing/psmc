@@ -48,6 +48,14 @@ public class TabAccountServiceImpl implements TabAccountService
 		return tabAccountDao.getMyPageOfTabAccounts(myPage);
 	}
 	
+	@Override
+	public List<?> getAllTabAccountsBusinessMethod(MyPage myPage){
+		//设置查询全部
+		myPage.setPageIndex(-1);
+		MyPage page = tabAccountDao.getMyPageOfTabAccounts(myPage);
+		return page.getDataList();
+	}
+	
 	 public boolean executeAccountUniqueValidate(String accountName,String accountUUid){
 		 List list = tabAccountDao.accountUniqueValidate(accountName, accountUUid);
 		 if(list != null && list.size()>0){

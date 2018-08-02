@@ -9,6 +9,8 @@ public class ContantsUtil {
 
     public final static String DICTY_TYPE_SEX = "SEX";
     
+    public final static String DICTY_ACC_TYPE = "ACC_TYPE";
+    
     //角色编号常量
     /**
      * 创新工作室维护人员

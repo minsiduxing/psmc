@@ -11,6 +11,8 @@
 <input type="hidden" id="uuid" name="uuid" value="<c:out value="${account.UUID}"/>"></input>
 <input type="hidden" id="personId" name="personId" value="<c:out value="${person.UUID}"/>"></input>
 <input type="hidden" id="accUuid" name="accUuid" value="<c:out value="${person.ACC_UUID}"/>"></input>
+<input type="hidden" id="accountType" name="accountType" value="<c:out value="${account.ACCOUNT_TYPE}"/>"></input>
+
 		<ul class="addform-subcontent">
 			<li class="li-input"><label for="" class="input-label">账号名称：</label>
 				<input class="myinput" id="accountName" name="accountName"></input>
@@ -82,8 +84,8 @@
 								value : "${account.ACCOUNT_NAME}",
 								type : "text",
 								required : true,
-								delay : 500,
-								validType : [ 'rules_accountName' ]
+								delay : 500
+								//validType : [ 'rules_accountName' ]
 							});
 
 							$('#accountName').textbox('readonly', true);

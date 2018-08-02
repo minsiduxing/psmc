@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.website.backstage.report.model.TabReport;
 
+/**
+ * 工会订阅号后台服务接口
+ * @author guochun
+ *
+ */
 @Path("/weChatService")
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
@@ -16,7 +21,7 @@ public interface ChjghWeChatService {
 	
 	/**
 	 * 生成验证码
-	 * @param type
+	 * @param type 验证码类型：登录、注册、。。。。
 	 * @return
 	 */
 	@Path("/getVcode")//某个方法的操作的资源

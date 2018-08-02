@@ -19,6 +19,7 @@ public abstract class BaseTabAccount  implements Serializable {
 	public static String PROP_IS_LOCKED = "IsLocked";
 	public static String PROP_ACCOUNT_NAME = "AccountName";
 	public static String PROP_ACCOUNT_PASS = "AccountPass";
+	public static String PROP_ACCOUNT_TYPE = "AccountType";
 	
 
 	// constructors
@@ -47,8 +48,9 @@ public abstract class BaseTabAccount  implements Serializable {
 	private java.lang.String accountName;
 	private java.lang.String accountPass;
 	private java.lang.String isLocked;
+	private Integer accountType;
 
-
+	
 
 	/**
 	 * Return the unique identifier of this class
@@ -121,8 +123,13 @@ public abstract class BaseTabAccount  implements Serializable {
 		this.isLocked = isLocked;
 	}
 
+	public Integer getAccountType() {
+		return accountType;
+	}
 
-
+	public void setAccountType(Integer accountType) {
+		this.accountType = accountType;
+	}
 
 	public boolean equals (Object obj) {
 		if (null == obj) return false;

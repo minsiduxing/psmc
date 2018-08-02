@@ -29,6 +29,12 @@ public interface TabRoleService {
 	 * @Description: 根据获取角色列表
 	 */
 	public MyPage getRolesListBusinessMethod(MyPage mypage);
+	/**
+	 * 得到所有角色
+	 * @param mypage
+	 * @return
+	 */
+	public List<?> getAllRolesListBusinessMethod(MyPage mypage);
 	
 	/**
      * @param TabRole
