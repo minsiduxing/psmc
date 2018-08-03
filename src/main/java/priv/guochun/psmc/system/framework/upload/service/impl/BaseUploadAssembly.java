@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,9 +44,10 @@ public class BaseUploadAssembly implements UploadAssemblyInterface
           if(multipartResolver.isMultipart(request)){  
               //转换成多部分request    
               MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;  
-              String imagePath = String.valueOf(request.getAttribute("imagePath"));
+              String imagePath = (String) request.getAttribute("imagePath");
               //取得request中的所有文件名  
               Iterator<String> iter = multiRequest.getFileNames();  
+              Map<String, MultipartFile> map = multiRequest.getFileMap();
               while(iter.hasNext()){
                   UploadFileModel model = new UploadFileModel();
                   //取得上传文件  
@@ -64,7 +66,10 @@ public class BaseUploadAssembly implements UploadAssemblyInterface
                           
                           //重命名上传后的文件名  
                           String fileSuffix = model.getSuffix();
-                          String cutomFilePath = imagePath + fileSystemName + "." + fileSuffix;
+                          String cutomFilePath = fileSystemName + "." + fileSuffix;
+                          if(StringUtils.isNotBlank(imagePath)){
+                        	  cutomFilePath = imagePath + cutomFilePath;
+                          }
                           String fileTempAllPath = SystemPropertiesUtil.getUploadTempPathPropertyValue() +cutomFilePath; 
                           String fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+cutomFilePath;
 //                          

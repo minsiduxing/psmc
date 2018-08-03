@@ -93,6 +93,7 @@ public class SystemPropertiesUtil
     private static final String logistics_center_custom = "logistics_center";
     private static final String dept_innovation_custom = "dept_innovation";
     private static final String dept_literary_form_custom = "dept_literary_form";
+    private static final String mobile_image_path = "mobile_image_path";
     
     /**
      * 初始化system.propeties
@@ -221,7 +222,9 @@ public class SystemPropertiesUtil
 	public static String getCustomImagePath() {
 		return getPropertyValue(custom_image_path);
 	}
-	
+	public static String getMobileImagePath(){
+		return getPropertyValue(mobile_image_path);
+	}
 
 	public static String getPropertyValue(String key){
         if(props.containsKey(key)){

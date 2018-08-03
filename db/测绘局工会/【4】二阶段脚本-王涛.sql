@@ -114,9 +114,9 @@ drop table tab_attachment;
 create table tab_attachment
 (
    attachment_uuid varchar(32) primary key comment '主键',
-   business_uuid varchar(100) not null comment '关联的业务信息id',
-   file_prefix varchar(100) not null comment '文件前缀',
-   file_path varchar(300) not null comment '文件路径',
+   business_uuid varchar(100) comment '关联的业务信息id',
+   file_prefix varchar(100) comment '文件前缀',
+   file_path varchar(300) comment '文件路径',
    file_name varchar(100) comment '文件名称',
    file_real_name varchar(100) comment '文件真实名称',
    file_suffix varchar(20) comment '文件后缀名',

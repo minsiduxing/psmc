@@ -81,9 +81,10 @@ public class FileUploadController extends MyController {
 	@RequestMapping(params="method=fileBatchUpload")
 	@ResponseBody
 	public void fileBatchUpload(HttpServletRequest request,HttpServletResponse response) throws IllegalStateException, IOException{
+		request.setAttribute("imagePath", SystemPropertiesUtil.getMobileImagePath());
 		List<UploadFileModel> uploadFileModelList = uploadAssemblyInterface.getFiles(request);
 		FtpUtil ftu = FtpUtil.getFtputil();
-		String paths = null;
+		String paths = "";
 		if(uploadFileModelList != null && uploadFileModelList.size() > 0) {
 			for (int i = 0; i < uploadFileModelList.size();  i++) {
 				String filepath = ftu.uploadFile(uploadFileModelList.get(i));
