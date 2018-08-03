@@ -39,27 +39,26 @@ public class TabAttachmentServiceImpl implements TabAttachmentService {
 	}
 	
 	@Override
-	public void addAttachment(String businessUuid, String filePaths) {
-		if(StringUtils.isNotBlank(filePaths)) {
-			String[] filePathArayy = filePaths.split(",");
-			//文件路径前缀
-			String filePrefix = SystemPropertiesUtil.getCustomImageUploadPath();
-			for (String filePath : filePathArayy) {
-				String fileName = filePath.substring(filePath.lastIndexOf("/")+1, filePath.lastIndexOf("."));
-				String fileSuffix = filePath.substring(filePath.lastIndexOf(".")+1, filePath.length());
-				TabAttachment attachment = new TabAttachment();
-				attachment.setAttachmentUuid(UUIDGenerator.createUUID());
-				attachment.setBusinessUuid(businessUuid);
-				attachment.setFileName(fileName);
-				attachment.setFilePath(filePath);
-				attachment.setFilePrefix(filePrefix);
-				attachment.setFileSuffix(fileSuffix);
-				//attachment.setUploadAccUuid(uploadAccUuid);
-				attachment.setUploadDate(DateUtil.getCurrentTimstamp());
-				baseDao.insert(insertAttachment, attachment);
-			}
-		}
-		
+	public String addAttachment(TabAttachment attachment) {
+		String uuid = UUIDGenerator.createUUID();
+		attachment.setAttachmentUuid(uuid);
+		attachment.setUploadDate(DateUtil.getCurrentTimstamp());
+		baseDao.insert(insertAttachment, attachment);
+		return uuid;
 	}
 	
+	@Override
+	public void updateBusinessUuidToAttachment(String businessUuid, String attachmentUuids) {
+		if(StringUtils.isNotBlank(attachmentUuids)) {
+			String[] attachUuidArray = attachmentUuids.split(",");
+			TabAttachment attachment = new TabAttachment();
+			attachment.setBusinessUuid(businessUuid);
+			for(String uuid : attachUuidArray) {
+				attachment.setAttachmentUuid(uuid);
+				//将业务信息ID更新到附件表中
+				baseDao.update(updateAttachment, attachment);
+			}
+			
+		}
+	}
 }

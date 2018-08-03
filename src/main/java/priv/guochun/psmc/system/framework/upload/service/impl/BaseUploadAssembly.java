@@ -64,19 +64,14 @@ public class BaseUploadAssembly implements UploadAssemblyInterface
                           
                           //重命名上传后的文件名  
                           String fileSuffix = model.getSuffix();
-                          String fileTempAllPath = SystemPropertiesUtil.getUploadTempPathPropertyValue() +fileSystemName+"."+fileSuffix; 
-                          String fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+fileSystemName+"."+fileSuffix;
-                          if(StringUtils.isNotBlank(imagePath)){
-                              fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+imagePath+"/"+fileSystemName+"."+fileSuffix;
-                          }
-                          //如果文件为图片则新建imag文件夹
+                          String cutomFilePath = imagePath + fileSystemName + "." + fileSuffix;
+                          String fileTempAllPath = SystemPropertiesUtil.getUploadTempPathPropertyValue() +cutomFilePath; 
+                          String fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+cutomFilePath;
+//                          
+                          //如果文件为图片则新建image文件夹
                           if(PSMCFileUtils.isPicture(fileSuffix)){
-                        	  if(StringUtils.isNotBlank(imagePath)){
-                        		  fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+"image/"+imagePath+"/"+fileSystemName+"."+fileSuffix;
-                        	  }else{
-                        		  fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+"image/"+fileSystemName+"."+fileSuffix;
-                        	  }
-                        	  
+                        	  cutomFilePath = "image/" + cutomFilePath;
+                        	  fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+cutomFilePath;
                           }
                           File localFile = new File(fileTempAllPath);  
                           if(!localFile.exists()){
@@ -86,6 +81,7 @@ public class BaseUploadAssembly implements UploadAssemblyInterface
                           model.setTemp_file_path(fileTempAllPath);
                           model.setFile_upload_real_path(fileRealAllPath);
                           model.setFile(localFile);
+                          model.setCustom_file_path(cutomFilePath);
                           files.add(model);
                       }else{
                           logger.warn("文件不存在.............file name is null ");

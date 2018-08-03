@@ -148,10 +148,12 @@ public class UploadImageController extends MyController{
 			     model.setFile(imageFile);
 			     String fileSystemName = filename;
 			     model.setFileSystemName(fileSystemName);
+			     String customFilePath = SystemPropertiesUtil.getCustomImagePath() + fileSystemName + "." + suffix;
 			     String fileTempAllPath = SystemPropertiesUtil.getUploadTempPathPropertyValue() +fileSystemName+"."+suffix; 
-			     String fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+"custom/"+fileSystemName+"."+suffix;
+			     String fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+customFilePath;
 			     model.setFile_upload_real_path(fileRealAllPath);
 			     model.setTemp_file_path(fileTempAllPath);
+			     model.setCustom_file_path(customFilePath);
 			}
 			FtpUtil ftu = FtpUtil.getFtputil();
 			filepath = ftu.uploadFile(model);

@@ -3,6 +3,8 @@ package priv.guochun.psmc.website.backstage.attachment.service;
 import java.util.List;
 import java.util.Map;
 
+import priv.guochun.psmc.website.backstage.attachment.model.TabAttachment;
+
 /**
  * 附件信息服务类
  * @author Administrator
@@ -26,8 +28,14 @@ public interface TabAttachmentService {
 	
 	/**
 	 * 添加附件信息
-	 * @param businessUuid
-	 * @param filePaths
+	 * @param attachment
 	 */
-	public void addAttachment(String businessUuid, String filePaths);
+	public String addAttachment(TabAttachment attachment);
+	
+	/**
+	 * 更新业务信息ID到附件表中
+	 * @param businessUuid
+	 * @param attachmentUuids
+	 */
+	public void updateBusinessUuidToAttachment(String businessUuid, String attachmentUuids);
 }

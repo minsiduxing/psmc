@@ -17,6 +17,8 @@ public class UploadFileModel
     public String suffix;
     public String fileSize;
     
+    public String custom_file_path;
+    
     public File getFile()
     {
         return file;
@@ -83,6 +85,14 @@ public class UploadFileModel
 
 	public void setFileSize(String fileSize) {
 		this.fileSize = fileSize;
+	}
+
+	public String getCustom_file_path() {
+		return custom_file_path;
+	}
+
+	public void setCustom_file_path(String custom_file_path) {
+		this.custom_file_path = custom_file_path;
 	}
     
     

@@ -167,7 +167,7 @@ var infoDo = basePath+"/website/backstage/ExcellentInnovationController.do";
 var addUrl = '<c:url value="/website/backstage/ExcellentInnovationController.do"/>?method=saveOrUpdate';
 var retrunUrl =  '<c:url value="/website/backstage/ExcellentInnovationController.do"/>?method=innovationList';
 //图片上路经
-var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUpload&oneLevelClassify='+$("#oneLevelClassify").val();
+var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUpload&oneLevelClassify=11';
 //获取图片路径
 var getImag='<c:url value="/system/freamwork/fileUploadController.do"/>?method=getImage&filePath=';
 //弹出图片上传窗口

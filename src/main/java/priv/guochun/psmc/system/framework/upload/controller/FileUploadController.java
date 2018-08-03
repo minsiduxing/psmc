@@ -23,12 +23,17 @@ import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface
 import priv.guochun.psmc.system.framework.upload.util.FtpUtil;
 import priv.guochun.psmc.system.framework.upload.util.PSMCFileUtils;
 import priv.guochun.psmc.system.util.ContantsUtil;
+import priv.guochun.psmc.system.util.SystemPropertiesUtil;
+import priv.guochun.psmc.website.backstage.attachment.model.TabAttachment;
+import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentService;
 @Scope("prototype")
 @Controller
 @RequestMapping("/system/freamwork/fileUploadController")
 public class FileUploadController extends MyController {
 	@Autowired
 	private UploadAssemblyInterface uploadAssemblyInterface;
+	@Autowired
+	private TabAttachmentService tabAttachmentService;
 	@RequestMapping(params="method=fileUpload")
 	@ResponseBody
 	public void fileUpload(HttpServletRequest request,HttpServletResponse response,String oneLevelClassify) throws IllegalStateException, IOException{
@@ -76,17 +81,28 @@ public class FileUploadController extends MyController {
 	@RequestMapping(params="method=fileBatchUpload")
 	@ResponseBody
 	public void fileBatchUpload(HttpServletRequest request,HttpServletResponse response) throws IllegalStateException, IOException{
-		
 		List<UploadFileModel> uploadFileModelList = uploadAssemblyInterface.getFiles(request);
 		FtpUtil ftu = FtpUtil.getFtputil();
 		String paths = null;
-		for (UploadFileModel uploadFileModel : uploadFileModelList) {
-			String filepath = ftu.uploadFile(uploadFileModel);
-			if(paths != null) {
-				paths = paths + ",";
+		if(uploadFileModelList != null && uploadFileModelList.size() > 0) {
+			for (int i = 0; i < uploadFileModelList.size();  i++) {
+				String filepath = ftu.uploadFile(uploadFileModelList.get(i));
+				//添加附件信息
+				TabAttachment attachment = new TabAttachment();
+				attachment.setFileName(uploadFileModelList.get(i).getFileSystemName());
+				attachment.setFilePath(uploadFileModelList.get(i).getCustom_file_path());
+				attachment.setFilePrefix(SystemPropertiesUtil.getfilePrefixPath());
+				attachment.setFileRealName(uploadFileModelList.get(i).getFileRealName());
+				attachment.setFileSuffix(uploadFileModelList.get(i).getSuffix());
+				attachment.setSort(i + 1);
+				String attachmentUuid = tabAttachmentService.addAttachment(attachment);
+				if(i > 0) {
+					paths += ",";
+				}
+				paths += attachmentUuid;
 			}
-			paths = paths + filepath;
 		}
+		
 		super.responseJson(true,paths, response);
 	}
 
@@ -95,22 +111,22 @@ public class FileUploadController extends MyController {
 		if(StringUtils.isNotBlank(oneLevelClassify)){
 			switch (oneLevelClassify) {
 			case ContantsUtil.ONE_LEVEL_CLASSIFY_11:
-				imagePath = ContantsUtil.INNOVATION;
+				imagePath = SystemPropertiesUtil.getInnovationCustomPath();
 				break;
 			case ContantsUtil.ONE_LEVEL_CLASSIFY_12:
-				imagePath = ContantsUtil.ASSISTANCE;
+				imagePath = SystemPropertiesUtil.getAssistanceCustomPath();
 				break;
 			case ContantsUtil.ONE_LEVEL_CLASSIFY_13:
-				imagePath = ContantsUtil.LITERARY_FORM;
+				imagePath = SystemPropertiesUtil.getLiteraryFormCustomPath();
 				break;
 			case ContantsUtil.ONE_LEVEL_CLASSIFY_14:
-				imagePath = ContantsUtil.LOGISTICS_CENTER;
+				imagePath = SystemPropertiesUtil.getLogisticsCenterCustomPath();
 				break;
 			case ContantsUtil.DEPT_TYPE_1:
-				imagePath = ContantsUtil.DEPT_INNOVATION;
+				imagePath = SystemPropertiesUtil.getDeptInnovationCustomPath();
 				break;
 			case ContantsUtil.DEPT_TYPE_2:
-				imagePath = ContantsUtil.DEPT_LITERARY_FORM;
+				imagePath = SystemPropertiesUtil.getDeptLiteraryFormCustomPath();
 				break;
 			default:
 				break;

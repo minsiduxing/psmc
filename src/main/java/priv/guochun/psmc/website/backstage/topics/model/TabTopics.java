@@ -58,9 +58,9 @@ public class TabTopics {
 	 */
     private String topicContent;
     /**
-     * 文件路径（非持久化字段）
+     * 附件ID（非持久化字段）
      */
-    private String filePaths;
+    private String attachmentUuids;
 
     public String getTopicUuid() {
         return topicUuid;
@@ -167,11 +167,11 @@ public class TabTopics {
 				+ ", lastCommentUuid=" + lastCommentUuid + ", topicContent=" + topicContent + "]";
 	}
 
-	public String getFilePaths() {
-		return filePaths;
+	public String getAttachmentUuids() {
+		return attachmentUuids;
 	}
 
-	public void setFilePaths(String filePaths) {
-		this.filePaths = filePaths;
+	public void setAttachmentUuids(String attachmentUuids) {
+		this.attachmentUuids = attachmentUuids;
 	}
 }

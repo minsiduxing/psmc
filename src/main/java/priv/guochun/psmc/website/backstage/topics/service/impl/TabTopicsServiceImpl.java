@@ -42,7 +42,7 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 			tabTopics.setTopicStatus(ContantsUtil.BLOCK_STATUS_1);
 			baseDao.insert(insertTopics, tabTopics);
 			//添加附件信息
-			tabAttachmentService.addAttachment(topicUuid, tabTopics.getFilePaths());
+			tabAttachmentService.updateBusinessUuidToAttachment(topicUuid, tabTopics.getAttachmentUuids());
 		}else{
 			baseDao.update(updateTopics, tabTopics);
 		}

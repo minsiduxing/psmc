@@ -84,13 +84,10 @@ public class InfoReleaseController extends MyController{
 			module.setModifyAccUuid(this.getUserBySeesion(request).getUserUuid());
 		}
 		if(ContantsUtil.IS_CUSTOM_0.equals(infoRelease.getIsCustom()) && StringUtils.isBlank(infoRelease.getImagePath())){
-			if(ContantsUtil.ONE_LEVEL_CLASSIFY_11.equals(module.getOneLevelClassify())){
-				infoRelease.setImagePath(SystemPropertiesUtil.getWorkManageImagePath());
-			}
 			if(ContantsUtil.ONE_LEVEL_CLASSIFY_12.equals(module.getOneLevelClassify())){
 				infoRelease.setImagePath(SystemPropertiesUtil.getLegalProvisionsImagePath());			
 			}
-			if(ContantsUtil.ONE_LEVEL_CLASSIFY_13.equals(module.getOneLevelClassify())){
+			if(ContantsUtil.ONE_LEVEL_CLASSIFY_14.equals(module.getOneLevelClassify())){
 				infoRelease.setImagePath(SystemPropertiesUtil.getWorkReleaseImagePath());
 			}
 		}
@@ -259,29 +256,4 @@ public class InfoReleaseController extends MyController{
 		  super.responseJson(JsonUtil.convertToJSONObject(returnmap), response);
 	}
 	
-	/**
-	 * 根据角色获取信息分类
-	 * @param userRole
-	 * @return
-	 */
-	private String getOneLevelClassify(String userRole){
-		String oneLevelClassify = "";
-		switch (userRole) {
-			case ContantsUtil.SYS_INNOVATE_STUDIO_MAINTAIN:
-				oneLevelClassify = ContantsUtil.ONE_LEVEL_CLASSIFY_11;
-				break;
-			case ContantsUtil.SYS_UNION_MAINTAIN:
-				oneLevelClassify = ContantsUtil.ONE_LEVEL_CLASSIFY_12;
-				break;
-			case ContantsUtil.SYS_LITERARY_FORM_MAINTAIN:
-				oneLevelClassify = ContantsUtil.ONE_LEVEL_CLASSIFY_13;
-				break;
-			case ContantsUtil.SYS_LOGISTICS_CENTER_MAINTIAN:
-				oneLevelClassify = ContantsUtil.ONE_LEVEL_CLASSIFY_14;
-				break;
-		default:
-			break;
-		}
-		return oneLevelClassify;
-	}
 }
