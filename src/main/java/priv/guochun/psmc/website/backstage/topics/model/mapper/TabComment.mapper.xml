@@ -19,8 +19,16 @@
     	comment_uuid, topic_uuid, comment_content, comment_person_uuid, comment_person_name, 
     	comment_date, comment_status, to_person_uuid, to_person_name
     from tab_comment
-    where 1=1
-    and topic_uuid = #{topicUuid,jdbcType=VARCHAR}
+    <where>
+    	1=1
+    	<if test="topicUuid != null and topicUuid != '' ">
+    		and topic_uuid = #{topicUuid,jdbcType=VARCHAR}
+    	</if>
+    	<if test="commentPersonUuid != null and commentPersonUuid != '' ">
+    		and comment_status = 1
+    		or (comment_status = 2 and comment_person_uuid = #{commentPersonUuid,jdbcType=VARCHAR})
+    	</if>
+    </where>
     order by comment_date desc
   </select>
   
