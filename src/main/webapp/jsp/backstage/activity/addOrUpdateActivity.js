@@ -4,7 +4,8 @@
  */
 function save(e){
 	event.preventDefault();
-	
+	var isCustom = $("input[name='isCustom1']:checked").val();
+	$("#isCustom").val(isCustom);
 	var result = $('#activityForm').form("validate");
 	if(!Boolean(result)){
 		$.messager.alert('警告','请填写必填项！','warning');

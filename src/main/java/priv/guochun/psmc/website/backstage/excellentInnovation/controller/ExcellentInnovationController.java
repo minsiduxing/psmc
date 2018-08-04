@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.website.backstage.excellentInnovation.model.TabExcellentInnovation;
@@ -63,7 +64,7 @@ public class ExcellentInnovationController extends MyController{
 			module.setModifyAccUuid(this.getUserBySeesion(this.request()).getUserUuid());
 		}
 		//如果信息配图为空，则添加默认配图
-		if(StringUtils.isBlank(innovation.getImagePath())){
+		if(ContantsUtil.IS_CUSTOM_0.equals(innovation.getIsCustom()) && StringUtils.isBlank(innovation.getImagePath())){
 			innovation.setImagePath(SystemPropertiesUtil.getInnovationImagePath());
 		}
 		module.setAuditDate(null);

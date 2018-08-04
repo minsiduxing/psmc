@@ -13,15 +13,12 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/news/news${csssuffix}" type="text/css">
-<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/css/Huploadify${csssuffix}" type="text/css">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/jcrop/css/jquery.Jcrop${csssuffix}"/> --%>
   </head>
   <%@ include file="../../../common.jsp"%>
   <body id="body">
 <form id="editForm" method="POST" class="newsForm" >
 	<div class=" panel-default" style="margin-top:15px; border: 1px solid #ddd;">
 		<table class="table table-hover" style="font-size:12px; width:75%; border-collapse:separate; border-spacing:10px;">
-			
 			<c:if test="${deptType == '1'}">
 				<tr>
 					<td class="tds">工作室名称：</td>
@@ -46,7 +43,6 @@
 					</td>
 				</tr>	
 			</c:if>	
-			
 			<tr>
 				<td class="tds" >规范管理办法：</td>
 				<td width="100%" colspan="3">

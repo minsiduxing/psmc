@@ -57,6 +57,11 @@ public class TabActivityManage {
      * 部门ID
      */
     private String deptUuid;
+    
+    /**
+     * 是否自定义配图
+     */
+    private Integer isCustom;
 
     public String getActivityUuid() {
         return activityUuid;
@@ -139,15 +144,20 @@ public class TabActivityManage {
 	}
 
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+	public Integer getIsCustom() {
+		return isCustom;
+	}
+
+	public void setIsCustom(Integer isCustom) {
+		this.isCustom = isCustom;
+	}
+
 	@Override
 	public String toString() {
 		return "TabActivityManage [activityUuid=" + activityUuid + ", activityName=" + activityName + ", startDate="
 				+ startDate + ", endDate=" + endDate + ", createDate=" + createDate + ", createPerson=" + createPerson
-				+ ", signUpEndDate=" + signUpEndDate + ", activityContent=" + activityContent 
-				+ ", imagePath=" + imagePath + ", deptUuid=" + deptUuid +"]";
+				+ ", signUpEndDate=" + signUpEndDate + ", activityContent=" + activityContent + ", imagePath="
+				+ imagePath + ", deptUuid=" + deptUuid + ", isCustom=" + isCustom + "]";
 	}
     
 }

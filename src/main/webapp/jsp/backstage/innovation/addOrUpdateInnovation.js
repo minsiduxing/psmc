@@ -86,6 +86,8 @@ function  wangEditorInit(isEdit){
  */
 function save(e){
 	event.preventDefault();
+	var isCustom = $("input[name='isCustom1']:checked").val();
+	$("#isCustom").val(isCustom);
 	$("#hiddencontent").val(editor.txt.html());
 	var result = $('#innovationForm').form("validate");
 	if(!Boolean(result)){

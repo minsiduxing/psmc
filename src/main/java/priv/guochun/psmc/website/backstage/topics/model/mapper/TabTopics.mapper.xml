@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tab_topics" >
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.topics.model.TabTopics" >
+    <id column="topic_uuid" property="topicUuid" jdbcType="VARCHAR" />
+    <result column="topic_name" property="topicName" jdbcType="VARCHAR" />
+    <result column="topic_status" property="topicStatus" jdbcType="INTEGER" />
+    <result column="block_uuid" property="blockUuid" jdbcType="VARCHAR" />
+    <result column="create_person_uuid" property="createPersonUuid" jdbcType="VARCHAR" />
+    <result column="create_person_name" property="createPersonName" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="last_comment_person_uuid" property="lastCommentPersonUuid" jdbcType="VARCHAR" />
+    <result column="last_comment_date" property="lastCommentDate" jdbcType="TIMESTAMP" />
+    <result column="last_comment_uuid" property="lastCommentUuid" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectTopicsList" parameterType="hashmap" resultType="java.util.Map">
+    select
+    	t1.*,
+    	t2.nums,
+    	t3.person_name as lastCommentPerson
+    from 
+    	tab_topics t1
+    left join 
+    	tab_page_view t2
+    on 
+    	t1.topic_uuid = t2.uuid
+    left join
+    	tab_person t3
+    on
+    	t1.last_comment_person_uuid = t3.uuid
+    <where>
+    	  1 = 1
+    	  and t1.topic_status != 3
+	    <if test="topicUuid != null and topicUuid != ''">
+	      and t1.topic_uuid = #{topicUuid}
+	    </if>
+	    <if test="blockUuid != null and blockUuid != ''">
+	      and t1.block_uuid = #{blockUuid}
+	    </if>
+	    <if test="topicName != null and topicName != ''">
+	      and t1.topic_name like concat(concat('%',#{topicName}),'%')
+	    </if>
+	    <if test="topicContent != null and topicContent != ''">
+	      and t1.topic_content like concat(concat('%',#{topicContent}),'%')
+	    </if>
+	    <if test="createPersonName != null and createPersonName != ''">
+	      and t1.create_person_name like concat(concat('%',#{createPersonName}),'%')
+	    </if>
+	    <if test="telephone != null and telephone != ''">
+	      and t1.telephone like concat(concat('%',#{telephone}),'%')
+	    </if>
+	    <if test="lastCommentPerson != null and lastCommentPerson != ''">
+	      and t1.t3.person_name like concat(concat('%',#{lastCommentPerson}),'%')
+	    </if>
+	    <if test="createDateBegin != null and createDateBegin != ''">
+	      and <![CDATA[t1.create_date >=#{createDateBegin}]]>  
+	    </if>
+	    <if test="createDateEnd != null and createDateEnd != ''">
+	      and <![CDATA[t1.create_date <=#{createDateEnd}]]>  
+	    </if>
+	    <if test="lastCommentDateBegin != null and lastCommentDateBegin != ''">
+	      and <![CDATA[t1.last_comment_date >=#{lastCommentDateBegin}]]>  
+	    </if>
+	    <if test="lastCommentDateEnd != null and lastCommentDateEnd != ''">
+	      and <![CDATA[t1.last_comment_date <=#{lastCommentDateEnd}]]>  
+	    </if>
+	    <if test="queryParameter != null and queryParameter != ''" >  
+	       and (t1.topic_name like concat(concat('%',#{queryParameter}),'%')
+	       		or t1.topic_content LIKE concat(concat('%',#{queryParameter}),'%')
+	       		or t1.create_person_name LIKE concat(concat('%',#{queryParameter}),'%')
+	       		or t1.telephone like concat(concat('%',#{queryParameter}),'%')
+	       	   )
+		  </if>  
+    </where>
+      order by create_date desc
+  </select>
+  
+  <select id="selectTopicsByPrimaryKey" parameterType="hashmap" resultType="java.util.Map" >
+    select
+    	t1.*,
+    	t2.nums,
+    	t3.person_name as lastCommentPerson
+    from 
+    	tab_topics t1
+    left join 
+    	tab_page_view t2
+    on 
+    	t1.topic_uuid = t2.uuid
+    left join
+    	tab_person t3
+    on
+    	t1.last_comment_person_uuid = t3.uuid
+    where t1.topic_uuid = #{topicUuid,jdbcType=VARCHAR}
+  </select>
+  
+
+  <insert id="insertTopics" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabTopics" >
+    insert into tab_topics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="topicUuid != null" >
+        topic_uuid,
+      </if>
+      <if test="topicName != null" >
+        topic_name,
+      </if>
+      <if test="topicStatus != null" >
+        topic_status,
+      </if>
+      <if test="blockUuid != null" >
+        block_uuid,
+      </if>
+      <if test="createPersonUuid != null" >
+        create_person_uuid,
+      </if>
+      <if test="createPersonName != null" >
+        create_person_name,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="lastCommentPersonUuid != null" >
+        last_comment_person_uuid,
+      </if>
+      <if test="lastCommentDate != null" >
+        last_comment_date,
+      </if>
+      <if test="lastCommentUuid != null" >
+        last_comment_uuid,
+      </if>
+      <if test="topicContent != null" >
+        topic_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="topicUuid != null" >
+        #{topicUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="topicName != null" >
+        #{topicName,jdbcType=VARCHAR},
+      </if>
+      <if test="topicStatus != null" >
+        #{topicStatus,jdbcType=INTEGER},
+      </if>
+      <if test="blockUuid != null" >
+        #{blockUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="createPersonUuid != null" >
+        #{createPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="createPersonName != null" >
+        #{createPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastCommentPersonUuid != null" >
+        #{lastCommentPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastCommentDate != null" >
+        #{lastCommentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastCommentUuid != null" >
+        #{lastCommentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="topicContent != null" >
+        #{topicContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateTopics" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabTopics" >
+    update tab_topics
+    <set >
+      <if test="topicName != null" >
+        topic_name = #{topicName,jdbcType=VARCHAR},
+      </if>
+      <if test="topicStatus != null" >
+        topic_status = #{topicStatus,jdbcType=INTEGER},
+      </if>
+      <if test="blockUuid != null" >
+        block_uuid = #{blockUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="createPersonUuid != null" >
+        create_person_uuid = #{createPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="createPersonName != null" >
+        create_person_name = #{createPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastCommentPersonUuid != null" >
+        last_comment_person_uuid = #{lastCommentPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastCommentDate != null" >
+        last_comment_date = #{lastCommentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastCommentUuid != null" >
+        last_comment_uuid = #{lastCommentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="topicContent != null" >
+        topic_content = #{topicContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where topic_uuid = #{topicUuid,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

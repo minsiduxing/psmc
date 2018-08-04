@@ -138,10 +138,16 @@
 			<tr>
 				<td class="tds">审核时间：</td>
 				<td width="30%"><input id="auditDate" name="auditDate" value="${info.audit_date}" style="width:70%;"/></td>
+				<td class="tds">自定义配图：</td>
+				<td width="30%">
+	                <input type="radio" name="isCustom1" <c:if test="${dept.is_custom == '0'}">checked</c:if> value="0" style="width:5%;margin-right: 0">否</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                <input type="radio" name="isCustom1" <c:if test="${dept.is_custom == '1'}">checked</c:if> value="1" style="width:5%;margin-right: 0" onclick="openUploadDialog()">是</input>
+	                <input type="hidden" id="isCustom" name="isCustom" value="${dept.is_custom}"/>
+				</td>
 			</tr>
 		</table>
 	</div>
-		
+		 <div id="uploadImageDiv"></div>
 		 <input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 		 <input type="hidden" id="innovationUuid" name="innovationUuid" value="${info.innovation_uuid}"/>
 		 <input type="hidden" id="imagePath" name="imagePath" value="" />
@@ -163,6 +169,10 @@ var retrunUrl =  '<c:url value="/website/backstage/ExcellentInnovationController
 var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUpload&oneLevelClassify=11';
 //获取图片路径
 var getImag='<c:url value="/system/freamwork/fileUploadController.do"/>?method=getImage&filePath=';
+//弹出图片上传窗口
+var toImageUpload =  '<c:url value="/website/backstage/uploadImageController.do"/>?method=toImageUplodDialog';
+//上传配图
+var uploadPhoto = '<c:url value="/website/backstage/uploadImageController.do"/>?method=uploadPhoto';
 var newsContent = '${info.achievement_content}';
 
 var groupid = "${sessionScope.user.tabPerson.groupid}";
@@ -170,11 +180,18 @@ commonObj.initDictCombobox("sex","SEX","<c:out value="${info.sex}"/>",true,false
 commonObj.initDictCombobox("occupation","ACCUPATION","<c:out value="${info.occupation}"/>",true,false);
 commonObj.initDictCombobox("achievementForm","ACHIEVEMENT_FORM","<c:out value="${info.achievement_form}"/>",true,false);
 commonObj.initDeptCombobox("deptUuid","1", groupid,"<c:out value="${info.dept_uuid}"/>",true);
+
+//默认选中否
+if($("#isCustom").val() == "" || $("#isCustom").val() == null){
+	$("input[name='isCustom1']:eq(0)").attr("checked",'checked');
+}
+
 //如果是查看，不能编辑表单，隐藏按钮
 if($("#isEdit").val() == 'query'){
 	$("#submitbtn").hide();
 	$("#reset").hide();
 	$('input,select,textarea',$('#innovationForm')).attr('readonly',true);
+	$("input[name='isCustom1']").attr("disabled",true);
 }else if($("#isEdit").val() == 'add'){
 	var personName = "${sessionScope.user.personName}";
 	var phone = "${sessionScope.user.personTelephone}";
@@ -251,5 +268,5 @@ $('#auditDate').datetimebox({
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/wangEditor/wangEditor.min${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/uploadfy/jquery.Huploadify${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/browser${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/jquery.Jcrop.min${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/innovation/addOrUpdateInnovation.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/uploadImage/uploadImage.js"></script>

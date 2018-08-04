@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,9 +44,10 @@ public class BaseUploadAssembly implements UploadAssemblyInterface
           if(multipartResolver.isMultipart(request)){  
               //转换成多部分request    
               MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;  
-              String imagePath = String.valueOf(request.getAttribute("imagePath"));
+              String imagePath = (String) request.getAttribute("imagePath");
               //取得request中的所有文件名  
               Iterator<String> iter = multiRequest.getFileNames();  
+              Map<String, MultipartFile> map = multiRequest.getFileMap();
               while(iter.hasNext()){
                   UploadFileModel model = new UploadFileModel();
                   //取得上传文件  
@@ -64,19 +66,17 @@ public class BaseUploadAssembly implements UploadAssemblyInterface
                           
                           //重命名上传后的文件名  
                           String fileSuffix = model.getSuffix();
-                          String fileTempAllPath = SystemPropertiesUtil.getUploadTempPathPropertyValue() +fileSystemName+"."+fileSuffix; 
-                          String fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+fileSystemName+"."+fileSuffix;
+                          String cutomFilePath = fileSystemName + "." + fileSuffix;
                           if(StringUtils.isNotBlank(imagePath)){
-                              fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+imagePath+"/"+fileSystemName+"."+fileSuffix;
+                        	  cutomFilePath = imagePath + cutomFilePath;
                           }
-                          //如果文件为图片则新建imag文件夹
+                          String fileTempAllPath = SystemPropertiesUtil.getUploadTempPathPropertyValue() +cutomFilePath; 
+                          String fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+cutomFilePath;
+//                          
+                          //如果文件为图片则新建image文件夹
                           if(PSMCFileUtils.isPicture(fileSuffix)){
-                        	  if(StringUtils.isNotBlank(imagePath)){
-                        		  fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+"image/"+imagePath+"/"+fileSystemName+"."+fileSuffix;
-                        	  }else{
-                        		  fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+"image/"+fileSystemName+"."+fileSuffix;
-                        	  }
-                        	  
+                        	  cutomFilePath = "image/" + cutomFilePath;
+                        	  fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+cutomFilePath;
                           }
                           File localFile = new File(fileTempAllPath);  
                           if(!localFile.exists()){
@@ -86,6 +86,7 @@ public class BaseUploadAssembly implements UploadAssemblyInterface
                           model.setTemp_file_path(fileTempAllPath);
                           model.setFile_upload_real_path(fileRealAllPath);
                           model.setFile(localFile);
+                          model.setCustom_file_path(cutomFilePath);
                           files.add(model);
                       }else{
                           logger.warn("文件不存在.............file name is null ");

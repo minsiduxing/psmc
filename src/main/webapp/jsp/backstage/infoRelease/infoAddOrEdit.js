@@ -16,6 +16,8 @@ var editor;
 function sbmit (e){
 	event.preventDefault();
 	var result = $('#editForm').form("validate");
+	var isCustom = $("input[name='isCustom1']:checked").val();
+	$("#isCustom").val(isCustom);
 	$("#hiddencontent").val(editor.txt.html());
 	if(editor.txt.text()=="" || editor.txt.text()==null){
 		commonObj.alert ("信息不能为空!","warning");

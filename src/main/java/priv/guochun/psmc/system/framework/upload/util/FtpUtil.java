@@ -285,7 +285,8 @@ public class FtpUtil {
         	}else{
         		throw new PsmcBuisnessException("文件上传失败！");
         	}
-            return filePath;
+        	String filePrefixPath = SystemPropertiesUtil.getfilePrefixPath();
+            return filePrefixPath + ufm.getCustom_file_path();
         }
         else
         {

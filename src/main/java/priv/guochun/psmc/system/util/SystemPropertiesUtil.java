@@ -72,10 +72,10 @@ public class SystemPropertiesUtil
     private static final String is_publish ="is_publish";
     
     /**
-     * 信息自定义配图上传路径
+     * 文件访问路径前缀
      */
-    private static final String custom_image_upload_path = "custom_image_upload_path";
-    /** 信息默认配图图片路径 **/
+    private static final String file_prefix_path = "file_prefix_path";
+    /** 信息列表默认配图图片路径 **/
     private static final String help_declare_image_path = "help_declare_image_path"; //帮扶申报
     private static final String law_help_image_path = "law_help_image_path"; //法律援助
     private static final String Legal_provisions_image_path = "Legal_provisions_image_path"; //法条维护
@@ -83,6 +83,17 @@ public class SystemPropertiesUtil
     private static final String work_release_image_path = "work_release_image_path"; //工作发布
     private static final String activity_image_path = "activity_image_path";// 活动管理
     private static final String innovation_image_path = "innovation_image_path"; //优秀创新
+    /** 信息列表自定义配图路径 **/
+    private static final String custom_image_path = "custom_image_path";
+    
+    /**信息内容自定义图片路径**/
+    private static final String innovation_custom = "innovation_custom";
+    private static final String assistance_custom = "assistance_custom";
+    private static final String literary_form_custom = "literary_form_custom";
+    private static final String logistics_center_custom = "logistics_center";
+    private static final String dept_innovation_custom = "dept_innovation";
+    private static final String dept_literary_form_custom = "dept_literary_form";
+    private static final String mobile_image_path = "mobile_image_path";
     
     /**
      * 初始化system.propeties
@@ -166,8 +177,8 @@ public class SystemPropertiesUtil
 		return getPropertyValue(is_publish);
 	}
 	
-	public static String getCustomImageUploadPath(){
-		return getPropertyValue(custom_image_upload_path);
+	public static String getfilePrefixPath(){
+		return getPropertyValue(file_prefix_path);
 	}
 	public static String getHelpDeclareImagePath(){
 		return getPropertyValue(help_declare_image_path);
@@ -189,6 +200,30 @@ public class SystemPropertiesUtil
 	}
 	public static String getInnovationImagePath(){
 		return getPropertyValue(innovation_image_path);
+	}
+	public static String getInnovationCustomPath() {
+		return getPropertyValue(innovation_custom);
+	}
+	public static String getAssistanceCustomPath() {
+		return getPropertyValue(assistance_custom);
+	}
+	public static String getLiteraryFormCustomPath() {
+		return getPropertyValue(literary_form_custom);
+	}
+	public static String getLogisticsCenterCustomPath() {
+		return getPropertyValue(logistics_center_custom);
+	}
+	public static String getDeptInnovationCustomPath() {
+		return getPropertyValue(dept_innovation_custom);
+	}
+	public static String getDeptLiteraryFormCustomPath() {
+		return getPropertyValue(dept_literary_form_custom);
+	}
+	public static String getCustomImagePath() {
+		return getPropertyValue(custom_image_path);
+	}
+	public static String getMobileImagePath(){
+		return getPropertyValue(mobile_image_path);
 	}
 
 	public static String getPropertyValue(String key){

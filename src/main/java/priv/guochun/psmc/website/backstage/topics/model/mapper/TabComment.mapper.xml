@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tab_comment" >
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.topics.model.TabComment" >
+    <id column="comment_uuid" property="commentUuid" jdbcType="VARCHAR" />
+    <result column="topic_uuid" property="topicUuid" jdbcType="VARCHAR" />
+    <result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
+    <result column="comment_person_uuid" property="commentPersonUuid" jdbcType="VARCHAR" />
+    <result column="comment_person_name" property="commentPersonName" jdbcType="VARCHAR" />
+    <result column="comment_date" property="commentDate" jdbcType="TIMESTAMP" />
+    <result column="comment_status" property="commentStatus" jdbcType="INTEGER" />
+    <result column="to_person_uuid" property="toPersonUuid" jdbcType="VARCHAR" />
+    <result column="to_person_name" property="toPersonName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <select id="selectCommentList" parameterType="hashmap" resultType="java.util.Map" >
+    select
+    	comment_uuid, topic_uuid, comment_content, comment_person_uuid, comment_person_name, 
+    	comment_date, comment_status, to_person_uuid, to_person_name
+    from tab_comment
+    <where>
+    	1=1
+    	<if test="topicUuid != null and topicUuid != '' ">
+    		and topic_uuid = #{topicUuid,jdbcType=VARCHAR}
+    	</if>
+    	<if test="commentPersonUuid != null and commentPersonUuid != '' ">
+    		and comment_status = 1
+    		or (comment_status = 2 and comment_person_uuid = #{commentPersonUuid,jdbcType=VARCHAR})
+    	</if>
+    </where>
+    order by comment_date desc
+  </select>
+  
+  <insert id="insertComment" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabComment" >
+    insert into tab_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentUuid != null" >
+        comment_uuid,
+      </if>
+      <if test="topicUuid != null" >
+        topic_uuid,
+      </if>
+      <if test="commentContent != null" >
+        comment_content,
+      </if>
+      <if test="commentPersonUuid != null" >
+        comment_person_uuid,
+      </if>
+      <if test="commentPersonName != null" >
+        comment_person_name,
+      </if>
+      <if test="commentDate != null" >
+        comment_date,
+      </if>
+      <if test="commentStatus != null" >
+        comment_status,
+      </if>
+      <if test="toPersonUuid != null" >
+        to_person_uuid,
+      </if>
+      <if test="toPersonName != null" >
+        to_person_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentUuid != null" >
+        #{commentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="topicUuid != null" >
+        #{topicUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null" >
+        #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentPersonUuid != null" >
+        #{commentPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="commentPersonName != null" >
+        #{commentPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentDate != null" >
+        #{commentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentStatus != null" >
+        #{commentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="toPersonUuid != null" >
+        #{toPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="toPersonName != null" >
+        #{toPersonName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+
+  <update id="updateComment" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabComment" >
+    update tab_comment
+    <set >
+      <if test="topicUuid != null" >
+        topic_uuid = #{topicUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null" >
+        comment_content = #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentPersonUuid != null" >
+        comment_person_uuid = #{commentPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="commentPersonName != null" >
+        comment_person_name = #{commentPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentDate != null" >
+        comment_date = #{commentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentStatus != null" >
+        comment_status = #{commentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="toPersonUuid != null" >
+        to_person_uuid = #{toPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="toPersonName != null" >
+        to_person_name = #{toPersonName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where comment_uuid = #{commentUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

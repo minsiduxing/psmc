@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import priv.guochun.psmc.authentication.user.model.TabPerson;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
@@ -66,7 +67,7 @@ public class TabActivityManageController extends MyController{
 			module.setModifyAccUuid(this.getUserBySeesion(this.request()).getUserUuid());
 		}
 		//如果配图为空，则添加默认配图
-		if(StringUtils.isBlank(activity.getImagePath())){
+		if(ContantsUtil.IS_CUSTOM_0.equals(activity.getIsCustom()) && StringUtils.isBlank(activity.getImagePath())){
 			activity.setImagePath(SystemPropertiesUtil.getActivityImagePath());
 		}
 		tabActivityManageService.addOrupdateActivity(activity, module);

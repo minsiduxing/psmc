@@ -175,7 +175,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       other_complete_person, achievement_name, achievement_form, 
       realized_value, application_generalize, innovation_date, 
       recommend_remark, recommend_date, audit_remark, 
-      audit_date, achievement_content, image_path, dept_uuid)
+      audit_date, achievement_content, image_path, dept_uuid,is_custom)
     values (#{innovationUuid,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, #{declarePerson,jdbcType=VARCHAR}, 
       #{declarePhone,jdbcType=VARCHAR}, #{declareEmail,jdbcType=VARCHAR}, #{firstCompletePerson,jdbcType=VARCHAR}, 
       #{sex,jdbcType=INTEGER}, #{education,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, 
@@ -183,7 +183,8 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       #{otherCompletePerson,jdbcType=VARCHAR}, #{achievementName,jdbcType=VARCHAR}, #{achievementForm,jdbcType=INTEGER}, 
       #{realizedValue,jdbcType=VARCHAR}, #{applicationGeneralize,jdbcType=VARCHAR}, #{innovationDate,jdbcType=DATE}, 
       #{recommendRemark,jdbcType=VARCHAR}, #{recommendDate,jdbcType=DATE}, #{auditRemark,jdbcType=VARCHAR}, 
-      #{auditDate,jdbcType=DATE}, #{achievementContent,jdbcType=LONGVARCHAR}, #{imagePath,jdbcType=VARCHAR}, #{deptUuid,jdbcType=VARCHAR})
+      #{auditDate,jdbcType=DATE}, #{achievementContent,jdbcType=LONGVARCHAR}, #{imagePath,jdbcType=VARCHAR}, 
+      #{deptUuid,jdbcType=VARCHAR}, #{isCustom,jdbcType=INTEGER})
   </insert>
   
   <insert id="insertInnovationSelective" parameterType="priv.guochun.psmc.website.backstage.excellentInnovation.model.TabExcellentInnovation">
@@ -260,6 +261,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       </if>
       <if test="deptUuid != null">
       	dept_uuid,
+      </if>
+      <if test="isCustom != null">
+      	is_custom,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -338,6 +342,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       <if test="deptUuid != null">
         #{deptUuid,jdbcType=VARCHAR},
       </if>
+      <if test="isCustom != null">
+      	#{isCustom,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   
@@ -413,6 +420,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
       </if>
       <if test="deptUuid != null">
         dept_uuid = #{deptUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="isCustom !=null ">
+      	is_custom = #{isCustom,jdbcType=INTEGER},
       </if>
     </set>
     where innovation_uuid = #{innovationUuid,jdbcType=VARCHAR}

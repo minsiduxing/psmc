@@ -1,12 +1,20 @@
 package priv.guochun.psmc.website.backstage.common;
 
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
-import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.website.backstage.report.model.TabReport;
+import priv.guochun.psmc.website.backstage.topics.model.TabComment;
+import priv.guochun.psmc.website.backstage.topics.model.TabTopics;
 
 /**
  * 工会订阅号后台服务接口
@@ -200,4 +208,44 @@ public interface ChjghWeChatService {
     @POST
 	@Consumes("application/x-www-form-urlencoded")
 	public String deptDetail(@FormParam("deptUuid") String deptUuid);
+	
+	/**
+	 * 新增主题信息
+	 * @param tabTopics 主题信息实体类
+	 * @return
+	 */
+	@Path("/addTopics")
+	@POST
+	@Produces({MediaType.APPLICATION_JSON})
+	public String addTopics(@RequestBody TabTopics tabTopics);
+	
+	/**
+	 * 查询主题信息列表
+	 * @param pageJson 查询参数
+	 * @return
+	 */
+	@Path("/queryTopicsList")
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON})
+	public String queryTopicsList(String pageJson);
+	
+	/**
+	 * 查询主题详情以及对应的评论列表
+	 * @param pageJson 查询参数
+	 * @return
+	 */
+	@Path("/topicsDetail")
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON})
+	public String topicsDetail(String pageJson);
+	
+	/**
+	 * 新增评论信息
+	 * @param tabComment 评论信息实体类
+	 * @return
+	 */
+	@Path("/addTabComment")
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON})
+	public String addTabComment(@RequestBody TabComment tabComment);
 }

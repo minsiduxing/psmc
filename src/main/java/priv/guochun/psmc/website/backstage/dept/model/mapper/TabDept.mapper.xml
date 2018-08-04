@@ -193,6 +193,9 @@
       <if test="groupid != null">
       	groupid,
       </if>
+      <if test="isCustom != null">
+      	is_custom,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="deptUuid != null">
@@ -230,6 +233,9 @@
       </if>
       <if test="groupid != null">
       	#{groupid,jdbcType=VARCHAR},
+	  </if>
+      <if test="isCustom != null">
+      	#{isCustom,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -270,6 +276,9 @@
       </if>
       <if test="groupid != null">
       	groupid = #{groupid,jdbcType=VARCHAR},
+	  </if>
+      <if test="isCustom !=null ">
+      	is_custom = #{isCustom,jdbcType=INTEGER},
       </if>
     </set>
     where dept_uuid = #{deptUuid,jdbcType=VARCHAR}

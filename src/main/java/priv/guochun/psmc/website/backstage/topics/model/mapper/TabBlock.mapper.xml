@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tab_block" >
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.topics.model.TabBlock" >
+    <id column="block_uuid" property="blockUuid" jdbcType="VARCHAR" />
+    <result column="block_name" property="blockName" jdbcType="VARCHAR" />
+    <result column="block_key" property="blockKey" jdbcType="VARCHAR" />
+    <result column="block_info" property="blockInfo" jdbcType="VARCHAR" />
+    <result column="last_topic_uuid" property="lastTopicUuid" jdbcType="VARCHAR" />
+    <result column="last_topic_person_uuid" property="lastTopicPersonUuid" jdbcType="VARCHAR" />
+    <result column="last_topic_date" property="lastTopicDate" jdbcType="TIMESTAMP" />
+    <result column="block_status" property="blockStatus" jdbcType="INTEGER" />
+    <result column="create_person_uuid" property="createPersonUuid" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="selectBlockList" parameterType="hashmap" resultType="java.util.Map" >
+    select
+    	block_uuid, block_name, block_key, block_info, last_topic_uuid, last_topic_person_uuid, 
+    	last_topic_date, block_status, create_person_uuid, create_date
+    from tab_block
+    where 1=1
+  </select>
+  
+  <select id="selectBlockByPrimaryKey" parameterType="hashmap" resultType="java.util.Map" >
+    select 
+    	block_uuid, block_name, block_key, block_info, last_topic_uuid, last_topic_person_uuid, 
+    	last_topic_date, block_status, create_person_uuid, create_date
+    from tab_block
+    where block_uuid = #{blockUuid,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <delete id="deleteBlock" parameterType="hashmap" >
+    delete from tab_block
+    where block_uuid in
+    <foreach item="item" index="index" collection="blockUuids" open="(" separator="," close=")">  
+		#{item}  
+	</foreach> 
+  </delete>
+  
+
+  <insert id="insertBlock" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabBlock" >
+    insert into tab_block
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="blockUuid != null" >
+        block_uuid,
+      </if>
+      <if test="blockName != null" >
+        block_name,
+      </if>
+      <if test="blockKey != null" >
+        block_key,
+      </if>
+      <if test="blockInfo != null" >
+        block_info,
+      </if>
+      <if test="lastTopicUuid != null" >
+        last_topic_uuid,
+      </if>
+      <if test="lastTopicPersonUuid != null" >
+        last_topic_person_uuid,
+      </if>
+      <if test="lastTopicDate != null" >
+        last_topic_date,
+      </if>
+      <if test="blockStatus != null" >
+        block_status,
+      </if>
+      <if test="createPersonUuid != null" >
+        create_person_uuid,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="blockUuid != null" >
+        #{blockUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="blockName != null" >
+        #{blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="blockKey != null" >
+        #{blockKey,jdbcType=VARCHAR},
+      </if>
+      <if test="blockInfo != null" >
+        #{blockInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTopicUuid != null" >
+        #{lastTopicUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTopicPersonUuid != null" >
+        #{lastTopicPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTopicDate != null" >
+        #{lastTopicDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blockStatus != null" >
+        #{blockStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createPersonUuid != null" >
+        #{createPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+
+  <update id="updateBlock" parameterType="priv.guochun.psmc.website.backstage.topics.model.TabBlock" >
+    update tab_block
+    <set >
+      <if test="blockName != null" >
+        block_name = #{blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="blockKey != null" >
+        block_key = #{blockKey,jdbcType=VARCHAR},
+      </if>
+      <if test="blockInfo != null" >
+        block_info = #{blockInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTopicUuid != null" >
+        last_topic_uuid = #{lastTopicUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTopicPersonUuid != null" >
+        last_topic_person_uuid = #{lastTopicPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTopicDate != null" >
+        last_topic_date = #{lastTopicDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blockStatus != null" >
+        block_status = #{blockStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createPersonUuid != null" >
+        create_person_uuid = #{createPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where block_uuid = #{blockUuid,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

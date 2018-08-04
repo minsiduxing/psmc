@@ -17,10 +17,7 @@ function sbmit (e){
 	event.preventDefault();
 	var result = $('#editForm').form("validate");
 	$("#hiddencontent").val(editor.txt.html());
-	/*if(editor.txt.text()=="" || editor.txt.text()==null){
-		commonObj.alert ("风采展示不能为空!","warning");
-		return;
-	}*/
+
 	var formdata = $("#editForm").serialize();
 	var _addUrl = addUrl;
 	if(Boolean(result)){
