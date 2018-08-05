@@ -81,6 +81,7 @@ public class OperateContantsUtil {
     public final static String INFO_LIST = "INFO_LIST";
     public final static String INFO_RELEASE = "INFO_RELEASE";
     public final static String INFO_PREVIEW = "INFO_PREVIEW";
+    public final static String INFO_UNDO = "INFO_UNDO";
     
     /**
      * 工作管理信息操作编码
@@ -92,6 +93,7 @@ public class OperateContantsUtil {
     public final static String WORK_MANAGER_LIST = "WORK_MANAGER_LIST";
     public final static String WORK_MANAGER_RELEASE = "WORK_MANAGER_RELEASE";
     public final static String WORK_MANAGER_PREVIEW = "WORK_MANAGER_PREVIEW";
+    public final static String WORK_MANAGER_UNDO = "WORK_MANAGER_UNDO";
     
     /**
      * 工作发布信息操作编码
@@ -103,6 +105,7 @@ public class OperateContantsUtil {
     public final static String WORK_RELEASE_LIST = "WORK_RELEASE_LIST";
     public final static String WORK_RELEASE_RELEASE = "WORK_RELEASE_RELEASE";
     public final static String WORK_RELEASE_PREVIEW = "WORK_RELEASE_PREVIEW";
+    public final static String WORK_RELEASE_UNDO = "WORK_RELEASE_UNDO";
     
     /**
      * 法条维护信息操作编码
@@ -114,6 +117,7 @@ public class OperateContantsUtil {
     public final static String LEGAL_PROVISIONS_LIST = "LEGAL_PROVISIONS_LIST";
     public final static String LEGAL_PROVISIONS_RELEASE = "LEGAL_PROVISIONS_RELEASE";
     public final static String LEGAL_PROVISIONS_PREVIEW = "LEGAL_PROVISIONS_PREVIEW";
+    public final static String LEGAL_PROVISIONS_UNDO = "LEGAL_PROVISIONS_UNDO";
     
     /**
      * 创新操作编码
@@ -125,6 +129,7 @@ public class OperateContantsUtil {
     public final static String INNOVATION_LIST = "INNOVATION_LIST";
     public final static String INNOVATION_RELEASE = "INNOVATION_RELEASE";
     public final static String INNOVATION_PREVIEW = "INNOVATION_PREVIEW";
+    public final static String INNOVATION_UNDO = "INNOVATION_UNDO";
     
     /**
      * 活动操作编码
@@ -136,6 +141,7 @@ public class OperateContantsUtil {
     public final static String ACTIVITY_LIST = "ACTIVITY_LIST";
     public final static String ACTIVITY_RELEASE = "ACTIVITY_RELEASE";
     public final static String ACTIVITY_PREVIEW = "ACTIVITY_PREVIEW";
+    public final static String ACTIVITY_UNDO = "ACTIVITY_UNDO";
     
     /**
      * 早知信息操作编码
@@ -147,6 +153,7 @@ public class OperateContantsUtil {
     public final static String EARLY_KNOW_LIST = "EARLY_KNOW_LIST";
     public final static String EARLY_KNOW_RELEASE = "EARLY_KNOW_RELEASE";
     public final static String EARLY_KNOW_PREVIEW = "EARLY_KNOW_PREVIEW";
+    public final static String EARLY_KNOW_UNDO = "EARLY_KNOW_UNDO";
     
     /**
      * 用户组编码
@@ -189,6 +196,7 @@ public class OperateContantsUtil {
     public final static String WORK_ROOM_LIST = "WORK_ROOM_LIST";
     public final static String WORK_ROOM_RELEASE = "WORK_ROOM_RELEASE";
     public final static String WORK_ROOM_PREVIEW = "WORK_ROOM_PREVIEW";
+    public final static String WORK_ROOM_UNDO = "WORK_ROOM_UNDO";
     
     /**
      * 文体协会操作编码
@@ -200,5 +208,50 @@ public class OperateContantsUtil {
     public final static String ASSOCIATION_LIST = "ASSOCIATION_LIST";
     public final static String ASSOCIATION_RELEASE = "ASSOCIATION_RELEASE";
     public final static String ASSOCIATION_PREVIEW = "ASSOCIATION_PREVIEW";
+    public final static String ASSOCIATION_UNDO = "ASSOCIATION_UNDO";
     
+    /**
+     * 跳蚤市场操作编码
+     */
+    public final static String FLEA_MARKET_LIST = "FLEA_MARKET_LIST";
+    public final static String FLEA_MARKET_DEL = "FLEA_MARKET_DEL";
+    public final static String FLEA_MARKET_PAUSE = "FLEA_MARKET_PAUSE";
+    public final static String FLEA_MARKET_PREVIW = "FLEA_MARKET_PREVIW";
+    public final static String FLEA_MARKET_UNDO = "FLEA_MARKET_UNDO";
+    
+    /**
+     * 曝光台操作编码
+     */
+    public final static String EXPOSURE_TABLE_LIST = "EXPOSURE_TABLE_LIST";
+    public final static String EXPOSURE_TABLE_DEL = "EXPOSURE_TABLE_DEL";
+    public final static String EXPOSURE_TABLE_PAUSE = "EXPOSURE_TABLE_PAUSE";
+    public final static String EXPOSURE_TABLE_PREVIW = "EXPOSURE_TABLE_PREVIW";
+    public final static String EXPOSURE_TABLE_UNDO = "EXPOSURE_TABLE_UNDO";
+    
+    /**
+     * 合理化建议操作编码
+     */
+    public final static String RATIONALIZATION_PROPOSAL_LIST = "RATIONALIZATION_PROPOSAL_LIST";
+    public final static String RATIONALIZATION_PROPOSAL_DEL = "RATIONALIZATION_PROPOSAL_DEL";
+    public final static String RATIONALIZATION_PROPOSAL_PAUSE = "RATIONALIZATION_PROPOSAL_PAUSE";
+    public final static String RATIONALIZATION_PROPOSAL_PREVIW = "RATIONALIZATION_PROPOSAL_PREVIW";
+    public final static String RATIONALIZATION_PROPOSAL_UNDO = "RATIONALIZATION_PROPOSAL_UNDO";
+    
+    /**
+     * 表扬操作编码
+     */
+    public final static String PRAISE_LIST = "PRAISE_LIST";
+    public final static String PRAISE_DEL = "PRAISE_DEL";
+    public final static String PRAISE_PAUSE = "PRAISE_PAUSE";
+    public final static String PRAISE_PREVIW = "PRAISE_PREVIW";
+    public final static String PRAISE_UNDO = "PRAISE_UNDO";
+    
+    /**
+     * 投诉操作编码
+     */
+    public final static String COMPLAIN_LIST = "COMPLAIN_LIST";
+    public final static String COMPLAIN_DEL = "COMPLAIN_DEL";
+    public final static String COMPLAIN_PAUSE = "COMPLAIN_PAUSE";
+    public final static String COMPLAIN_PREVIW = "COMPLAIN_PREVIW";
+    public final static String COMPLAIN_UNDO = "COMPLAIN_UNDO";
 }

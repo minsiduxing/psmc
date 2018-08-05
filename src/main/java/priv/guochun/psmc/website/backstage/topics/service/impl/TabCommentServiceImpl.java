@@ -23,6 +23,7 @@ public class TabCommentServiceImpl implements TabCommentService{
 	private static final String selectCommentList = "selectCommentList";
 	private static final String insertComment = "insertComment";
 	private static final String updateComment = "updateComment";
+	private static final String updateCommentStatus = "updateCommentStatus";
 
 	@Autowired
 	private BaseDao baseDao;
@@ -62,5 +63,13 @@ public class TabCommentServiceImpl implements TabCommentService{
 		}else{
 			baseDao.update(updateComment, tabComment);
 		}
+	}
+	
+	@Override
+	public void updateCommentStatusBusinessMethod(TabComment tabComment) {
+		Map<String,Object> condition = new HashMap<String,Object>();
+		condition.put("ids", tabComment.getCommentUuid().split(","));
+		condition.put("commentStatus", tabComment.getCommentStatus());
+		baseDao.update(updateCommentStatus, condition);
 	}
 }

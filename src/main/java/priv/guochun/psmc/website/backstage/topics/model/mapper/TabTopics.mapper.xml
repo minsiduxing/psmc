@@ -216,4 +216,17 @@
     where topic_uuid = #{topicUuid,jdbcType=VARCHAR}
   </update>
   
+  <update id="updateTopicsStatus" parameterType="hashmap">
+	  	update tab_topics
+	    <set >
+	      <if test="topicStatus != null" >
+	        topic_status = #{topicStatus,jdbcType=INTEGER},
+	      </if>
+	    </set>
+	    where topic_uuid in
+		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+			#{item}  
+		</foreach>  
+  </update>
+  
 </mapper>

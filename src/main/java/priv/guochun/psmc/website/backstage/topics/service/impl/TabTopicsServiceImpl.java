@@ -22,6 +22,7 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 	private static final String selectTopicsByPrimaryKey = "selectTopicsByPrimaryKey";
 	private static final String insertTopics = "insertTopics";
 	private static final String updateTopics = "updateTopics";
+	private static final String updateTopicsStatus = "updateTopicsStatus";
 	
 	@Autowired
 	private BaseDao baseDao;
@@ -63,5 +64,23 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 		Map<String,Object> condition = new HashMap<String,Object>();
 		condition.put("topicUuid", topicUuid);
 		return (Map<String, Object>) baseDao.queryForObject(selectTopicsByPrimaryKey, condition);
+	}
+	
+	@Override
+	public MyPage queryTopicListBusinessMethod(MyPage myPage) {
+		return this.queryTopicListToMobile(myPage);
+	}
+	
+	@Override
+	public Map<String, Object> queryTopicsBusinessMethod(String topicUuid) {
+		return this.queryTopicsToMobile(topicUuid);
+	}
+	
+	@Override
+	public void updateTopicsStatusBusinessMethod(TabTopics tabTopics) {
+		Map<String,Object> condition = new HashMap<String,Object>();
+		condition.put("ids", tabTopics.getTopicUuid().split(","));
+		condition.put("topicStatus", tabTopics.getTopicStatus());
+		baseDao.update(updateTopicsStatus, condition);
 	}
 }

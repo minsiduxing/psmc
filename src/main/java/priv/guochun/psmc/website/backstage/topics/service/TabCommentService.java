@@ -17,4 +17,10 @@ public interface TabCommentService {
 	 * @param tabComment
 	 */
 	public void saveOrUpdateToMobile(TabComment tabComment);
+	
+	/**
+	 * 更新状态
+	 * @param tabComment
+	 */
+	public void updateCommentStatusBusinessMethod(TabComment tabComment);
 }

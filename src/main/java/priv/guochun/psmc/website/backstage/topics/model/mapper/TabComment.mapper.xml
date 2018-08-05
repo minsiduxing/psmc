@@ -125,4 +125,17 @@
     </set>
     where comment_uuid = #{commentUuid,jdbcType=VARCHAR}
   </update>
+  
+  <update id="updateCommentStatus" parameterType="hashmap">
+	  	update tab_comment
+	    <set >
+	      <if test="commentStatus != null" >
+	        comment_status = #{commentStatus,jdbcType=INTEGER},
+	      </if>
+	    </set>
+	    where comment_uuid in
+		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+			#{item}  
+		</foreach>  
+  </update>
 </mapper>
