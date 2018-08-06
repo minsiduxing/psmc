@@ -66,7 +66,7 @@ public class TabCommentServiceImpl implements TabCommentService{
 	}
 	
 	@Override
-	public void updateCommentStatusBusinessMethod(TabComment tabComment) {
+	public void updateCommentStatus(TabComment tabComment) {
 		Map<String,Object> condition = new HashMap<String,Object>();
 		condition.put("ids", tabComment.getCommentUuid().split(","));
 		condition.put("commentStatus", tabComment.getCommentStatus());

@@ -130,7 +130,21 @@
 	</g:auth>
 </c:if>
 </div>
-	<div id="commentListDialogDiv"></div>
+	<!-- 弹出评论信息列表 -->
+	<div id="commentListDialogDiv" style="display: none;">
+		<div id="toolbarId2">
+			<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_PAUSE%>">
+					<a href="#" class="easyui-linkbutton" iconCls="icon-lock" plain="true" id="lock2" onclick="lockComment()">屏蔽</a>
+			</g:auth>
+			<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_DEL%>">
+					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove2" onclick="removeComment()">删除</a>
+			</g:auth>
+			<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_UNDO%>">
+					<a href="#" class="easyui-linkbutton" iconCls="icon-undo"  plain="true" id="undo2" onclick="undoComment()">撤销</a>
+			</g:auth>
+		</div>
+		<table id=commentList style="width:100%"></table>
+	</div>
   </body>
 </html>
 
@@ -142,9 +156,12 @@ var topicsDetailUrl ='<c:url value="'+topicDo+'"/>?method=topicsDetail';
 var pauseTopicsCommentUrl = '<c:url value="'+topicDo+'"/>?method=pauseTopicsComment';
 var deleteTopicsUrl = '<c:url value="'+topicDo+'"/>?method=deleteTopics';
 var undoTopicsUrl = '<c:url value="'+topicDo+'"/>?method=undoTopics';
-var commentDo = basePath+"/website/backstage/tabCommentController.do";
-var toCommentListUrl ='<c:url value="'+commentDo+'"/>?method=toCommentListPage';
 
+var commentDo = basePath+"/website/backstage/tabCommentController.do";
+var commentListUrl ='<c:url value="'+commentDo+'"/>?method=tabCommentList';
+var pauseCommentUrl = '<c:url value="'+commentDo+'"/>?method=pauseComment';
+var deleteCommentUrl = '<c:url value="'+commentDo+'"/>?method=deleteComment';
+var undoCommentUrl = '<c:url value="'+commentDo+'"/>?method=undoComment';
 //----------------------------查询框初始化开始
 $('#topicName').textbox({
 	type : "text"
@@ -181,10 +198,6 @@ $('#lastCommentDateEnd').datetimebox({
 commonObj.initDictCombobox("topicStatus","IF","",false,true);
 
 //----------------------------查询框初始化结束
-//表单提交成功后的回调方法
-function successCallback(data){
-	$.messager.progress("close");
-	$("#topicsId").datagrid('reload');
-	commonObj.showResponse(data);
-}
+
 </script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/jsp/backstage/topics/commentList.js"></script>

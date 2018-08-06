@@ -20,7 +20,7 @@
     	comment_date, comment_status, to_person_uuid, to_person_name
     from tab_comment
     <where>
-    	1=1
+    	1=1 and comment_status != 3
     	<if test="topicUuid != null and topicUuid != '' ">
     		and topic_uuid = #{topicUuid,jdbcType=VARCHAR}
     	</if>

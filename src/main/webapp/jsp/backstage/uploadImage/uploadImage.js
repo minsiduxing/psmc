@@ -7,7 +7,6 @@ function initDialog(){
 		closed: true,
 	    width: 615,
 	    height: 550,
-	    modal: true,
 	    cache: false
 	});
 }

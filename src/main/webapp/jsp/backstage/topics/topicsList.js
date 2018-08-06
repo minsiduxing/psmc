@@ -6,25 +6,25 @@ $(document).ready(function(){
 		url:topicListUrl,
 		columns:[[   
 		          {field:'topic_uuid',title:'主键id',checkbox:true},
-		          {field:'topic_name',title:'信息名称',resizable:true},    
-		          {field:'topic_content',title:'信息内容',formatter:function(value, row, index){
+		          {field:'topic_name',title:'信息名称',resizable:true,align:'center',sortable:true},    
+		          {field:'topic_content',title:'信息内容',halign:'center',sortable:true,formatter:function(value, row, index){
 		        	  if(value.length > 40){
 		        		  return value.substring(0,40) + "......";
 		        	  }else{
 		        		  return value;
 		        	  }
 		          }}, 
-		          {field:'create_person_name',title:'创建人'}, 
-		          {field:'telephone',title:'联系电话'}, 
-		          {field:'create_date',title:'创建时间'}, 
-		          {field:'topic_status',title:'信息状态',formatter: function (value, row, index) {
+		          {field:'create_person_name',title:'创建人',align:'center',sortable:true}, 
+		          {field:'telephone',title:'联系电话',align:'center',sortable:true}, 
+		          {field:'create_date',title:'创建时间',align:'center',sortable:true}, 
+		          {field:'topic_status',title:'信息状态',align:'center',sortable:true,formatter: function (value, row, index) {
                      if(value=='1'){return "正常"; }
                      if(value=='2'){return "禁止评论"; }
                      if(value=='3'){return "已删除"; }
                                                   
                   }},
-		          {field:'lastCommentPerson',title:'最后评论人'}, 
-		          {field:'last_comment_date',title:'最后评论时间'}, 
+		          {field:'lastCommentPerson',title:'最后评论人',align:'center',sortable:true}, 
+		          {field:'last_comment_date',title:'最后评论时间',align:'center',sortable:true}, 
 		          {field:'block_uuid',title:'所属板块id', hidden:true}, 
 		          {field:'create_person_uuid',title:'创建人id',hidden:true}, 
 		          {field:'last_comment_person_uuid',title:'最后评论人id',hidden:true}
@@ -168,8 +168,7 @@ $(document).ready(function(){
 		if (rows.length == 1){
 			var rowObj = eval(rows[0]);
 			var topicUuid = rowObj.topic_uuid;
-			var url = toCommentListUrl+"&topicUuid="+topicUuid;
-			openCommentListDialog(url);
+			openCommentListDialog(topicUuid);
 		}else{
 			commonObj.alert("请选择一条记录!","warning");
 		}
@@ -178,29 +177,10 @@ $(document).ready(function(){
 	
 });
 
-var commentListdialog;
-
-//表单dialog初始化方法
-function initDialog(){
-	commentListdialog = $("#commentListDialogDiv").dialog({
-		modal: true,
-		closed: true,
-	    width: 700,
-	    height: 400,
-	    modal: true,
-	    cache: false
-	});
+//表单提交成功后的回调方法
+function successCallback(data){
+	$.messager.progress("close");
+	$("#topicsId").datagrid('reload');
+	commonObj.showResponse(data);
 }
-
-//打开评论列表dialog
-function openCommentListDialog(url){
-	if(!commentListdialog){
-		initDialog();
-	}
-	commentListdialog.panel({title:"评论列表"});
-	commentListdialog.panel({iconCls:'icon-save'});
-	commentListdialog.panel({href:url});
-	commentListdialog.window("open");
-}
-
 

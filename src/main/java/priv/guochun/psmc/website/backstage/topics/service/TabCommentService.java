@@ -22,5 +22,5 @@ public interface TabCommentService {
 	 * 更新状态
 	 * @param tabComment
 	 */
-	public void updateCommentStatusBusinessMethod(TabComment tabComment);
+	public void updateCommentStatus(TabComment tabComment);
 }

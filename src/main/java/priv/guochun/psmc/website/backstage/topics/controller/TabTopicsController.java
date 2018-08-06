@@ -34,11 +34,12 @@ public class TabTopicsController extends MyController{
 	 */
 	@RequestMapping(params="method=tabTopicsList")
 	@ResponseBody
-	public void tabTopicsList(MyPage myPage) throws IOException{
+	public void tabTopicsList(MyPage myPage, String blockUuid) throws IOException{
 		Map<String, Object> paramsMap = myPage.getQueryParams();
 		if(paramsMap == null){
 			paramsMap = new HashMap<String, Object>();
 		}
+		paramsMap.put("blockUuid", blockUuid);
 		myPage.setQueryParams(paramsMap);
 		myPage = tabTopicsService.queryTopicListBusinessMethod(myPage);
 		super.responseJson(JsonUtil.convertToJSONObject(myPage), this.response());
@@ -96,34 +97,6 @@ public class TabTopicsController extends MyController{
 		tabTopicsService.updateTopicsStatusBusinessMethod(topics);
 		super.responseJson(true, "操作成功!", this.response());
 
-	}
-	
-	/**
-	 * 屏蔽评论信息
-	 * @param topicUuids
-	 * @throws IOException
-	 */
-	@RequestMapping(params="method=hideComment")
-	public void hideComment(String commentUuids) throws IOException{
-		TabComment comment = new TabComment();
-		comment.setCommentUuid(commentUuids);
-		comment.setCommentStatus(ContantsUtil.BLOCK_STATUS_2);
-		tabCommentService.updateCommentStatusBusinessMethod(comment);
-		super.responseJson(true, "操作成功!", this.response());
-	}
-	
-	/**
-	 * 删除评论信息
-	 * @param topicUuids
-	 * @throws IOException
-	 */
-	@RequestMapping(params="method=deleteComment")
-	public void deleteComment(String commentUuids) throws IOException{
-		TabComment comment = new TabComment();
-		comment.setCommentUuid(commentUuids);
-		comment.setCommentStatus(ContantsUtil.BLOCK_STATUS_2);
-		tabCommentService.updateCommentStatusBusinessMethod(comment);
-		super.responseJson(true, "操作成功!", this.response());
 	}
 	
 	/**
