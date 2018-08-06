@@ -3,11 +3,17 @@ $(document).ready(function(){
 	var option = {
 		tabId:"topicsId",
 		toolbar:"toolbarId",
-		url:getInfoDataUrl,
+		url:topicListUrl,
 		columns:[[   
 		          {field:'topic_uuid',title:'主键id',checkbox:true},
 		          {field:'topic_name',title:'信息名称',resizable:true},    
-		          {field:'topic_content',title:'信息内容'}, 
+		          {field:'topic_content',title:'信息内容',formatter:function(value, row, index){
+		        	  if(value.length > 40){
+		        		  return value.substring(0,40) + "......";
+		        	  }else{
+		        		  return value;
+		        	  }
+		          }}, 
 		          {field:'create_person_name',title:'创建人'}, 
 		          {field:'telephone',title:'联系电话'}, 
 		          {field:'create_date',title:'创建时间'}, 
@@ -19,9 +25,9 @@ $(document).ready(function(){
                   }},
 		          {field:'lastCommentPerson',title:'最后评论人'}, 
 		          {field:'last_comment_date',title:'最后评论时间'}, 
-		          {field:'block_uuid',title:'所属板块id', hide:true}, 
-		          {field:'create_person_uuid',title:'创建人id',hide:true}, 
-		          {field:'last_comment_person_uuid',title:'最后评论人id',hide:true}
+		          {field:'block_uuid',title:'所属板块id', hidden:true}, 
+		          {field:'create_person_uuid',title:'创建人id',hidden:true}, 
+		          {field:'last_comment_person_uuid',title:'最后评论人id',hidden:true}
 		         ] 
 		      ]
 	};
@@ -89,7 +95,7 @@ $(document).ready(function(){
 			
 			$.messager.confirm('提示', '确认删除选中的信息吗?', function(r){
 				if (r){
-				var _url = deleteTopics+"&topicUuids="+ids;
+				var _url = deleteTopicsUrl+"&topicUuids="+ids;
 				$.messager.progress(); 
 				$.ajax({
 					   type: "POST",
@@ -112,8 +118,89 @@ $(document).ready(function(){
 		event.preventDefault();
 	});
 	
+	//撤销
+	$("#undo").click(function(){
+		var rows = $("#topicsId").datagrid('getChecked');
+		var rlength = rows.length;
+		var ids="";
+		if (rlength > 0){		
+			for(var i=0;i<rlength;i++){
+				var rowObj = eval(rows[i]);
+				var topicUuid = rowObj.topic_uuid;
+				var topicStatus = rowObj.topic_status;
+				if(topicStatus==1){
+					commonObj.alert('存在状态正常的信息!',"warning");
+					return ;
+				}
+				ids+=topicUuid;
+				if(i<rlength-1)
+					ids+=",";
+			}
+			
+			$.messager.confirm('提示', '确认选中的信息执行撤销操作吗?', function(r){
+				if (r){
+				var _url = undoTopicsUrl+"&topicUuids="+ids;
+				$.messager.progress(); 
+				$.ajax({
+					   type: "POST",
+					   url: _url,
+					   success: function(data){
+						   successCallback(data);
+					   },
+					   error:function(XMLHttpRequest, textStatus, errorThrown){
+						   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+						   $.messager.progress("close");
+					   }
+					});
+			
+		}});
+		}else{
+			commonObj.alert('请至少选择一条信息!',"warning");
+			return ;
+		}
+		$.messager.progress("close");
+		event.preventDefault();
+	});
+	
+	//查看
+	$("#priview").click(function(){
+		var rows = $("#topicsId").datagrid('getChecked');
+		if (rows.length == 1){
+			var rowObj = eval(rows[0]);
+			var topicUuid = rowObj.topic_uuid;
+			var url = toCommentListUrl+"&topicUuid="+topicUuid;
+			openCommentListDialog(url);
+		}else{
+			commonObj.alert("请选择一条记录!","warning");
+		}
+		event.preventDefault();
+	});
+	
 });
 
+var commentListdialog;
 
+//表单dialog初始化方法
+function initDialog(){
+	commentListdialog = $("#commentListDialogDiv").dialog({
+		modal: true,
+		closed: true,
+	    width: 700,
+	    height: 400,
+	    modal: true,
+	    cache: false
+	});
+}
+
+//打开评论列表dialog
+function openCommentListDialog(url){
+	if(!commentListdialog){
+		initDialog();
+	}
+	commentListdialog.panel({title:"评论列表"});
+	commentListdialog.panel({iconCls:'icon-save'});
+	commentListdialog.panel({href:url});
+	commentListdialog.window("open");
+}
 
 

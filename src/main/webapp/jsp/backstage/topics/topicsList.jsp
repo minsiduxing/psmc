@@ -4,9 +4,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>信息发布列表页面</title>
+    <title>主题信息列表页面</title>
   </head>
-  <script type="text/javascript" src="<%=request.getContextPath()%>/jsp/backstage/infoRelease/infoReleaseList.js"></script>
+  <script type="text/javascript" src="<%=request.getContextPath()%>/jsp/backstage/topics/topicsList.js"></script>
   <body id="body">
   <!-- 信息查询 -->
 <div class="query-content panel easyui-accordion accordion " data-options="selected:false" style="width:100%"> 
@@ -130,7 +130,7 @@
 	</g:auth>
 </c:if>
 </div>
-
+	<div id="commentListDialogDiv"></div>
   </body>
 </html>
 
@@ -140,7 +140,10 @@ var topicDo = basePath+"/website/backstage/tabTopicsController.do";
 var topicListUrl ='<c:url value="'+topicDo+'"/>?method=tabTopicsList&blockUuid='+$("#blockUuid").val();
 var topicsDetailUrl ='<c:url value="'+topicDo+'"/>?method=topicsDetail';
 var pauseTopicsCommentUrl = '<c:url value="'+topicDo+'"/>?method=pauseTopicsComment';
-var deleteTopics = '<c:url value="'+topicDo+'"/>?method=deleteTopics';
+var deleteTopicsUrl = '<c:url value="'+topicDo+'"/>?method=deleteTopics';
+var undoTopicsUrl = '<c:url value="'+topicDo+'"/>?method=undoTopics';
+var commentDo = basePath+"/website/backstage/tabCommentController.do";
+var toCommentListUrl ='<c:url value="'+commentDo+'"/>?method=toCommentListPage';
 
 //----------------------------查询框初始化开始
 $('#topicName').textbox({

@@ -84,6 +84,21 @@ public class TabTopicsController extends MyController{
 	}
 	
 	/**
+	 * 撤销操作
+	 * @param topicUuids
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=undoTopics")
+	public void undoTopics(String topicUuids) throws IOException {
+		TabTopics topics = new TabTopics();
+		topics.setTopicUuid(topicUuids);
+		topics.setTopicStatus(ContantsUtil.BLOCK_STATUS_1);
+		tabTopicsService.updateTopicsStatusBusinessMethod(topics);
+		super.responseJson(true, "操作成功!", this.response());
+
+	}
+	
+	/**
 	 * 屏蔽评论信息
 	 * @param topicUuids
 	 * @throws IOException
