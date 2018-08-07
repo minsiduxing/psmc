@@ -59,6 +59,13 @@ public interface ExcellentInnovationService {
 	public void executeReleaseBusinessMethod(String uuids, String userId, Timestamp publishExpireDate);
 	
 	/**
+	 * 撤销审核、发布
+	 * @param uuids
+	 * @param module
+	 */
+	public void executeUndoBusinessMethod(String uuids, TabModule module);
+	
+	/**
 	 * 根据部门ID删除优秀创新成果
 	 * @param deptUuids
 	 */

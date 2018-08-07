@@ -114,5 +114,10 @@ public class InfoReleaseServiceImpl implements InfoReleaseService{
 		}
 		return baseDao.getMyPage(myPage, getInfoReleaseList, condition);
 	}
+
+	@Override
+	public void executeUndoBusinessMethod(String uuids, TabModule module) {
+		tabModuleService.executeUndoTabModule(uuids, module);
+	}
     
 }

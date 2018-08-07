@@ -101,6 +101,11 @@ public class ExcellentInnovationServiceImpl implements ExcellentInnovationServic
 		
 	}
 	
+	@Override
+	public void executeUndoBusinessMethod(String uuids, TabModule module) {
+		tabModuleService.executeUndoTabModule(uuids, module);
+	}
+	
 	public void deleteInnovationByDeptUuid(String deptUuids){
 		//根据deptUUid删除优秀创新及模块信息
 		Map<String, Object> condition = new HashMap<String, Object>();

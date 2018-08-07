@@ -36,6 +36,7 @@ import priv.guochun.psmc.website.backstage.InfoRelease.model.InfoImage;
 import priv.guochun.psmc.website.backstage.InfoRelease.model.InfoRelease;
 import priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
+import priv.guochun.psmc.website.backstage.module.service.TabModuleService;
 
 @Controller
 @RequestMapping("/website/backstage/InfoReleaseController")
@@ -145,6 +146,19 @@ public class InfoReleaseController extends MyController{
 	public void getInfoReleaseByUuid(HttpServletResponse response,HttpServletRequest request,String uuid) throws IOException{
 		Map<String, Object> map = infoReleaseService.getInfoReleaseByUuidBusinessMethod(uuid);
 		super.responseJson(JsonUtil.convertToJSONObject(map), response);
+	}
+	
+	/**
+	 * 撤销
+	 * @param uuids
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=executeUndo")
+	public void executeUndo(String uuids) throws IOException {
+		TabModule module = new TabModule();
+		module.setModifyAccUuid(this.getUserBySeesion(this.request()).getUserUuid());
+		infoReleaseService.executeUndoBusinessMethod(uuids, module);
+		super.responseJson(true, "操作成功!", this.response());
 	}
 	
 	/**

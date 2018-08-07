@@ -83,6 +83,7 @@ var retrunUrl =  '<c:url value="/website/backstage/TabActivityManageController.d
 var toImageUpload =  '<c:url value="/website/backstage/uploadImageController.do"/>?method=toImageUplodDialog';
 //上传图片
 var uploadPhoto = '<c:url value="/website/backstage/uploadImageController.do"/>?method=uploadPhoto';
+debugger;
 var groupid = "${sessionScope.user.tabPerson.groupid}";
 commonObj.initDeptCombobox("deptUuid","2", groupid,"<c:out value="${info.dept_uuid}"/>",true);
 

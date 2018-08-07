@@ -233,11 +233,54 @@ $("#releaseNews").click(function(){
 	event.preventDefault();
 });
 
+	//撤销
+	$("#undo").click(function(){
+		var rows = $("#deptList").datagrid('getChecked');
+		var rlength = rows.length;
+		var ids="";
+		if (rlength > 0){		
+			for(var i=0;i<rlength;i++){
+				var rowObj = eval(rows[i]);
+				var deptUuid = rowObj.dept_uuid;
+				var audit = rowObj.audit;
+				if(audit==2){
+					commonObj.alert('存在未审核的信息!',"warning");
+					return ;
+				}
+				ids+=deptUuid;
+				if(i<rlength-1)
+					ids+=",";
+			}
+			$.messager.confirm('提示', '确认选中的信息执行撤销操作吗?', function(r){
+				if (r){
+				var _url = executeUndo+"&deptUuids="+ids;
+				$.messager.progress(); 
+				$.ajax({
+					   type: "POST",
+					   url: _url,
+					   success: function(data){
+						   successCallback(data);
+					   },
+					   error:function(XMLHttpRequest, textStatus, errorThrown){
+						   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+						   $.messager.progress("close");
+					   }
+					});
+			
+		}});
+		}else{
+			commonObj.alert('请至少选择一条信息!',"warning");
+			return ;
+		}
+		$.messager.progress("close");
+		event.preventDefault();
+	});
+	
+});
+
 //表单提交成功后的回调方法
 function successCallback(data){
 	$.messager.progress("close");
 	$("#deptList").datagrid('reload');
 	commonObj.showResponse(data);
 }
-
-});

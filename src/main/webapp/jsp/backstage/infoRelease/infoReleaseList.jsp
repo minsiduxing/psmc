@@ -104,6 +104,9 @@
 	<g:auth operateNo="<%=OperateContantsUtil.WORK_MANAGER_RELEASE%>">
 			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
 	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_MANAGER_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
+	</g:auth>
 </c:if>
 <c:if test="${param.oneLevelClassify=='12'}">
 	<g:auth operateNo="<%=OperateContantsUtil.LEGAL_PROVISIONS_ADD%>">
@@ -123,6 +126,9 @@
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.LEGAL_PROVISIONS_RELEASE%>">
 			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.LEGAL_PROVISIONS_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
 	</g:auth>
 </c:if>
 <c:if test="${param.oneLevelClassify=='13'}">
@@ -144,6 +150,9 @@
 	<g:auth operateNo="<%=OperateContantsUtil.WORK_RELEASE_RELEASE%>">
 			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
 	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_RELEASE_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
+	</g:auth>
 </c:if>
 <c:if test="${param.oneLevelClassify=='14'}">
 	<g:auth operateNo="<%=OperateContantsUtil.EARLY_KNOW_ADD%>">
@@ -163,6 +172,9 @@
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.EARLY_KNOW_RELEASE%>">
 			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.EARLY_KNOW_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
 	</g:auth>
 </c:if>
 </div>
@@ -189,6 +201,7 @@ var removeInfo = '<c:url value="'+infoDo+'"/>?method=infoDelete';
 var auditInfo = '<c:url value="'+infoDo+'"/>?method=executeAuditInfo';
 var releaseInfo = '<c:url value="'+infoDo+'"/>?method=executeReleaseInfo';
 var priviewInfo = '<c:url value="'+infoDo+'"/>?method=getInfoContent';
+var executeUndo = '<c:url value="'+infoDo+'"/>?method=executeUndo';
 //----------------------------查询框初始化开始
 $('#newsTitle').textbox({
 	type : "text"

@@ -195,7 +195,7 @@ $('#lastCommentDateEnd').datetimebox({
 	editable:false
 });
 
-commonObj.initDictCombobox("topicStatus","IF","",false,true);
+commonObj.initDictCombobox("topicStatus","TOPICS_STATUS","",false,true);
 
 //----------------------------查询框初始化结束
 

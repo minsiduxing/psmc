@@ -53,4 +53,10 @@ public interface TabModuleDao {
 	 * @author wanglei 2017年9月3日
 	 */
 	public List<TabModule>getModulesByUuids(String ids);
+	/**
+	 * 撤销审核、发布
+	 * @param ids
+	 * @param tam
+	 */
+	public void executeUndoTabModules(String ids, TabModule tam);
 }

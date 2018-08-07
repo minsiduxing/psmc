@@ -84,6 +84,9 @@
 	<g:auth operateNo="<%=OperateContantsUtil.WORK_ROOM_RELEASE%>">
 			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
 	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_ROOM_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
+	</g:auth>
 </c:if>
 <c:if test="${param.deptType=='2'}">
 	<g:auth operateNo="<%=OperateContantsUtil.ASSOCIATION_ADD%>">
@@ -104,6 +107,9 @@
 	<g:auth operateNo="<%=OperateContantsUtil.ASSOCIATION_RELEASE%>">
 			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
 	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.ASSOCIATION_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
+	</g:auth>
 </c:if>
 </div>
 
@@ -118,6 +124,7 @@ var toDeptEditUrl ='<c:url value="'+deptDo+'"/>?method=toDeptEdit&deptType='+$("
 var removeDept = '<c:url value="'+deptDo+'"/>?method=deleteDept';
 var auditDept = '<c:url value="'+deptDo+'"/>?method=auditDept';
 var releaseDept = '<c:url value="'+deptDo+'"/>?method=releaseDept';
+var executeUndo = '<c:url value="'+deptDo+'"/>?method=executeUndo';
 //----------------------------查询框初始化开始
 $('#deptName').textbox({
 });

@@ -59,6 +59,13 @@ public interface TabActivityManageService {
 	public void executeRelease(String activityUuids, String userId, Timestamp publishExpireDate);
 	
 	/**
+	 * 撤销审核、发布
+	 * @param activityUuids
+	 * @param module
+	 */
+	public void executeUndoBusinessMethod(String activityUuids, TabModule module);
+	
+	/**
 	 * 根据部门ID删除活动信息
 	 * @param deptUuids
 	 */

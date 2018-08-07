@@ -22,6 +22,7 @@ import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.website.backstage.activity.model.TabActivityManage;
 import priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
+import priv.guochun.psmc.website.backstage.module.service.TabModuleService;
 
 @Controller
 @RequestMapping("/website/backstage/TabActivityManageController")
@@ -29,6 +30,7 @@ public class TabActivityManageController extends MyController{
 
 	@Autowired
 	private TabActivityManageService tabActivityManageService;
+	
 	/**
 	 * 查询活动信息列表
 	 * @param myPage
@@ -109,6 +111,19 @@ public class TabActivityManageController extends MyController{
 		String userId = this.getUserBySeesion(this.request()).getUserUuid();
 		tabActivityManageService.executeRelease(uuids, userId, publishExpireDate);
 		super.responseJson(true, "信息发布成功!", this.response());
+	}
+	
+	/**
+	 * 撤销
+	 * @param activityUuids
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=executeUndo")
+	public void executeUndo(String activityUuids) throws IOException {
+		TabModule module = new TabModule();
+		module.setModifyAccUuid(this.getUserBySeesion(this.request()).getUserUuid());
+		tabActivityManageService.executeUndoBusinessMethod(activityUuids, module);
+		super.responseJson(true, "操作成功!", this.response());
 	}
 	
 	/**

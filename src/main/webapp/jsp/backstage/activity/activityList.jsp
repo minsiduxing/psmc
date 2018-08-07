@@ -99,6 +99,9 @@
 	<g:auth operateNo="<%=OperateContantsUtil.ACTIVITY_RELEASE%>">
 			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
 	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.ACTIVITY_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
+	</g:auth>
 </div>
 
 <div id="dlg" class="easyui-dialog" title="信息到期日期" style="width:200px;height:120px;padding:10px"
@@ -122,7 +125,7 @@ var editInfoUrl ='<c:url value="'+infoDo+'"/>?method=activityEdit';
 var removeInfo = '<c:url value="'+infoDo+'"/>?method=deleteByUuids';
 var auditInfo = '<c:url value="'+infoDo+'"/>?method=executeAudit';
 var releaseInfo = '<c:url value="'+infoDo+'"/>?method=executeRelease';
-
+var executeUndo = '<c:url value="'+infoDo+'"/>?method=executeUndo';
 //----------------------------查询框初始化开始
 $('#activityName').textbox({
 });

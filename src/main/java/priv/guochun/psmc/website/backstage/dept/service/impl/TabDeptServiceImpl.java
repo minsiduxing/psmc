@@ -113,6 +113,11 @@ public class TabDeptServiceImpl implements TabDeptService {
 	}
 	
 	@Override
+	public void executeUndoBusinessMethod(String deptUuids, TabModule module) {
+		tabModuleService.executeUndoTabModule(deptUuids, module);
+	}
+	
+	@Override
 	public List<Map<?, ?>> getDeptListByDeptType(String deptType, String groupid) {
 		Map<String, Object> condition = new HashMap<String, Object>();
 		condition.put("deptType", deptType);
@@ -137,5 +142,6 @@ public class TabDeptServiceImpl implements TabDeptService {
 		}
 		return baseDao.getMyPage(mypage, selectDeptList, condition);
 	}
-
+	
+	
 }
