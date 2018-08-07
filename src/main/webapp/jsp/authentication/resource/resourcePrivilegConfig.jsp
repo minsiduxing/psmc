@@ -95,7 +95,7 @@ function zTreeOnCheck(event, treeId, treeNode) {
 
 function initoperatePanel(){
 	operatePanel = $('#operateDiv').panel({    
-		  width:"100%",    
+		  width:"95%",    
 		  height:"100%",    
 		  title: '资源操作项',    
 		  content:'<ul id="privilegListUl"></ul>',
