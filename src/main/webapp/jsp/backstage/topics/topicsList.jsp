@@ -133,15 +133,9 @@
 	<!-- 弹出评论信息列表 -->
 	<div id="commentListDialogDiv" style="display: none;">
 		<div id="toolbarId2">
-			<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_PAUSE%>">
-					<a href="#" class="easyui-linkbutton" iconCls="icon-lock" plain="true" id="lock2" onclick="lockComment()">屏蔽</a>
-			</g:auth>
-			<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_DEL%>">
-					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove2" onclick="removeComment()">删除</a>
-			</g:auth>
-			<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_UNDO%>">
-					<a href="#" class="easyui-linkbutton" iconCls="icon-undo"  plain="true" id="undo2" onclick="undoComment()">撤销</a>
-			</g:auth>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-lock" plain="true" id="lock2" onclick="lockComment()">屏蔽</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove2" onclick="removeComment()">删除</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo"  plain="true" id="undo2" onclick="undoComment()">撤销</a>
 		</div>
 		<table id=commentList style="width:100%"></table>
 	</div>

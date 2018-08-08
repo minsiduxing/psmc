@@ -23,9 +23,9 @@ $(document).ready(function(){
 		          {field:'sign_up_end_date',title:'报名截止时间'}, 
 		          {field:'signUpNums',title:'已报名人数',formatter:function(value, row, index){
 		        	  if(value==null || value==''){
-		        		  return 0;
+		        		  return "<a href='javascript:void(0)' onclick='openSingUpListDialog(&apos;" + row['activity_uuid'] + "&apos;)'>"+0+"</a>";
 		        	  }else{
-		        		  return value;
+		        		  return "<a href='javascript:void(0)' onclick='openSingUpListDialog(&apos;" + row['activity_uuid'] + "&apos;)'>"+value+"</a>";
 		        	  }
 		          }},
 		          {field:'audit',title:'审核状态',formatter: function (value, row, index) {
@@ -44,7 +44,7 @@ $(document).ready(function(){
 		          {field:'release_date',title:'活动发布时间'}, 
 		          {field:'publish_expire_date',title:'信息过期时间'}
 		         ] 
-		      ]
+		      ],
 	};
 	//初始化活动信息列表
 	commonObj.initPaginationGrid(activityOption);
@@ -261,4 +261,51 @@ function successCallback(data){
 	$.messager.progress("close");
 	$("#activityList").datagrid('reload');
 	commonObj.showResponse(data);
+}
+
+//表单dialog初始化方法
+var signUpListdialog;
+function initDialog(){
+	signUpListdialog = $("#signUpListDiv").dialog({
+		modal: true,
+		closed: true,
+	    width: 885,
+	    height: 410,
+	    resizable:true,
+	    cache: false
+	});
+}
+
+//打开报名列表dialog
+function openSingUpListDialog(activityUuid){
+	if(!signUpListdialog){
+		initDialog();
+	}
+	signUpListdialog.panel({title:"报名信息"});
+	signUpListdialog.panel({iconCls:'icon-save'});
+	signUpListdialog.window("open");
+	$("#activityUuid").val(activityUuid);
+	initDialogDataGrid(activityUuid);
+}
+
+function initDialogDataGrid(activityUuid){
+	var option = {
+			tabId:"signUpList",
+			toolbar:"toolbarId2",
+			striped:true,
+			url:querySignUpInfoPage + "&activityUuid="+activityUuid,
+			columns:[[   
+			          {field:'sign_up_uuid',title:'主键id',hidden:true},
+			          {field:'activity_name',title:'活动名称',resizable:true,align:'center'},    
+			          {field:'person_name',title:'姓名',align:'center',sortable:true}, 
+			          {field:'person_mobile',title:'联系电话',align:'center',sortable:true}, 
+			          {field:'sign_up_date',title:'报名时间',align:'center',sortable:true},
+			          {field:'start_date',title:'活动开始时间',align:'center'}, 
+			          {field:'end_date',title:'活动结束时间', align:'center'}, 
+			          {field:'activity_uuid',title:'活动id',hidden:true}
+			         ] 
+			      ]
+		};
+		//初始化列表
+		commonObj.initPaginationGrid(option);
 }

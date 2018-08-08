@@ -114,6 +114,14 @@
 	<div id="dlg-buttons">
 		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="publishNews();">确定</a>
 	</div>
+	
+	<div id="signUpListDiv" style="display: none;">
+		<div id="toolbarId2">
+			<a href="" id="exportBtn" class="easyui-linkbutton"   plain="true" iconCls="icon-excel">导出</a>
+			<input type="hidden" id="activityUuid">
+		</div>
+		<table id="signUpList"></table>
+	</div>
   </body>
 </html>
 
@@ -126,6 +134,10 @@ var removeInfo = '<c:url value="'+infoDo+'"/>?method=deleteByUuids';
 var auditInfo = '<c:url value="'+infoDo+'"/>?method=executeAudit';
 var releaseInfo = '<c:url value="'+infoDo+'"/>?method=executeRelease';
 var executeUndo = '<c:url value="'+infoDo+'"/>?method=executeUndo';
+var querySignUpInfoPage = '<c:url value="'+infoDo+'"/>?method=querySignUpInfoPage';
+var exportSignUpInfo = '<c:url value="'+infoDo+'"/>?method=exportSignUpInfo&activityUuid='+ $("#activityUuid").val();
+//导出路径
+$('#exportBtn').attr('href',exportSignUpInfo);
 //----------------------------查询框初始化开始
 $('#activityName').textbox({
 });

@@ -97,5 +97,12 @@ public interface TabActivityManageService {
 	 * @return
 	 */
 	public Map<String, Object> getSignUpByActivityIdAndAccout(String activityUuid, String accout);
+	
+	/**
+	 * 查询报名信息分页列表
+	 * @param myPage
+	 * @return
+	 */
+	public MyPage querySignInfoPage(MyPage myPage);
 
 }

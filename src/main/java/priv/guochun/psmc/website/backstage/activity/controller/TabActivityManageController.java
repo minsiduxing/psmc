@@ -3,7 +3,11 @@ package priv.guochun.psmc.website.backstage.activity.controller;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.View;
 
 import priv.guochun.psmc.authentication.user.model.TabPerson;
 import priv.guochun.psmc.system.framework.controller.MyController;
@@ -125,6 +130,47 @@ public class TabActivityManageController extends MyController{
 		tabActivityManageService.executeUndoBusinessMethod(activityUuids, module);
 		super.responseJson(true, "操作成功!", this.response());
 	}
+	
+	/**
+	 * 查询报名分页信息
+	 * @param myPage
+	 * @param activityUuid
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=querySignUpInfoPage")
+	public void querySignUpInfoPage(MyPage myPage, String activityUuid) throws IOException{
+		Map<String,Object> parameterMap = myPage.getQueryParams();
+		if(parameterMap == null){
+			parameterMap = new HashMap<String, Object>();
+		}
+		parameterMap.put("activityUuid", activityUuid);
+		myPage.setQueryParams(parameterMap);
+		myPage = tabActivityManageService.querySignInfoPage(myPage);
+		super.responseJson(JsonUtil.convertToJSONObject(myPage), this.response());
+	}
+	
+	/**
+	 * 导出报名信息
+	 * @param activityUuid
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=exportSignUpInfo")
+	public View exportSignUpInfo( String activityUuid) throws IOException{
+		//1、根据条件查询报名信息列表
+		List signUpList = tabActivityManageService.querySignUpInfoList(activityUuid);
+		//2、将得到的数据封装到excel里
+		//2.1 设置属性列名
+		this.setColumns(new String[]{"activity_name","person_name","person_mobile","sign_up_date","start_date","end_date"});
+		//2.2 设置表格的显示名
+		this.setTitles(new String[]{"活动名称","姓名","联系电话","报名时间","活动开始时间","活动结束时间"});
+		//2.3设置文件名
+		this.setFileName("报名信息列表.xls");
+		//2.4 初始化数据
+		this.setExportList(signUpList);
+		//3、返回excel下载视图
+		return this.responseExcelFile(this.response()) ;
+	}	
 	
 	/**
 	 * 跳转到活动信息列表界面

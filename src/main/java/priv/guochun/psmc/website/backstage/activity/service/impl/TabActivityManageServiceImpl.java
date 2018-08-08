@@ -186,4 +186,10 @@ public class TabActivityManageServiceImpl implements TabActivityManageService{
 		tabModuleService.executeUndoTabModule(activityUuids, module);
 	}
 	
+	@Override
+	public MyPage querySignInfoPage(MyPage myPage){
+		Map<String, Object> codition = myPage.getQueryParams();
+		return baseDao.getMyPage(myPage, selectSignUpInfoList, codition);
+	}
+	
 }
