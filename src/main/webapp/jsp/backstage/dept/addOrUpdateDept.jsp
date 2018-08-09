@@ -86,8 +86,7 @@
 </html>
 <script type="text/javascript">
 var isEdit = $("#isEdit").val();
-//获取图片路径
-var getImag='<c:url value="/system/freamwork/fileUploadController.do"/>?method=getImage&filePath=';
+
 //图片上路经
 var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUpload&oneLevelClassify='+$("#deptType").val();
 

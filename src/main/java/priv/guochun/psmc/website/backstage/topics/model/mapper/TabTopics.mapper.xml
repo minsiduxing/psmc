@@ -39,6 +39,9 @@
 	    <if test="blockUuid != null and blockUuid != ''">
 	      and t1.block_uuid = #{blockUuid}
 	    </if>
+	    <if test="topicStatus != null and topicStatus != ''">
+	      and t1.topic_status = #{topicStatus}
+	    </if>
 	    <if test="topicName != null and topicName != ''">
 	      and t1.topic_name like concat(concat('%',#{topicName}),'%')
 	    </if>

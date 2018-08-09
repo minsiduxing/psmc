@@ -18,7 +18,10 @@ function openUploadDialog(){
 	}
 	editdialog.panel({title:"选择图片"});
 	editdialog.panel({iconCls:'icon-save'});
-	editdialog.panel({href:toImageUpload});
+	var imagePath = $("#imagePath").val();
+	if(imagePath){
+		$("#preview").attr("src", imagePath);
+	}
 	editdialog.window("open");
 }
 

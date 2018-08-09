@@ -215,7 +215,7 @@ function  wangEditorInit(isEdit){
 
         		        // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
         		    	console.info(result.rmsg);
-        		        var url = getImag+result.rmsg;
+        		        var url = result.rmsg;
         		        insertImg(url);
 
         		        // result 必须是一个 JSON 格式字符串！！！否则报错

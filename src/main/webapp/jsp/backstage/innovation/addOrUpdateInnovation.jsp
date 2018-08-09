@@ -147,10 +147,10 @@
 			</tr>
 		</table>
 	</div>
-		 <div id="uploadImageDiv"></div>
+		 
 		 <input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 		 <input type="hidden" id="innovationUuid" name="innovationUuid" value="${info.innovation_uuid}"/>
-		 <input type="hidden" id="imagePath" name="imagePath" value="" />
+		 <input type="hidden" id="imagePath" name="imagePath" value="${info.image_path}" />
 		 <div style= "width:75%; margin-top: 20px" class="operButon" align="center">
 		   <input id="submitbtn" type="button" class="easyui-linkbutton" onclick="save()" value="提交"/>
 		   <input id="reset" type="reset" class="easyui-linkbutton" onclick=" "  value="重置"/>
@@ -158,7 +158,9 @@
 		 </div>
 		 
 	</form>
-    
+    <div id="uploadImageDiv" style="display: none;">
+		 <%@ include file="../uploadImage/uploadImage.jsp"%>
+	</div>
   </body>
 </html>
 <script type="text/javascript">
@@ -169,8 +171,6 @@ var retrunUrl =  '<c:url value="/website/backstage/ExcellentInnovationController
 var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUpload&oneLevelClassify=11';
 //获取图片路径
 var getImag='<c:url value="/system/freamwork/fileUploadController.do"/>?method=getImage&filePath=';
-//弹出图片上传窗口
-var toImageUpload =  '<c:url value="/website/backstage/uploadImageController.do"/>?method=toImageUplodDialog';
 //上传配图
 var uploadPhoto = '<c:url value="/website/backstage/uploadImageController.do"/>?method=uploadPhoto';
 var newsContent = '${info.achievement_content}';

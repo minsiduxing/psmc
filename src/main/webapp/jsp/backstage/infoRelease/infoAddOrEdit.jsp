@@ -61,33 +61,7 @@
 			</tr>
 		</table>
 	</div>
-	<div id="uploadImageDiv"></div>
 
-		<!-- <ul >
-			<li ><label>信息标题：</label>
-				<input  id="newsTitle" name="newsTitle"></input>
-			</li>
-			<li ><label >信息内容</label><br>
-			 非全屏模式
-			    <div id="container">
-			        菜单栏
-			        <div id="toolbar-container">
-			            <div id="editor-toolbar"></div>
-			            <div id="btn-container">
-			                <button id="btn1">全屏</button>
-			            </div>
-			        </div>
-			        <input id="hiddencontent" type="hidden" name="newsContent"/>
-			        <div id="newsContent" class="newsContent">
-			      
-			       </div>
-                </div>
-                </li>
-			<li ><label>信息时间</label><br>
-				<input id="newsDate" name="newsDate" editable="false" ></input></li>
-			<li ><label >信息创建人：</label><br>
-				<input  id="newAutor" name="newAutor"></input></li>
-		</ul> -->
 	 <input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 	 <input type="hidden" id="newsUuid" name=newsUuid value="${info.uuid }"/>
 	 <input type="hidden" id="oneLevelClassify" name="oneLevelClassify" value="${oneLevelClassify}"/>
@@ -102,6 +76,9 @@
 	</form>
         <!--全屏模式-->
     <div id="cover" ></div>
+    <div id="uploadImageDiv" style="display: none;">
+		 <%@ include file="../uploadImage/uploadImage.jsp"%>
+	</div>
   </body>
 </html>
 <script type="text/javascript">
@@ -126,8 +103,6 @@ var editnewssrc = "${info.thumbnail_image_url}";
 var addUrl = '<c:url value="/website/backstage/InfoReleaseController.do"/>?method=saveOrUpdateInfoRelease';
 var retrunUrl =  '<c:url value="/website/backstage/InfoReleaseController.do"/>?method=infoReleaseList&oneLevelClassify='+$("#oneLevelClassify").val();
 
-//弹出图片上传窗口
-var toImageUpload =  '<c:url value="/website/backstage/uploadImageController.do"/>?method=toImageUplodDialog';
 //上传配图
 var uploadPhoto = '<c:url value="/website/backstage/uploadImageController.do"/>?method=uploadPhoto';
 

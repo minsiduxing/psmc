@@ -59,7 +59,6 @@
 		</table>
 		</div>
 	</div>
-		<div id="uploadImageDiv"></div>
 		<input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 		 <input type="hidden" id="activityUuid" name="activityUuid" value="${info.activity_uuid}"/>
 		 <input type="hidden" id="imagePath" name="imagePath" value="${info.image_path}" />
@@ -70,7 +69,9 @@
 		 </div>
 		 
 	</form>
-    
+    <div id="uploadImageDiv" style="display: none;">
+		 <%@ include file="../uploadImage/uploadImage.jsp"%>
+	</div>
   </body>
 </html>
 <script type="text/javascript">
@@ -79,11 +80,8 @@ var infoDo = basePath+"/website/backstage/TabActivityManageController.do";
 var addUrl = '<c:url value="/website/backstage/TabActivityManageController.do"/>?method=addOrUpdate';
 var retrunUrl =  '<c:url value="/website/backstage/TabActivityManageController.do"/>?method=activityList';
 
-//弹出图片上传窗口
-var toImageUpload =  '<c:url value="/website/backstage/uploadImageController.do"/>?method=toImageUplodDialog';
 //上传图片
 var uploadPhoto = '<c:url value="/website/backstage/uploadImageController.do"/>?method=uploadPhoto';
-debugger;
 var groupid = "${sessionScope.user.tabPerson.groupid}";
 commonObj.initDeptCombobox("deptUuid","2", groupid,"<c:out value="${info.dept_uuid}"/>",true);
 
