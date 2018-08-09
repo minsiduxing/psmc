@@ -17,7 +17,10 @@
 
   <select id="selectTopicsList" parameterType="hashmap" resultType="java.util.Map">
     select
-    	t1.*,
+    	t1.topic_uuid,t1.topic_name,t1.topic_content,t1.topic_status,t1.block_uuid,t1.create_person_uuid,
+    	t1.telephone,t1.last_comment_person_uuid,t1.last_comment_uuid,t1.create_person_name,
+    	date_format(t1.create_date, '%Y-%m-%d %H:%i:%S') AS create_date,
+    	date_format(t1.last_comment_date, '%Y-%m-%d %H:%i:%S') AS last_comment_date,
     	t2.nums,
     	t3.person_name as lastCommentPerson
     from 
@@ -55,7 +58,7 @@
 	      and t1.telephone like concat(concat('%',#{telephone}),'%')
 	    </if>
 	    <if test="lastCommentPerson != null and lastCommentPerson != ''">
-	      and t1.t3.person_name like concat(concat('%',#{lastCommentPerson}),'%')
+	      and t3.person_name like concat(concat('%',#{lastCommentPerson}),'%')
 	    </if>
 	    <if test="createDateBegin != null and createDateBegin != ''">
 	      and <![CDATA[t1.create_date >=#{createDateBegin}]]>  

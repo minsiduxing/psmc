@@ -46,7 +46,7 @@
 		</table>
 	</div>
 	
-	<div class=" panel-default" style="border: 1px solid #ddd;">
+	<div class=" panel-default" style="margin-top:5px; border: 1px solid #ddd;">
 		<div class="panel-heading">
             <label style="background-color:006699; color: #ffffff">第一完成人</label>
         </div>
@@ -82,7 +82,7 @@
 			</tr>
 		</table>
 	</div>
-	<div class=" panel-default" style="border: 1px solid #ddd;">
+	<div class=" panel-default" style="margin-top:5px;border: 1px solid #ddd;">
 		<div class="panel-heading">
             <label style="background-color:006699; color: #ffffff">成果信息</label>
         </div>
@@ -140,9 +140,9 @@
 				<td width="30%"><input id="auditDate" name="auditDate" value="${info.audit_date}" style="width:70%;"/></td>
 				<td class="tds">自定义配图：</td>
 				<td width="30%">
-	                <input type="radio" name="isCustom1" <c:if test="${dept.is_custom == '0'}">checked</c:if> value="0" style="width:5%;margin-right: 0">否</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                <input type="radio" name="isCustom1" <c:if test="${dept.is_custom == '1'}">checked</c:if> value="1" style="width:5%;margin-right: 0" onclick="openUploadDialog()">是</input>
-	                <input type="hidden" id="isCustom" name="isCustom" value="${dept.is_custom}"/>
+	                <input type="radio" name="isCustom1" <c:if test="${info.is_custom == '0'}">checked</c:if> value="0" style="width:5%;margin-right: 0">否</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                <input type="radio" name="isCustom1" <c:if test="${info.is_custom == '1'}">checked</c:if> value="1" style="width:5%;margin-right: 0" onclick="openUploadDialog()">是</input>
+	                <input type="hidden" id="isCustom" name="isCustom" value="${info.is_custom}"/>
 				</td>
 			</tr>
 		</table>

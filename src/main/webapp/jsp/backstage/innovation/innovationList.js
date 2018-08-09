@@ -10,34 +10,34 @@ $(document).ready(function(){
 		           * width:parseInt($(this).width()*0.3)
 		           */
 		          {field:'innovation_uuid',title:'创新主键标识',checkbox:true},
-		          {field:'achievement_name',title:'成果名称',resizable:true},    
-		          {field:'org_name',title:'单位名称',resizable:true}, 
-		          {field:'declare_person',title:'申报人姓名'}, 
-		          {field:'first_complete_person',title:'第一完成人'}, 
-		          {field:'other_complete_person',title:'其他完成人'}, 
-		          {field:'dept_name',title:'部门名称',resizable:true}, 
-		          {field:'innovation_date',title:'创新时间'}, 
-		          {field:'achievement_form',title:'体现形式',resizable:true,formatter:function(value, row, index){
+		          {field:'achievement_name',title:'成果名称',resizable:true,align:'center',sortable:true},    
+		          {field:'org_name',title:'单位名称',resizable:true,align:'center',sortable:true}, 
+		          {field:'declare_person',title:'申报人姓名',align:'center',sortable:true}, 
+		          {field:'first_complete_person',title:'第一完成人',align:'center',sortable:true}, 
+		          {field:'other_complete_person',title:'其他完成人',align:'center',sortable:true}, 
+		          {field:'dept_name',title:'部门名称',resizable:true,align:'center',sortable:true}, 
+		          {field:'innovation_date',title:'创新时间',align:'center',sortable:true}, 
+		          {field:'achievement_form',title:'体现形式',align:'center',sortable:true,resizable:true,formatter:function(value, row, index){
 		        	  if(value=='1'){return "创新技术、应用新技术成果";}
 		        	  if(value=='2'){return "创新工艺、提出新的操作法";}
 		        	  if(value=='3'){return "研发新工具、改造老设备";}
 		          }},
-		          {field:'audit',title:'审核状态',formatter: function (value, row, index) {
+		          {field:'audit',title:'审核状态',align:'center',sortable:true,formatter: function (value, row, index) {
                      if(value=='1'){return "审核通过"; }
                      if(value=='2'){return "未审核"; }
                      if(value=='3'){return "审核不通过"; }
                                                   
                   }},
-		          {field:'auditAccName',title:'信息审核人'}, 
-		          {field:'auditTime',title:'信息审核时间',resizable:true}, 
-		          {field:'release_status',title:'发布状态',resizable:true,formatter: function (value, row, index) {
+		          {field:'auditAccName',title:'信息审核人',align:'center',sortable:true}, 
+		          {field:'auditTime',title:'信息审核时间',resizable:true,align:'center',sortable:true}, 
+		          {field:'release_status',title:'发布状态',align:'center',sortable:true,resizable:true,formatter: function (value, row, index) {
                      if(value=='2'){return "未发布"; }
                      if(value=='1'){return "已发布"; }
 	                                                  
 	              }},
-		          {field:'releaseAccName',title:'信息发布人'}, 
-		          {field:'release_date',title:'信息发布时间'}, 
-		          {field:'publish_expire_date',title:'信息过期时间'}
+		          {field:'releaseAccName',title:'信息发布人',align:'center',sortable:true}, 
+		          {field:'release_date',title:'信息发布时间',align:'center',sortable:true}, 
+		          {field:'publish_expire_date',title:'信息过期时间',align:'center',sortable:true}
 		         ] 
 		      ]
 	};

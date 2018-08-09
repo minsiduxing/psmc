@@ -16,33 +16,33 @@ $(document).ready(function(){
 		url:deptDataListUrl,
 		columns:[[   
 		          {field:'dept_uuid',title:'部门主键标识',checkbox:true},
-		          {field:'dept_name',title:dept_name,resizable:true},    
-		          {field:'dept_introduction',title:dept_introduction,formatter: function (value, row, index) {
+		          {field:'dept_name',title:dept_name,resizable:true,align:'center',sortable:true},    
+		          {field:'dept_introduction',title:dept_introduction,halign:'center',formatter: function (value, row, index) {
 	                     if(value.length>=15){return value.substring(0,15)+"......"; }	
 	                     if(value.length<15){return value; }
 		          }}, 
-		          {field:'dept_regulation',title:'规范管理办法',formatter: function (value, row, index) {
+		          {field:'dept_regulation',title:'规范管理办法',halign:'center',formatter: function (value, row, index) {
 	                     if(value.length>=15){return value.substring(0,15)+"......"; }	
 	                     if(value.length<15){return value; }
 		          }},
-		          {field:'createPersonName',title:'创建人'},
-		          {field:'create_date',title:'创建时间'}, 
-		          {field:'audit',title:'审核状态',formatter: function (value, row, index) {
+		          {field:'createPersonName',title:'创建人',align:'center',sortable:true},
+		          {field:'create_date',title:'创建时间',align:'center',sortable:true}, 
+		          {field:'audit',title:'审核状态',align:'center',sortable:true,formatter: function (value, row, index) {
 	                     if(value=='1'){return "审核通过"; }
 	                     if(value=='2'){return "未审核"; }
 	                     if(value=='3'){return "审核不通过"; }
 	               }}, 
-		          {field:'audit_date',title:'审核时间'}, 
-		          {field:'auditAccName',title:'审核人'}, 
-		          {field:'release_status',title:'发布状态',formatter: function (value, row, index) {
+		          {field:'audit_date',title:'审核时间',align:'center',sortable:true}, 
+		          {field:'auditAccName',title:'审核人',align:'center',sortable:true}, 
+		          {field:'release_status',title:'发布状态',align:'center',sortable:true,formatter: function (value, row, index) {
 	                     if(value=='2'){return "未发布"; }
 	                     if(value=='1'){return "已发布"; }
 	                                                  
 	              }}, 
-		          {field:'release_date',title:'发布时间'}, 
-		          {field:'releaseAccName',title:'发布人'}, 
-		          {field:'lastModifyPersonName',title:'最后修改人'}, 
-		          {field:'last_modify_time',title:'最后修改时间'}, 
+		          {field:'release_date',title:'发布时间',align:'center',sortable:true}, 
+		          {field:'releaseAccName',title:'发布人',align:'center',sortable:true}, 
+		          {field:'lastModifyPersonName',title:'最后修改人',align:'center',sortable:true}, 
+		          {field:'last_modify_time',title:'最后修改时间',align:'center',sortable:true}, 
 		          {field:'create_person',title:'创建人ID', hidden:true}, 
 		          {field:'last_modify_person',title:'最后修改人ID', hidden:true}
 		         ] 

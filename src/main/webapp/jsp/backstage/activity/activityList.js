@@ -10,39 +10,39 @@ $(document).ready(function(){
 		           * width:parseInt($(this).width()*0.3)
 		           */
 		          {field:'activity_uuid',title:'活动主键标识',checkbox:true},
-		          {field:'activity_name',title:'活动名称',resizable:true},    
-		          {field:'activity_content',title:'活动内容',formatter: function (value, row, index) {
+		          {field:'activity_name',title:'活动名称',resizable:true,align:'center',sortable:true},    
+		          {field:'activity_content',title:'活动内容',halign:'center',formatter: function (value, row, index) {
 	                     if(value.length>=15){return value.substring(0,15)+"......"; }	
 	                     if(value.length<15){return value; }
 		          }}, 
-		          {field:'dept_name',title:'协会名称'},
-		          {field:'create_person',title:'创建人'},
-		          {field:'create_date',title:'创建时间'}, 
-		          {field:'start_date',title:'活动开始时间'}, 
-		          {field:'end_date',title:'活动结束时间'}, 
-		          {field:'sign_up_end_date',title:'报名截止时间'}, 
-		          {field:'signUpNums',title:'已报名人数',formatter:function(value, row, index){
+		          {field:'dept_name',title:'协会名称',align:'center',sortable:true},
+		          {field:'create_person',title:'创建人',align:'center',sortable:true},
+		          {field:'create_date',title:'创建时间',align:'center',sortable:true}, 
+		          {field:'start_date',title:'活动开始时间',align:'center',sortable:true}, 
+		          {field:'end_date',title:'活动结束时间',align:'center',sortable:true}, 
+		          {field:'sign_up_end_date',title:'报名截止时间',align:'center',sortable:true}, 
+		          {field:'signUpNums',title:'已报名人数',align:'center',sortable:true,formatter:function(value, row, index){
 		        	  if(value==null || value==''){
 		        		  return "<a href='javascript:void(0)' onclick='openSingUpListDialog(&apos;" + row['activity_uuid'] + "&apos;)'>"+0+"</a>";
 		        	  }else{
 		        		  return "<a href='javascript:void(0)' onclick='openSingUpListDialog(&apos;" + row['activity_uuid'] + "&apos;)'>"+value+"</a>";
 		        	  }
 		          }},
-		          {field:'audit',title:'审核状态',formatter: function (value, row, index) {
+		          {field:'audit',title:'审核状态',align:'center',sortable:true,formatter: function (value, row, index) {
                      if(value=='1'){return "审核通过"; }
                      if(value=='2'){return "未审核"; }
                      if(value=='3'){return "审核不通过"; }
                                                   
                   }},
-		          {field:'auditAccName',title:'活动审核人'}, 
-		          {field:'audit_date',title:'活动审核时间',resizable:true}, 
-		          {field:'release_status',title:'发布状态',resizable:true,formatter: function (value, row, index) {
+		          {field:'auditAccName',title:'活动审核人',align:'center',sortable:true}, 
+		          {field:'audit_date',title:'活动审核时间',resizable:true,align:'center',sortable:true}, 
+		          {field:'release_status',title:'发布状态',resizable:true,align:'center',sortable:true,formatter: function (value, row, index) {
                      if(value=='2'){return "未发布"; }
                      if(value=='1'){return "已发布"; }
 	              }},
-		          {field:'releaseAccName',title:'活动发布人'}, 
-		          {field:'release_date',title:'活动发布时间'}, 
-		          {field:'publish_expire_date',title:'信息过期时间'}
+		          {field:'releaseAccName',title:'活动发布人',align:'center',sortable:true}, 
+		          {field:'release_date',title:'活动发布时间',align:'center',sortable:true}, 
+		          {field:'publish_expire_date',title:'信息过期时间',align:'center',sortable:true}
 		         ] 
 		      ],
 	};

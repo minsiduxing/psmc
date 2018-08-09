@@ -31,16 +31,16 @@ function initDialogDataGrid(topicUuid){
 			url:commentListUrl + "&topicUuid="+topicUuid,
 			columns:[[   
 			          {field:'comment_uuid',title:'主键id',checkbox:true},
-			          {field:'comment_person_name',title:'评论人',resizable:true,width:'80px',align:'center',sortable:true},    
-			          {field:'comment_content',title:'评论内容',width:'350px',halign:'center',sortable:true}, 
-			          {field:'comment_date',title:'评论时间',width:'170px',align:'center',sortable:true}, 
-			          {field:'comment_status',title:'评论状态',width:'80px',align:'center',sortable:true,formatter: function (value, row, index) {
+			          {field:'comment_person_name',title:'评论人',resizable:true,align:'center',sortable:true},    
+			          {field:'comment_content',title:'评论内容',halign:'center',sortable:true}, 
+			          {field:'comment_date',title:'评论时间',align:'center',sortable:true}, 
+			          {field:'comment_status',title:'评论状态',align:'center',sortable:true,formatter: function (value, row, index) {
 	                     if(value=='1'){return "正常"; }
 	                     if(value=='2'){return "已屏蔽"; }
 	                     if(value=='3'){return "已删除"; }
 	                                                  
 	                  }},
-			          {field:'to_person_name',title:'评论目标人',width:'90px',align:'center',sortable:true}, 
+			          {field:'to_person_name',title:'评论目标人',align:'center',sortable:true}, 
 			          {field:'topic_uuid',title:'主题id', hidden:true}, 
 			          {field:'comment_person_uuid',title:'评论人id',hidden:true}, 
 			          {field:'to_person_uuid',title:'目标人id',hidden:true}

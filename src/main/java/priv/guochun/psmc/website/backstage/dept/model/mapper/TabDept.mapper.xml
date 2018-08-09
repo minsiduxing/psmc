@@ -18,12 +18,15 @@
   
   <select id="selectDeptList" parameterType="hashmap" resultType="java.util.Map">
 	    select
-	    	t1.*,
+	    	t1.dept_uuid, t1.dept_name, t1.dept_introduction, t1.dept_regulation, t1.elegant_demeanour,
+	    	t1.dept_type, t1.create_person, t1.last_modify_person, t1.image_path, t1.groupid, t1.is_custom,
+	    	date_format(t1.create_date, '%Y-%m-%d %H:%i:%S') AS create_date,
+		    date_format(t1.last_modify_time, '%Y-%m-%d %H:%i:%S') AS last_modify_time,
 	    	t3.person_name AS createPersonName,
 	    	t4.person_name AS lastModifyPersonName,
 	    	t2.audit,
-		    t2.audit_date,
-		    t2.release_date,
+		    date_format(t2.audit_date, '%Y-%m-%d %H:%i:%S') AS audit_date,
+		    date_format(t2.release_date, '%Y-%m-%d %H:%i:%S') AS release_date,
 		    t2.release_status,
 		    t5.PERSON_NAME AS auditAccName,
 		    t6.PERSON_NAME AS releaseAccName

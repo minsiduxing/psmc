@@ -10,14 +10,14 @@ $(document).ready(function(){
 		           * width:parseInt($(this).width()*0.3)
 		           */
 		          {field:'reportUuid',title:'申报主键',checkbox:true},
-		          {field:'reportTitle',title:'申报标题',resizable:true,
+		          {field:'reportTitle',title:'申报标题',resizable:true,align:'center',sortable:true,
                       formatter:function(value, row, index){
                         return "<a href='"+getReportReply+row.reportUuid+"'>"+value+"</a>";
                       }},
-		          {field:'reportUserName',title:'申报人姓名',resizable:true},
-		          {field:'reportTime',title:'申报时间'},
-                  {field:'reportTel',title:'申报电话'},
-                  {field:'reportStatusName',title:'状态'},
+		          {field:'reportUserName',title:'申报人姓名',resizable:true,align:'center',sortable:true},
+		          {field:'reportTime',title:'申报时间',align:'center',sortable:true},
+                  {field:'reportTel',title:'申报电话',align:'center',sortable:true},
+                  {field:'reportStatusName',title:'状态',align:'center',sortable:true},
 		          {field:'reportStaus',title:'状态',hidden:true}
 		         ]
 		      ]

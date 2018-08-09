@@ -17,10 +17,11 @@
   
   <select id="selectSignUpInfoList" parameterType="hashmap" resultType="java.util.Map">
     SELECT
-	    t1.* ,
+	    t1.sign_up_uuid, t1.activity_uuid,t1.person_account,t1.person_name,t1.person_mobile,
+	    date_format(t1.sign_up_date, '%Y-%m-%d %H:%i:%S') AS sign_up_date,
 	    t2.activity_name,
-	    t2.start_date,
-	    t2.end_date
+	    date_format(t2.start_date, '%Y-%m-%d %H:%i:%S') AS start_date,
+		date_format(t2.end_date, '%Y-%m-%d %H:%i:%S') AS end_date
 	FROM
 	    tab_sign_up_info t1
 	INNER JOIN

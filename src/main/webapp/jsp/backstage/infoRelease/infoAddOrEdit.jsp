@@ -34,9 +34,9 @@
 				</c:if>
 				<td class="tds">自定义配图：</td>
 				<td width="25%">
-	                <input type="radio" name="isCustom1" <c:if test="${dept.is_custom == '0'}">checked</c:if> value="0" style="width:5%;margin-right: 0">否</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                <input type="radio" name="isCustom1" <c:if test="${dept.is_custom == '1'}">checked</c:if> value="1" style="width:5%;margin-right: 0" onclick="openUploadDialog()">是</input>
-	                <input type="hidden" id="isCustom" name="isCustom" value="${dept.is_custom}"/>
+	                <input type="radio" name="isCustom1" <c:if test="${info.is_custom == '0'}">checked</c:if> value="0" style="width:5%;margin-right: 0">否</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                <input type="radio" name="isCustom1" <c:if test="${info.is_custom == '1'}">checked</c:if> value="1" style="width:5%;margin-right: 0" onclick="openUploadDialog()">是</input>
+	                <input type="hidden" id="isCustom" name="isCustom" value="${info.is_custom}"/>
 				</td>
 			</tr>
 			<tr>

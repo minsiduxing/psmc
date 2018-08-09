@@ -107,11 +107,11 @@
       REPORT_CONTENT as reportContent,
       REPORT_USER_NAME as reportUserName,
       REPORT_USER_UUID as reportUserUuid,
-      REPORT_TIME as reportTime,
+      date_format(REPORT_TIME, '%Y-%m-%d %H:%i:%S') AS reportTime,
       REPORT_TYPE as reportType,
       REPORT_STAUS as reportStaus,
       tdic.DICT_NAME as reportStatusName,
-      LAST_MODIFY_TIME as lastModifyTime,
+      date_format(LAST_MODIFY_TIME, '%Y-%m-%d %H:%i:%S') AS lastModifyTime,
       REPORT_UPDATE_UUID as reportUpdateUuid,
       REPORT_TEL as reportTel,
       IMAGE_PATH as imagePath

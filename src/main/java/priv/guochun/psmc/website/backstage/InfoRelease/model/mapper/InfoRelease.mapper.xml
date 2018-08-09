@@ -10,25 +10,25 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
    		 tn.news_title, 
    		 tn.news_subtitle,
    		 tn.news_content, 
-   		 tn.news_date, 
+   		 date_format(tn.news_date, '%Y-%m-%d %H:%i:%S') AS news_date, 
    		 tn.news_author, 
    		 tn.thumbnail_image_url, 
    		 tn.news_abstract ,
    		 tn.is_custom,
    		 tn.image_path,
    		 tpc.PERSON_NAME as createAccName, 
-   		 tm.create_date, 
+   		 date_format(tm.create_date, '%Y-%m-%d %H:%i:%S') AS create_date, 
 	   	 tpm.PERSON_NAME as modifyccName, 
-	     tm.modify_date, 
+	     date_format(tm.modify_date, '%Y-%m-%d %H:%i:%S') AS modify_date,  
 	   	 tm.audit, 
 	   	 tpau.PERSON_NAME as auditAccName, 
-	   	 tm.audit_date, 
+	   	 date_format(tm.audit_date, '%Y-%m-%d %H:%i:%S') AS audit_date,  
 	   	 tpr.PERSON_NAME as releaseAccName, 
-	   	 tm.release_date, 
+	   	 date_format(tm.release_date, '%Y-%m-%d %H:%i:%S') AS release_date, 
 	   	 tm.one_level_classify, 
 	   	 tm.two_level_classify ,
 	   	 tm.release_status,
-	     tmpl.publish_expire_date
+	     date_format(tmpl.publish_expire_date, '%Y-%m-%d %H:%i:%S') AS publish_expire_date
    		 FROM tab_news tn
    		 LEFT JOIN tab_module tm
    		 ON 
