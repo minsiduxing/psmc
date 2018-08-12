@@ -150,9 +150,9 @@ public class ReportServiceImpl implements ReportService{
 				report.setReportTime(DateUtil.getCurrentTimstamp());
 			}
 			if("report".equals(report.getReportType())){
-				report.setImagePath(SystemPropertiesUtil.getHelpDeclareImagePath());
+				report.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getHelpDeclareImagePath());
 			}else{
-				report.setImagePath(SystemPropertiesUtil.getLawHelpImagePath());
+				report.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getLawHelpImagePath());
 			}
 			baseDao.insert(insert, report);
 		}else{
