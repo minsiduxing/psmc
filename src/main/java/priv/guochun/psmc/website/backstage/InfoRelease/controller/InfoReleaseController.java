@@ -86,10 +86,10 @@ public class InfoReleaseController extends MyController{
 		}
 		if(ContantsUtil.IS_CUSTOM_0.equals(infoRelease.getIsCustom()) && StringUtils.isBlank(infoRelease.getImagePath())){
 			if(ContantsUtil.ONE_LEVEL_CLASSIFY_12.equals(module.getOneLevelClassify())){
-				infoRelease.setImagePath(SystemPropertiesUtil.getLegalProvisionsImagePath());			
+				infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getLegalProvisionsImagePath());			
 			}
 			if(ContantsUtil.ONE_LEVEL_CLASSIFY_14.equals(module.getOneLevelClassify())){
-				infoRelease.setImagePath(SystemPropertiesUtil.getWorkReleaseImagePath());
+				infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getWorkReleaseImagePath());
 			}
 		}
 		infoReleaseService.saveOrUpdateInfoReleaseBusinessMethod(infoRelease, module);

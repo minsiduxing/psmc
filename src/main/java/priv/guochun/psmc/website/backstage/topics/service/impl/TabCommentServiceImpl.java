@@ -24,6 +24,7 @@ public class TabCommentServiceImpl implements TabCommentService{
 	private static final String insertComment = "insertComment";
 	private static final String updateComment = "updateComment";
 	private static final String updateCommentStatus = "updateCommentStatus";
+	private static final String deleteComment = "deleteComment";
 
 	@Autowired
 	private BaseDao baseDao;
@@ -71,5 +72,12 @@ public class TabCommentServiceImpl implements TabCommentService{
 		condition.put("ids", tabComment.getCommentUuid().split(","));
 		condition.put("commentStatus", tabComment.getCommentStatus());
 		baseDao.update(updateCommentStatus, condition);
+	}
+	
+	@Override
+	public void deleteCommentToMobile(String commentUuid){
+		Map<String,Object> condition = new HashMap<String,Object>();
+		condition.put("commentUuid", commentUuid);
+		baseDao.delete(deleteComment, condition);
 	}
 }

@@ -23,4 +23,10 @@ public interface TabCommentService {
 	 * @param tabComment
 	 */
 	public void updateCommentStatus(TabComment tabComment);
+	
+	/**
+	 * 删除评论信息
+	 * @param commentUuid
+	 */
+	public void deleteCommentToMobile(String commentUuid);
 }

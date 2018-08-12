@@ -75,7 +75,7 @@ public class TabDeptController extends MyController{
 		}
 		//如果配图为空，则添加默认配图
 		if(ContantsUtil.IS_CUSTOM_0.equals(dept.getIsCustom()) && StringUtils.isBlank(dept.getImagePath())){
-			dept.setImagePath(SystemPropertiesUtil.getWorkManageImagePath());
+			dept.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getWorkManageImagePath());
 		}
 		tabDeptService.saveOrUpdateDeptBusinessMethod(dept, module);
 		super.responseJson(true, "操作成功!", this.response());

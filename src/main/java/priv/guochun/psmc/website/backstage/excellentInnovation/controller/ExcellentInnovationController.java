@@ -66,7 +66,7 @@ public class ExcellentInnovationController extends MyController{
 		}
 		//如果信息配图为空，则添加默认配图
 		if(ContantsUtil.IS_CUSTOM_0.equals(innovation.getIsCustom()) && StringUtils.isBlank(innovation.getImagePath())){
-			innovation.setImagePath(SystemPropertiesUtil.getInnovationImagePath());
+			innovation.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getInnovationImagePath());
 		}
 		module.setAuditDate(null);
 		excellentInnovationService.saveOrUpdateInnovationBusinessMethod(innovation, module);

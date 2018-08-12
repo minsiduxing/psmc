@@ -58,7 +58,11 @@ public class TabTopics {
 	 */
     private String topicContent;
     /**
-     * 附件ID（非持久化字段）
+     * 信息列表配图
+     */
+    private String imagePath;
+    /**
+     * 附件ID（非持久化字段,多个id之间以逗号隔开）
      */
     private String attachmentUuids;
 
@@ -157,6 +161,14 @@ public class TabTopics {
     public void setTopicContent(String topicContent) {
         this.topicContent = topicContent == null ? null : topicContent.trim();
     }
+    
+    public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 
 	@Override
 	public String toString() {
@@ -164,7 +176,7 @@ public class TabTopics {
 				+ ", blockUuid=" + blockUuid + ", createPersonUuid=" + createPersonUuid + ", createPersonName="
 				+ createPersonName + ", telephone=" + telephone + ", createDate=" + createDate
 				+ ", lastCommentPersonUuid=" + lastCommentPersonUuid + ", lastCommentDate=" + lastCommentDate
-				+ ", lastCommentUuid=" + lastCommentUuid + ", topicContent=" + topicContent + "]";
+				+ ", lastCommentUuid=" + lastCommentUuid + ", topicContent=" + topicContent + ", imagePath=" + imagePath + "]";
 	}
 
 	public String getAttachmentUuids() {
@@ -174,4 +186,5 @@ public class TabTopics {
 	public void setAttachmentUuids(String attachmentUuids) {
 		this.attachmentUuids = attachmentUuids;
 	}
+	
 }

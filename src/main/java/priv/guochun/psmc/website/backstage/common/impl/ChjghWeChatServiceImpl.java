@@ -8,6 +8,7 @@ import java.util.Properties;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
+import javax.ws.rs.FormParam;
 import javax.xml.ws.WebServiceContext;
 
 import org.apache.commons.lang.StringUtils;
@@ -35,6 +36,7 @@ import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
 import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
+import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.system.util.TimestampUtil;
@@ -549,8 +551,24 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	public String addTabComment(TabComment tabComment){
 		MsgModel msg = null;
 		try {
+			Map<String, Object> topicMap = tabTopicsService.queryTopicsToMobile(tabComment.getTopicUuid());
+			if(topicMap != null && ContantsUtil.BLOCK_STATUS_2.equals(topicMap.get("topic_status"))){
+				msg = MsgModel.buildDefaultError("该主题已被禁止评论");
+				return GsonUtil.toJsonForObject(msg); 
+			}
 			tabCommentService.saveOrUpdateToMobile(tabComment);
 			msg = MsgModel.buildDefaultSuccess("保存成功", null);
+		} catch (Exception e) {
+			msg = MsgModel.buildDefaultError("操作异常");
+		}
+		return GsonUtil.toJsonForObject(msg); 
+	}
+	
+	public String deleteComment( String commentUuid){
+		MsgModel msg = null;
+		try {
+			tabCommentService.deleteCommentToMobile(commentUuid);
+			msg = MsgModel.buildDefaultSuccess("删除成功", null);
 		} catch (Exception e) {
 			msg = MsgModel.buildDefaultError("操作异常");
 		}

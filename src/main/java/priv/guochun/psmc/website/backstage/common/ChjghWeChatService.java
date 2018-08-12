@@ -248,4 +248,14 @@ public interface ChjghWeChatService {
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
 	public String addTabComment(@RequestBody TabComment tabComment);
+	
+	/**
+	 * 删除评论信息
+	 * @param commentUuid
+	 * @return
+	 */
+	@Path("/deleteComment")
+    @POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String deleteComment(@FormParam("commentUuid") String commentUuid);
 }

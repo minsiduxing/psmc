@@ -138,4 +138,9 @@
 			#{item}  
 		</foreach>  
   </update>
+  
+  <delete id="deleteComment" parameterType="hashmap">
+  	delete from tab_comment where comment_uuid = #{commentUuid}
+  </delete>
+  
 </mapper>

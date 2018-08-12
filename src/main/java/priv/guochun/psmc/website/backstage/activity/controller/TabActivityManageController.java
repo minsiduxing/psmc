@@ -75,7 +75,7 @@ public class TabActivityManageController extends MyController{
 		}
 		//如果配图为空，则添加默认配图
 		if(ContantsUtil.IS_CUSTOM_0.equals(activity.getIsCustom()) && StringUtils.isBlank(activity.getImagePath())){
-			activity.setImagePath(SystemPropertiesUtil.getActivityImagePath());
+			activity.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getActivityImagePath());
 		}
 		tabActivityManageService.addOrupdateActivity(activity, module);
 		super.responseJson(true, "操作成功!", this.response());

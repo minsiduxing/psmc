@@ -48,4 +48,11 @@ public class ContantsUtil {
     public final static Integer BLOCK_STATUS_1 = 1; //正常
     public final static Integer BLOCK_STATUS_2 = 2; //暂停（屏蔽）
     public final static Integer BLOCK_STATUS_3 = 3; //删除
+    
+    /** 版块 **/
+    public final static String BLOCK_01 = "01";	//跳蚤市场
+    public final static String BLOCK_02 = "02";	//曝光台
+    public final static String BLOCK_03 = "03";	//合理化建议
+    public final static String BLOCK_04 = "04";	//表扬
+    public final static String BLOCK_05 = "05";	//投诉
 }

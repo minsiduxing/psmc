@@ -13,12 +13,13 @@
     <result column="last_comment_person_uuid" property="lastCommentPersonUuid" jdbcType="VARCHAR" />
     <result column="last_comment_date" property="lastCommentDate" jdbcType="TIMESTAMP" />
     <result column="last_comment_uuid" property="lastCommentUuid" jdbcType="VARCHAR" />
+    <result column="image_path" property="image_path" jdbcType="VARCHAR" />
   </resultMap>
 
   <select id="selectTopicsList" parameterType="hashmap" resultType="java.util.Map">
     select
     	t1.topic_uuid,t1.topic_name,t1.topic_content,t1.topic_status,t1.block_uuid,t1.create_person_uuid,
-    	t1.telephone,t1.last_comment_person_uuid,t1.last_comment_uuid,t1.create_person_name,
+    	t1.telephone,t1.last_comment_person_uuid,t1.last_comment_uuid,t1.create_person_name,t1.image_path,
     	date_format(t1.create_date, '%Y-%m-%d %H:%i:%S') AS create_date,
     	date_format(t1.last_comment_date, '%Y-%m-%d %H:%i:%S') AS last_comment_date,
     	t2.nums,
@@ -141,6 +142,9 @@
       <if test="topicContent != null" >
         topic_content,
       </if>
+      <if test="imagePath != null">
+      	image_path,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="topicUuid != null" >
@@ -178,6 +182,9 @@
       </if>
       <if test="topicContent != null" >
         #{topicContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imagePath != null">
+      	#{imagePath,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -217,6 +224,9 @@
       </if>
       <if test="topicContent != null" >
         topic_content = #{topicContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imagePath != null" >
+        image_path = #{imagePath,jdbcType=VARCHAR},
       </if>
     </set>
     where topic_uuid = #{topicUuid,jdbcType=VARCHAR}

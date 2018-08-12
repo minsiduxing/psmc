@@ -86,7 +86,8 @@ create table tab_topics
    create_date timestamp null comment '创建时间',
    last_comment_person_uuid varchar(100) comment'最后评论人id',
    last_comment_date timestamp null comment '最后评论时间',
-   last_comment_uuid varchar(32) comment '最后评论id' 
+   last_comment_uuid varchar(32) comment '最后评论id' ,
+   image_path varchar(200) comment '信息列表配图'
 ) comment '主题信息表';
 
 /*==============================================================*/
