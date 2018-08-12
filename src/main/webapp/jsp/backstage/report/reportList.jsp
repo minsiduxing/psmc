@@ -32,10 +32,10 @@
                     <input class="myinput" id="reportTel" name="reportTel"/>
                 </li>
                 <li class="li-input"><label for="" class="input-label">申报日期：</label>
-                    <input id="reportTimeBegin" name="reportTimeBegin" value=""></input>
+                    <input id="reportTimeBegin" name="reportTimeBegin" value="" class="easyui-datetimebox"></input>
                 </li>
                 <li class="li-input"><label for="" class="input-label">至</label>
-                    <input id="reportTimeEnd" name="reportTimeEnd" />
+                    <input id="reportTimeEnd" name="reportTimeEnd" class="easyui-datetimebox"/>
                 </li>
             </ul>
         </form>
@@ -105,10 +105,7 @@
     });
     $('#reportTel').textbox({
     });
-    $('#reportTimeBegin').datetimebox({
-    });
-    $('#reportTimeEnd').datetimebox({
-    });
+   
     commonObj.initDictCombobox("reportStaus","REPORT_STAUS","",false,true);
 
     //----------------------------查询框初始化结束

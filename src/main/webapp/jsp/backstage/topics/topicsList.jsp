@@ -20,13 +20,13 @@
 				<input id="topicContent" name="topicContent" value=""></input>
 			</li>
 			 <li class="li-input"><label for="" class="input-label">创建人：</label>
-				<input id="createPersonName" name="createPersonName"> </input>
+				<input id="createPersonName" name="createPersonName"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">创建时间：</label>
-				<input id="createDateBegin" name="createDateBegin" value=""></input>
+				<input id="createDateBegin" name="createDateBegin" value="" class="easyui-datetimebox"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至</label>
-			<input id="createDateEnd" name="createDateEnd" ></input>
+			<input id="createDateEnd" name="createDateEnd" class="easyui-datetimebox"/>
 			</li>
 		
 			<li class="li-input"><label for="" class="input-label">信息状态：</label>
@@ -39,10 +39,10 @@
 				<input id="lastCommentPerson" name="lastCommentPerson" value=""></input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">最后评论时间：</label>
-			<input id="lastCommentDateBegin" name="lastCommentDateBegin" ></input>
+			<input id="lastCommentDateBegin" name="lastCommentDateBegin" class="easyui-datetimebox"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至：</label>
-				<input id="lastCommentDateEnd" name="lastCommentDateEnd" />
+				<input id="lastCommentDateEnd" name="lastCommentDateEnd" class="easyui-datetimebox"/>
 			</li>
 			
 	</ul>
@@ -176,18 +176,6 @@ $('#lastCommentPerson').textbox({
 	type : "text"
 }); 
 
-$('#createDateBegin').datetimebox({
-	editable:false
-});
-$('#createDateEnd').datetimebox({
-	editable:false
-});
-$('#lastCommentDateBegin').datetimebox({
-	editable:false
-});
-$('#lastCommentDateEnd').datetimebox({
-	editable:false
-});
 
 commonObj.initDictCombobox("topicStatus","TOPICS_STATUS","",false,true);
 

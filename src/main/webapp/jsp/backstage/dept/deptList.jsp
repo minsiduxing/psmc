@@ -30,27 +30,27 @@
 				<input id="audit" name="audit" value=""/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">创建时间：</label>
-				<input id="createBeginDate" name="createBeginDate" value=""></input>
+				<input id="createBeginDate" name="createBeginDate" value="" class="easyui-datetimebox"></input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至</label>
-				<input id="createEndDate" name="createEndDate" />
+				<input id="createEndDate" name="createEndDate" class="easyui-datetimebox"/>
 			</li>
 			
 			
 			<li class="li-input"><label for="" class="input-label">审核日期：</label>
-			<input id="auditDateBegin" name="auditDateBegin" />
+			<input id="auditDateBegin" name="auditDateBegin" class="easyui-datetimebox"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至：</label>
-				<input id="auditDateEnd" name="auditDateEnd" />
+				<input id="auditDateEnd" name="auditDateEnd" class="easyui-datetimebox"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">是否发布：</label>
 				<input id="releaseStatus" name="releaseStatus"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">发布日期：</label>
-			<input id="releaseDateBegin" name="releaseDateBegin" />
+			<input id="releaseDateBegin" name="releaseDateBegin" class="easyui-datetimebox"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至：</label>
-				<input id="releaseDateEnd" name="releaseDateEnd" />
+				<input id="releaseDateEnd" name="releaseDateEnd" class="easyui-datetimebox"/>
 			</li>
 	</ul>
 		<input type="hidden" id="deptType" name="deptType" value="${param.deptType}" />
@@ -133,24 +133,6 @@ $('#deptIntroduction').textbox({
 $('#createPerson').textbox({
 });
 
-$('#createBeginDate').datetimebox({
-	editable:false
-});
-$('#createEndDate').datetimebox({
-	editable:false
-});
-$('#auditDateBegin').datetimebox({
-	editable:false
-});
-$('#auditDateEnd').datetimebox({
-	editable:false
-});
-$('#releaseDateBegin').datetimebox({
-	editable:false
-});
-$('#releaseDateEnd').datetimebox({
-	editable:false
-});
 commonObj.initDictCombobox("audit","IF","",false,true);
 commonObj.initDictCombobox("releaseStatus","IF","",false,true);
 

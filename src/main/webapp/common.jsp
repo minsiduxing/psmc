@@ -36,6 +36,21 @@
 <input type="hidden" id="basePath" name="basePath" value="<%=request.getContextPath()%>"/>
 
 <script type="text/javascript">
+//日期时间编辑器增加清空功能
+$(document).ready(function(){
+	var dt_buttons = $.extend([], $.fn.datetimebox.defaults.buttons);
+	dt_buttons.splice(2, 0, {
+	    text: '清空',
+	    handler: function(target){
+	        $(target).datetimebox('setValue','');
+	    }
+	});
+	$('.easyui-datetimebox').datetimebox({
+	    buttons: dt_buttons,
+	    editable:false
+	});
+});
+
 var basePath = $("#basePath").val();
 //查询数据字典URL变量定义
 var initDictUrl=basePath+"/system/common/dictController.do";

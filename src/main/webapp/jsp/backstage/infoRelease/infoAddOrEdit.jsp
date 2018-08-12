@@ -110,7 +110,7 @@ var uploadPhoto = '<c:url value="/website/backstage/uploadImageController.do"/>?
 if($("#isCustom").val() == "" || $("#isCustom").val() == null){
 	$("input[name='isCustom1']:eq(0)").attr("checked",'checked');
 }
-commonObj.initDictCombobox("towLevelClassify","INFO_TYPE","<c:out value="${info.towLevelClassify}"/>",true,false);
+commonObj.initDictCombobox("towLevelClassify","INFO_TYPE","<c:out value="${info.two_level_classify}"/>",true,false);
 
 function formInint(isEdit){
 	if(isEdit == "query"){

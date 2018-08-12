@@ -46,11 +46,11 @@
                  <table style="width:100%;height:30px;">
                      <tr>
                          <td align="right">
-                             <input id="upload" type="button" class="easyui-linkbutton" value="上传" style="width:60px;height:30px;
+                             <input id="upload" type="button" class="easyui-linkbutton" value="上传" style="width:60px;height:35px;
                              	padding-top:3px;margin-right:10px;" onclick="imageUpload()">
                          </td>
                          <td align="left">
-                             <input id="close" type="button" class="easyui-linkbutton" value="关闭" style="width:60px;height:30px;
+                             <input id="close" type="button" class="easyui-linkbutton" value="关闭" style="width:60px;height:35px;
                              	padding-top:3px;margin-right:10px;" onclick="closeDialog()">
                          </td>
                      </tr>
