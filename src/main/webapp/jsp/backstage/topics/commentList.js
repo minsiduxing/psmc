@@ -137,7 +137,6 @@ function removeComment(){
 
 //撤销
 function undoComment(){
-	debugger;
 	var rows = $("#commentList").datagrid('getChecked');
 	var rlength = rows.length;
 	var ids="";

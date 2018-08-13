@@ -53,7 +53,6 @@ function  wangEditorInit(isEdit){
 
           // 退出全屏事件
           function unDoFullScreen() {
-        	  debugger;
         	  event.preventDefault();
               container.appendChild(toolbarContaner);
               container.appendChild(editorText);
