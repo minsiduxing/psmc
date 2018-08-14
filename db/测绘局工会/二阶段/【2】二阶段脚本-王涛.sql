@@ -271,3 +271,47 @@ insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '5110c883e77941cb9424e059db962bd2');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '01d23ba564e344b79efb274e6e9c6e16');
 
+
+
+/*新增撤销功能脚本*/
+delete from tab_operate where uuid in ('c24864b488dc4d3aac34ca5ac310b636', '8598ed7e24524a24afd9e2279bfe4172', '125f4aa5d7084da59b02cc291546b1fa', 
+				'91562f3d5fbb47fea580f3613c93dbb6', 'a3f6cb65c0b44efeb5c6eaa2b062c760', '8076d4233c344c15845b3043a939870d');
+
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('c24864b488dc4d3aac34ca5ac310b636','f03a9f0f29d44a1da4376353809eb9e1','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','executeUndoBusinessMethod','撤销','撤销',8,'EARLY_KNOW_UNDO');
+
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('8598ed7e24524a24afd9e2279bfe4172','1b0cd1d267c948e2886ef98e5a76a578','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','executeUndoBusinessMethod','撤销','撤销',8,'LEGAL_PROVISIONS_UNDO');
+
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('125f4aa5d7084da59b02cc291546b1fa','cae199e1e01f4bcf80ae2e2976fd15b9','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService','executeUndoBusinessMethod','撤销','撤销',8,'ACTIVITY_UNDO');
+
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('91562f3d5fbb47fea580f3613c93dbb6','c712464e336d4ae6988bd27ba35f17d4','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService','executeUndoBusinessMethod','撤销','撤销',8,'INNOVATION_UNDO');
+
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('a3f6cb65c0b44efeb5c6eaa2b062c760','bf5cdda0af224da2a2ed33360364b967','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.dept.service.TabDeptService','executeUndoBusinessMethod','撤销','撤销',8,'WORK_ROOM_UNDO');
+
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('8076d4233c344c15845b3043a939870d','7c0f15982df64a8081507bfb1cfce5aa','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.dept.service.TabDeptService','executeUndoBusinessMethod','撤销','撤销',8,'ASSOCIATION_UNDO');
+
+delete from tab_role_operate where operate_uuid in ('c24864b488dc4d3aac34ca5ac310b636', '8598ed7e24524a24afd9e2279bfe4172', '125f4aa5d7084da59b02cc291546b1fa', 
+				'91562f3d5fbb47fea580f3613c93dbb6', 'a3f6cb65c0b44efeb5c6eaa2b062c760', '8076d4233c344c15845b3043a939870d');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', 'c24864b488dc4d3aac34ca5ac310b636');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '8598ed7e24524a24afd9e2279bfe4172');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '125f4aa5d7084da59b02cc291546b1fa');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '91562f3d5fbb47fea580f3613c93dbb6');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', 'a3f6cb65c0b44efeb5c6eaa2b062c760');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '8076d4233c344c15845b3043a939870d');
+
+delete from tab_data_dict where DICT_NO = 'TOPICS_STATUS';
+INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('1', '正常', '主题信息状态', 1, 1, 1, 'TOPICS_STATUS');
+INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('2', '禁止评论', '主题信息状态', 2, 2, 2, 'TOPICS_STATUS');
+
+
