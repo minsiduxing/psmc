@@ -231,13 +231,23 @@ public interface ChjghWeChatService {
 	
 	/**
 	 * 查询主题详情以及对应的评论列表
-	 * @param pageJson 查询参数
+	 * @param topicUuid 主题id
 	 * @return
 	 */
 	@Path("/topicsDetail")
 	@POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String topicsDetail(@FormParam("topicUuid") String topicUuid);
+	
+	/**
+	 * 查询评论列表
+	 * @param pageJson
+	 * @return
+	 */
+	@Path("/commentList")
+	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
-	public String topicsDetail(String pageJson);
+	public String commentList(String pageJson);
 	
 	/**
 	 * 新增评论信息

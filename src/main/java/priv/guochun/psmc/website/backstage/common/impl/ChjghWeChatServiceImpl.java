@@ -252,6 +252,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			page = infoReleaseService.queryInfoListToMobile(page);
 			msg = MsgModel.buildDefaultSuccess(page);
 		} catch (Exception e) {
+			logger.debug("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -273,6 +274,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			dataMap.put("nums", nums);
 			msg = MsgModel.buildDefaultSuccess(dataMap);
 		} catch (Exception e) {
+			logger.debug("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -297,6 +299,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			page = excellentInnovationService.queryInnovationListToMobile(page);
 			msg = MsgModel.buildDefaultSuccess(page);
 		} catch (Exception e) {
+			logger.debug("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -318,6 +321,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			dataMap.put("nums", nums);
 			msg = MsgModel.buildDefaultSuccess(dataMap);
 		} catch (Exception e) {
+			logger.debug("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -341,6 +345,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			page = tabActivityManageService.queryActivityList(page);
 			msg = MsgModel.buildDefaultSuccess(page);
 		} catch (Exception e) {
+			logger.debug("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg);
@@ -369,6 +374,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			dataMap.put("nums", nums);
 			msg = MsgModel.buildDefaultSuccess(dataMap);
 		} catch (Exception e) {
+			logger.debug("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg);
@@ -381,6 +387,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			tabActivityManageService.addSignUpInfo(activityUuid, phone);
 			msg = MsgModel.buildDefaultSuccess("报名成功", null);
 		} catch (PsmcBuisnessException e) {
+			logger.debug("报名异常." + e);
 			msg = MsgModel.buildDefaultError(e.getMessage());
 		}
 		return GsonUtil.toJsonForObject(msg);
@@ -393,6 +400,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			tabActivityManageService.deleteSignInfo(activityUuid, phone);
 			msg = MsgModel.buildDefaultSuccess("取消报名成功", null);
 		} catch (Exception e) {
+			logger.debug("取消报名异常." + e);
 			msg = MsgModel.buildDefaultError("操作失败");
 		}
 		return GsonUtil.toJsonForObject(msg);
@@ -405,6 +413,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			List<Map<String, Object>> signUpList = tabActivityManageService.querySignUpInfoList(activityUuid);
 			msg = MsgModel.buildDefaultSuccess(signUpList);
 		} catch (Exception e) {
+			logger.debug("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg);
@@ -479,6 +488,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			page = tabDeptService.queryDeptListToMobile(page);
 			msg = MsgModel.buildDefaultSuccess("获取数据成功", page);
 		} catch (Exception e) {
+			logger.debug("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -491,6 +501,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			Map<String, Object> dataMap = tabDeptService.getDeptDetailToMobile(deptUuid);
 			msg = MsgModel.buildDefaultSuccess("获取数据成功", dataMap);
 		} catch (Exception e) {
+			logger.debug("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -502,6 +513,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			tabTopicsService.saveOrUpdateToMobile(tabTopics);
 			msg = MsgModel.buildDefaultSuccess("保存成功", null);
 		} catch (Exception e) {
+			logger.debug("添加主题异常." + e);
 			msg = MsgModel.buildDefaultError("操作异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -514,35 +526,47 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			page = tabTopicsService.queryTopicListToMobile(page);
 			msg = MsgModel.buildDefaultSuccess("获取数据成功", page);
 		} catch (Exception e) {
+			logger.debug("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg);
 	}
 	
-	public String topicsDetail(String pageJson){
+	public String topicsDetail(String topicUuid){
+		MsgModel msg = null;
+		try {
+			Map<String, Object> dataMap = new HashMap<String, Object>();
+			//更新浏览量
+			tabPageViewService.saveOrUpdate(topicUuid);
+			//主题信息详情
+			Map<String, Object> topicMap = tabTopicsService.queryTopicsToMobile(topicUuid);
+			//附件信息
+			List<Map<String, Object>> attachmentList = tabAttachmentService.queryAttachmentList(topicUuid);
+			dataMap.put("topicMap", topicMap);
+			dataMap.put("attachmentList", attachmentList);
+			msg = MsgModel.buildDefaultSuccess("获取数据成功", dataMap);
+		} catch (Exception e) {
+			logger.debug("获取数据异常." + e);
+			msg = MsgModel.buildDefaultError("获取数据异常");
+		}
+		return GsonUtil.toJsonForObject(msg); 
+	}
+	
+	public String commentList(String pageJson){
 		MsgModel msg = null;
 		try {
 			MyPage myPage = JSON.parseObject(pageJson, MyPage.class) ;
 			Map<String, Object> paramMap = myPage.getQueryParams();
 			if(paramMap != null && paramMap.get("topicUuid") != null){
-				Map<String, Object> dataMap = new HashMap<String, Object>();
-				//更新浏览量
-				tabPageViewService.saveOrUpdate(paramMap.get("topicUuid").toString());
-				//主题信息详情
-				Map<String, Object> topicMap = tabTopicsService.queryTopicsToMobile(paramMap.get("topicUuid").toString());
-				//附件信息
-				List<Map<String, Object>> attachmentList = tabAttachmentService.queryAttachmentList(paramMap.get("topicUuid").toString());
 				//评论信息列表
 				myPage = tabCommentService.queryCommentListToMobile(myPage);
-				dataMap.put("topicMap", topicMap);
-				dataMap.put("attachmentList", attachmentList);
-				dataMap.put("myPage", myPage);
-				msg = MsgModel.buildDefaultSuccess("获取数据成功", dataMap);
+				msg = MsgModel.buildDefaultSuccess("获取数据成功", myPage);
 			}else{
 				msg = MsgModel.buildDefaultError("查询参数为空");
 			}
 			
 		} catch (Exception e) {
+			logger.debug("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -559,6 +583,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			tabCommentService.saveOrUpdateToMobile(tabComment);
 			msg = MsgModel.buildDefaultSuccess("保存成功", null);
 		} catch (Exception e) {
+			logger.debug("添加评论异常." + e);
 			msg = MsgModel.buildDefaultError("操作异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -570,6 +595,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			tabCommentService.deleteCommentToMobile(commentUuid);
 			msg = MsgModel.buildDefaultSuccess("删除成功", null);
 		} catch (Exception e) {
+			logger.debug("删除评论异常." + e);
 			msg = MsgModel.buildDefaultError("操作异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
