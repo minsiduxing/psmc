@@ -48,7 +48,15 @@
 			type : "text",
 			required : true
 		});
-
+		
+		if($("#oper").val() == 'edit'){
+			$('#groupCode').textbox({
+				value : "${tabGroup.groupCode}",
+				editable:false,
+				type : "text",
+				required : true
+			});
+		}
 		
 		commonObj.initDictCombobox("groupType","USER_GROUP_TYPE","<c:out value="${tabGroup.groupType}"/>",true,false);
 		

@@ -20,6 +20,7 @@ function openUploadDialog(){
 	editdialog.panel({iconCls:'icon-save'});
 	var imagePath = $("#imagePath").val();
 	if(imagePath){
+		$("#preview").css({"width":"130px", "height":"130px", "margin-left":"0", "margin-top":"0"});
 		$("#preview").attr("src", imagePath);
 	}
 	editdialog.window("open");
@@ -39,7 +40,7 @@ function previewImage(fileObj){
     var extention=fileObj.value.substring(fileObj.value.lastIndexOf(".")+1).toLowerCase();            
     var browserVersion= window.navigator.userAgent.toUpperCase();
     if(allowExtention.indexOf(extention)>-1){ 
-    	$("#"+imgPreviewId).css({"max-width":"100%", "max-height":"100%", "width":"auto", "height":"auto"});
+//    	$("#"+imgPreviewId).css({"max-width":"100%", "max-height":"100%", "width":"auto", "height":"auto"});
         if(fileObj.files){//HTML5实现预览，兼容chrome、火狐7+等
             if(window.FileReader){
                 var reader = new FileReader(); 

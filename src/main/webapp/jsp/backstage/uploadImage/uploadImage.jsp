@@ -33,10 +33,10 @@
              </td>
              <td  align="center">
                  
-                 <div id="preview-panel" style="width:130px;height:140px;border:0px solid green;margin-top:100px;">
+                 <div id="preview-panel" style="width:150px;height:140px;border:0px solid green;margin-top:100px;">
                  	<div>预览：</div>
-                      <div class = "previewDiv" style="width: 130px;height: 130px;overflow: hidden;border:1px solid #ececec" >
-                            <img id = "preview" src="<%=request.getContextPath()%>/images/touxiang_default.png" width="130px" height="130px" class="jcrop-preview" alt="预览" >
+                      <div class = "previewDiv" style="width: 132px;height: 132px;overflow: hidden;border:1px solid #ececec" >
+                            <img id = "preview" src="<%=request.getContextPath()%>/images/touxiang_default.png" width="130px" height="130px"  alt="预览" />
                       </div>
                  </div>
              </td>
