@@ -93,14 +93,14 @@
 	<!-- 附件信息service注入 -->
 	<bean id="tabAttachmentService" class="priv.guochun.psmc.website.backstage.attachment.service.impl.TabAttachmentServiceImpl"/>
 
-	
-	 <jaxrs:server id="chjghWeChatCxfService" address="/chjgh" >
+	<jaxrs:server id="chjghWeChatCxfService" address="/chjgh" >
                 <jaxrs:serviceBeans>
                     <ref bean="chjghWeChatService" />
                 </jaxrs:serviceBeans>
                 <!-- 输入日志拦截器 -->
                 <jaxrs:inInterceptors>
                     <ref bean="loggingInInterceptor"/>
+                    <ref bean="psmcChjghServicePreInterceptor"/>
                 </jaxrs:inInterceptors>
                 <!-- 输出日志拦截器 -->
                 <jaxrs:outInterceptors>
@@ -112,7 +112,17 @@
 		        </jaxrs:providers>
      </jaxrs:server>
 	
+	 <!-- 工会短信发送类 -->	
 	 <bean id="chjghMobileSmsSendService" class="priv.guochun.psmc.system.framework.sms.service.impl.ChjghMobileSmsSendServiceImpl" />
+	 
+	 <!-- 工会服务请求前置拦截器 -->
+	 <bean id="psmcChjghServicePreInterceptor" class="priv.guochun.psmc.website.backstage.common.interceptor.PsmcChjghServicePreInterceptor" />
+	
+	 <!-- 工会服务请求处理链路构建工厂-->	
+	 <bean id="psmcChjghProcessChinaFactory" class="priv.guochun.psmc.website.backstage.common.china.factory.PsmcChjghProcessChinaFactory" />
+	 
+	 <!-- 工会服务请求处理链路类 -->
+	 <bean id="psmcChjghRegisterMethodProcessChina" class="priv.guochun.psmc.website.backstage.common.china.impl.PsmcChjghRegisterMethodProcessChina" />
 	
 	
 </beans>
