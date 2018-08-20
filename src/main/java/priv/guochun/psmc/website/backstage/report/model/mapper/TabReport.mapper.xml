@@ -86,7 +86,7 @@
     FROM
         tab_report tr
     LEFT JOIN
-        psmc.tab_report_reply_rel trrr
+        tab_report_reply_rel trrr
     ON
         tr.REPORT_UUID = trrr.REPORT_UUID
     LEFT JOIN
