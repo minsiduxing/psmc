@@ -67,13 +67,14 @@ public class PsmcChjghServicePreInterceptor extends
 		visitModel.setClientIp(clientIp);
 		visitModel.setVisitDate(new Date());
 		visitModel.setVisitTargetMethod(targetMethod);
+		visitModel.setTargetUri(targetUri);
 		
 		//组装处理链 对请求进行层层筛查
 		String result = psmcChjghProcessChinaFactory.buildChjghProcessChina().processTask(visitModel);
 		if(StringUtils.isNotBlank(result)){
 			//如果不为空 说明链路处理期间遇到错误被拦截
-			System.out.println(result);
-			throw new Fault(new IllegalArgumentException(result)); 
+			logger.debug(result);
+			throw new Fault(new RuntimeException(result)); 
 			
 		}
 		

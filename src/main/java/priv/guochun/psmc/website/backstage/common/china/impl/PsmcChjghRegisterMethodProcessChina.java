@@ -22,12 +22,12 @@ public class PsmcChjghRegisterMethodProcessChina extends  PsmcChjghBaseProcessCh
 	private long visitLockTime = 60;
 	
 	public PsmcChjghRegisterMethodProcessChina(){
-		this.allowedMethod.put(null,null);
+		this.allowedUri.put("/psmc/services/chjgh/weChatService/register",null);
 	}
 	
 	@Override
 	public String processTask(VisitModel visitModel) {
-		if(methodIsPassed(null)){
+		if(visitModel != null && uriIsPassed(visitModel.getTargetUri())){
 			String clientIp = visitModel.getClientIp();
 			String visitTargetMethod = visitModel.getVisitTargetMethod();
 			Date visitDate = visitModel.getVisitDate();

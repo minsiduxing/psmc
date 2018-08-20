@@ -15,6 +15,8 @@ public class VisitModel {
 	
 	private String visitTargetMethod;
 
+	private String targetUri;
+	
 	public Message getMessage() {
 		return message;
 	}
@@ -45,6 +47,14 @@ public class VisitModel {
 
 	public void setVisitTargetMethod(String visitTargetMethod) {
 		this.visitTargetMethod = visitTargetMethod;
+	}
+
+	public String getTargetUri() {
+		return targetUri;
+	}
+
+	public void setTargetUri(String targetUri) {
+		this.targetUri = targetUri;
 	}
 	
 	

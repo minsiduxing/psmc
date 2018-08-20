@@ -238,7 +238,7 @@ function initoperatePanel(){
 									return;
 								}
 								$.messager.progress(); 
-								var data ={uuid:node.uuid};
+								var data ={uuid:node.uuid,groupCode:node.group_code};
 								var _url=basePath + "/authentication/tabGroupController.do";
 								_url ='<c:url value="'+_url+'"/>?method=delGroup';
 								$.ajax({
