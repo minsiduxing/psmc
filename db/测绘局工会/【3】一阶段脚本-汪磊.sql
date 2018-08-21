@@ -129,7 +129,7 @@ INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, 
 INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('5', '已备案', '困难申报状态', 9, 5, 16, 'REPORT_STAUS');
 
 
---维护保修
+--维护报修
 delete from tab_role_operate where operate_uuid in(
 select uuid from tab_operate where resource_uuid='ad705f6bb26948609e1aa55e86330d05'
 );
@@ -142,8 +142,12 @@ INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, pare
 INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'ad705f6bb26948609e1aa55e86330d05');
 
 --操作
-INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('863c2be59f01456a9341d1405793e309', 'ad705f6bb26948609e1aa55e86330d05', 'dec3b327b8a54d66bd644c544ea65c5e', 'deleteReportBusinessMethod', 'deleteReportBusinessMethod', 'INFO_REPAIR_DELETE', '维护保修删除', '维护保修删除', 43);
-INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('b8a561c0601d4cf4a691c363e73b525e', 'ad705f6bb26948609e1aa55e86330d05', 'fe755fa4bd25475fa1a9d841caa16f44', 'priv.guochun.psmc.website.backstage.report.service.ReportService', 'executeReplyReportBusinessMethod', 'INFO_REPAIR_REPLY', '维护保修', '维护保修', 42);
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('863c2be59f01456a9341d1405793e309', 'ad705f6bb26948609e1aa55e86330d05', 'dec3b327b8a54d66bd644c544ea65c5e', 'deleteReportBusinessMethod', 'deleteReportBusinessMethod', 'INFO_REPAIR_DELETE', '删除', '删除', 43);
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('b8a561c0601d4cf4a691c363e73b525e', 'ad705f6bb26948609e1aa55e86330d05', 'fe755fa4bd25475fa1a9d841caa16f44', 'priv.guochun.psmc.website.backstage.report.service.ReportService', 'executeReplyReportBusinessMethod', 'INFO_REPAIR_REPLY', '回复', '回复', 42);
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('c5fb1aae61104d439d092e470542c6d3', 'ad705f6bb26948609e1aa55e86330d05', '756d6e80c9d74b4389c918ab50ee19c3', 'priv.guochun.psmc.website.backstage.report.service.ReportService', 'findReportPageBusinessMethod', '', '查询', '查询明细信息', 44);
+
 --角色操作
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '863c2be59f01456a9341d1405793e309');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'b8a561c0601d4cf4a691c363e73b525e');
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'c5fb1aae61104d439d092e470542c6d3');
+
