@@ -53,19 +53,10 @@
 				<td class="tds">风采展示：</td>
 				<td colspan="3" width="100%">
 					<!--非全屏模式-->
-				    <div id="container">
-				        <!--菜单栏-->
-				        <div id="toolbar-container">
-				            <div id="editor-toolbar"></div>
-				            <div id="btn-container">
-				               <!--  <button id="btn1">全屏</button> -->
-				            </div>
-				        </div>
+				    
 				        <input id="hiddencontent" type="hidden" name="elegantDemeanour"/>
-				        <div id="newsContent" class="newsContent">
-				      
-				       </div>
-	                </div>
+				        <div id="newsContent" class="newsContent"></div>
+	               
 				</td>
 			</tr>
 		</table>
@@ -117,8 +108,4 @@ function formInint(isEdit){
 }
 
 </script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/wangEditor/wangEditor.min${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/uploadfy/jquery.Huploadify${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/browser${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/jquery.Jcrop.min${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/dept/addOrUpdateDept.js"></script>

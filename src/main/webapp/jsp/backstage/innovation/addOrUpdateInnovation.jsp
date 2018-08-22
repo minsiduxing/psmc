@@ -107,17 +107,8 @@
 				<td width="100%" colspan="3">
 					<!--非全屏模式-->
 				    <div id="container">
-				        <!--菜单栏-->
-				        <div id="toolbar-container" style="width:88.4%;">
-				            <div id="editor-toolbar"></div>
-				            <div id="btn-container">
-				               <!--  <button id="btn1">全屏</button> -->
-				            </div>
-				        </div>
 				        <input id="hiddencontent" type="hidden" name="achievementContent"/>
-				        <div id="newsContent" class="newsContent" style="width:88.4%;"> 
-				      
-				       </div>
+				        <div id="newsContent" class="newsContent" style="width:88.4%;"> </div>
 	                </div>
 					<%-- <textarea style="width:88.5%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="achievementContent" name="achievementContent">${info.achievement_content}</textarea> --%>
 				</td>
@@ -265,8 +256,5 @@ $('#auditDate').datetimebox({
 });
 
 </script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/wangEditor/wangEditor.min${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/uploadfy/jquery.Huploadify${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/browser${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/innovation/addOrUpdateInnovation.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/uploadImage/uploadImage.js"></script>

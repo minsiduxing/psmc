@@ -33,6 +33,12 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jcrop/jquery.color${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jcrop/jquery.Jcrop${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jcrop/jquery.Jcrop.min${jssuffix}"></script>
+
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/wangEditor-fullscreen-plugin${csssuffix}" type="text/css" />
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/wangEditor/wangEditor.min${jssuffix}"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/wangEditor/wangEditor-fullscreen-plugin${jssuffix}"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/uploadfy/jquery.Huploadify${jssuffix}"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/browser${jssuffix}"></script>
 <input type="hidden" id="basePath" name="basePath" value="<%=request.getContextPath()%>"/>
 
 <script type="text/javascript">
