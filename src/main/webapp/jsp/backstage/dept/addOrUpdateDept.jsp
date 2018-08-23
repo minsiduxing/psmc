@@ -27,7 +27,9 @@
 				<tr>	
 					<td class="tds">工作室简介：</td>
 					<td width="100%" colspan="3">
-						<textarea style="width:80%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="deptIntroduction" name="deptIntroduction">${dept.dept_introduction}</textarea>
+						<%-- <textarea style="width:80%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="deptIntroduction" name="deptIntroduction">${dept.dept_introduction}</textarea> --%>
+						<input id="deptIntroduction" name="deptIntroduction" type="hidden">
+						<div id="introductionContent" class="newsContent"></div>
 					</td>
 				</tr>	
 			</c:if>
@@ -38,15 +40,19 @@
 				</tr>
 				<tr>
 					<td class="tds">协会简介：</td>
-					<td width="100%" colspan="3">
-						<textarea style="width:80%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="deptIntroduction" name="deptIntroduction">${dept.dept_introduction}</textarea>
+					<td width="100%"  colspan="3">
+						<%-- <textarea style="width:80%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="deptIntroduction" name="deptIntroduction">${dept.dept_introduction}</textarea> --%>
+						<input id="deptIntroduction" name="deptIntroduction" type="hidden">
+						<div id="introductionContent" class="newsContent"></div>
 					</td>
 				</tr>	
 			</c:if>	
 			<tr>
 				<td class="tds" >规范管理办法：</td>
 				<td width="100%" colspan="3">
-					<textarea style="width:80%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="deptRegulation" name="deptRegulation">${dept.dept_regulation}</textarea>
+					<%-- <textarea style="width:80%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="deptRegulation" name="deptRegulation">${dept.dept_regulation}</textarea> --%>
+					<input id="deptRegulation" name="deptRegulation" type="hidden">
+					<div id="regulationContent" class="newsContent"></div>
 				</td>
 			</tr>
 			<tr>
@@ -82,9 +88,11 @@ var isEdit = $("#isEdit").val();
 var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUpload&oneLevelClassify='+$("#deptType").val();
 
 //表单数据初始化---------------------------------------------------
-var newscontent = '${dept.elegant_demeanour}';
 var addUrl = '<c:url value="/website/backstage/TabDeptController.do"/>?method=saveOrUpdateDept';
 var retrunUrl =  '<c:url value="/website/backstage/TabDeptController.do"/>?method=toDeptList&deptType='+$("#deptType").val();
+var newscontent = '${dept.elegant_demeanour}';
+var deptIntroduction = '${dept.dept_introduction}';
+var deptRegulation = '${dept.dept_regulation}';
 function formInint(isEdit){
 	if(isEdit == "query"){
 		$("#submitbtn").hide();
@@ -97,14 +105,7 @@ function formInint(isEdit){
         required : true
 
 	});
-	$('#deptIntroduction').validatebox({
-		type:"text",
-        required : true
-	});
-	$('#deptRegulation').validatebox({
-		type:"text",
-        required : true
-	});
+	
 }
 
 </script>

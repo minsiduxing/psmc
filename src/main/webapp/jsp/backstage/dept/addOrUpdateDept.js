@@ -8,16 +8,21 @@ $(function(){
 	//富文本编辑器初始化
 	wangEditorInit(isEdit);
 	//表单初始化
+	initEditor1(isEdit);
+	initEditor2(isEdit);
 	formInint(isEdit);
 	/*//图片初始化
 	newsPicInit(isEdit);*/
 });
-var editor;
+var editor1;
+var editor2;
+var editor3;
 function sbmit (e){
 	event.preventDefault();
 	var result = $('#editForm').form("validate");
-	$("#hiddencontent").val(editor.txt.html());
-
+	$("#deptIntroduction").val(editor1.txt.html());
+	$("#deptRegulation").val(editor2.txt.html());
+	$("#hiddencontent").val(editor3.txt.html());
 	var formdata = $("#editForm").serialize();
 	var _addUrl = addUrl;
 	if(Boolean(result)){
@@ -45,13 +50,62 @@ function successCallback(data){
 	commonObj.showResponse(data);
 }
 
+function initEditor1(isEdit){
+	editor1 = createWangeditor("introductionContent");
+	 if (isEdit=="edit") {
+   	  editor1.txt.html(deptIntroduction) ;
+     }
+     if(isEdit=="query"){
+   	  editor1.txt.html(deptIntroduction) ;
+   	  editor1.$textElem.attr('contenteditable', false);
+     }
+}
+
+function initEditor2(isEdit){
+	editor2 = createWangeditor("regulationContent");
+	 if (isEdit=="edit") {
+   	  editor2.txt.html(deptRegulation) ;
+     }
+     if(isEdit=="query"){
+   	  editor2.txt.html(deptRegulation) ;
+   	  editor2.$textElem.attr('contenteditable', false);
+     }
+}
+
 /**
  * 富文本编辑器初始化-----------------------------------
  */
+function createWangeditor(divId){
+	var E = window.wangEditor;
+	var editor = new E("#" + divId);
+	editor.customConfig.menus = [
+                                    'head',  // 标题
+								    'bold',  // 粗体
+								    'fontSize',  // 字号
+								    'fontName',  // 字体
+								    'italic',  // 斜体
+								    'underline',  // 下划线
+								    'strikeThrough',  // 删除线
+								    'foreColor',  // 文字颜色
+								    'backColor',  // 背景颜色
+								    'list',  // 列表
+								    'justify',  // 对齐方式
+								    'emoticon',  // 表情
+								    'table',  // 表格
+								    'undo',  // 撤销
+								    'redo'  // 重复
+								   ];
+	editor.customConfig.zIndex = 500;
+	editor.create(); 
+    E.fullscreen.init("#" + divId);
+    return editor;
+}
+
+
 function  wangEditorInit(isEdit){
-    	  var E = window.wangEditor
-           editor = new E('#newsContent');
-    	  editor.customConfig.menus = [
+    	  var E = window.wangEditor;
+          editor3 = new E('#newsContent');
+    	  editor3.customConfig.menus = [
    	                                    'head',  // 标题
 									    'bold',  // 粗体
 									    'fontSize',  // 字号
@@ -64,17 +118,16 @@ function  wangEditorInit(isEdit){
 									    'link',  // 插入链接
 									    'list',  // 列表
 									    'justify',  // 对齐方式
-									    'quote',  // 引用
 									    'emoticon',  // 表情
 									    'image',  // 插入图片
 									    'table',  // 表格
 									    'undo',  // 撤销
 									    'redo'  // 重复
-									   ]
-    	  editor.customConfig.uploadImgMaxSize = 3 * 1000 * 1000;//限制图片最大不超过3M
-    	  editor.customConfig.zIndex = 998;
-          editor.customConfig.uploadImgServer = imageuploadsrc;  // 上传图片到服务器
-          editor.customConfig.uploadImgHooks = {
+									   ];
+    	  editor3.customConfig.uploadImgMaxSize = 1000 * 1000;//限制图片最大不超过1M
+    	  editor3.customConfig.zIndex = 500;
+          editor3.customConfig.uploadImgServer = imageuploadsrc;  // 上传图片到服务器
+          editor3.customConfig.uploadImgHooks = {
         		    // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
         		    // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
         		    customInsert: function (insertImg, result, editor) {
@@ -89,14 +142,14 @@ function  wangEditorInit(isEdit){
         		        // result 必须是一个 JSON 格式字符串！！！否则报错
         		    }
         		}
-          editor.create(); 
+          editor3.create(); 
           E.fullscreen.init('#newsContent');
           if (isEdit=="edit") {
-        	  editor.txt.html(newscontent) ;
+        	  editor3.txt.html(newscontent) ;
           }
           if(isEdit=="query"){
-        	  editor.txt.html(newscontent) ;
-        	  editor.$textElem.attr('contenteditable', false);
+        	  editor3.txt.html(newscontent) ;
+        	  editor3.$textElem.attr('contenteditable', false);
           }
     }
 //富文本编辑器结束-----------------------------

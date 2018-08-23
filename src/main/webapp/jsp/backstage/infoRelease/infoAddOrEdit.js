@@ -68,15 +68,14 @@ function  wangEditorInit(isEdit){
 									    'link',  // 插入链接
 									    'list',  // 列表
 									    'justify',  // 对齐方式
-									    'quote',  // 引用
 									    'emoticon',  // 表情
 									    'image',  // 插入图片
 									    'table',  // 表格
 									    'undo',  // 撤销
 									    'redo'  // 重复
 									   ]
-    	  editor.customConfig.uploadImgMaxSize = 3 * 1000 * 1000;//限制图片最大不超过3M
-    	  editor.customConfig.zIndex = 998;
+    	  editor.customConfig.uploadImgMaxSize = 1000 * 1000;//限制图片最大不超过1M
+    	  editor.customConfig.zIndex = 500;
           editor.customConfig.uploadImgServer = imageuploadsrc;  // 上传图片到服务器
           editor.customConfig.uploadImgHooks = {
         		    // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
