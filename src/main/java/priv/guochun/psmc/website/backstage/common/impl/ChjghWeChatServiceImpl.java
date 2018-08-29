@@ -47,6 +47,7 @@ import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentServi
 import priv.guochun.psmc.website.backstage.common.ChjghWeChatService;
 import priv.guochun.psmc.website.backstage.dept.service.TabDeptService;
 import priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService;
+import priv.guochun.psmc.website.backstage.laud.service.TabLaudService;
 import priv.guochun.psmc.website.backstage.pageView.model.TabPageView;
 import priv.guochun.psmc.website.backstage.pageView.service.TabPageViewService;
 import priv.guochun.psmc.website.backstage.report.model.TabReport;
@@ -99,6 +100,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	private TabCommentService tabCommentService;
 	private UploadAssemblyInterface uploadAssemblyInterface;
 	private TabAttachmentService tabAttachmentService;
+	private TabLaudService tabLaudService;
 	
 	public TabAttachmentService getTabAttachmentService() {
 		return tabAttachmentService;
@@ -532,7 +534,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		return GsonUtil.toJsonForObject(msg);
 	}
 	
-	public String topicsDetail(String topicUuid){
+	public String topicsDetail(String topicUuid, String personUuid){
 		MsgModel msg = null;
 		try {
 			Map<String, Object> dataMap = new HashMap<String, Object>();
@@ -540,10 +542,13 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			tabPageViewService.saveOrUpdate(topicUuid);
 			//主题信息详情
 			Map<String, Object> topicMap = tabTopicsService.queryTopicsToMobile(topicUuid);
+			//是否已点赞
+			boolean isLaud = tabLaudService.selectIsLaud(topicUuid, personUuid);
 			//附件信息
 			List<Map<String, Object>> attachmentList = tabAttachmentService.queryAttachmentList(topicUuid);
 			dataMap.put("topicMap", topicMap);
 			dataMap.put("attachmentList", attachmentList);
+			dataMap.put("isLaud", isLaud);
 			msg = MsgModel.buildDefaultSuccess("获取数据成功", dataMap);
 		} catch (Exception e) {
 			logger.error("获取数据异常." + e);
@@ -596,6 +601,40 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			msg = MsgModel.buildDefaultSuccess("删除成功", null);
 		} catch (Exception e) {
 			logger.error("删除评论异常." + e);
+			msg = MsgModel.buildDefaultError("操作异常");
+		}
+		return GsonUtil.toJsonForObject(msg); 
+	}
+	
+	@Override
+	public String addLaud(String moduleUuid, String personUuid){
+		if(StringUtils.isBlank(moduleUuid) || StringUtils.isBlank(personUuid)){
+			MsgModel msg = MsgModel.buildDefaultError("参数不合法 ");
+			return  GsonUtil.toJsonForObject(msg);
+		}
+		MsgModel msg = null;
+		try {
+			tabLaudService.addLaud(moduleUuid, personUuid);
+			msg = MsgModel.buildDefaultSuccess("点赞成功", null);
+		} catch (Exception e) {
+			logger.error("点赞异常." + e);
+			msg = MsgModel.buildDefaultError("操作异常");
+		}
+		return GsonUtil.toJsonForObject(msg); 
+	}
+	
+	@Override
+	public String cancelLaud(String moduleUuid, String personUuid) {
+		if(StringUtils.isBlank(moduleUuid) || StringUtils.isBlank(personUuid)){
+			MsgModel msg = MsgModel.buildDefaultError("参数不合法 ");
+			return  GsonUtil.toJsonForObject(msg);
+		}
+		MsgModel msg = null;
+		try {
+			tabLaudService.deleteLaud(moduleUuid, personUuid);
+			msg = MsgModel.buildDefaultSuccess("取消点赞成功", null);
+		} catch (Exception e) {
+			logger.error("取消点赞异常." + e);
 			msg = MsgModel.buildDefaultError("操作异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -715,6 +754,14 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 
 	public void setUploadAssemblyInterface(UploadAssemblyInterface uploadAssemblyInterface) {
 		this.uploadAssemblyInterface = uploadAssemblyInterface;
+	}
+
+	public TabLaudService getTabLaudService() {
+		return tabLaudService;
+	}
+
+	public void setTabLaudService(TabLaudService tabLaudService) {
+		this.tabLaudService = tabLaudService;
 	}
 	
 }

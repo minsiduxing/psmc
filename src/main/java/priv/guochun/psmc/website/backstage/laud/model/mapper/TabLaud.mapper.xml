@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.guochun.psmc.website.backstage.laud.model.mapper.TabLaudMapper">
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.laud.model.TabLaud">
+    <id column="laud_uuid" jdbcType="VARCHAR" property="laudUuid" />
+    <result column="module_uuid" jdbcType="VARCHAR" property="moduleUuid" />
+    <result column="laud_date" jdbcType="TIMESTAMP" property="laudDate" />
+    <result column="laud_person_uuid" jdbcType="VARCHAR" property="laudPersonUuid" />
+    <result column="laud_person_name" jdbcType="VARCHAR" property="laudPersonName" />
+  </resultMap>
+  
+  <select id="selectLaudList" parameterType="hashmap" resultType="java.util.Map">
+    select
+    	laud_uuid, module_uuid, laud_person_uuid, laud_person_name,
+    	date_format(laud_date, '%Y-%m-%d %H:%i:%S') AS laud_date
+    from tab_laud
+    <where>
+    	1 = 1
+    	<if test="laudUuid != null and laudUuid != ''">
+    		and laud_uuid = #{laudUuid}
+    	</if>
+    	<if test="moduleUuid != null and moduleUuid != ''">
+    		and module_uuid = #{moduleUuid}
+    	</if>
+    	<if test="laudPersonUuid != null and laudPersonUuid != ''">
+    		and laud_person_uuid = #{laudPersonUuid}
+    	</if>
+    </where>
+  </select>
+  
+  
+  <delete id="deleteLaud" parameterType="hashmap">
+    delete from tab_laud
+    where module_uuid = #{moduleUuid,jdbcType=VARCHAR}
+    and laud_person_uuid = #{laudPersonUuid,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insertLaud" parameterType="priv.guochun.psmc.website.backstage.laud.model.TabLaud">
+    insert into tab_laud (laud_uuid, module_uuid, laud_date, 
+      laud_person_uuid, laud_person_name)
+    values (#{laudUuid,jdbcType=VARCHAR}, #{moduleUuid,jdbcType=VARCHAR}, #{laudDate,jdbcType=TIMESTAMP}, 
+      #{laudPersonUuid,jdbcType=VARCHAR}, #{laudPersonName,jdbcType=VARCHAR})
+  </insert>
+  
+  <!-- <insert id="insertSelective" parameterType="priv.guochun.psmc.website.backstage.laud.model.TabLaud">
+    insert into tab_laud
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="laudUuid != null">
+        laud_uuid,
+      </if>
+      <if test="moduleUuid != null">
+        module_uuid,
+      </if>
+      <if test="laudDate != null">
+        laud_date,
+      </if>
+      <if test="laudPersonUuid != null">
+        laud_person_uuid,
+      </if>
+      <if test="laudPersonName != null">
+        laud_person_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="laudUuid != null">
+        #{laudUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleUuid != null">
+        #{moduleUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="laudDate != null">
+        #{laudDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="laudPersonUuid != null">
+        #{laudPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="laudPersonName != null">
+        #{laudPersonName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateByExampleSelective" parameterType="map">
+    update tab_laud
+    <set>
+      <if test="record.laudUuid != null">
+        laud_uuid = #{record.laudUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleUuid != null">
+        module_uuid = #{record.moduleUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.laudDate != null">
+        laud_date = #{record.laudDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.laudPersonUuid != null">
+        laud_person_uuid = #{record.laudPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.laudPersonName != null">
+        laud_person_name = #{record.laudPersonName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tab_laud
+    set laud_uuid = #{record.laudUuid,jdbcType=VARCHAR},
+      module_uuid = #{record.moduleUuid,jdbcType=VARCHAR},
+      laud_date = #{record.laudDate,jdbcType=TIMESTAMP},
+      laud_person_uuid = #{record.laudPersonUuid,jdbcType=VARCHAR},
+      laud_person_name = #{record.laudPersonName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="priv.guochun.psmc.website.backstage.laud.model.TabLaud">
+    update tab_laud
+    <set>
+      <if test="moduleUuid != null">
+        module_uuid = #{moduleUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="laudDate != null">
+        laud_date = #{laudDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="laudPersonUuid != null">
+        laud_person_uuid = #{laudPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="laudPersonName != null">
+        laud_person_name = #{laudPersonName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where laud_uuid = #{laudUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="priv.guochun.psmc.website.backstage.laud.model.TabLaud">
+    update tab_laud
+    set module_uuid = #{moduleUuid,jdbcType=VARCHAR},
+      laud_date = #{laudDate,jdbcType=TIMESTAMP},
+      laud_person_uuid = #{laudPersonUuid,jdbcType=VARCHAR},
+      laud_person_name = #{laudPersonName,jdbcType=VARCHAR}
+    where laud_uuid = #{laudUuid,jdbcType=VARCHAR}
+  </update> -->
+</mapper>

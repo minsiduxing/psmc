@@ -218,6 +218,8 @@ public class OperateContantsUtil {
     public final static String FLEA_MARKET_PAUSE = "FLEA_MARKET_PAUSE";
     public final static String FLEA_MARKET_PREVIW = "FLEA_MARKET_PREVIW";
     public final static String FLEA_MARKET_UNDO = "FLEA_MARKET_UNDO";
+    public final static String FLEA_MARKET_RELEASE = "FLEA_MARKET_RELEASE";
+    public final static String FLEA_MARKET_BAN_RELEASE = "FLEA_MARKET_BAN_RELEASE";
     
     /**
      * 曝光台操作编码
@@ -227,6 +229,8 @@ public class OperateContantsUtil {
     public final static String EXPOSURE_TABLE_PAUSE = "EXPOSURE_TABLE_PAUSE";
     public final static String EXPOSURE_TABLE_PREVIW = "EXPOSURE_TABLE_PREVIW";
     public final static String EXPOSURE_TABLE_UNDO = "EXPOSURE_TABLE_UNDO";
+    public final static String EXPOSURE_TABLE_RELEASE = "EXPOSURE_TABLE_RELEASE";
+    public final static String EXPOSURE_TABLE_BAN_RELEASE = "EXPOSURE_TABLE_BAN_RELEASE";
     
     /**
      * 合理化建议操作编码
@@ -245,6 +249,8 @@ public class OperateContantsUtil {
     public final static String PRAISE_PAUSE = "PRAISE_PAUSE";
     public final static String PRAISE_PREVIW = "PRAISE_PREVIW";
     public final static String PRAISE_UNDO = "PRAISE_UNDO";
+    public final static String PRAISE_RELEASE = "PRAISE_RELEASE";
+    public final static String PRAISE_BAN_RELEASE = "PRAISE_BAN_RELEASE";
     
     /**
      * 投诉操作编码
@@ -254,4 +260,6 @@ public class OperateContantsUtil {
     public final static String COMPLAIN_PAUSE = "COMPLAIN_PAUSE";
     public final static String COMPLAIN_PREVIW = "COMPLAIN_PREVIW";
     public final static String COMPLAIN_UNDO = "COMPLAIN_UNDO";
+    public final static String COMPLAIN_RELEASE = "COMPLAIN_RELEASE";
+    public final static String COMPLAIN_BAN_RELEASE = "COMPLAIN_BAN_RELEASE";
 }

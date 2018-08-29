@@ -51,4 +51,18 @@ public interface TabTopicsService {
 	 * @param tabTopics
 	 */
 	public void updateTopicsStatusBusinessMethod(TabTopics tabTopics);
+	
+	/**
+	 * 发布
+	 * @param topicUuids
+	 * @param personUuid
+	 */
+	public void executeReleaseBusinessMethod(String topicUuids, String personUuid);
+	
+	/**
+	 * 禁止发布
+	 * @param topicUuids
+	 * @param personUuid
+	 */
+	public void executeBanReleaseBusinessMethod(String topicUuids, String personUuid);
 }

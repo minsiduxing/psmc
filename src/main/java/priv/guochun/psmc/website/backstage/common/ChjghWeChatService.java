@@ -232,12 +232,13 @@ public interface ChjghWeChatService {
 	/**
 	 * 查询主题详情以及对应的评论列表
 	 * @param topicUuid 主题id
+	 * @param personUuid 人员id
 	 * @return
 	 */
 	@Path("/topicsDetail")
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
-	public String topicsDetail(@FormParam("topicUuid") String topicUuid);
+	public String topicsDetail(@FormParam("topicUuid") String topicUuid, @FormParam("personUuid") String personUuid);
 	
 	/**
 	 * 查询评论列表
@@ -268,4 +269,26 @@ public interface ChjghWeChatService {
     @POST
 	@Consumes("application/x-www-form-urlencoded")
 	public String deleteComment(@FormParam("commentUuid") String commentUuid);
+	
+	/**
+	 * 点赞
+	 * @param moduleUuid 信息模型id
+	 * @param personUuid 人员id
+	 * @return
+	 */
+	@Path("/addLaud")
+	@POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String addLaud(@FormParam("moduleUuid") String moduleUuid, @FormParam("personUuid") String personUuid);
+	
+	/**
+	 * 取消点赞
+	 * @param moduleUuid 信息模型id
+	 * @param personUuid 人员id
+	 * @return
+	 */
+	@Path("/cancelLaud")
+	@POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String cancelLaud(@FormParam("moduleUuid") String moduleUuid, @FormParam("personUuid") String personUuid);
 }

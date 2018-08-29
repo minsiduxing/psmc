@@ -16,6 +16,7 @@ import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentServi
 import priv.guochun.psmc.website.backstage.common.BaseDao;
 import priv.guochun.psmc.website.backstage.topics.model.TabTopics;
 import priv.guochun.psmc.website.backstage.topics.service.TabTopicsService;
+import priv.guochun.psmc.website.enums.ModuleEnum;
 
 public class TabTopicsServiceImpl implements TabTopicsService{
 	
@@ -24,6 +25,7 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 	private static final String insertTopics = "insertTopics";
 	private static final String updateTopics = "updateTopics";
 	private static final String updateTopicsStatus = "updateTopicsStatus";
+	private static final String selectTopicsListToMobile = "selectTopicsListToMobile";
 	
 	@Autowired
 	private BaseDao baseDao;
@@ -71,7 +73,7 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 		if(condition == null){
 			condition = new HashMap<String,Object>();
 		}
-		return baseDao.getMyPage(myPage, selectTopicsList, condition);
+		return baseDao.getMyPage(myPage, selectTopicsListToMobile, condition);
 	}
 	
 	@Override
@@ -83,7 +85,12 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 	
 	@Override
 	public MyPage queryTopicListBusinessMethod(MyPage myPage) {
-		return this.queryTopicListToMobile(myPage);
+		Map<String,Object> condition = myPage.getQueryParams();
+		 //查询参数添加
+		if(condition == null){
+			condition = new HashMap<String,Object>();
+		}
+		return baseDao.getMyPage(myPage, selectTopicsList, condition);
 	}
 	
 	@Override
@@ -96,6 +103,26 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 		Map<String,Object> condition = new HashMap<String,Object>();
 		condition.put("ids", tabTopics.getTopicUuid().split(","));
 		condition.put("topicStatus", tabTopics.getTopicStatus());
+		baseDao.update(updateTopicsStatus, condition);
+	}
+	
+	@Override
+	public void executeReleaseBusinessMethod(String topicUuids, String personUuid){
+		Map<String,Object> condition = new HashMap<String,Object>();
+		condition.put("ids", topicUuids.split(","));
+		condition.put("releaseStatus", ModuleEnum.IS_RELEASEED.getValue());
+		condition.put("releaseTime", DateUtil.getCurrentTimstamp());
+		condition.put("releasePersonUuid", personUuid);
+		baseDao.update(updateTopicsStatus, condition);
+	}
+	
+	@Override
+	public void executeBanReleaseBusinessMethod(String topicUuids, String personUuid){
+		Map<String,Object> condition = new HashMap<String,Object>();
+		condition.put("ids", topicUuids.split(","));
+		condition.put("releaseStatus", ModuleEnum.BAN_RELEASEED.getValue());
+		condition.put("releaseTime", DateUtil.getCurrentTimstamp());
+		condition.put("releasePersonUuid", personUuid);
 		baseDao.update(updateTopicsStatus, condition);
 	}
 }

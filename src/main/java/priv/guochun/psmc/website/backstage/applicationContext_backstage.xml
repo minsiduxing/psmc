@@ -92,6 +92,8 @@
 	<bean id="tabCommentService" class="priv.guochun.psmc.website.backstage.topics.service.impl.TabCommentServiceImpl"/>
 	<!-- 附件信息service注入 -->
 	<bean id="tabAttachmentService" class="priv.guochun.psmc.website.backstage.attachment.service.impl.TabAttachmentServiceImpl"/>
+	<!-- 点赞service注入 -->
+	<bean id="tabLaudService" class="priv.guochun.psmc.website.backstage.laud.service.impl.TabLaudServiceImpl"/>
 
 	<jaxrs:server id="chjghWeChatCxfService" address="/chjgh" >
                 <jaxrs:serviceBeans>

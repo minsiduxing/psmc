@@ -100,6 +100,30 @@ public class TabTopicsController extends MyController{
 	}
 	
 	/**
+	 * 发布
+	 * @param topicUuids
+	 * @throws IOException 
+	 */
+	@RequestMapping(params="method=releaseTopics")
+	public void releaseTopics(String topicUuids) throws IOException{
+		String userId = this.getUserBySeesion(this.request()).getUserUuid();
+		tabTopicsService.executeReleaseBusinessMethod(topicUuids, userId);
+		super.responseJson(true, "操作成功!", this.response());
+	}
+	
+	/**
+	 * 禁止发布
+	 * @param topicUuids
+	 * @throws IOException 
+	 */
+	@RequestMapping(params="method=banReleaseTopics")
+	public void banReleaseTopics(String topicUuids) throws IOException{
+		String userId = this.getUserBySeesion(this.request()).getUserUuid();
+		tabTopicsService.executeBanReleaseBusinessMethod(topicUuids, userId);
+		super.responseJson(true, "操作成功!", this.response());
+	}
+	
+	/**
 	 * 跳转到主题信息列表页面
 	 * @return
 	 */

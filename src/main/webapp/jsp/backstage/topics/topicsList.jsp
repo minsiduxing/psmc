@@ -71,6 +71,12 @@
 	<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_UNDO%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
 	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_RELEASE%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-release" plain="true" id="release">发布</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_BAN_RELEASE%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">禁止发布</a>
+	</g:auth>
 
 </c:if>
 <c:if test="${param.blockUuid=='02'}">
@@ -85,6 +91,12 @@
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_UNDO%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_RELEASE%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-release" plain="true" id="release">发布</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_BAN_RELEASE%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">禁止发布</a>
 	</g:auth>
 </c:if>
 <c:if test="${param.blockUuid=='03'}">
@@ -114,6 +126,12 @@
 	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_UNDO%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
 	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_RELEASE%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-release" plain="true" id="release">发布</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_BAN_RELEASE%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">禁止发布</a>
+	</g:auth>
 </c:if>
 <c:if test="${param.blockUuid=='05'}">
 	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_PAUSE%>">
@@ -127,6 +145,12 @@
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_UNDO%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_RELEASE%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-release" plain="true" id="release">发布</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_BAN_RELEASE%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">禁止发布</a>
 	</g:auth>
 </c:if>
 </div>
@@ -150,6 +174,8 @@ var topicsDetailUrl ='<c:url value="'+topicDo+'"/>?method=topicsDetail';
 var pauseTopicsCommentUrl = '<c:url value="'+topicDo+'"/>?method=pauseTopicsComment';
 var deleteTopicsUrl = '<c:url value="'+topicDo+'"/>?method=deleteTopics';
 var undoTopicsUrl = '<c:url value="'+topicDo+'"/>?method=undoTopics';
+var releaseUrl = '<c:url value="'+topicDo+'"/>?method=releaseTopics';
+var banReleaseUrl = '<c:url value="'+topicDo+'"/>?method=banReleaseTopics';
 
 var commentDo = basePath+"/website/backstage/tabCommentController.do";
 var commentListUrl ='<c:url value="'+commentDo+'"/>?method=tabCommentList';

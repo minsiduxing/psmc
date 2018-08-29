@@ -314,4 +314,57 @@ delete from tab_data_dict where DICT_NO = 'TOPICS_STATUS';
 INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('1', '正常', '主题信息状态', 1, 1, 1, 'TOPICS_STATUS');
 INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('2', '禁止评论', '主题信息状态', 2, 2, 2, 'TOPICS_STATUS');
 
+---主题信息增加发布字段
+alter table tab_topics add release_status INTEGER comment '发布状态';
+alter table tab_topics add release_time TIMESTAMP NULL comment '发布时间';
+alter table tab_topics add release_person_uuid varchar(64) comment '发布人id';
 
+---新增操作配置（发布和禁止发布）
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('38852cba55c9470eb0ac5634635f66da','2108b5f2b4704a1b85ac0b2a596ded97','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.topics.service.TabTopicsService','executeReleaseBusinessMethod','发布','发布',6  ,'FLEA_MARKET_RELEASE');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('ede72221fa2049fd8160377809d9a5df','2108b5f2b4704a1b85ac0b2a596ded97','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.topics.service.TabTopicsService','executeBanReleaseBusinessMethod','禁止发布','禁止发布',7  ,'FLEA_MARKET_BAN_RELEASE');
+
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('484cbb067730459ab97cb5ff25fff41d','9dcf22db90c74e96b4e6c16da7ed84fd','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.topics.service.TabTopicsService','executeReleaseBusinessMethod','发布','发布',6  ,'EXPOSURE_TABLE_RELEASE');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('242d6d5d66054d33bfdaa349832f5107','9dcf22db90c74e96b4e6c16da7ed84fd','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.topics.service.TabTopicsService','executeBanReleaseBusinessMethod','禁止发布','禁止发布',7  ,'EXPOSURE_TABLE_BAN_RELEASE');
+
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('267cabbc9e244b519ccd9bcdddb827be','bde250464cdc458ead9472ee9cdfda7f','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.topics.service.TabTopicsService','executeReleaseBusinessMethod','发布','发布',6  ,'PRAISE_RELEASE');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('5a99cebe7a89492d84e2b0df8861ea89','bde250464cdc458ead9472ee9cdfda7f','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.topics.service.TabTopicsService','executeBanReleaseBusinessMethod','禁止发布','禁止发布',7  ,'PRAISE_BAN_RELEASE');
+
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('d8a08f951ae8478abc75968f982b37b6','16730e48bc1248c48500f202dfe3f2ab','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.topics.service.TabTopicsService','executeReleaseBusinessMethod','发布','发布',6  ,'COMPLAIN_RELEASE');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
+('3bd3339830854cb3af9d01040ad71f6e','16730e48bc1248c48500f202dfe3f2ab','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.topics.service.TabTopicsService','executeBanReleaseBusinessMethod','禁止发布','禁止发布',7  ,'COMPLAIN_BAN_RELEASE');     
+
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '38852cba55c9470eb0ac5634635f66da');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', 'ede72221fa2049fd8160377809d9a5df');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '484cbb067730459ab97cb5ff25fff41d');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '242d6d5d66054d33bfdaa349832f5107');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '267cabbc9e244b519ccd9bcdddb827be');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '5a99cebe7a89492d84e2b0df8861ea89');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', 'd8a08f951ae8478abc75968f982b37b6');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '3bd3339830854cb3af9d01040ad71f6e');
+
+drop table tab_laud;
+---创建点赞表
+create table tab_laud
+(
+   laud_uuid            varchar(100) not null comment '点赞主键',
+   module_uuid          varchar(100) comment '点赞模型id',
+   laud_date            timestamp comment '点赞时间',
+   laud_person_uuid     varchar(64) comment '点赞人id',
+   laud_person_name     varchar(100) comment '点赞人姓名',
+   primary key (laud_uuid)
+);
