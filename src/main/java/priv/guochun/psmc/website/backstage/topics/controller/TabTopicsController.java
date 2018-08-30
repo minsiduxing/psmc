@@ -112,7 +112,7 @@ public class TabTopicsController extends MyController{
 	}
 	
 	/**
-	 * 禁止发布
+	 * 取消发布
 	 * @param topicUuids
 	 * @throws IOException 
 	 */

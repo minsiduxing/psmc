@@ -60,7 +60,7 @@ public interface TabTopicsService {
 	public void executeReleaseBusinessMethod(String topicUuids, String personUuid);
 	
 	/**
-	 * 禁止发布
+	 * 取消发布
 	 * @param topicUuids
 	 * @param personUuid
 	 */

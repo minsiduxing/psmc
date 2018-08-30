@@ -5,8 +5,6 @@ public enum ModuleEnum {
 	NOT_RELEASE("NOT_RELEASE","2"),
 	//已发布 
 	IS_RELEASEED("IS_RELEASEED","1"),
-	//禁止发布
-	BAN_RELEASEED("BAN_RELEASEED", "3"),
 	//未审核
 	NOT_AUDITED("NOT_AUDITED","2"),
 	//	审核通过

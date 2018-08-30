@@ -99,11 +99,22 @@
 	    <if test="releaseStatus != null and releaseStatus != ''">
 	      and t1.release_status = #{releaseStatus}
 	    </if>
+	    <if test="personUuid != null and personUuid != ''">
+	      and t1.release_status = 1
+	      or (t1.release_status = 2 and t1.create_person_uuid = #{personUuid})
+	    </if>
+	    <if test="queryParameter != null and queryParameter != ''" >  
+		       and (t1.topic_name like concat(concat('%',#{queryParameter}),'%')
+		       		or t1.topic_content LIKE concat(concat('%',#{queryParameter}),'%')
+		       		or t1.create_person_name LIKE concat(concat('%',#{queryParameter}),'%')
+		       		or t1.telephone like concat(concat('%',#{queryParameter}),'%')
+		       	   )
+		</if> 
     </where>
       order by create_date desc
   </select>
   
-  <select id="selectTopicsListToMobile" parameterType="hashmap" resultType="java.util.Map">
+  <!-- <select id="selectTopicsListToMobile" parameterType="hashmap" resultType="java.util.Map">
   	select
     	t1.topic_uuid,t1.topic_name,t1.topic_content,t1.topic_status,t1.block_uuid,t1.create_person_uuid,
     	t1.telephone,t1.last_comment_person_uuid,t1.last_comment_uuid,t1.create_person_name,t1.image_path,
@@ -143,8 +154,8 @@
     	t5.module_uuid = t1.topic_uuid
     <where>
     	1 = 1
-	    and t1.topic_status != 3
-	    and (t1.release_status = 1 or (t1.release_status = 3 and t1.create_person_uuid = #{createPersonUuid}))
+	    and t1.topic_status == 1
+	    and (t1.release_status = 2 and t1.create_person_uuid = #{personUuid})
 	    <if test="queryParameter != null and queryParameter != ''" >  
 		       and (t1.topic_name like concat(concat('%',#{queryParameter}),'%')
 		       		or t1.topic_content LIKE concat(concat('%',#{queryParameter}),'%')
@@ -154,7 +165,7 @@
 		</if> 
 	</where> 
 	order by create_date desc
-  </select>
+  </select> -->
   
   <select id="selectTopicsByPrimaryKey" parameterType="hashmap" resultType="java.util.Map" >
     select
@@ -397,6 +408,15 @@
 		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
 			#{item}  
 		</foreach>  
+  </update>
+  
+  <update id="updateTopics2" parameterType="hashmap">
+  	update tab_topics set release_status = #{releaseStatus},release_time = #{releaseTime},
+  		release_person_uuid = #{releasePersonUuid}
+  	where topic_uuid in
+		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+			#{item}  
+		</foreach> 
   </update>
   
 </mapper>

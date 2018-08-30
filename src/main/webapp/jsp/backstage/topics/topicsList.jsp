@@ -45,6 +45,10 @@
 				<input id="lastCommentDateEnd" name="lastCommentDateEnd" class="easyui-datetimebox"/>
 			</li>
 			
+			<li class="li-input"><label for="" class="input-label">是否发布：</label>
+				<input id="releaseStatus" name="releaseStatus" ></input>
+			</li>
+			
 	</ul>
 		<input type="hidden" id="blockUuid" name="blockUuid" value="${param.blockUuid}"/>
 	</form>
@@ -75,7 +79,7 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-release" plain="true" id="release">发布</a>
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_BAN_RELEASE%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">禁止发布</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">取消发布</a>
 	</g:auth>
 
 </c:if>
@@ -96,7 +100,7 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-release" plain="true" id="release">发布</a>
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_BAN_RELEASE%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">禁止发布</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">取消发布</a>
 	</g:auth>
 </c:if>
 <c:if test="${param.blockUuid=='03'}">
@@ -130,7 +134,7 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-release" plain="true" id="release">发布</a>
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_BAN_RELEASE%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">禁止发布</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">取消发布</a>
 	</g:auth>
 </c:if>
 <c:if test="${param.blockUuid=='05'}">
@@ -150,7 +154,7 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-release" plain="true" id="release">发布</a>
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_BAN_RELEASE%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">禁止发布</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">取消发布</a>
 	</g:auth>
 </c:if>
 </div>
@@ -204,6 +208,7 @@ $('#lastCommentPerson').textbox({
 
 
 commonObj.initDictCombobox("topicStatus","TOPICS_STATUS","",false,true);
+commonObj.initDictCombobox("releaseStatus","IF","",false,true);
 
 //----------------------------查询框初始化结束
 

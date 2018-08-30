@@ -25,7 +25,7 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 	private static final String insertTopics = "insertTopics";
 	private static final String updateTopics = "updateTopics";
 	private static final String updateTopicsStatus = "updateTopicsStatus";
-	private static final String selectTopicsListToMobile = "selectTopicsListToMobile";
+	private static final String updateTopics2 = "updateTopics2";
 	
 	@Autowired
 	private BaseDao baseDao;
@@ -73,7 +73,7 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 		if(condition == null){
 			condition = new HashMap<String,Object>();
 		}
-		return baseDao.getMyPage(myPage, selectTopicsListToMobile, condition);
+		return baseDao.getMyPage(myPage, selectTopicsList, condition);
 	}
 	
 	@Override
@@ -85,12 +85,7 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 	
 	@Override
 	public MyPage queryTopicListBusinessMethod(MyPage myPage) {
-		Map<String,Object> condition = myPage.getQueryParams();
-		 //查询参数添加
-		if(condition == null){
-			condition = new HashMap<String,Object>();
-		}
-		return baseDao.getMyPage(myPage, selectTopicsList, condition);
+		return this.queryTopicListToMobile(myPage);
 	}
 	
 	@Override
@@ -120,9 +115,9 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 	public void executeBanReleaseBusinessMethod(String topicUuids, String personUuid){
 		Map<String,Object> condition = new HashMap<String,Object>();
 		condition.put("ids", topicUuids.split(","));
-		condition.put("releaseStatus", ModuleEnum.BAN_RELEASEED.getValue());
-		condition.put("releaseTime", DateUtil.getCurrentTimstamp());
-		condition.put("releasePersonUuid", personUuid);
-		baseDao.update(updateTopicsStatus, condition);
+		condition.put("releaseStatus", ModuleEnum.NOT_RELEASE.getValue());
+		condition.put("releaseTime", null);
+		condition.put("releasePersonUuid", null);
+		baseDao.update(updateTopics2, condition);
 	}
 }

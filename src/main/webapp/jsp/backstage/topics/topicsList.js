@@ -25,7 +25,6 @@ $(document).ready(function(){
                   {field:'release_status',title:'发布状态',align:'center',sortable:true,formatter: function (value, row, index) {
                       if(value=='1'){return "已发布"; }
                       if(value=='2'){return "未发布"; }
-                      if(value=='3'){return "禁止发布"; }
                   }},
                   {field:'release_time',title:'发布时间',align:'center',sortable:true}, 
                   {field:'releasePersonName',title:'发布人',align:'center',sortable:true}, 
@@ -231,7 +230,7 @@ $(document).ready(function(){
 		event.preventDefault();
 	});
 	
-	//禁止发布
+	//取消发布
 	$("#banRelease").click(function(){
 		var rows = $("#topicsId").datagrid('getChecked');
 		var rlength = rows.length;
@@ -241,8 +240,8 @@ $(document).ready(function(){
 				var rowObj = eval(rows[i]);
 				var topicUuid = rowObj.topic_uuid;
 				var releaseStatus = rowObj.release_status;
-				if(releaseStatus==3){
-					commonObj.alert('存在已禁止发布的信息!',"warning");
+				if(releaseStatus==2){
+					commonObj.alert('存在未发布的信息!',"warning");
 					return ;
 				}
 				ids+=topicUuid;
@@ -250,7 +249,7 @@ $(document).ready(function(){
 					ids+=",";
 			}
 			
-			$.messager.confirm('提示', '确认禁止发布选中的信息吗?', function(r){
+			$.messager.confirm('提示', '确认取消发布选中的信息吗?', function(r){
 				if (r){
 				var _url = banReleaseUrl+"&topicUuids="+ids;
 				$.messager.progress(); 
