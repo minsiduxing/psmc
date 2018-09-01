@@ -15,8 +15,10 @@ public enum LogTypeEnum
 	LogTypeSysOper2_3("日常操作",new BigDecimal(2.3)),
     
 	LogTypeSysOper3("接口交互",new BigDecimal(3)),
-	LogTypeSysOper3_1("短信接口日志",new BigDecimal(3.1));
+	LogTypeSysOper3_1("短信接口日志",new BigDecimal(3.1)),
 	
+	LogTypeSysOper4("实名认证",new BigDecimal(4)),
+	LogTypeSysOper4_1("实名认证接口日志",new BigDecimal(4.1));
     
     private String name;
     private BigDecimal index;

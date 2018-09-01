@@ -126,5 +126,7 @@
 	 <!-- 工会服务请求处理链路类 -->
 	 <bean id="psmcChjghRegisterMethodProcessChina" class="priv.guochun.psmc.website.backstage.common.china.impl.PsmcChjghRegisterMethodProcessChina" />
 	
+	 <!-- 实名认证 -->
+	 <bean id="realNameAuthService" class="priv.guochun.psmc.website.backstage.common.realNameAuth.impl.RealNameAuthServiceImpl"/>
 	
 </beans>

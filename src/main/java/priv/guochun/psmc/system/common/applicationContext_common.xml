@@ -27,7 +27,7 @@
 	
 	<bean id="tSysOperLogDao" class="priv.guochun.psmc.system.common.log.dao.impl.TSysOperLogDaoImpl" />
 	
-	
+	<bean id="tabSysConfigService" class="priv.guochun.psmc.system.common.sysConfig.service.impl.TabSysConfigServiceImpl"/>
 	
 	<bean id="logOperJobDetail"  
 	    class="org.springframework.scheduling.quartz.JobDetailFactoryBean">  

@@ -59,7 +59,7 @@ public interface ChjghWeChatService {
 	@Path("/register")//某个方法的操作的资源
     @POST
 	@Consumes("application/x-www-form-urlencoded")
-	public String register(@FormParam("name") String name,@FormParam("phone") String phone,@FormParam("code") String code);
+	public String register(@FormParam("name") String name,@FormParam("phone") String phone,@FormParam("code") String code, @FormParam("idCard") String idCard);
 	
 	
 	/**

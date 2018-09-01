@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
@@ -28,6 +29,7 @@ import priv.guochun.psmc.system.common.vcode.model.TabVerificationCode;
 import priv.guochun.psmc.system.common.vcode.service.VerificationCodeService;
 import priv.guochun.psmc.system.enums.AccountLockEnum;
 import priv.guochun.psmc.system.enums.AccountTypeEnum;
+import priv.guochun.psmc.system.enums.IfEnum;
 import priv.guochun.psmc.system.enums.VerificationCodeTypeEnum;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.framework.model.MsgModel;
@@ -45,6 +47,8 @@ import priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseServic
 import priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService;
 import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentService;
 import priv.guochun.psmc.website.backstage.common.ChjghWeChatService;
+import priv.guochun.psmc.website.backstage.common.realNameAuth.RealNameAuthService;
+import priv.guochun.psmc.website.backstage.common.realNameAuth.impl.RealNameAuthServiceImpl;
 import priv.guochun.psmc.website.backstage.dept.service.TabDeptService;
 import priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService;
 import priv.guochun.psmc.website.backstage.laud.service.TabLaudService;
@@ -57,6 +61,7 @@ import priv.guochun.psmc.website.backstage.topics.model.TabTopics;
 import priv.guochun.psmc.website.backstage.topics.service.TabCommentService;
 import priv.guochun.psmc.website.backstage.topics.service.TabTopicsService;
 import priv.guochun.psmc.website.backstage.util.ChjghContants;
+import priv.guochun.psmc.website.backstage.util.IdCardUtil;
 import priv.guochun.psmc.website.enums.ModuleEnum;
 
 
@@ -101,6 +106,8 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	private UploadAssemblyInterface uploadAssemblyInterface;
 	private TabAttachmentService tabAttachmentService;
 	private TabLaudService tabLaudService;
+	@Autowired
+	private RealNameAuthService realNameAuthService;
 	
 	public TabAttachmentService getTabAttachmentService() {
 		return tabAttachmentService;
@@ -185,8 +192,8 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	}
 	
 	@Override
-	public String register(String name,String phone,String code){
-		if(StringUtils.isBlank(name) || StringUtils.isBlank(code) || StringUtils.isBlank(code)){
+	public String register(String name,String phone,String code,String idCard){
+		if(StringUtils.isBlank(name) || StringUtils.isBlank(code) || StringUtils.isBlank(code) || StringUtils.isBlank(idCard)){
 			 return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("非法参数!"));
 		}
 		MsgModel msg = null;
@@ -202,7 +209,23 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			msg = MsgModel.buildDefaultError("该手机号已被注册!");
 			return GsonUtil.toJsonForObject(msg);
 		}
-		
+		//校验身份证号的合法性
+		if(!IdCardUtil.validateCard(idCard)){
+			msg = MsgModel.buildDefaultError("身份证号不合法!");
+			return GsonUtil.toJsonForObject(msg);
+		}
+		//对用户输入的姓名和身份证号进行实名认证
+		String result = realNameAuthService.realNameAuth(name, idCard);
+		if(StringUtils.isBlank(result)){
+			msg = MsgModel.buildDefaultError("实名认证异常,请联系管理员!");
+			return GsonUtil.toJsonForObject(msg);
+		}
+		JSONObject json = JSON.parseObject(result);
+		//返回状态码不等于01，则认证失败
+		if(!json.get("status").equals("01")){
+			msg = MsgModel.buildDefaultError(json.getString("信息有误，实名认证不通过，请重新输入!"));
+			return GsonUtil.toJsonForObject(msg);
+		}
 		TabAccount account = new TabAccount();
 		String accUuid = UUIDGenerator.createUUID();
 		String personUuid = UUIDGenerator.createUUID();
@@ -211,6 +234,8 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		account.setAccountPass(ChjghContants.WECHAT_PW);
 		account.setIsLocked(String.valueOf(AccountLockEnum.NO_LOCKED.getValue().intValue()));
 		account.setAccountType(AccountTypeEnum.WECHAT_USER.getValue().intValue());
+		account.setIsAuth(IfEnum.YES.getValue());
+		account.setAnthType(IfEnum.YES.getValue());
 		
 		TabPerson person = new TabPerson();
 		person.setUuid(personUuid);
@@ -219,7 +244,21 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		person.setCityId("00");
 		person.setGroupid(ChjghContants.WECHAT_GROUP_CODE);
 		person.setPersonName(name);
-		person.setSex(3);
+		person.setAddrCode(json.getString("addrCode"));
+		person.setArea(json.getString("area"));
+		person.setBirthday(json.getString("birthday"));
+		person.setCity(json.getString("city"));
+		person.setIdCard(json.getString("idCard"));
+		person.setPrefecture(json.getString("prefecture"));
+		person.setProvince(json.getString("province"));
+		person.setAge(IdCardUtil.getAgeByBirthday(json.getString("birthday")));
+		if(ModuleEnum.SEX_MAN.getName().equals(json.getString("sex"))){
+			person.setSex(Integer.valueOf(ModuleEnum.SEX_MAN.getValue()));
+		}else if(ModuleEnum.SEX_WOMAN.getName().equals(json.getString("sex"))){
+			person.setSex(Integer.valueOf(ModuleEnum.SEX_WOMAN.getValue()));
+		}else{
+			person.setSex(Integer.valueOf(ModuleEnum.SEX_OTHER.getValue()));
+		}
 		
 		boolean flag = tabAccountService.register(account, person, ChjghContants.WECHAT_ROLE_ID);
 		if(flag){

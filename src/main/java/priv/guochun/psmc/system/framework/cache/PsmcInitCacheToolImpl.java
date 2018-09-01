@@ -5,11 +5,14 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 
 import priv.guochun.psmc.authentication.operate.service.TabOperateService;
 import priv.guochun.psmc.system.common.city.service.CityService;
 import priv.guochun.psmc.system.common.dict.service.TabDataDictService;
+import priv.guochun.psmc.system.common.sysConfig.model.TabSysConfig;
+import priv.guochun.psmc.system.common.sysConfig.service.TabSysConfigService;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfigExample;
 import priv.guochun.psmc.system.framework.activiti.service.TFlowConfigService;
@@ -23,6 +26,7 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
     private TabDataDictService tabDataDictService;
     private CityService cityService;
     private TFlowConfigService tFlowConfigService;
+    private TabSysConfigService tabSysConfigService;
     
     
     public void resourcePermitOperatesInit(){
@@ -62,6 +66,15 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
         logger.debug("开始加载缓存[工作流表单配置]end!!!!!!!!!!!!!!");
     }
     
+    public void sysConfigInit(){
+    	logger.debug("开始加载缓存[系统信息配置]start!!!!!!!!!!!!!!");
+    	List<TabSysConfig> sysConfigList = tabSysConfigService.findSysConfigList(null, null);
+    	Cache cache = psmcCacheFactory.getCacheSystem();
+    	cache.put(CacheContants.CACHE_SYS_CONFIG, sysConfigList);
+    	logger.debug("开始加载缓存[系统信息配置]end!!!!!!!!!!!!!!");
+    	
+    }
+    
     public void initCache(Object key){
         if(key == null)
             return;
@@ -74,6 +87,8 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
             tabCityInit();
         }else if(cacheKey.equals(CacheContants.CACHE_SYSTEM_WORKFOLW_DEFINITION)){
         	workFlowDefinitionInit();
+        }else if(cacheKey.equals(CacheContants.CACHE_SYS_CONFIG)){
+        	sysConfigInit();
         }else{
             logger.warn("缓存["+cacheKey+"]没有可以进行初始化的方法!!!");
         }
@@ -127,6 +142,14 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
 
 	public void settFlowConfigService(TFlowConfigService tFlowConfigService) {
 		this.tFlowConfigService = tFlowConfigService;
+	}
+
+	public TabSysConfigService getTabSysConfigService() {
+		return tabSysConfigService;
+	}
+
+	public void setTabSysConfigService(TabSysConfigService tabSysConfigService) {
+		this.tabSysConfigService = tabSysConfigService;
 	}
     
     

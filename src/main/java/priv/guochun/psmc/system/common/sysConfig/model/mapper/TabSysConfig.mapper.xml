@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.guochun.psmc.system.common.sysConfig.model.mapper.TabSysConfigMapper">
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.system.common.sysConfig.model.TabSysConfig">
+    <id column="sys_uuid" jdbcType="VARCHAR" property="sysUuid" />
+    <result column="sys_code" jdbcType="VARCHAR" property="sysCode" />
+    <result column="sys_type" jdbcType="VARCHAR" property="sysType" />
+    <result column="sys_url" jdbcType="VARCHAR" property="sysUrl" />
+    <result column="sys_method" jdbcType="VARCHAR" property="sysMethod" />
+    <result column="sys_remark" jdbcType="VARCHAR" property="sysRemark" />
+    <result column="ordernum" jdbcType="INTEGER" property="ordernum" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List">
+    sys_uuid, sys_code, sys_type, sys_url, sys_method, sys_remark, ordernum, app_code, column1, column2
+  </sql>
+  
+  
+  <select id="selectSysConfigList" parameterType="hashmap" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tab_sys_config
+    <where>
+    	<if test="sysCode != null and sysCode != ''">
+    		and sys_code = #{sysCode,jdbcType=VARCHAR}
+    	</if>
+    	<if test="sysType != null and sysType != ''">
+    		and sys_type = #{sysType,jdbcType=VARCHAR}
+    	</if>
+    </where>
+   
+  </select>
+  
+</mapper>

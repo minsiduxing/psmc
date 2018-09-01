@@ -28,6 +28,10 @@ public enum ModuleEnum {
     //部门分类
     DEPT_TYPE_1("创新工作室","1"),
     DEPT_TYPE_2("文体协会","2"),
+    //性别
+    SEX_MAN("男","1"),
+	SEX_WOMAN("女","2"),
+	SEX_OTHER("其他","3")
     ;
 
 	private String name;
