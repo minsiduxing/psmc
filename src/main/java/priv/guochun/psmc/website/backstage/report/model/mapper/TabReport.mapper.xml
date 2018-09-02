@@ -66,6 +66,7 @@
     </update>
   <select id="selectByReportPrimaryKey" resultType="java.util.Map" parameterType="java.lang.String" >
         SELECT
+        DISTINCT
         tr.REPORT_UUID as  reportUuid,
         tr.REPORT_TITLE as reportTitle,
         tr.REPORT_CONTENT as reportContent,
@@ -102,6 +103,7 @@
   </select>
   <select id="selectReportAll" parameterType="hashmap" resultType="java.util.Map" >
     select
+      DISTINCT
       REPORT_UUID as  reportUuid,
       REPORT_TITLE as reportTitle,
       REPORT_CONTENT as reportContent,
@@ -160,6 +162,12 @@
                 or REPORT_CONTENT LIKE concat(concat('%',#{queryParameter}),'%')
                 or REPORT_TEL LIKE concat(concat('%',#{queryParameter}),'%')
                 or REPORT_TYPE = #{queryParameter}
+            )
+        </if>
+        <if test="advice!= null and advice != ''">
+            or (
+                REPORT_UUID != #{reportUserUuid}
+                and  REPORT_STAUS ='7'
             )
         </if>
   </where>

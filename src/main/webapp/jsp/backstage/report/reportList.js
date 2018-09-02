@@ -202,6 +202,82 @@ $("#replyReport").click(function(){
         $.messager.progress("close");
         event.preventDefault();
     });
+    //发布
+    $("#advicePublish").click(function(){
+        var rows = $("#reportList").datagrid('getChecked');
+        var rlength = rows.length;
+        var ids="";
+        if (rlength >= 1){
+            for(var i=0;i<rlength;i++){
+                var rowObj = eval(rows[i]);
+                var newsid = rowObj.reportUuid;
+                var reportStaus = rowObj.reportStaus;
+                if(reportStaus==7){
+                    commonObj.alert('请选择未发布的合理化建议信息！',"warning");
+                    return ;
+                }
+                ids+=newsid;
+                if(i<rlength-1)
+                    ids+=",";
+            }
+            var _url = updateRport+"&reportUuids="+ids+"&reportStatus=7";
+            $.messager.progress();
+            $.ajax({
+                type: "PUT",
+                url: _url,
+                success: function(data){
+                    successCallback(data);
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+                    $.messager.progress("close");
+                }
+            });
+        }else{
+            commonObj.alert('请至少选择一条信息!',"warning");
+            return ;
+        }
+        $.messager.progress("close");
+        event.preventDefault();
+    });
+    //取消发布
+    $("#advicePublishCancel").click(function(){
+        var rows = $("#reportList").datagrid('getChecked');
+        var rlength = rows.length;
+        var ids="";
+        if (rlength >= 1){
+            for(var i=0;i<rlength;i++){
+                var rowObj = eval(rows[i]);
+                var newsid = rowObj.reportUuid;
+                var reportStaus = rowObj.reportStaus;
+                if(reportStaus!=7){
+                    commonObj.alert('请选择已经发布的合理化建议信息！',"warning");
+                    return ;
+                }
+                ids+=newsid;
+                if(i<rlength-1)
+                    ids+=",";
+            }
+            var _url = updateRport+"&reportUuids="+ids+"&reportStatus=6";
+            $.messager.progress();
+            $.ajax({
+                type: "PUT",
+                url: _url,
+                success: function(data){
+                    successCallback(data);
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+                    $.messager.progress("close");
+                }
+            });
+        }else{
+            commonObj.alert('请至少选择一条信息!',"warning");
+            return ;
+        }
+        $.messager.progress("close");
+        event.preventDefault();
+    });
 //表单提交成功后的回调方法
 function successCallback(data){
 	$.messager.progress("close");

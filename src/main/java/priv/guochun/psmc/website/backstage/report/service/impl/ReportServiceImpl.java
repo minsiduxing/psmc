@@ -78,6 +78,9 @@ public class ReportServiceImpl implements ReportService{
 			condition.put("queryParameter",queryParameter);
 		condition.put("reportType",reportType);
 		condition.put("reportUserUuid", reportUserUuid);
+		if("advice".equals(reportType)){
+			condition.put("advice", "advice");
+		}
 		return baseDao.getMyPage(page, selectAll, condition);
 	}
 

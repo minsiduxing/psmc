@@ -262,4 +262,11 @@ public class OperateContantsUtil {
     public final static String COMPLAIN_UNDO = "COMPLAIN_UNDO";
     public final static String COMPLAIN_RELEASE = "COMPLAIN_RELEASE";
     public final static String COMPLAIN_BAN_RELEASE = "COMPLAIN_BAN_RELEASE";
+    /** 合理化建议操作编码
+     */
+    public final static String INFO_ADVICE_PUBLISH= "INFO_ADVICE_PUBLISH";
+    public final static String INFO_ADVICE_DELETE = "INFO_ADVICE_DELETE";
+    public final static String INFO_ADVICE_PUBLISH_CANCEL= "INFO_ADVICE_PUBLISH_CANCEL";
+    public final static String INFO_ADVICE_LIST= "INFO_ADVICE_LIST";
+
 }

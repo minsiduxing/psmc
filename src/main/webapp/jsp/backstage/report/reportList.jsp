@@ -82,6 +82,17 @@
         <a href="#" id="replyReport" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">回复</a>
     </g:auth>
 </c:if>
+    <c:if test="${type=='advice'}">
+        <g:auth operateNo="<%=OperateContantsUtil.INFO_ADVICE_DELETE%>">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
+        </g:auth>
+        <g:auth operateNo="<%=OperateContantsUtil.INFO_ADVICE_PUBLISH%>">
+            <a href="#" id="advicePublish" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
+        </g:auth>
+        <g:auth operateNo="<%=OperateContantsUtil.INFO_ADVICE_PUBLISH_CANCEL%>">
+            <a href="#" id="advicePublishCancel" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">取消发布</a>
+        </g:auth>
+    </c:if>
 </div>
 
 </body>
@@ -105,7 +116,10 @@
     });
     $('#reportTel').textbox({
     });
-   
+    $('#reportTimeBegin').datetimebox({
+    });
+    $('#reportTimeEnd').datetimebox({
+    });
     commonObj.initDictCombobox("reportStaus","REPORT_STAUS","",false,true);
 
     //----------------------------查询框初始化结束
