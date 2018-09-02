@@ -9,6 +9,9 @@
     <result column="sys_method" jdbcType="VARCHAR" property="sysMethod" />
     <result column="sys_remark" jdbcType="VARCHAR" property="sysRemark" />
     <result column="ordernum" jdbcType="INTEGER" property="ordernum" />
+    <result column="app_code" jdbcType="VARCHAR" property="appCode" />
+    <result column="column1" jdbcType="VARCHAR" property="column1" />
+    <result column="column2" jdbcType="VARCHAR" property="column2" />
   </resultMap>
   
   

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import priv.guochun.psmc.system.common.log.model.TSysOperLog;
 import priv.guochun.psmc.system.common.log.service.TSysOperLogService;
 import priv.guochun.psmc.system.common.sysConfig.model.TabSysConfig;
+import priv.guochun.psmc.system.common.sysConfig.service.TabSysConfigService;
 import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.util.LogResultEnum;
@@ -34,6 +35,8 @@ public class RealNameAuthServiceImpl implements RealNameAuthService{
 	
 	@Autowired
 	private TSysOperLogService tSysOperLogService;
+	@Autowired
+	private TabSysConfigService tabSysConfigService;
 	
 	/**
 	 * 实名认证
@@ -57,9 +60,10 @@ public class RealNameAuthServiceImpl implements RealNameAuthService{
 		String result = "";
 	    try {
 	    	//获取实名认证系统参数配置
-			PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory)MySpringApplicationContext.getObject("psmcCacheFactory");
-			psmcCacheFactory.getCacheSystem();
-			TabSysConfig sysConfig = psmcCacheFactory.getCacheSysConfigBykey(CacheContants.REAL_NAME_AUTHENTICATION);
+//			PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory)MySpringApplicationContext.getObject("psmcCacheFactory");
+//			psmcCacheFactory.getCacheSystem();
+//			TabSysConfig sysConfig = psmcCacheFactory.getCacheSysConfigBykey(CacheContants.REAL_NAME_AUTHENTICATION);
+			TabSysConfig sysConfig = tabSysConfigService.findSysConfigList(CacheContants.REAL_NAME_AUTHENTICATION, null).get(0);
 			if(sysConfig != null){
 				String host = sysConfig.getSysUrl();
 				String path = sysConfig.getSysMethod();

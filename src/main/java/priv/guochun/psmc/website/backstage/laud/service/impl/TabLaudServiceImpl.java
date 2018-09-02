@@ -1,6 +1,7 @@
 package priv.guochun.psmc.website.backstage.laud.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +61,8 @@ public class TabLaudServiceImpl implements TabLaudService {
 		Map<String, Object> condition = new HashMap<String, Object>();
 		condition.put("moduleUuid", moduleUuid);
 		condition.put("laudPersonUuid", laudPersonUuid);
-		Map<String, Object> laudMap = (Map<String, Object>) baseDao.queryForObject(selectLaudList, condition);
-		if(laudMap != null && laudMap.size() > 0){
+		List<Map<String, Object>> laudList =  baseDao.queryForList(selectLaudList, condition);
+		if(laudList != null && laudList.size() > 0){
 			return true;
 		}else{
 			return false;
