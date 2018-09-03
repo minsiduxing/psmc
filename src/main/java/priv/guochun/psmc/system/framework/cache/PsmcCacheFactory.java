@@ -30,16 +30,5 @@ public interface PsmcCacheFactory
      */
     public Cache getWorkFlow();
     
-    /**
-     * 获取系统配置缓存
-     * @return
-     */
-    public Cache getCacheSysConfig();
     
-    /**
-     * 根据key获取系统配置缓存
-     * @param key
-     * @return
-     */
-    public TabSysConfig getCacheSysConfigBykey(String key);
 }

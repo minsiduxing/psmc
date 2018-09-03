@@ -222,8 +222,8 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		}
 		JSONObject json = JSON.parseObject(result);
 		//返回状态码不等于01，则认证失败
-		if(!json.get("status").equals("01")){
-			msg = MsgModel.buildDefaultError(json.getString("信息有误，实名认证不通过，请重新输入!"));
+		if(!json.getString("status").equals("01")){
+			msg = MsgModel.buildDefaultError("信息有误，实名认证不通过，请重新输入!");
 			return GsonUtil.toJsonForObject(msg);
 		}
 		TabAccount account = new TabAccount();

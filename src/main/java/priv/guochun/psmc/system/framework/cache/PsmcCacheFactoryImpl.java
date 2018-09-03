@@ -1,13 +1,10 @@
 package priv.guochun.psmc.system.framework.cache;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
-import priv.guochun.psmc.system.common.sysConfig.model.TabSysConfig;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 
 public class PsmcCacheFactoryImpl implements PsmcCacheFactory
@@ -19,7 +16,6 @@ public class PsmcCacheFactoryImpl implements PsmcCacheFactory
     
     private Cache cacheSystem = null;
     private Cache workflowSystem = null;
-    private Cache sysConfig = null;
     
     public Cache getCacheSystem(){
         if(cacheSystem == null){
@@ -35,33 +31,6 @@ public class PsmcCacheFactoryImpl implements PsmcCacheFactory
              workflowSystem = new CacheProxy(cacheObj,psmcInitCacheTool);
          }
          return workflowSystem;
-    }
-    
-    public Cache getCacheSysConfig(){
-    	if(sysConfig == null){
-    		Cache cacheObj = getCacheByName(CacheContants.CACHE_SYS_CONFIG);
-    		sysConfig = new CacheProxy(cacheObj, psmcInitCacheTool);
-    	}
-    	return sysConfig;
-    }
-    
-    /**
-     * 根据key获取系统配置对象
-     * @param key
-     * @return
-     */
-    public TabSysConfig getCacheSysConfigBykey(String key){
-    	if(sysConfig == null){
-    		Cache cacheObj = getCacheByName(CacheContants.CACHE_SYS_CONFIG);
-    		sysConfig = new CacheProxy(cacheObj, psmcInitCacheTool);
-    	}
-    	List<TabSysConfig> list = sysConfig.get(CacheContants.CACHE_SYS_CONFIG, List.class);
-    	for (TabSysConfig tabSysConfig : list) {
-			if(key.equals(tabSysConfig.getSysCode())){
-				return tabSysConfig;
-			}
-		}
-    	return null;
     }
     
     private Cache getCacheByName(String name){

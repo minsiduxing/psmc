@@ -1,6 +1,7 @@
 package priv.guochun.psmc.website.backstage.common.realNameAuth.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
@@ -8,6 +9,7 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
 
 import priv.guochun.psmc.system.common.log.model.TSysOperLog;
 import priv.guochun.psmc.system.common.log.service.TSysOperLogService;
@@ -37,6 +39,8 @@ public class RealNameAuthServiceImpl implements RealNameAuthService{
 	private TSysOperLogService tSysOperLogService;
 	@Autowired
 	private TabSysConfigService tabSysConfigService;
+	@Autowired
+	private PsmcCacheFactory psmcCacheFactory;
 	
 	/**
 	 * 实名认证
@@ -60,10 +64,12 @@ public class RealNameAuthServiceImpl implements RealNameAuthService{
 		String result = "";
 	    try {
 	    	//获取实名认证系统参数配置
-//			PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory)MySpringApplicationContext.getObject("psmcCacheFactory");
-//			psmcCacheFactory.getCacheSystem();
-//			TabSysConfig sysConfig = psmcCacheFactory.getCacheSysConfigBykey(CacheContants.REAL_NAME_AUTHENTICATION);
-			TabSysConfig sysConfig = tabSysConfigService.findSysConfigList(CacheContants.REAL_NAME_AUTHENTICATION, null).get(0);
+	    	TabSysConfig sysConfig = null;
+	    	Cache cache = psmcCacheFactory.getCacheSystem();
+	    	Map<String, TabSysConfig> map = cache.get(CacheContants.CACHE_SYS_CONFIG, Map.class);
+	    	if(map != null){
+	    		sysConfig = map.get(CacheContants.REAL_NAME_AUTHENTICATION);
+	    	}
 			if(sysConfig != null){
 				String host = sysConfig.getSysUrl();
 				String path = sysConfig.getSysMethod();

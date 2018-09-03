@@ -1,5 +1,6 @@
 package priv.guochun.psmc.system.framework.cache;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,8 +70,12 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
     public void sysConfigInit(){
     	logger.debug("开始加载缓存[系统信息配置]start!!!!!!!!!!!!!!");
     	List<TabSysConfig> sysConfigList = tabSysConfigService.findSysConfigList(null, null);
+    	Map<String, TabSysConfig> map = new HashMap<String, TabSysConfig>();
+    	for (TabSysConfig sysConfig : sysConfigList) {
+    		map.put(sysConfig.getSysCode(), sysConfig);
+		}
     	Cache cache = psmcCacheFactory.getCacheSystem();
-    	cache.put(CacheContants.CACHE_SYS_CONFIG, sysConfigList);
+    	cache.put(CacheContants.CACHE_SYS_CONFIG, map);
     	logger.debug("开始加载缓存[系统信息配置]end!!!!!!!!!!!!!!");
     	
     }
