@@ -151,15 +151,38 @@ INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'b8a561c0601d4cf4a691c363e73b525e');
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'c5fb1aae61104d439d092e470542c6d3');
 
+
+
+
 --合理化建议
 delete from tab_role_operate where operate_uuid in(
 select uuid from tab_operate where resource_uuid='168f11a29d3545df9a74c3bb0f346915'
 );
+delete from tab_operate where resource_uuid='168f11a29d3545df9a74c3bb0f346915';
+delete from tab_role_resource where resource_id='168f11a29d3545df9a74c3bb0f346915';
+delete from tab_resource where uuid='168f11a29d3545df9a74c3bb0f346915';
+
+
+
+
 --状态
+delete from tab_data_dict where DICT_NO='REPORT_STAUS' and DICT_ID in('6','7');
+
 INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('6', '未发布', '合理化建议状态', 9, 6, 17, 'REPORT_STAUS');
 INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('7', '已发布', '合理化建议状态', 9, 7, 18, 'REPORT_STAUS');
 
-INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum, is_view) VALUES ('8f78369341404a67a8938b8d7b58abde', '合理化建议', 3, '/website/backstage/reportController.do?method=index&type=advice', 'a365f66231c049169cbcc0d9572043ba', 'admin', '2018-09-02 00:00:00', '合理化建议', 36, 1);
+
+
+delete from tab_role_operate where operate_uuid in(
+select uuid from tab_operate where resource_uuid='8f78369341404a67a8938b8d7b58abde'
+);
+delete from tab_operate where resource_uuid='8f78369341404a67a8938b8d7b58abde';
+delete from tab_role_resource where resource_id='8f78369341404a67a8938b8d7b58abde';
+delete from tab_resource where uuid='8f78369341404a67a8938b8d7b58abde';
+
+
+
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum, is_view) VALUES ('8f78369341404a67a8938b8d7b58abde', '合理化建议', 3, '/website/backstage/reportController.do?method=index&type=advice', '6293f053281f459ea4f7402e2f90c365', 'admin', '2018-09-02 00:00:00', '合理化建议', 36, 1);
 INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', '8f78369341404a67a8938b8d7b58abde');
 
 --操作
