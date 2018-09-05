@@ -63,110 +63,90 @@
   <!--工具栏  -->
 <div id="toolbarId">
 <c:if test="${param.blockUuid=='01'}">
-	<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_PAUSE%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-lock" plain="true" id="lock">禁止评论</a>
-	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_DEL%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
-	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_PREVIW%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">查看</a>
-	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_UNDO%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
-	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_RELEASE%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-release" plain="true" id="release">发布</a>
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_BAN_RELEASE%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">取消发布</a>
 	</g:auth>
-
-</c:if>
-<c:if test="${param.blockUuid=='02'}">
-	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_PAUSE%>">
+	<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_PAUSE%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-lock" plain="true" id="lock">禁止评论</a>
 	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_DEL%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
+	<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >放开评论</a>
 	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_PREVIW%>">
+	<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_PREVIW%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">查看</a>
 	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_UNDO%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
+	<g:auth operateNo="<%=OperateContantsUtil.FLEA_MARKET_DEL%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
 	</g:auth>
+</c:if>
+<c:if test="${param.blockUuid=='02'}">
 	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_RELEASE%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-release" plain="true" id="release">发布</a>
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_BAN_RELEASE%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">取消发布</a>
 	</g:auth>
-</c:if>
-<c:if test="${param.blockUuid=='03'}">
-	<g:auth operateNo="<%=OperateContantsUtil.RATIONALIZATION_PROPOSAL_PAUSE%>">
+	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_PAUSE%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-lock" plain="true" id="lock">禁止评论</a>
 	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.RATIONALIZATION_PROPOSAL_DEL%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
+	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >放开评论</a>
 	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.RATIONALIZATION_PROPOSAL_PREVIW%>">
+	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_PREVIW%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">查看</a>
 	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.RATIONALIZATION_PROPOSAL_UNDO%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
+	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_DEL%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
 	</g:auth>
+	
 </c:if>
+
 <c:if test="${param.blockUuid=='04'}">
-	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_PAUSE%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-lock" plain="true" id="lock">禁止评论</a>
-	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_DEL%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
-	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_PREVIW%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">查看</a>
-	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_UNDO%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
-	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_RELEASE%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-release" plain="true" id="release">发布</a>
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_BAN_RELEASE%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">取消发布</a>
 	</g:auth>
-</c:if>
-<c:if test="${param.blockUuid=='05'}">
-	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_PAUSE%>">
+	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_PAUSE%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-lock" plain="true" id="lock">禁止评论</a>
 	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_DEL%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
+	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >放开评论</a>
 	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_PREVIW%>">
+	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_PREVIW%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">查看</a>
 	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_UNDO%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
+	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_DEL%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
 	</g:auth>
+</c:if>
+<c:if test="${param.blockUuid=='05'}">
 	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_RELEASE%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-release" plain="true" id="release">发布</a>
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_BAN_RELEASE%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">取消发布</a>
 	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_PAUSE%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-lock" plain="true" id="lock">禁止评论</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >放开评论</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_PREVIW%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">查看</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_DEL%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
+	</g:auth>
 </c:if>
 </div>
 	<!-- 弹出评论信息列表 -->
-	<div id="commentListDialogDiv" style="display: none;">
-		<div id="toolbarId2">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-lock" plain="true" id="lock2" onclick="lockComment()">屏蔽</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove2" onclick="removeComment()">删除</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-undo"  plain="true" id="undo2" onclick="undoComment()">撤销</a>
-		</div>
-		<table id=commentList style="width:100%"></table>
-	</div>
+	<div id="commentListDialogDiv"></div>
   </body>
 </html>
 
@@ -180,12 +160,8 @@ var deleteTopicsUrl = '<c:url value="'+topicDo+'"/>?method=deleteTopics';
 var undoTopicsUrl = '<c:url value="'+topicDo+'"/>?method=undoTopics';
 var releaseUrl = '<c:url value="'+topicDo+'"/>?method=releaseTopics';
 var banReleaseUrl = '<c:url value="'+topicDo+'"/>?method=banReleaseTopics';
+var toTopicsDetail = '<c:url value="'+topicDo+'"/>?method=toTopicsDetail&blockUuid='+$("#blockUuid").val();
 
-var commentDo = basePath+"/website/backstage/tabCommentController.do";
-var commentListUrl ='<c:url value="'+commentDo+'"/>?method=tabCommentList';
-var pauseCommentUrl = '<c:url value="'+commentDo+'"/>?method=pauseComment';
-var deleteCommentUrl = '<c:url value="'+commentDo+'"/>?method=deleteComment';
-var undoCommentUrl = '<c:url value="'+commentDo+'"/>?method=undoComment';
 //----------------------------查询框初始化开始
 $('#topicName').textbox({
 	type : "text"

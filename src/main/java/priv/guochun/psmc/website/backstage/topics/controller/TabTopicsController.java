@@ -2,10 +2,12 @@ package priv.guochun.psmc.website.backstage.topics.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -13,7 +15,7 @@ import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
-import priv.guochun.psmc.website.backstage.topics.model.TabComment;
+import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentService;
 import priv.guochun.psmc.website.backstage.topics.model.TabTopics;
 import priv.guochun.psmc.website.backstage.topics.service.TabCommentService;
 import priv.guochun.psmc.website.backstage.topics.service.TabTopicsService;
@@ -26,6 +28,8 @@ public class TabTopicsController extends MyController{
 	private TabTopicsService tabTopicsService;
 	@Autowired
 	private TabCommentService tabCommentService;
+	@Autowired
+	private TabAttachmentService tabAttachmentService;
 	
 	/**
 	 * 查询主题信息列表
@@ -130,5 +134,21 @@ public class TabTopicsController extends MyController{
 	@RequestMapping(params="method=toTopicsListPage")
 	public String toTopicsListPage(){
 		return "backstage/topics/topicsList";
+	}
+	
+	/**
+	 * 跳转到主题信息详情页面
+	 * @return
+	 */
+	@RequestMapping(params="method=toTopicsDetail")
+	public String toTopicsDetail(String topicUuid, String blockUuid, Model model){
+		Map<String, Object> topicMap = tabTopicsService.queryTopicsBusinessMethod(topicUuid);
+		List<Map<String, Object>> attachmentList = tabAttachmentService.queryAttachmentList(topicUuid);
+		model.addAttribute("topic", topicMap);
+		model.addAttribute("attachmentList", attachmentList);
+		model.addAttribute("topicUuid", topicUuid);
+		model.addAttribute("blockUuid", blockUuid);
+		return "backstage/topics/topicsDetails";
+		
 	}
 }

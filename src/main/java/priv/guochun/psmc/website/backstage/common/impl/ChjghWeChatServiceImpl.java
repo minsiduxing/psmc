@@ -235,7 +235,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		account.setIsLocked(String.valueOf(AccountLockEnum.NO_LOCKED.getValue().intValue()));
 		account.setAccountType(AccountTypeEnum.WECHAT_USER.getValue().intValue());
 		account.setIsAuth(IfEnum.YES.getValue());
-		account.setAnthType(IfEnum.YES.getValue());
+		account.setAuthType(IfEnum.YES.getValue());
 		
 		TabPerson person = new TabPerson();
 		person.setUuid(personUuid);
