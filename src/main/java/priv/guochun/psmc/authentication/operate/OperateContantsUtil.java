@@ -232,14 +232,6 @@ public class OperateContantsUtil {
     public final static String EXPOSURE_TABLE_RELEASE = "EXPOSURE_TABLE_RELEASE";
     public final static String EXPOSURE_TABLE_BAN_RELEASE = "EXPOSURE_TABLE_BAN_RELEASE";
     
-    /**
-     * 合理化建议操作编码
-     */
-    public final static String RATIONALIZATION_PROPOSAL_LIST = "RATIONALIZATION_PROPOSAL_LIST";
-    public final static String RATIONALIZATION_PROPOSAL_DEL = "RATIONALIZATION_PROPOSAL_DEL";
-    public final static String RATIONALIZATION_PROPOSAL_PAUSE = "RATIONALIZATION_PROPOSAL_PAUSE";
-    public final static String RATIONALIZATION_PROPOSAL_PREVIW = "RATIONALIZATION_PROPOSAL_PREVIW";
-    public final static String RATIONALIZATION_PROPOSAL_UNDO = "RATIONALIZATION_PROPOSAL_UNDO";
     
     /**
      * 表扬操作编码

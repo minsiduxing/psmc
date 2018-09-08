@@ -19,6 +19,8 @@ public class TabLaudServiceImpl implements TabLaudService {
 	private static final String selectLaudList = "selectLaudList";
 	private static final String deleteLaud = "deleteLaud";
 	private static final String insertLaud = "insertLaud";
+	private static final String selectTopicLaudList = "selectTopicLaudList";
+	private static final String selectReportLaudList = "selectReportLaudList";
 	
 	@Autowired
 	private BaseDao baseDao;
@@ -26,12 +28,18 @@ public class TabLaudServiceImpl implements TabLaudService {
 	private TabPersonDao tabPersonDao;
 	
 	@Override
-	public MyPage queryLaudList(MyPage myPage){
+	public MyPage queryLaudPage(MyPage myPage, String businessType){
 		Map<String, Object> condition = myPage.getQueryParams();
 		if(condition == null){
 			condition = new HashMap<String, Object>();
 		}
-		return baseDao.getMyPage(myPage, selectLaudList, condition);
+		String sql = "";
+		if(businessType.equals("report")){
+			sql = selectReportLaudList;
+		}else if(businessType.equals("topic")){
+			sql = selectTopicLaudList;
+		}
+		return baseDao.getMyPage(myPage, sql, condition);
 	}
 	
 	@Override
@@ -67,5 +75,19 @@ public class TabLaudServiceImpl implements TabLaudService {
 		}else{
 			return false;
 		}
+	}
+	
+	@Override
+	public List<Map<String, Object>> queryLaudList(String moduleUuid, String businessType) {
+		Map<String, Object> condition = new HashMap<String, Object>();
+		condition.put("moduleUuid", moduleUuid);
+		String sql = "";
+		if(businessType.equals("report")){
+			sql = selectReportLaudList;
+		}else if(businessType.equals("topic")){
+			sql = selectTopicLaudList;
+		}
+		List<Map<String, Object>> laudList =  baseDao.queryForList(sql, condition);
+		return laudList;
 	}
 }

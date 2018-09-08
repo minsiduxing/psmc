@@ -1,5 +1,6 @@
 package priv.guochun.psmc.website.backstage.laud.service;
 
+import java.util.List;
 import java.util.Map;
 
 import priv.guochun.psmc.system.framework.page.MyPage;
@@ -11,7 +12,7 @@ public interface TabLaudService {
 	 * @param myPage
 	 * @return
 	 */
-	public MyPage queryLaudList(MyPage myPage);
+	public MyPage queryLaudPage(MyPage myPage, String businessType);
 	
 	/**
 	 * 点赞
@@ -34,4 +35,12 @@ public interface TabLaudService {
 	 * @return
 	 */
 	public boolean selectIsLaud(String moduleUuid, String laudPersonUuid);
+	
+	/**
+	 * 查询点赞列表
+	 * @param moduleUuid 业务信息id
+	 * @param businessType 业务类型
+	 * @return
+	 */
+	public List<Map<String, Object>> queryLaudList(String moduleUuid, String businessType);
 }

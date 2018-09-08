@@ -1,4 +1,10 @@
 $(document).ready(function(){ 
+	var blockUuid = $("#blockUuid").val();
+	var isHide = false;
+	//投诉表扬没有评论
+	if(blockUuid == '04' || blockUuid == '05'){
+		isHide = true;
+	}
 	//new datagrid 初始化 
 	var option = {
 		tabId:"topicsId",
@@ -28,9 +34,15 @@ $(document).ready(function(){
                   }},
                   {field:'release_time',title:'发布时间',align:'center',sortable:true}, 
                   {field:'releasePersonName',title:'发布人',align:'center',sortable:true}, 
-                  {field:'laudNums',title:'点赞数',align:'center',sortable:true},
-		          {field:'lastCommentPerson',title:'最后评论人',align:'center',sortable:true}, 
-		          {field:'last_comment_date',title:'最后评论时间',align:'center',sortable:true}, 
+                  {field:'laudNums',title:'点赞数',align:'center',sortable:true,formatter:function(value, row, index){
+		        	  if(value==null || value==''){
+		        		  return 0;
+		        	  }else{
+		        		  return "<a href='javascript:void(0)' onclick='openLaudListDialog(&apos;" + row['topic_uuid'] + "&apos;)'>"+value+"</a>";
+		        	  }
+		          }},
+		          {field:'lastCommentPerson',title:'最后评论人',align:'center',sortable:true,hidden:isHide}, 
+		          {field:'last_comment_date',title:'最后评论时间',align:'center',sortable:true,hidden:isHide}, 
 		          {field:'block_uuid',title:'所属板块id', hidden:true}, 
 		          {field:'create_person_uuid',title:'创建人id',hidden:true}, 
 		          {field:'last_comment_person_uuid',title:'最后评论人id',hidden:true}
@@ -282,5 +294,75 @@ $(document).ready(function(){
 	}
 });
 
+var commentListdialog;
+//表单dialog初始化方法
+function initDialog(){
+	commentListdialog = $("#commentListDialogDiv").dialog({
+		modal: true,
+		closed: true,
+	    width: 850,
+	    height: 500,
+	    resizable:true,
+	    cache: false
+	});
+}
+
+//打开评论列表dialog
+function openCommentListDialog(topicUuid){
+	if(!commentListdialog){
+		initDialog();
+	}
+	commentListdialog.panel({title:"信息详情"});
+	commentListdialog.panel({href:toTopicsDetail+'&topicUuid='+topicUuid});
+	commentListdialog.window("open");
+}
+
+//点赞信息dialog
+var laudListdialog;
+function iniLaudListtDialog(){
+	laudListdialog = $("#laudListDiv").dialog({
+		modal: true,
+		closed: true,
+	    width: 500,
+	    height: 410,
+	    resizable:true,
+	    cache: false
+	});
+}
+
+function openLaudListDialog(topicUuid){
+	if(!laudListdialog){
+		iniLaudListtDialog();
+	}
+	laudListdialog.panel({title:"点赞人员"});
+	laudListdialog.window("open");
+	$("#moduleUuid").val(topicUuid);
+	initLaudDataGrid(topicUuid);
+}
+//初始化点赞列表数据
+function initLaudDataGrid(topicUuid){
+	var option = {
+			tabId:"laudList",
+			toolbar:"toolbarId2",
+			striped:true,
+			url:queryLaudListUrl + "&uuid="+topicUuid + "&businessType=topic" ,
+			columns:[[   
+			          {field:'laud_uuid',title:'主键id',hidden:true},  
+			          {field:'infoName',title:'信息名称',align:'center',sortable:true},
+			          {field:'laud_person_name',title:'点赞人姓名',align:'center',sortable:true}, 
+			          {field:'laud_date',title:'点赞时间',align:'center',sortable:true},
+			          {field:'module_uuid',title:'信息id',hidden:true}
+			         ] 
+			      ]
+		};
+		//初始化列表
+		commonObj.initPaginationGrid(option);
+}
+
+//导出
+function exportExcel(){
+	var moduleUuid = $("#moduleUuid").val();
+	window.location = exportLaudListUrl + "&moduleUuid=" + moduleUuid + "&businessType=topic";
+}
 
 

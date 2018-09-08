@@ -23,6 +23,7 @@ import priv.guochun.psmc.website.backstage.report.service.ReportReplyRelService;
 import priv.guochun.psmc.website.backstage.report.service.ReportService;
 import priv.guochun.psmc.website.backstage.webuser.model.TabWebUser;
 import priv.guochun.psmc.website.backstage.webuser.service.TabWebUserService;
+import priv.guochun.psmc.website.enums.ModuleEnum;
 
 
 public class ReportServiceImpl implements ReportService{
@@ -32,6 +33,7 @@ public class ReportServiceImpl implements ReportService{
 	public final static String selectByPrimaryKey="selectByReportPrimaryKey";
 	public final static String selectAll="selectReportAll";
 	public final static String dealReport="dealReport";
+	public final static String releaseOrCancelRelease = "releaseOrCancelRelease";
 
 	
 	@Autowired
@@ -147,15 +149,22 @@ public class ReportServiceImpl implements ReportService{
 			//新增
 			reportUuid = UUIDGenerator.createUUID();
 			report.setReportUuid(reportUuid);
-			report.setReportStaus(ReportEnum.REPORT_STAUS_WAIT_REPLY.getValue());
+			
 			//如果没有传则默认
 			if(null!=report.getReportTime()){
 				report.setReportTime(DateUtil.getCurrentTimstamp());
 			}
+			//如果是困难申报，则初始状态为已提交，其他为待回复
 			if("report".equals(report.getReportType())){
+				report.setReportStaus(ReportEnum.REPORT_STAUS_SUBMIT.getValue());
 				report.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getHelpDeclareImagePath());
 			}else{
+				report.setReportStaus(ReportEnum.REPORT_STAUS_WAIT_REPLY.getValue());
 				report.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getLawHelpImagePath());
+			}
+			//如果是合理化建议,初始设置为未发布
+			if("advice".equals(report.getReportType())){
+				report.setReleaseStatus(Integer.valueOf(ModuleEnum.NOT_RELEASE.getValue()));
 			}
 			baseDao.insert(insert, report);
 		}else{
@@ -173,5 +182,22 @@ public class ReportServiceImpl implements ReportService{
 		condition.put("reportStaus",reportStatus);
 		condition.put("ids",reportUuids.split(","));
 		baseDao.update(dealReport, condition);
+	}
+	@Override
+	public void releaseOrCancelBusinessMethod(String reportUuids,String releaseStatus,String personUuid){
+		Map<String,Object> condition = new HashMap<String,Object>();
+		if(StringUtils.isBlank(reportUuids)){
+			throw new PsmcBuisnessException("id为空处理失败!");
+		}
+		condition.put("releaseStatus",releaseStatus);
+		if(releaseStatus.equals(ModuleEnum.NOT_RELEASE.getValue())){
+			condition.put("releasePersonUuid", null);
+			condition.put("releaseDate", null);
+		}else{
+			condition.put("releasePersonUuid", personUuid);
+			condition.put("releaseDate", DateUtil.getCurrentTimstamp());
+		}
+		condition.put("ids",reportUuids.split(","));
+		baseDao.update(releaseOrCancelRelease, condition);
 	}
 }

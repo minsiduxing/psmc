@@ -98,4 +98,17 @@ public class ReportController extends MyController {
         reportService.dealReportBusinessMethod(reportUuids,reportStatus);
         this.responseJson(true,"操作成功！",response);
     }
+    
+    /**
+     * 发布或者取消发布
+     * @param reportUuids
+     * @param releaseStatus
+     * @throws IOException 
+     */
+    @RequestMapping(params="method=releaseOrCancelRelease")
+    public void releaseOrCancelRelease(String reportUuids,String releaseStatus) throws IOException{
+    	String personUuid = this.getUserBySeesion(this.request()).getUserUuid();
+    	reportService.releaseOrCancelBusinessMethod(reportUuids, releaseStatus, personUuid);
+    	this.responseJson(true,"操作成功！",this.response());
+    }
 }

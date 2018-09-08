@@ -42,10 +42,10 @@
 		    </div>
 		</div>
 		
-		<div id="toolbarId2">
+		<div id="toolbarId3">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-lock" plain="true" id="lock2" onclick="lockComment()">屏蔽</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo"  plain="true" id="undo2" onclick="undoComment()">撤销屏蔽</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove2" onclick="removeComment()">删除</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-undo"  plain="true" id="undo2" onclick="undoComment()">撤销</a>
 		</div>
 		<table id=commentList style="width:100%"></table>
 
@@ -60,9 +60,9 @@
 		$(document).ready(function() {
 			var topicUuid = $("#topicUuid").val();
 			var blockUuid = $("#blockUuid").val();
-			$("#toolbarId2").hide();
+			$("#toolbarId3").hide();
 			if(blockUuid == '01' || blockUuid == '02'){
-				$("#toolbarId2").show();
+				$("#toolbarId3").show();
 				initDialogDataGrid(topicUuid);
 			}
 		});
@@ -128,7 +128,7 @@
 		function initDialogDataGrid(topicUuid){
 			var option = {
 					tabId:"commentList",
-					toolbar:"toolbarId2",
+					toolbar:"toolbarId3",
 					striped:true,
 					url:commentListUrl + "&topicUuid="+topicUuid,
 					columns:[[   

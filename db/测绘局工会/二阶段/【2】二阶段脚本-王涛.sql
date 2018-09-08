@@ -368,3 +368,56 @@ create table tab_laud
    laud_person_name     varchar(100) comment '点赞人姓名',
    primary key (laud_uuid)
 );
+
+
+---------------------------二阶段后期新增脚本--start----------------------------------
+--实名认证需新增的字段
+alter table tab_person add id_card varchar(18) comment '身份证号';
+alter table tab_person add area varchar(100) comment '身份证所在地';
+alter table tab_person add province varchar(20) comment '身份证所在省';
+alter table tab_person add city varchar(20) comment '身份证所在市';
+alter table tab_person add prefecture varchar(20) comment '身份证所在区县';
+alter table tab_person add birthday varchar(20) comment '出生年月';
+alter table tab_person add addr_code varchar(10) comment '地区代码';
+alter table tab_accounts add is_auth integer comment '是否实名认证（1是，2否）';
+alter table tab_accounts add auth_type integer comment '实名认证方式（1身份证，2其他）';
+
+drop table tab_sys_config;
+--系统配置表
+create table tab_sys_config
+(
+    sys_uuid varchar(64) not null comment '系统配置uuid',
+    sys_code varchar(100) comment '编码',
+    sys_type varchar(10) comment '类型',
+    sys_url varchar(500) comment 'url地址',
+    sys_method varchar(100) comment '方法',
+    sys_remark varchar(500) comment '描述',
+    app_code varchar(100) comment '第三方接口调用认证编码',
+    column1 varchar(100) comment '备用字段1',
+    column2 varchar(100) comment '备用字段2',
+    ordernum integer comment '排序码',
+    primary key (sys_uuid)
+);
+
+---配置实名认证接口
+INSERT INTO tab_sys_config (sys_uuid, sys_code, sys_type, sys_url, sys_method, sys_remark, app_code, column1, column2, ordernum) VALUES ('2b909a0327c14764b053b3a4b232d26f', 'REAL_NAME_AUTHENTICATION', '', 'https://idcardcert.market.alicloudapi.com', '/idCardCert', '实名认证接口调用', '8660c15a4c8e43d1849bd63b00cb4e7d', null, null, null);
+
+---申报表增加字段
+alter table tab_report add release_status integer comment '发布状态';
+alter table tab_report add release_date TIMESTAMP NULL comment '发布时间';
+alter table tab_report add release_person_uuid varchar(64) comment '发布人id'; 
+--部门表增加字段
+alter table tab_dept add cooperation varchar(1000) comment '合作意向'
+
+--字典表申报状态修改
+delete from tab_data_dict where DICT_NO = 'REPORT_STAUS' and DICT_ID = '7';
+update tab_data_dict set DICT_NAME = '待回复' where DICT_NO = 'REPORT_STAUS' and DICT_ID = '2';
+update tab_data_dict set DICT_NAME = '已提交' where DICT_NO = 'REPORT_STAUS' and DICT_ID = '6';
+
+--操作表
+update tab_operate set fun_method = 'releaseOrCancelBusinessMethod' where OPERATE_NO in ('INFO_ADVICE_PUBLISH','INFO_ADVICE_PUBLISH_CANCEL');
+update tab_operate set OPERATE_NAME = '取消发布' where OPERATE_NO in ('FLEA_MARKET_BAN_RELEASE','EXPOSURE_TABLE_BAN_RELEASE','PRAISE_BAN_RELEASE','COMPLAIN_BAN_RELEASE');
+update tab_operate set OPERATE_NAME = '放开评论' where OPERATE_NO in ('FLEA_MARKET_UNDO','EXPOSURE_TABLE_UNDO');
+delete from tab_role_operate where operate_uuid in ('81404965f2954cf5b3b8c5de6a2de86c','01d23ba564e344b79efb274e6e9c6e16','19f6e4e442154458835bcbbdcfc433d3','102f230c4c1b42ddbc48c0c075e8e6ea');
+delete from tab_operate where uuid in ('81404965f2954cf5b3b8c5de6a2de86c','01d23ba564e344b79efb274e6e9c6e16','19f6e4e442154458835bcbbdcfc433d3','102f230c4c1b42ddbc48c0c075e8e6ea');
+---------------------------二阶段后期新增脚本--end----------------------------------

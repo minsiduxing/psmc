@@ -65,6 +65,14 @@
 	               
 				</td>
 			</tr>
+			<c:if test="${deptType == '1'}">
+				<tr>	
+					<td class="tds">合作意向：</td>
+					<td width="100%" colspan="3">
+						<textarea style="width:80%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="cooperation" name="cooperation">${dept.cooperation}</textarea>
+					</td>
+				</tr>	
+			</c:if>
 		</table>
 	</div>
 	 <input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>

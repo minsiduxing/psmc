@@ -1,6 +1,7 @@
 package priv.guochun.psmc.website.backstage.report.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class TabReport implements Serializable {
@@ -27,6 +28,10 @@ public class TabReport implements Serializable {
     private static final long serialVersionUID = 1L;
     
     private String imagePath;
+    
+    private Integer releaseStatus;
+    private String releasePersonUuid;
+    private Timestamp releaseDate;
 
     public String getReportStaus() {
         return reportStaus;
@@ -156,4 +161,28 @@ public class TabReport implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+	public Integer getReleaseStatus() {
+		return releaseStatus;
+	}
+
+	public void setReleaseStatus(Integer releaseStatus) {
+		this.releaseStatus = releaseStatus;
+	}
+
+	public String getReleasePersonUuid() {
+		return releasePersonUuid;
+	}
+
+	public void setReleasePersonUuid(String releasePersonUuid) {
+		this.releasePersonUuid = releasePersonUuid;
+	}
+
+	public Timestamp getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(Timestamp releaseDate) {
+		this.releaseDate = releaseDate;
+	}
 }

@@ -111,12 +111,12 @@
 	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_BAN_RELEASE%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">取消发布</a>
 	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_PAUSE%>">
+	<%-- <g:auth operateNo="<%=OperateContantsUtil.PRAISE_PAUSE%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-lock" plain="true" id="lock">禁止评论</a>
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_UNDO%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >放开评论</a>
-	</g:auth>
+	</g:auth> --%>
 	<g:auth operateNo="<%=OperateContantsUtil.PRAISE_PREVIW%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">查看</a>
 	</g:auth>
@@ -131,12 +131,12 @@
 	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_BAN_RELEASE%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" id="banRelease">取消发布</a>
 	</g:auth>
-	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_PAUSE%>">
+	<%-- <g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_PAUSE%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-lock" plain="true" id="lock">禁止评论</a>
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_UNDO%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >放开评论</a>
-	</g:auth>
+	</g:auth> --%>
 	<g:auth operateNo="<%=OperateContantsUtil.COMPLAIN_PREVIW%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">查看</a>
 	</g:auth>
@@ -147,6 +147,14 @@
 </div>
 	<!-- 弹出评论信息列表 -->
 	<div id="commentListDialogDiv"></div>
+	<!-- 点赞信息 -->
+	<div id="laudListDiv" style="display: none;">
+		<div id="toolbarId2">
+			<a href="#" id="exportBtn" class="easyui-linkbutton" onclick="exportExcel()"  plain="true" iconCls="icon-excel">导出</a>
+			<input type="hidden" id="moduleUuid">
+		</div>
+		<table id="laudList"></table>
+	</div>
   </body>
 </html>
 
@@ -162,6 +170,11 @@ var releaseUrl = '<c:url value="'+topicDo+'"/>?method=releaseTopics';
 var banReleaseUrl = '<c:url value="'+topicDo+'"/>?method=banReleaseTopics';
 var toTopicsDetail = '<c:url value="'+topicDo+'"/>?method=toTopicsDetail&blockUuid='+$("#blockUuid").val();
 
+var laudDo = basePath+"/website/backstage/tabLaudController.do";
+var queryLaudListUrl = '<c:url value="'+laudDo+'"/>?method=queryLaudPage';
+var exportLaudListUrl = '<c:url value="'+laudDo+'"/>?method=exportLaudList';
+//导出路径
+//$('#exportBtn').attr('href',exportLaudListUrl);
 //----------------------------查询框初始化开始
 $('#topicName').textbox({
 	type : "text"
@@ -189,4 +202,3 @@ commonObj.initDictCombobox("releaseStatus","IF","",false,true);
 //----------------------------查询框初始化结束
 
 </script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/jsp/backstage/topics/commentList.js"></script>

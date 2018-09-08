@@ -63,6 +63,11 @@ public class TabDept {
      * 是否自定义配图
      */
     private Integer isCustom;
+    
+    /**
+     * 合作意向
+     */
+    private String cooperation;
 
 
     public String getDeptUuid() {
@@ -169,13 +174,21 @@ public class TabDept {
 		this.isCustom = isCustom;
 	}
 
+	public String getCooperation() {
+		return cooperation;
+	}
+
+	public void setCooperation(String cooperation) {
+		this.cooperation = cooperation;
+	}
+
 	@Override
 	public String toString() {
 		return "TabDept [deptUuid=" + deptUuid + ", deptName=" + deptName + ", deptIntroduction=" + deptIntroduction
 				+ ", deptRegulation=" + deptRegulation + ", elegantDemeanour=" + elegantDemeanour + ", deptType="
 				+ deptType + ", createPerson=" + createPerson + ", createDate=" + createDate + ", lastModifyPerson="
 				+ lastModifyPerson + ", lastModifyTime=" + lastModifyTime + ", imagePath=" + imagePath + ", groupid="
-				+ groupid + ", isCustom="+ isCustom + "]";
+				+ groupid + ", isCustom=" + isCustom + ", cooperation=" + cooperation + "]";
 	}
 
 }

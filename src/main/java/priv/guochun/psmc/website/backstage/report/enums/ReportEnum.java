@@ -10,7 +10,8 @@ package priv.guochun.psmc.website.backstage.report.enums;
  */
 public enum ReportEnum {
     REPORT_STAUS_WAIT_REPLY("待回复","2"),
-    REPORT_STAUS_REPLY("已回复","1");
+    REPORT_STAUS_REPLY("已回复","1"),
+	REPORT_STAUS_SUBMIT("已提交","6");
 
     private  ReportEnum(String name, String value) {
         this.name = name;

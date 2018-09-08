@@ -22,6 +22,7 @@
 	    	t1.dept_type, t1.create_person, t1.last_modify_person, t1.image_path, t1.groupid, t1.is_custom,
 	    	date_format(t1.create_date, '%Y-%m-%d %H:%i:%S') AS create_date,
 		    date_format(t1.last_modify_time, '%Y-%m-%d %H:%i:%S') AS last_modify_time,
+		    t1.cooperation,
 	    	t3.person_name AS createPersonName,
 	    	t4.person_name AS lastModifyPersonName,
 	    	t2.audit,
@@ -199,6 +200,9 @@
       <if test="isCustom != null">
       	is_custom,
       </if>
+      <if test="cooperation != null">
+      	cooperation,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="deptUuid != null">
@@ -239,6 +243,9 @@
 	  </if>
       <if test="isCustom != null">
       	#{isCustom,jdbcType=INTEGER},
+      </if>
+      <if test="cooperation != null">
+      	#{cooperation,jdbcType=VARCHAR}
       </if>
     </trim>
   </insert>
@@ -282,6 +289,9 @@
 	  </if>
       <if test="isCustom !=null ">
       	is_custom = #{isCustom,jdbcType=INTEGER},
+      </if>
+      <if test="cooperation != null">
+      	cooperation = #{cooperation,jdbcType=VARCHAR},
       </if>
     </set>
     where dept_uuid = #{deptUuid,jdbcType=VARCHAR}

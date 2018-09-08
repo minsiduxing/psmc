@@ -23,7 +23,7 @@ $(document).ready(function(){
 		          {field:'sign_up_end_date',title:'报名截止时间',align:'center',sortable:true}, 
 		          {field:'signUpNums',title:'已报名人数',align:'center',sortable:true,formatter:function(value, row, index){
 		        	  if(value==null || value==''){
-		        		  return "<a href='javascript:void(0)' onclick='openSingUpListDialog(&apos;" + row['activity_uuid'] + "&apos;)'>"+0+"</a>";
+		        		  return 0;
 		        	  }else{
 		        		  return "<a href='javascript:void(0)' onclick='openSingUpListDialog(&apos;" + row['activity_uuid'] + "&apos;)'>"+value+"</a>";
 		        	  }
@@ -308,4 +308,10 @@ function initDialogDataGrid(activityUuid){
 		};
 		//初始化列表
 		commonObj.initPaginationGrid(option);
+}
+
+//导出
+function exportExcel(){
+	var activityUuid = $("#activityUuid").val();
+	window.location = exportSignUpInfo + "&activityUuid=" + activityUuid;
 }
