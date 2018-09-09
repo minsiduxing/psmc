@@ -431,3 +431,8 @@ update tab_operate set OPERATE_NAME = '放开评论' where OPERATE_NO in ('FLEA_
 delete from tab_role_operate where operate_uuid in ('81404965f2954cf5b3b8c5de6a2de86c','01d23ba564e344b79efb274e6e9c6e16','19f6e4e442154458835bcbbdcfc433d3','102f230c4c1b42ddbc48c0c075e8e6ea');
 delete from tab_operate where uuid in ('81404965f2954cf5b3b8c5de6a2de86c','01d23ba564e344b79efb274e6e9c6e16','19f6e4e442154458835bcbbdcfc433d3','102f230c4c1b42ddbc48c0c075e8e6ea');
 ---------------------------二阶段后期新增脚本--end----------------------------------
+
+---------------------------2018-09-09-----------------------------------
+--合理化建议增加回复操作
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('d59b1aae6112d56739d092e470542c59', '8f78369341404a67a8938b8d7b58abde', 'fe755fa4bd25475fa1a9d841caa16f44', 'priv.guochun.psmc.website.backstage.report.service.ReportService', 'executeReplyReportBusinessMethod', 'INFO_ADVICE_REPLY', '回复', '回复', 45);
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'd59b1aae6112d56739d092e470542c59');
