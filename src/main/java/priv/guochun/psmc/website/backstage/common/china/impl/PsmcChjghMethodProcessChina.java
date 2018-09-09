@@ -11,18 +11,21 @@ import priv.guochun.psmc.system.framework.util.GsonUtil;
 import priv.guochun.psmc.system.util.DateUtil;
 
 /**
- * 测绘局工会注册方法 预处理链路类
+ * 测绘局工会部分方法 预处理链路类
  * @author guochun
  *
  */
-public class PsmcChjghRegisterMethodProcessChina extends  PsmcChjghBaseProcessChina{
+public class PsmcChjghMethodProcessChina extends  PsmcChjghBaseProcessChina{
 
 	private Map<String,Long> loginMap =  new HashMap<String,Long>();
 	
-	private long visitLockTime = 60;
+	//服务方法访问间隔时间 单位秒
+	private long visitLockTime = 20;
 	
-	public PsmcChjghRegisterMethodProcessChina(){
+	public PsmcChjghMethodProcessChina(){
 		this.allowedUri.put("/psmc/services/chjgh/weChatService/register",null);
+		this.allowedUri.put("/psmc/services/chjgh/weChatService/login",null);
+		this.allowedUri.put("/psmc/services/chjgh/weChatService/getVcode",null);
 	}
 	
 	@Override
@@ -41,8 +44,8 @@ public class PsmcChjghRegisterMethodProcessChina extends  PsmcChjghBaseProcessCh
 				long visitTime = visitDate.getTime();
 				//如果第二次访问在5分钟内
 				if((visitTime - lastLoginTime)/1000 <= visitLockTime){
-					String msg = visitKey+"两次访问的时间间隔在"+visitLockTime+"秒内!";
-					logger.debug(msg);
+					String msg = "您访问的太频繁了,请稍等片刻操作!";
+					logger.warn(visitKey+" 访问频率超过限定时间 ");
 					return GsonUtil.toJsonForObject(MsgModel.buildDefaultError(msg));
 				}else
 					loginMap.put(visitKey, DateUtil.getCurrentDateTime());

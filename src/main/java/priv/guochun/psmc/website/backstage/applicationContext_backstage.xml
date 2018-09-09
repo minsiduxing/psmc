@@ -124,7 +124,7 @@
 	 <bean id="psmcChjghProcessChinaFactory" class="priv.guochun.psmc.website.backstage.common.china.factory.PsmcChjghProcessChinaFactory" />
 	 
 	 <!-- 工会服务请求处理链路类 -->
-	 <bean id="psmcChjghRegisterMethodProcessChina" class="priv.guochun.psmc.website.backstage.common.china.impl.PsmcChjghRegisterMethodProcessChina" />
+	 <bean id="psmcChjghMethodProcessChina" class="priv.guochun.psmc.website.backstage.common.china.impl.PsmcChjghMethodProcessChina" />
 	
 	 <!-- 实名认证 -->
 	 <bean id="realNameAuthService" class="priv.guochun.psmc.website.backstage.common.realNameAuth.impl.RealNameAuthServiceImpl"/>

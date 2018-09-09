@@ -14,9 +14,9 @@ public class PsmcChjghProcessChinaFactory {
 	 */
 	public static synchronized PsmcInterfaceServiceProcessChina buildChjghProcessChina(){
 		if(firstChina == null){
-			Object obj = MySpringApplicationContext.getObject("psmcChjghRegisterMethodProcessChina");
+			Object obj = MySpringApplicationContext.getObject("psmcChjghMethodProcessChina");
 			if(obj == null)
-				throw new RuntimeException(" build china error: psmcChjghRegisterMethodProcessChina not in spring ioc!!! ");
+				throw new RuntimeException(" build china error: psmcChjghMethodProcessChina not in spring ioc!!! ");
 			
 			firstChina = (PsmcInterfaceServiceProcessChina)obj;
 		}

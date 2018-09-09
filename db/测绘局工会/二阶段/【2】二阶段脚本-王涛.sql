@@ -319,6 +319,16 @@ alter table tab_topics add release_status INTEGER comment '发布状态';
 alter table tab_topics add release_time TIMESTAMP NULL comment '发布时间';
 alter table tab_topics add release_person_uuid varchar(64) comment '发布人id';
 
+delete from tab_role_operate where operate_uuid in(
+select uuid from tab_operate where OPERATE_NO in('FLEA_MARKET_RELEASE','FLEA_MARKET_BAN_RELEASE','EXPOSURE_TABLE_RELEASE','EXPOSURE_TABLE_BAN_RELEASE',
+'PRAISE_RELEASE','PRAISE_BAN_RELEASE','COMPLAIN_RELEASE','COMPLAIN_BAN_RELEASE')
+);
+
+delete from tab_operate where OPERATE_NO in('FLEA_MARKET_RELEASE','FLEA_MARKET_BAN_RELEASE','EXPOSURE_TABLE_RELEASE','EXPOSURE_TABLE_BAN_RELEASE',
+'PRAISE_RELEASE','PRAISE_BAN_RELEASE','COMPLAIN_RELEASE','COMPLAIN_BAN_RELEASE');
+
+
+
 ---新增操作配置（发布和禁止发布）
 insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
 ('38852cba55c9470eb0ac5634635f66da','2108b5f2b4704a1b85ac0b2a596ded97','fe755fa4bd25475fa1a9d841caa16f44',
@@ -407,7 +417,7 @@ alter table tab_report add release_status integer comment '发布状态';
 alter table tab_report add release_date TIMESTAMP NULL comment '发布时间';
 alter table tab_report add release_person_uuid varchar(64) comment '发布人id'; 
 --部门表增加字段
-alter table tab_dept add cooperation varchar(1000) comment '合作意向'
+alter table tab_dept add cooperation varchar(1000) comment '合作意向';
 
 --字典表申报状态修改
 delete from tab_data_dict where DICT_NO = 'REPORT_STAUS' and DICT_ID = '7';

@@ -1,10 +1,13 @@
 package priv.guochun.psmc.website.backstage.common.interceptor;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.interceptor.Fault;
@@ -74,11 +77,19 @@ public class PsmcChjghServicePreInterceptor extends
 		if(StringUtils.isNotBlank(result)){
 			//如果不为空 说明链路处理期间遇到错误被拦截
 			logger.debug(result);
-			throw new Fault(new RuntimeException(result)); 
-			
+			HttpServletResponse response = (HttpServletResponse)message.get(AbstractHTTPDestination.HTTP_RESPONSE);
+			ServletOutputStream out;
+			try {
+				response.setContentType("application/json;charset=UTF-8");
+				out = response.getOutputStream();
+				out.write(result.getBytes("utf-8"));
+				out.flush();
+				message.getInterceptorChain().doInterceptStartingAfter(message, "org.apache.cxf.jaxrs.interceptor.JAXRSOutInterceptor");
+				out.close();
+			} catch (Exception e) {
+				logger.error("cxf拦截器返回异常："+e);
+			}
 		}
-		
-		
 	}
 
 	public PsmcChjghProcessChinaFactory getPsmcChjghProcessChinaFactory() {
