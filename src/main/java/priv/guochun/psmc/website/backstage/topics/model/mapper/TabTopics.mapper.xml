@@ -101,7 +101,7 @@
 	    </if>
 	    <if test="personUuid != null and personUuid != ''">
 	      and t1.release_status = 1
-	      or (t1.release_status = 2 and t1.create_person_uuid = #{personUuid})
+	      or (t1.release_status = 2 and t1.create_person_uuid = #{personUuid} and t1.topic_status != 3)
 	    </if>
 	    <if test="queryParameter != null and queryParameter != ''" >  
 		       and (t1.topic_name like concat(concat('%',#{queryParameter}),'%')
