@@ -191,7 +191,8 @@ $(document).ready(function(){
 		if (rows.length == 1){
 			var rowObj = eval(rows[0]);
 			var topicUuid = rowObj.topic_uuid;
-			openCommentListDialog(topicUuid);
+			var blockUuid = $("#blockUuid").val();
+			openCommentListDialog(topicUuid, blockUuid);
 		}else{
 			commonObj.alert("请选择一条记录!","warning");
 		}
@@ -296,21 +297,30 @@ $(document).ready(function(){
 
 var commentListdialog;
 //表单dialog初始化方法
-function initDialog(){
+function initDialog(blockUuid){
+	var widthNum;
+	var heightNum;
+	if(blockUuid == '01' || blockUuid == '02'){
+		widthNum=850;
+		heightNum=500;
+	}else{
+		widthNum=550;
+		heightNum=250;
+	}
 	commentListdialog = $("#commentListDialogDiv").dialog({
 		modal: true,
 		closed: true,
-	    width: 850,
-	    height: 500,
+	    width: widthNum,
+	    height: heightNum,
 	    resizable:true,
 	    cache: false
 	});
 }
 
 //打开评论列表dialog
-function openCommentListDialog(topicUuid){
+function openCommentListDialog(topicUuid, blockUuid){
 	if(!commentListdialog){
-		initDialog();
+		initDialog(blockUuid);
 	}
 	commentListdialog.panel({title:"信息详情"});
 	commentListdialog.panel({href:toTopicsDetail+'&topicUuid='+topicUuid});

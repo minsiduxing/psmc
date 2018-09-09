@@ -42,7 +42,7 @@
 					<td class="tds">协会简介：</td>
 					<td width="100%"  colspan="3">
 						<%-- <textarea style="width:80%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="deptIntroduction" name="deptIntroduction">${dept.dept_introduction}</textarea> --%>
-						<input id="deptIntroduction" name="deptIntroduction" type="hidden">
+						<input id="deptIntroduction" name="deptIntroduction" type="hidden" >
 						<div id="introductionContent" class="newsContent"></div>
 					</td>
 				</tr>	
@@ -51,7 +51,7 @@
 				<td class="tds" >规范管理办法：</td>
 				<td width="100%" colspan="3">
 					<%-- <textarea style="width:80%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="deptRegulation" name="deptRegulation">${dept.dept_regulation}</textarea> --%>
-					<input id="deptRegulation" name="deptRegulation" type="hidden">
+					<input id="deptRegulation" name="deptRegulation" type="hidden" >
 					<div id="regulationContent" class="newsContent"></div>
 				</td>
 			</tr>
@@ -60,7 +60,7 @@
 				<td colspan="3" width="100%">
 					<!--非全屏模式-->
 				    
-				        <input id="hiddencontent" type="hidden" name="elegantDemeanour"/>
+				        <input id="hiddencontent" type="hidden" name="elegantDemeanour" />
 				        <div id="newsContent" class="newsContent"></div>
 	               
 				</td>
@@ -75,6 +75,11 @@
 			</c:if>
 		</table>
 	</div>
+		<div style="display: none;">
+		 	 <label id="introduction">${dept.dept_introduction}</label>
+			 <label id="regulation">${dept.dept_regulation}</label>
+			 <label id="demeanour">${dept.elegant_demeanour}</label>
+		</div> 
 	 <input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 	 <input type="hidden" id="deptUuid" name="deptUuid" value="${dept.dept_uuid }"/>
 	 <input type="hidden" id="deptType" name="deptType" value="${deptType}"/>
@@ -98,9 +103,7 @@ var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>
 //表单数据初始化---------------------------------------------------
 var addUrl = '<c:url value="/website/backstage/TabDeptController.do"/>?method=saveOrUpdateDept';
 var retrunUrl =  '<c:url value="/website/backstage/TabDeptController.do"/>?method=toDeptList&deptType='+$("#deptType").val();
-var newscontent = '${dept.elegant_demeanour}';
-var deptIntroduction = '${dept.dept_introduction}';
-var deptRegulation = '${dept.dept_regulation}';
+
 function formInint(isEdit){
 	if(isEdit == "query"){
 		$("#submitbtn").hide();

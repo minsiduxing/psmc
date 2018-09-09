@@ -260,5 +260,6 @@ public class OperateContantsUtil {
     public final static String INFO_ADVICE_DELETE = "INFO_ADVICE_DELETE";
     public final static String INFO_ADVICE_PUBLISH_CANCEL= "INFO_ADVICE_PUBLISH_CANCEL";
     public final static String INFO_ADVICE_LIST= "INFO_ADVICE_LIST";
+    public final static String INFO_ADVICE_REPLY = "INFO_ADVICE_REPLY";
 
 }

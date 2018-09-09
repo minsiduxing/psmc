@@ -53,10 +53,10 @@ function successCallback(data){
 function initEditor1(isEdit){
 	editor1 = createWangeditor("introductionContent");
 	 if (isEdit=="edit") {
-   	  editor1.txt.html(deptIntroduction) ;
+   	  editor1.txt.html($("#introduction").html()) ;
      }
      if(isEdit=="query"){
-   	  editor1.txt.html(deptIntroduction) ;
+   	  editor1.txt.html($("#introduction").html()) ;
    	  editor1.$textElem.attr('contenteditable', false);
      }
 }
@@ -64,10 +64,10 @@ function initEditor1(isEdit){
 function initEditor2(isEdit){
 	editor2 = createWangeditor("regulationContent");
 	 if (isEdit=="edit") {
-   	  editor2.txt.html(deptRegulation) ;
+   	  editor2.txt.html($("#regulation").html()) ;
      }
      if(isEdit=="query"){
-   	  editor2.txt.html(deptRegulation) ;
+   	  editor2.txt.html($("#regulation").html()) ;
    	  editor2.$textElem.attr('contenteditable', false);
      }
 }
@@ -144,10 +144,10 @@ function  wangEditorInit(isEdit){
           editor3.create(); 
           E.fullscreen.init('#newsContent');
           if (isEdit=="edit") {
-        	  editor3.txt.html(newscontent) ;
+        	  editor3.txt.html($("#demeanour").html()) ;
           }
           if(isEdit=="query"){
-        	  editor3.txt.html(newscontent) ;
+        	  editor3.txt.html($("#demeanour").html()) ;
         	  editor3.$textElem.attr('contenteditable', false);
           }
     }

@@ -4,33 +4,49 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-
+	<style type="text/css">
+		.tds{
+		text-align:right;
+		width:30px
+	}
+	</style>
 </head>
 <body id="body">
 <form id="innovationForm" method="POST" >
 		<input type="hidden" id="topicUuid" name="topicUuid" value=${topicUuid }>
 		<input type="hidden" id="blockUuid" name="blockUuid" value=${blockUuid }>
-        <table class="table table-hover" align="center" style="font-size:12px; width:70%; border-collapse:separate; border-spacing:10px;">
+        <table class="table table-hover" align="center" style="font-size:12px; width:95%; border-collapse:separate; border-spacing:10px;">
             <tr>
-                <td align="center" style="font-size:16px;">
+            	<td class="tds">信息名称：</td>
+                <td width="85%">
                 	<span>${topic.topic_name }</span>
                 </td>
             </tr>
             <tr>
-                <td align="center" style="color: #8C8C8C">
-                	<span>${topic.create_date }</span>
+            	<td class="tds">信息内容：</td>
+                <td>
+                	<span>${topic.topic_content }</span>
                 </td>
             </tr>
             <tr>
-                <td ><p style="text-indent: 2em;">${topic.topic_content }</p></td>
+            	<td class="tds">创建人：</td>
+                <td >${topic.create_person_name}</td>
             </tr>
             <tr>
-                <td align="right"><span>${topic.create_person_name}</span><span style="margin-left: 10px; margin-right: 5px;">${topic.telephone }</span></td>
+            	<td class="tds">联系电话：</td>
+                <td >${topic.telephone }</td>
             </tr>
             <tr>
-            	<td  align="center">
-		        	<c:forEach var="att" items="${attachmentList}" varStatus="status">
-		        		<a style="margin-left:10px;" href="javascript:imgShow('${att.file_prefix }${att.file_path}')"" >${att.file_real_name}.${att.file_suffix}</a>
+            	<td class="tds">创建时间：</td>
+            	<td >${topic.create_date }
+		        	
+            	</td>
+            </tr>
+            <tr>
+            	<td class="tds">图片附件：</td>
+            	<td>
+            		<c:forEach var="att" items="${attachmentList}" varStatus="status">
+		        		<a href="javascript:imgShow('${att.file_prefix }${att.file_path}')"" >${att.file_real_name}.${att.file_suffix}</a>
 		        	</c:forEach>
             	</td>
             </tr>

@@ -60,10 +60,10 @@
         <a href="#" id="reportDeal" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">处理</a>
     </g:auth>
     <g:auth operateNo="<%=OperateContantsUtil.INFO_REPORT_ACCEPT%>">
-        <a href="#" id="reportAccept" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">受理</a>
+        <a href="#" id="reportAccept" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-audit">受理</a>
     </g:auth>
     <g:auth operateNo="<%=OperateContantsUtil.INFO_REPORT_RECORD%>">
-        <a href="#" id="reportRecord" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">备案</a>
+        <a href="#" id="reportRecord" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-edit">备案</a>
     </g:auth>
 </c:if>
 <c:if test="${type=='help'}">
@@ -71,15 +71,15 @@
         <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
     </g:auth>
     <g:auth operateNo="<%=OperateContantsUtil.INFO_HELP_REPLY%>">
-        <a href="#" id="replyReport" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">回复</a>
+        <a href="#" id="replyReport" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-edit">回复</a>
     </g:auth>
 </c:if>
 <c:if test="${type=='repair'}">
-    <g:auth operateNo="<%=OperateContantsUtil.INFO_REPAIR_REPLY%>">
+    <g:auth operateNo="<%=OperateContantsUtil.INFO_REPAIR_DELETE%>">
         <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
     </g:auth>
-    <g:auth operateNo="<%=OperateContantsUtil.INFO_REPAIR_DELETE%>">
-        <a href="#" id="replyReport" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">回复</a>
+    <g:auth operateNo="<%=OperateContantsUtil.INFO_REPAIR_REPLY%>">
+        <a href="#" id="replyReport" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-edit">回复</a>
     </g:auth>
 </c:if>
     <c:if test="${type=='advice'}">
@@ -92,6 +92,9 @@
         <g:auth operateNo="<%=OperateContantsUtil.INFO_ADVICE_PUBLISH_CANCEL%>">
             <a href="#" id="advicePublishCancel" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-undo">取消发布</a>
         </g:auth>
+        <g:auth operateNo="<%=OperateContantsUtil.INFO_ADVICE_REPLY%>">
+	        <a href="#" id="replyReport" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-edit">回复</a>
+	    </g:auth>
     </c:if>
 </div>
 <!-- 点赞信息 -->

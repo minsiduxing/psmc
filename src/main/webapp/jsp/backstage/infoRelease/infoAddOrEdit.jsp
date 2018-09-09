@@ -52,7 +52,7 @@
 			</tr>
 		</table>
 	</div>
-
+		<label id="infoContent" style="display: none;">${info.news_content}</label>
 	 <input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 	 <input type="hidden" id="newsUuid" name=newsUuid value="${info.uuid }"/>
 	 <input type="hidden" id="oneLevelClassify" name="oneLevelClassify" value="${oneLevelClassify}"/>
@@ -89,7 +89,6 @@ var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>
 var path = '<c:url value="'+ basePath+'/website/backstage/InfoReleaseController.do"/>?method=confirmPicture';
 //表单数据初始化---------------------------------------------------
 var newsTitle = "${info.newsTitle}";
-var newscontent = '${info.news_content}';
 var editnewssrc = "${info.thumbnail_image_url}";
 var addUrl = '<c:url value="/website/backstage/InfoReleaseController.do"/>?method=saveOrUpdateInfoRelease';
 var retrunUrl =  '<c:url value="/website/backstage/InfoReleaseController.do"/>?method=infoReleaseList&oneLevelClassify='+$("#oneLevelClassify").val();

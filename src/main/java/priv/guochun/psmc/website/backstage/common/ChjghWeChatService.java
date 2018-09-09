@@ -173,12 +173,13 @@ public interface ChjghWeChatService {
 	/**
 	 * 查询申报明细
 	 * @param reportUUid 查询参数
+	 * @param personUuid
 	 * @return
 	 */
 	@Path("/report_detail")
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
-	public String getReportInfoDetail(@QueryParam("reportUUid")String reportUUid);
+	public String getReportInfoDetail(@QueryParam("reportUUid")String reportUUid, @QueryParam("personUuid")String personUuid);
 	/**
 	 * 新增申报信息
 	 * @param report 新增的申报信息

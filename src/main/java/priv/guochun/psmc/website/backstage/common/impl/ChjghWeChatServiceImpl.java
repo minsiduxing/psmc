@@ -483,7 +483,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	}
 
 	@Override
-	public String getReportInfoDetail(String reportUUid) {
+	public String getReportInfoDetail(String reportUUid, String personUuid) {
 		if(StringUtils.isBlank(reportUUid)){
 			MsgModel msg = MsgModel.buildDefaultError("reportUUid is null ");
 			return  GsonUtil.toJsonForObject(msg);
@@ -492,6 +492,11 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		if(null==result || result.isEmpty()){
 			MsgModel msg = MsgModel.buildDefaultError("error the report not exits ");
 			return  GsonUtil.toJsonForObject(msg);
+		}
+		if(result.get("reportType").equals("advice")){
+			//是否已点赞
+			boolean isLaud = tabLaudService.selectIsLaud(reportUUid, personUuid);
+			result.put("isLaud", isLaud);
 		}
 		MsgModel msg = MsgModel.buildDefaultSuccess(result);
 		return  GsonUtil.toJsonForObject(msg);

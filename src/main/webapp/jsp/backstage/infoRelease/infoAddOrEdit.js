@@ -95,10 +95,10 @@ function  wangEditorInit(isEdit){
           editor.create(); 
           E.fullscreen.init('#newsContent');
           if (isEdit=="edit") {
-        	  editor.txt.html(newscontent) ;
+        	  editor.txt.html($("#infoContent").html()) ;
           }
           if(isEdit=="query"){
-        	  editor.txt.html(newscontent) ;
+        	  editor.txt.html($("#infoContent").html()) ;
         	  editor.$textElem.attr('contenteditable', false);
           }
           

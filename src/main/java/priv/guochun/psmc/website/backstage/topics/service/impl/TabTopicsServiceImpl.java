@@ -44,6 +44,8 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 			tabTopics.setCreateDate(DateUtil.getCurrentTimstamp());
 			//初始为正常状态
 			tabTopics.setTopicStatus(ContantsUtil.BLOCK_STATUS_1);
+			//发布状态为未发布
+			tabTopics.setReleaseStatus(Integer.valueOf(ModuleEnum.NOT_RELEASE.getValue()));
 			//添加列表的默认配图
 			String imagePath = "";
 			if(ContantsUtil.BLOCK_01.equals(tabTopics.getBlockUuid())){

@@ -138,7 +138,7 @@
 			</tr>
 		</table>
 	</div>
-		 
+		 <label id="infoContent" style="display: none;">${info.achievement_content}</label>
 		 <input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 		 <input type="hidden" id="innovationUuid" name="innovationUuid" value="${info.innovation_uuid}"/>
 		 <input type="hidden" id="imagePath" name="imagePath" value="${info.image_path}" />
@@ -164,7 +164,6 @@ var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>
 var getImag='<c:url value="/system/freamwork/fileUploadController.do"/>?method=getImage&filePath=';
 //上传配图
 var uploadPhoto = '<c:url value="/website/backstage/uploadImageController.do"/>?method=uploadPhoto';
-var newsContent = '${info.achievement_content}';
 
 var groupid = "${sessionScope.user.tabPerson.groupid}";
 commonObj.initDictCombobox("sex","SEX","<c:out value="${info.sex}"/>",true,false);
