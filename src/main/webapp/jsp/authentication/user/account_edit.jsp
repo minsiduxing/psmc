@@ -11,8 +11,16 @@
 <input type="hidden" id="uuid" name="uuid" value="<c:out value="${account.UUID}"/>"></input>
 <input type="hidden" id="personId" name="personId" value="<c:out value="${person.UUID}"/>"></input>
 <input type="hidden" id="accUuid" name="accUuid" value="<c:out value="${person.ACC_UUID}"/>"></input>
-<input type="hidden" id="accountType" name="accountType" value="<c:out value="${account.ACCOUNT_TYPE}"/>"></input>
+<input type="hidden" id="accountType" name="accountType" value="<c:out value="${account.account_type}"/>"></input>
 
+<input type="hidden" id="idCard" name="idCard" value="<c:out value="${person.id_card}"/>"></input>
+<input type="hidden" id="authType" name="authType" value="<c:out value="${account.auth_type}"/>"></input>
+<input type="hidden" id="area" name="area" value="<c:out value="${person.area}"/>"></input>
+<input type="hidden" id="province" name="province" value="<c:out value="${person.province}"/>"></input>
+<input type="hidden" id="city" name="city" value="<c:out value="${person.city}"/>"></input>
+<input type="hidden" id="prefecture" name="prefecture" value="<c:out value="${person.prefecture}"/>"></input>
+<input type="hidden" id="birthday" name="birthday" value="<c:out value="${person.birthday}"/>"></input>
+<input type="hidden" id="addrCode" name="addrCode" value="<c:out value="${person.addr_code}"/>"></input>
 		<ul class="addform-subcontent">
 			<li class="li-input"><label for="" class="input-label">账号名称：</label>
 				<input class="myinput" id="accountName" name="accountName"></input>
