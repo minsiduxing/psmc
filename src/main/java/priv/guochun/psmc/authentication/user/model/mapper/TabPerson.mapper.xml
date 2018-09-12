@@ -62,22 +62,22 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	  			GROUPID =#{groupid},
 	  		</if>
 	  		<if test="idCard != null">
-	  			id_card = #{idCard}
+	  			id_card = #{idCard},
 	  		</if>
 	  		<if test="area != null">
-	  			area = #{area}
+	  			area = #{area},
 	  		</if>
 	  		<if test="province != null">
-	  			province = #{province}
+	  			province = #{province},
 	  		</if>
 	  		<if test="city != null">
-	  			city = #{city}
+	  			city = #{city},
 	  		</if>
 	  		<if test="prefecture != null">
-	  			prefecture = #{prefecture}
+	  			prefecture = #{prefecture},
 	  		</if>
 	  		<if test="birthday != null">
-	  			birthday = #{birthday}
+	  			birthday = #{birthday},
 	  		</if>
 	  		<if test="addrCode != null">
 	  			addr_code = #{addrCode}
