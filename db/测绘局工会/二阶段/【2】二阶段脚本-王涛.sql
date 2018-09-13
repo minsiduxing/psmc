@@ -436,3 +436,28 @@ delete from tab_operate where uuid in ('81404965f2954cf5b3b8c5de6a2de86c','01d23
 --合理化建议增加回复操作
 INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('d59b1aae6112d56739d092e470542c59', '8f78369341404a67a8938b8d7b58abde', 'fe755fa4bd25475fa1a9d841caa16f44', 'priv.guochun.psmc.website.backstage.report.service.ReportService', 'executeReplyReportBusinessMethod', 'INFO_ADVICE_REPLY', '回复', '回复', 45);
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'd59b1aae6112d56739d092e470542c59');
+
+
+---------------------------------------------------2018-09-13---------------------------------------------------
+drop table tab_function_explain;
+--功能说明表
+create table tab_function_explain
+(
+      explain_uuid varchar(64) not null comment '功能说明uuid',
+      function_code varchar(20) comment '功能编码',
+      function_name varchar(50) comment '功能名称',
+      expain_content varchar(2000) comment '说明内容',
+      primary key (explain_uuid)
+);
+
+--初始化功能名称到字典表
+delete from tab_data_dict where DICT_NO = 'FUNCTION_NAME';
+INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('1', '留言报修', '功能名称', 12, 1, 1, 'FUNCTION_NAME');
+INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('2', '合理化建议', '功能名称', 12, 2, 2, 'FUNCTION_NAME');
+INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('3', '我要投诉', '功能名称', 12, 3, 3, 'FUNCTION_NAME');
+
+--增加菜单
+delete from tab_resource where uuid = '1fd48b934d5d4976bc23fbf904840d78';
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum, is_view) VALUES ('1fd48b934d5d4976bc23fbf904840d78', '功能提示管理', 3, '/jsp/system/common/explain/functionExplain.jsp', 'f55580fa321b4d34a172628d5825c4dc', 'admin', '2018-09-13 23:30:08', '菜单', 17, 1);
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', '1fd48b934d5d4976bc23fbf904840d78');
+
