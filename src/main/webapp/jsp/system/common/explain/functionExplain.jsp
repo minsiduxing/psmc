@@ -45,4 +45,59 @@
 	var addOrUpdateUrl ='<c:url value="'+explainDo+'"/>?method=addOrUpdate';
 	var queryExplainUrl ='<c:url value="'+explainDo+'"/>?method=queryExplain';
 	commonObj.initDictCombobox("functionCode","FUNCTION_NAME","",true,false);
+	
+	$("#expainContent").validatebox({
+		required: true,    
+	    validType: "text"
+	});
+	
+	$(document).ready(function(){
+		$('#functionCode').combobox({
+		    onChange:function(newValue,oldValue){
+		    	$.ajax({
+					   type: "POST",
+					   url: queryExplainUrl + "&functionCode=" + newValue,
+					   success: function(data){
+						   if(data != "null"){
+							   data = JSON.parse(data);
+							   $("#expainContent").val(data.expainContent);
+							   $("#explainUuid").val(data.explainUuid);
+						   }else{
+							   $("#expainContent").val("");
+							   $("#explainUuid").val("");
+						   }
+					   },
+					   error:function(XMLHttpRequest, textStatus, errorThrown){
+						   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+					   }
+				});
+		    }
+		});
+	});
+	
+	function save(){
+		event.preventDefault();
+		var functionName = $("#functionCode").combobox("getText");
+		$("#functionName").val(functionName);
+		var result = $('#explainForm').form("validate");
+		if(!Boolean(result)){
+			$.messager.alert('警告','请填写必填项！','warning');
+			return;
+		}
+		var explaindata = $("#explainForm").serialize();
+		$.messager.progress(); 
+		$.ajax({
+			   type: "POST",
+			   url: addOrUpdateUrl,
+			   data:explaindata,
+			   success: function(data){
+				   $.messager.progress("close");
+					commonObj.showResponse(data);
+			   },
+			   error:function(XMLHttpRequest, textStatus, errorThrown){
+				   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+				   $.messager.progress("close");
+			   }
+		});
+	}
 </script>

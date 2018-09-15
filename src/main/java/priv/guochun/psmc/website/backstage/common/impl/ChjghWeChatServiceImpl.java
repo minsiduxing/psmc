@@ -25,6 +25,8 @@ import priv.guochun.psmc.authentication.user.model.TabAccount;
 import priv.guochun.psmc.authentication.user.model.TabPerson;
 import priv.guochun.psmc.authentication.user.service.TabAccountService;
 import priv.guochun.psmc.authentication.user.service.TabPersonService;
+import priv.guochun.psmc.system.common.explain.model.TabFunctionExplain;
+import priv.guochun.psmc.system.common.explain.service.TabFunctionExplainService;
 import priv.guochun.psmc.system.common.vcode.model.TabVerificationCode;
 import priv.guochun.psmc.system.common.vcode.service.VerificationCodeService;
 import priv.guochun.psmc.system.enums.AccountLockEnum;
@@ -108,6 +110,8 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	private TabLaudService tabLaudService;
 	@Autowired
 	private RealNameAuthService realNameAuthService;
+	@Autowired
+	private TabFunctionExplainService tabFunctionExplainService;
 	
 	public TabAttachmentService getTabAttachmentService() {
 		return tabAttachmentService;
@@ -498,6 +502,11 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			boolean isLaud = tabLaudService.selectIsLaud(reportUUid, personUuid);
 			result.put("isLaud", isLaud);
 		}
+		//留言报修需要查询图片附件
+		if(result.get("reportType").equals("repair")) {
+			List<Map<String, Object>> attachmentList = tabAttachmentService.queryAttachmentList(reportUUid);
+			result.put("attachmentList", attachmentList);
+		}
 		MsgModel msg = MsgModel.buildDefaultSuccess(result);
 		return  GsonUtil.toJsonForObject(msg);
 	}
@@ -680,6 +689,23 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		} catch (Exception e) {
 			logger.error("取消点赞异常." + e);
 			msg = MsgModel.buildDefaultError("操作异常");
+		}
+		return GsonUtil.toJsonForObject(msg); 
+	}
+	
+	@Override
+	public String getExplainbyCode(String functionCode) {
+		if(StringUtils.isBlank(functionCode)){
+			MsgModel msg = MsgModel.buildDefaultError("参数不合法 ");
+			return  GsonUtil.toJsonForObject(msg);
+		}
+		MsgModel msg = null;
+		try {
+			TabFunctionExplain explain = tabFunctionExplainService.queryExplainByCode(functionCode);
+			msg =  MsgModel.buildDefaultSuccess("查询成功", explain);
+		} catch (Exception e) {
+			logger.error("查询异常." + e);
+			msg = MsgModel.buildDefaultError("查询异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
 	}

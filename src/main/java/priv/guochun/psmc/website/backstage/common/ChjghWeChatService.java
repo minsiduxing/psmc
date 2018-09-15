@@ -292,4 +292,14 @@ public interface ChjghWeChatService {
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	public String cancelLaud(@FormParam("moduleUuid") String moduleUuid, @FormParam("personUuid") String personUuid);
+	
+	/**
+	 * 查询功能提示信息
+	 * @param functionCode
+	 * @return
+	 */
+	@Path("/getExplainbyCode")
+	@POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String getExplainbyCode(@FormParam("functionCode") String functionCode);
 }

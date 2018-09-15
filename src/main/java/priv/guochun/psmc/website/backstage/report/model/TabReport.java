@@ -32,6 +32,12 @@ public class TabReport implements Serializable {
     private Integer releaseStatus;
     private String releasePersonUuid;
     private Timestamp releaseDate;
+    
+    
+    /**
+     * 附件ID（非持久化字段,多个id之间以逗号隔开）
+     */
+    private String attachmentUuids;
 
     public String getReportStaus() {
         return reportStaus;
@@ -184,5 +190,13 @@ public class TabReport implements Serializable {
 
 	public void setReleaseDate(Timestamp releaseDate) {
 		this.releaseDate = releaseDate;
+	}
+
+	public String getAttachmentUuids() {
+		return attachmentUuids;
+	}
+
+	public void setAttachmentUuids(String attachmentUuids) {
+		this.attachmentUuids = attachmentUuids;
 	}
 }

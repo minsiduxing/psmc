@@ -2,6 +2,8 @@ package priv.guochun.psmc.system.common.explain.controller;
 
 import java.io.IOException;
 
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,6 +21,7 @@ import priv.guochun.psmc.system.util.JsonUtil;
 @RequestMapping("/system/common/functionExplainController")
 public class TabFunctionExplainController extends MyController{
 	
+	@Autowired
 	private TabFunctionExplainService tabFunctionExplainService;
 	
 	/**

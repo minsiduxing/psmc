@@ -61,11 +61,11 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 			}
 			tabTopics.setImagePath(imagePath);
 			baseDao.insert(insertTopics, tabTopics);
-			//添加附件信息
-			tabAttachmentService.updateBusinessUuidToAttachment(topicUuid, tabTopics.getAttachmentUuids());
 		}else{
 			baseDao.update(updateTopics, tabTopics);
 		}
+		//添加附件信息
+		tabAttachmentService.updateBusinessUuidToAttachment(tabTopics.getTopicUuid(), tabTopics.getAttachmentUuids());
 	}
 	
 	@Override

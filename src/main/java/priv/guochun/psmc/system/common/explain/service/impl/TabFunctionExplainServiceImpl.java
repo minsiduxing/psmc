@@ -1,5 +1,8 @@
 package priv.guochun.psmc.system.common.explain.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -40,7 +43,9 @@ public class TabFunctionExplainServiceImpl implements TabFunctionExplainService 
 
 	@Override
 	public TabFunctionExplain queryExplainByCode(String functionCode) {
-		TabFunctionExplain explain = (TabFunctionExplain) baseDao.queryForObject(selectFunctionExplain, functionCode);
+		Map<String, Object> condition = new HashMap<String, Object>();
+		condition.put("functionCode", functionCode);
+		TabFunctionExplain explain = (TabFunctionExplain) baseDao.queryForObject(selectFunctionExplain, condition);
 		return explain;
 	}
 

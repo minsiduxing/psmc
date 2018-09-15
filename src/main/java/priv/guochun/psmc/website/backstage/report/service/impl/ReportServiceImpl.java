@@ -13,6 +13,7 @@ import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
+import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentService;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
 import priv.guochun.psmc.website.backstage.report.enums.ReportEnum;
 import priv.guochun.psmc.website.backstage.report.model.TabReport;
@@ -44,6 +45,8 @@ public class ReportServiceImpl implements ReportService{
 	ReplyService replyService;
 	@Autowired
 	TabPersonService tabPersonService;
+	@Autowired
+	private TabAttachmentService tabAttachmentService;
 	@Override
 	public void saveOrUpdateReportBusinessMethod(TabReport report) {
 		addRport(report);
@@ -172,6 +175,8 @@ public class ReportServiceImpl implements ReportService{
 			report.setLastModifyTime(DateUtil.getCurrentTimstamp());
 			baseDao.update(updateByPrimaryKey,report);
 		}
+		//添加附件信息
+		tabAttachmentService.updateBusinessUuidToAttachment(report.getReportUuid(), report.getAttachmentUuids());
 	}
 	@Override
 	public void  dealReportBusinessMethod(String reportUuids,String reportStatus){

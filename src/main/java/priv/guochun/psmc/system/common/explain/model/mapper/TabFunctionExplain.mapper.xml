@@ -8,7 +8,7 @@
     <result column="expain_content" jdbcType="VARCHAR" property="expainContent" />
   </resultMap>
   
-  <select id="selectFunctionExplain" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectFunctionExplain" parameterType="hashmap" resultMap="BaseResultMap">
     select
    		explain_uuid, function_code, function_name, expain_content
     from tab_function_explain
