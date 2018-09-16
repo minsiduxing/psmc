@@ -457,7 +457,14 @@ INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, 
 INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('3', '我要投诉', '功能名称', 12, 3, 3, 'FUNCTION_NAME');
 
 --增加菜单
+delete from tab_role_resource where resource_id = '1fd48b934d5d4976bc23fbf904840d78';
 delete from tab_resource where uuid = '1fd48b934d5d4976bc23fbf904840d78';
 INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum, is_view) VALUES ('1fd48b934d5d4976bc23fbf904840d78', '功能提示管理', 3, '/jsp/system/common/explain/functionExplain.jsp', 'f55580fa321b4d34a172628d5825c4dc', 'admin', '2018-09-13 23:30:08', '菜单', 17, 1);
 INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', '1fd48b934d5d4976bc23fbf904840d78');
+
+
+update tab_resource set resource_name='大院文明角' where uuid='9dcf22db90c74e96b4e6c16da7ed84fd';
+update tab_operate set operate_desc='信息列表' where uuid='91b54f3f2ee24ba9a88ee26f0ddabbba';
+update tab_resource set resource_name='后勤服务中心' where uuid='769a2c0484dd43749ed12b607102d688';
+update tab_resource set resource_name='意见建议' where uuid='6293f053281f459ea4f7402e2f90c365';
 
