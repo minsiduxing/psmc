@@ -453,7 +453,7 @@ create table tab_function_explain
 --初始化功能名称到字典表
 delete from tab_data_dict where DICT_NO = 'FUNCTION_NAME';
 INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('1', '留言报修', '功能名称', 12, 1, 1, 'FUNCTION_NAME');
-INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('2', '合理化建议', '功能名称', 12, 2, 2, 'FUNCTION_NAME');
+INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('2', '我要建议', '功能名称', 12, 2, 2, 'FUNCTION_NAME');
 INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('3', '我要投诉', '功能名称', 12, 3, 3, 'FUNCTION_NAME');
 
 --增加菜单
@@ -467,4 +467,7 @@ update tab_resource set resource_name='大院文明角' where uuid='9dcf22db90c7
 update tab_operate set operate_desc='信息列表' where uuid='91b54f3f2ee24ba9a88ee26f0ddabbba';
 update tab_resource set resource_name='后勤服务中心' where uuid='769a2c0484dd43749ed12b607102d688';
 update tab_resource set resource_name='意见建议' where uuid='6293f053281f459ea4f7402e2f90c365';
+update tab_resource set resource_name='大院早知道' where uuid='f03a9f0f29d44a1da4376353809eb9e1';
 
+
+update tab_block set tab_block='大院文明角' where block_uuid='02';
