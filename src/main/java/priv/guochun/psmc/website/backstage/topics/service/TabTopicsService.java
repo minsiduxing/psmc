@@ -65,4 +65,10 @@ public interface TabTopicsService {
 	 * @param personUuid
 	 */
 	public void executeBanReleaseBusinessMethod(String topicUuids, String personUuid);
+	
+	/**
+	 * PC端曝光台信息保存修改
+	 * @param tabTopics
+	 */
+	public void saveOrUpdateBusinessMethod(TabTopics tabTopics);
 }

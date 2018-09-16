@@ -293,6 +293,33 @@ $(document).ready(function(){
 		$("#topicsId").datagrid('reload');
 		commonObj.showResponse(data);
 	}
+	
+	//新增
+	$("#add").click(function(){
+		var blockUuid = $("#blockUuid").val();
+		var _url = toAddOrUpdateUrl+"&blockUuid="+blockUuid;
+		window.location.href=_url;
+		event.preventDefault();
+	});
+	
+	//编辑
+	$("#edit").click(function(){
+		var rows = $("#topicsId").datagrid('getChecked');
+		var blockUuid = $("#blockUuid").val();
+		if (rows.length == 1){
+			var rowObj = eval(rows[0]);
+			if(rowObj.release_status==1){
+				commonObj.alert("该信息已经发布不能修改!","warning");
+				return;
+			}
+			var topicUuid = rowObj.topic_uuid;
+			var _url = toAddOrUpdateUrl+"&topicUuid="+topicUuid+"&blockUuid="+blockUuid;
+			window.location.href=_url;
+		}else{
+			commonObj.alert("请选择一条记录!","warning");
+		}
+		event.preventDefault();
+	});
 });
 
 var commentListdialog;

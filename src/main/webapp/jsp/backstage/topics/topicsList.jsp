@@ -83,6 +83,12 @@
 	</g:auth>
 </c:if>
 <c:if test="${param.blockUuid=='02'}">
+	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_ADD%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_UPDATE%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="edit">修改</a>
+	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.EXPOSURE_TABLE_RELEASE%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-release" plain="true" id="release">发布</a>
 	</g:auth>
@@ -169,6 +175,7 @@ var undoTopicsUrl = '<c:url value="'+topicDo+'"/>?method=undoTopics';
 var releaseUrl = '<c:url value="'+topicDo+'"/>?method=releaseTopics';
 var banReleaseUrl = '<c:url value="'+topicDo+'"/>?method=banReleaseTopics';
 var toTopicsDetail = '<c:url value="'+topicDo+'"/>?method=toTopicsDetail&blockUuid='+$("#blockUuid").val();
+var toAddOrUpdateUrl = '<c:url value="'+topicDo+'"/>?method=toTopicsAddpage';
 
 var laudDo = basePath+"/website/backstage/tabLaudController.do";
 var queryLaudListUrl = '<c:url value="'+laudDo+'"/>?method=queryLaudPage';

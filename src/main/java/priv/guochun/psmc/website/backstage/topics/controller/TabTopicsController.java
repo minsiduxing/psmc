@@ -5,12 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.ContantsUtil;
@@ -128,6 +130,21 @@ public class TabTopicsController extends MyController{
 	}
 	
 	/**
+	 * 添加修改
+	 * @param topic
+	 * @throws IOException 
+	 */
+	@RequestMapping(params="method=addTopics")
+	public void addTopics(TabTopics topic) throws IOException{
+		User user = this.getUserBySeesion(this.request());
+		topic.setCreatePersonUuid(user.getUserUuid());
+		topic.setCreatePersonName(user.getPersonName());
+		topic.setTelephone(user.getPersonTelephone());
+		tabTopicsService.saveOrUpdateBusinessMethod(topic);
+		super.responseJson(true, "保存成功!", this.response());
+	}
+	
+	/**
 	 * 跳转到主题信息列表页面
 	 * @return
 	 */
@@ -150,5 +167,23 @@ public class TabTopicsController extends MyController{
 		model.addAttribute("blockUuid", blockUuid);
 		return "backstage/topics/topicsDetails";
 		
+	}
+	
+	/**
+	 * 跳转到添加修改界面
+	 * @param topicUuid
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(params="method=toTopicsAddpage")
+	public String toTopicsAddpage(String topicUuid, String blockUuid, Model model){
+		if(StringUtils.isNotBlank(topicUuid)){
+			Map<String, Object> topicMap = tabTopicsService.queryTopicsBusinessMethod(topicUuid);
+			List<Map<String, Object>> attachmentList = tabAttachmentService.queryAttachmentList(topicUuid);
+			model.addAttribute("topic", topicMap);
+			model.addAttribute("attachmentList", attachmentList);
+		}
+		model.addAttribute("blockUuid", blockUuid);
+		return "backstage/topics/topicsAddOrEdit";
 	}
 }

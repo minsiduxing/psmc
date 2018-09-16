@@ -10,6 +10,7 @@ import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
+import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentService;
 import priv.guochun.psmc.website.backstage.report.model.TabReport;
 import priv.guochun.psmc.website.backstage.report.model.TabReportReply;
 import priv.guochun.psmc.website.backstage.report.service.ReportService;
@@ -36,6 +37,8 @@ import java.util.Map;
 public class ReportController extends MyController {
     @Autowired
     ReportService reportService;
+    @Autowired
+    private TabAttachmentService tabAttachmentService;
     @RequestMapping(params="method=index",method = RequestMethod.GET)
     public String index(String type,Model model){
         model.addAttribute("type", type);
@@ -44,11 +47,13 @@ public class ReportController extends MyController {
     @RequestMapping(params="method=to_report")
     public String toReport(String reportUuid, Model model, HttpServletRequest request){
         Map<String,Object> report = reportService.findReportByUuidBusinessMethod(reportUuid);
+        List<Map<String, Object>> attachmentList = tabAttachmentService.queryAttachmentList(reportUuid);
         if(null==report.get("replyUserName") || StringUtils.isBlank(report.get("replyUserName").toString())){
             report.put("replyUserName", this.getUserBySeesion(request).getPersonName());
             report.put("replyTime", DateUtil.getCurrentTimstamp());
         }
         model.addAttribute("report",report);
+        model.addAttribute("attachmentList", attachmentList);
         return "backstage/report/reportReply";
     }
     @RequestMapping(params="method=delete",method = RequestMethod.DELETE)

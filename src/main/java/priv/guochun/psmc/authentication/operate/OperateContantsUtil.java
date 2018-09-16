@@ -231,7 +231,8 @@ public class OperateContantsUtil {
     public final static String EXPOSURE_TABLE_UNDO = "EXPOSURE_TABLE_UNDO";
     public final static String EXPOSURE_TABLE_RELEASE = "EXPOSURE_TABLE_RELEASE";
     public final static String EXPOSURE_TABLE_BAN_RELEASE = "EXPOSURE_TABLE_BAN_RELEASE";
-    
+    public final static String EXPOSURE_TABLE_ADD = "EXPOSURE_TABLE_ADD";
+    public final static String EXPOSURE_TABLE_UPDATE = "EXPOSURE_TABLE_UPDATE";
     
     /**
      * 表扬操作编码

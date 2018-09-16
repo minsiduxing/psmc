@@ -471,3 +471,11 @@ update tab_resource set resource_name='大院早知道' where uuid='f03a9f0f29d4
 
 
 update tab_block set tab_block='大院文明角' where block_uuid='02';
+
+--曝光台增加操作按钮
+delete from tab_role_operate where operate_uuid in ('82b0459bd3044f4794ff579afc250442', 'a708045dcd454491b847bf5b3e48de0a');
+delete from tab_operate where uuid in ('82b0459bd3044f4794ff579afc250442', 'a708045dcd454491b847bf5b3e48de0a');
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('82b0459bd3044f4794ff579afc250442', '9dcf22db90c74e96b4e6c16da7ed84fd', 'fe755fa4bd25475fa1a9d841caa16f44', 'priv.guochun.psmc.website.backstage.topics.service.TabTopicsService', 'saveOrUpdateBusinessMethod', 'EXPOSURE_TABLE_UPDATE', '修改', '修改', 8);
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('a708045dcd454491b847bf5b3e48de0a', '9dcf22db90c74e96b4e6c16da7ed84fd', '607e8bc6f9bb4afa9be3cfdc72a1a326', 'priv.guochun.psmc.website.backstage.topics.service.TabTopicsService', 'saveOrUpdateBusinessMethod', 'EXPOSURE_TABLE_ADD', '新增', '新增', 9);
+INSERT INTO tab_role_operate(role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '82b0459bd3044f4794ff579afc250442');
+INSERT INTO tab_role_operate(role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'a708045dcd454491b847bf5b3e48de0a');

@@ -122,4 +122,9 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 		condition.put("releasePersonUuid", null);
 		baseDao.update(updateTopics2, condition);
 	}
+	
+	@Override
+	public void saveOrUpdateBusinessMethod(TabTopics tabTopics) {
+		this.saveOrUpdateToMobile(tabTopics);
+	}
 }
