@@ -10,6 +10,8 @@ $(function(){
 	//表单初始化
 	initEditor1(isEdit);
 	initEditor2(isEdit);
+	initEditor4(isEdit);
+	initEditor5(isEdit)
 	formInint(isEdit);
 	/*//图片初始化
 	newsPicInit(isEdit);*/
@@ -17,12 +19,16 @@ $(function(){
 var editor1;
 var editor2;
 var editor3;
+var editor4;
+var editor5;
 function sbmit (e){
 	event.preventDefault();
 	var result = $('#editForm').form("validate");
 	$("#deptIntroduction").val(editor1.txt.html());
 	$("#deptRegulation").val(editor2.txt.html());
 	$("#hiddencontent").val(editor3.txt.html());
+	$("#latestNews").val(editor4.txt.html());
+	$("#cooperation").val(editor5.txt.html());
 	var formdata = $("#editForm").serialize();
 	var _addUrl = addUrl;
 	if(Boolean(result)){
@@ -50,6 +56,7 @@ function successCallback(data){
 	commonObj.showResponse(data);
 }
 
+//协会简介
 function initEditor1(isEdit){
 	editor1 = createWangeditor("introductionContent");
 	 if (isEdit=="edit") {
@@ -61,6 +68,7 @@ function initEditor1(isEdit){
      }
 }
 
+//规范管理办法
 function initEditor2(isEdit){
 	editor2 = createWangeditor("regulationContent");
 	 if (isEdit=="edit") {
@@ -69,6 +77,30 @@ function initEditor2(isEdit){
      if(isEdit=="query"){
    	  editor2.txt.html($("#regulation").html()) ;
    	  editor2.$textElem.attr('contenteditable', false);
+     }
+}
+
+//最新消息
+function initEditor4(isEdit){
+	editor4 = createWangeditor("latestNewsContent");
+	 if (isEdit=="edit") {
+   	  editor4.txt.html($("#latest").html()) ;
+     }
+     if(isEdit=="query"){
+   	  editor4.txt.html($("#latest").html()) ;
+   	  editor4.$textElem.attr('contenteditable', false);
+     }
+}
+
+//合作意向
+function initEditor5(isEdit){
+	editor5 = createWangeditor("cooperationContent");
+	 if (isEdit=="edit") {
+   	  editor5.txt.html($("#cooperation1").html()) ;
+     }
+     if(isEdit=="query"){
+   	  editor5.txt.html($("#cooperation1").html()) ;
+   	  editor5.$textElem.attr('contenteditable', false);
      }
 }
 

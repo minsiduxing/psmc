@@ -59,19 +59,28 @@
 				<td class="tds">风采展示：</td>
 				<td colspan="3" width="100%">
 					<!--非全屏模式-->
-				    
 				        <input id="hiddencontent" type="hidden" name="elegantDemeanour" />
 				        <div id="newsContent" class="newsContent"></div>
-	               
 				</td>
 			</tr>
 			<c:if test="${deptType == '1'}">
 				<tr>	
 					<td class="tds">合作意向：</td>
 					<td width="100%" colspan="3">
-						<textarea style="width:80%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="cooperation" name="cooperation">${dept.cooperation}</textarea>
+						<%-- <textarea style="width:80%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="cooperation" name="cooperation">${dept.cooperation}</textarea> --%>
+						<input id="cooperation" name="cooperation" type="hidden" >
+						<div id="cooperationContent" class="newsContent"></div>
 					</td>
 				</tr>	
+			</c:if>
+			<c:if test="${deptType == '2'}">
+				<tr>
+					<td class="tds" >最新消息：</td>
+					<td width="100%" colspan="3">
+						<input id="latestNews" name="latestNews" type="hidden" >
+						<div id="latestNewsContent" class="newsContent"></div>
+					</td>
+				</tr>
 			</c:if>
 		</table>
 	</div>
@@ -79,6 +88,8 @@
 		 	 <label id="introduction">${dept.dept_introduction}</label>
 			 <label id="regulation">${dept.dept_regulation}</label>
 			 <label id="demeanour">${dept.elegant_demeanour}</label>
+			 <label id="latest">${dept.latest_news}</label>
+			 <label id="cooperation1">${dept.cooperation}</label>
 		</div> 
 	 <input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 	 <input type="hidden" id="deptUuid" name="deptUuid" value="${dept.dept_uuid }"/>

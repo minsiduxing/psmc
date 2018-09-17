@@ -479,3 +479,6 @@ INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_met
 INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('a708045dcd454491b847bf5b3e48de0a', '9dcf22db90c74e96b4e6c16da7ed84fd', '607e8bc6f9bb4afa9be3cfdc72a1a326', 'priv.guochun.psmc.website.backstage.topics.service.TabTopicsService', 'saveOrUpdateBusinessMethod', 'EXPOSURE_TABLE_ADD', '新增', '新增', 9);
 INSERT INTO tab_role_operate(role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '82b0459bd3044f4794ff579afc250442');
 INSERT INTO tab_role_operate(role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'a708045dcd454491b847bf5b3e48de0a');
+
+INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('4', '我要表扬', '功能名称', 13, 4, 4, 'FUNCTION_NAME');
+alter table tab_dept add latest_news varchar(5000) comment '最新消息'; 

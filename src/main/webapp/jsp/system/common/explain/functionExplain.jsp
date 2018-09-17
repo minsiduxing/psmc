@@ -25,7 +25,9 @@
 			<tr>
 				<td class="tds">功能简介：</td>
 				<td width="30%">
-					<textarea style="width:75%; border-radius:4px; border: 1px solid #ccc;" rows="12" cols="" id="expainContent" name="expainContent"></textarea>
+					<!-- <textarea style="width:75%; border-radius:4px; border: 1px solid #ccc;" rows="12" cols="" id="expainContent" name="expainContent"></textarea> -->
+					<input id="expainContent" name="expainContent" type="hidden">
+					<div id="expainContent1" class="newsContent"></div>
 				</td>
 			</tr>
 		</table>
@@ -35,7 +37,6 @@
 		 <div style= "width:75%; margin-top: 20px" class="operButon" align="center">
 		   <input id="submitbtn" type="button" class="easyui-linkbutton l-btn l-btn-small easyui-fluid" style="padding: 5px 0px;" onclick="save()" value="保存"/>
 		 </div>
-		 
 	</form>
   </body>
 </html>
@@ -46,12 +47,9 @@
 	var queryExplainUrl ='<c:url value="'+explainDo+'"/>?method=queryExplain';
 	commonObj.initDictCombobox("functionCode","FUNCTION_NAME","",true,false);
 	
-	$("#expainContent").validatebox({
-		required: true,    
-	    validType: "text"
-	});
-	
+	var editor;
 	$(document).ready(function(){
+		editor = createWangeditor("expainContent1");
 		$('#functionCode').combobox({
 		    onChange:function(newValue,oldValue){
 		    	$.ajax({
@@ -62,9 +60,12 @@
 							   data = JSON.parse(data);
 							   $("#expainContent").val(data.expainContent);
 							   $("#explainUuid").val(data.explainUuid);
+							   editor.txt.html(data.expainContent) ;
+							   
 						   }else{
 							   $("#expainContent").val("");
 							   $("#explainUuid").val("");
+							   editor.txt.html("") ;
 						   }
 					   },
 					   error:function(XMLHttpRequest, textStatus, errorThrown){
@@ -79,11 +80,12 @@
 		event.preventDefault();
 		var functionName = $("#functionCode").combobox("getText");
 		$("#functionName").val(functionName);
-		var result = $('#explainForm').form("validate");
-		if(!Boolean(result)){
-			$.messager.alert('警告','请填写必填项！','warning');
+		var content = editor.txt.html();
+		if(!content){
+			$.messager.alert('警告','功能简介不能为空！','warning');
 			return;
 		}
+		$("#expainContent").val(content);
 		var explaindata = $("#explainForm").serialize();
 		$.messager.progress(); 
 		$.ajax({
@@ -99,5 +101,34 @@
 				   $.messager.progress("close");
 			   }
 		});
+	}
+	
+	/**
+	 * 富文本编辑器初始化-----------------------------------
+	 */
+	function createWangeditor(divId){
+		var E = window.wangEditor;
+		var editor = new E("#" + divId);
+		editor.customConfig.menus = [
+	                                    'head',  // 标题
+									    'bold',  // 粗体
+									    'fontSize',  // 字号
+									    'fontName',  // 字体
+									    'italic',  // 斜体
+									    'underline',  // 下划线
+									    'strikeThrough',  // 删除线
+									    'foreColor',  // 文字颜色
+									    'backColor',  // 背景颜色
+									    'list',  // 列表
+									    'justify',  // 对齐方式
+									    'emoticon',  // 表情
+									    'table',  // 表格
+									    'undo',  // 撤销
+									    'redo'  // 重复
+									   ];
+		editor.customConfig.zIndex = 500;
+		editor.create(); 
+	    E.fullscreen.init("#" + divId);
+	    return editor;
 	}
 </script>

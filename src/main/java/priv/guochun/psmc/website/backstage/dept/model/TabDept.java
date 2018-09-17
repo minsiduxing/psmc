@@ -68,6 +68,11 @@ public class TabDept {
      * 合作意向
      */
     private String cooperation;
+    
+    /**
+     * 最新消息
+     */
+    private String latestNews;
 
 
     public String getDeptUuid() {
@@ -188,7 +193,15 @@ public class TabDept {
 				+ ", deptRegulation=" + deptRegulation + ", elegantDemeanour=" + elegantDemeanour + ", deptType="
 				+ deptType + ", createPerson=" + createPerson + ", createDate=" + createDate + ", lastModifyPerson="
 				+ lastModifyPerson + ", lastModifyTime=" + lastModifyTime + ", imagePath=" + imagePath + ", groupid="
-				+ groupid + ", isCustom=" + isCustom + ", cooperation=" + cooperation + "]";
+				+ groupid + ", isCustom=" + isCustom + ", cooperation=" + cooperation + ", latestNews=" + latestNews +"]";
+	}
+
+	public String getLatestNews() {
+		return latestNews;
+	}
+
+	public void setLatestNews(String latestNews) {
+		this.latestNews = latestNews;
 	}
 
 }
