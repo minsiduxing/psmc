@@ -482,3 +482,4 @@ INSERT INTO tab_role_operate(role_uuid, operate_uuid) VALUES ('efb74820f0564d02b
 
 INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('4', '我要表扬', '功能名称', 13, 4, 4, 'FUNCTION_NAME');
 alter table tab_dept add latest_news varchar(5000) comment '最新消息'; 
+alter table tab_function_explain add explain_title varchar(500) comment '标题名称'; 
