@@ -22,6 +22,10 @@ public class TabFunctionExplain {
      * 描述内容
      */
     private String expainContent;
+    /**
+     * 标题名称
+     */
+    private String explainTitle;
 
     public String getExplainUuid() {
         return explainUuid;
@@ -54,4 +58,12 @@ public class TabFunctionExplain {
     public void setExpainContent(String expainContent) {
         this.expainContent = expainContent == null ? null : expainContent.trim();
     }
+
+	public String getExplainTitle() {
+		return explainTitle;
+	}
+
+	public void setExplainTitle(String explainTitle) {
+		this.explainTitle = explainTitle;
+	}
 }

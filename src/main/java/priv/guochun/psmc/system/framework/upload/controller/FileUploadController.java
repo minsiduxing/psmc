@@ -161,6 +161,9 @@ public class FileUploadController extends MyController {
 			case ContantsUtil.DEPT_TYPE_2:
 				imagePath = SystemPropertiesUtil.getDeptLiteraryFormCustomPath();
 				break;
+			case ContantsUtil.ACTIVITY:
+				imagePath = SystemPropertiesUtil.getActivityCustomPath();
+				break;
 			default:
 				break;
 			}

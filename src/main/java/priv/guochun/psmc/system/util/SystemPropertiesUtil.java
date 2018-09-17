@@ -93,6 +93,7 @@ public class SystemPropertiesUtil
     private static final String logistics_center_custom = "logistics_center";
     private static final String dept_innovation_custom = "dept_innovation";
     private static final String dept_literary_form_custom = "dept_literary_form";
+    private static final String activity_custom = "activity_custom";
     private static final String mobile_image_path = "mobile_image_path";
     
     /**
@@ -224,6 +225,9 @@ public class SystemPropertiesUtil
 	}
 	public static String getMobileImagePath(){
 		return getPropertyValue(mobile_image_path);
+	}
+	public static String getActivityCustomPath(){
+		return getPropertyValue(activity_custom);
 	}
 
 	public static String getPropertyValue(String key){

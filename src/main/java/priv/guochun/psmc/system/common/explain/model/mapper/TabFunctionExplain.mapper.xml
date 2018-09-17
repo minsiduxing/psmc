@@ -6,11 +6,12 @@
     <result column="function_code" jdbcType="VARCHAR" property="functionCode" />
     <result column="function_name" jdbcType="VARCHAR" property="functionName" />
     <result column="expain_content" jdbcType="VARCHAR" property="expainContent" />
+    <result column="explain_title" jdbcType="VARCHAR" property="explainTitle" />
   </resultMap>
   
   <select id="selectFunctionExplain" parameterType="hashmap" resultMap="BaseResultMap">
     select
-   		explain_uuid, function_code, function_name, expain_content
+   		explain_uuid, function_code, function_name, expain_content, explain_title
     from tab_function_explain
     <where>
     	<if test="explainUuid != null">
@@ -28,17 +29,17 @@
   </delete>
   
   <insert id="insertFunctionExplain" parameterType="priv.guochun.psmc.system.common.explain.model.TabFunctionExplain">
-    insert into tab_function_explain (explain_uuid, function_code, function_name, 
-      expain_content)
+    insert into tab_function_explain (explain_uuid, function_code, function_name, expain_content, explain_title)
     values (#{explainUuid,jdbcType=VARCHAR}, #{functionCode,jdbcType=VARCHAR}, #{functionName,jdbcType=VARCHAR}, 
-      #{expainContent,jdbcType=VARCHAR})
+      #{expainContent,jdbcType=VARCHAR}, #{explainTitle,jdbcType=VARCHAR})
   </insert>
 
   <update id="updateFunctionExplain" parameterType="priv.guochun.psmc.system.common.explain.model.TabFunctionExplain">
     update tab_function_explain
     set function_code = #{functionCode,jdbcType=VARCHAR},
       function_name = #{functionName,jdbcType=VARCHAR},
-      expain_content = #{expainContent,jdbcType=VARCHAR}
+      expain_content = #{expainContent,jdbcType=VARCHAR},
+      explain_title = #{explainTitle,jdbcType=VARCHAR}
     where explain_uuid = #{explainUuid,jdbcType=VARCHAR}
   </update>
 </mapper>

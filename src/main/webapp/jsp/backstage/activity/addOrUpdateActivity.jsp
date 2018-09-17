@@ -53,12 +53,17 @@
 			<tr>
 				<td class="tds">活动内容：</td>
 				<td width="30%" colspan="3">
-					<textarea style="width:88.5%; border-radius:5px; border: 1px solid #ccc;" rows="10" cols="" id="activityContent" name="activityContent">${info.activity_content}</textarea>
+					<%-- <textarea style="width:88.5%; border-radius:5px; border: 1px solid #ccc;" rows="10" cols="" id="activityContent" name="activityContent">${info.activity_content}</textarea> --%>
+					<input id="activityContent" name="activityContent" type="hidden">
+					<div id="activityContent1" class="newsContent" style="width:88.4%;"></div>
 				</td>
 			</tr>	
 		</table>
 		</div>
 	</div>
+		<div style="display: none;">
+		 	 <label id="activityContent2">${info.activity_content}</label>
+		</div> 
 		<input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 		 <input type="hidden" id="activityUuid" name="activityUuid" value="${info.activity_uuid}"/>
 		 <input type="hidden" id="imagePath" name="imagePath" value="${info.image_path}" />
@@ -79,8 +84,9 @@ var basePath = $("#basePath").val();
 var infoDo = basePath+"/website/backstage/TabActivityManageController.do";
 var addUrl = '<c:url value="/website/backstage/TabActivityManageController.do"/>?method=addOrUpdate';
 var retrunUrl =  '<c:url value="/website/backstage/TabActivityManageController.do"/>?method=activityList';
-
-//上传图片
+//图片上路经
+var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUpload&oneLevelClassify=3';
+//上传配图
 var uploadPhoto = '<c:url value="/website/backstage/uploadImageController.do"/>?method=uploadPhoto';
 var groupid = "${sessionScope.user.tabPerson.groupid}";
 commonObj.initDeptCombobox("deptUuid","2", groupid,"<c:out value="${info.dept_uuid}"/>",true);

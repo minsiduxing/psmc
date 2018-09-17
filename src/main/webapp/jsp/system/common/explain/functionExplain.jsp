@@ -21,6 +21,12 @@
 					<input id="functionCode" name="functionCode" style="width:30%;"/>
 				</td>
 			</tr>
+			<tr>
+				<td class="tds">标题名称：</td>
+				<td width="30%">
+					<input id="explainTitle" name="explainTitle" style="width:30%;" class="easyui-textbox"/>
+				</td>
+			</tr>
 			<tr></tr>
 			<tr>
 				<td class="tds">功能简介：</td>
@@ -46,7 +52,6 @@
 	var addOrUpdateUrl ='<c:url value="'+explainDo+'"/>?method=addOrUpdate';
 	var queryExplainUrl ='<c:url value="'+explainDo+'"/>?method=queryExplain';
 	commonObj.initDictCombobox("functionCode","FUNCTION_NAME","",true,false);
-	
 	var editor;
 	$(document).ready(function(){
 		editor = createWangeditor("expainContent1");
@@ -61,11 +66,22 @@
 							   $("#expainContent").val(data.expainContent);
 							   $("#explainUuid").val(data.explainUuid);
 							   editor.txt.html(data.expainContent) ;
+							   $('#explainTitle').textbox({
+									value : data.explainTitle,
+									type : "text",
+									required : true
+								});
 							   
 						   }else{
 							   $("#expainContent").val("");
 							   $("#explainUuid").val("");
 							   editor.txt.html("") ;
+							   $('#explainTitle').textbox({
+									value : "",
+									type : "text",
+									required : true
+								});
+							   
 						   }
 					   },
 					   error:function(XMLHttpRequest, textStatus, errorThrown){

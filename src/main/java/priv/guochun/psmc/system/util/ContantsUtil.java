@@ -37,6 +37,11 @@ public class ContantsUtil {
     public final static String DEPT_TYPE_2 = "2"; //文体协会
     
     /**
+     * 活动
+     */
+    public final static String ACTIVITY = "3";
+    
+    /**
      * 是否自定义配图
      */
     public final static Integer IS_CUSTOM_0 = 0; //否
