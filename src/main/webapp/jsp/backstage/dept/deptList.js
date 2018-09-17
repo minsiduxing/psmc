@@ -17,14 +17,6 @@ $(document).ready(function(){
 		columns:[[   
 		          {field:'dept_uuid',title:'部门主键标识',checkbox:true},
 		          {field:'dept_name',title:dept_name,resizable:true,align:'center',sortable:true},    
-		          {field:'dept_introduction',title:dept_introduction,halign:'center',formatter: function (value, row, index) {
-	                     if(value.length>=15){return value.substring(0,15)+"......"; }	
-	                     if(value.length<15){return value; }
-		          }}, 
-		          {field:'dept_regulation',title:'规范管理办法',halign:'center',formatter: function (value, row, index) {
-	                     if(value.length>=15){return value.substring(0,15)+"......"; }	
-	                     if(value.length<15){return value; }
-		          }},
 		          {field:'createPersonName',title:'创建人',align:'center',sortable:true},
 		          {field:'create_date',title:'创建时间',align:'center',sortable:true}, 
 		          {field:'audit',title:'审核状态',align:'center',sortable:true,formatter: function (value, row, index) {
