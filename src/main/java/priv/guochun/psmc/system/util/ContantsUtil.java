@@ -30,6 +30,24 @@ public class ContantsUtil {
      */
     public final static String ONE_LEVEL_CLASSIFY_14 = "14";
     
+    //后勤中心-早知道信息分类
+    /**
+     * 美味食谱
+     */
+    public final static String TOW_LEVEL_CLASSIFY_1401 = "1401";
+    /**
+     * 日常通知
+     */
+    public final static String TOW_LEVEL_CLASSIFY_1402 = "1402";
+    /**
+     * 大院新闻
+     */
+    public final static String TOW_LEVEL_CLASSIFY_1403 = "1403";
+    /**
+     * 政策法律
+     */
+    public final static String TOW_LEVEL_CLASSIFY_1405 = "1405";
+    
     /**
      * 部门类型
      */

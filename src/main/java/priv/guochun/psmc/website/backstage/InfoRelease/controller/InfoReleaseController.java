@@ -88,8 +88,20 @@ public class InfoReleaseController extends MyController{
 			if(ContantsUtil.ONE_LEVEL_CLASSIFY_12.equals(module.getOneLevelClassify())){
 				infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getLegalProvisionsImagePath());			
 			}
+			//早知道信息分类
 			if(ContantsUtil.ONE_LEVEL_CLASSIFY_14.equals(module.getOneLevelClassify())){
-				infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getWorkReleaseImagePath());
+				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1401.equals(module.getTowLevelClassify())){
+					infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getRecipesImagePath());
+				}
+				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1402.equals(module.getTowLevelClassify())){
+					infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getNoticeImagePath());			
+								}
+				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1403.equals(module.getTowLevelClassify())){
+					infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getNewsImagePath());
+				}
+				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1405.equals(module.getTowLevelClassify())){
+					infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getLegalProvisionsImagePath());
+				}
 			}
 		}
 		infoReleaseService.saveOrUpdateInfoReleaseBusinessMethod(infoRelease, module);
