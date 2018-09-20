@@ -38,4 +38,10 @@ public interface TabAttachmentService {
 	 * @param attachmentUuids
 	 */
 	public void updateBusinessUuidToAttachment(String businessUuid, String attachmentUuids);
+	
+	/**
+	 * 删除附件
+	 * @param uuid
+	 */
+	public void deleteAttachmentById(String uuid);
 }

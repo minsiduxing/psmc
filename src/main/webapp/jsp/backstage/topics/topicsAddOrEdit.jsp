@@ -46,9 +46,18 @@
 				<td class="tds">图片附件：</td>
 				<td width="25%">
 				    <div id="pic">
-				    	<c:forEach var="att" items="${attachmentList}" varStatus="status">
+				    	<%-- <c:forEach var="att" items="${attachmentList}" varStatus="status">
 			        		<a href="javascript:imgShow('${att.file_prefix }${att.file_path}')">${att.file_real_name}.${att.file_suffix}</a>
+			        	</c:forEach> --%>
+			        	<table id="picTable" width="80%">
+			        		<c:forEach var="att" items="${attachmentList}" varStatus="status">
+			        		<tr id="${att.attachment_uuid }">
+			        			<td ><a href="javascript:imgShow('${att.file_prefix }${att.file_path}')">${att.file_real_name}.${att.file_suffix} </a></td>
+			        			<td ><input style="width:50px; height: 25px;" class="easyui-linkbutton" onclick="deleteImage('${att.attachment_uuid}')" value="删除"/></td>
+			        		</tr>
+			        		
 			        	</c:forEach>
+			        	</table>
 	                </div>
 				</td>
 			</tr>
@@ -74,6 +83,8 @@ var basePath = $("#basePath").val();
 var uploadUrl = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUploadByPC';
 var addTopicsUrl = '<c:url value="/website/backstage/tabTopicsController.do"/>?method=addTopics';	
 var toTopicsListPage = '<c:url value="/website/backstage/tabTopicsController.do"/>?method=toTopicsListPage&blockUuid='+$("#blockUuid").val();
+//删除图片附件
+var deleteAttachment = '<c:url value="/website/backstage/tabAttachmentController.do"/>?method=deleteAttachment';	
 
 	$('#topicName').textbox({
 		type:"text",
@@ -92,7 +103,13 @@ var toTopicsListPage = '<c:url value="/website/backstage/tabTopicsController.do"
 		    type:"post",
 		    dataType:"json",
 		    success:function(data){
-		    	$("#pic").append("<a href='javascript:"+imgShow(data.filePrefix + data.filePath)+"'>" +data.fileRealName +"."+data.fileSuffix +"</a>&nbsp;&nbsp;&nbsp;&nbsp;");
+		    	//$("#pic").append("<a href='javascript:"+imgShow(data.filePrefix + data.filePath)+"'>" +data.fileRealName +"."+data.fileSuffix +"</a>&nbsp;&nbsp;&nbsp;&nbsp;");
+		    	var strHtml = '<tr id="'+data.attachmentUuid+'"><td>';
+		    	strHtml += '<a href="javascript:'+imgShow(data.filePrefix + data.filePath) +'">' +data.fileRealName + '.'+data.fileSuffix + '</a></td>';
+		    	strHtml += '<td><input style="width:50px; height: 25px;" class="easyui-linkbutton" onclick="deleteImage('+"'"+data.attachmentUuid+"'"+')" value="删除"/>';
+		    	strHtml += '</td></tr>';
+		    	$("#picTable").append(strHtml);
+		    	$.parser.parse($("#picTable"));
 		    	var attachmentUuids = $("#attachmentUuids").val()
 		    	if(attachmentUuids){
 		    		$("#attachmentUuids").val(attachmentUuids + "," + data.attachmentUuid);
@@ -104,6 +121,22 @@ var toTopicsListPage = '<c:url value="/website/backstage/tabTopicsController.do"
 		    },error:function(){
 		    	$.messager.progress("close");
 		    	commonObj.alert ("上传失败!","warning");
+		    }
+		});
+	}
+	
+	function deleteImage(attachmentUuid){
+		$.messager.progress(); 
+		$.ajax({
+		    url:deleteAttachment + "&uuid=" + attachmentUuid,
+		    type:"post",
+		    success:function(data){
+		        $.messager.progress("close");
+		        $("#" + attachmentUuid).hide();
+		        commonObj.showResponse(data);
+		    },error:function(){
+		    	$.messager.progress("close");
+		    	commonObj.alert ("删除失败!","warning");
 		    }
 		});
 	}
@@ -197,5 +230,19 @@ var toTopicsListPage = '<c:url value="/website/backstage/tabTopicsController.do"
 	function retList(){
 		window.location.href=toTopicsListPage;
 	}
+	
+	function downLoadIamge(url){
+		//如果隐藏IFRAME不存在，则添加
+        if (!document.getElementById("IframeReportImg"))
+        $('').appendTo("body");
+        
+        if ($("#IframeReportImg").src != url) {
+            //加载图片
+            $("#IframeReportImg").src = url;
+        }
+        if ($("#IframeReportImg").src != "about:blank")
+        	$("#IframeReportImg").document.execCommand("SaveAs");
+	}
+	
 
 </script>

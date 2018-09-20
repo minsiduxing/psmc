@@ -61,4 +61,11 @@ public class TabAttachmentServiceImpl implements TabAttachmentService {
 			
 		}
 	}
+	
+	@Override
+	public void deleteAttachmentById(String uuid){
+		Map<String, Object> condition = new HashMap<String, Object>();
+		condition.put("attachmentUuid", uuid);
+		baseDao.delete(deleteAttachment, condition);
+	}
 }
