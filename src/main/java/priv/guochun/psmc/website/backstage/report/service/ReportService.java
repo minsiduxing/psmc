@@ -81,4 +81,6 @@ public interface ReportService {
 	  * @param personUuid
 	  */
 	 public void releaseOrCancelBusinessMethod(String reportUuids,String releaseStatus,String personUuid);
+	 
+	 void deleteReportToMobile(String ids);
 }

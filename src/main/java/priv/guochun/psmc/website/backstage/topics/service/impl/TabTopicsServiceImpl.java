@@ -127,4 +127,9 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 	public void saveOrUpdateBusinessMethod(TabTopics tabTopics) {
 		this.saveOrUpdateToMobile(tabTopics);
 	}
+	
+	@Override
+	public void deleteTopicToMobile(TabTopics tabTopics) {
+		this.updateTopicsStatusBusinessMethod(tabTopics);
+	}
 }

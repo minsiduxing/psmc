@@ -205,4 +205,9 @@ public class ReportServiceImpl implements ReportService{
 		condition.put("ids",reportUuids.split(","));
 		baseDao.update(releaseOrCancelRelease, condition);
 	}
+	
+	@Override
+	public void deleteReportToMobile(String ids) {
+		this.deleteReportBusinessMethod(ids);
+	}
 }

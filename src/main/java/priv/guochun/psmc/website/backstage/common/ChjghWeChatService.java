@@ -302,4 +302,24 @@ public interface ChjghWeChatService {
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	public String getExplainbyCode(@FormParam("functionCode") String functionCode);
+	
+	/**
+	 * 删除主题信息
+	 * @param topicUuid
+	 * @return
+	 */
+	@Path("/deleteTopic")
+	@POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String deleteTopic(@FormParam("topicUuid") String topicUuid);
+	
+	/**
+	 * 删除上报信息信息
+	 * @param reportUuid
+	 * @return
+	 */
+	@Path("/deleteReport")
+	@POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String deleteReport(@FormParam("reportUuid") String reportUuid);
 }

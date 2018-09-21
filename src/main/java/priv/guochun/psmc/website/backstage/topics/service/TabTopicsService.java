@@ -71,4 +71,10 @@ public interface TabTopicsService {
 	 * @param tabTopics
 	 */
 	public void saveOrUpdateBusinessMethod(TabTopics tabTopics);
+	
+	/**
+	 * 手机端删除
+	 * @param tabTopics
+	 */
+	public void deleteTopicToMobile(TabTopics tabTopics);
 }

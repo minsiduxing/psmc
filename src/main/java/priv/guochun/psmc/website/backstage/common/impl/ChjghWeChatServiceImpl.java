@@ -710,6 +710,43 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		return GsonUtil.toJsonForObject(msg); 
 	}
 	
+	@Override
+	public String deleteReport(String reportUuid) {
+		if(StringUtils.isBlank(reportUuid)){
+			MsgModel msg = MsgModel.buildDefaultError("参数不合法 ");
+			return  GsonUtil.toJsonForObject(msg);
+		}
+		MsgModel msg = null;
+		try {
+			reportService.deleteReportToMobile(reportUuid);
+			msg =  MsgModel.buildDefaultSuccess("删除成功", null);
+		} catch (Exception e) {
+			logger.error("删除失败." + e);
+			msg = MsgModel.buildDefaultError("删除失败");
+		}
+		return GsonUtil.toJsonForObject(msg);
+	}
+	
+	@Override
+	public String deleteTopic(String topicUuid) {
+		if(StringUtils.isBlank(topicUuid)){
+			MsgModel msg = MsgModel.buildDefaultError("参数不合法 ");
+			return  GsonUtil.toJsonForObject(msg);
+		}
+		MsgModel msg = null;
+		try {
+			TabTopics topics = new TabTopics();
+			topics.setTopicUuid(topicUuid);
+			topics.setTopicStatus(ContantsUtil.BLOCK_STATUS_3);
+			tabTopicsService.deleteTopicToMobile(topics);
+			msg =  MsgModel.buildDefaultSuccess("删除成功", null);
+		} catch (Exception e) {
+			logger.error("删除失败." + e);
+			msg = MsgModel.buildDefaultError("删除失败");
+		}
+		return GsonUtil.toJsonForObject(msg);
+	}
+	
 	public ExcellentInnovationService getExcellentInnovationService() {
 		return excellentInnovationService;
 	}
