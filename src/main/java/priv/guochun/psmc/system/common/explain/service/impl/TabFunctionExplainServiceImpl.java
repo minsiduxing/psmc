@@ -23,7 +23,7 @@ public class TabFunctionExplainServiceImpl implements TabFunctionExplainService 
 	private BaseDao baseDao;
 	
 	@Override
-	public void addOrUpdateExplain(TabFunctionExplain explain) {
+	public String addOrUpdateExplain(TabFunctionExplain explain) {
 		if(explain == null){
 			throw new PsmcBuisnessException("参数不合法!");
 		}
@@ -33,6 +33,7 @@ public class TabFunctionExplainServiceImpl implements TabFunctionExplainService 
 		}else{
 			baseDao.update(updateFunctionExplain, explain);
 		}
+		return explain.getExplainUuid();
 	}
 
 	@Override

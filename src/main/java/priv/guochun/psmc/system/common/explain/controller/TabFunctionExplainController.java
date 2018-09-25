@@ -31,8 +31,8 @@ public class TabFunctionExplainController extends MyController{
 	 */
 	@RequestMapping(params="method=addOrUpdate")
 	public void addOrUpdate(TabFunctionExplain explain) throws IOException{
-		tabFunctionExplainService.addOrUpdateExplain(explain);
-		super.responseJson(true, "保存成功", this.response());
+		String explainUuid = tabFunctionExplainService.addOrUpdateExplain(explain);
+		super.responseJson(explainUuid, this.response());
 	}
 	
 	/**

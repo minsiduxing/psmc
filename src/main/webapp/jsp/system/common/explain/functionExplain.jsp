@@ -110,7 +110,12 @@
 			   data:explaindata,
 			   success: function(data){
 				   $.messager.progress("close");
-					commonObj.showResponse(data);
+				   $("#explainUuid").val(data);
+				   if(data){
+					   commonObj.alert("保存成功", "info");
+				   }else{
+					   commonObj.alert("保存失败", "warning");
+				   }
 			   },
 			   error:function(XMLHttpRequest, textStatus, errorThrown){
 				   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);

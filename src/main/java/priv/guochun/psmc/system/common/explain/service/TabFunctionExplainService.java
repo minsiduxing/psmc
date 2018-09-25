@@ -9,7 +9,7 @@ import priv.guochun.psmc.system.common.explain.model.TabFunctionExplain;
  */
 public interface TabFunctionExplainService {
 
-	public void addOrUpdateExplain(TabFunctionExplain explain);
+	public String addOrUpdateExplain(TabFunctionExplain explain);
 	
 	public void deleteExplain(String explainUuid);
 	

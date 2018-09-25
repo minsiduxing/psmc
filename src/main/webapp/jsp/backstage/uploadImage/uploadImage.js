@@ -125,6 +125,10 @@ function createJCrop(divId) {
 }
 
 function imageUpload(){
+	if(!$("#w").val() || !$("#h").val() || !$("#x").val() || !$("#y").val()){
+		commonObj.alert ("未获取到截取的图片信息，请重新截取!","warning");
+		return;
+	}
 	var uploadUrl = uploadPhoto;
 	$.messager.progress(); 
 	$("#upload-file").ajaxSubmit({
