@@ -455,6 +455,9 @@ delete from tab_data_dict where DICT_NO = 'FUNCTION_NAME';
 INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('1', '留言报修', '功能名称', 12, 1, 1, 'FUNCTION_NAME');
 INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('2', '我要建议', '功能名称', 12, 2, 2, 'FUNCTION_NAME');
 INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('3', '我要投诉', '功能名称', 12, 3, 3, 'FUNCTION_NAME');
+INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('4', '我要表扬', '功能名称', 12, 4, 4, 'FUNCTION_NAME');
+INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('5', '创新工作室', '功能名称', 12, 5, 5, 'FUNCTION_NAME');
+INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('6', '文体协会', '功能名称', 12, 6, 6, 'FUNCTION_NAME');
 
 --增加菜单
 delete from tab_role_resource where resource_id = '1fd48b934d5d4976bc23fbf904840d78';
@@ -480,8 +483,11 @@ INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_met
 INSERT INTO tab_role_operate(role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '82b0459bd3044f4794ff579afc250442');
 INSERT INTO tab_role_operate(role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'a708045dcd454491b847bf5b3e48de0a');
 
-INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('4', '我要表扬', '功能名称', 13, 4, 4, 'FUNCTION_NAME');
 alter table tab_dept add latest_news varchar(5000) comment '最新消息'; 
 alter table tab_function_explain add explain_title varchar(500) comment '标题名称'; 
 delete from tab_data_dict where DICT_ID='1404' and DICT_NO='INFO_TYPE';
+
+--维护报修 查看详细功能脚本
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('cb8f490b3efa4779bafc043e3291b025', 'ad705f6bb26948609e1aa55e86330d05', '756d6e80c9d74b4389c918ab50ee19c3', 'priv.guochun.psmc.website.backstage.report.service.ReportService', 'findReportByUuidBusinessMethod', '', '查询查询明细', '查询明细信息', 39);
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'cb8f490b3efa4779bafc043e3291b025');
 
