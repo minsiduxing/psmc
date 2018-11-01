@@ -491,3 +491,6 @@ delete from tab_data_dict where DICT_ID='1404' and DICT_NO='INFO_TYPE';
 INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('cb8f490b3efa4779bafc043e3291b025', 'ad705f6bb26948609e1aa55e86330d05', '756d6e80c9d74b4389c918ab50ee19c3', 'priv.guochun.psmc.website.backstage.report.service.ReportService', 'findReportByUuidBusinessMethod', '', '查询查询明细', '查询明细信息', 39);
 INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'cb8f490b3efa4779bafc043e3291b025');
 
+
+INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('1406', '转载', '早知道管理分类', 10, 6, 6, 'INFO_TYPE');
+

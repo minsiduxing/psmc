@@ -49,6 +49,11 @@ public class ContantsUtil {
     public final static String TOW_LEVEL_CLASSIFY_1405 = "1405";
     
     /**
+     * 转载
+     */
+    public final static String TOW_LEVEL_CLASSIFY_1406 = "1406";
+    
+    /**
      * 部门类型
      */
     public final static String DEPT_TYPE_1 = "1"; //创新工作室

@@ -84,6 +84,7 @@ public class InfoReleaseController extends MyController{
 			module.setModelUuid(infoRelease.getNewsUuid());
 			module.setModifyAccUuid(this.getUserBySeesion(request).getUserUuid());
 		}
+		
 		if(ContantsUtil.IS_CUSTOM_0.equals(infoRelease.getIsCustom()) && StringUtils.isBlank(infoRelease.getImagePath())){
 			if(ContantsUtil.ONE_LEVEL_CLASSIFY_12.equals(module.getOneLevelClassify())){
 				infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getLegalProvisionsImagePath());			
@@ -102,6 +103,9 @@ public class InfoReleaseController extends MyController{
 				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1405.equals(module.getTowLevelClassify())){
 					infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getLegalProvisionsImagePath());
 				}
+				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1406.equals(module.getTowLevelClassify())){
+                    infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getNoticeImagePath());
+                }
 			}
 		}
 		infoReleaseService.saveOrUpdateInfoReleaseBusinessMethod(infoRelease, module);
