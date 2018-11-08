@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td class="tds">申报内容：</td>
-                <td width="30%" colspan="4"><input  id="reportContent" name="newsTitle" style="width:86%; height: 150px; border-radius:5px; border: 1px solid #ccc;"   editable="false" /></td>
+                <td width="30%" colspan="4"><input  id="reportContent" name="newsTitle" style="width:86%; height: 150px; border-radius:5px; border: 1px solid #ccc;"   editable="false" value="${report.reportContent}"/></td>
             </tr>
             <c:if test="${report.reportType == 'repair'}">
             	<tr>
@@ -100,7 +100,6 @@
     $(document).ready(function(){
         $("#submitbtn").hide();
         $('#reportContent').textbox({
-            value : "${report.reportContent}",
             editable:false,
             multiline:true,
             type : "text"
@@ -138,7 +137,6 @@
         if("2"==status){
             $("#submitbtn").show();
             $('#replyContent').textbox({
-                value : "${report.replyContent}",
                 editable:true,
                 required : true,
                 multiline:true,
@@ -157,7 +155,6 @@
             });
         }else if("1"==status){
             $('#replyContent').textbox({
-                value : "${report.replyContent}",
                 editable:false,
                 multiline:true,
                 type : "text"
