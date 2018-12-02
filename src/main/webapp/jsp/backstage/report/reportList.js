@@ -1,9 +1,15 @@
 $(document).ready(function(){ 
 	//是否隐藏列
 	var isHide = true;
-	//如果是合理化建议，需要显示
-	if($("#reportType").val() == 'advice'){
+	//点赞数是否隐藏
+	var laudNumsIsHide = true;
+	//如果是合理化建议和维护报修，需要显示
+	if($("#reportType").val() == 'advice' || $("#reportType").val() == 'repair'){
 		isHide = false;
+	}
+	
+	if($("#reportType").val() == 'advice'){
+		laudNumsIsHide = false;
 	}
 	// datagrid 初始化
 	var reportListData = {
@@ -33,7 +39,7 @@ $(document).ready(function(){
                   }},
                   {field:'releasePersonName',title:'发布人',align:'center',sortable:true,hidden:isHide},
                   {field:'releaseDate',title:'发布时间',align:'center',sortable:true,hidden:isHide},
-                  {field:'laudNums',title:'点赞数',align:'center',sortable:true,hidden:isHide,formatter:function(value, row, index){
+                  {field:'laudNums',title:'点赞数',align:'center',sortable:true,hidden:laudNumsIsHide,formatter:function(value, row, index){
 		        	  if(value==null || value==''){
 		        		  return 0;
 		        	  }else{
@@ -236,7 +242,7 @@ $("#replyReport").click(function(){
                 var newsid = rowObj.reportUuid;
                 var releaseStatus = rowObj.releaseStatus;
                 if(releaseStatus==1){
-                    commonObj.alert('请选择未发布的合理化建议信息！',"warning");
+                    commonObj.alert('请选择未发布的信息！',"warning");
                     return ;
                 }
                 ids+=newsid;
@@ -278,7 +284,7 @@ $("#replyReport").click(function(){
                 var newsid = rowObj.reportUuid;
                 var releaseStatus = rowObj.releaseStatus;
                 if(releaseStatus==2){
-                    commonObj.alert('请选择已经发布的合理化建议信息！',"warning");
+                    commonObj.alert('请选择已经发布的信息！',"warning");
                     return ;
                 }
                 ids+=newsid;

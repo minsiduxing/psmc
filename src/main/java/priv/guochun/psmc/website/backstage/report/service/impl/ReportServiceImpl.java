@@ -83,7 +83,7 @@ public class ReportServiceImpl implements ReportService{
 			condition.put("queryParameter",queryParameter);
 		condition.put("reportType",reportType);
 		condition.put("reportUserUuid", reportUserUuid);
-		if("advice".equals(reportType)){
+		if("advice".equals(reportType) || "repair".equals(reportType)){
 			condition.put("advice", "advice");
 		}
 		return baseDao.getMyPage(page, selectAll, condition);
@@ -165,8 +165,8 @@ public class ReportServiceImpl implements ReportService{
 				report.setReportStaus(ReportEnum.REPORT_STAUS_WAIT_REPLY.getValue());
 				report.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getLawHelpImagePath());
 			}
-			//如果是合理化建议,初始设置为未发布
-			if("advice".equals(report.getReportType())){
+			//如果是合理化建议或者维护报修,初始设置为未发布
+			if("advice".equals(report.getReportType()) || "repair".equals(report.getReportType())){
 				report.setReleaseStatus(Integer.valueOf(ModuleEnum.NOT_RELEASE.getValue()));
 			}
 			baseDao.insert(insert, report);

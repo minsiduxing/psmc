@@ -494,3 +494,12 @@ INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02
 
 INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO) VALUES ('1406', '转载', '早知道管理分类', 10, 6, 6, 'INFO_TYPE');
 
+--维护报修 发布和取消发布功能脚本 -2018/12/02
+delete from tab_role_operate where operate_uuid in ('42432da17d6741a09f97aee7556b06fe', 'b64a79e1097240d0a32f3c8c814e16e0');
+delete from tab_operate where uuid in ('42432da17d6741a09f97aee7556b06fe', 'b64a79e1097240d0a32f3c8c814e16e0');
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('42432da17d6741a09f97aee7556b06fe', 'ad705f6bb26948609e1aa55e86330d05', 'fe755fa4bd25475fa1a9d841caa16f44', 'priv.guochun.psmc.website.backstage.report.service.ReportService', 'releaseOrCancelBusinessMethod', 'INFO_REPAIR_PUBLISH', '发布', '发布', 43);
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('b64a79e1097240d0a32f3c8c814e16e0', 'ad705f6bb26948609e1aa55e86330d05', 'fe755fa4bd25475fa1a9d841caa16f44', 'priv.guochun.psmc.website.backstage.report.service.ReportService', 'releaseOrCancelBusinessMethod', 'INFO_REPAIR_PUBLISH_CANCEL', '取消发布', '取消发布', 43);
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '42432da17d6741a09f97aee7556b06fe');
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'b64a79e1097240d0a32f3c8c814e16e0');
+
+

@@ -185,6 +185,8 @@ public class OperateContantsUtil {
      */
     public final static String INFO_REPAIR_REPLY = "INFO_REPAIR_REPLY";
     public final static String INFO_REPAIR_DELETE = "INFO_REPAIR_DELETE";
+    public final static String INFO_REPAIR_PUBLISH = "INFO_REPAIR_PUBLISH";
+    public final static String INFO_REPAIR_PUBLISH_CANCEL = "INFO_REPAIR_PUBLISH_CANCEL";
     public final static String INFO_REPAIR_LIST = "INFO_REPAIR_LIST";
     /**
      * 创新工作室操作编码

@@ -78,6 +78,12 @@
     <g:auth operateNo="<%=OperateContantsUtil.INFO_REPAIR_DELETE%>">
         <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
     </g:auth>
+    <g:auth operateNo="<%=OperateContantsUtil.INFO_REPAIR_PUBLISH%>">
+            <a href="#" id="advicePublish" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
+    </g:auth>
+    <g:auth operateNo="<%=OperateContantsUtil.INFO_REPAIR_PUBLISH_CANCEL%>">
+        <a href="#" id="advicePublishCancel" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-undo">取消发布</a>
+    </g:auth>
     <g:auth operateNo="<%=OperateContantsUtil.INFO_REPAIR_REPLY%>">
         <a href="#" id="replyReport" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-edit">回复</a>
     </g:auth>
