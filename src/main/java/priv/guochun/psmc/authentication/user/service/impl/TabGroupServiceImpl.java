@@ -5,10 +5,12 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import priv.guochun.psmc.authentication.user.dao.TabGroupDao;
 import priv.guochun.psmc.authentication.user.model.TabGroup;
 import priv.guochun.psmc.authentication.user.service.TabGroupService;
+import priv.guochun.psmc.authentication.user.service.TabPersonService;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 
 public class TabGroupServiceImpl implements TabGroupService
@@ -16,6 +18,9 @@ public class TabGroupServiceImpl implements TabGroupService
     protected static final  Logger logger  = LoggerFactory.getLogger(TabGroupServiceImpl.class);
 
     private TabGroupDao tabGroupDao;
+    
+    @Autowired
+    private TabPersonService tabPersonService;
 
     @Override
     public int getTabGroupCount(){
@@ -52,6 +57,10 @@ public class TabGroupServiceImpl implements TabGroupService
 
 	@Override
 	public MsgModel saveTabGroupBusinessMethod(TabGroup tabGroup) {
+		TabGroup group = this.getTabGroupsByGroupCode(tabGroup.getGroupCode());
+		if(group != null){
+			return MsgModel.buildDefaultError("该用户组编码已经存在");
+		}
 		int flag = tabGroupDao.saveOrUpdateTabGroup(tabGroup);
 		if(flag>0)
 			return MsgModel.buildDefaultSuccess(tabGroup);
@@ -70,6 +79,10 @@ public class TabGroupServiceImpl implements TabGroupService
 
 	@Override
 	public MsgModel deleteTabGroupBusinessMethod(TabGroup tabGroup) {
+		List<Object> list = tabPersonService.getTabPersonByGroupid(tabGroup.getGroupCode());
+		if(list != null && list.size() > 0){
+			return MsgModel.buildDefaultError("该用户组下存在有用户，不能删除");
+		}
 		int flag = tabGroupDao.deleteTabGroup(tabGroup.getUuid());
 		if(flag>0)
 			return MsgModel.buildDefaultSuccess(null);

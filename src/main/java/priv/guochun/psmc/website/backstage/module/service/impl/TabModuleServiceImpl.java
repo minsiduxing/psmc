@@ -156,4 +156,18 @@ public class TabModuleServiceImpl implements TabModuleService {
 	public List<TabModule> getModulesByUuids(String newsIds) {
 		return  tabModuleDao.getModulesByUuids(newsIds);
 	}
+	
+	@Override
+	public void executeUndoTabModule(String ids, TabModule tam) {
+		tam.setModifyDate(DateUtil.getCurrentTimstamp());
+		tam.setAudit(Integer.parseInt(ModuleEnum.NOT_AUDITED.getValue()));
+		tam.setAuditAccUuid(null);
+		tam.setAuditDate(null);
+		tam.setReleaseStatus(ModuleEnum.NOT_RELEASE.getValue());
+		tam.setReleaseAccUuid(null);
+		tam.setReleaseDate(null);
+		tabModuleDao.executeUndoTabModules(ids, tam);
+		//删除发信息
+		tabModulePublishService.deleteTabModulePublishByModuleids(ids);
+	}
 }

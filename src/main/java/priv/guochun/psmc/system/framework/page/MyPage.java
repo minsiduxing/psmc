@@ -44,6 +44,12 @@ public class MyPage implements Serializable {
     private boolean ready = false;  
     // 查询参数
     private Map<String,Object> queryParams ;
+    
+    /** 修改点击查询按钮后分页失效的问题 **/
+    //接收前台传递的页数
+    private int page;
+    //接收前台传递的每页的条数
+    private int rows;
     public MyPage(){
          init();
     	 this.pageIndex = DEFAULT_PAGE_INDEX;  
@@ -233,6 +239,14 @@ public class MyPage implements Serializable {
     {
         this.requestUrl = requestUrl;
     }
+
+	public void setPage(int page) {
+		this.pageIndex = page;
+	}
+
+	public void setRows(int rows) {
+		this.pageSize = rows;
+	}
 
 	
 	

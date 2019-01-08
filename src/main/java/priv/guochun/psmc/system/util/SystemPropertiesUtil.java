@@ -83,6 +83,9 @@ public class SystemPropertiesUtil
     private static final String work_release_image_path = "work_release_image_path"; //工作发布
     private static final String activity_image_path = "activity_image_path";// 活动管理
     private static final String innovation_image_path = "innovation_image_path"; //优秀创新
+    private static final String news_image_path = "news_image_path";//大院新闻
+    private static final String recipes_image_path = "recipes_image_path";//美味食谱
+    private static final String notice_image_path = "notice_image_path";//日常通知
     /** 信息列表自定义配图路径 **/
     private static final String custom_image_path = "custom_image_path";
     
@@ -93,6 +96,7 @@ public class SystemPropertiesUtil
     private static final String logistics_center_custom = "logistics_center";
     private static final String dept_innovation_custom = "dept_innovation";
     private static final String dept_literary_form_custom = "dept_literary_form";
+    private static final String activity_custom = "activity_custom";
     private static final String mobile_image_path = "mobile_image_path";
     
     /**
@@ -224,6 +228,18 @@ public class SystemPropertiesUtil
 	}
 	public static String getMobileImagePath(){
 		return getPropertyValue(mobile_image_path);
+	}
+	public static String getActivityCustomPath(){
+		return getPropertyValue(activity_custom);
+	}
+	public static String getNewsImagePath(){
+		return getPropertyValue(news_image_path);
+	}
+	public static String getRecipesImagePath(){
+		return getPropertyValue(recipes_image_path);
+	}
+	public static String getNoticeImagePath(){
+		return getPropertyValue(notice_image_path);
 	}
 
 	public static String getPropertyValue(String key){

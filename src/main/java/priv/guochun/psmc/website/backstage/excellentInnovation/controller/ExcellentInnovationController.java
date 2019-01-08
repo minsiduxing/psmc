@@ -20,6 +20,7 @@ import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.website.backstage.excellentInnovation.model.TabExcellentInnovation;
 import priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
+import priv.guochun.psmc.website.backstage.module.service.TabModuleService;
 
 @Controller
 @RequestMapping("/website/backstage/ExcellentInnovationController")
@@ -65,7 +66,7 @@ public class ExcellentInnovationController extends MyController{
 		}
 		//如果信息配图为空，则添加默认配图
 		if(ContantsUtil.IS_CUSTOM_0.equals(innovation.getIsCustom()) && StringUtils.isBlank(innovation.getImagePath())){
-			innovation.setImagePath(SystemPropertiesUtil.getInnovationImagePath());
+			innovation.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getInnovationImagePath());
 		}
 		module.setAuditDate(null);
 		excellentInnovationService.saveOrUpdateInnovationBusinessMethod(innovation, module);
@@ -122,6 +123,19 @@ public class ExcellentInnovationController extends MyController{
 	public void getinnovationByUuid(String uuid) throws IOException{
 		Map<String, Object> map = excellentInnovationService.getInnovationByUuidBusinessMethod(uuid);
 		super.responseJson(JsonUtil.convertToJSONObject(map), this.response());
+	}
+	
+	/**
+	 * 撤销
+	 * @param innovationUuids
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=executeUndo")
+	public void executeUndo(String innovationUuids) throws IOException {
+		TabModule module = new TabModule();
+		module.setModifyAccUuid(this.getUserBySeesion(this.request()).getUserUuid());
+		excellentInnovationService.executeUndoBusinessMethod(innovationUuids, module);
+		super.responseJson(true, "操作成功!", this.response());
 	}
 	
 	/**

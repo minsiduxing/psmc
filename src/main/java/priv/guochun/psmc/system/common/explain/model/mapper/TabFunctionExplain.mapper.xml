@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.guochun.psmc.system.common.explain.model.mapper.TabFunctionExplainMapper">
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.system.common.explain.model.TabFunctionExplain">
+    <id column="explain_uuid" jdbcType="VARCHAR" property="explainUuid" />
+    <result column="function_code" jdbcType="VARCHAR" property="functionCode" />
+    <result column="function_name" jdbcType="VARCHAR" property="functionName" />
+    <result column="expain_content" jdbcType="VARCHAR" property="expainContent" />
+    <result column="explain_title" jdbcType="VARCHAR" property="explainTitle" />
+  </resultMap>
+  
+  <select id="selectFunctionExplain" parameterType="hashmap" resultMap="BaseResultMap">
+    select
+   		explain_uuid, function_code, function_name, expain_content, explain_title
+    from tab_function_explain
+    <where>
+    	<if test="explainUuid != null">
+	      explain_uuid = #{explainUuid,jdbcType=VARCHAR}
+	    </if>
+	    <if test="functionCode != null">
+	      function_code = #{functionCode,jdbcType=VARCHAR}
+	    </if>
+    </where>
+  </select>
+   
+  <delete id="deleteFunctionExplain" parameterType="java.lang.String">
+    delete from tab_function_explain
+    where explain_uuid = #{explainUuid,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insertFunctionExplain" parameterType="priv.guochun.psmc.system.common.explain.model.TabFunctionExplain">
+    insert into tab_function_explain (explain_uuid, function_code, function_name, expain_content, explain_title)
+    values (#{explainUuid,jdbcType=VARCHAR}, #{functionCode,jdbcType=VARCHAR}, #{functionName,jdbcType=VARCHAR}, 
+      #{expainContent,jdbcType=VARCHAR}, #{explainTitle,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="updateFunctionExplain" parameterType="priv.guochun.psmc.system.common.explain.model.TabFunctionExplain">
+    update tab_function_explain
+    set function_code = #{functionCode,jdbcType=VARCHAR},
+      function_name = #{functionName,jdbcType=VARCHAR},
+      expain_content = #{expainContent,jdbcType=VARCHAR},
+      explain_title = #{explainTitle,jdbcType=VARCHAR}
+    where explain_uuid = #{explainUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

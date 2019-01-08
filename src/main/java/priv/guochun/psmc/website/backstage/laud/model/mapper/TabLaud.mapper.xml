@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.guochun.psmc.website.backstage.laud.model.mapper.TabLaudMapper">
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.laud.model.TabLaud">
+    <id column="laud_uuid" jdbcType="VARCHAR" property="laudUuid" />
+    <result column="module_uuid" jdbcType="VARCHAR" property="moduleUuid" />
+    <result column="laud_date" jdbcType="TIMESTAMP" property="laudDate" />
+    <result column="laud_person_uuid" jdbcType="VARCHAR" property="laudPersonUuid" />
+    <result column="laud_person_name" jdbcType="VARCHAR" property="laudPersonName" />
+  </resultMap>
+  
+  <select id="selectLaudList" parameterType="hashmap" resultType="java.util.Map">
+    select
+    	laud_uuid, module_uuid, laud_person_uuid, laud_person_name,
+    	date_format(laud_date, '%Y-%m-%d %H:%i:%S') AS laud_date
+    from tab_laud
+    <where>
+    	1 = 1
+    	<if test="laudUuid != null and laudUuid != ''">
+    		and laud_uuid = #{laudUuid}
+    	</if>
+    	<if test="moduleUuid != null and moduleUuid != ''">
+    		and module_uuid = #{moduleUuid}
+    	</if>
+    	<if test="laudPersonUuid != null and laudPersonUuid != ''">
+    		and laud_person_uuid = #{laudPersonUuid}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectTopicLaudList" parameterType="hashmap" resultType="java.util.Map">
+  	select
+    	t1.laud_uuid, t1.module_uuid, t1.laud_person_uuid, t1.laud_person_name,
+    	date_format(t1.laud_date, '%Y-%m-%d %H:%i:%S') AS laud_date, t2.topic_name as infoName
+    from tab_laud t1
+    inner join tab_topics t2
+    on t1.module_uuid = t2.topic_uuid
+    where t1.module_uuid = #{moduleUuid}
+  </select>
+  
+  <select id="selectReportLaudList" parameterType="hashmap" resultType="java.util.Map">
+  	select
+    	t1.laud_uuid, t1.module_uuid, t1.laud_person_uuid, t1.laud_person_name,
+    	date_format(t1.laud_date, '%Y-%m-%d %H:%i:%S') AS laud_date, t2.report_title as infoName
+    from tab_laud t1
+    inner join tab_report t2
+    on t1.module_uuid = t2.report_uuid
+    where t1.module_uuid = #{moduleUuid}
+  </select>
+  
+  <delete id="deleteLaud" parameterType="hashmap">
+    delete from tab_laud
+    where module_uuid = #{moduleUuid,jdbcType=VARCHAR}
+    and laud_person_uuid = #{laudPersonUuid,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insertLaud" parameterType="priv.guochun.psmc.website.backstage.laud.model.TabLaud">
+    insert into tab_laud (laud_uuid, module_uuid, laud_date, 
+      laud_person_uuid, laud_person_name)
+    values (#{laudUuid,jdbcType=VARCHAR}, #{moduleUuid,jdbcType=VARCHAR}, #{laudDate,jdbcType=TIMESTAMP}, 
+      #{laudPersonUuid,jdbcType=VARCHAR}, #{laudPersonName,jdbcType=VARCHAR})
+  </insert>
+  
+</mapper>

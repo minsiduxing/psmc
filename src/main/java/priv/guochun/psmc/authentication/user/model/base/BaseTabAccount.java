@@ -49,6 +49,8 @@ public abstract class BaseTabAccount  implements Serializable {
 	private java.lang.String accountPass;
 	private java.lang.String isLocked;
 	private Integer accountType;
+	private Integer isAuth; //是否实名认证（1是，2否）
+	private Integer authType; //实名认证方式（1身份证，2其他）
 
 	
 
@@ -129,6 +131,22 @@ public abstract class BaseTabAccount  implements Serializable {
 
 	public void setAccountType(Integer accountType) {
 		this.accountType = accountType;
+	}
+
+	public Integer getIsAuth() {
+		return isAuth;
+	}
+
+	public void setIsAuth(Integer isAuth) {
+		this.isAuth = isAuth;
+	}
+
+	public Integer getAuthType() {
+		return authType;
+	}
+
+	public void setAuthType(Integer authType) {
+		this.authType = authType;
 	}
 
 	public boolean equals (Object obj) {

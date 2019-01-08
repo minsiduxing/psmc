@@ -104,8 +104,39 @@ public class FileUploadController extends MyController {
 				paths += attachmentUuid;
 			}
 		}
-		
 		super.responseJson(true,paths, response);
+	}
+	
+	/**
+	 * 文件上传
+	 * @param request
+	 * @param response
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=fileUploadByPC")
+	@ResponseBody
+	public void fileUploadByPC(HttpServletRequest request,HttpServletResponse response) throws IllegalStateException, IOException{
+		request.setAttribute("imagePath", SystemPropertiesUtil.getMobileImagePath());
+		List<UploadFileModel> uploadFileModelList = uploadAssemblyInterface.getFiles(request);
+		FtpUtil ftu = FtpUtil.getFtputil();
+		String paths = "";
+		TabAttachment attachment = null;
+		if(uploadFileModelList != null && uploadFileModelList.size() > 0) {
+			for (int i = 0; i < uploadFileModelList.size();  i++) {
+				String filepath = ftu.uploadFile(uploadFileModelList.get(i));
+				//添加附件信息
+				attachment = new TabAttachment();
+				attachment.setFileName(uploadFileModelList.get(i).getFileSystemName());
+				attachment.setFilePath(uploadFileModelList.get(i).getCustom_file_path());
+				attachment.setFilePrefix(SystemPropertiesUtil.getfilePrefixPath());
+				attachment.setFileRealName(uploadFileModelList.get(i).getFileRealName());
+				attachment.setFileSuffix(uploadFileModelList.get(i).getSuffix());
+				attachment.setSort(i + 1);
+				String attachmentUuid = tabAttachmentService.addAttachment(attachment);
+			}
+		}
+		super.responseJson(attachment, response);
 	}
 
 	private String getImagePath(String oneLevelClassify){
@@ -129,6 +160,9 @@ public class FileUploadController extends MyController {
 				break;
 			case ContantsUtil.DEPT_TYPE_2:
 				imagePath = SystemPropertiesUtil.getDeptLiteraryFormCustomPath();
+				break;
+			case ContantsUtil.ACTIVITY:
+				imagePath = SystemPropertiesUtil.getActivityCustomPath();
 				break;
 			default:
 				break;

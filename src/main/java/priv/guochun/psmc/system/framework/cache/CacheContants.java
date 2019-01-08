@@ -23,5 +23,12 @@ public class CacheContants
     //工作流表单定义项目KEY
     public final static String CACHE_SYSTEM_WORKFOLW_DEFINITION ="CACHE_SYSTEM_WORKFOLW_DEFINITION";
     
+    //系统配置信息
+    public final static String CACHE_SYS_CONFIG = "CACHE_SYS_CONFIG";
+    
+    /**
+     * 实名认证key
+     */
+    public final static String REAL_NAME_AUTHENTICATION = "REAL_NAME_AUTHENTICATION";
     
 }

@@ -65,6 +65,14 @@ public class TabPersonDaoImplMybatis implements TabPersonDao
             sqlSession.insert(insertTabPerson,tabPerson);
     }
     
+    @Override
+    public List<Object> getTabPersonByGroupid(String groupid)
+    {
+        Map<String,Object> condition = new HashMap<String,Object>();
+        condition.put("groupid", groupid);
+        List<Object> list = sqlSession.selectList(getTabPersonByCondition,condition);
+        return list;
+    }
 
     public SqlSessionTemplate getSqlSession()
     {

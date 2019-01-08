@@ -21,10 +21,18 @@
 			<li class="li-input"><label for="" class="input-label">用户名：</label>
 				<input class="myinput" id="queryPersonName" name="personName"></input>
 			</li>
+			<li class="li-input"><label for="" class="input-label">手机号：</label>
+				<input id="queryTelephone" name="telephone" value=""></input>
+			</li>
+			<li class="li-input"><label for="" class="input-label">隶属组：</label>
+				<input id="groupName" name="groupName" value=""></input>
+			</li>
+			<li class="li-input"><label for="" class="input-label">账户类型：</label>
+				<input id="queryAccountType" name="accountType" value=""></input>
+			</li>
 			<li class="li-input"><label for="" class="input-label">是否锁定：</label>
 				<input id="queryIsLocked" name="isLocked" value=""></input>
 			</li>
-			
 	</ul>
 	</form>
 	<div class="query-oper">
@@ -79,7 +87,14 @@ $('#queryAccountName').textbox({
 $('#queryPersonName').textbox({
 	type : "text"
 });
+$('#queryTelephone').textbox({
+	type : "text"
+});
+$('#groupName').textbox({
+	type : "text"
+});
 
 commonObj.initDictCombobox("queryIsLocked","IF","<c:out value="${account.IS_LOCKED}"/>",false,true);
+commonObj.initDictCombobox("queryAccountType","ACC_TYPE","",false,true);
 </script>
 </html>

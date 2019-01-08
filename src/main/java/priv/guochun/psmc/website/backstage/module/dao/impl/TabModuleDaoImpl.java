@@ -18,6 +18,7 @@ public class TabModuleDaoImpl implements TabModuleDao {
     public static final String deletesTabModelByUuid="deletesTabModelByUuid";
     public static final String relaeaseTabModel="relaeaseTabModel";
     public static final String auditTabModel="auditTabModel";
+    public static final String undoTabModel = "undoTabModel";
   
     private SqlSessionTemplate sqlSession;
 	@Override
@@ -82,6 +83,18 @@ public class TabModuleDaoImpl implements TabModuleDao {
         sqlSession.update(relaeaseTabModel, condition);
 	}
 	
-
-
+	@Override
+	public void executeUndoTabModules(String ids, TabModule tam) {
+		Map<String,Object> condition = new HashMap<String,Object>();
+        condition.put("ids", ids.split(","));
+        condition.put("modifyDate", tam.getModifyDate());
+        condition.put("modifyAccUuid", tam.getModifyAccUuid());
+        condition.put("auditAccUuid", tam.getAuditAccUuid());
+        condition.put("audit", tam.getAudit());
+        condition.put("auditDate", tam.getAuditDate());
+        condition.put("releaseAccUuid", tam.getReleaseAccUuid());
+        condition.put("releaseStatus", tam.getReleaseStatus());
+        condition.put("releaseDate", tam.getReleaseDate());
+        sqlSession.update(undoTabModel, condition);
+	}
 }

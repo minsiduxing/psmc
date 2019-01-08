@@ -17,4 +17,16 @@ public interface TabCommentService {
 	 * @param tabComment
 	 */
 	public void saveOrUpdateToMobile(TabComment tabComment);
+	
+	/**
+	 * 更新状态
+	 * @param tabComment
+	 */
+	public void updateCommentStatus(TabComment tabComment);
+	
+	/**
+	 * 删除评论信息
+	 * @param commentUuid
+	 */
+	public void deleteCommentToMobile(String commentUuid);
 }

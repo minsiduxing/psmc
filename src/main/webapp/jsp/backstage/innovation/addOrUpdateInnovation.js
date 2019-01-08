@@ -8,7 +8,28 @@ var editor;
  */
 function  wangEditorInit(isEdit){
     	  var E = window.wangEditor;
-          editor = new E('#editor-toolbar','#newsContent');
+          editor = new E('#newsContent');
+          editor.customConfig.menus = [
+      	                                'head',  // 标题
+   									    'bold',  // 粗体
+   									    'fontSize',  // 字号
+   									    'fontName',  // 字体
+   									    'italic',  // 斜体
+   									    'underline',  // 下划线
+   									    'strikeThrough',  // 删除线
+   									    'foreColor',  // 文字颜色
+   									    'backColor',  // 背景颜色
+   									    'link',  // 插入链接
+   									    'list',  // 列表
+   									    'justify',  // 对齐方式
+   									    'emoticon',  // 表情
+   									    'image',  // 插入图片
+   									    'table',  // 表格
+   									    'undo',  // 撤销
+   									    'redo'  // 重复
+   									   ]
+       	  editor.customConfig.uploadImgMaxSize = 1000 * 1000;//限制图片最大不超过1M
+          editor.customConfig.zIndex = 500;
           editor.customConfig.uploadImgServer = imageuploadsrc;  // 上传图片到服务器
           editor.customConfig.uploadImgHooks = {
         		    // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
@@ -19,65 +40,22 @@ function  wangEditorInit(isEdit){
 
         		        // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
         		    	console.info(result.rmsg);
-        		        var url = getImag+result.rmsg;
+        		        var url = result.rmsg;
         		        insertImg(url);
 
         		        // result 必须是一个 JSON 格式字符串！！！否则报错
         		    }
         		}
           editor.create();  
+          E.fullscreen.init('#newsContent');
           if (isEdit=="edit") {
-        	  editor.txt.html(newsContent) ;
+        	  editor.txt.html($("#infoContent").html()) ;
           }
           if(isEdit=="query"){
-        	  editor.txt.html(newsContent) ;
+        	  editor.txt.html($("#infoContent").html()) ;
         	  editor.$textElem.attr('contenteditable', false);
           }
-          // 获取使用到的元素
-          var toolbarContaner = document.getElementById('toolbar-container');
-          var editorText = document.getElementById('newsContent');
-          var cover = document.getElementById('cover');
-          var container = document.getElementById('container');
-          $("#newsContent").css("z-index","998");
-          // 全屏事件
-          /*function doFullScreen() {
-              cover.style.display = 'block';
-              $("#cover").addClass("cover");
-              editorText.style.height = '90%';
-              editorText.style.width = '100%';
-              toolbarContaner.style.width = '100%';
-              cover.appendChild(toolbarContaner);
-              cover.appendChild(editorText);
-              $('#btn1').text("退出全屏");
-          }
-
-          // 退出全屏事件
-          function unDoFullScreen() {
-        	  debugger;
-        	  event.preventDefault();
-              container.appendChild(toolbarContaner);
-              container.appendChild(editorText);
-              editorText.style.height = '100%';
-              editorText.style.width = '88.5%';
-              toolbarContaner.style.width = '88.5%';
-              $("#cover").removeClass("cover");
-              $('#btn1').text("全屏");
-          }
-
-          // 是否是全屏的标志
-          var isFullScreen = false
-
-          // 点击事件
-          var btn1 = document.getElementById('btn1');
-          btn1.addEventListener('click', function () {
-              if (isFullScreen) {
-                  isFullScreen = false;
-                  unDoFullScreen();
-              } else {
-                  isFullScreen = true;
-                  doFullScreen();
-              }
-          }, false);*/
+          
     }
 //富文本编辑器结束-----------------------------
 /**

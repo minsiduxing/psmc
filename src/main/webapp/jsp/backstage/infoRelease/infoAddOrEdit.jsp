@@ -34,9 +34,9 @@
 				</c:if>
 				<td class="tds">自定义配图：</td>
 				<td width="25%">
-	                <input type="radio" name="isCustom1" <c:if test="${dept.is_custom == '0'}">checked</c:if> value="0" style="width:5%;margin-right: 0">否</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                <input type="radio" name="isCustom1" <c:if test="${dept.is_custom == '1'}">checked</c:if> value="1" style="width:5%;margin-right: 0" onclick="openUploadDialog()">是</input>
-	                <input type="hidden" id="isCustom" name="isCustom" value="${dept.is_custom}"/>
+	                <input type="radio" name="isCustom1" <c:if test="${info.is_custom == '0'}">checked</c:if> value="0" style="width:5%;margin-right: 0">否</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                <input type="radio" name="isCustom1" <c:if test="${info.is_custom == '1'}">checked</c:if> value="1" style="width:5%;margin-right: 0" onclick="openUploadDialog()">是</input>
+	                <input type="hidden" id="isCustom" name="isCustom" value="${info.is_custom}"/>
 				</td>
 			</tr>
 			<tr>
@@ -44,50 +44,15 @@
 				<td colspan="3" width="100%">
 					<!--非全屏模式-->
 				    <div id="container">
-				        <!--菜单栏-->
-				        <div id="toolbar-container">
-				            <div id="editor-toolbar"></div>
-				            <div id="btn-container">
-				               <!--  <button id="btn1">全屏</button> -->
-				            </div>
-				        </div>
-				        <input id="hiddencontent" type="hidden" name="newsContent"/>
-				        <div id="newsContent" class="newsContent">
-				      
-				       </div>
+				    	<input id="hiddencontent" type="hidden" name="newsContent"/>
+				        <div id="newsContent" class="newsContent"></div>
 	                </div>
 				</td>
 				
 			</tr>
 		</table>
 	</div>
-	<div id="uploadImageDiv"></div>
-
-		<!-- <ul >
-			<li ><label>信息标题：</label>
-				<input  id="newsTitle" name="newsTitle"></input>
-			</li>
-			<li ><label >信息内容</label><br>
-			 非全屏模式
-			    <div id="container">
-			        菜单栏
-			        <div id="toolbar-container">
-			            <div id="editor-toolbar"></div>
-			            <div id="btn-container">
-			                <button id="btn1">全屏</button>
-			            </div>
-			        </div>
-			        <input id="hiddencontent" type="hidden" name="newsContent"/>
-			        <div id="newsContent" class="newsContent">
-			      
-			       </div>
-                </div>
-                </li>
-			<li ><label>信息时间</label><br>
-				<input id="newsDate" name="newsDate" editable="false" ></input></li>
-			<li ><label >信息创建人：</label><br>
-				<input  id="newAutor" name="newAutor"></input></li>
-		</ul> -->
+		<label id="infoContent" style="display: none;">${info.news_content}</label>
 	 <input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 	 <input type="hidden" id="newsUuid" name=newsUuid value="${info.uuid }"/>
 	 <input type="hidden" id="oneLevelClassify" name="oneLevelClassify" value="${oneLevelClassify}"/>
@@ -102,6 +67,9 @@
 	</form>
         <!--全屏模式-->
     <div id="cover" ></div>
+    <div id="uploadImageDiv" style="display: none;">
+		 <%@ include file="../uploadImage/uploadImage.jsp"%>
+	</div>
   </body>
 </html>
 <script type="text/javascript">
@@ -121,13 +89,10 @@ var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>
 var path = '<c:url value="'+ basePath+'/website/backstage/InfoReleaseController.do"/>?method=confirmPicture';
 //表单数据初始化---------------------------------------------------
 var newsTitle = "${info.newsTitle}";
-var newscontent = '${info.news_content}';
 var editnewssrc = "${info.thumbnail_image_url}";
 var addUrl = '<c:url value="/website/backstage/InfoReleaseController.do"/>?method=saveOrUpdateInfoRelease';
 var retrunUrl =  '<c:url value="/website/backstage/InfoReleaseController.do"/>?method=infoReleaseList&oneLevelClassify='+$("#oneLevelClassify").val();
 
-//弹出图片上传窗口
-var toImageUpload =  '<c:url value="/website/backstage/uploadImageController.do"/>?method=toImageUplodDialog';
 //上传配图
 var uploadPhoto = '<c:url value="/website/backstage/uploadImageController.do"/>?method=uploadPhoto';
 
@@ -135,7 +100,7 @@ var uploadPhoto = '<c:url value="/website/backstage/uploadImageController.do"/>?
 if($("#isCustom").val() == "" || $("#isCustom").val() == null){
 	$("input[name='isCustom1']:eq(0)").attr("checked",'checked');
 }
-commonObj.initDictCombobox("towLevelClassify","INFO_TYPE","<c:out value="${info.towLevelClassify}"/>",true,false);
+commonObj.initDictCombobox("towLevelClassify","INFO_TYPE","<c:out value="${info.two_level_classify}"/>",true,false);
 
 function formInint(isEdit){
 	if(isEdit == "query"){
@@ -165,8 +130,5 @@ function formInint(isEdit){
 }
 
 </script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/wangEditor/wangEditor.min${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/uploadfy/jquery.Huploadify${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/browser${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/infoRelease/infoAddOrEdit.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/uploadImage/uploadImage.js"></script>

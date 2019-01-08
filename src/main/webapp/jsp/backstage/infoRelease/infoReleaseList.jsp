@@ -23,16 +23,13 @@
 				<input id="towLevelClassify" name="towLevelClassify"> </input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">信息日期：</label>
-				<input id="newsDateBegin" name="newsDateBegin" value=""></input>
+				<input id="newsDateBegin" name="newsDateBegin" value="" class="easyui-datetimebox"></input>
 			</li>
 			
 			<li class="li-input"><label for="" class="input-label">至</label>
-			<input id="newsDateEnd" name="newsDateEnd" ></input>
+			<input id="newsDateEnd" name="newsDateEnd" class="easyui-datetimebox"></input>
 			</li>
 		
-		<!-- 	<li class="li-input"><label for="" class="input-label">创建人：</label>
-				<input id="createAccName" name="createAccName" ></input>
-			</li> -->
 			<li class="li-input"><label for="" class="input-label">发布人：</label>
 				<input id="releaseAccName" name="releaseAccName" ></input>
 			</li>
@@ -43,35 +40,27 @@
 				<input id="audit" name="audit" value=""></input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">审核日期：</label>
-			<input id="auditDateBegin" name="auditDateBegin" ></input>
+			<input id="auditDateBegin" name="auditDateBegin" class="easyui-datetimebox"></input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至：</label>
-				<input id="auditDateEnd" name="auditDateEnd" />
+				<input id="auditDateEnd" name="auditDateEnd" class="easyui-datetimebox"/>
 			</li>
 		     <li class="li-input"><label for="" class="input-label">发布是否通过：</label>
 				<input id="releaseStatus" name="releaseStatus"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">发布日期：</label>
-			<input id="releaseDateBegin" name="releaseDateBegin" ></input>
+			<input id="releaseDateBegin" name="releaseDateBegin" class="easyui-datetimebox"></input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至：</label>
-				<input id="releaseDateEnd" name="releaseDateEnd" />
+				<input id="releaseDateEnd" name="releaseDateEnd" class="easyui-datetimebox"/>
 			</li>
 			
 			<li class="li-input"><label for="" class="input-label">到期日期：</label>
-			<input id="publishExpireDateBegin" name="publishExpireDateBegin" ></input>
+			<input id="publishExpireDateBegin" name="publishExpireDateBegin" class="easyui-datetimebox"></input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至：</label>
-				<input id="publishExpireDateEnd" name="publishExpireDateEnd" />
+				<input id="publishExpireDateEnd" name="publishExpireDateEnd" class="easyui-datetimebox"/>
 			</li>
-		<!-- 	<li class="li-input"><label for="" class="input-label">创建日期：</label>
-			<input id="createDateBegin" name="createDateBegin" ></input>
-
-			</li> -->
-			<!-- <li class="li-input"><label for="" class="input-label">至：</label>
-					<input id="createDateEnd" name="createDateEnd" />
-			</li> -->
-			
 	</ul>
 		<input type="hidden" id="oneLevelClassify" name="oneLevelClassify" value="${param.oneLevelClassify}"/>
 	</form>
@@ -104,6 +93,9 @@
 	<g:auth operateNo="<%=OperateContantsUtil.WORK_MANAGER_RELEASE%>">
 			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
 	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_MANAGER_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
+	</g:auth>
 </c:if>
 <c:if test="${param.oneLevelClassify=='12'}">
 	<g:auth operateNo="<%=OperateContantsUtil.LEGAL_PROVISIONS_ADD%>">
@@ -123,6 +115,9 @@
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.LEGAL_PROVISIONS_RELEASE%>">
 			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.LEGAL_PROVISIONS_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
 	</g:auth>
 </c:if>
 <c:if test="${param.oneLevelClassify=='13'}">
@@ -144,6 +139,9 @@
 	<g:auth operateNo="<%=OperateContantsUtil.WORK_RELEASE_RELEASE%>">
 			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
 	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.WORK_RELEASE_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
+	</g:auth>
 </c:if>
 <c:if test="${param.oneLevelClassify=='14'}">
 	<g:auth operateNo="<%=OperateContantsUtil.EARLY_KNOW_ADD%>">
@@ -163,6 +161,9 @@
 	</g:auth>
 	<g:auth operateNo="<%=OperateContantsUtil.EARLY_KNOW_RELEASE%>">
 			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
+	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.EARLY_KNOW_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
 	</g:auth>
 </c:if>
 </div>
@@ -189,6 +190,7 @@ var removeInfo = '<c:url value="'+infoDo+'"/>?method=infoDelete';
 var auditInfo = '<c:url value="'+infoDo+'"/>?method=executeAuditInfo';
 var releaseInfo = '<c:url value="'+infoDo+'"/>?method=executeReleaseInfo';
 var priviewInfo = '<c:url value="'+infoDo+'"/>?method=getInfoContent';
+var executeUndo = '<c:url value="'+infoDo+'"/>?method=executeUndo';
 //----------------------------查询框初始化开始
 $('#newsTitle').textbox({
 	type : "text"
@@ -200,42 +202,7 @@ $('#newsTitle').textbox({
 	multiline:true,
 	type : "text"
 }); */
-$('#newsDateBegin').datetimebox({
-	editable:false
-});
-$('#newsDateEnd').datetimebox({
-	editable:false
-});
-$('#createDateBegin').datetimebox({
-	editable:false
-});
-$('#createDateEnd').datetimebox({
-	editable:false
-});
-$('#modifyDateBegin').datetimebox({
-	editable:false
-});
-$('#modifyDateEnd').datetimebox({
-	editable:false
-});
-$('#auditDateBegin').datetimebox({
-	editable:false
-});
-$('#auditDateEnd').datetimebox({
-	editable:false
-});
-$('#releaseDateBegin').datetimebox({
-	editable:false
-});
-$('#releaseDateEnd').datetimebox({
-	editable:false
-});
-$('#publishExpireDateBegin').datetimebox({
-	editable:false
-});
-$('#publishExpireDateEnd').datetimebox({
-	editable:false
-});
+
 $('#newAutor').textbox({
 	type : "text"
 });

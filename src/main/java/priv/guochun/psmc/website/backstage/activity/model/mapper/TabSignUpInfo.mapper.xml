@@ -16,35 +16,43 @@
   </sql>
   
   <select id="selectSignUpInfoList" parameterType="hashmap" resultType="java.util.Map">
-    select
-    <include refid="Base_Column_List" />
-    from tab_sign_up_info
+    SELECT
+	    t1.sign_up_uuid, t1.activity_uuid,t1.person_account,t1.person_name,t1.person_mobile,
+	    date_format(t1.sign_up_date, '%Y-%m-%d %H:%i:%S') AS sign_up_date,
+	    t2.activity_name,
+	    date_format(t2.start_date, '%Y-%m-%d %H:%i:%S') AS start_date,
+		date_format(t2.end_date, '%Y-%m-%d %H:%i:%S') AS end_date
+	FROM
+	    tab_sign_up_info t1
+	INNER JOIN
+	    tab_activity_manage t2
+	ON
+	    t1.activity_uuid = t2.activity_uuid
     <where>
     	1=1
     	<if test="signUpUuid != null and signUpUuid != ''">
-    		and sign_up_uuid = #{signUpUuid}
+    		and t1.sign_up_uuid = #{signUpUuid}
     	</if>
     	<if test="activityUuid != null and activityUuid != ''">
-    		and activity_uuid = #{activityUuid}
+    		and t1.activity_uuid = #{activityUuid}
     	</if>
     	<if test="personAccount != null and personAccount != ''">
-    		and person_account = #{personAccount}
+    		and t1.person_account = #{personAccount}
     	</if>
     	<if test="personName != null and personName != ''">
-    		and person_name like concat(concat('%',#{personName}),'%')
+    		and t1.person_name like concat(concat('%',#{personName}),'%')
     	</if>
     	<if test="personMobile != null and personMobile != ''">
-    		and person_mobile like concat(concat('%',#{personMobile}),'%')
+    		and t1.person_mobile like concat(concat('%',#{personMobile}),'%')
     	</if>
     	<if test="signUpBeginDate != null and signUpBeginDate != ''">
-    		and <![CDATA[sign_up_date >=#{signUpBeginDate}]]> 
+    		and <![CDATA[t1.sign_up_date >=#{signUpBeginDate}]]> 
     	</if>
     	<if test="signUpEndDate != null and signUpEndDate != ''">
-    		and <![CDATA[sign_up_date <=#{signUpEndDate}]]> 
+    		and <![CDATA[t1.sign_up_date <=#{signUpEndDate}]]> 
     	</if>
     </where>
   </select>
-  
   
   <select id="selectSignUpInfoByPrimaryKey" parameterType="hashmap" resultType="java.util.Map">
     select 

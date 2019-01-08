@@ -13,13 +13,24 @@
     <result column="last_comment_person_uuid" property="lastCommentPersonUuid" jdbcType="VARCHAR" />
     <result column="last_comment_date" property="lastCommentDate" jdbcType="TIMESTAMP" />
     <result column="last_comment_uuid" property="lastCommentUuid" jdbcType="VARCHAR" />
+    <result column="image_path" property="image_path" jdbcType="VARCHAR" />
+    <result column="release_time" property="releaseTime" jdbcType="TIMESTAMP" />
+    <result column="release_status" property="releaseStatus" jdbcType="INTEGER" />
+    <result column="release_person_uuid" property="releasePersonUuid" jdbcType="VARCHAR" />
   </resultMap>
 
   <select id="selectTopicsList" parameterType="hashmap" resultType="java.util.Map">
     select
-    	t1.*,
+    	t1.topic_uuid,t1.topic_name,t1.topic_content,t1.topic_status,t1.block_uuid,t1.create_person_uuid,
+    	t1.telephone,t1.last_comment_person_uuid,t1.last_comment_uuid,t1.create_person_name,t1.image_path,
+    	t1.release_status,t1.release_person_uuid,
+    	date_format(t1.release_time, '%Y-%m-%d %H:%i:%S') AS release_time,
+    	date_format(t1.create_date, '%Y-%m-%d %H:%i:%S') AS create_date,
+    	date_format(t1.last_comment_date, '%Y-%m-%d %H:%i:%S') AS last_comment_date,
     	t2.nums,
-    	t3.person_name as lastCommentPerson
+    	t3.person_name as lastCommentPerson,
+    	t4.person_name as releasePersonName,
+    	t5.laudNums
     from 
     	tab_topics t1
     left join 
@@ -30,6 +41,22 @@
     	tab_person t3
     on
     	t1.last_comment_person_uuid = t3.uuid
+    left join 
+    	tab_person t4
+    on 
+    	t1.release_person_uuid = t4.uuid
+    left join 
+    (
+    	SELECT
+	            module_uuid,
+	            COUNT(*) AS laudNums
+	        FROM
+	            tab_laud
+	        GROUP BY
+	            module_uuid 
+    ) t5
+    on 
+    	t5.module_uuid = t1.topic_uuid
     <where>
     	  1 = 1
     	  and t1.topic_status != 3
@@ -38,6 +65,9 @@
 	    </if>
 	    <if test="blockUuid != null and blockUuid != ''">
 	      and t1.block_uuid = #{blockUuid}
+	    </if>
+	    <if test="topicStatus != null and topicStatus != ''">
+	      and t1.topic_status = #{topicStatus}
 	    </if>
 	    <if test="topicName != null and topicName != ''">
 	      and t1.topic_name like concat(concat('%',#{topicName}),'%')
@@ -52,7 +82,7 @@
 	      and t1.telephone like concat(concat('%',#{telephone}),'%')
 	    </if>
 	    <if test="lastCommentPerson != null and lastCommentPerson != ''">
-	      and t1.t3.person_name like concat(concat('%',#{lastCommentPerson}),'%')
+	      and t3.person_name like concat(concat('%',#{lastCommentPerson}),'%')
 	    </if>
 	    <if test="createDateBegin != null and createDateBegin != ''">
 	      and <![CDATA[t1.create_date >=#{createDateBegin}]]>  
@@ -66,22 +96,36 @@
 	    <if test="lastCommentDateEnd != null and lastCommentDateEnd != ''">
 	      and <![CDATA[t1.last_comment_date <=#{lastCommentDateEnd}]]>  
 	    </if>
+	    <if test="releaseStatus != null and releaseStatus != ''">
+	      and t1.release_status = #{releaseStatus}
+	    </if>
+	    <if test="personUuid != null and personUuid != ''">
+	      and t1.release_status = 1
+	      or (t1.release_status = 2 and t1.create_person_uuid = #{personUuid} and t1.topic_status != 3)
+	    </if>
 	    <if test="queryParameter != null and queryParameter != ''" >  
-	       and (t1.topic_name like concat(concat('%',#{queryParameter}),'%')
-	       		or t1.topic_content LIKE concat(concat('%',#{queryParameter}),'%')
-	       		or t1.create_person_name LIKE concat(concat('%',#{queryParameter}),'%')
-	       		or t1.telephone like concat(concat('%',#{queryParameter}),'%')
-	       	   )
-		  </if>  
+		       and (t1.topic_name like concat(concat('%',#{queryParameter}),'%')
+		       		or t1.topic_content LIKE concat(concat('%',#{queryParameter}),'%')
+		       		or t1.create_person_name LIKE concat(concat('%',#{queryParameter}),'%')
+		       		or t1.telephone like concat(concat('%',#{queryParameter}),'%')
+		       	   )
+		</if> 
     </where>
       order by create_date desc
   </select>
   
-  <select id="selectTopicsByPrimaryKey" parameterType="hashmap" resultType="java.util.Map" >
-    select
-    	t1.*,
+  <!-- <select id="selectTopicsListToMobile" parameterType="hashmap" resultType="java.util.Map">
+  	select
+    	t1.topic_uuid,t1.topic_name,t1.topic_content,t1.topic_status,t1.block_uuid,t1.create_person_uuid,
+    	t1.telephone,t1.last_comment_person_uuid,t1.last_comment_uuid,t1.create_person_name,t1.image_path,
+    	t1.release_status,t1.release_person_uuid,
+    	date_format(t1.release_time, '%Y-%m-%d %H:%i:%S') AS release_time,
+    	date_format(t1.create_date, '%Y-%m-%d %H:%i:%S') AS create_date,
+    	date_format(t1.last_comment_date, '%Y-%m-%d %H:%i:%S') AS last_comment_date,
     	t2.nums,
-    	t3.person_name as lastCommentPerson
+    	t3.person_name as lastCommentPerson,
+    	t4.person_name as releasePersonName,
+    	t5.laudNums
     from 
     	tab_topics t1
     left join 
@@ -92,6 +136,65 @@
     	tab_person t3
     on
     	t1.last_comment_person_uuid = t3.uuid
+    left join 
+    	tab_person t4
+    on 
+    	t1.release_person_uuid = t4.uuid
+    left join 
+    (
+    	SELECT
+	            module_uuid,
+	            COUNT(*) AS laudNums
+	        FROM
+	            tab_laud
+	        GROUP BY
+	            module_uuid 
+    ) t5
+    on 
+    	t5.module_uuid = t1.topic_uuid
+    <where>
+    	1 = 1
+	    and t1.topic_status == 1
+	    and (t1.release_status = 2 and t1.create_person_uuid = #{personUuid})
+	    <if test="queryParameter != null and queryParameter != ''" >  
+		       and (t1.topic_name like concat(concat('%',#{queryParameter}),'%')
+		       		or t1.topic_content LIKE concat(concat('%',#{queryParameter}),'%')
+		       		or t1.create_person_name LIKE concat(concat('%',#{queryParameter}),'%')
+		       		or t1.telephone like concat(concat('%',#{queryParameter}),'%')
+		       	   )
+		</if> 
+	</where> 
+	order by create_date desc
+  </select> -->
+  
+  <select id="selectTopicsByPrimaryKey" parameterType="hashmap" resultType="java.util.Map" >
+    select
+    	t1.*,
+    	t2.nums,
+    	t3.person_name as lastCommentPerson,
+    	t4.laudNums
+    from 
+    	tab_topics t1
+    left join 
+    	tab_page_view t2
+    on 
+    	t1.topic_uuid = t2.uuid
+    left join
+    	tab_person t3
+    on
+    	t1.last_comment_person_uuid = t3.uuid
+    left join 
+    (
+    	SELECT
+	            module_uuid,
+	            COUNT(*) AS laudNums
+	        FROM
+	            tab_laud
+	        GROUP BY
+	            module_uuid 
+    ) t4
+    on 
+    	t4.module_uuid = t1.topic_uuid
     where t1.topic_uuid = #{topicUuid,jdbcType=VARCHAR}
   </select>
   
@@ -135,6 +238,18 @@
       <if test="topicContent != null" >
         topic_content,
       </if>
+      <if test="imagePath != null">
+      	image_path,
+      </if>
+      <if test="releaseStatus != null" >
+        release_status,
+      </if>
+      <if test="releaseTime != null" >
+        release_time,
+      </if>
+      <if test="releasePersonUuid != null">
+      	release_person_uuid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="topicUuid != null" >
@@ -172,6 +287,18 @@
       </if>
       <if test="topicContent != null" >
         #{topicContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imagePath != null">
+      	#{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseStatus != null" >
+        #{releaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="releaseTime != null" >
+        #{releaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="releasePersonUuid != null">
+      	#{releasePersonUuid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -212,8 +339,84 @@
       <if test="topicContent != null" >
         topic_content = #{topicContent,jdbcType=LONGVARCHAR},
       </if>
+      <if test="imagePath != null" >
+        image_path = #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseStatus != null" >
+        release_status = #{releaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="releaseTime != null" >
+        release_time = #{releaseTime,jdbcType=TIMESTAMP},,
+      </if>
+      <if test="releasePersonUuid != null">
+      	release_person_uuid = #{releasePersonUuid,jdbcType=VARCHAR},,
+      </if>
     </set>
     where topic_uuid = #{topicUuid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateTopicsStatus" parameterType="hashmap">
+	  	update tab_topics
+	    <set >
+	      <if test="topicName != null" >
+        topic_name = #{topicName,jdbcType=VARCHAR},
+      </if>
+      <if test="topicStatus != null" >
+        topic_status = #{topicStatus,jdbcType=INTEGER},
+      </if>
+      <if test="blockUuid != null" >
+        block_uuid = #{blockUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="createPersonUuid != null" >
+        create_person_uuid = #{createPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="createPersonName != null" >
+        create_person_name = #{createPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastCommentPersonUuid != null" >
+        last_comment_person_uuid = #{lastCommentPersonUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="lastCommentDate != null" >
+        last_comment_date = #{lastCommentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastCommentUuid != null" >
+        last_comment_uuid = #{lastCommentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="topicContent != null" >
+        topic_content = #{topicContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imagePath != null" >
+        image_path = #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseStatus != null" >
+        release_status = #{releaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="releaseTime != null" >
+        release_time = #{releaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="releasePersonUuid != null">
+      	release_person_uuid = #{releasePersonUuid,jdbcType=VARCHAR},
+      </if>
+	    </set>
+	    where topic_uuid in
+		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+			#{item}  
+		</foreach>  
+  </update>
+  
+  <update id="updateTopics2" parameterType="hashmap">
+  	update tab_topics set release_status = #{releaseStatus},release_time = #{releaseTime},
+  		release_person_uuid = #{releasePersonUuid}
+  	where topic_uuid in
+		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+			#{item}  
+		</foreach> 
   </update>
   
 </mapper>

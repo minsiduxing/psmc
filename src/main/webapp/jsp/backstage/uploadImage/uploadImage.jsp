@@ -33,10 +33,10 @@
              </td>
              <td  align="center">
                  
-                 <div id="preview-panel" style="width:130px;height:140px;border:0px solid green;margin-top:100px;">
+                 <div id="preview-panel" style="width:150px;height:140px;border:0px solid green;margin-top:100px;">
                  	<div>预览：</div>
-                      <div class = "previewDiv" style="width: 130px;height: 130px;overflow: hidden;border:1px solid #ececec" >
-                            <img id = "preview" src="<%=request.getContextPath()%>/images/touxiang_default.png" width="130px" height="130px" class="jcrop-preview" alt="预览" >
+                      <div class = "previewDiv" style="width: 132px;height: 132px;overflow: hidden;border:1px solid #ececec" >
+                            <img id = "preview" src="<%=request.getContextPath()%>/images/touxiang_default.png" width="130px" height="130px"  alt="预览" />
                       </div>
                  </div>
              </td>
@@ -46,11 +46,11 @@
                  <table style="width:100%;height:30px;">
                      <tr>
                          <td align="right">
-                             <input id="upload" type="button" class="easyui-linkbutton" value="上传" style="width:60px;height:30px;
+                             <input id="upload" type="button" class="easyui-linkbutton" value="上传" style="width:60px;height:35px;
                              	padding-top:3px;margin-right:10px;" onclick="imageUpload()">
                          </td>
                          <td align="left">
-                             <input id="close" type="button" class="easyui-linkbutton" value="关闭" style="width:60px;height:30px;
+                             <input id="close" type="button" class="easyui-linkbutton" value="关闭" style="width:60px;height:35px;
                              	padding-top:3px;margin-right:10px;" onclick="closeDialog()">
                          </td>
                      </tr>
@@ -64,5 +64,4 @@
 <script type="text/javascript">
 	
 </script>
-<script type="text/javascript" src="uploadImage.js"></script>
 </html>

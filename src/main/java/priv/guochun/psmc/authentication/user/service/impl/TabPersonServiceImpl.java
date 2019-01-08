@@ -1,5 +1,6 @@
 package priv.guochun.psmc.authentication.user.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import priv.guochun.psmc.authentication.user.dao.TabPersonDao;
@@ -36,6 +37,11 @@ public class TabPersonServiceImpl implements TabPersonService
     	return true;
     }
     
+    @Override
+    public List<Object> getTabPersonByGroupid(String groupid)
+    {
+        return tabPersonDao.getTabPersonByGroupid(groupid);
+    }
     
 
 	public TabPersonDao getTabPersonDao() {

@@ -180,5 +180,16 @@ public class TabActivityManageServiceImpl implements TabActivityManageService{
 		condition.put("activityUuid", activityUuid);
 		return (Map<String, Object>) baseDao.queryForObject(selectSignUpInfoList, condition);
 	}
+
+	@Override
+	public void executeUndoBusinessMethod(String activityUuids, TabModule module) {
+		tabModuleService.executeUndoTabModule(activityUuids, module);
+	}
+	
+	@Override
+	public MyPage querySignInfoPage(MyPage myPage){
+		Map<String, Object> codition = myPage.getQueryParams();
+		return baseDao.getMyPage(myPage, selectSignUpInfoList, codition);
+	}
 	
 }

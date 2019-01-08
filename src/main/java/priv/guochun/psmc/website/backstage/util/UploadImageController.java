@@ -112,6 +112,7 @@ public class UploadImageController extends MyController{
             Image img;
             ImageFilter cropFilter;
             BufferedImage bi = ImageIO.read(new File(srcImageFile));
+            
             if (srcWidth >= desWidth && srcHeight >= desHeight) {
                 Image image = bi.getScaledInstance(srcWidth, srcHeight, Image.SCALE_DEFAULT);
                 cropFilter = new CropImageFilter(x, y, desWidth, desHeight);
@@ -121,7 +122,7 @@ public class UploadImageController extends MyController{
                 g.drawImage(img, 0, 0, null);
                 g.dispose();
                 
-                ImageIO.write(tag, "JPEG", new File(result));
+                ImageIO.write(tag, "JPG", new File(result));
                 return result;
             }
         } catch (Exception e) {
@@ -171,12 +172,12 @@ public class UploadImageController extends MyController{
 	    String fileName = file.getOriginalFilename();  
 	    String[] suffixNameArr = fileName.split("\\."); 
 	    String suffixName = suffixNameArr[suffixNameArr.length-1]; 
-	    return getTime() + "_" + suffixNameArr[0] + "."+suffixName; 
+	    return getTime() + "_" + System.currentTimeMillis() + "."+suffixName; 
 	  } 
 	    
 	  public String getTime(){ 
 	    Date date = new Date(); 
-	    SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式 
+	    SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//设置日期格式 
 	    String nowTime = df.format(date).toString(); 
 	    return nowTime; 
 	  } 

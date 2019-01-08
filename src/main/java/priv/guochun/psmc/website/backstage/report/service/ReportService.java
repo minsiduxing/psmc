@@ -73,4 +73,14 @@ public interface ReportService {
 	 void saveOrUpdateReportToMobile(TabReport report);
 
 	 void  dealReportBusinessMethod(String reportUuids,String reportStatus);
+	 
+	 /**
+	  * 发布或者取消发布
+	  * @param reportUuids
+	  * @param releaseStatus
+	  * @param personUuid
+	  */
+	 public void releaseOrCancelBusinessMethod(String reportUuids,String releaseStatus,String personUuid);
+	 
+	 void deleteReportToMobile(String ids);
 }

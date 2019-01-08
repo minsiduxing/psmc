@@ -23,6 +23,7 @@ import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.website.backstage.dept.model.TabDept;
 import priv.guochun.psmc.website.backstage.dept.service.TabDeptService;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
+import priv.guochun.psmc.website.backstage.module.service.TabModuleService;
 
 @Controller
 @RequestMapping("/website/backstage/TabDeptController")
@@ -74,7 +75,7 @@ public class TabDeptController extends MyController{
 		}
 		//如果配图为空，则添加默认配图
 		if(ContantsUtil.IS_CUSTOM_0.equals(dept.getIsCustom()) && StringUtils.isBlank(dept.getImagePath())){
-			dept.setImagePath(SystemPropertiesUtil.getWorkManageImagePath());
+			dept.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getWorkManageImagePath());
 		}
 		tabDeptService.saveOrUpdateDeptBusinessMethod(dept, module);
 		super.responseJson(true, "操作成功!", this.response());
@@ -111,6 +112,19 @@ public class TabDeptController extends MyController{
 	public void releaseDept(String uuids) throws IOException{
 		tabDeptService.releaseDeptBusinessMethod(uuids, this.getUserBySeesion(this.request()).getUserUuid());
 		super.responseJson(true, "部门发布成功!", this.response());
+	}
+	
+	/**
+	 * 撤销
+	 * @param deptUuids
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=executeUndo")
+	public void executeUndo(String deptUuids) throws IOException {
+		TabModule module = new TabModule();
+		module.setModifyAccUuid(this.getUserBySeesion(this.request()).getUserUuid());
+		tabDeptService.executeUndoBusinessMethod(deptUuids, module);
+		super.responseJson(true, "操作成功!", this.response());
 	}
 	
 	/**

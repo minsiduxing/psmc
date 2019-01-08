@@ -45,4 +45,10 @@ public interface TabModuleService {
 	 */
 	public void executeReleaseCancel(TabModule tam);
 	public List<TabModule>  getModulesByUuids(String newsIds) ;
+	/**
+	 * 撤销审核、发布
+	 * @param ids
+	 * @param tam
+	 */
+	public void executeUndoTabModule(String ids, TabModule tam);
 }

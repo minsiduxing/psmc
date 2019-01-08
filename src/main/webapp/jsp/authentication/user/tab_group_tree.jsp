@@ -109,10 +109,10 @@ var setting = {
 		$.messager.progress("close");
 		var dataObj = JSON.parse(data);
 		if(dataObj.result.flag !='1'){
-			commonObj.alert("修改失败!","warning");
+			commonObj.alert("添加失败！" + dataObj.result.msg,"warning");
 			return false;
 		}
-		commonObj.alert("修改成功!","warning");
+		commonObj.alert("添加成功!","warning");
 		
 		var sysResourceTree = $.fn.zTree.getZTreeObj("sysResourceTree");
 		var newNode = {uuid:dataObj.data.uuid,
@@ -133,7 +133,7 @@ var setting = {
 			sysResourceTree.removeNode(node);
 		}
 		if(dataObj.result.flag !='1'){
-			commonObj.alert("删除失败!","warning");
+			commonObj.alert("删除失败！" + dataObj.result.msg,"warning");
 		}
 	}
 
@@ -238,7 +238,7 @@ function initoperatePanel(){
 									return;
 								}
 								$.messager.progress(); 
-								var data ={uuid:node.uuid};
+								var data ={uuid:node.uuid,groupCode:node.group_code};
 								var _url=basePath + "/authentication/tabGroupController.do";
 								_url ='<c:url value="'+_url+'"/>?method=delGroup';
 								$.ajax({
@@ -307,6 +307,11 @@ function initResourceDialog(sucFunc){
 			text:'保存',
 			iconCls:'icon-save',
 			handler:function(){
+					var result = $('#editForm').form("validate");
+					if(!Boolean(result)){
+						$.messager.alert('警告','请填写必填项！','warning');
+						return;
+					}
 					$('#editForm').form({    
 					    url:saveResourcetUrl,    
 					    onSubmit: function(){

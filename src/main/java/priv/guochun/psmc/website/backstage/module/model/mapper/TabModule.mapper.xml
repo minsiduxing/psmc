@@ -203,4 +203,14 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 				  #{item}  
 		</foreach>  
     </delete>
+    
+    <update id="undoTabModel" parameterType="hashmap">
+    	update tab_module set modify_acc_uuid =#{modifyAccUuid},modify_date =#{modifyDate},
+    		audit_acc_uuid =#{auditAccUuid},audit =#{audit},audit_date =#{auditDate},release_acc_uuid =#{releaseAccUuid},
+    		release_date =#{releaseDate},release_status =#{releaseStatus}
+    	WHERE uuid in
+  		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+				  #{item}  
+		</foreach>  
+    </update>
 </mapper>  

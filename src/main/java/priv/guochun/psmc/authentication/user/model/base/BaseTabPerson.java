@@ -58,6 +58,13 @@ public abstract class BaseTabPerson  implements Serializable {
 	private java.lang.String accUuid;
 	private java.lang.String cityId;
 	private java.lang.String groupid;
+	private String idCard; //身份证号
+	private String area; //身份证所在地
+	private String province; //身份证所在省
+	private String city; //身份证所在市
+	private String prefecture; //身份证所在区县
+	private String birthday; //出生年月
+	private String addrCode; //地区编码
 
 
 	/**
@@ -207,6 +214,62 @@ public abstract class BaseTabPerson  implements Serializable {
 
 	public void setGroupid(java.lang.String groupid) {
 		this.groupid = groupid;
+	}
+
+	public String getIdCard() {
+		return idCard;
+	}
+
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getPrefecture() {
+		return prefecture;
+	}
+
+	public void setPrefecture(String prefecture) {
+		this.prefecture = prefecture;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getAddrCode() {
+		return addrCode;
+	}
+
+	public void setAddrCode(String addrCode) {
+		this.addrCode = addrCode;
 	}
 
 	public boolean equals (Object obj) {

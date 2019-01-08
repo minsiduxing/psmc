@@ -17,10 +17,10 @@
   <select id="selectCommentList" parameterType="hashmap" resultType="java.util.Map" >
     select
     	comment_uuid, topic_uuid, comment_content, comment_person_uuid, comment_person_name, 
-    	comment_date, comment_status, to_person_uuid, to_person_name
+    	date_format(comment_date, '%Y-%m-%d %H:%i:%S') AS comment_date, comment_status, to_person_uuid, to_person_name
     from tab_comment
     <where>
-    	1=1
+    	1=1 and comment_status != 3
     	<if test="topicUuid != null and topicUuid != '' ">
     		and topic_uuid = #{topicUuid,jdbcType=VARCHAR}
     	</if>
@@ -125,4 +125,22 @@
     </set>
     where comment_uuid = #{commentUuid,jdbcType=VARCHAR}
   </update>
+  
+  <update id="updateCommentStatus" parameterType="hashmap">
+	  	update tab_comment
+	    <set >
+	      <if test="commentStatus != null" >
+	        comment_status = #{commentStatus,jdbcType=INTEGER},
+	      </if>
+	    </set>
+	    where comment_uuid in
+		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+			#{item}  
+		</foreach>  
+  </update>
+  
+  <delete id="deleteComment" parameterType="hashmap">
+  	delete from tab_comment where comment_uuid = #{commentUuid}
+  </delete>
+  
 </mapper>

@@ -7,7 +7,6 @@ function initDialog(){
 		closed: true,
 	    width: 615,
 	    height: 550,
-	    modal: true,
 	    cache: false
 	});
 }
@@ -19,7 +18,11 @@ function openUploadDialog(){
 	}
 	editdialog.panel({title:"选择图片"});
 	editdialog.panel({iconCls:'icon-save'});
-	editdialog.panel({href:toImageUpload});
+	var imagePath = $("#imagePath").val();
+	if(imagePath){
+		$("#preview").css({"width":"130px", "height":"130px", "margin-left":"0", "margin-top":"0"});
+		$("#preview").attr("src", imagePath);
+	}
 	editdialog.window("open");
 }
 
@@ -122,6 +125,10 @@ function createJCrop(divId) {
 }
 
 function imageUpload(){
+	if(!$("#w").val() || !$("#h").val() || !$("#x").val() || !$("#y").val()){
+		commonObj.alert ("未获取到截取的图片信息，请重新截取!","warning");
+		return;
+	}
 	var uploadUrl = uploadPhoto;
 	$.messager.progress(); 
 	$("#upload-file").ajaxSubmit({

@@ -23,10 +23,10 @@
 				<input id="createPerson" name="createPerson" />
 			</li>
 			<li class="li-input"><label for="" class="input-label">创建时间：</label>
-				<input id="createBeginDate" name="createBeginDate" value=""></input>
+				<input id="createBeginDate" name="createBeginDate" value="" class="easyui-datetimebox"></input>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至</label>
-				<input id="createEndDate" name="createEndDate" />
+				<input id="createEndDate" name="createEndDate" class="easyui-datetimebox"/>
 			
 			
 		    
@@ -34,16 +34,16 @@
 				<input id="audit" name="audit" value=""/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">审核日期：</label>
-			<input id="auditDateBegin" name="auditDateBegin" />
+			<input id="auditDateBegin" name="auditDateBegin" class="easyui-datetimebox"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至：</label>
-				<input id="auditDateEnd" name="auditDateEnd" />
+				<input id="auditDateEnd" name="auditDateEnd" class="easyui-datetimebox"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">活动开始时间：</label>
-				<input id="activityBeginDate1" name="activityBeginDate1"/> 
+				<input id="activityBeginDate1" name="activityBeginDate1" class="easyui-datetimebox"/> 
 			</li>
 		     <li class="li-input"><label for="" class="input-label">至：</label>
-				<input id="activityBeginDate2" name="activityBeginDate2"/>
+				<input id="activityBeginDate2" name="activityBeginDate2" class="easyui-datetimebox"/>
 			</li>
 			
 			
@@ -51,24 +51,17 @@
 				<input id="releaseStatus" name="releaseStatus"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">发布时间：</label>
-			<input id="releaseDateBegin" name="releaseDateBegin" />
+			<input id="releaseDateBegin" name="releaseDateBegin" class="easyui-datetimebox"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至：</label>
-				<input id="releaseDateEnd" name="releaseDateEnd" />
+				<input id="releaseDateEnd" name="releaseDateEnd" class="easyui-datetimebox"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">活动结束时间：</label>
-			<input id="activityEndDate1" name="activityEndDate1" />
+			<input id="activityEndDate1" name="activityEndDate1" class="easyui-datetimebox"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至：</label>
-				<input id="activityEndDate2" name="activityEndDate2" />
+				<input id="activityEndDate2" name="activityEndDate2" class="easyui-datetimebox"/>
 			</li>
-			
-			<!--  <li class="li-input"><label for="" class="input-label">到期日期：</label>
-			<input id="publishExpireDateBegin" name="publishExpireDateBegin" ></input>
-			</li>
-			<li class="li-input"><label for="" class="input-label">至：</label>
-				<input id="publishExpireDateEnd" name="publishExpireDateEnd" />
-			</li>-->
 	</ul>
 	</form>
 	<div class="query-oper">
@@ -99,6 +92,9 @@
 	<g:auth operateNo="<%=OperateContantsUtil.ACTIVITY_RELEASE%>">
 			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
 	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.ACTIVITY_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
+	</g:auth>
 </div>
 
 <div id="dlg" class="easyui-dialog" title="信息到期日期" style="width:200px;height:120px;padding:10px"
@@ -111,6 +107,14 @@
 	<div id="dlg-buttons">
 		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="publishNews();">确定</a>
 	</div>
+	
+	<div id="signUpListDiv" style="display: none;">
+		<div id="toolbarId2">
+			<a href="#" id="exportBtn" class="easyui-linkbutton" onclick="exportExcel()"   plain="true" iconCls="icon-excel">导出</a>
+			<input type="hidden" id="activityUuid">
+		</div>
+		<table id="signUpList"></table>
+	</div>
   </body>
 </html>
 
@@ -122,7 +126,11 @@ var editInfoUrl ='<c:url value="'+infoDo+'"/>?method=activityEdit';
 var removeInfo = '<c:url value="'+infoDo+'"/>?method=deleteByUuids';
 var auditInfo = '<c:url value="'+infoDo+'"/>?method=executeAudit';
 var releaseInfo = '<c:url value="'+infoDo+'"/>?method=executeRelease';
-
+var executeUndo = '<c:url value="'+infoDo+'"/>?method=executeUndo';
+var querySignUpInfoPage = '<c:url value="'+infoDo+'"/>?method=querySignUpInfoPage';
+var exportSignUpInfo = '<c:url value="'+infoDo+'"/>?method=exportSignUpInfo';
+//导出路径
+//$('#exportBtn').attr('href',exportSignUpInfo);
 //----------------------------查询框初始化开始
 $('#activityName').textbox({
 });
@@ -131,43 +139,6 @@ $('#activityContent').textbox({
 $('#createPerson').textbox({
 });
 
-$('#createBeginDate').datetimebox({
-	editable:false
-});
-$('#createEndDate').datetimebox({
-	editable:false
-});
-$('#activityBeginDate1').datetimebox({
-	editable:false
-});
-$('#activityBeginDate2').datetimebox({
-	editable:false
-});
-$('#activityEndDate1').datetimebox({
-	editable:false
-});
-$('#activityEndDate2').datetimebox({
-	editable:false
-});
-$('#auditDateBegin').datetimebox({
-	editable:false
-});
-$('#auditDateEnd').datetimebox({
-	editable:false
-});
-$('#releaseDateBegin').datetimebox({
-	editable:false
-});
-$('#releaseDateEnd').datetimebox({
-	editable:false
-});
-
-$('#publishExpireDateBegin').datetimebox({
-	editable:false
-});
-$('#publishExpireDateEnd').datetimebox({
-	editable:false
-});
 commonObj.initDictCombobox("audit","IF","",false,true);
 commonObj.initDictCombobox("releaseStatus","IF","",false,true);
 

@@ -36,6 +36,7 @@ import priv.guochun.psmc.website.backstage.InfoRelease.model.InfoImage;
 import priv.guochun.psmc.website.backstage.InfoRelease.model.InfoRelease;
 import priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
+import priv.guochun.psmc.website.backstage.module.service.TabModuleService;
 
 @Controller
 @RequestMapping("/website/backstage/InfoReleaseController")
@@ -83,12 +84,28 @@ public class InfoReleaseController extends MyController{
 			module.setModelUuid(infoRelease.getNewsUuid());
 			module.setModifyAccUuid(this.getUserBySeesion(request).getUserUuid());
 		}
+		
 		if(ContantsUtil.IS_CUSTOM_0.equals(infoRelease.getIsCustom()) && StringUtils.isBlank(infoRelease.getImagePath())){
 			if(ContantsUtil.ONE_LEVEL_CLASSIFY_12.equals(module.getOneLevelClassify())){
-				infoRelease.setImagePath(SystemPropertiesUtil.getLegalProvisionsImagePath());			
+				infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getLegalProvisionsImagePath());			
 			}
+			//早知道信息分类
 			if(ContantsUtil.ONE_LEVEL_CLASSIFY_14.equals(module.getOneLevelClassify())){
-				infoRelease.setImagePath(SystemPropertiesUtil.getWorkReleaseImagePath());
+				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1401.equals(module.getTowLevelClassify())){
+					infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getRecipesImagePath());
+				}
+				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1402.equals(module.getTowLevelClassify())){
+					infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getNoticeImagePath());			
+								}
+				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1403.equals(module.getTowLevelClassify())){
+					infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getNewsImagePath());
+				}
+				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1405.equals(module.getTowLevelClassify())){
+					infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getLegalProvisionsImagePath());
+				}
+				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1406.equals(module.getTowLevelClassify())){
+                    infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getNoticeImagePath());
+                }
 			}
 		}
 		infoReleaseService.saveOrUpdateInfoReleaseBusinessMethod(infoRelease, module);
@@ -145,6 +162,19 @@ public class InfoReleaseController extends MyController{
 	public void getInfoReleaseByUuid(HttpServletResponse response,HttpServletRequest request,String uuid) throws IOException{
 		Map<String, Object> map = infoReleaseService.getInfoReleaseByUuidBusinessMethod(uuid);
 		super.responseJson(JsonUtil.convertToJSONObject(map), response);
+	}
+	
+	/**
+	 * 撤销
+	 * @param uuids
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=executeUndo")
+	public void executeUndo(String uuids) throws IOException {
+		TabModule module = new TabModule();
+		module.setModifyAccUuid(this.getUserBySeesion(this.request()).getUserUuid());
+		infoReleaseService.executeUndoBusinessMethod(uuids, module);
+		super.responseJson(true, "操作成功!", this.response());
 	}
 	
 	/**

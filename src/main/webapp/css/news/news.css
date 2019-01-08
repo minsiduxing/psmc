@@ -75,11 +75,9 @@
 	margin-left: -2%;
 }
 
-#newsContent {
+.newsContent {
 	width: 80%;
-	border: 1px solid #ccc;
 	border-top: 0;
-	height: 300px;
 	background-color: #fff;
 	margin-top: 1%;
 	z-index: 998;!important

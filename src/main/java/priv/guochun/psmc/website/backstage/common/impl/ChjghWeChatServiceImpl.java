@@ -8,6 +8,7 @@ import java.util.Properties;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
+import javax.ws.rs.FormParam;
 import javax.xml.ws.WebServiceContext;
 
 import org.apache.commons.lang.StringUtils;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
@@ -23,10 +25,13 @@ import priv.guochun.psmc.authentication.user.model.TabAccount;
 import priv.guochun.psmc.authentication.user.model.TabPerson;
 import priv.guochun.psmc.authentication.user.service.TabAccountService;
 import priv.guochun.psmc.authentication.user.service.TabPersonService;
+import priv.guochun.psmc.system.common.explain.model.TabFunctionExplain;
+import priv.guochun.psmc.system.common.explain.service.TabFunctionExplainService;
 import priv.guochun.psmc.system.common.vcode.model.TabVerificationCode;
 import priv.guochun.psmc.system.common.vcode.service.VerificationCodeService;
 import priv.guochun.psmc.system.enums.AccountLockEnum;
 import priv.guochun.psmc.system.enums.AccountTypeEnum;
+import priv.guochun.psmc.system.enums.IfEnum;
 import priv.guochun.psmc.system.enums.VerificationCodeTypeEnum;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.framework.model.MsgModel;
@@ -35,6 +40,7 @@ import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
 import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
+import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.system.util.TimestampUtil;
@@ -43,8 +49,11 @@ import priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseServic
 import priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService;
 import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentService;
 import priv.guochun.psmc.website.backstage.common.ChjghWeChatService;
+import priv.guochun.psmc.website.backstage.common.realNameAuth.RealNameAuthService;
+import priv.guochun.psmc.website.backstage.common.realNameAuth.impl.RealNameAuthServiceImpl;
 import priv.guochun.psmc.website.backstage.dept.service.TabDeptService;
 import priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService;
+import priv.guochun.psmc.website.backstage.laud.service.TabLaudService;
 import priv.guochun.psmc.website.backstage.pageView.model.TabPageView;
 import priv.guochun.psmc.website.backstage.pageView.service.TabPageViewService;
 import priv.guochun.psmc.website.backstage.report.model.TabReport;
@@ -54,6 +63,7 @@ import priv.guochun.psmc.website.backstage.topics.model.TabTopics;
 import priv.guochun.psmc.website.backstage.topics.service.TabCommentService;
 import priv.guochun.psmc.website.backstage.topics.service.TabTopicsService;
 import priv.guochun.psmc.website.backstage.util.ChjghContants;
+import priv.guochun.psmc.website.backstage.util.IdCardUtil;
 import priv.guochun.psmc.website.enums.ModuleEnum;
 
 
@@ -97,6 +107,11 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	private TabCommentService tabCommentService;
 	private UploadAssemblyInterface uploadAssemblyInterface;
 	private TabAttachmentService tabAttachmentService;
+	private TabLaudService tabLaudService;
+	@Autowired
+	private RealNameAuthService realNameAuthService;
+	@Autowired
+	private TabFunctionExplainService tabFunctionExplainService;
 	
 	public TabAttachmentService getTabAttachmentService() {
 		return tabAttachmentService;
@@ -141,7 +156,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
      		else
      			return GsonUtil.toJsonForObject(MsgModel.buildDefaultSuccess(code));
          }else{
-        	 logger.warn("获取验证码短信发送失败 "+GsonUtil.toJsonForObject(mm));
+        	 logger.error("获取验证码短信发送失败 "+GsonUtil.toJsonForObject(mm));
         	 verificationCodeService.deleteCode(verificationCode.getUuid());
         	 return GsonUtil.toJsonForObject(mm);
          }
@@ -181,8 +196,8 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	}
 	
 	@Override
-	public String register(String name,String phone,String code){
-		if(StringUtils.isBlank(name) || StringUtils.isBlank(code) || StringUtils.isBlank(code)){
+	public String register(String name,String phone,String code,String idCard){
+		if(StringUtils.isBlank(name) || StringUtils.isBlank(code) || StringUtils.isBlank(code) || StringUtils.isBlank(idCard)){
 			 return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("非法参数!"));
 		}
 		MsgModel msg = null;
@@ -198,7 +213,23 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			msg = MsgModel.buildDefaultError("该手机号已被注册!");
 			return GsonUtil.toJsonForObject(msg);
 		}
-		
+		//校验身份证号的合法性
+		if(!IdCardUtil.validateCard(idCard)){
+			msg = MsgModel.buildDefaultError("身份证号不合法!");
+			return GsonUtil.toJsonForObject(msg);
+		}
+		//对用户输入的姓名和身份证号进行实名认证
+		String result = realNameAuthService.realNameAuth(name, idCard);
+		if(StringUtils.isBlank(result)){
+			msg = MsgModel.buildDefaultError("实名认证异常,请联系管理员!");
+			return GsonUtil.toJsonForObject(msg);
+		}
+		JSONObject json = JSON.parseObject(result);
+		//返回状态码不等于01，则认证失败
+		if(!json.getString("status").equals("01")){
+			msg = MsgModel.buildDefaultError(json.getString("msg"));
+			return GsonUtil.toJsonForObject(msg);
+		}
 		TabAccount account = new TabAccount();
 		String accUuid = UUIDGenerator.createUUID();
 		String personUuid = UUIDGenerator.createUUID();
@@ -207,6 +238,8 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		account.setAccountPass(ChjghContants.WECHAT_PW);
 		account.setIsLocked(String.valueOf(AccountLockEnum.NO_LOCKED.getValue().intValue()));
 		account.setAccountType(AccountTypeEnum.WECHAT_USER.getValue().intValue());
+		account.setIsAuth(IfEnum.YES.getValue());
+		account.setAuthType(IfEnum.YES.getValue());
 		
 		TabPerson person = new TabPerson();
 		person.setUuid(personUuid);
@@ -215,7 +248,21 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		person.setCityId("00");
 		person.setGroupid(ChjghContants.WECHAT_GROUP_CODE);
 		person.setPersonName(name);
-		person.setSex(3);
+		person.setAddrCode(json.getString("addrCode"));
+		person.setArea(json.getString("area"));
+		person.setBirthday(json.getString("birthday"));
+		person.setCity(json.getString("city"));
+		person.setIdCard(json.getString("idCard"));
+		person.setPrefecture(json.getString("prefecture"));
+		person.setProvince(json.getString("province"));
+		person.setAge(IdCardUtil.getAgeByBirthday(json.getString("birthday")));
+		if(ModuleEnum.SEX_MAN.getName().equals(json.getString("sex"))){
+			person.setSex(Integer.valueOf(ModuleEnum.SEX_MAN.getValue()));
+		}else if(ModuleEnum.SEX_WOMAN.getName().equals(json.getString("sex"))){
+			person.setSex(Integer.valueOf(ModuleEnum.SEX_WOMAN.getValue()));
+		}else{
+			person.setSex(Integer.valueOf(ModuleEnum.SEX_OTHER.getValue()));
+		}
 		
 		boolean flag = tabAccountService.register(account, person, ChjghContants.WECHAT_ROLE_ID);
 		if(flag){
@@ -250,6 +297,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			page = infoReleaseService.queryInfoListToMobile(page);
 			msg = MsgModel.buildDefaultSuccess(page);
 		} catch (Exception e) {
+			logger.error("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -271,6 +319,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			dataMap.put("nums", nums);
 			msg = MsgModel.buildDefaultSuccess(dataMap);
 		} catch (Exception e) {
+			logger.error("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -295,6 +344,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			page = excellentInnovationService.queryInnovationListToMobile(page);
 			msg = MsgModel.buildDefaultSuccess(page);
 		} catch (Exception e) {
+			logger.error("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -316,6 +366,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			dataMap.put("nums", nums);
 			msg = MsgModel.buildDefaultSuccess(dataMap);
 		} catch (Exception e) {
+			logger.error("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -339,6 +390,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			page = tabActivityManageService.queryActivityList(page);
 			msg = MsgModel.buildDefaultSuccess(page);
 		} catch (Exception e) {
+			logger.error("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg);
@@ -367,6 +419,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			dataMap.put("nums", nums);
 			msg = MsgModel.buildDefaultSuccess(dataMap);
 		} catch (Exception e) {
+			logger.error("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg);
@@ -379,6 +432,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			tabActivityManageService.addSignUpInfo(activityUuid, phone);
 			msg = MsgModel.buildDefaultSuccess("报名成功", null);
 		} catch (PsmcBuisnessException e) {
+			logger.error("报名异常." + e);
 			msg = MsgModel.buildDefaultError(e.getMessage());
 		}
 		return GsonUtil.toJsonForObject(msg);
@@ -391,6 +445,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			tabActivityManageService.deleteSignInfo(activityUuid, phone);
 			msg = MsgModel.buildDefaultSuccess("取消报名成功", null);
 		} catch (Exception e) {
+			logger.error("取消报名异常." + e);
 			msg = MsgModel.buildDefaultError("操作失败");
 		}
 		return GsonUtil.toJsonForObject(msg);
@@ -403,6 +458,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			List<Map<String, Object>> signUpList = tabActivityManageService.querySignUpInfoList(activityUuid);
 			msg = MsgModel.buildDefaultSuccess(signUpList);
 		} catch (Exception e) {
+			logger.error("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg);
@@ -431,7 +487,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	}
 
 	@Override
-	public String getReportInfoDetail(String reportUUid) {
+	public String getReportInfoDetail(String reportUUid, String personUuid) {
 		if(StringUtils.isBlank(reportUUid)){
 			MsgModel msg = MsgModel.buildDefaultError("reportUUid is null ");
 			return  GsonUtil.toJsonForObject(msg);
@@ -440,6 +496,16 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		if(null==result || result.isEmpty()){
 			MsgModel msg = MsgModel.buildDefaultError("error the report not exits ");
 			return  GsonUtil.toJsonForObject(msg);
+		}
+		if(result.get("reportType").equals("advice")){
+			//是否已点赞
+			boolean isLaud = tabLaudService.selectIsLaud(reportUUid, personUuid);
+			result.put("isLaud", isLaud);
+		}
+		//留言报修需要查询图片附件
+		if(result.get("reportType").equals("repair")) {
+			List<Map<String, Object>> attachmentList = tabAttachmentService.queryAttachmentList(reportUUid);
+			result.put("attachmentList", attachmentList);
 		}
 		MsgModel msg = MsgModel.buildDefaultSuccess(result);
 		return  GsonUtil.toJsonForObject(msg);
@@ -477,6 +543,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			page = tabDeptService.queryDeptListToMobile(page);
 			msg = MsgModel.buildDefaultSuccess("获取数据成功", page);
 		} catch (Exception e) {
+			logger.error("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -489,6 +556,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			Map<String, Object> dataMap = tabDeptService.getDeptDetailToMobile(deptUuid);
 			msg = MsgModel.buildDefaultSuccess("获取数据成功", dataMap);
 		} catch (Exception e) {
+			logger.error("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -500,6 +568,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			tabTopicsService.saveOrUpdateToMobile(tabTopics);
 			msg = MsgModel.buildDefaultSuccess("保存成功", null);
 		} catch (Exception e) {
+			logger.error("添加主题异常." + e);
 			msg = MsgModel.buildDefaultError("操作异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -512,35 +581,50 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 			page = tabTopicsService.queryTopicListToMobile(page);
 			msg = MsgModel.buildDefaultSuccess("获取数据成功", page);
 		} catch (Exception e) {
+			logger.error("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg);
 	}
 	
-	public String topicsDetail(String pageJson){
+	public String topicsDetail(String topicUuid, String personUuid){
+		MsgModel msg = null;
+		try {
+			Map<String, Object> dataMap = new HashMap<String, Object>();
+			//更新浏览量
+			tabPageViewService.saveOrUpdate(topicUuid);
+			//主题信息详情
+			Map<String, Object> topicMap = tabTopicsService.queryTopicsToMobile(topicUuid);
+			//是否已点赞
+			boolean isLaud = tabLaudService.selectIsLaud(topicUuid, personUuid);
+			//附件信息
+			List<Map<String, Object>> attachmentList = tabAttachmentService.queryAttachmentList(topicUuid);
+			dataMap.put("topicMap", topicMap);
+			dataMap.put("attachmentList", attachmentList);
+			dataMap.put("isLaud", isLaud);
+			msg = MsgModel.buildDefaultSuccess("获取数据成功", dataMap);
+		} catch (Exception e) {
+			logger.error("获取数据异常." + e);
+			msg = MsgModel.buildDefaultError("获取数据异常");
+		}
+		return GsonUtil.toJsonForObject(msg); 
+	}
+	
+	public String commentList(String pageJson){
 		MsgModel msg = null;
 		try {
 			MyPage myPage = JSON.parseObject(pageJson, MyPage.class) ;
 			Map<String, Object> paramMap = myPage.getQueryParams();
 			if(paramMap != null && paramMap.get("topicUuid") != null){
-				Map<String, Object> dataMap = new HashMap<String, Object>();
-				//更新浏览量
-				tabPageViewService.saveOrUpdate(paramMap.get("topicUuid").toString());
-				//主题信息详情
-				Map<String, Object> topicMap = tabTopicsService.queryTopicsToMobile(paramMap.get("topicUuid").toString());
-				//附件信息
-				List<Map<String, Object>> attachmentList = tabAttachmentService.queryAttachmentList(paramMap.get("topicUuid").toString());
 				//评论信息列表
 				myPage = tabCommentService.queryCommentListToMobile(myPage);
-				dataMap.put("topicMap", topicMap);
-				dataMap.put("attachmentList", attachmentList);
-				dataMap.put("myPage", myPage);
-				msg = MsgModel.buildDefaultSuccess("获取数据成功", dataMap);
+				msg = MsgModel.buildDefaultSuccess("获取数据成功", myPage);
 			}else{
 				msg = MsgModel.buildDefaultError("查询参数为空");
 			}
 			
 		} catch (Exception e) {
+			logger.error("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
@@ -549,12 +633,118 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	public String addTabComment(TabComment tabComment){
 		MsgModel msg = null;
 		try {
+			Map<String, Object> topicMap = tabTopicsService.queryTopicsToMobile(tabComment.getTopicUuid());
+			if(topicMap != null && ContantsUtil.BLOCK_STATUS_2.equals(topicMap.get("topic_status"))){
+				msg = MsgModel.buildDefaultError("该主题已被禁止评论");
+				return GsonUtil.toJsonForObject(msg); 
+			}
 			tabCommentService.saveOrUpdateToMobile(tabComment);
 			msg = MsgModel.buildDefaultSuccess("保存成功", null);
 		} catch (Exception e) {
+			logger.error("添加评论异常." + e);
 			msg = MsgModel.buildDefaultError("操作异常");
 		}
 		return GsonUtil.toJsonForObject(msg); 
+	}
+	
+	public String deleteComment( String commentUuid){
+		MsgModel msg = null;
+		try {
+			tabCommentService.deleteCommentToMobile(commentUuid);
+			msg = MsgModel.buildDefaultSuccess("删除成功", null);
+		} catch (Exception e) {
+			logger.error("删除评论异常." + e);
+			msg = MsgModel.buildDefaultError("操作异常");
+		}
+		return GsonUtil.toJsonForObject(msg); 
+	}
+	
+	@Override
+	public String addLaud(String moduleUuid, String personUuid){
+		if(StringUtils.isBlank(moduleUuid) || StringUtils.isBlank(personUuid)){
+			MsgModel msg = MsgModel.buildDefaultError("参数不合法 ");
+			return  GsonUtil.toJsonForObject(msg);
+		}
+		MsgModel msg = null;
+		try {
+			tabLaudService.addLaud(moduleUuid, personUuid);
+			msg = MsgModel.buildDefaultSuccess("点赞成功", null);
+		} catch (Exception e) {
+			logger.error("点赞异常." + e);
+			msg = MsgModel.buildDefaultError("操作异常");
+		}
+		return GsonUtil.toJsonForObject(msg); 
+	}
+	
+	@Override
+	public String cancelLaud(String moduleUuid, String personUuid) {
+		if(StringUtils.isBlank(moduleUuid) || StringUtils.isBlank(personUuid)){
+			MsgModel msg = MsgModel.buildDefaultError("参数不合法 ");
+			return  GsonUtil.toJsonForObject(msg);
+		}
+		MsgModel msg = null;
+		try {
+			tabLaudService.deleteLaud(moduleUuid, personUuid);
+			msg = MsgModel.buildDefaultSuccess("取消点赞成功", null);
+		} catch (Exception e) {
+			logger.error("取消点赞异常." + e);
+			msg = MsgModel.buildDefaultError("操作异常");
+		}
+		return GsonUtil.toJsonForObject(msg); 
+	}
+	
+	@Override
+	public String getExplainbyCode(String functionCode) {
+		if(StringUtils.isBlank(functionCode)){
+			MsgModel msg = MsgModel.buildDefaultError("参数不合法 ");
+			return  GsonUtil.toJsonForObject(msg);
+		}
+		MsgModel msg = null;
+		try {
+			TabFunctionExplain explain = tabFunctionExplainService.queryExplainByCode(functionCode);
+			msg =  MsgModel.buildDefaultSuccess("查询成功", explain);
+		} catch (Exception e) {
+			logger.error("查询异常." + e);
+			msg = MsgModel.buildDefaultError("查询异常");
+		}
+		return GsonUtil.toJsonForObject(msg); 
+	}
+	
+	@Override
+	public String deleteReport(String reportUuid) {
+		if(StringUtils.isBlank(reportUuid)){
+			MsgModel msg = MsgModel.buildDefaultError("参数不合法 ");
+			return  GsonUtil.toJsonForObject(msg);
+		}
+		MsgModel msg = null;
+		try {
+			reportService.deleteReportToMobile(reportUuid);
+			msg =  MsgModel.buildDefaultSuccess("删除成功", null);
+		} catch (Exception e) {
+			logger.error("删除失败." + e);
+			msg = MsgModel.buildDefaultError("删除失败");
+		}
+		return GsonUtil.toJsonForObject(msg);
+	}
+	
+	@Override
+	public String deleteTopic(String topicUuid) {
+		if(StringUtils.isBlank(topicUuid)){
+			MsgModel msg = MsgModel.buildDefaultError("参数不合法 ");
+			return  GsonUtil.toJsonForObject(msg);
+		}
+		MsgModel msg = null;
+		try {
+			TabTopics topics = new TabTopics();
+			topics.setTopicUuid(topicUuid);
+			topics.setTopicStatus(ContantsUtil.BLOCK_STATUS_3);
+			tabTopicsService.deleteTopicToMobile(topics);
+			msg =  MsgModel.buildDefaultSuccess("删除成功", null);
+		} catch (Exception e) {
+			logger.error("删除失败." + e);
+			msg = MsgModel.buildDefaultError("删除失败");
+		}
+		return GsonUtil.toJsonForObject(msg);
 	}
 	
 	public ExcellentInnovationService getExcellentInnovationService() {
@@ -671,6 +861,14 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 
 	public void setUploadAssemblyInterface(UploadAssemblyInterface uploadAssemblyInterface) {
 		this.uploadAssemblyInterface = uploadAssemblyInterface;
+	}
+
+	public TabLaudService getTabLaudService() {
+		return tabLaudService;
+	}
+
+	public void setTabLaudService(TabLaudService tabLaudService) {
+		this.tabLaudService = tabLaudService;
 	}
 	
 }

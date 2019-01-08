@@ -56,6 +56,13 @@ public interface TabDeptService {
 	public void releaseDeptBusinessMethod(String uuids, String userId);
 	
 	/**
+	 * 撤销审核、发布
+	 * @param deptUuids
+	 * @param module
+	 */
+	public void executeUndoBusinessMethod(String deptUuids, TabModule module);
+	
+	/**
 	 * 根据部门类型获取部门列表（适用于下拉列表）
 	 * @param deptType
 	 * @return

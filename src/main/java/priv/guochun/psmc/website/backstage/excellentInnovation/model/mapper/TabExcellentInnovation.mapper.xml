@@ -6,20 +6,25 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
  
   <select id="excellentInnovationList" parameterType="hashmap" resultType="java.util.Map">
       SELECT
-		    ti.*,
+		    ti.innovation_uuid, ti.org_name,ti.declare_person,ti.declare_phone,ti.declare_email,ti.first_complete_person,
+		    ti.sex,ti.education,ti.job,ti.major,ti.occupation,ti.other_complete_person,ti.achievement_name,ti.achievement_form,
+		    ti.realized_value,ti.application_generalize,ti.achievement_content,ti.recommend_remark,ti.audit_remark,ti.image_path,
+		    ti.dept_uuid,ti.is_custom,
+		    date_format(ti.innovation_date, '%Y-%m-%d %H:%i:%S') AS innovation_date,
+		    date_format(ti.recommend_date, '%Y-%m-%d %H:%i:%S') AS recommend_date,
+		    date_format(ti.audit_date, '%Y-%m-%d %H:%i:%S') AS audit_date,
 		    tpc.PERSON_NAME AS createAccName,
-		    tm.create_date,
+		    date_format(tm.create_date, '%Y-%m-%d %H:%i:%S') AS create_date,
 		    tpm.PERSON_NAME AS modifyAccName,
-		    tm.modify_date,
+		    date_format(tm.modify_date, '%Y-%m-%d %H:%i:%S') AS modify_date,
 		    tm.audit,
 		    tpau.PERSON_NAME AS auditAccName,
-		    tm.audit_date AS auditTime,
 		    tpr.PERSON_NAME AS releaseAccName,
-		    tm.release_date,
+		    date_format(tm.audit_date, '%Y-%m-%d %H:%i:%S') AS auditTime,
+		    date_format(tm.release_date, '%Y-%m-%d %H:%i:%S') AS release_date,
 		    tm.one_level_classify,
 		    tm.release_status,
-		    tmpl.publish_expire_date,
-		    td.dept_uuid,
+		    date_format(tmpl.publish_expire_date, '%Y-%m-%d %H:%i:%S') AS publish_expire_date,
 		    td.dept_name
 		FROM
 		    tab_excellent_innovation ti

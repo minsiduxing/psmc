@@ -46,7 +46,7 @@
 		</table>
 	</div>
 	
-	<div class=" panel-default" style="border: 1px solid #ddd;">
+	<div class=" panel-default" style="margin-top:5px; border: 1px solid #ddd;">
 		<div class="panel-heading">
             <label style="background-color:006699; color: #ffffff">第一完成人</label>
         </div>
@@ -82,7 +82,7 @@
 			</tr>
 		</table>
 	</div>
-	<div class=" panel-default" style="border: 1px solid #ddd;">
+	<div class=" panel-default" style="margin-top:5px;border: 1px solid #ddd;">
 		<div class="panel-heading">
             <label style="background-color:006699; color: #ffffff">成果信息</label>
         </div>
@@ -107,17 +107,8 @@
 				<td width="100%" colspan="3">
 					<!--非全屏模式-->
 				    <div id="container">
-				        <!--菜单栏-->
-				        <div id="toolbar-container" style="width:88.4%;">
-				            <div id="editor-toolbar"></div>
-				            <div id="btn-container">
-				               <!--  <button id="btn1">全屏</button> -->
-				            </div>
-				        </div>
 				        <input id="hiddencontent" type="hidden" name="achievementContent"/>
-				        <div id="newsContent" class="newsContent" style="width:88.4%;"> 
-				      
-				       </div>
+				        <div id="newsContent" class="newsContent" style="width:88.4%;"> </div>
 	                </div>
 					<%-- <textarea style="width:88.5%; border-radius:5px; border: 1px solid #ccc;" rows="5" cols="" id="achievementContent" name="achievementContent">${info.achievement_content}</textarea> --%>
 				</td>
@@ -140,17 +131,17 @@
 				<td width="30%"><input id="auditDate" name="auditDate" value="${info.audit_date}" style="width:70%;"/></td>
 				<td class="tds">自定义配图：</td>
 				<td width="30%">
-	                <input type="radio" name="isCustom1" <c:if test="${dept.is_custom == '0'}">checked</c:if> value="0" style="width:5%;margin-right: 0">否</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                <input type="radio" name="isCustom1" <c:if test="${dept.is_custom == '1'}">checked</c:if> value="1" style="width:5%;margin-right: 0" onclick="openUploadDialog()">是</input>
-	                <input type="hidden" id="isCustom" name="isCustom" value="${dept.is_custom}"/>
+	                <input type="radio" name="isCustom1" <c:if test="${info.is_custom == '0'}">checked</c:if> value="0" style="width:5%;margin-right: 0">否</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                <input type="radio" name="isCustom1" <c:if test="${info.is_custom == '1'}">checked</c:if> value="1" style="width:5%;margin-right: 0" onclick="openUploadDialog()">是</input>
+	                <input type="hidden" id="isCustom" name="isCustom" value="${info.is_custom}"/>
 				</td>
 			</tr>
 		</table>
 	</div>
-		 <div id="uploadImageDiv"></div>
+		 <label id="infoContent" style="display: none;">${info.achievement_content}</label>
 		 <input type="hidden" id="isEdit" name="isEdit" value="${isEdit}"/>
 		 <input type="hidden" id="innovationUuid" name="innovationUuid" value="${info.innovation_uuid}"/>
-		 <input type="hidden" id="imagePath" name="imagePath" value="" />
+		 <input type="hidden" id="imagePath" name="imagePath" value="${info.image_path}" />
 		 <div style= "width:75%; margin-top: 20px" class="operButon" align="center">
 		   <input id="submitbtn" type="button" class="easyui-linkbutton" onclick="save()" value="提交"/>
 		   <input id="reset" type="reset" class="easyui-linkbutton" onclick=" "  value="重置"/>
@@ -158,7 +149,9 @@
 		 </div>
 		 
 	</form>
-    
+    <div id="uploadImageDiv" style="display: none;">
+		 <%@ include file="../uploadImage/uploadImage.jsp"%>
+	</div>
   </body>
 </html>
 <script type="text/javascript">
@@ -169,11 +162,8 @@ var retrunUrl =  '<c:url value="/website/backstage/ExcellentInnovationController
 var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUpload&oneLevelClassify=11';
 //获取图片路径
 var getImag='<c:url value="/system/freamwork/fileUploadController.do"/>?method=getImage&filePath=';
-//弹出图片上传窗口
-var toImageUpload =  '<c:url value="/website/backstage/uploadImageController.do"/>?method=toImageUplodDialog';
 //上传配图
 var uploadPhoto = '<c:url value="/website/backstage/uploadImageController.do"/>?method=uploadPhoto';
-var newsContent = '${info.achievement_content}';
 
 var groupid = "${sessionScope.user.tabPerson.groupid}";
 commonObj.initDictCombobox("sex","SEX","<c:out value="${info.sex}"/>",true,false);
@@ -265,8 +255,5 @@ $('#auditDate').datetimebox({
 });
 
 </script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/wangEditor/wangEditor.min${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/uploadfy/jquery.Huploadify${jssuffix}"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/browser${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/innovation/addOrUpdateInnovation.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/uploadImage/uploadImage.js"></script>

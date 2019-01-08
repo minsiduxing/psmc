@@ -16,15 +16,20 @@
   
   <select id="selectActivityList" parameterType="hashmap" resultType="java.util.Map">
 	    SELECT
-		    t1.*,
+		    t1.activity_uuid,t1.activity_name,t1.activity_content,
+		    date_format(t1.start_date, '%Y-%m-%d %H:%i:%S') AS start_date,
+		    date_format(t1.end_date, '%Y-%m-%d %H:%i:%S') AS end_date,
+		    date_format(t1.create_date, '%Y-%m-%d %H:%i:%S') AS create_date,
+		    date_format(t1.sign_up_end_date, '%Y-%m-%d %H:%i:%S') AS sign_up_end_date,
+		    t1.create_person,t1.image_path,t1.dept_uuid,t1.is_custom,
 		    <![CDATA[(case when t1.start_date > NOW() then 0 else (case when (t1.end_date>= NOW() and t1.start_date <= NOW()) then 1 else 2 end) end)]]> as activityStatus,
 		    t2.audit,
-		    t2.audit_date,
+		    date_format(t2.audit_date, '%Y-%m-%d %H:%i:%S') AS audit_date,
 		    t2.release_status,
-		    t2.release_date,
+		    date_format(t2.release_date, '%Y-%m-%d %H:%i:%S') AS release_date,
 		    t3.person_name AS auditAccName,
 		    t4.person_name AS releaseAccName,
-		    t5.publish_expire_date,
+		    date_format(t5.publish_expire_date, '%Y-%m-%d %H:%i:%S') AS publish_expire_date,
 		    (CASE WHEN t6.nums = null then 0 else t6.nums end) as signUpNums,
 		    t7.dept_name
 		FROM

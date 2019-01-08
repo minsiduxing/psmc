@@ -23,10 +23,10 @@
 				<input id="achievementName" name="achievementName" />
 			</li>
 			<li class="li-input"><label for="" class="input-label">创新日期：</label>
-				<input id="innovationDateBegin" name="innovationDateBegin" value=""></input>
+				<input id="innovationDateBegin" name="innovationDateBegin" value="" class="easyui-datetimebox"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至</label>
-				<input id="innovationDateEnd" name="innovationDateEnd" />
+				<input id="innovationDateEnd" name="innovationDateEnd" class="easyui-datetimebox"/>
 			
 			
 		    <li class="li-input"><label for="" class="input-label">第一完成人：</label>
@@ -39,10 +39,10 @@
 				<input id="audit" name="audit" value=""/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">审核日期：</label>
-			<input id="auditDateBegin" name="auditDateBegin" />
+			<input id="auditDateBegin" name="auditDateBegin" class="easyui-datetimebox"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至：</label>
-				<input id="auditDateEnd" name="auditDateEnd" />
+				<input id="auditDateEnd" name="auditDateEnd" class="easyui-datetimebox"/>
 			</li>
 			
 			
@@ -53,10 +53,10 @@
 				<input id="releaseStatus" name="releaseStatus"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">发布日期：</label>
-			<input id="releaseDateBegin" name="releaseDateBegin" />
+			<input id="releaseDateBegin" name="releaseDateBegin" class="easyui-datetimebox"/>
 			</li>
 			<li class="li-input"><label for="" class="input-label">至：</label>
-				<input id="releaseDateEnd" name="releaseDateEnd" />
+				<input id="releaseDateEnd" name="releaseDateEnd" class="easyui-datetimebox"/>
 			</li>
 			
 			<!--  <li class="li-input"><label for="" class="input-label">到期日期：</label>
@@ -95,6 +95,9 @@
 	<g:auth operateNo="<%=OperateContantsUtil.INNOVATION_RELEASE%>">
 			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
 	</g:auth>
+	<g:auth operateNo="<%=OperateContantsUtil.INNOVATION_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
+	</g:auth>
 </div>
 
 <div id="dlg" class="easyui-dialog" title="信息到期日期" style="width:200px;height:120px;padding:10px"
@@ -118,7 +121,7 @@ var editInfoUrl ='<c:url value="'+infoDo+'"/>?method=innovationEdit';
 var removeInfo = '<c:url value="'+infoDo+'"/>?method=deleteByUuids';
 var auditInfo = '<c:url value="'+infoDo+'"/>?method=executeAudit';
 var releaseInfo = '<c:url value="'+infoDo+'"/>?method=executeRelease';
-//var priviewInfo = '<c:url value="'+infoDo+'"/>?method=getInfoReleaseByUuid';
+var executeUndo = '<c:url value="'+infoDo+'"/>?method=executeUndo';
 //----------------------------查询框初始化开始
 $('#orgName').textbox({
 });
@@ -132,30 +135,7 @@ $('#deptName').textbox({
 });
 $('#otherCompletePerson').textbox({
 });
-$('#innovationDateBegin').datetimebox({
-	editable:false
-});
-$('#innovationDateEnd').datetimebox({
-	editable:false
-});
-$('#auditDateBegin').datetimebox({
-	editable:false
-});
-$('#auditDateEnd').datetimebox({
-	editable:false
-});
-$('#releaseDateBegin').datetimebox({
-	editable:false
-});
-$('#releaseDateEnd').datetimebox({
-	editable:false
-});
-$('#publishExpireDateBegin').datetimebox({
-	editable:false
-});
-$('#publishExpireDateEnd').datetimebox({
-	editable:false
-});
+
 commonObj.initDictCombobox("audit","IF","",false,true);
 commonObj.initDictCombobox("releaseStatus","IF","",false,true);
 

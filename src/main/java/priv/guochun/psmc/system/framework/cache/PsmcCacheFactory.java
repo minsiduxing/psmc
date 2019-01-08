@@ -2,6 +2,8 @@ package priv.guochun.psmc.system.framework.cache;
 
 import org.springframework.cache.Cache;
 
+import priv.guochun.psmc.system.common.sysConfig.model.TabSysConfig;
+
 /**
  * 自定义缓存工厂类，用于包装获取缓存Cache对象,实际返回的是CacheProxy对象
  * <p>Title: </p>
@@ -28,5 +30,5 @@ public interface PsmcCacheFactory
      */
     public Cache getWorkFlow();
     
-
+    
 }

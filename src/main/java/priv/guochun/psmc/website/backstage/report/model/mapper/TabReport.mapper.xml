@@ -11,12 +11,12 @@
   </delete>
   <insert id="insertReport" parameterType="priv.guochun.psmc.website.backstage.report.model.TabReport" >
     insert into tab_report (REPORT_UUID,REPORT_TITLE, REPORT_CONTENT, REPORT_USER_NAME,
-      REPORT_USER_UUID, REPORT_TIME, REPORT_TYPE, 
-      LAST_MODIFY_TIME, REPORT_UPDATE_UUID,REPORT_STAUS,REPORT_TEL,IMAGE_PATH)
+      REPORT_USER_UUID, REPORT_TIME, REPORT_TYPE, LAST_MODIFY_TIME, REPORT_UPDATE_UUID,
+      REPORT_STAUS,REPORT_TEL,IMAGE_PATH,release_status, release_date, release_person_uuid)
     values (#{reportUuid,jdbcType=VARCHAR},#{reportTitle,jdbcType=VARCHAR}, #{reportContent,jdbcType=VARCHAR}, #{reportUserName,jdbcType=VARCHAR},
       #{reportUserUuid,jdbcType=VARCHAR}, #{reportTime,jdbcType=TIMESTAMP}, #{reportType,jdbcType=VARCHAR}, 
       #{lastModifyTime,jdbcType=TIMESTAMP}, #{reportUpdateUuid,jdbcType=VARCHAR},#{reportStaus,jdbcType=VARCHAR},#{reportTel,jdbcType=VARCHAR},
-      #{imagePath,jdbcType=VARCHAR})
+      #{imagePath,jdbcType=VARCHAR},#{releaseStatus,jdbcType=INTEGER},#{releaseDate,jdbcType=TIMESTAMP},#{releasePersonUuid,jdbcType=VARCHAR})
   </insert>
   <update id="updateByReportPrimaryKey" parameterType="priv.guochun.psmc.website.backstage.report.model.TabReport" >
     update tab_report
@@ -64,8 +64,16 @@
             #{item}
         </foreach>
     </update>
+    <update id="releaseOrCancelRelease" parameterType="hashmap">
+    	update tab_report set release_status = #{releaseStatus},release_date = #{releaseDate},release_person_uuid = #{releasePersonUuid}
+    	where report_uuid in
+    	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+    		#{item}
+    	</foreach>
+    </update>
   <select id="selectByReportPrimaryKey" resultType="java.util.Map" parameterType="java.lang.String" >
         SELECT
+        DISTINCT
         tr.REPORT_UUID as  reportUuid,
         tr.REPORT_TITLE as reportTitle,
         tr.REPORT_CONTENT as reportContent,
@@ -82,11 +90,12 @@
         trr.REPLY_CONTENT as replyContent,
         trr.REPLY_TIME as replyTime,
         trr.REPLY_USER_NAME as replyUserName ,
-        trr.REPLY_USER_UUID as replyUserUuid
+        trr.REPLY_USER_UUID as replyUserUuid,
+        t1.laudNums
     FROM
         tab_report tr
     LEFT JOIN
-        psmc.tab_report_reply_rel trrr
+        tab_report_reply_rel trrr
     ON
         tr.REPORT_UUID = trrr.REPORT_UUID
     LEFT JOIN
@@ -97,29 +106,63 @@
         tab_data_dict tdic
     ON
         tdic.DICT_ID= tr.REPORT_STAUS
+    left join 
+    (
+    	SELECT
+	            module_uuid,
+	            COUNT(*) AS laudNums
+	        FROM
+	            tab_laud
+	        GROUP BY
+	            module_uuid 
+    ) t1
+    on 
+    	t1.module_uuid = tr.REPORT_UUID
         where tr.REPORT_UUID = #{reportUuid,jdbcType=VARCHAR}
         and tdic.DICT_NO = 'REPORT_STAUS'
   </select>
   <select id="selectReportAll" parameterType="hashmap" resultType="java.util.Map" >
     select
+      DISTINCT
       REPORT_UUID as  reportUuid,
       REPORT_TITLE as reportTitle,
       REPORT_CONTENT as reportContent,
       REPORT_USER_NAME as reportUserName,
       REPORT_USER_UUID as reportUserUuid,
-      REPORT_TIME as reportTime,
+      date_format(REPORT_TIME, '%Y-%m-%d %H:%i:%S') AS reportTime,
       REPORT_TYPE as reportType,
       REPORT_STAUS as reportStaus,
       tdic.DICT_NAME as reportStatusName,
-      LAST_MODIFY_TIME as lastModifyTime,
+      date_format(LAST_MODIFY_TIME, '%Y-%m-%d %H:%i:%S') AS lastModifyTime,
       REPORT_UPDATE_UUID as reportUpdateUuid,
       REPORT_TEL as reportTel,
-      IMAGE_PATH as imagePath
+      IMAGE_PATH as imagePath,
+      release_status as releaseStatus,
+      date_format(release_date, '%Y-%m-%d %H:%i:%S') as releaseDate,
+      release_person_uuid as releasePersonUuid,
+      tp.person_name as releasePersonName,
+      t1.laudNums
     from tab_report
     LEFT JOIN
       tab_data_dict tdic
     ON
       tdic.DICT_ID= REPORT_STAUS
+    left join 
+    	tab_person tp
+    on 
+    	tp.uuid = release_person_uuid
+    left join 
+    (
+    	SELECT
+	            module_uuid,
+	            COUNT(*) AS laudNums
+	        FROM
+	            tab_laud
+	        GROUP BY
+	            module_uuid 
+    ) t1
+    on 
+    	t1.module_uuid = REPORT_UUID
     <where>
     	1=1
         and tdic.DICT_NO = 'REPORT_STAUS'
@@ -136,7 +179,11 @@
         and REPORT_CONTENT LIKE concat(concat('%',#{reportContent}),'%')
      </if>
       <if test="reportUserUuid != null and reportUserUuid != ''">
-        and REPORT_USER_UUID = #{reportUserUuid}
+        and (REPORT_USER_UUID = #{reportUserUuid}
+        	<if test="advice!= null and advice != ''">
+            	or release_status = 1
+        	</if>
+        )
      </if>
       <if test="reportTimeBegin!=null and reportTimeBegin!=''">  
 		and <![CDATA[REPORT_TIME>=#{reportTimeBegin}]]>

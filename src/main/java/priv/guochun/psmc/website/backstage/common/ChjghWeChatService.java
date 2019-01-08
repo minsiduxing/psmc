@@ -59,7 +59,7 @@ public interface ChjghWeChatService {
 	@Path("/register")//某个方法的操作的资源
     @POST
 	@Consumes("application/x-www-form-urlencoded")
-	public String register(@FormParam("name") String name,@FormParam("phone") String phone,@FormParam("code") String code);
+	public String register(@FormParam("name") String name,@FormParam("phone") String phone,@FormParam("code") String code, @FormParam("idCard") String idCard);
 	
 	
 	/**
@@ -173,12 +173,13 @@ public interface ChjghWeChatService {
 	/**
 	 * 查询申报明细
 	 * @param reportUUid 查询参数
+	 * @param personUuid
 	 * @return
 	 */
 	@Path("/report_detail")
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
-	public String getReportInfoDetail(@QueryParam("reportUUid")String reportUUid);
+	public String getReportInfoDetail(@QueryParam("reportUUid")String reportUUid, @QueryParam("personUuid")String personUuid);
 	/**
 	 * 新增申报信息
 	 * @param report 新增的申报信息
@@ -231,13 +232,24 @@ public interface ChjghWeChatService {
 	
 	/**
 	 * 查询主题详情以及对应的评论列表
-	 * @param pageJson 查询参数
+	 * @param topicUuid 主题id
+	 * @param personUuid 人员id
 	 * @return
 	 */
 	@Path("/topicsDetail")
 	@POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String topicsDetail(@FormParam("topicUuid") String topicUuid, @FormParam("personUuid") String personUuid);
+	
+	/**
+	 * 查询评论列表
+	 * @param pageJson
+	 * @return
+	 */
+	@Path("/commentList")
+	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
-	public String topicsDetail(String pageJson);
+	public String commentList(String pageJson);
 	
 	/**
 	 * 新增评论信息
@@ -248,4 +260,66 @@ public interface ChjghWeChatService {
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
 	public String addTabComment(@RequestBody TabComment tabComment);
+	
+	/**
+	 * 删除评论信息
+	 * @param commentUuid
+	 * @return
+	 */
+	@Path("/deleteComment")
+    @POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String deleteComment(@FormParam("commentUuid") String commentUuid);
+	
+	/**
+	 * 点赞
+	 * @param moduleUuid 信息模型id
+	 * @param personUuid 人员id
+	 * @return
+	 */
+	@Path("/addLaud")
+	@POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String addLaud(@FormParam("moduleUuid") String moduleUuid, @FormParam("personUuid") String personUuid);
+	
+	/**
+	 * 取消点赞
+	 * @param moduleUuid 信息模型id
+	 * @param personUuid 人员id
+	 * @return
+	 */
+	@Path("/cancelLaud")
+	@POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String cancelLaud(@FormParam("moduleUuid") String moduleUuid, @FormParam("personUuid") String personUuid);
+	
+	/**
+	 * 查询功能提示信息
+	 * @param functionCode
+	 * @return
+	 */
+	@Path("/getExplainbyCode")
+	@POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String getExplainbyCode(@FormParam("functionCode") String functionCode);
+	
+	/**
+	 * 删除主题信息
+	 * @param topicUuid
+	 * @return
+	 */
+	@Path("/deleteTopic")
+	@POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String deleteTopic(@FormParam("topicUuid") String topicUuid);
+	
+	/**
+	 * 删除上报信息信息
+	 * @param reportUuid
+	 * @return
+	 */
+	@Path("/deleteReport")
+	@POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String deleteReport(@FormParam("reportUuid") String reportUuid);
 }

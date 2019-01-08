@@ -31,4 +31,50 @@ public interface TabTopicsService {
 	 * @return
 	 */
 	public Map<String, Object> queryTopicsToMobile(String topicUuid);
+	
+	/**
+	 * 主题信息分页列表
+	 * @param myPage
+	 * @return
+	 */
+	public MyPage queryTopicListBusinessMethod(MyPage myPage);
+	
+	/**
+	 * 主题详细信息
+	 * @param topicUuid
+	 * @return
+	 */
+	public Map<String, Object> queryTopicsBusinessMethod(String topicUuid);
+	
+	/**
+	 * 更新主题信息
+	 * @param tabTopics
+	 */
+	public void updateTopicsStatusBusinessMethod(TabTopics tabTopics);
+	
+	/**
+	 * 发布
+	 * @param topicUuids
+	 * @param personUuid
+	 */
+	public void executeReleaseBusinessMethod(String topicUuids, String personUuid);
+	
+	/**
+	 * 取消发布
+	 * @param topicUuids
+	 * @param personUuid
+	 */
+	public void executeBanReleaseBusinessMethod(String topicUuids, String personUuid);
+	
+	/**
+	 * PC端曝光台信息保存修改
+	 * @param tabTopics
+	 */
+	public void saveOrUpdateBusinessMethod(TabTopics tabTopics);
+	
+	/**
+	 * 手机端删除
+	 * @param tabTopics
+	 */
+	public void deleteTopicToMobile(TabTopics tabTopics);
 }

@@ -54,6 +54,13 @@ public interface InfoReleaseService {
 	public void executeReleaseModuleBusinessMethod(String newsIds, String userId, Timestamp publishExpireDate);
 	
 	/**
+	 * 撤销审核、发布
+	 * @param uuids
+	 * @param module
+	 */
+	public void executeUndoBusinessMethod(String uuids, TabModule module);
+	
+	/**
 	 * 查看信息详情 - mobile
 	 * @param uuid
 	 * @return

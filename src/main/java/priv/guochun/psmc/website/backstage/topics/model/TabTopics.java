@@ -58,7 +58,24 @@ public class TabTopics {
 	 */
     private String topicContent;
     /**
-     * 附件ID（非持久化字段）
+     * 信息列表配图
+     */
+    private String imagePath;
+    /**
+     * 发布状态
+     */
+    private Integer releaseStatus;
+    /**
+     * 发布时间
+     */
+    private Timestamp releaseTime;
+    /**
+     * 发布人id
+     */
+    private String releasePersonUuid;
+    
+    /**
+     * 附件ID（非持久化字段,多个id之间以逗号隔开）
      */
     private String attachmentUuids;
 
@@ -157,6 +174,39 @@ public class TabTopics {
     public void setTopicContent(String topicContent) {
         this.topicContent = topicContent == null ? null : topicContent.trim();
     }
+    
+    public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	
+	public Integer getReleaseStatus() {
+		return releaseStatus;
+	}
+
+	public void setReleaseStatus(Integer releaseStatus) {
+		this.releaseStatus = releaseStatus;
+	}
+
+	public Timestamp getReleaseTime() {
+		return releaseTime;
+	}
+
+	public void setReleaseTime(Timestamp releaseTime) {
+		this.releaseTime = releaseTime;
+	}
+
+	public String getReleasePersonUuid() {
+		return releasePersonUuid;
+	}
+
+	public void setReleasePersonUuid(String releasePersonUuid) {
+		this.releasePersonUuid = releasePersonUuid;
+	}
 
 	@Override
 	public String toString() {
@@ -164,7 +214,9 @@ public class TabTopics {
 				+ ", blockUuid=" + blockUuid + ", createPersonUuid=" + createPersonUuid + ", createPersonName="
 				+ createPersonName + ", telephone=" + telephone + ", createDate=" + createDate
 				+ ", lastCommentPersonUuid=" + lastCommentPersonUuid + ", lastCommentDate=" + lastCommentDate
-				+ ", lastCommentUuid=" + lastCommentUuid + ", topicContent=" + topicContent + "]";
+				+ ", lastCommentUuid=" + lastCommentUuid + ", topicContent=" + topicContent + ", imagePath=" + imagePath
+				+ ", releaseStatus=" + releaseStatus + ", releaseTime=" + releaseTime + ", releasePersonUuid="
+				+ releasePersonUuid + "]";
 	}
 
 	public String getAttachmentUuids() {
@@ -174,4 +226,5 @@ public class TabTopics {
 	public void setAttachmentUuids(String attachmentUuids) {
 		this.attachmentUuids = attachmentUuids;
 	}
+	
 }
