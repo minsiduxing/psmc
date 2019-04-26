@@ -80,7 +80,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	private ExcellentInnovationService excellentInnovationService;
 	
 	
-	private MobileSmsSendService chjghMobileSmsSendService;
+	private MobileSmsSendService baseMobileSmsSendService;
 	
 	
 	private InfoReleaseService infoReleaseService;
@@ -146,7 +146,7 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
          sm.setCreateTime(TimestampUtil.createCurTimestamp());
          sm.setReceiveContext("{\"code\":\""+code+"\"}");
          sm.setReceiveNo(phone);
-         MsgModel mm = chjghMobileSmsSendService.sendSms(sm);
+         MsgModel mm = baseMobileSmsSendService.sendSms(sm);
          if(mm.isSuccess()){
         	Properties pp = SystemPropertiesUtil.getProps();
         	//短信是否开启
@@ -756,16 +756,18 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		this.excellentInnovationService = excellentInnovationService;
 	}
 
-	public MobileSmsSendService getChjghMobileSmsSendService() {
-		return chjghMobileSmsSendService;
-	}
+	
+	public MobileSmsSendService getBaseMobileSmsSendService()
+    {
+        return baseMobileSmsSendService;
+    }
 
-	public void setChjghMobileSmsSendService(
-			MobileSmsSendService chjghMobileSmsSendService) {
-		this.chjghMobileSmsSendService = chjghMobileSmsSendService;
-	}
+    public void setBaseMobileSmsSendService(MobileSmsSendService baseMobileSmsSendService)
+    {
+        this.baseMobileSmsSendService = baseMobileSmsSendService;
+    }
 
-	public InfoReleaseService getInfoReleaseService() {
+    public InfoReleaseService getInfoReleaseService() {
 		return infoReleaseService;
 	}
 

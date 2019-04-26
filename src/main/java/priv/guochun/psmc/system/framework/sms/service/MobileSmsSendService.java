@@ -13,5 +13,5 @@ public interface MobileSmsSendService {
 	 */
 	public MsgModel sendSms(SmsModel smsModel);
 	
-
+	
 }

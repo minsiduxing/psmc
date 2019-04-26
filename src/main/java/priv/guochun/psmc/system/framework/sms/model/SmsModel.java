@@ -12,7 +12,7 @@ public class SmsModel {
 	private String receiveCnName;
 	private String receiveContext;
 	private Timestamp createTime;
-	 
+	
 	public SmsModel(){
 		 
 	}
@@ -56,7 +56,6 @@ public class SmsModel {
 	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
-
 	
 	
 	
