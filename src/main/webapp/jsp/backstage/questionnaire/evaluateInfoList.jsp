@@ -239,11 +239,10 @@ $("#remove").click(function(){
 
 		$.messager.progress(); 
 		$("#uploadDivForm").ajaxSubmit({
-		 		async : true,
 		 		url : uploadExcelUrl,
 		 		type : "POST",
 		 		cache : false,
-//		 		dataType:"json", 
+		 		//dataType:"json", 
 //		 		data : form,
 		 		resetForm:true,
 		 		success : function(data) {
