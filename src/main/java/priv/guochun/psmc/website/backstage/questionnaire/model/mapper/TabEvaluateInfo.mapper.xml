@@ -36,7 +36,7 @@
     consumption_amount,surplus_amount,surplus_score,surplus_number,recharge_amount,consumption_item
   </sql>
   
-  <select id="selectEvaluateList" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabEvaluateInfo" resultMap="BaseResultMap">
+  <select id="selectEvaluateList" parameterType="hashmap" resultType="java.util.Map">
     SELECT
 	    t1.*,
 	    t2.questionnaire_name,

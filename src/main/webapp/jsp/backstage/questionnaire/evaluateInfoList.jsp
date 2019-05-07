@@ -43,7 +43,7 @@
   <!--工具栏  -->
 <div id="toolbarId">
 	<g:auth operateNo="<%=OperateContantsUtil.SJHC_ADD_EVALUATE%>">
-		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add" onclick="openAddDialog();">新增</a>
 	</g:auth>
 
 	<g:auth operateNo="<%=OperateContantsUtil.SJHC_IMPORT_EXCEL%>">
@@ -52,30 +52,35 @@
 </div>
 
 	<div id="addEvaluateInfoDlg"></div>
+	
+	<!-- excel导入框 -->
 	<div id="uploadExcelDlg" style="display: none;" align="center">
 		<form id="uploadDivForm" enctype="multipart/form-data">
-			<table class="table" style="margin-left: 0; margin-right: 0;">
-				<tr><td>
-					选择类型：<select id="evaluateNoticeType" name="evaluateNoticeType" class="select">
-						<option value=1>消费金额</option>
-						<option value=2>消费项目</option>
-						<option value=3>充值金额</option>
-					</select>
-			    </td></tr>
-			    <tr>
-			    	<td>
-			    	选择问卷：<select id="questionnaireUuid" name="questionnaireUuid">
-			    		<option value="3543657fdgf43a221sads31">满意度调查</option>
-			    	</select>
+			<table class="table" style="margin-left:0; margin-right:0; border-collapse:separate;border-spacing:10px;" >
+				<tr><td>选择类型：</td>
+					<td><select id="noticeType" name="noticeType" class="select">
+							<option value=1>消费金额</option>
+							<option value=2>消费项目</option>
+							<option value=3>充值金额</option>
+						</select>
 			    	</td>
 			    </tr>
-			    <tr><td>
-			    	导入文件： <input id="file" name="file" type="file" class="inputTd" title="文件格式：xls"/>						
-				    <a  id="fileUri"></a>
-			    </td></tr>
-			    <tr><td align="center">
-				    <a href="javascript:void(0)"  onclick="uploadExcel()" class="easyui-linkbutton" >导  入</a>
-				    <!-- <button type="button" onclick="closeFile()" class="inputTd primary_use" style="height:26px !important; line-height:26px !important; padding:0;">返回</button> -->
+			    <tr>
+			    	<td>选择问卷：</td>
+			    	<td><select id="questionnaireUuid" name="questionnaireUuid">
+				    		<option value="3543657fdgf43a221sads31">满意度调查</option>
+				    	</select>
+			    	</td>
+			    </tr>
+			    <tr><td>导入文件：</td> 
+			    	<td>
+				    	<input id="file" name="file" type="file" class="inputTd" title="文件格式：xls"/>						
+					    <a  id="fileUri"></a>
+			    	</td>
+			    </tr>
+			    <tr>
+			    <td colspan="2" align="center">
+				    <input type="button" onclick="uploadExcel()"  class="easyui-linkbutton" value="导   入" style="width:60px;height:35px;">
 				</td></tr>
 			</table>
 		</form>
@@ -87,6 +92,8 @@
 var infoDo = basePath+"/website/backstage/EvauateInfoController.do";
 var getInfoDataUrl = '<c:url value="'+infoDo+'"/>?method=evaluateInfoList';
 var uploadExcelUrl = '<c:url value="'+infoDo+'"/>?method=loadExcelEvaluateInfo';
+var toAddEvaluateInfoUrl = '<c:url value="'+infoDo+'"/>?method=toAddEvaluateInfo';
+
 
 $(document).ready(function(){ 
 	//datagrid 初始化 
@@ -95,108 +102,49 @@ $(document).ready(function(){
 		toolbar:"toolbarId",
 		url:getInfoDataUrl,
 		columns:[[   
-		          {field:'evaluateInfoUuid',title:'消费信息主键标识',checkbox:true},
-		          {field:'evaluateName',title:'客户姓名',resizable:true,align:'center',sortable:true},    
-		          {field:'evaluatePhone',title:'客户电话',resizable:true,align:'center',sortable:true}, 
-		          {field:'evaluateNickName',title:'客户昵称',align:'center',sortable:true}, 
-		          {field:'consumptionDate',title:'消费时间',align:'center',sortable:true}, 
-		          {field:'evaluateNoticeType',title:'消费类型',align:'center',sortable:true,resizable:true,formatter:function(value, row, index){
+		          {field:'evaluate_info_uuid',title:'消费信息主键标识',checkbox:true},
+		          {field:'evaluate_name',title:'客户姓名',resizable:true,align:'center',sortable:true},    
+		          {field:'evaluate_phone',title:'客户电话',resizable:true,align:'center',sortable:true}, 
+		          {field:'evaluate_nick_name',title:'客户昵称',align:'center',sortable:true}, 
+		          {field:'consumption_Date',title:'消费时间',align:'center',sortable:true}, 
+		          {field:'evaluate_notice_type',title:'消费类型',align:'center',sortable:true,resizable:true,formatter:function(value, row, index){
 		        	  if(value=='1'){return "金额消费";}
 		        	  if(value=='2'){return "项目消费";}
 		        	  if(value=='3'){return "充值";}
 		          }},
-		          {field:'consumptionAmount',title:'消费金额',align:'center',sortable:true}, 
-		          {field:'surplusAmount',title:'剩余金额',resizable:true,align:'center',sortable:true}, 
-		          {field:'surplusScore',title:'剩余积分',align:'center',sortable:true}, 
-		          {field:'surplusNumber',title:'剩余次数',align:'center',sortable:true}, 
-		          {field:'rechargeAmount',title:'充值金额',resizable:true,align:'center',sortable:true}, 
-		          {field:'consumptionItem',title:'消费项目',align:'center',sortable:true,resizable:true},
-		          {field:'questionnaireName',title:'问卷名称',align:'center',sortable:true}
+		          {field:'consumption_amount',title:'消费金额',align:'center',sortable:true}, 
+		          {field:'surplus_amount',title:'剩余金额',resizable:true,align:'center',sortable:true}, 
+		          {field:'surplus_score',title:'剩余积分',align:'center',sortable:true}, 
+		          {field:'surplus_number',title:'剩余次数',align:'center',sortable:true}, 
+		          {field:'recharge_amount',title:'充值金额',resizable:true,align:'center',sortable:true}, 
+		          {field:'consumption_item',title:'消费项目',align:'center',sortable:true,resizable:true},
+		          {field:'questionnaire_name',title:'问卷名称',align:'center',sortable:true}
 		         ] 
 		      ]
 	};
 	//初始化优秀创新列表
 	commonObj.initPaginationGrid(evaluateOption);
-	//新增
-	/* $("#add").click(function(){
-		var _url = editInfoUrl+"&isEdit="+"add";
-		window.location.href=_url;
-		event.preventDefault();
-	}); */
-	
-	//编辑
-	/* $("#edit").click(function(){
-		var rows = $("#innovationList").datagrid('getChecked');
-		if (rows.length == 1){
-			var rowObj = eval(rows[0]);
-			if(rowObj.audit==1){
-				commonObj.alert("该信息已经审核通过不能修改!","warning");
-				return;
-			}
-			var uuid = rowObj.innovation_uuid;
-			var _url = editInfoUrl+"&uuid="+uuid+"&isEdit="+"edit";
-			window.location.href=_url;
-		}else{
-			commonObj.alert("请选择一条记录!","warning");
-		}
-		event.preventDefault();
-	});
-	
-	//查看
-	$("#priview").click(function(){
-		var rows = $("#innovationList").datagrid('getChecked');
-		if (rows.length == 1){
-			var rowObj = eval(rows[0]);
-			var uuid = rowObj.innovation_uuid;
-			var _url = editInfoUrl+"&uuid="+uuid+"&isEdit="+"query";
-			window.location.href=_url;
-		}else{
-			commonObj.alert("请选择一条记录!","warning");
-			return;
-		}
-		event.preventDefault();
-	});
-	
-	//删除
-$("#remove").click(function(){
-		var rows = $("#innovationList").datagrid('getChecked');
-		var rlength = rows.length;
-		var ids="";
-		if (rlength > 0){
-			for(var i=0;i<rlength;i++){
-				var rowObj = eval(rows[i]);
-				var newsid = rowObj.innovation_uuid;
-				ids+=newsid;
-				if(i<rlength-1)
-					ids+=",";
-			}
-			$.messager.confirm('提示', '该操作不可逆，您确认删除选中信息?', function(r){
-				if (r){
-					var _url = removeInfo+"&uuids="+ids;
-					$.messager.progress(); 
-					$.ajax({
-						   type: "POST",
-						   url: _url,
-						   success: function(data){
-							   successCallback(data);
-						   },
-						   error:function(XMLHttpRequest, textStatus, errorThrown){
-							   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
-							   $.messager.progress("close");
-						   }
-						});
-				}
-			});
-			
-		}else{
-			commonObj.alert("请选择至少一条记录!","warning");
-		}
-		$.messager.progress("close");
-		event.preventDefault();
-	}); */
-
 
 });
+
+	var addDialog;
+	//打开消费信息录入界面
+	function openAddDialog(){
+		addDialog = $("#addEvaluateInfoDlg").dialog({
+			modal: true,
+			closed: true,
+		    width: 400,
+		    height: 330,
+		    resizable:true,
+		    cache: false,
+		    buttons:[]
+		});
+		addDialog.panel({title:"新增"});
+		addDialog.panel({iconCls:'icon-save'});
+		addDialog.panel({href:toAddEvaluateInfoUrl});
+		addDialog.window("open");
+	}
+
 	var uploadDialog;
 	//打开导入excel窗口
 	function openUploadDialog(){
@@ -204,7 +152,7 @@ $("#remove").click(function(){
 			modal: true,
 			closed: true,
 		    width: 400,
-		    height: 200,
+		    height: 220,
 		    resizable:true,
 		    cache: false,
 		    buttons:[]
@@ -246,6 +194,7 @@ $("#remove").click(function(){
 //		 		data : form,
 		 		resetForm:true,
 		 		success : function(data) {
+		 			uploadDialog.window("close");
 		 			successCallback(data);
 				},
 				error:function(XMLHttpRequest, textStatus, errorThrown){

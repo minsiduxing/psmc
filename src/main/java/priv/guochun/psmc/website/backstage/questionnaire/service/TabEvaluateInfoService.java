@@ -13,7 +13,7 @@ public interface TabEvaluateInfoService {
 	
 	public void sendMsgBusinessMethod(Integer phone);
 	
-	public MyPage queryEvaluateInfoListBusinessMethod(MyPage page);
+	public MyPage queryEvaluateInfoList(MyPage page);
 	
 	public void saveExcelEvaluateBusinessMethod(List<String[]> excelList, Integer evaluateNoticeType, String questionnaireUuid, User user);
 }

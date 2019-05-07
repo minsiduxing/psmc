@@ -64,7 +64,7 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 		evaluateInfo.setNoticeNote(msgContent);
 		
 		//发送短信
-		SmsModel sm = new SmsModel();
+		/*SmsModel sm = new SmsModel();
         sm.setCreateTime(TimestampUtil.createCurTimestamp());
         sm.setReceiveContext(msgContent);
         sm.setReceiveNo(evaluateInfo.getEvaluatePhone());
@@ -74,12 +74,12 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
     		
         }else{
        	    GsonUtil.toJsonForObject(mm);
-        }
+        }*/
 		baseDao.insert(insertEvaluateSelective, evaluateInfo);
 	}
 	
 	@Override
-	public MyPage queryEvaluateInfoListBusinessMethod(MyPage page){
+	public MyPage queryEvaluateInfoList(MyPage page){
 		Map<String,Object> condition = new HashMap<String,Object>();
 		 //查询参数添加
 		if(page.getQueryParams()!=null && page.getQueryParams().size()>0){

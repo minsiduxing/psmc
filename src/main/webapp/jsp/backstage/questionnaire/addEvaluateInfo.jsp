@@ -12,7 +12,7 @@
 
 		<ul class="addform-subcontent">
 			<li class="li-input"><label for="" class="input-label">通知类型：</label>
-				<select id="evaluateNoticeType" name="evaluateNoticeType">
+				<select id="evaluateNoticeType" name="evaluateNoticeType" onchange="noticeTypeChange();">
 					<option value=1>消费金额</option>
 					<option value=2>消费项目</option>
 					<option value=3>充值金额</option>
@@ -51,8 +51,8 @@
 			</li>
 		</ul>
 	</form>
-	<div>
-		<input type="button" id="submit" name="提交">
+	<div align="center">
+		<input type="button" onclick="submitEvauateInfo();" class="easyui-linkbutton" value="提   交" style="width:60px;height:30px;" >
 	</div>
 <script type="text/javascript">
 
@@ -67,7 +67,7 @@
 	
 	//通知类型选择事件
 	function noticeTypeChange(){
-		var evaluateNoticeType = $("#evaluateNoticeType").val();
+		var evaluateNoticeType = $("#evaluateNoticeType option:checked").val();
 		if(evaluateNoticeType == "1"){ //消费金额
 			$("#active2").hide();
 			$("#active3").hide();
@@ -100,7 +100,7 @@
 			return;
 		}
 		var evauateInfo = $("#editForm").serialize();
-		var url = '<c:url value="/website/backstage/ExcellentInnovationController.do"/>?method=saveOrUpdate';
+		var url = '<c:url value="/website/backstage/EvauateInfoController.do"/>?method=submit';
 		$.messager.progress(); 
 		$.ajax({
 			   type: "POST",

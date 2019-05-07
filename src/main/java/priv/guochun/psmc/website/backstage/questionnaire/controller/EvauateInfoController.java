@@ -55,7 +55,7 @@ public class EvauateInfoController extends MyController{
 	@RequestMapping(params="method=evaluateInfoList")
 	@ResponseBody
 	public void queryEvaluateInfoList(MyPage myPage) throws IOException{
-		myPage = tabEvaluateInfoService.queryEvaluateInfoListBusinessMethod(myPage);
+		myPage = tabEvaluateInfoService.queryEvaluateInfoList(myPage);
 		super.responseJson(JsonUtil.convertToJSONObject(myPage), this.response());
 	}
 	
@@ -69,6 +69,15 @@ public class EvauateInfoController extends MyController{
 	}
 	
 	/**
+	 * 跳转到录入客户消费信息界面
+	 * @return
+	 */
+	@RequestMapping(params="method=toAddEvaluateInfo")
+	public String toAddEvaluateInfo(){
+		return "backstage/questionnaire/addEvaluateInfo";
+	}
+	
+	/**
 	 * 导入客户消费信息
 	 * @param file
 	 * @param excelExamInfoUuid
@@ -76,9 +85,9 @@ public class EvauateInfoController extends MyController{
 	 */
 	@RequestMapping(params="method=loadExcelEvaluateInfo")
 	public void loadExcelEvaluateInfo() throws IOException {
-		String evaluateNoticeType = this.request().getParameter("evaluateNoticeType");
+		String evaluateNoticeType = this.request().getParameter("noticeType");
 		String questionnaireUuid = this.request().getParameter("questionnaireUuid");	
-		MultipartFile imageFile = null;
+		MultipartFile excelFile = null;
         CommonsMultipartResolver multipartResolver =MyCommonsMultipartResolverFactory.getInstance().createCommonsMultipartResolver(this.request());
         //判断 request 是否有文件上传
 	    if(multipartResolver.isMultipart(this.request())){  
@@ -89,52 +98,37 @@ public class EvauateInfoController extends MyController{
 	        Iterator<String> iter = multiRequest.getFileNames();  
 	        while(iter.hasNext()){
 		        //取得上传文件  
-		        imageFile = multiRequest.getFile(iter.next()); 
+	        	excelFile = multiRequest.getFile(iter.next()); 
 	        }
 	    }
-	   
-        String fileName = imageFile.getOriginalFilename(); 
-        if(!(fileName.endsWith("xls"))) {
-        	super.responseJson(false, "只支持xls后缀的Excel文件!", this.response());
-        }else {
-        	String realPath = this.request().getSession().getServletContext().getRealPath("/");
-            String resourcePath = "upload/";
-        	String tempFilePath = realPath + resourcePath + fileName;
-    	    File tempFile = new File(tempFilePath);
-    	    imageFile.transferTo(tempFile);
-    	  //使用工具类读取excel数据
-    		ExcelUtil excelUtil = new ExcelUtil(tempFile);
-    		List<String[]> excelList = excelUtil.readExcel();
-            
-            Map<String,String> resultMap=new HashMap<String, String>();
-            if(excelList!=null && excelList.size()>0){
-            	User user = this.getUserBySeesion(this.request());
-            	tabEvaluateInfoService.saveExcelEvaluateBusinessMethod(excelList, Integer.valueOf(evaluateNoticeType), questionnaireUuid, user);
-            }else{
-            	super.responseJson(false, "该文件没有需要导入的数据", this.response());
-            }
-            super.responseJson(true, "导入成功!", this.response());
-        }
+	    if(excelFile != null){
+	    	String fileName = excelFile.getOriginalFilename(); 
+	        if(!(fileName.endsWith("xls"))) {
+	        	super.responseJson(false, "只支持xls后缀的Excel文件!", this.response());
+	        }else {
+	        	String realPath = this.request().getSession().getServletContext().getRealPath("/");
+	            String resourcePath = "upload/";
+	        	String tempFilePath = realPath + resourcePath + fileName;
+	    	    File tempFile = new File(tempFilePath);
+	    	    excelFile.transferTo(tempFile);
+	    	  //使用工具类读取excel数据
+	    		ExcelUtil excelUtil = new ExcelUtil(tempFile);
+	    		List<String[]> excelList = excelUtil.readExcel();
+	            
+	            Map<String,String> resultMap=new HashMap<String, String>();
+	            if(excelList!=null && excelList.size()>0){
+	            	User user = this.getUserBySeesion(this.request());
+	            	tabEvaluateInfoService.saveExcelEvaluateBusinessMethod(excelList, Integer.valueOf(evaluateNoticeType), questionnaireUuid, user);
+	            }else{
+	            	super.responseJson(false, "该文件没有需要导入的数据", this.response());
+	            }
+	            if(tempFile.exists()){
+	            	tempFile.delete();
+	            }
+	            super.responseJson(true, "导入成功!", this.response());
+	        }
+	    }
         
-	    
-	    
-//		String filePath = file.getPath();
-//		if (!(filePath.endsWith("xls"))) {
-//			
-//        }else{
-//        	//使用工具类读取excel数据
-//    		ExcelUtil excelUtil = new ExcelUtil(file);
-//    		List<String[]> excelList = excelUtil.readExcel();
-//            
-//            Map<String,String> resultMap=new HashMap<String, String>();
-//            if(excelList!=null && excelList.size()>0){
-//            	User user = this.getUserBySeesion(this.request());
-//            	tabEvaluateInfoService.saveExcelEvaluateBusinessMethod(excelList, evaluateNoticeType, questionnaireUuid, user);
-//            }else{
-//            	super.responseJson(false, "该文件没有需要导入的数据", this.response());
-//            }
-//            super.responseJson(true, "导入成功!", this.response());
-//        }
         
     }
 }
