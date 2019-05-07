@@ -128,6 +128,13 @@
 	
 	 <!-- 实名认证 -->
 	 <bean id="realNameAuthService" class="priv.guochun.psmc.website.backstage.common.realNameAuth.impl.RealNameAuthServiceImpl"/>
+	 
+	 <!-- 客户信息 -->
+	 <bean id="tabEvaluateInfoService" class="priv.guochun.psmc.website.backstage.questionnaire.service.impl.TabEvaluateInfoServiceImpl"/>
+	 <!-- 问卷信息 -->
+	 <bean id="tabQuestionnaireService" class="priv.guochun.psmc.website.backstage.questionnaire.service.impl.TabQuestionnaireServiceImpl"/>
+	 
+	 
 	
 	
 </beans>

@@ -99,6 +99,14 @@ public class SystemPropertiesUtil
     private static final String activity_custom = "activity_custom";
     private static final String mobile_image_path = "mobile_image_path";
     
+    /** 短信通知内容-消费金额*/
+    public final static String MSG_CONTENT_1 = "msg_content_1";
+    /** 短信通知内容-消费项目*/
+    public final static String MSG_CONTENT_2 = "msg_content_2";
+    /** 短信通知内容-充值金额 */
+    public final static String MSG_CONTENT_3 = "msg_content_3";
+
+    
     /**
      * 初始化system.propeties
      * <p>Description:<p>
@@ -240,6 +248,16 @@ public class SystemPropertiesUtil
 	}
 	public static String getNoticeImagePath(){
 		return getPropertyValue(notice_image_path);
+	}
+	
+	public static String getMsgContent_1(){
+		return getPropertyValue(MSG_CONTENT_1);
+	}
+	public static String getMsgContent_2(){
+		return getPropertyValue(MSG_CONTENT_2);
+	}
+	public static String getMsgContent_3(){
+		return getPropertyValue(MSG_CONTENT_3);
 	}
 
 	public static String getPropertyValue(String key){

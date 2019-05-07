@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.guochun.psmc.website.backstage.questionnaire.model.mapper.TabEvaluateInfoMapper">
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.questionnaire.vo.TabEvaluateInfoVo">
+    <id column="evaluate_info_uuid" jdbcType="VARCHAR" property="evaluateInfoUuid" />
+    <result column="questionnaire_uuid" jdbcType="VARCHAR" property="questionnaireUuid" />
+    <result column="evaluate_name" jdbcType="VARCHAR" property="evaluateName" />
+    <result column="evaluate_phone" jdbcType="VARCHAR" property="evaluatePhone" />
+    <result column="evaluate_notice_type" jdbcType="SMALLINT" property="evaluateNoticeType" />
+    <result column="input_acc_uuid" jdbcType="VARCHAR" property="inputAccUuid" />
+    <result column="input_time" jdbcType="TIMESTAMP" property="inputTime" />
+    <result column="visit_url" jdbcType="VARCHAR" property="visitUrl" />
+    <result column="visit_short_url" jdbcType="VARCHAR" property="visitShortUrl" />
+    <result column="notice_note" jdbcType="VARCHAR" property="noticeNote" />
+    <result column="is_enable_notice" jdbcType="SMALLINT" property="isEnableNotice" />
+    <result column="notice_time" jdbcType="TIMESTAMP" property="noticeTime" />
+    <result column="evaluate_status" jdbcType="SMALLINT" property="evaluateStatus" />
+    <result column="effective_end_date" jdbcType="TIMESTAMP" property="effectiveEndDate" />
+    
+    <result column="evaluate_nick_name" jdbcType="VARCHAR" property="evaluateNickName" />
+    <result column="consumption_date" jdbcType="DATE" property="consumptionDate" />
+    <result column="consumption_amount" jdbcType="DECIMAL" property="consumptionAmount" />
+    <result column="surplus_amount" jdbcType="DECIMAL" property="surplusAmount" />
+    <result column="surplus_score" jdbcType="INTEGER" property="surplusScore" />
+    <result column="surplus_number" jdbcType="INTEGER" property="surplusNumber" />
+    <result column="recharge_amount" jdbcType="DECIMAL" property="rechargeAmount" />
+    <result column="consumption_item" jdbcType="VARCHAR" property="consumptionItem" />
+    <result column="questionnaire_name" jdbcType="VARCHAR" property="questionnaireName" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    evaluate_info_uuid, questionnaire_uuid, evaluate_name, evaluate_phone, evaluate_notice_type, 
+    input_acc_uuid, input_time, visit_url, visit_short_url, notice_note, is_enable_notice, 
+    notice_time, evaluate_status, effective_end_date,evaluate_nick_name,consumption_date,
+    consumption_amount,surplus_amount,surplus_score,surplus_number,recharge_amount,consumption_item
+  </sql>
+  
+  <select id="selectEvaluateList" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabEvaluateInfo" resultMap="BaseResultMap">
+    SELECT
+	    t1.*,
+	    t2.questionnaire_name,
+	    t2.version
+	FROM
+	    tab_evaluate_info t1
+	INNER JOIN
+	    tab_questionnaire t2
+	ON
+	    t1.questionnaire_uuid = t2.questionnaire_uuid
+  </select>
+  
+  <select id="selectEvaluateByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tab_evaluate_info
+    where evaluate_info_uuid = #{evaluateInfoUuid,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteEvaluate" parameterType="java.lang.String">
+    delete from tab_evaluate_info
+    where evaluate_info_uuid = #{evaluateInfoUuid,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insertEvaluate" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabEvaluateInfo">
+    insert into tab_evaluate_info (evaluate_info_uuid, questionnaire_uuid, 
+      evaluate_name, evaluate_phone, evaluate_notice_type, 
+      input_acc_uuid, input_time, visit_url, 
+      visit_short_url, notice_note, is_enable_notice, 
+      notice_time, evaluate_status, effective_end_date,evaluate_nick_name,consumption_date,
+      consumption_amount,surplus_amount,surplus_score,surplus_number,recharge_amount,consumption_item
+      )
+    values (#{evaluateInfoUuid,jdbcType=VARCHAR}, #{questionnaireUuid,jdbcType=VARCHAR}, 
+      #{evaluateName,jdbcType=VARCHAR}, #{evaluatePhone,jdbcType=VARCHAR}, #{evaluateNoticeType,jdbcType=SMALLINT}, 
+      #{inputAccUuid,jdbcType=VARCHAR}, #{inputTime,jdbcType=TIMESTAMP}, #{visitUrl,jdbcType=VARCHAR}, 
+      #{visitShortUrl,jdbcType=VARCHAR}, #{noticeNote,jdbcType=VARCHAR}, #{isEnableNotice,jdbcType=SMALLINT}, 
+      #{noticeTime,jdbcType=TIMESTAMP}, #{evaluateStatus,jdbcType=SMALLINT}, #{effectiveEndDate,jdbcType=TIMESTAMP},
+      #{evaluateNickName,jdbcType=VARCHAR}, #{consumptionDate,jdbcType=DATE}, #{consumptionAmount,jdbcType=DECIMAL},
+      #{surplusAmount,jdbcType=DECIMAL}, #{surplusScore,jdbcType=INTEGER}, #{surplusNumber,jdbcType=INTEGER},
+      #{rechargeAmount,jdbcType=DECIMAL}, #{consumptionItem,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertEvaluateSelective" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabEvaluateInfo">
+    insert into tab_evaluate_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="evaluateInfoUuid != null">
+        evaluate_info_uuid,
+      </if>
+      <if test="questionnaireUuid != null">
+        questionnaire_uuid,
+      </if>
+      <if test="evaluateName != null">
+        evaluate_name,
+      </if>
+      <if test="evaluatePhone != null">
+        evaluate_phone,
+      </if>
+      <if test="evaluateNoticeType != null">
+        evaluate_notice_type,
+      </if>
+      <if test="inputAccUuid != null">
+        input_acc_uuid,
+      </if>
+      <if test="inputTime != null">
+        input_time,
+      </if>
+      <if test="visitUrl != null">
+        visit_url,
+      </if>
+      <if test="visitShortUrl != null">
+        visit_short_url,
+      </if>
+      <if test="noticeNote != null">
+        notice_note,
+      </if>
+      <if test="isEnableNotice != null">
+        is_enable_notice,
+      </if>
+      <if test="noticeTime != null">
+        notice_time,
+      </if>
+      <if test="evaluateStatus != null">
+        evaluate_status,
+      </if>
+      <if test="effectiveEndDate != null">
+        effective_end_date,
+      </if>
+      <if test="evaluateNickName != null">
+        evaluate_nick_name,
+      </if>
+      <if test="consumptionDate != null">
+        consumption_date,
+      </if>
+      <if test="consumptionAmount != null">
+        consumption_amount,
+      </if>
+      <if test="surplusAmount != null">
+        surplus_amount,
+      </if>
+      <if test="surplusScore != null">
+        surplus_score,
+      </if>
+      <if test="surplusNumber != null">
+        surplus_number,
+      </if>
+      <if test="rechargeAmount != null">
+        recharge_amount,
+      </if>
+      <if test="consumptionItem != null">
+        consumption_item,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="evaluateInfoUuid != null">
+        #{evaluateInfoUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="questionnaireUuid != null">
+        #{questionnaireUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateName != null">
+        #{evaluateName,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluatePhone != null">
+        #{evaluatePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateNoticeType != null">
+        #{evaluateNoticeType,jdbcType=SMALLINT},
+      </if>
+      <if test="inputAccUuid != null">
+        #{inputAccUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="inputTime != null">
+        #{inputTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visitUrl != null">
+        #{visitUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="visitShortUrl != null">
+        #{visitShortUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeNote != null">
+        #{noticeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnableNotice != null">
+        #{isEnableNotice,jdbcType=SMALLINT},
+      </if>
+      <if test="noticeTime != null">
+        #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="evaluateStatus != null">
+        #{evaluateStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="effectiveEndDate != null">
+        #{effectiveEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="evaluateNickName != null">
+         #{evaluateNickName,jdbcType=VARCHAR}, 
+      </if>
+      <if test="consumptionDate != null">
+        #{consumptionDate,jdbcType=DATE},
+      </if>
+      <if test="consumptionAmount != null">
+        #{consumptionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="surplusAmount != null">
+        #{surplusAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="surplusScore != null">
+        #{surplusScore,jdbcType=INTEGER}, 
+      </if>
+      <if test="surplusNumber != null">
+        #{surplusNumber,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeAmount != null">
+        #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="consumptionItem != null">
+        #{consumptionItem,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateEvaluateSelective" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabEvaluateInfo">
+    update tab_evaluate_info
+    <set>
+      <if test="questionnaireUuid != null">
+        questionnaire_uuid = #{questionnaireUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateName != null">
+        evaluate_name = #{evaluateName,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluatePhone != null">
+        evaluate_phone = #{evaluatePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateNoticeType != null">
+        evaluate_notice_type = #{evaluateNoticeType,jdbcType=SMALLINT},
+      </if>
+      <if test="inputAccUuid != null">
+        input_acc_uuid = #{inputAccUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="inputTime != null">
+        input_time = #{inputTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visitUrl != null">
+        visit_url = #{visitUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="visitShortUrl != null">
+        visit_short_url = #{visitShortUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeNote != null">
+        notice_note = #{noticeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnableNotice != null">
+        is_enable_notice = #{isEnableNotice,jdbcType=SMALLINT},
+      </if>
+      <if test="noticeTime != null">
+        notice_time = #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="evaluateStatus != null">
+        evaluate_status = #{evaluateStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="effectiveEndDate != null">
+        effective_end_date = #{effectiveEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="evaluateNickName != null">
+        evaluate_nick_name = #{evaluateNickName,jdbcType=VARCHAR}, 
+      </if>
+      <if test="consumptionDate != null">
+        consumption_date = #{consumptionDate,jdbcType=DATE},
+      </if>
+      <if test="consumptionAmount != null">
+        consumption_amount = #{consumptionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="surplusAmount != null">
+        surplus_amount = #{surplusAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="surplusScore != null">
+        surplus_score = #{surplusScore,jdbcType=INTEGER}, 
+      </if>
+      <if test="surplusNumber != null">
+        surplus_number = #{surplusNumber,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeAmount != null">
+        recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="consumptionItem != null">
+        consumption_item = #{consumptionItem,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where evaluate_info_uuid = #{evaluateInfoUuid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateEvaluateByPrimaryKey" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabEvaluateInfo">
+    update tab_evaluate_info
+    set questionnaire_uuid = #{questionnaireUuid,jdbcType=VARCHAR},
+      evaluate_name = #{evaluateName,jdbcType=VARCHAR},
+      evaluate_phone = #{evaluatePhone,jdbcType=VARCHAR},
+      evaluate_notice_type = #{evaluateNoticeType,jdbcType=SMALLINT},
+      input_acc_uuid = #{inputAccUuid,jdbcType=VARCHAR},
+      input_time = #{inputTime,jdbcType=TIMESTAMP},
+      visit_url = #{visitUrl,jdbcType=VARCHAR},
+      visit_short_url = #{visitShortUrl,jdbcType=VARCHAR},
+      notice_note = #{noticeNote,jdbcType=VARCHAR},
+      is_enable_notice = #{isEnableNotice,jdbcType=SMALLINT},
+      notice_time = #{noticeTime,jdbcType=TIMESTAMP},
+      evaluate_status = #{evaluateStatus,jdbcType=SMALLINT},
+      effective_end_date = #{effectiveEndDate,jdbcType=TIMESTAMP},
+      evaluate_nick_name = #{evaluateNickName,jdbcType=VARCHAR}, 
+	  consumption_date = #{consumptionDate,jdbcType=DATE},
+	  consumption_amount = #{consumptionAmount,jdbcType=DECIMAL},
+	  surplus_amount = #{surplusAmount,jdbcType=DECIMAL}, 
+	  surplus_score = #{surplusScore,jdbcType=INTEGER}, 
+	  surplus_number = #{surplusNumber,jdbcType=INTEGER},
+	  recharge_amount = #{rechargeAmount,jdbcType=DECIMAL}, 
+	  consumption_item = #{consumptionItem,jdbcType=VARCHAR}
+    where evaluate_info_uuid = #{evaluateInfoUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

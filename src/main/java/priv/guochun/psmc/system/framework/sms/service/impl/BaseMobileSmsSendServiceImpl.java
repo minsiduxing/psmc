@@ -15,6 +15,8 @@ public class BaseMobileSmsSendServiceImpl implements MobileSmsSendService {
     private SmsSendRuleSolve smsSendRuleSolve = null;
     
     
+    
+    
 	@Override
 	public MsgModel sendSms(SmsModel smsModel) {
 	    Properties pp = SystemPropertiesUtil.getProps();

@@ -39,6 +39,10 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/wangEditor/wangEditor-fullscreen-plugin${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/uploadfy/jquery.Huploadify${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/browser${jssuffix}"></script>
+
+
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/sjhc_style${csssuffix}" type="text/css" />
+
 <input type="hidden" id="basePath" name="basePath" value="<%=request.getContextPath()%>"/>
 
 <script type="text/javascript">
