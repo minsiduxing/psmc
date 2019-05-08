@@ -55,34 +55,24 @@
 	
 	<!-- excel导入框 -->
 	<div id="uploadExcelDlg" style="display: none;" align="center">
-		<form id="uploadDivForm" enctype="multipart/form-data">
-			<table class="table" style="margin-left:0; margin-right:0; border-collapse:separate;border-spacing:10px;" >
-				<tr><td>选择类型：</td>
-					<td><select id="noticeType" name="noticeType" class="select">
-							<option value=1>消费金额</option>
-							<option value=2>消费项目</option>
-							<option value=3>充值金额</option>
-						</select>
-			    	</td>
-			    </tr>
-			    <tr>
-			    	<td>选择问卷：</td>
-			    	<td><select id="questionnaireUuid" name="questionnaireUuid">
-				    		<option value="3543657fdgf43a221sads31">满意度调查</option>
-				    	</select>
-			    	</td>
-			    </tr>
-			    <tr><td>导入文件：</td> 
-			    	<td>
-				    	<input id="file" name="file" type="file" class="inputTd" title="文件格式：xls"/>						
+		<form id="uploadDivForm" enctype="multipart/form-data" class="addfrom">
+			<ul class="addform-subcontent">
+				<li class="li-input"><label for="" class="input-label">选择类型：</label>
+					
+						<input id="noticeType" name="noticeType" />	
+			    	
+			    </li>
+			    <li class="li-input"><label for="" class="input-label">选择问卷：</label>
+			    		<input id="questionUuid" name="questionUuid" />
+			    </li>
+			    <li class="li-input"><label for="" class="input-label">导入文件：</label>
+				    	<input id="file" name="file"  class="easyui-filebox" data-options="buttonText:'选择文件',prompt:'请选择xls文件...'" title="文件格式：xls"/>						
 					    <a  id="fileUri"></a>
-			    	</td>
-			    </tr>
-			    <tr>
-			    <td colspan="2" align="center">
-				    <input type="button" onclick="uploadExcel()"  class="easyui-linkbutton" value="导   入" style="width:60px;height:35px;">
-				</td></tr>
-			</table>
+			    </li>
+			    <li class="li-input" align="center">
+				    <input type="button" onclick="uploadExcel()"  class="easyui-linkbutton" value="导   入" style="width:60px;height:30px; margin-top: 20px;">
+				</li>
+			</ul>
 		</form>
 	</div>
 	         
@@ -93,6 +83,9 @@ var infoDo = basePath+"/website/backstage/EvauateInfoController.do";
 var getInfoDataUrl = '<c:url value="'+infoDo+'"/>?method=evaluateInfoList';
 var uploadExcelUrl = '<c:url value="'+infoDo+'"/>?method=loadExcelEvaluateInfo';
 var toAddEvaluateInfoUrl = '<c:url value="'+infoDo+'"/>?method=toAddEvaluateInfo';
+
+commonObj.initDictCombobox("noticeType","NOTICE_TYPE",null,true,false);
+commonObj.initQuestionnaireCombobox("questionUuid",null,true);
 
 
 $(document).ready(function(){ 
@@ -106,7 +99,7 @@ $(document).ready(function(){
 		          {field:'evaluate_name',title:'客户姓名',resizable:true,align:'center',sortable:true},    
 		          {field:'evaluate_phone',title:'客户电话',resizable:true,align:'center',sortable:true}, 
 		          {field:'evaluate_nick_name',title:'客户昵称',align:'center',sortable:true}, 
-		          {field:'consumption_Date',title:'消费时间',align:'center',sortable:true}, 
+		          {field:'consumption_date',title:'消费时间',align:'center',sortable:true}, 
 		          {field:'evaluate_notice_type',title:'消费类型',align:'center',sortable:true,resizable:true,formatter:function(value, row, index){
 		        	  if(value=='1'){return "金额消费";}
 		        	  if(value=='2'){return "项目消费";}
@@ -134,7 +127,7 @@ $(document).ready(function(){
 			modal: true,
 			closed: true,
 		    width: 400,
-		    height: 330,
+		    height: 350,
 		    resizable:true,
 		    cache: false,
 		    buttons:[]
@@ -163,9 +156,8 @@ $(document).ready(function(){
 	
 	//上传Excel
 	function uploadExcel(){
-		
-		var evaluateNoticeType = $("#evaluateNoticeType option:selected").val();
-		var questionnaireUuid = $("#questionnaireUuid option:selected").val();
+		var evaluateNoticeType = $("#noticeType").combobox('getValue');
+		var questionnaireUuid = $("#questionUuid").combobox('getValue');
 		if(evaluateNoticeType==null || evaluateNoticeType==""){
 			commonObj.alert("请选择类型!","warning");
 			return;
@@ -173,9 +165,9 @@ $(document).ready(function(){
 		if(questionnaireUuid==null || questionnaireUuid==""){
 			commonObj.alert("请选择问卷!","warning");
 			return;
-		}
-//		var fileUrl=$("#file")[0].files[0];
-		var fileUrl = document.getElementById("file");
+		}  
+		
+		var fileUrl = document.getElementById("filebox_file_id_1");
 		if(fileUrl ==null || fileUrl=='undefined'  || fileUrl.value == null || fileUrl.value == ""){
 			commonObj.alert("请先选择文件!","warning");
 			return;

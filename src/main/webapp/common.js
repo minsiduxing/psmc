@@ -112,7 +112,7 @@ commonObj.initDictCombobox = function(id,dictNo,defaultValue,validate,isQuery){
 			if(isQuery){
 				data.unshift({'ID':'','NAME':'全部'});   //unshift方法添加到第一行，push方法添加到末尾
 			}else{
-				if(!validate)
+//				if(!validate)
 					data.unshift({'ID':'','NAME':'请选择'}); //非查询，则第一行增加请选择
 			}
 			$('#'+id).combobox({  
@@ -142,6 +142,31 @@ commonObj.initDeptCombobox = function(id,deptType, groupid,defaultValue,validate
 		success: function(data){   
 			// 第一行增加请选择
 			//data.unshift({'ID':'','NAME':'请选择'}); 
+			$('#'+id).combobox({  
+			    panelHeight:100,
+			    data:data,
+			    valueField:'ID',    
+			    textField:'NAME',
+			    value:defaultValue,
+			    required:validate,
+			    editable:false
+			});    
+		}
+	});
+};
+
+/**
+ *  初始化问卷的combobox
+ *  @param id input id
+ *  @param defaultValue 默认选中的值
+ */
+commonObj.initQuestionnaireCombobox = function(id,defaultValue,validate){
+	var url = initQuestionnaireUrl;
+	$.ajax({ 
+		url: url,
+		dataType: 'json', 
+		success: function(data){   
+			data.unshift({'ID':'','NAME':'请选择'}); 
 			$('#'+id).combobox({  
 			    panelHeight:100,
 			    data:data,

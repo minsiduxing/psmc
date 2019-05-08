@@ -34,7 +34,7 @@ public class TabSubjectConfig implements Serializable{
     private Short subjectOrder;
 
     /**
-     * 题目类型（ 1、输入框，2、单选框，3、多选框，4、下拉框，5、文本框）
+     * 题目类型（ 1、输入框，2、单选框，3、多选框，4、下拉框，5、文本框，6、星级）
      * @mbg.generated Sat Apr 20 17:20:16 CST 2019
      */
     private Short subjectType;

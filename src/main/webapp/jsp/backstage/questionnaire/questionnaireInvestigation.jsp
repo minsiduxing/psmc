@@ -6,14 +6,45 @@
     <meta charset="utf-8">
     <title>问卷调查</title>
 </head>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/sjhc_style.css" type="text/css" /> 
 <body>
 <div class="page_content">
-    <img src="images/top_bj.png" class="top_bj"/>
+    <img src="<%=request.getContextPath()%>/images/sjhc/top_bj.png" class="top_bj"/>
     <div class="question_content">
         <div class="title-text">
             <span>请对我们的服务评价</span>
         </div>
-        <div class="xh_list">
+        <c:forEach items="${list}" var="subject" varStatus="status">
+        	<c:if test="${subject.subjectType == 6}">
+        		<div class="xh_list">
+		            <div class="wb-6">${status.index + 1}.${subject.subjectName }：</div>
+		            <div class="wb-6">
+		                <div id="function-demo${status.index + 1 }" class="target-demo function-demo"></div>
+		            </div>
+		        </div>
+        	</c:if>
+        	<c:if test="${subject.subjectType == 2}">
+        	  <p class="question_title">${status.index + 1}.${subject.subjectName }：</p>
+        		<div class="radio_content">
+		            <div class="wb-6">
+		            	<c:forEach items="${subject.optionList}" var="option">
+		            		<div class="radio_list">
+			                    <img src="<%=request.getContextPath()%>/images/sjhc/radio_no.png"/>
+			                    <input type="radio" class="radio_ipt" name="radio_s" value="${option.optionsValue }"/>
+			                    <span>${option.optionsName }</span>
+			                </div>
+		            	</c:forEach>
+		            </div>
+		        </div>
+        	</c:if>
+        	<c:if test="${subject.subjectType == 5}">
+        		<p class="question_title">${status.index + 1}.${subject.subjectName }：</p>
+		        <textarea class="textarea_style"></textarea>
+        	</c:if>
+        </c:forEach>
+        <div class="btn_style">保存</div>
+        
+        <%-- <div class="xh_list">
             <div class="wb-6">1.接待人员的态度：</div>
             <div class="wb-6">
                 <div id="function-demo1" class="target-demo"></div>
@@ -70,7 +101,7 @@
         </div>
         <p class="question_title">6.您的意见与建议：</p>
         <textarea class="textarea_style"></textarea>
-        <div class="btn_style">保存</div>
+        <div class="btn_style">保存</div> --%>
     </div>
 </div>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
@@ -82,7 +113,7 @@
         $(this).find('input').prop("checked",true);
     });
     $(function() {
-        $('#function-demo1,#function-demo2,#function-demo3,#function-demo4').raty({
+        $('.function-demo').raty({
             number: 5,//多少个星星设置
             score: 1,//初始值是设置
             targetType: 'number',//类型选择，number是数字值，hint，是设置的数组值
@@ -93,9 +124,11 @@
             cancel    : false,
             targetKeep: true,
             precision : false,//是否包含小数
-            // click: function(score, evt) {
-            //     alert('ID: ' + $(this).attr('id') + "\nscore: " + score + "\nevent: " + evt.type);
-            // }
+            click: function(score, evt) {
+            	var id = $(this).attr('id');
+            	$("#"+id).val(score);
+                alert('ID: ' + $(this).attr('id') + "\nscore: " + score + "\nevent: " + evt.type);
+            }
         });
     });
 

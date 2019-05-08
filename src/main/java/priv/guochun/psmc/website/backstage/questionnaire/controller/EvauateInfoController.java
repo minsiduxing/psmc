@@ -86,7 +86,7 @@ public class EvauateInfoController extends MyController{
 	@RequestMapping(params="method=loadExcelEvaluateInfo")
 	public void loadExcelEvaluateInfo() throws IOException {
 		String evaluateNoticeType = this.request().getParameter("noticeType");
-		String questionnaireUuid = this.request().getParameter("questionnaireUuid");	
+		String questionnaireUuid = this.request().getParameter("questionUuid");	
 		MultipartFile excelFile = null;
         CommonsMultipartResolver multipartResolver =MyCommonsMultipartResolverFactory.getInstance().createCommonsMultipartResolver(this.request());
         //判断 request 是否有文件上传
