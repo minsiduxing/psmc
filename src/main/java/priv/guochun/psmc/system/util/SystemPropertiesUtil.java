@@ -1,10 +1,15 @@
 package priv.guochun.psmc.system.util;
 
 import java.io.IOException;
+import java.util.Base64.Encoder;
 import java.util.Properties;
 
+import org.apache.http.util.EncodingUtils;
+import org.omg.IOP.Encoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.support.EncodedResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 
@@ -105,6 +110,8 @@ public class SystemPropertiesUtil
     public final static String MSG_CONTENT_2 = "msg_content_2";
     /** 短信通知内容-充值金额 */
     public final static String MSG_CONTENT_3 = "msg_content_3";
+    /** 问卷访问地址 */
+    public final static String QUESTIONS_URL = "questionnaireUrl";
 
     
     /**
@@ -116,7 +123,10 @@ public class SystemPropertiesUtil
         file_name = propertiesfileName;
         props = new Properties();  
             try {  
-                props=PropertiesLoaderUtils.loadAllProperties(file_name);  
+            	//解决读取中文乱码
+            	EncodedResource encodedResource = new EncodedResource(new ClassPathResource(file_name), "UTF-8");
+            	props=PropertiesLoaderUtils.loadProperties(encodedResource);
+//                props=PropertiesLoaderUtils.loadAllProperties(file_name); 
                 for(Object key:props.keySet()){  
                     logger.debug(key+":");  
                     logger.debug(props.get(key).toString());  
@@ -258,6 +268,9 @@ public class SystemPropertiesUtil
 	}
 	public static String getMsgContent_3(){
 		return getPropertyValue(MSG_CONTENT_3);
+	}
+	public static String getQuestionnaireUrl(){
+		return getPropertyValue(QUESTIONS_URL);
 	}
 
 	public static String getPropertyValue(String key){

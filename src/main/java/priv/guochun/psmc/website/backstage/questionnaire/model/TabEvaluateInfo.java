@@ -2,6 +2,7 @@ package priv.guochun.psmc.website.backstage.questionnaire.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -123,16 +124,21 @@ public class TabEvaluateInfo implements Serializable{
     private Date noticeTime;
 
     /**
-     * 评价状态（1、草稿，2、待通知，3、待反馈，4、已完成）
+     * 评价状态（1、待评价，2、已评价）
      * @mbg.generated Sat Apr 20 17:20:54 CST 2019
      */
-    private Short evaluateStatus;
+    private Integer evaluateStatus;
 
     /**
      * 回访截止时间
      * @mbg.generated Sat Apr 20 17:20:54 CST 2019
      */
     private Date effectiveEndDate;
+    
+    /**
+     * 评价时间
+     */
+    private Timestamp evaluateTime;
 
     public String getEvaluateInfoUuid() {
         return evaluateInfoUuid;
@@ -230,11 +236,11 @@ public class TabEvaluateInfo implements Serializable{
         this.noticeTime = noticeTime;
     }
 
-    public Short getEvaluateStatus() {
+    public Integer getEvaluateStatus() {
         return evaluateStatus;
     }
 
-    public void setEvaluateStatus(Short evaluateStatus) {
+    public void setEvaluateStatus(Integer evaluateStatus) {
         this.evaluateStatus = evaluateStatus;
     }
 
@@ -308,6 +314,14 @@ public class TabEvaluateInfo implements Serializable{
 
 	public void setConsumptionItem(String consumptionItem) {
 		this.consumptionItem = consumptionItem;
+	}
+
+	public Timestamp getEvaluateTime() {
+		return evaluateTime;
+	}
+
+	public void setEvaluateTime(Timestamp evaluateTime) {
+		this.evaluateTime = evaluateTime;
 	}
     
 }

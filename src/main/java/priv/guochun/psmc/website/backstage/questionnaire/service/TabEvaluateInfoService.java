@@ -16,4 +16,8 @@ public interface TabEvaluateInfoService {
 	public MyPage queryEvaluateInfoList(MyPage page);
 	
 	public void saveExcelEvaluateBusinessMethod(List<String[]> excelList, Integer evaluateNoticeType, String questionnaireUuid, User user);
+	
+	public TabEvaluateInfo selectById(String evaluateInfoUuid);
+	
+	public void updateEvaluate(TabEvaluateInfo tabEvaluateInfo);
 }

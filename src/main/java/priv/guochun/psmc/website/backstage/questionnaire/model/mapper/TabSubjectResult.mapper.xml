@@ -12,13 +12,43 @@
     result_uuid, subject_uuid, evaluate_info_uuid, result_value
   </sql>
   
-  <select id="selectResultByExample" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectResult" resultMap="BaseResultMap">
+  <select id="selectResultList" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectResult" resultMap="BaseResultMap">
     select
-    <if test="distinct">
-      distinct
-    </if>
     <include refid="Base_Column_List" />
     from tab_subject_result
+    <where>
+    	<if test="evaluateInfoUuid != null ">
+    		and evaluate_info_uuid = #{evaluateInfoUuid}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectResultDetails" parameterType="hashmap" resultType="java.util.Map">
+  	SELECT
+	    t1.*,
+	   ( case when t3.subject_type = '6' then CONCAT(t1.result_value ,'星') else t1.result_value end) as res,
+	    t3.subject_name,
+	    t3.subject_type
+	FROM
+	    tab_subject_result t1
+	INNER JOIN
+	    tab_evaluate_info t2
+	ON
+	    t1.evaluate_info_uuid = t2.evaluate_info_uuid
+	LEFT JOIN
+	    tab_subject_config t3
+	ON
+	    t1.subject_uuid = t3.subject_uuid
+	AND t2.questionnaire_uuid = t3.questionnaire_uuid
+	<where>
+		<if test="evaluateInfoUuid != null ">
+		 	and t2.evaluate_info_uuid = #{evaluateInfoUuid}
+		</if>
+		<if test="questionnaireUuid != null ">
+		 	and t2.questionnaire_uuid = #{questionnaireUuid}
+		</if>
+	</where>
+	order by t3.subject_order
   </select>
   
   <select id="selectResultByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectConfig;
+import priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectResult;
 
 public interface TabQuestionnaireService {
 
@@ -19,4 +20,25 @@ public interface TabQuestionnaireService {
 	 * @return
 	 */
 	public List<Map<?, ?>> loadQuestionnaire();
+	
+	/**
+	 * 统计各个类型题目的数量
+	 * @param questionnaireUuid
+	 * @return
+	 */
+	public Map<String, Object> selectSubjectTypeNums(String questionnaireUuid);
+	
+	/**
+	 * 问卷提交
+	 * @param list
+	 */
+	public void submitQuestion(List<TabSubjectResult> list);
+	
+	/**
+	 * 查看评价详情
+	 * @param evaluateInfoUuid
+	 * @param questionnaireUuid
+	 * @return
+	 */
+	public List<Map<String, Object>> querySubjectResultDetails(String evaluateInfoUuid, String questionnaireUuid);
 }

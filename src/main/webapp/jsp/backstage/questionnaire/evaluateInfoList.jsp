@@ -13,10 +13,10 @@
     <form id="searchform" method="POST" class="query-form" >
 	<ul class="">
 			<li class="li-input"><label for="" class="input-label">客户姓名：</label>
-				<input class="myinput" id="evaluateName" name="evaluateName"></input>
+				<input class="myinput" id="evaluateName1" name="evaluateName1"></input>
 			</li>
-			<li class="li-input"><label for="" class="input-label">问卷标题：</label>
-				<input class="myinput" id="questionnaireName" name="questionnaireName"></input>
+			<li class="li-input"><label for="" class="input-label">客户电话：</label>
+				<input class="myinput" id="evaluatePhone1" name="evaluatePhone1"></input>
 			</li>
 			
 		    <!-- <li class="li-input"><label for="" class="input-label">消费类型：</label>
@@ -52,7 +52,7 @@
 </div>
 
 	<div id="addEvaluateInfoDlg"></div>
-	
+	<div id="subjectResultDlg"></div>
 	<!-- excel导入框 -->
 	<div id="uploadExcelDlg" style="display: none;" align="center">
 		<form id="uploadDivForm" enctype="multipart/form-data" class="addfrom">
@@ -75,7 +75,7 @@
 			</ul>
 		</form>
 	</div>
-	         
+	       
 </body>
 
 <script type="text/javascript">
@@ -83,10 +83,17 @@ var infoDo = basePath+"/website/backstage/EvauateInfoController.do";
 var getInfoDataUrl = '<c:url value="'+infoDo+'"/>?method=evaluateInfoList';
 var uploadExcelUrl = '<c:url value="'+infoDo+'"/>?method=loadExcelEvaluateInfo';
 var toAddEvaluateInfoUrl = '<c:url value="'+infoDo+'"/>?method=toAddEvaluateInfo';
+//查看评价详情
+var questionDo = basePath+"/website/backstage/QuestionnaireController.do";
+var queryResultDetailsUrl = '<c:url value="'+questionDo+'"/>?method=queryResultDetails';
 
 commonObj.initDictCombobox("noticeType","NOTICE_TYPE",null,true,false);
 commonObj.initQuestionnaireCombobox("questionUuid",null,true);
 
+$("#evaluateName1").textbox({});
+$("#evaluatePhone1").textbox({});
+$("#consumptionDateBegin").datebox({});
+$("#consumptionDateEnd").datebox({});
 
 $(document).ready(function(){ 
 	//datagrid 初始化 
@@ -96,22 +103,30 @@ $(document).ready(function(){
 		url:getInfoDataUrl,
 		columns:[[   
 		          {field:'evaluate_info_uuid',title:'消费信息主键标识',checkbox:true},
+		          {field:'questionnaire_uuid',title:'问卷信息id',hidden:true},
 		          {field:'evaluate_name',title:'客户姓名',resizable:true,align:'center',sortable:true},    
-		          {field:'evaluate_phone',title:'客户电话',resizable:true,align:'center',sortable:true}, 
-		          {field:'evaluate_nick_name',title:'客户昵称',align:'center',sortable:true}, 
-		          {field:'consumption_date',title:'消费时间',align:'center',sortable:true}, 
+		          {field:'evaluate_phone',title:'客户电话',resizable:true,align:'center'}, 
+		          {field:'evaluate_nick_name',title:'客户昵称',align:'center'}, 
+		          {field:'consumption_date',title:'消费日期',align:'center',sortable:true}, 
 		          {field:'evaluate_notice_type',title:'消费类型',align:'center',sortable:true,resizable:true,formatter:function(value, row, index){
 		        	  if(value=='1'){return "金额消费";}
 		        	  if(value=='2'){return "项目消费";}
 		        	  if(value=='3'){return "充值";}
 		          }},
-		          {field:'consumption_amount',title:'消费金额',align:'center',sortable:true}, 
-		          {field:'surplus_amount',title:'剩余金额',resizable:true,align:'center',sortable:true}, 
+		          {field:'consumption_amount',title:'消费金额（元）',align:'center',sortable:true}, 
+		          {field:'surplus_amount',title:'剩余金额（元）',resizable:true,align:'center',sortable:true}, 
 		          {field:'surplus_score',title:'剩余积分',align:'center',sortable:true}, 
 		          {field:'surplus_number',title:'剩余次数',align:'center',sortable:true}, 
-		          {field:'recharge_amount',title:'充值金额',resizable:true,align:'center',sortable:true}, 
-		          {field:'consumption_item',title:'消费项目',align:'center',sortable:true,resizable:true},
-		          {field:'questionnaire_name',title:'问卷名称',align:'center',sortable:true}
+		          {field:'recharge_amount',title:'充值金额（元）',resizable:true,align:'center',sortable:true}, 
+		          {field:'consumption_item',title:'消费项目',align:'center'},
+		          {field:'questionnaire_name',title:'问卷名称',align:'center'},
+		          {field:'input_time',title:'录入时间',align:'center',sortable:true,width:"145px"},
+		          {field:'evaluate_status',title:'评价状态',align:'center',formatter:function(value, row, index){
+		        	  if(value=='1'){return "未评价";}
+		        	  else if(value=='2'){return ' <a href="#" onclick="querySubjectResult(&apos;'+ row["evaluate_info_uuid"] + "&apos;,&apos;" + row["questionnaire_uuid"] +'&apos;);">已评价</a> ';}
+		        	  else{return "无"; }
+		          }},
+		          {field:'evaluate_time',title:'评价时间',align:'center',sortable:true,width:"145px"}
 		         ] 
 		      ]
 	};
@@ -195,6 +210,24 @@ $(document).ready(function(){
 			    }
 		 });
 		$.messager.progress("close"); 
+	}
+	
+	//查看评价详情
+	var subjectResultDialog;
+	function querySubjectResult(evaluateInfoUuid,questionnaireUuid){
+		subjectResultDialog = $("#subjectResultDlg").dialog({
+			modal: true,
+			closed: true,
+		    width: 500,
+		    height: 260,
+		    resizable:true,
+		    cache: false,
+		    buttons:[]
+		});
+		subjectResultDialog.panel({title:"评价结果"});
+		subjectResultDialog.panel({iconCls:'icon-save'});
+		subjectResultDialog.panel({href:queryResultDetailsUrl + "&questionnaireUuid="+questionnaireUuid + "&evaluateInfoUuid="+evaluateInfoUuid});
+		subjectResultDialog.window("open");
 	}
 	
 	//表单提交成功后的回调方法

@@ -1,35 +1,24 @@
 package priv.guochun.psmc.website.backstage.questionnaire.service.impl;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import priv.guochun.psmc.authentication.login.model.User;
-import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
-import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
-import priv.guochun.psmc.system.framework.sms.service.impl.BaseMobileSmsSendServiceImpl;
-import priv.guochun.psmc.system.framework.util.GsonUtil;
 import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
-import priv.guochun.psmc.system.util.TimestampUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
 import priv.guochun.psmc.website.backstage.questionnaire.model.TabEvaluateInfo;
 import priv.guochun.psmc.website.backstage.questionnaire.service.TabEvaluateInfoService;
-import priv.guochun.psmc.website.backstage.questionnaire.vo.TabEvaluateInfoVo;
 import priv.guochun.psmc.website.backstage.util.GenerateShortUrlUtil;
 import priv.guochun.psmc.website.backstage.util.MsgTemplateUtil;
 
@@ -37,6 +26,8 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 
 	private static final String insertEvaluateSelective = "insertEvaluateSelective";
 	private static final String selectEvaluateList = "selectEvaluateList";
+	private static final String selectEvaluateByPrimaryKey = "selectEvaluateByPrimaryKey";
+	private static final String updateEvaluateSelective = "updateEvaluateSelective";
 	
 	@Autowired
 	private BaseDao baseDao;
@@ -50,16 +41,23 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 		evaluateInfo.setConsumptionDate(currentDate);
 		evaluateInfo.setInputAccUuid(user.getUserUuid());
 		evaluateInfo.setInputTime(currentDate);
-		//消费金额
-		if(ContantsUtil.NOTICE_TYPE_1.equals(evaluateInfo.getEvaluateNoticeType())){
-			evaluateInfo.setVisitUrl("");
-		}//消费项目
-		else if(ContantsUtil.NOTICE_TYPE_2.equals(evaluateInfo.getEvaluateNoticeType())){
-			
+		evaluateInfo.setNoticeTime(currentDate);
+		//消费金额、消费项目
+		if(ContantsUtil.NOTICE_TYPE_1.equals(evaluateInfo.getEvaluateNoticeType()) 
+				|| ContantsUtil.NOTICE_TYPE_2.equals(evaluateInfo.getEvaluateNoticeType())){
+			//获取问卷地址
+			String url = SystemPropertiesUtil.getQuestionnaireUrl();
+			String visitUrl = url+"&questionnaireUuid="+evaluateInfo.getQuestionnaireUuid()+"&evaluateInfoUuid="+evaluateInfo.getEvaluateInfoUuid();
+			evaluateInfo.setVisitUrl(visitUrl);
+			//转换短链接
+			String shortUrl = GenerateShortUrlUtil.createShortUrl(evaluateInfo.getVisitUrl());
+			evaluateInfo.setVisitShortUrl(shortUrl);
+			evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_1); //待评价
+		}//充值
+		else {
+			evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_3); //无评价
 		}
-		//转换短链接
-		String shortUrl = GenerateShortUrlUtil.createShortUrl(evaluateInfo.getVisitUrl());
-		evaluateInfo.setVisitShortUrl(shortUrl);
+		
 		String msgContent = this.getMsgContent(evaluateInfo);
 		evaluateInfo.setNoticeNote(msgContent);
 		
@@ -130,6 +128,7 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
             		evaluateInfo.setRechargeAmount(new BigDecimal(strs[4]));
             		evaluateInfo.setSurplusAmount(new BigDecimal(strs[5]));
             	}
+        		evaluateInfo.setNoticeNote(this.getMsgContent(evaluateInfo));
         		baseDao.insert(insertEvaluateSelective, evaluateInfo);
             }
         }
@@ -145,7 +144,7 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 		String templateContent = "";
 		Map<String, Object> contentParamMap = new HashMap<String, Object>();
 		contentParamMap.put("evaluateName", evaluateInfo.getEvaluateName());
-		contentParamMap.put("consumptionDate", evaluateInfo.getConsumptionDate());
+		contentParamMap.put("consumptionDate", DateUtil.getDateString(evaluateInfo.getConsumptionDate()));
 		//获取短信模板内容
 		if(ContantsUtil.NOTICE_TYPE_1.equals(evaluateInfo.getEvaluateNoticeType())){
 			templateContent = SystemPropertiesUtil.getMsgContent_1();
@@ -164,7 +163,19 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 			contentParamMap.put("rechargeAmount", evaluateInfo.getRechargeAmount());
 			contentParamMap.put("surplusAmount", evaluateInfo.getSurplusAmount());
 		}
+		
 		return MsgTemplateUtil.handleTemplate(templateContent, contentParamMap);
+	}
+
+	@Override
+	public TabEvaluateInfo selectById(String evaluateInfoUuid) {
+		TabEvaluateInfo tabEvaluateInfo = (TabEvaluateInfo) baseDao.queryForObject(selectEvaluateByPrimaryKey, evaluateInfoUuid);
+		return tabEvaluateInfo;
+	}
+	
+	@Override
+	public void updateEvaluate(TabEvaluateInfo tabEvaluateInfo){
+		baseDao.update(updateEvaluateSelective, tabEvaluateInfo);
 	}
 	
 	

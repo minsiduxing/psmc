@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="priv.guochun.psmc.website.backstage.questionnaire.model.mapper.TabEvaluateInfoMapper">
-  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.questionnaire.vo.TabEvaluateInfoVo">
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.questionnaire.model.TabEvaluateInfo">
     <id column="evaluate_info_uuid" jdbcType="VARCHAR" property="evaluateInfoUuid" />
     <result column="questionnaire_uuid" jdbcType="VARCHAR" property="questionnaireUuid" />
     <result column="evaluate_name" jdbcType="VARCHAR" property="evaluateName" />
@@ -25,15 +25,14 @@
     <result column="surplus_number" jdbcType="INTEGER" property="surplusNumber" />
     <result column="recharge_amount" jdbcType="DECIMAL" property="rechargeAmount" />
     <result column="consumption_item" jdbcType="VARCHAR" property="consumptionItem" />
-    <result column="questionnaire_name" jdbcType="VARCHAR" property="questionnaireName" />
-    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="evaluate_time" jdbcType="TIMESTAMP" property="evaluateTime" />
   </resultMap>
   
   <sql id="Base_Column_List">
     evaluate_info_uuid, questionnaire_uuid, evaluate_name, evaluate_phone, evaluate_notice_type, 
     input_acc_uuid, input_time, visit_url, visit_short_url, notice_note, is_enable_notice, 
     notice_time, evaluate_status, effective_end_date,evaluate_nick_name,consumption_date,
-    consumption_amount,surplus_amount,surplus_score,surplus_number,recharge_amount,consumption_item
+    consumption_amount,surplus_amount,surplus_score,surplus_number,recharge_amount,consumption_item,evaluate_time
   </sql>
   
   <select id="selectEvaluateList" parameterType="hashmap" resultType="java.util.Map">
@@ -47,6 +46,21 @@
 	    tab_questionnaire t2
 	ON
 	    t1.questionnaire_uuid = t2.questionnaire_uuid
+	    <where>
+	     <if test="evaluateName1 != null and evaluateName1 !='' ">
+	     	and t1.evaluate_name like concat(concat('%',#{evaluateName1}),'%')
+	     </if>
+	     <if test="evaluatePhone1 != null and evaluatePhone1 !='' ">
+	     	and t1.evaluate_phone like concat(concat('%',#{evaluatePhone1}),'%')
+	     </if>
+	     <if test="consumptionDateBegin != null and consumptionDateBegin !='' ">
+	     	and <![CDATA[t1.consumption_date >= #{consumptionDateBegin}]]>
+	     </if>
+	     <if test="consumptionDateEnd != null and consumptionDateEnd !='' ">
+	     	and <![CDATA[t1.consumption_date <= #{consumptionDateEnd}]]>
+	     </if>
+	    </where>
+	    order by t1.consumption_date desc
   </select>
   
   <select id="selectEvaluateByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -67,7 +81,7 @@
       input_acc_uuid, input_time, visit_url, 
       visit_short_url, notice_note, is_enable_notice, 
       notice_time, evaluate_status, effective_end_date,evaluate_nick_name,consumption_date,
-      consumption_amount,surplus_amount,surplus_score,surplus_number,recharge_amount,consumption_item
+      consumption_amount,surplus_amount,surplus_score,surplus_number,recharge_amount,consumption_item,evaluate_time
       )
     values (#{evaluateInfoUuid,jdbcType=VARCHAR}, #{questionnaireUuid,jdbcType=VARCHAR}, 
       #{evaluateName,jdbcType=VARCHAR}, #{evaluatePhone,jdbcType=VARCHAR}, #{evaluateNoticeType,jdbcType=SMALLINT}, 
@@ -76,7 +90,7 @@
       #{noticeTime,jdbcType=TIMESTAMP}, #{evaluateStatus,jdbcType=SMALLINT}, #{effectiveEndDate,jdbcType=TIMESTAMP},
       #{evaluateNickName,jdbcType=VARCHAR}, #{consumptionDate,jdbcType=DATE}, #{consumptionAmount,jdbcType=DECIMAL},
       #{surplusAmount,jdbcType=DECIMAL}, #{surplusScore,jdbcType=INTEGER}, #{surplusNumber,jdbcType=INTEGER},
-      #{rechargeAmount,jdbcType=DECIMAL}, #{consumptionItem,jdbcType=VARCHAR}
+      #{rechargeAmount,jdbcType=DECIMAL}, #{consumptionItem,jdbcType=VARCHAR},#{evaluateTime,jdbcType=TIMESTAMP}
       )
   </insert>
   
@@ -149,6 +163,10 @@
       <if test="consumptionItem != null">
         consumption_item,
       </if>
+      <if test="evaluateTime != null">
+        evaluate_time,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="evaluateInfoUuid != null">
@@ -215,7 +233,10 @@
         #{rechargeAmount,jdbcType=DECIMAL},
       </if>
       <if test="consumptionItem != null">
-        #{consumptionItem,jdbcType=VARCHAR}
+        #{consumptionItem,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTime != null">
+        #{evaluateTime,jdbcType=TIMESTAMP}
       </if>
     </trim>
   </insert>
@@ -284,7 +305,10 @@
         recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
       </if>
       <if test="consumptionItem != null">
-        consumption_item = #{consumptionItem,jdbcType=VARCHAR}
+        consumption_item = #{consumptionItem,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTime != null">
+        evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP}
       </if>
     </set>
     where evaluate_info_uuid = #{evaluateInfoUuid,jdbcType=VARCHAR}
@@ -312,7 +336,8 @@
 	  surplus_score = #{surplusScore,jdbcType=INTEGER}, 
 	  surplus_number = #{surplusNumber,jdbcType=INTEGER},
 	  recharge_amount = #{rechargeAmount,jdbcType=DECIMAL}, 
-	  consumption_item = #{consumptionItem,jdbcType=VARCHAR}
+	  consumption_item = #{consumptionItem,jdbcType=VARCHAR},
+	  evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP}
     where evaluate_info_uuid = #{evaluateInfoUuid,jdbcType=VARCHAR}
   </update>
 </mapper>

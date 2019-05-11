@@ -38,6 +38,18 @@
     order by t1.subject_order asc
   </select>
   
+  <select id="selectSubjectTypeNums" parameterType="java.lang.String" resultType="java.util.Map">
+  	 select
+    	sum(case when t1.subject_type = 1 then 1 else 0 end) as type1,
+    	sum(case when t1.subject_type = 2 then 1 else 0 end) as type2,
+    	sum(case when t1.subject_type = 3 then 1 else 0 end) as type3,
+    	sum(case when t1.subject_type = 4 then 1 else 0 end) as type4,
+    	sum(case when t1.subject_type = 5 then 1 else 0 end) as type5,
+    	sum(case when t1.subject_type = 6 then 1 else 0 end) as type6
+     from tab_subject_config t1
+     where t1.questionnaire_uuid = #{questionnaireUuid}
+  </select>
+  
   <select id="selectConfPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
