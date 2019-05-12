@@ -121,9 +121,9 @@ public class ChuangxinSmsSendMode extends SmsSendAbstractMode
             String SuccessCounts = jo.get("SuccessCounts")!=null?jo.get("SuccessCounts").toString():"";
             
             if(!"Success".equals(ReturnStatus)){
-                return MsgModel.buildDefaultError("短信接口调用失败,Message:"+Message+",RemainPoint:"+RemainPoint+",SuccessCounts:"+SuccessCounts);
+                return MsgModel.buildDefaultError("短信接口调用失败 "+jo.toJSONString());
             }else{
-                return MsgModel.buildDefaultSuccess("短信接口调用成功,RemainPoint:"+RemainPoint+",SuccessCounts:"+SuccessCounts);
+                return MsgModel.buildDefaultSuccess("短信接口调用成功 "+jo.toJSONString());
             }
         }
     }
