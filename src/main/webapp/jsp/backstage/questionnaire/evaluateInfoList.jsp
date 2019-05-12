@@ -134,8 +134,9 @@ $(document).ready(function(){
 		          {field:'questionnaire_name',title:'问卷名称',align:'center'},
 		          {field:'input_time',title:'录入时间',align:'center',sortable:true,width:"145px"},
 		          {field:'evaluate_status',title:'评价状态',align:'center',formatter:function(value, row, index){
-		        	  if(value=='1'){return "未评价";}
+		        	  if(value=='1'){return "待评价";}
 		        	  else if(value=='2'){return ' <a href="#" onclick="querySubjectResult(&apos;'+ row["evaluate_info_uuid"] + "&apos;,&apos;" + row["questionnaire_uuid"] +'&apos;);">已评价</a> ';}
+		        	  else if(value=='4'){return "发送失败";}
 		        	  else{return "无"; }
 		          }},
 		          {field:'evaluate_time',title:'评价时间',align:'center',sortable:true,width:"145px"}

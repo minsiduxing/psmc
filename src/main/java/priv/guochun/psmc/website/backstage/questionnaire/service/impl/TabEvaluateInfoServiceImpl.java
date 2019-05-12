@@ -88,9 +88,22 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 	}
 
 	@Override
-	public void sendMsgBusinessMethod(Integer phone) {
-		// TODO Auto-generated method stub
-		
+	public String sendMsg(String evaluateInfoUuid) {
+		TabEvaluateInfo evaluateInfo = this.selectById(evaluateInfoUuid);
+		//发送短信
+		SmsModel sm = new SmsModel();
+        sm.setCreateTime(TimestampUtil.createCurTimestamp());
+        sm.setReceiveContext(evaluateInfo.getNoticeNote());
+        sm.setReceiveNo(evaluateInfo.getEvaluatePhone());
+        MsgModel mm = baseMobileSmsSendService.sendSms(sm);
+        //发送成功
+        if(mm.isSuccess()){
+        	evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_1); //待评价;
+        	this.updateEvaluate(evaluateInfo);
+        	return GsonUtil.toJsonForObject(MsgModel.buildDefaultSuccess());
+        }else{
+        	return GsonUtil.toJsonForObject(mm);
+        }
 	}
 	
 	/**
@@ -203,6 +216,5 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 	public void updateEvaluate(TabEvaluateInfo tabEvaluateInfo){
 		baseDao.update(updateEvaluateSelective, tabEvaluateInfo);
 	}
-	
 	
 }
