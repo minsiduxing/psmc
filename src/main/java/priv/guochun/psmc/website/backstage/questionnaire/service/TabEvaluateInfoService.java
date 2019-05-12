@@ -1,6 +1,5 @@
 package priv.guochun.psmc.website.backstage.questionnaire.service;
 
-import java.io.File;
 import java.util.List;
 
 import priv.guochun.psmc.authentication.login.model.User;
@@ -11,7 +10,12 @@ public interface TabEvaluateInfoService {
 
 	public void insertEvaluateInfoBusinessMethod(TabEvaluateInfo evaluateInfo, User user);
 	
-	public void sendMsgBusinessMethod(Integer phone);
+	/**
+	 * 手动补发短息
+	 * @param evaluateInfoUuid
+	 * @return
+	 */
+	public String sendMsg(String evaluateInfoUuid);
 	
 	public MyPage queryEvaluateInfoList(MyPage page);
 	

@@ -13,7 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import com.alibaba.fastjson.JSON;
+
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.excel.ExcelUtil;
@@ -29,9 +30,6 @@ import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.framework.upload.factory.MyCommonsMultipartResolverFactory;
 import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
-import priv.guochun.psmc.system.util.SystemPropertiesUtil;
-import priv.guochun.psmc.website.backstage.excellentInnovation.model.TabExcellentInnovation;
-import priv.guochun.psmc.website.backstage.module.model.TabModule;
 import priv.guochun.psmc.website.backstage.questionnaire.model.TabEvaluateInfo;
 import priv.guochun.psmc.website.backstage.questionnaire.service.TabEvaluateInfoService;
 
@@ -81,6 +79,17 @@ public class EvauateInfoController extends MyController{
 	@RequestMapping(params="method=toAddEvaluateInfo")
 	public String toAddEvaluateInfo(){
 		return "backstage/questionnaire/addEvaluateInfo";
+	}
+	
+	/**
+	 * 手动补发短信
+	 * @param evaluateInfoUuid
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=sendMsg")
+	public void sendMsg(String evaluateInfoUuid) throws IOException{
+		String result = tabEvaluateInfoService.sendMsg(evaluateInfoUuid);
+		super.responseJson(JSON.parseObject(result), this.response());
 	}
 	
 	/**
