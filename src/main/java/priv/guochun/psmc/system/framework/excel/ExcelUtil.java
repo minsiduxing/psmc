@@ -156,10 +156,17 @@ public class ExcelUtil
                 Cell[] cell = sheet.getRow(i);
                 //装载读取数据的集合
                 String[] results = new String[cell.length];
+                boolean isAdd = true;
                 for(int j = 0; j < cell.length; j++) {
+                	if(StringUtils.isBlank(cell[0].getContents())){
+                		isAdd = false;
+                		continue;
+                	}
                     results[j] = cell[j].getContents();
                 }
-                list.add(results);
+                if(isAdd){
+                	list.add(results);
+                }
             }
         }
         

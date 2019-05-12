@@ -47,7 +47,8 @@
 	</g:auth>
 
 	<g:auth operateNo="<%=OperateContantsUtil.SJHC_IMPORT_EXCEL%>">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-redo" plain="true" id="remove" onclick="openUploadDialog();">导入Excel</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-redo" plain="true" id="upload" onclick="openUploadDialog();">导入Excel</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-excel" plain="true" onclick="openDowloadDialog();">下载模板</a>
 	</g:auth>
 </div>
 
@@ -75,6 +76,16 @@
 			</ul>
 		</form>
 	</div>
+	
+	<!-- 模板下载 -->
+	<div id="downloadTemplateDlg" style="display: none;" align="center">
+			<label class="input-label" style="width:240px; margin-top: 15px; margin-left: 15px"><a href="#" onclick="downloadTemplate(1);">1、金额消费信息模板下载</a></label>
+			    
+			<label class="input-label" style="width:240px; margin-top: 15px; margin-left: 15px"><a href="#" onclick="downloadTemplate(2);">2、项目消费信息模板下载</a></label>
+			    
+			<label class="input-label" style="width:240px; margin-top: 15px; margin-left: 15px"><a href="#" onclick="downloadTemplate(3);">3、充值信息模板下载</a></label>
+			    
+	</div>
 	       
 </body>
 
@@ -83,6 +94,7 @@ var infoDo = basePath+"/website/backstage/EvauateInfoController.do";
 var getInfoDataUrl = '<c:url value="'+infoDo+'"/>?method=evaluateInfoList';
 var uploadExcelUrl = '<c:url value="'+infoDo+'"/>?method=loadExcelEvaluateInfo';
 var toAddEvaluateInfoUrl = '<c:url value="'+infoDo+'"/>?method=toAddEvaluateInfo';
+var dowloadUrl = '<c:url value="'+infoDo+'"/>?method=downloadExcelTemplate';
 //查看评价详情
 var questionDo = basePath+"/website/backstage/QuestionnaireController.do";
 var queryResultDetailsUrl = '<c:url value="'+questionDo+'"/>?method=queryResultDetails';
@@ -228,6 +240,27 @@ $(document).ready(function(){
 		subjectResultDialog.panel({iconCls:'icon-save'});
 		subjectResultDialog.panel({href:queryResultDetailsUrl + "&questionnaireUuid="+questionnaireUuid + "&evaluateInfoUuid="+evaluateInfoUuid});
 		subjectResultDialog.window("open");
+	}
+	
+	//模板下载dialog
+	var templateDialog;
+	function openDowloadDialog(){
+		templateDialog = $("#downloadTemplateDlg").dialog({
+			modal: true,
+			closed: true,
+		    width: 290,
+		    height: 170,
+		    resizable:true,
+		    cache: false,
+		    buttons:[]
+		});
+		templateDialog.panel({title:"模板下载"});
+		templateDialog.window("open");
+	}
+	
+	//下载模板
+	function downloadTemplate(evaluateNoticeType){
+		window.location.href = dowloadUrl + "&evaluateNoticeType=" + evaluateNoticeType; 
 	}
 	
 	//表单提交成功后的回调方法

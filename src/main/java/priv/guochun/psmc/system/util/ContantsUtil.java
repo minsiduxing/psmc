@@ -93,6 +93,7 @@ public class ContantsUtil {
     public final static Integer EVALUATE_STATUS_1 = 1; //待评价
     public final static Integer EVALUATE_STATUS_2 = 2; //已评价
     public final static Integer EVALUATE_STATUS_3 = 3; //无，不用评价
+    public final static Integer EVALUATE_STATUS_4 = 4; //短信发送失败
     
     /** 短信通知内容-消费金额 */
     public final static String MSG_CONTENT_1 = "【四季花城】尊敬的{evaluateName}，您{consumptionDate}的消费金额为{consumptionAmount}元，剩余金额{surplusAmount}元，剩余积分{surplusScore}分。为提升品牌服务，诚邀您参与满意度测评，点击{visitShortUrl} 可对本次体验作出评价，期待您的宝贵建议！";

@@ -10,11 +10,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import priv.guochun.psmc.authentication.login.model.User;
+import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
+import priv.guochun.psmc.system.framework.util.GsonUtil;
 import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
+import priv.guochun.psmc.system.util.TimestampUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
 import priv.guochun.psmc.website.backstage.questionnaire.model.TabEvaluateInfo;
@@ -62,17 +66,14 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 		evaluateInfo.setNoticeNote(msgContent);
 		
 		//发送短信
-		/*SmsModel sm = new SmsModel();
+		SmsModel sm = new SmsModel();
         sm.setCreateTime(TimestampUtil.createCurTimestamp());
         sm.setReceiveContext(msgContent);
         sm.setReceiveNo(evaluateInfo.getEvaluatePhone());
         MsgModel mm = baseMobileSmsSendService.sendSms(sm);
-        if(mm.isSuccess()){
-    	    GsonUtil.toJsonForObject(MsgModel.buildDefaultSuccess());
-    		
-        }else{
-       	    GsonUtil.toJsonForObject(mm);
-        }*/
+        if(!mm.isSuccess()){
+        	evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_4); //短信发送失败;
+        }
 		baseDao.insert(insertEvaluateSelective, evaluateInfo);
 	}
 	
@@ -99,6 +100,8 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 	public void saveExcelEvaluateBusinessMethod(List<String[]> excelList, Integer evaluateNoticeType, String questionnaireUuid, User user) {
 		if(excelList != null && !excelList.isEmpty()) {
 			Date currentDate = new Date();
+			//获取问卷地址
+			String url = SystemPropertiesUtil.getQuestionnaireUrl();
 			//第一条数据是表头，跳过
             for(int i=1; i<excelList.size(); i++) {
             	String[] strs = excelList.get(i);
@@ -111,24 +114,47 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
         		evaluateInfo.setEvaluateName(strs[0]);
         		evaluateInfo.setEvaluateNickName(strs[1]);
         		evaluateInfo.setEvaluatePhone(strs[2]);
+        		evaluateInfo.setNoticeTime(currentDate);
         		try {
 					evaluateInfo.setConsumptionDate(DateUtil.getDate(strs[3], "yyyy-mm-dd"));
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
+        		String visitUrl = url+"&questionnaireUuid="+evaluateInfo.getQuestionnaireUuid()+"&evaluateInfoUuid="+evaluateInfo.getEvaluateInfoUuid();
         		if(ContantsUtil.NOTICE_TYPE_1.equals(evaluateNoticeType)){
         			evaluateInfo.setConsumptionAmount(new BigDecimal(strs[4]));
         			evaluateInfo.setSurplusAmount(new BigDecimal(strs[5]));
         			evaluateInfo.setSurplusScore(Integer.valueOf(strs[6]));
+        			evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_1); //待评价
+        			evaluateInfo.setVisitUrl(visitUrl);
+        			//转换短链接
+        			String shortUrl = GenerateShortUrlUtil.createShortUrl(visitUrl);
+        			evaluateInfo.setVisitShortUrl(shortUrl);
             	}else if(ContantsUtil.NOTICE_TYPE_2.equals(evaluateNoticeType)){
             		evaluateInfo.setConsumptionItem(strs[4]);
             		evaluateInfo.setSurplusNumber(Integer.valueOf(strs[5]));
             		evaluateInfo.setSurplusScore(Integer.valueOf(strs[6]));
+            		evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_1); //待评价
+            		evaluateInfo.setVisitUrl(visitUrl);
+            		//转换短链接
+        			String shortUrl = GenerateShortUrlUtil.createShortUrl(visitUrl);
+        			evaluateInfo.setVisitShortUrl(shortUrl);
             	}else{
             		evaluateInfo.setRechargeAmount(new BigDecimal(strs[4]));
             		evaluateInfo.setSurplusAmount(new BigDecimal(strs[5]));
+            		evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_3); //充值不需要评价
             	}
-        		evaluateInfo.setNoticeNote(this.getMsgContent(evaluateInfo));
+        		String msgContent = this.getMsgContent(evaluateInfo);
+        		evaluateInfo.setNoticeNote(msgContent);
+        		//发送短信
+        		SmsModel sm = new SmsModel();
+                sm.setCreateTime(TimestampUtil.createCurTimestamp());
+                sm.setReceiveContext(msgContent);
+                sm.setReceiveNo(evaluateInfo.getEvaluatePhone());
+                MsgModel mm = baseMobileSmsSendService.sendSms(sm);
+                if(!mm.isSuccess()){
+                	evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_4); //短信发送失败;
+                }
         		baseDao.insert(insertEvaluateSelective, evaluateInfo);
             }
         }

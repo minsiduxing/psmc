@@ -1,7 +1,13 @@
 package priv.guochun.psmc.website.backstage.questionnaire.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -128,7 +134,52 @@ public class EvauateInfoController extends MyController{
 	            super.responseJson(true, "导入成功!", this.response());
 	        }
 	    }
-        
-        
     }
+	
+	/**
+	 * 下载模板
+	 * @param evaluateNoticeType
+	 * @throws UnsupportedEncodingException 
+	 */
+	@RequestMapping(params="method=downloadExcelTemplate")
+	public void downloadExcelTemplate(Integer evaluateNoticeType) throws UnsupportedEncodingException{
+		String filename = "";
+		if(ContantsUtil.NOTICE_TYPE_1.equals(evaluateNoticeType)){
+			filename = "金额消费信息模板.xls";
+		}else if(ContantsUtil.NOTICE_TYPE_2.equals(evaluateNoticeType)){
+			filename = "项目消费信息模板.xls";
+		}else{
+			filename = "充值信息模板.xls";
+		}
+		//获取目标文件的绝对路径 
+	    String fullFileName = this.request().getServletContext().getRealPath("/template/" + filename); 
+		filename = URLEncoder.encode(filename, "UTF-8");
+		this.response().reset();
+	    this.response().addHeader("Content-Disposition", "attachment; filename="+filename);
+	    this.response().setContentType("application/octet-stream;charset=UTF-8");
+	    //读取文件 
+	    InputStream in = null;
+	    OutputStream out = null;
+		try {
+			in = new FileInputStream(fullFileName);
+			out = this.response().getOutputStream();
+			 //写文件 
+		    int b; 
+		    while((b=in.read())!= -1) 
+		    { 
+		      out.write(b); 
+		    } 
+		    in.close();
+			out.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	}
+	
 }
