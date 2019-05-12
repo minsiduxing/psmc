@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import priv.guochun.psmc.system.common.log.factory.TSysOperLogMapFactory;
 import priv.guochun.psmc.system.common.log.model.TSysOperLog;
 import priv.guochun.psmc.system.framework.model.MsgModel;
+import priv.guochun.psmc.system.framework.sms.factory.DefaultSmsModeBuildFactory;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
 import priv.guochun.psmc.system.framework.util.LogResultEnum;
@@ -46,6 +47,15 @@ public class SmsSendRuleSolve
 		this.smsSendModeSrategy = smsSendModeSrategy;
 	}
 
+	private SmsSendRuleSolve(){
+	    
+	}
+	
+	public static SmsSendRuleSolve createInstance(){
+	    SmsSendRuleSolve solve  = new SmsSendRuleSolve();
+	    return solve;
+	}
+	
 
 	public MsgModel sendSms(SmsModel smsModel){
 		Properties pp = SystemPropertiesUtil.getProps();

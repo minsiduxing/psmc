@@ -5,7 +5,6 @@ import java.util.Properties;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.sms.core.SmsSendRuleSolve;
 import priv.guochun.psmc.system.framework.sms.factory.DefaultSmsModeBuildFactory;
-import priv.guochun.psmc.system.framework.sms.model.SjhcSmsModel;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
@@ -23,7 +22,7 @@ public class BaseMobileSmsSendServiceImpl implements MobileSmsSendService {
         String sms_model =pp.getProperty("sms_model");
         if("xasjhc".equals(sms_model)){
             smsSendRuleSolve.setSmsSendModeSrategy(DefaultSmsModeBuildFactory.getInstance().createChuangXinSsm());
-            return smsSendRuleSolve.sendSms(new SjhcSmsModel(smsModel));
+            return smsSendRuleSolve.sendSms(smsModel);
         }else if("sczgyj".equals(sms_model)){
             smsSendRuleSolve.setSmsSendModeSrategy(DefaultSmsModeBuildFactory.getInstance().createDefaultAlSsm());
         }else
