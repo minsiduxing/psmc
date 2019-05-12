@@ -1,11 +1,8 @@
 package priv.guochun.psmc.system.util;
 
 import java.io.IOException;
-import java.util.Base64.Encoder;
 import java.util.Properties;
 
-import org.apache.http.util.EncodingUtils;
-import org.omg.IOP.Encoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
