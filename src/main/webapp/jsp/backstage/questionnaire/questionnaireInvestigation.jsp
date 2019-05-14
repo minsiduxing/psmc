@@ -122,9 +122,26 @@
         <div ><input type="button" value="提交" class="btn_style" onclick="submitFn();"></div> 
     </div>
 </div>
+
+	<!--等待上传中-->
+	<div class="up_load">
+	    <div class="sk-double-bounce">
+	        <div class="sk-child sk-double-bounce1"></div>
+	        <div class="sk-child sk-double-bounce2"></div>
+	    </div>
+	    <p>提交中，请稍等</p>
+	</div>
+	<!--警告提示-->
+	<div class="alert_warn">
+	    <div class="warn_content">
+	        <div class="alert_content"></div>
+	        <div class="btn_click">确定</div>
+	    </div>
+	</div>
+
+
 <%-- <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.min.js"></script> --%>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.raty.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.alertable.js"></script>
 <script>
 	var infoDo = basePath+"/website/backstage/QuestionnaireController.do";
 	var submitQuestionnaireUrl = '<c:url value="'+infoDo+'"/>?method=submitQuestionnaire';
@@ -175,24 +192,46 @@
     		validate = false;
     	}
     	if(!validate){
-    		commonObj.alert("请将问卷完成后再提交!","warning");
+    		$('.alert_content').html("请将问卷完成后再提交!");
+			$('.alert_warn').show();
     		return;
     	} 
     	
     	var formstr = $('#questionForm').serialize();
-    	$.messager.progress(); 
+    	$('.up_load').show();
 		$.ajax({
 			   type: "POST",
 			   url: submitQuestionnaireUrl,
 			   dataType:"json",
 			   data:formstr,
 			   success: function(data){
-				   successCallback(data);
-				   
+				   debugger;
+				   $('.up_load').hide();
+				   if(data.res == 'success'){
+					   $('.alert_content').html("提交成功！");
+				   }else{
+					   $('.alert_content').html(data.msg);
+				   }
+				   $('.alert_warn').show();
 			   },
 			   error:function(XMLHttpRequest, textStatus, errorThrown){
-				   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
-				   $.messager.progress("close");
+				   debugger;
+				   $('.up_load').hide();
+				   var status  = XMLHttpRequest.status;
+				   var sessionstatus=XMLHttpRequest.getResponseHeader("sessionstatus");
+				   if(sessionstatus=='timeout'){ 
+					    $('.alert_content').html("请求超时，请稍后再试！");
+						$('.alert_warn').show();
+					    return;
+				   }
+				   if(status == 500){
+						var responseText = XMLHttpRequest.responseText;
+						$('.alert_content').html(responseText);
+						$('.alert_warn').show();
+						return;
+				   }
+				   $('.alert_content').html("系统错误，请联系管理员！");
+				   $('.alert_warn').show();
 			   }
 		});
     }
@@ -203,6 +242,11 @@
 		$("#evaluateTableId").datagrid('reload');
 		commonObj.showResponse(data);
 	}
+    
+    //隐藏警告层
+    $('.btn_click').click(function () {
+        $('.alert_warn').hide();
+    })
  
 </script>
 </body>

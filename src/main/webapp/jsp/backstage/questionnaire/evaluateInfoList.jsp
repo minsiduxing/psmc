@@ -63,7 +63,7 @@
 						<input id="noticeType" name="noticeType" />	
 			    	
 			    </li>
-			    <li class="li-input"><label for="" class="input-label">选择问卷：</label>
+			    <li class="li-input" id="ishow"><label for="" class="input-label">选择问卷：</label>
 			    		<input id="questionUuid" name="questionUuid" />
 			    </li>
 			    <li class="li-input"><label for="" class="input-label">导入文件：</label>
@@ -107,6 +107,17 @@ $("#evaluatePhone1").textbox({});
 $("#consumptionDateBegin").datebox({});
 $("#consumptionDateEnd").datebox({});
 
+$('#noticeType').combobox({
+    onChange: function () {
+    	var evaluateNoticeType = $("#noticeType").combobox('getValue');
+    	if(evaluateNoticeType == '3'){
+    		$("#ishow").hide();
+    	}else{
+    		$("#ishow").show();
+    	}
+    }
+});
+
 $(document).ready(function(){ 
 	//datagrid 初始化 
 	var evaluateOption = {
@@ -137,7 +148,7 @@ $(document).ready(function(){
 		        	  if(value=='1'){return "待评价";}
 		        	  else if(value=='2'){return ' <a href="#" onclick="querySubjectResult(&apos;'+ row["evaluate_info_uuid"] + "&apos;,&apos;" + row["questionnaire_uuid"] +'&apos;);">已评价</a> ';}
 		        	  else if(value=='4'){return "发送失败";}
-		        	  else{return "无"; }
+		        	  else{return ""; }
 		          }},
 		          {field:'evaluate_time',title:'评价时间',align:'center',sortable:true,width:"145px"}
 		         ] 
@@ -155,7 +166,7 @@ $(document).ready(function(){
 			modal: true,
 			closed: true,
 		    width: 400,
-		    height: 350,
+		    height: 370,
 		    resizable:true,
 		    cache: false,
 		    buttons:[]
@@ -190,10 +201,13 @@ $(document).ready(function(){
 			commonObj.alert("请选择类型!","warning");
 			return;
 		}
-		if(questionnaireUuid==null || questionnaireUuid==""){
-			commonObj.alert("请选择问卷!","warning");
-			return;
-		}  
+		//充值不需要选择问卷
+		if(evaluateNoticeType != '3'){
+			if(questionnaireUuid==null || questionnaireUuid==""){
+				commonObj.alert("请选择问卷!","warning");
+				return;
+			}  
+		}
 		
 		var fileUrl = document.getElementById("filebox_file_id_1");
 		if(fileUrl ==null || fileUrl=='undefined'  || fileUrl.value == null || fileUrl.value == ""){
