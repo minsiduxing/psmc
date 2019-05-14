@@ -134,7 +134,7 @@
 	 <!-- 问卷信息 -->
 	 <bean id="tabQuestionnaireService" class="priv.guochun.psmc.website.backstage.questionnaire.service.impl.TabQuestionnaireServiceImpl"/>
 	 
-	 
+	 <bean id="tabRealUrlService" class="priv.guochun.psmc.website.backstage.questionnaire.service.impl.TabRealUrlServiceImpl"/>
 	
 	
 </beans>

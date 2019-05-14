@@ -22,7 +22,9 @@ import priv.guochun.psmc.system.util.TimestampUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
 import priv.guochun.psmc.website.backstage.questionnaire.model.TabEvaluateInfo;
+import priv.guochun.psmc.website.backstage.questionnaire.model.TabRealUrl;
 import priv.guochun.psmc.website.backstage.questionnaire.service.TabEvaluateInfoService;
+import priv.guochun.psmc.website.backstage.questionnaire.service.TabRealUrlService;
 import priv.guochun.psmc.website.backstage.util.GenerateShortUrlUtil;
 import priv.guochun.psmc.website.backstage.util.MsgTemplateUtil;
 
@@ -37,6 +39,8 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 	private BaseDao baseDao;
 	@Autowired
 	private MobileSmsSendService baseMobileSmsSendService;
+	@Autowired
+	private TabRealUrlService tabRealUrlService;
 
 	@Override
 	public void insertEvaluateInfoBusinessMethod(TabEvaluateInfo evaluateInfo, User user) {
@@ -53,8 +57,12 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 			String url = SystemPropertiesUtil.getQuestionnaireUrl();
 			String visitUrl = url+"&questionnaireUuid="+evaluateInfo.getQuestionnaireUuid()+"&evaluateInfoUuid="+evaluateInfo.getEvaluateInfoUuid();
 			evaluateInfo.setVisitUrl(visitUrl);
+			TabRealUrl realUrl = new TabRealUrl();
+			realUrl.setRealUrl(visitUrl);
+			String id = tabRealUrlService.insertRealUrl(realUrl);
+			String shortUrl = "http://localhost:8080/psmc/ru.do?method=url&id=" + id;
 			//转换短链接
-			String shortUrl = GenerateShortUrlUtil.createShortUrl(evaluateInfo.getVisitUrl());
+//			String shortUrl = GenerateShortUrlUtil.createShortUrl(evaluateInfo.getVisitUrl());
 			evaluateInfo.setVisitShortUrl(shortUrl);
 			evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_1); //待评价
 		}//充值
