@@ -4,7 +4,7 @@ import priv.guochun.psmc.website.backstage.questionnaire.model.TabRealUrl;
 
 public interface TabRealUrlService {
 
-	public String insertRealUrl(TabRealUrl realUrl);
+	public Integer insertRealUrl(TabRealUrl realUrl);
 	
-	public TabRealUrl queryRealUrlById(String id);
+	public TabRealUrl queryRealUrlById(Integer id);
 }

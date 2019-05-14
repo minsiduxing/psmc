@@ -109,6 +109,8 @@ public class SystemPropertiesUtil
     public final static String MSG_CONTENT_3 = "msg_content_3";
     /** 问卷访问地址 */
     public final static String QUESTIONS_URL = "questionnaireUrl";
+    /** 虚拟短链接 */
+    public final static String SHORT_URL = "shotUrl";
 
     
     /**
@@ -268,6 +270,9 @@ public class SystemPropertiesUtil
 	}
 	public static String getQuestionnaireUrl(){
 		return getPropertyValue(QUESTIONS_URL);
+	}
+	public static String getShortUrl(){
+		return getPropertyValue(SHORT_URL);
 	}
 
 	public static String getPropertyValue(String key){

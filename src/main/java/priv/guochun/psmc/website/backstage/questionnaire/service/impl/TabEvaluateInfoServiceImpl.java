@@ -55,12 +55,13 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 				|| ContantsUtil.NOTICE_TYPE_2.equals(evaluateInfo.getEvaluateNoticeType())){
 			//获取问卷地址
 			String url = SystemPropertiesUtil.getQuestionnaireUrl();
+			String url1 = SystemPropertiesUtil.getShortUrl();
 			String visitUrl = url+"&questionnaireUuid="+evaluateInfo.getQuestionnaireUuid()+"&evaluateInfoUuid="+evaluateInfo.getEvaluateInfoUuid();
 			evaluateInfo.setVisitUrl(visitUrl);
 			TabRealUrl realUrl = new TabRealUrl();
 			realUrl.setRealUrl(visitUrl);
-			String id = tabRealUrlService.insertRealUrl(realUrl);
-			String shortUrl = "http://localhost:8080/psmc/ru.do?method=url&id=" + id;
+			Integer id = tabRealUrlService.insertRealUrl(realUrl);
+			String shortUrl = url1 + id;
 			//转换短链接
 //			String shortUrl = GenerateShortUrlUtil.createShortUrl(evaluateInfo.getVisitUrl());
 			evaluateInfo.setVisitShortUrl(shortUrl);
@@ -123,6 +124,7 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 			Date currentDate = new Date();
 			//获取问卷地址
 			String url = SystemPropertiesUtil.getQuestionnaireUrl();
+			String url1 = SystemPropertiesUtil.getShortUrl();
 			//第一条数据是表头，跳过
             for(int i=1; i<excelList.size(); i++) {
             	String[] strs = excelList.get(i);
@@ -148,8 +150,12 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
         			evaluateInfo.setSurplusScore(Integer.valueOf(strs[6]));
         			evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_1); //待评价
         			evaluateInfo.setVisitUrl(visitUrl);
+        			TabRealUrl realUrl = new TabRealUrl();
+        			realUrl.setRealUrl(visitUrl);
+        			Integer id = tabRealUrlService.insertRealUrl(realUrl);
+        			String shortUrl = url1 + id;
         			//转换短链接
-        			String shortUrl = GenerateShortUrlUtil.createShortUrl(visitUrl);
+//        			String shortUrl = GenerateShortUrlUtil.createShortUrl(visitUrl);
         			evaluateInfo.setVisitShortUrl(shortUrl);
             	}else if(ContantsUtil.NOTICE_TYPE_2.equals(evaluateNoticeType)){
             		evaluateInfo.setConsumptionItem(strs[4]);
@@ -157,8 +163,12 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
             		evaluateInfo.setSurplusScore(Integer.valueOf(strs[6]));
             		evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_1); //待评价
             		evaluateInfo.setVisitUrl(visitUrl);
+            		TabRealUrl realUrl = new TabRealUrl();
+        			realUrl.setRealUrl(visitUrl);
+        			Integer id = tabRealUrlService.insertRealUrl(realUrl);
+        			String shortUrl = "http://localhost:8080/psmc/ru.do?method=url&id=" + id;
             		//转换短链接
-        			String shortUrl = GenerateShortUrlUtil.createShortUrl(visitUrl);
+//        			String shortUrl = GenerateShortUrlUtil.createShortUrl(visitUrl);
         			evaluateInfo.setVisitShortUrl(shortUrl);
             	}else{
             		evaluateInfo.setRechargeAmount(new BigDecimal(strs[4]));

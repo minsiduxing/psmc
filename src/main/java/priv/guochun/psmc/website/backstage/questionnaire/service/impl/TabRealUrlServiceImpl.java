@@ -15,13 +15,13 @@ public class TabRealUrlServiceImpl implements TabRealUrlService{
 	private BaseDao baseDao;
 	
 	@Override
-	public String insertRealUrl(TabRealUrl realUrl) {
+	public Integer insertRealUrl(TabRealUrl realUrl) {
 		baseDao.insert(insertRealUrl, realUrl);
 		return realUrl.getId();
 	}
 
 	@Override
-	public TabRealUrl queryRealUrlById(String id) {
+	public TabRealUrl queryRealUrlById(Integer id) {
 		return (TabRealUrl) baseDao.queryForObject(selectRealUrlById, id);
 	}
 

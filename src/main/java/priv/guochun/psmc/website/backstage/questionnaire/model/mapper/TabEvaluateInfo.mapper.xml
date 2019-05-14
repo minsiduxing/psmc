@@ -59,6 +59,9 @@
 	     <if test="consumptionDateEnd != null and consumptionDateEnd !='' ">
 	     	and <![CDATA[t1.consumption_date <= #{consumptionDateEnd}]]>
 	     </if>
+	     <if test="evaluateNoticeType1 != null and evaluateNoticeType1 !='' ">
+	     	and <![CDATA[t1.evaluate_notice_type = #{evaluateNoticeType1}]]>
+	     </if>
 	    </where>
 	    order by t1.consumption_date desc
   </select>

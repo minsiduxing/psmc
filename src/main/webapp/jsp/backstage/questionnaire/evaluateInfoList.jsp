@@ -19,9 +19,9 @@
 				<input class="myinput" id="evaluatePhone1" name="evaluatePhone1"></input>
 			</li>
 			
-		    <!-- <li class="li-input"><label for="" class="input-label">消费类型：</label>
-				<input id="evaluateNoticeType" name="evaluateNoticeType"/>
-			</li> -->
+		    <li class="li-input"><label for="" class="input-label">消费类型：</label>
+				<input id="evaluateNoticeType1" name="evaluateNoticeType1"/>
+			</li>
 			
 			<li class="li-input"><label for="" class="input-label">消费时间：</label>
 			<input id="consumptionDateBegin" name="consumptionDateBegin" ></input>
@@ -99,6 +99,7 @@ var dowloadUrl = '<c:url value="'+infoDo+'"/>?method=downloadExcelTemplate';
 var questionDo = basePath+"/website/backstage/QuestionnaireController.do";
 var queryResultDetailsUrl = '<c:url value="'+questionDo+'"/>?method=queryResultDetails';
 
+commonObj.initDictCombobox("evaluateNoticeType1","NOTICE_TYPE",null,true,false);
 commonObj.initDictCombobox("noticeType","NOTICE_TYPE",null,true,false);
 commonObj.initQuestionnaireCombobox("questionUuid",null,true);
 
@@ -130,7 +131,7 @@ $(document).ready(function(){
 		          {field:'evaluate_name',title:'客户姓名',resizable:true,align:'center',sortable:true},    
 		          {field:'evaluate_phone',title:'客户电话',resizable:true,align:'center'}, 
 		          {field:'evaluate_nick_name',title:'客户昵称',align:'center'}, 
-		          {field:'consumption_date',title:'消费日期',align:'center',sortable:true}, 
+		          {field:'consumption_date',title:'消费（充值）日期',align:'center',sortable:true}, 
 		          {field:'evaluate_notice_type',title:'消费类型',align:'center',sortable:true,resizable:true,formatter:function(value, row, index){
 		        	  if(value=='1'){return "金额消费";}
 		        	  if(value=='2'){return "项目消费";}

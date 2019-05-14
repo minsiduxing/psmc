@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="priv.guochun.psmc.website.backstage.questionnaire.model.mapper.TabRealUrlMapper">
   <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.questionnaire.model.TabRealUrl">
-    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="real_url" jdbcType="VARCHAR" property="realUrl" />
   </resultMap>
   
-  <select id="selectRealUrlById" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select * from tab_real_url where id = #{id,jdbcType=VARCHAR}
+  <select id="selectRealUrlById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from tab_real_url where id = #{id,jdbcType=INTEGER}
   </select>
   
 
