@@ -200,7 +200,7 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 	private String getMsgContent(TabEvaluateInfo evaluateInfo){
 		String templateContent = "";
 		Map<String, Object> contentParamMap = new HashMap<String, Object>();
-		contentParamMap.put("evaluateName", evaluateInfo.getEvaluateName());
+		contentParamMap.put("evaluateNickName", evaluateInfo.getEvaluateNickName());
 		contentParamMap.put("consumptionDate", DateUtil.getDateString(evaluateInfo.getConsumptionDate()));
 		//获取短信模板内容
 		if(ContantsUtil.NOTICE_TYPE_1.equals(evaluateInfo.getEvaluateNoticeType())){
