@@ -15,7 +15,7 @@ public interface TabEvaluateInfoService {
 	 * @param evaluateInfoUuid
 	 * @return
 	 */
-	public String sendMsg(String evaluateInfoUuid);
+	public boolean sendMsg(String evaluateInfoUuid);
 	
 	public MyPage queryEvaluateInfoList(MyPage page);
 	

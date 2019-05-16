@@ -30,6 +30,9 @@
 			<li class="li-input"><label for="" class="input-label">至：</label>
 					<input id="consumptionDateEnd" name="consumptionDateEnd" />
 			</li>
+			 <li class="li-input"><label for="" class="input-label">状态：</label>
+				<input id="evaluateStatus" name="evaluateStatus"/>
+			</li>
 	</ul>
 	</form>
 	<div class="query-oper">
@@ -94,12 +97,14 @@ var infoDo = basePath+"/website/backstage/EvauateInfoController.do";
 var getInfoDataUrl = '<c:url value="'+infoDo+'"/>?method=evaluateInfoList';
 var uploadExcelUrl = '<c:url value="'+infoDo+'"/>?method=loadExcelEvaluateInfo';
 var toAddEvaluateInfoUrl = '<c:url value="'+infoDo+'"/>?method=toAddEvaluateInfo';
-var dowloadUrl = '<c:url value="'+infoDo+'"/>?method=downloadExcelTemplate';
+var dowloadUrl = '<c:url value="'+infoDo+'"/>?method=downloadExcelTemplate'; 
+var sendMsgUrl = '<c:url value="'+infoDo+'"/>?method=sendMsg';
 //查看评价详情
 var questionDo = basePath+"/website/backstage/QuestionnaireController.do";
 var queryResultDetailsUrl = '<c:url value="'+questionDo+'"/>?method=queryResultDetails';
 
 commonObj.initDictCombobox("evaluateNoticeType1","NOTICE_TYPE",null,true,false);
+commonObj.initDictCombobox("evaluateStatus","EVALUATE_STATUS",null,true,false);
 commonObj.initDictCombobox("noticeType","NOTICE_TYPE",null,true,false);
 commonObj.initQuestionnaireCombobox("questionUuid",null,true);
 
@@ -125,6 +130,9 @@ $(document).ready(function(){
 		tabId:"evaluateTableId",
 		toolbar:"toolbarId",
 		url:getInfoDataUrl,
+		sortName:"input_time",
+		sortOrder:"desc",
+		remoteSort:true,
 		columns:[[   
 		          {field:'evaluate_info_uuid',title:'消费信息主键标识',checkbox:true},
 		          {field:'questionnaire_uuid',title:'问卷信息id',hidden:true},
@@ -145,13 +153,16 @@ $(document).ready(function(){
 		          {field:'consumption_item',title:'消费项目',align:'center'},
 		          {field:'questionnaire_name',title:'问卷名称',align:'center'},
 		          {field:'input_time',title:'录入时间',align:'center',sortable:true,width:"145px"},
-		          {field:'evaluate_status',title:'评价状态',align:'center',formatter:function(value, row, index){
+		          {field:'evaluate_status',title:'状态',align:'center',formatter:function(value, row, index){
 		        	  if(value=='1'){return "待评价";}
 		        	  else if(value=='2'){return ' <a href="#" onclick="querySubjectResult(&apos;'+ row["evaluate_info_uuid"] + "&apos;,&apos;" + row["questionnaire_uuid"] +'&apos;);">已评价</a> ';}
 		        	  else if(value=='4'){return "发送失败";}
 		        	  else{return ""; }
 		          }},
-		          {field:'evaluate_time',title:'评价时间',align:'center',sortable:true,width:"145px"}
+		          {field:'evaluate_time',title:'评价时间',align:'center',sortable:true,width:"145px"},
+		          {field:'caozuo', title:'操作', width:"60px",align:'center',formatter:function(value, row, index){
+		        	 if(row["evaluate_status"] == '4'){return '<a href="#" onclick="sendMsg(&apos;'+ row["evaluate_info_uuid"] +'&apos;);">重新发送</a>';}
+		          }}
 		         ] 
 		      ]
 	};
@@ -277,6 +288,23 @@ $(document).ready(function(){
 	//下载模板
 	function downloadTemplate(evaluateNoticeType){
 		window.location.href = dowloadUrl + "&evaluateNoticeType=" + evaluateNoticeType; 
+	}
+	
+	function sendMsg(evaluateInfoUuid){
+		$.messager.progress(); 
+		$.ajax({
+			   type: "POST",
+			   url: sendMsgUrl,
+			   data:{"evaluateInfoUuid":evaluateInfoUuid},
+			   success: function(data){
+				   $.messager.progress("close");
+				   successCallback(data);
+			   },
+			   error:function(XMLHttpRequest, textStatus, errorThrown){
+				   commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+				   $.messager.progress("close");
+			   }
+		});
 	}
 	
 	//表单提交成功后的回调方法

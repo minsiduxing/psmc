@@ -205,7 +205,6 @@
 			   dataType:"json",
 			   data:formstr,
 			   success: function(data){
-				   debugger;
 				   $('.up_load').hide();
 				   if(data.res == 'success'){
 					   $('.alert_content').html("提交成功！");
@@ -215,7 +214,6 @@
 				   $('.alert_warn').show();
 			   },
 			   error:function(XMLHttpRequest, textStatus, errorThrown){
-				   debugger;
 				   $('.up_load').hide();
 				   var status  = XMLHttpRequest.status;
 				   var sessionstatus=XMLHttpRequest.getResponseHeader("sessionstatus");

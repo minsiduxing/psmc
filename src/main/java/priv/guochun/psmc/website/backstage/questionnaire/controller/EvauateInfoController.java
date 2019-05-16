@@ -88,8 +88,13 @@ public class EvauateInfoController extends MyController{
 	 */
 	@RequestMapping(params="method=sendMsg")
 	public void sendMsg(String evaluateInfoUuid) throws IOException{
-		String result = tabEvaluateInfoService.sendMsg(evaluateInfoUuid);
-		super.responseJson(JSON.parseObject(result), this.response());
+		boolean result = tabEvaluateInfoService.sendMsg(evaluateInfoUuid);
+		if(result){
+			super.responseJson(true, "发送成功!", this.response());
+		}else{
+			super.responseJson(false, "发送失败，请重新尝试!", this.response());
+		}
+		
 	}
 	
 	/**

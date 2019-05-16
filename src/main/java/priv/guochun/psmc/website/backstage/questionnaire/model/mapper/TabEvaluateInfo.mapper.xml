@@ -60,10 +60,13 @@
 	     	and <![CDATA[t1.consumption_date <= #{consumptionDateEnd}]]>
 	     </if>
 	     <if test="evaluateNoticeType1 != null and evaluateNoticeType1 !='' ">
-	     	and <![CDATA[t1.evaluate_notice_type = #{evaluateNoticeType1}]]>
+	     	and t1.evaluate_notice_type = #{evaluateNoticeType1}
+	     </if>
+	     <if test="evaluateStatus != null and evaluateStatus !='' ">
+	     	and t1.evaluate_status = #{evaluateStatus}
 	     </if>
 	    </where>
-	    order by t1.consumption_date desc
+	     order by t1.input_time desc
   </select>
   
   <select id="selectEvaluateByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">

@@ -97,7 +97,7 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 	}
 
 	@Override
-	public String sendMsg(String evaluateInfoUuid) {
+	public boolean sendMsg(String evaluateInfoUuid) {
 		TabEvaluateInfo evaluateInfo = this.selectById(evaluateInfoUuid);
 		//发送短信
 		SmsModel sm = new SmsModel();
@@ -109,9 +109,9 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
         if(mm.isSuccess()){
         	evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_1); //待评价;
         	this.updateEvaluate(evaluateInfo);
-        	return GsonUtil.toJsonForObject(MsgModel.buildDefaultSuccess());
+        	return true;
         }else{
-        	return GsonUtil.toJsonForObject(mm);
+        	return false;
         }
 	}
 	
