@@ -47,8 +47,8 @@ public class EvauateInfoController extends MyController{
 	@RequestMapping(params="method=submit")
 	public void submit(TabEvaluateInfo evaluateInfo) throws IOException{
 		User user = this.getUserBySeesion(this.request());
-		tabEvaluateInfoService.insertEvaluateInfoBusinessMethod(evaluateInfo, user);
-		super.responseJson(true, "操作成功!", this.response());
+		Map<String, Object> resultMap = tabEvaluateInfoService.insertEvaluateInfoBusinessMethod(evaluateInfo, user);
+		super.responseJson(Boolean.valueOf(resultMap.get("success").toString()), resultMap.get("msg").toString(), this.response());
 	}
 	
 	/**

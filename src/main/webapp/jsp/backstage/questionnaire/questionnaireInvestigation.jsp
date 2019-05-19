@@ -212,6 +212,10 @@
 					   $('.alert_content').html(data.msg);
 				   }
 				   $('.alert_warn').show();
+				   $('.btn_click').unbind().click(function () {
+				        $('.alert_warn').hide();
+				        window.location.href = "http://www.sjhcspa.com/";
+				    })
 			   },
 			   error:function(XMLHttpRequest, textStatus, errorThrown){
 				   $('.up_load').hide();

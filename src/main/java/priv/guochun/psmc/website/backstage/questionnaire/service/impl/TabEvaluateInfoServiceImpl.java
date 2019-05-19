@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import priv.guochun.psmc.authentication.login.model.User;
+import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
@@ -43,7 +44,8 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 	private TabRealUrlService tabRealUrlService;
 
 	@Override
-	public void insertEvaluateInfoBusinessMethod(TabEvaluateInfo evaluateInfo, User user) {
+	public Map<String, Object> insertEvaluateInfoBusinessMethod(TabEvaluateInfo evaluateInfo, User user) {
+		Map<String, Object> resultmap = new HashMap<String, Object>();
 		Date currentDate = new Date();
 		evaluateInfo.setEvaluateInfoUuid(UUIDGenerator.createUUID());
 		evaluateInfo.setConsumptionDate(currentDate);
@@ -73,17 +75,22 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 		
 		String msgContent = this.getMsgContent(evaluateInfo);
 		evaluateInfo.setNoticeNote(msgContent);
-		
+		baseDao.insert(insertEvaluateSelective, evaluateInfo);
 		//发送短信
 		SmsModel sm = new SmsModel();
         sm.setCreateTime(TimestampUtil.createCurTimestamp());
         sm.setReceiveContext(msgContent);
         sm.setReceiveNo(evaluateInfo.getEvaluatePhone());
         MsgModel mm = baseMobileSmsSendService.sendSms(sm);
+        resultmap.put("success", true);
+        resultmap.put("msg", "保存成功");
         if(!mm.isSuccess()){
         	evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_4); //短信发送失败;
+        	baseDao.update(updateEvaluateSelective, evaluateInfo);
+        	resultmap.put("success", false);
+            resultmap.put("msg", "保存成功，短信发送失败");
         }
-		baseDao.insert(insertEvaluateSelective, evaluateInfo);
+		return resultmap;
 	}
 	
 	@Override
@@ -139,9 +146,9 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
         		evaluateInfo.setEvaluatePhone(strs[2]);
         		evaluateInfo.setNoticeTime(currentDate);
         		try {
-					evaluateInfo.setConsumptionDate(DateUtil.getDate(strs[3], "yyyy-mm-dd"));
+					evaluateInfo.setConsumptionDate(DateUtil.getDate(strs[3], "yyyy-MM-dd"));
 				} catch (ParseException e) {
-					e.printStackTrace();
+					throw new PsmcBuisnessException("时间格式错误！");
 				}
         		String visitUrl = url+"&questionnaireUuid="+evaluateInfo.getQuestionnaireUuid()+"&evaluateInfoUuid="+evaluateInfo.getEvaluateInfoUuid();
         		if(ContantsUtil.NOTICE_TYPE_1.equals(evaluateNoticeType)){
@@ -166,7 +173,7 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
             		TabRealUrl realUrl = new TabRealUrl();
         			realUrl.setRealUrl(visitUrl);
         			Integer id = tabRealUrlService.insertRealUrl(realUrl);
-        			String shortUrl = "http://localhost:8080/psmc/ru.do?method=url&id=" + id;
+        			String shortUrl = url1 + id;
             		//转换短链接
 //        			String shortUrl = GenerateShortUrlUtil.createShortUrl(visitUrl);
         			evaluateInfo.setVisitShortUrl(shortUrl);
@@ -177,6 +184,7 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
             	}
         		String msgContent = this.getMsgContent(evaluateInfo);
         		evaluateInfo.setNoticeNote(msgContent);
+        		baseDao.insert(insertEvaluateSelective, evaluateInfo);
         		//发送短信
         		SmsModel sm = new SmsModel();
                 sm.setCreateTime(TimestampUtil.createCurTimestamp());
@@ -185,8 +193,9 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
                 MsgModel mm = baseMobileSmsSendService.sendSms(sm);
                 if(!mm.isSuccess()){
                 	evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_4); //短信发送失败;
+                	baseDao.update(updateEvaluateSelective, evaluateInfo);
                 }
-        		baseDao.insert(insertEvaluateSelective, evaluateInfo);
+        		
             }
         }
 		
