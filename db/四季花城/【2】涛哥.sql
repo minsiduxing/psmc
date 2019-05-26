@@ -172,3 +172,7 @@ insert into tab_subject_config (subject_uuid, questionnaire_uuid, subject_name, 
                                 values ('d5690268600b4779be83128e7094cc4e', 'e8be9919c09242ea928f7e3bdfc6b228', '您在做SPA的过程中更希望', 5, 2);
 insert into tab_subject_config (subject_uuid, questionnaire_uuid, subject_name,  subject_order, subject_type)
                                 values ('0459acf22f7a4ff0a48ba13d93253f54', 'e8be9919c09242ea928f7e3bdfc6b228', '您的意见与建议', 6, 5);
+
+                                
+/*问题合并成一个总体评价*/                       
+update tab_subject_config set subject_name='总体评价' where subject_uuid='99ad2665ff2c409990e17df4c011119c' and subject_name='接待人员的服务态度';

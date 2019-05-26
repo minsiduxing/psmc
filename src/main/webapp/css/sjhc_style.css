@@ -83,14 +83,14 @@ input::placeholder {
     padding: 3% 0;
 }
 
-.title-text span:before, .title-text span:after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    background: #4a4a4a;
-    width: 8%;
-    height: 1px;
-}
+/* .title-text span:before, .title-text span:after { */
+/*     content: ''; */
+/*     position: absolute; */
+/*     top: 50%; */
+/*     background: #4a4a4a; */
+/*     width: 8%; */
+/*     height: 1px; */
+/* } */
 
 .title-text span:before {
     left: 18%;
@@ -122,7 +122,7 @@ input::placeholder {
     display: none;
 }
 .target-demo{
-    width: 33vw !important;
+    width: 60vw !important;
     float: right;
     background: #ffffff;
 }
