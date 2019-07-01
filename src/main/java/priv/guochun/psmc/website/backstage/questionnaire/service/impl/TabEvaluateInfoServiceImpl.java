@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import priv.guochun.psmc.authentication.login.model.User;
@@ -165,8 +166,17 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 //        			String shortUrl = GenerateShortUrlUtil.createShortUrl(visitUrl);
         			evaluateInfo.setVisitShortUrl(shortUrl);
             	}else if(ContantsUtil.NOTICE_TYPE_2.equals(evaluateNoticeType)){
-            		evaluateInfo.setConsumptionItem(strs[4]);
-            		evaluateInfo.setSurplusNumber(Integer.valueOf(strs[5]));
+            		String consumptionItem = strs[4];
+            		String surplusNumber = strs[5];
+            		if(StringUtils.isNotBlank(consumptionItem) && StringUtils.isNotBlank(surplusNumber)){
+            			String[] itemArray = consumptionItem.split("&");
+                		String[] numberArray = surplusNumber.split("&");
+                		if(itemArray.length != numberArray.length){
+                			throw new PsmcBuisnessException("消费项目数与剩余次数不匹配！");
+                		}
+            		}
+            		evaluateInfo.setConsumptionItem(consumptionItem);
+            		evaluateInfo.setSurplusNumber(surplusNumber);
             		evaluateInfo.setSurplusScore(Integer.valueOf(strs[6]));
             		evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_1); //待评价
             		evaluateInfo.setVisitUrl(visitUrl);
@@ -180,6 +190,7 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
             	}else{
             		evaluateInfo.setRechargeAmount(new BigDecimal(strs[4]));
             		evaluateInfo.setSurplusAmount(new BigDecimal(strs[5]));
+            		evaluateInfo.setGiveAmount(strs[6]); //赠送金额
             		evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_3); //充值不需要评价
             	}
         		String msgContent = this.getMsgContent(evaluateInfo);
@@ -220,14 +231,21 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 			contentParamMap.put("visitShortUrl", evaluateInfo.getVisitShortUrl());
 		}else if(ContantsUtil.NOTICE_TYPE_2.equals(evaluateInfo.getEvaluateNoticeType())){
 			templateContent = SystemPropertiesUtil.getMsgContent_2();
-			contentParamMap.put("consumptionItem", evaluateInfo.getConsumptionItem());
-			contentParamMap.put("surplusNumber", evaluateInfo.getSurplusNumber());
+			String itemContent = "";
+			String[] itemArray = evaluateInfo.getConsumptionItem().split("&");
+			String[] numberArray = evaluateInfo.getSurplusNumber().split("&");
+			//拼接消费项目
+			for (int i = 0; i < itemArray.length; i++) {
+				itemContent += itemArray[i] + "，剩余" + numberArray[i] + "次，";
+			}
+			contentParamMap.put("itemContent", itemContent);
 			contentParamMap.put("surplusScore", evaluateInfo.getSurplusScore());
 			contentParamMap.put("visitShortUrl", evaluateInfo.getVisitShortUrl());
 		}else if(ContantsUtil.NOTICE_TYPE_3.equals(evaluateInfo.getEvaluateNoticeType())){
 			templateContent = SystemPropertiesUtil.getMsgContent_3();
 			contentParamMap.put("rechargeAmount", evaluateInfo.getRechargeAmount());
 			contentParamMap.put("surplusAmount", evaluateInfo.getSurplusAmount());
+			contentParamMap.put("giveAmount", evaluateInfo.getGiveAmount()); //赠送金额
 		}
 		
 		return MsgTemplateUtil.handleTemplate(templateContent, contentParamMap);

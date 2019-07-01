@@ -81,6 +81,7 @@ public class SmsSendRuleSolve
 	         sysOperLog.setOperOutput(GsonUtil.toJsonForObject(mm));
 	         sysOperLog.setOperResult(true == mm.isSuccess()?LogResultEnum.success.getIndex():LogResultEnum.error.getIndex());
 	         sysOperLog.setOperResultDesc("系统发送短信日志记录!");
+	         sysOperLog.setBussinessUuid(smsModel.getReceiveNo());
 	         TSysOperLogMapFactory.getInstance().getTSysOperLog().put(sysOperLog.getUuid(), sysOperLog);
 	         return mm;
 		}catch(Exception e){

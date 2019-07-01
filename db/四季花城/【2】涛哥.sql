@@ -176,3 +176,6 @@ insert into tab_subject_config (subject_uuid, questionnaire_uuid, subject_name, 
                                 
 /*问题合并成一个总体评价*/                       
 update tab_subject_config set subject_name='总体评价' where subject_uuid='99ad2665ff2c409990e17df4c011119c' and subject_name='接待人员的服务态度';
+
+--修改字段类型
+alter table tab_evaluate_info modify column surplus_number varchar(100);

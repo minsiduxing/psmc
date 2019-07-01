@@ -42,6 +42,9 @@
 			<li id="active3" class="li-input"><label for="" class="input-label" style="width: 120px;">充值金额：</label>
 				<input id="rechargeAmount" name="rechargeAmount"></input>
 			</li>
+			<li id="active8" class="li-input"><label for="" class="input-label" style="width: 120px;">赠送金额：</label>
+				<input id="giveAmount" name="giveAmount"></input>
+			</li>
 			<li id="active4" class="li-input"><label for="" class="input-label" style="width: 120px;">剩余金额：</label>
 				<input id="surplusAmount" name="surplusAmount"></input>
 			</li>
@@ -86,7 +89,7 @@
 		required : true
 	});
 
-	$("#surplusNumber").numberbox({
+	$("#surplusNumber").textbox({
 		required : true
 	}); 
 
@@ -96,6 +99,10 @@
 
 	$('#consumptionDate').datebox({
 		editable:false,
+		required : true
+	});
+	
+	$('#giveAmount').numberbox({
 		required : true
 	});
 	
@@ -110,7 +117,8 @@
 	            if(evaluateNoticeType == "1"){ //消费金额
 	    			$("#active2").hide();$('#consumptionItem').textbox({required:false});
 	    			$("#active3").hide();$('#rechargeAmount').numberbox({required:false});
-	    			$("#active5").hide();$('#surplusNumber').numberbox({required:false});
+	    			$("#active5").hide();$('#surplusNumber').textbox({required:false});
+	    			$("#active8").hide();$('#giveAmount').numberbox({required:false});
 	    			$("#active1").show();$('#consumptionAmount').numberbox({required:true});
 	    			$("#active4").show();$('#surplusAmount').numberbox({required:true});
 	    			$("#active6").show();$('#surplusScore').numberbox({required:true});
@@ -119,18 +127,20 @@
 	    			$("#active1").hide();$('#consumptionAmount').numberbox({required:false});
 	    			$("#active3").hide();$('#rechargeAmount').numberbox({required:false});
 	    			$("#active4").hide();$('#surplusAmount').numberbox({required:false});
+	    			$("#active8").hide();$('#giveAmount').numberbox({required:false});
 	    			$("#active2").show();$('#consumptionItem').textbox({required:true});
-	    			$("#active5").show();$('#surplusNumber').numberbox({required:true});
+	    			$("#active5").show();$('#surplusNumber').textbox({required:true});
 	    			$("#active6").show();$('#surplusScore').numberbox({required:true});
 	    			$("#active7").show();
 	    		}else if(evaluateNoticeType == "3"){ //充值金额
 	    			$("#active1").hide();$('#consumptionAmount').numberbox({required:false});
 	    			$("#active2").hide();$('#consumptionItem').textbox({required:false});
-	    			$("#active5").hide();$('#surplusNumber').numberbox({required:false});
+	    			$("#active5").hide();$('#surplusNumber').textbox({required:false});
 	    			$("#active6").hide();$('#surplusScore').numberbox({required:false});
 	    			$("#active7").hide();
 	    			$("#active3").show();$('#rechargeAmount').numberbox({required:true});
 	    			$("#active4").show();$('#surplusAmount').numberbox({required:true});
+	    			$("#active8").show();$('#giveAmount').numberbox({required:true});
 	    		}
 	        }
 	   })
@@ -163,11 +173,21 @@
 		var surplusAmount = $("#surplusAmount").textbox('getValue');//剩余金额
 		var surplusNumber = $("#surplusNumber").textbox('getValue');//剩余次数
 		var surplusScore = $("#surplusScore").textbox('getValue');//剩余积分
+		var consumptionItem = $("#consumptionItem").textbox('getValue');//消费项目
 		
-		var pattern = /^1[34578]\d{9}$/;
+		var pattern = /^1[345789]\d{9}$/;
 		if(!pattern.test(evaluatePhone)){
 			 $.messager.alert('警告','请输入正确的手机号码！','warning');
 			 return;
+		}
+		
+		if(evaluateNoticeType == '2'){
+			var itemArray = consumptionItem.split("&");
+			var numArray = surplusNumber.split("&");
+			if(itemArray.length != numArray.length){
+				$.messager.alert('警告','消费项目数与剩余次数不匹配！','warning');
+				 return;
+			}
 		}
 		/* if(evaluateNoticeType == '1'){
 			if(isNaN(consumptionAmount)){

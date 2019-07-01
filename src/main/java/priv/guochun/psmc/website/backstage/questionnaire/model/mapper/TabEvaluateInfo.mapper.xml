@@ -22,7 +22,7 @@
     <result column="consumption_amount" jdbcType="DECIMAL" property="consumptionAmount" />
     <result column="surplus_amount" jdbcType="DECIMAL" property="surplusAmount" />
     <result column="surplus_score" jdbcType="INTEGER" property="surplusScore" />
-    <result column="surplus_number" jdbcType="INTEGER" property="surplusNumber" />
+    <result column="surplus_number" jdbcType="VARCHAR" property="surplusNumber" />
     <result column="recharge_amount" jdbcType="DECIMAL" property="rechargeAmount" />
     <result column="consumption_item" jdbcType="VARCHAR" property="consumptionItem" />
     <result column="evaluate_time" jdbcType="TIMESTAMP" property="evaluateTime" />
@@ -95,7 +95,7 @@
       #{visitShortUrl,jdbcType=VARCHAR}, #{noticeNote,jdbcType=VARCHAR}, #{isEnableNotice,jdbcType=SMALLINT}, 
       #{noticeTime,jdbcType=TIMESTAMP}, #{evaluateStatus,jdbcType=SMALLINT}, #{effectiveEndDate,jdbcType=TIMESTAMP},
       #{evaluateNickName,jdbcType=VARCHAR}, #{consumptionDate,jdbcType=DATE}, #{consumptionAmount,jdbcType=DECIMAL},
-      #{surplusAmount,jdbcType=DECIMAL}, #{surplusScore,jdbcType=INTEGER}, #{surplusNumber,jdbcType=INTEGER},
+      #{surplusAmount,jdbcType=DECIMAL}, #{surplusScore,jdbcType=INTEGER}, #{surplusNumber,jdbcType=VARCHAR},
       #{rechargeAmount,jdbcType=DECIMAL}, #{consumptionItem,jdbcType=VARCHAR},#{evaluateTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -233,7 +233,7 @@
         #{surplusScore,jdbcType=INTEGER}, 
       </if>
       <if test="surplusNumber != null">
-        #{surplusNumber,jdbcType=INTEGER},
+        #{surplusNumber,jdbcType=VARCHAR},
       </if>
       <if test="rechargeAmount != null">
         #{rechargeAmount,jdbcType=DECIMAL},
@@ -305,7 +305,7 @@
         surplus_score = #{surplusScore,jdbcType=INTEGER}, 
       </if>
       <if test="surplusNumber != null">
-        surplus_number = #{surplusNumber,jdbcType=INTEGER},
+        surplus_number = #{surplusNumber,jdbcType=VARCHAR},
       </if>
       <if test="rechargeAmount != null">
         recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
@@ -340,7 +340,7 @@
 	  consumption_amount = #{consumptionAmount,jdbcType=DECIMAL},
 	  surplus_amount = #{surplusAmount,jdbcType=DECIMAL}, 
 	  surplus_score = #{surplusScore,jdbcType=INTEGER}, 
-	  surplus_number = #{surplusNumber,jdbcType=INTEGER},
+	  surplus_number = #{surplusNumber,jdbcType=VARCHAR},
 	  recharge_amount = #{rechargeAmount,jdbcType=DECIMAL}, 
 	  consumption_item = #{consumptionItem,jdbcType=VARCHAR},
 	  evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP}

@@ -64,7 +64,7 @@ public class TabEvaluateInfo implements Serializable{
      * 剩余次数
      * @mbg.generated Sat Apr 20 17:20:54 CST 2019
      */
-    private Integer surplusNumber;
+    private String surplusNumber;
     /**
      * 充值金额
      * @mbg.generated Sat Apr 20 17:20:54 CST 2019
@@ -139,6 +139,10 @@ public class TabEvaluateInfo implements Serializable{
      * 评价时间
      */
     private Timestamp evaluateTime;
+    
+    /** 非持久化字段 **/
+    //赠送金额
+    private String giveAmount;
 
     public String getEvaluateInfoUuid() {
         return evaluateInfoUuid;
@@ -292,11 +296,11 @@ public class TabEvaluateInfo implements Serializable{
 		this.surplusScore = surplusScore;
 	}
 
-	public Integer getSurplusNumber() {
+	public String getSurplusNumber() {
 		return surplusNumber;
 	}
 
-	public void setSurplusNumber(Integer surplusNumber) {
+	public void setSurplusNumber(String surplusNumber) {
 		this.surplusNumber = surplusNumber;
 	}
 
@@ -322,6 +326,14 @@ public class TabEvaluateInfo implements Serializable{
 
 	public void setEvaluateTime(Timestamp evaluateTime) {
 		this.evaluateTime = evaluateTime;
+	}
+
+	public String getGiveAmount() {
+		return giveAmount;
+	}
+
+	public void setGiveAmount(String giveAmount) {
+		this.giveAmount = giveAmount;
 	}
     
 }
