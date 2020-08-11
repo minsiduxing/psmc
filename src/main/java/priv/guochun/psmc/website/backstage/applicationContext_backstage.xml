@@ -136,5 +136,9 @@
 	 
 	 <bean id="tabRealUrlService" class="priv.guochun.psmc.website.backstage.questionnaire.service.impl.TabRealUrlServiceImpl"/>
 	
-	
+	 <!-- 消息 -->
+	 <bean id="tabMessagePoolService" class="priv.guochun.psmc.website.backstage.message.service.impl.TabMessagePoolServiceImpl"/>
+	 <bean id="tabMessageTempService" class="priv.guochun.psmc.website.backstage.message.service.impl.TabMessageTempServiceImpl"/>
+	 <bean id="tabMessageBlackService" class="priv.guochun.psmc.website.backstage.message.service.impl.TabMessageBlackServiceImpl"/>
+	 
 </beans>
