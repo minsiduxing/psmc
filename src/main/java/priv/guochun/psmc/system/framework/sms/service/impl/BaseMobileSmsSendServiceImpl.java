@@ -21,7 +21,7 @@ public class BaseMobileSmsSendServiceImpl implements MobileSmsSendService {
 	    Properties pp = SystemPropertiesUtil.getProps();
         String sms_model =pp.getProperty("sms_model");
         if("xasjhc".equals(sms_model)){
-            smsSendRuleSolve.setSmsSendModeSrategy(DefaultSmsModeBuildFactory.getInstance().createChuangXinSsm());
+            smsSendRuleSolve.setSmsSendModeSrategy(DefaultSmsModeBuildFactory.getInstance().createZhongYiSsm());
             return smsSendRuleSolve.sendSms(smsModel);
         }else if("sczgyj".equals(sms_model)){
             smsSendRuleSolve.setSmsSendModeSrategy(DefaultSmsModeBuildFactory.getInstance().createDefaultAlSsm());
@@ -31,14 +31,10 @@ public class BaseMobileSmsSendServiceImpl implements MobileSmsSendService {
 		return smsSendRuleSolve.sendSms(smsModel);
 	}
 
-
+	
     public void setSmsSendRuleSolve(SmsSendRuleSolve smsSendRuleSolve)
     {
         this.smsSendRuleSolve = smsSendRuleSolve;
     }
-
-	
-	
-	
 	
 }

@@ -2,6 +2,7 @@ package priv.guochun.psmc.website.backstage.questionnaire.service.impl;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,7 @@ import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
 import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.DateUtil;
+import priv.guochun.psmc.system.util.JsonUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.system.util.TimestampUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
@@ -76,11 +78,17 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 		
 		String msgContent = this.getMsgContent(evaluateInfo);
 		evaluateInfo.setNoticeNote(msgContent);
-		baseDao.insert(insertEvaluateSelective, evaluateInfo);
+		//baseDao.insert(insertEvaluateSelective, evaluateInfo);
 		//发送短信
 		SmsModel sm = new SmsModel();
         sm.setCreateTime(TimestampUtil.createCurTimestamp());
         sm.setReceiveContext(msgContent);
+        sm.setSendType("2");
+        if(ContantsUtil.NOTICE_TYPE_1.equals(evaluateInfo.getEvaluateNoticeType())) {
+        	sm.setSmsId(ContantsUtil.MSG_CONTENT_1);
+        }else if(ContantsUtil.NOTICE_TYPE_2.equals(evaluateInfo.getEvaluateNoticeType())) {
+        	sm.setSmsId(ContantsUtil.MSG_CONTENT_2);
+        }
         sm.setReceiveNo(evaluateInfo.getEvaluatePhone());
         MsgModel mm = baseMobileSmsSendService.sendSms(sm);
         resultmap.put("success", true);
@@ -195,10 +203,19 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
             	}
         		String msgContent = this.getMsgContent(evaluateInfo);
         		evaluateInfo.setNoticeNote(msgContent);
-        		baseDao.insert(insertEvaluateSelective, evaluateInfo);
+        		//baseDao.insert(insertEvaluateSelective, evaluateInfo);
         		//发送短信
         		SmsModel sm = new SmsModel();
                 sm.setCreateTime(TimestampUtil.createCurTimestamp());
+                sm.setReceiveContext(msgContent);
+                sm.setSendType("2");
+                if(ContantsUtil.NOTICE_TYPE_1.equals(evaluateInfo.getEvaluateNoticeType())) {
+                	sm.setSmsId(ContantsUtil.MSG_CONTENT_1);
+                }else if(ContantsUtil.NOTICE_TYPE_2.equals(evaluateInfo.getEvaluateNoticeType())) {
+                	sm.setSmsId(ContantsUtil.MSG_CONTENT_2);
+                }else if(ContantsUtil.NOTICE_TYPE_3.equals(evaluateInfo.getEvaluateNoticeType())) {
+                	sm.setSmsId(ContantsUtil.MSG_CONTENT_3);
+                }
                 sm.setReceiveContext(msgContent);
                 sm.setReceiveNo(evaluateInfo.getEvaluatePhone());
                 MsgModel mm = baseMobileSmsSendService.sendSms(sm);
@@ -217,7 +234,7 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 	 * @param evaluateInfo
 	 * @return
 	 */
-	private String getMsgContent(TabEvaluateInfo evaluateInfo){
+	/*private String getMsgContent(TabEvaluateInfo evaluateInfo){
 		String templateContent = "";
 		Map<String, Object> contentParamMap = new HashMap<String, Object>();
 		contentParamMap.put("evaluateNickName", evaluateInfo.getEvaluateNickName());
@@ -249,8 +266,40 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 		}
 		
 		return MsgTemplateUtil.handleTemplate(templateContent, contentParamMap);
-	}
+	}*/
 
+	@SuppressWarnings("unchecked")
+	public String getMsgContent(TabEvaluateInfo evaluateInfo) {
+		List mlist = new ArrayList<Map<String, Object>>();
+		Map<String, Object> contentParamMap = new HashMap<String, Object>();
+		contentParamMap.put("手机号码", evaluateInfo.getEvaluatePhone());
+		contentParamMap.put("evaluateNickName", evaluateInfo.getEvaluateNickName());
+		contentParamMap.put("consumptionDate", DateUtil.getDateString(evaluateInfo.getConsumptionDate()));
+		//获取短信模板内容
+		if(ContantsUtil.NOTICE_TYPE_1.equals(evaluateInfo.getEvaluateNoticeType())){
+			contentParamMap.put("consumptionAmount", evaluateInfo.getConsumptionAmount());
+			contentParamMap.put("surplusAmount", evaluateInfo.getSurplusAmount());
+			contentParamMap.put("surplusScore", evaluateInfo.getSurplusScore());
+			contentParamMap.put("visitShortUrl", evaluateInfo.getVisitShortUrl());
+		}else if(ContantsUtil.NOTICE_TYPE_2.equals(evaluateInfo.getEvaluateNoticeType())){
+			String itemContent = "";
+			String[] itemArray = evaluateInfo.getConsumptionItem().split("&");
+			String[] numberArray = evaluateInfo.getSurplusNumber().split("&");
+			//拼接消费项目
+			for (int i = 0; i < itemArray.length; i++) {
+				itemContent += itemArray[i] + "，剩余" + numberArray[i] + "次，";
+			}
+			contentParamMap.put("itemContent", itemContent);
+			contentParamMap.put("surplusScore", evaluateInfo.getSurplusScore());
+			contentParamMap.put("visitShortUrl", evaluateInfo.getVisitShortUrl());
+		}else if(ContantsUtil.NOTICE_TYPE_3.equals(evaluateInfo.getEvaluateNoticeType())){
+			contentParamMap.put("rechargeAmount", evaluateInfo.getRechargeAmount());
+			contentParamMap.put("surplusAmount", evaluateInfo.getSurplusAmount());
+			contentParamMap.put("giveAmount", evaluateInfo.getGiveAmount()); //赠送金额
+		}
+		mlist.add(contentParamMap);
+		return JsonUtil.convertToJSONArray(mlist).toString();
+	}
 	@Override
 	public TabEvaluateInfo selectById(String evaluateInfoUuid) {
 		TabEvaluateInfo tabEvaluateInfo = (TabEvaluateInfo) baseDao.queryForObject(selectEvaluateByPrimaryKey, evaluateInfoUuid);

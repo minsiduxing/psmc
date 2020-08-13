@@ -97,4 +97,16 @@ public class DefaultAliyunSmsSendMode extends SmsSendAbstractMode
 			 return MsgModel.buildDefaultError(sendSmsResponse.getCode());
 		 }
 	}
+
+	@Override
+	public MsgModel sendMms(String mobile, String content, String path) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MsgModel gxhSendSms(String mobile, String content) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

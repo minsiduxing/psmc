@@ -1,7 +1,6 @@
 package priv.guochun.psmc.website.backstage.message.service.impl;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.framework.sms.model.SmsModel;
+import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
-import priv.guochun.psmc.website.backstage.message.mms.MmsUtilService;
 import priv.guochun.psmc.website.backstage.message.model.TabMessageBlack;
 import priv.guochun.psmc.website.backstage.message.model.TabMessagePool;
 import priv.guochun.psmc.website.backstage.message.model.TabMessageTemp;
@@ -42,6 +42,8 @@ public class TabMessagePoolServiceImpl implements TabMessagePoolService {
 	private TabMessageTempService tabMessageTempService;
 	@Autowired
 	private TabMessageBlackService tabMessageBlackService;
+	@Autowired
+	private MobileSmsSendService baseMobileSmsSendService;
 	
 	@Override
 	public MyPage queryTabMessagePoolList(MyPage page) {
@@ -112,7 +114,6 @@ public class TabMessagePoolServiceImpl implements TabMessagePoolService {
 	}
 	
 	public void sendMsg() {
-		MmsUtilService mmsutil = new MmsUtilService();
 		//查询所有模板(正在有效使用的)
 		List<String> slist =  queryTempCode();
 		for (String tCode : slist) {
@@ -128,16 +129,26 @@ public class TabMessagePoolServiceImpl implements TabMessagePoolService {
 				String phone = AssemblingPhone(tmplist);
 				//短信发送
 				if(tmt.getType().equals("0")) {
-					mmsutil.smsSend(phone, tmt.getTempContent());
+					SmsModel smsModel = new SmsModel();
+					smsModel.setReceiveNo(phone);
+					smsModel.setSendType("0");
+					smsModel.setReceiveContext(tmt.getTempContent());
+					baseMobileSmsSendService.sendSms(smsModel);
+					//mmsutil.smsSend(phone, tmt.getTempContent());
 				}else if(tmt.getType().equals("1")){
+					SmsModel smsModel = new SmsModel();
+					smsModel.setReceiveNo(phone);
 					//彩信发送
-					//System.out.println("发送彩信");
 					//创建彩信接口
 					String classPath = this.getClass().getClassLoader().getResource("/").getPath();   
 					classPath=classPath.substring(0, classPath.indexOf("WEB-INF"));
 					String resPath = classPath+"resources"+File.separator+"mms"+File.separator+"sm01.jpg";
-					String taskId = mmsutil.create(tmt.getTempContent(),resPath);
-					mmsutil.send(taskId,phone);
+					smsModel.setmPath(resPath);
+					smsModel.setSendType("1");
+					smsModel.setReceiveContext(tmt.getTempContent());
+					baseMobileSmsSendService.sendSms(smsModel);
+					//String taskId = mmsutil.create(tmt.getTempContent(),resPath);
+					//mmsutil.send(taskId,phone);
 				}
 			}
 		}

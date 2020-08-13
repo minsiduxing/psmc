@@ -6,6 +6,7 @@ import priv.guochun.psmc.system.framework.sms.core.SmsSendAbstractMode;
 import priv.guochun.psmc.system.framework.sms.core.impl.ChuangxinSmsSendMode;
 import priv.guochun.psmc.system.framework.sms.core.impl.DefaultAliyunSmsSendMode;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
+import priv.guochun.psmc.website.backstage.message.mms.MmsUtilSendMode;
 
 public class DefaultSmsModeBuildFactory {
 
@@ -13,6 +14,8 @@ public class DefaultSmsModeBuildFactory {
 	private static DefaultSmsModeBuildFactory factory = new DefaultSmsModeBuildFactory();
 	
 	private ChuangxinSmsSendMode chuangxinSmsMode = null;
+	
+	private MmsUtilSendMode mmsUtilSendMode=null;
 	
 	private DefaultSmsModeBuildFactory(){
 		
@@ -45,7 +48,19 @@ public class DefaultSmsModeBuildFactory {
         }
         return chuangxinSmsMode;
     }
-	
+    public SmsSendAbstractMode createZhongYiSsm(){
+        if(mmsUtilSendMode == null){
+            Properties pp = SystemPropertiesUtil.getProps();
+            String zhongyi_sms_create_url =pp.getProperty("create_url");
+            String zhongyi_sms_send_url = pp.getProperty("sms_send_url");
+            String zhongyi_ssm_send_url = pp.getProperty("send_url");
+            String zhongyi_sms_custom_url = pp.getProperty("custom_url");
+            String zhongyi_appid = pp.getProperty("appid");
+            String zhongyi_appkey = pp.getProperty("appkey");
+            mmsUtilSendMode = new MmsUtilSendMode(zhongyi_sms_create_url, zhongyi_sms_send_url, zhongyi_ssm_send_url,zhongyi_sms_custom_url, zhongyi_appid, zhongyi_appkey);
+        }
+        return mmsUtilSendMode;
+    }
     public static void main(String[] args){
         DefaultSmsModeBuildFactory.getInstance().
         createChuangXinSsm().sendSms("18392101807", "【四季花城】尊敬的XX，您2019/02/16的消费项目为XXXX，剩余XX次，剩余积分7820分。为提升品牌服务，诚邀您参与满意度测评，点击http://agsl.biz/Fcd7ML 可对本次体验作出评价，期待您的宝贵建议！");

@@ -12,6 +12,11 @@ public class SmsModel {
 	private String receiveCnName;
 	private String receiveContext;
 	private Timestamp createTime;
+	//0短信、1彩信、2个性化短信
+	private String sendType;
+	private String sendModeSrategy; 
+	private String mPath; //彩信资源路径
+	private String smsId; //个性化短信模板ID
 	
 	public SmsModel(){
 		 
@@ -56,9 +61,36 @@ public class SmsModel {
 	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
-	
-	
-	
-	 
-	 
+
+	public String getSendType() {
+		return sendType;
+	}
+
+	public void setSendType(String sendType) {
+		this.sendType = sendType;
+	}
+
+	public String getmPath() {
+		return mPath;
+	}
+
+	public void setmPath(String mPath) {
+		this.mPath = mPath;
+	}
+
+	public String getSendModeSrategy() {
+		return sendModeSrategy;
+	}
+
+	public void setSendModeSrategy(String sendModeSrategy) {
+		this.sendModeSrategy = sendModeSrategy;
+	}
+
+	public String getSmsId() {
+		return smsId;
+	}
+
+	public void setSmsId(String smsId) {
+		this.smsId = smsId;
+	}
 }

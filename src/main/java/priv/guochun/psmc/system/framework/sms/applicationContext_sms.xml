@@ -13,6 +13,6 @@
 	default-lazy-init="false"  default-autowire="byName">
 	
   	<!-- 短信发送算法调用类-->
-	<bean id="smsSendRuleSolve" class="priv.guochun.psmc.system.framework.sms.core.SmsSendRuleSolve" factory-method="createInstance"/>
+	<bean id="smsSendRuleSolve" class="priv.guochun.psmc.system.framework.sms.core.SmsSendRuleSolve" />
 
 </beans>

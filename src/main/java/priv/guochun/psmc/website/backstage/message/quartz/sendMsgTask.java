@@ -12,7 +12,7 @@ public class sendMsgTask {
 	@Autowired
 	private TabMessagePoolService tabMessagePoolService;
 	
-	//@Scheduled(cron = "0 48 * * * ? ") // 
+	//@Scheduled(cron = "0 * * * * ? ") // 
     public void taskCycle() {
         tabMessagePoolService.sendMsg();
     }
