@@ -244,4 +244,13 @@ public class TabMessagePoolController extends MyController{
 		}
 	    
 	}
+	/**
+	 * 手动调用批量发送短信
+	 * @throws IOException 
+	 */
+	@RequestMapping(params="method=handSendSms")
+	@ResponseBody
+	public void handSendSms() throws IOException {
+		tabMessagePoolService.sendMsg();
+	}
 }
