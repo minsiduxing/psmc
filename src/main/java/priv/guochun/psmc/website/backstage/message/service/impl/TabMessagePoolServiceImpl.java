@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
+import priv.guochun.psmc.system.util.JsonUtil;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
 import priv.guochun.psmc.website.backstage.message.model.TabMessageBlack;
 import priv.guochun.psmc.website.backstage.message.model.TabMessagePool;
@@ -35,6 +36,8 @@ public class TabMessagePoolServiceImpl implements TabMessagePoolService {
 	private static final String deleteMessagegPoolByPhone = "deleteMessagegPoolByPhone";
 	private static final String updatePoolByPrimaryKey = "updatePoolByPrimaryKey";
 	private static final String selectMessagePoolByPrimaryKey = "selectMessagePoolByPrimaryKey";
+	private static final String selectMessagePageList = "selectMessagePageList";
+	private static final String countMessagePageList = "countMessagePageList";
 	
 	@Autowired
 	private BaseDao baseDao;
@@ -114,43 +117,60 @@ public class TabMessagePoolServiceImpl implements TabMessagePoolService {
 	}
 	
 	public void sendMsg() {
+		//超过该数值分页
+		int isPageCount = 2;
 		//查询所有模板(正在有效使用的)
 		List<String> slist =  queryTempCode();
 		for (String tCode : slist) {
 			if(tCode!=null && !tCode.equals("")) {
-				//根据模板code查询对应的手机号
-				List<TabMessagePool> tmplist = queryByTempCodeList(tCode);
 				//根据模板code查询模板详情
 				TabMessageTemp tmt = tabMessageTempService.queryByTempCode(tCode);
-				if(tmplist.size()<0 || tmt==null || tmt.getTempUuid() == null) {
-					continue;
-				}
-				//拼接手机号
-				String phone = AssemblingPhone(tmplist);
-				//短信发送
-				if(tmt.getType().equals("0")) {
-					SmsModel smsModel = new SmsModel();
-					smsModel.setReceiveNo(phone);
-					smsModel.setSendType("0");
-					smsModel.setReceiveContext(tmt.getTempContent());
-					baseMobileSmsSendService.sendSms(smsModel);
-					//mmsutil.smsSend(phone, tmt.getTempContent());
-				}else if(tmt.getType().equals("1")){
-					SmsModel smsModel = new SmsModel();
-					smsModel.setReceiveNo(phone);
-					//彩信发送
-					//创建彩信接口
-					String classPath = this.getClass().getClassLoader().getResource("/").getPath();   
-					classPath=classPath.substring(0, classPath.indexOf("WEB-INF"));
-					String resPath = classPath+"resources"+File.separator+"mms"+File.separator+"sm01.jpg";
-					smsModel.setmPath(resPath);
-					smsModel.setSendType("1");
-					smsModel.setReceiveContext(tmt.getTempContent());
-					baseMobileSmsSendService.sendSms(smsModel);
-					//String taskId = mmsutil.create(tmt.getTempContent(),resPath);
-					//mmsutil.send(taskId,phone);
+				//根据模板code查询对应手机号总条数
+				int count = tabMessagePoolPageCount(tCode);
+				List<TabMessagePool> tmpPoollist = null;
+				if(count>isPageCount) {
+					int runnum = count%isPageCount==0?(count/isPageCount):(count/isPageCount)+1;
+					for (int i = 0; i < runnum; i++) {
+						//根据模板code查询对应的手机号，分页查询
+						tmpPoollist  = this.queryTabMessagePoolPageList(isPageCount*i, isPageCount,tCode);
+						batchSendSms(tmt, tmpPoollist);
+					}
+				}else {
+					tmpPoollist = this.queryByTempCodeList(tCode);
+					batchSendSms(tmt, tmpPoollist);
 				}
 			}
+		}
+	}
+
+	private void batchSendSms(TabMessageTemp tmt, List<TabMessagePool> tmpPoollist) {
+		if(tmpPoollist.size()<0 || tmt==null || tmt.getTempUuid() == null) {
+			return;
+		}
+		//拼接手机号
+		String phone = AssemblingPhone(tmpPoollist);
+		//短信发送
+		if(tmt.getType().equals("0")) {
+			SmsModel smsModel = new SmsModel();
+			smsModel.setReceiveNo(phone);
+			smsModel.setSendType("0");
+			smsModel.setReceiveContext(tmt.getTempContent());
+			baseMobileSmsSendService.sendSms(smsModel);
+			//mmsutil.smsSend(phone, tmt.getTempContent());
+		}else if(tmt.getType().equals("1")){
+			SmsModel smsModel = new SmsModel();
+			smsModel.setReceiveNo(phone);
+			//彩信发送
+			//创建彩信接口
+			String classPath = this.getClass().getClassLoader().getResource("/").getPath();   
+			classPath=classPath.substring(0, classPath.indexOf("WEB-INF"));
+			String resPath = classPath+"resources"+File.separator+"mms"+File.separator+"sm01.jpg";
+			smsModel.setmPath(resPath);
+			smsModel.setSendType("1");
+			smsModel.setReceiveContext(tmt.getTempContent());
+			baseMobileSmsSendService.sendSms(smsModel);
+			//String taskId = mmsutil.create(tmt.getTempContent(),resPath);
+			//mmsutil.send(taskId,phone);
 		}
 	}
 	
@@ -177,5 +197,21 @@ public class TabMessagePoolServiceImpl implements TabMessagePoolService {
 		
 		TabMessagePool tabMessagePool = (TabMessagePool) baseDao.queryForObject(selectMessagePoolByPrimaryKey, msgUuid);
 		return tabMessagePool;
+	}
+
+	@Override
+	public List<TabMessagePool> queryTabMessagePoolPageList(int pageIndex, int pageSize, String tempCode) {
+		Map<String, Object> dataMap = new HashMap<String,Object>();
+		dataMap.put("pageIndex", pageIndex);
+		dataMap.put("pageSize", pageSize);
+		dataMap.put("tempCode", tempCode);
+		return baseDao.queryForList(selectMessagePageList, dataMap);
+	}
+
+	@Override
+	public int tabMessagePoolPageCount(String tempCode) {
+		TabMessagePool tabMessagePool = new TabMessagePool();
+		tabMessagePool.setTempCode(tempCode);
+		return (int) baseDao.queryForObject(countMessagePageList, tabMessagePool);
 	}
 }

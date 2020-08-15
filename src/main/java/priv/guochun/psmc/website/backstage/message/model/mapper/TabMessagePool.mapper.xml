@@ -202,6 +202,20 @@
       </if>
     ORDER BY add_time DESC
   </select>
+  <select id="selectMessagePageList" parameterType="hashmap" resultType="priv.guochun.psmc.website.backstage.message.model.TabMessagePool">
+    SELECT * FROM tab_message_pool 
+    <if test="tempCode != null and tempCode !='' ">
+        where temp_code=#{tempCode}
+      </if>
+    ORDER BY add_time DESC
+    LIMIT #{pageIndex},#{pageSize}
+  </select>
+  <select id="countMessagePageList" parameterType="hashmap" resultType="java.lang.Integer">
+    SELECT count(1) FROM tab_message_pool 
+    <if test="tempCode != null and tempCode !='' ">
+        where temp_code=#{tempCode}
+      </if>
+  </select>
   <select id="selectTempCode" parameterType="java.lang.String" resultType="java.lang.String">
     SELECT DISTINCT temp_code FROM tab_message_pool WHERE temp_code is not NULL
   </select>

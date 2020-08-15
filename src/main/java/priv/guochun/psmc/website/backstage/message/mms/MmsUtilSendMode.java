@@ -3,32 +3,20 @@ package priv.guochun.psmc.website.backstage.message.mms;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.util.Base64;
-import java.util.Properties;
-
-import javax.annotation.Resource;
 
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONObject;
 
-import priv.guochun.psmc.system.common.log.factory.TSysOperLogMapFactory;
-import priv.guochun.psmc.system.common.log.model.TSysOperLog;
-import priv.guochun.psmc.system.common.log.service.TSysOperLogService;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.sms.core.SmsSendAbstractMode;
-import priv.guochun.psmc.system.framework.util.LogTypeEnum;
-import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
-import priv.guochun.psmc.system.util.SystemPropertiesUtil;
-import priv.guochun.psmc.system.util.UUIDGenerator;
+import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 
 public class MmsUtilSendMode extends SmsSendAbstractMode{
 	
@@ -215,7 +203,6 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
 	}
 
 	//个性化短信定制
-	@Override
 	public MsgModel gxhSendSms(String smsId,String content) {
 		// 获取连接
         HttpClient client = new HttpClient();
@@ -239,7 +226,6 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
             client.executeMethod(method);
             String result = method.getResponseBodyAsString();
             // 返回结果
-            System.out.println(result);
             if(StringUtils.isEmpty(result)) {
         			return MsgModel.buildDefaultError("短信接口调用失败,返回信息为空!");
 	        }else {
@@ -262,13 +248,26 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
     }
 	
 	@Override
-	public MsgModel sendSms(String mobile, String content) {
-		//短信发送
-		return smsSend(mobile, content);
+	public MsgModel sendSms(SmsModel smsModel) {
+		String mobile = smsModel.getReceiveNo();
+		String content = smsModel.getReceiveContext();
+		String path = smsModel.getmPath();
+		String smsId = smsModel.getSmsId();
+		switch(smsModel.getSendType()){
+			case "0":
+				//短信发送
+				return smsSend(mobile, content);
+			case "1":
+				//彩信发送
+				return sendMms(mobile, content,path);
+			case "2":
+				//个性化短信发送
+				return gxhSendSms(smsId, content);
+		}
+		return null;
 	}
 
 
-	@Override
 	public MsgModel sendMms(String mobile, String content, String path) {
 		String taskId = create(content, path);
 		if(StringUtils.isEmpty(taskId)) {

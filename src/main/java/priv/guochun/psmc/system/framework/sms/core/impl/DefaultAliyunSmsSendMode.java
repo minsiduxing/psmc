@@ -5,6 +5,7 @@ import java.util.Map;
 
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.sms.core.SmsSendAbstractMode;
+import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
@@ -45,7 +46,9 @@ public class DefaultAliyunSmsSendMode extends SmsSendAbstractMode
 	}
 
 	@Override
-	public MsgModel sendSms(String mobile, String content) {
+	public MsgModel sendSms(SmsModel msgModel) {
+		String mobile=msgModel.getReceiveNo(); 
+    	String content = msgModel.getReceiveContext();
 		return reallySend(mobile,content);
 	}
 	
@@ -96,17 +99,5 @@ public class DefaultAliyunSmsSendMode extends SmsSendAbstractMode
 			 //请求失败
 			 return MsgModel.buildDefaultError(sendSmsResponse.getCode());
 		 }
-	}
-
-	@Override
-	public MsgModel sendMms(String mobile, String content, String path) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MsgModel gxhSendSms(String mobile, String content) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

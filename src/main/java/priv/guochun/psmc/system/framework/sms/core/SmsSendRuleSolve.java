@@ -3,6 +3,7 @@ package priv.guochun.psmc.system.framework.sms.core;
 
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import priv.guochun.psmc.system.common.log.factory.TSysOperLogMapFactory;
@@ -63,12 +64,8 @@ public class SmsSendRuleSolve
 		    //短信是否开启
 	        boolean sms_enable =Boolean.parseBoolean(pp.getProperty("sms_enable"));
 		    if(sms_enable)
-		    	if(smsModel.getSendType().equals("0")) {
-		    		mm = smsSendModeSrategy.sendSms(smsModel.getReceiveNo(),smsModel.getReceiveContext());
-		    	}else if(smsModel.getSendType().equals("1")) {
-		    		 mm = smsSendModeSrategy.sendMms(smsModel.getReceiveNo(),smsModel.getReceiveContext(),smsModel.getmPath());
-		    	}else if(smsModel.getSendType().equals("2")) {
-		    		mm = smsSendModeSrategy.gxhSendSms(smsModel.getSmsId(),smsModel.getReceiveContext());
+		    	if(StringUtils.isNotBlank(smsModel.getSendType())) {
+		    		mm = smsSendModeSrategy.sendSms(smsModel);
 		    	}else {
 		    		mm = MsgModel.buildDefaultSuccess("发送类型为空",null);
 		    	}

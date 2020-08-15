@@ -62,8 +62,8 @@ public class DefaultSmsModeBuildFactory {
         return mmsUtilSendMode;
     }
     public static void main(String[] args){
-        DefaultSmsModeBuildFactory.getInstance().
-        createChuangXinSsm().sendSms("18392101807", "【四季花城】尊敬的XX，您2019/02/16的消费项目为XXXX，剩余XX次，剩余积分7820分。为提升品牌服务，诚邀您参与满意度测评，点击http://agsl.biz/Fcd7ML 可对本次体验作出评价，期待您的宝贵建议！");
+        //DefaultSmsModeBuildFactory.getInstance().
+        //createChuangXinSsm().sendSms("18392101807", "【四季花城】尊敬的XX，您2019/02/16的消费项目为XXXX，剩余XX次，剩余积分7820分。为提升品牌服务，诚邀您参与满意度测评，点击http://agsl.biz/Fcd7ML 可对本次体验作出评价，期待您的宝贵建议！");
     }
 	
 	public static DefaultSmsModeBuildFactory getInstance(){

@@ -14,12 +14,13 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
 import priv.guochun.psmc.system.common.city.controller.CityController;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.sms.core.SmsSendAbstractMode;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 
 /**
  * 
@@ -51,8 +52,10 @@ public class ChuangxinSmsSendMode extends SmsSendAbstractMode
     
     
     @Override
-    public MsgModel sendSms(String mobile, String content)
+    public MsgModel sendSms(SmsModel msgModel)
     {
+    	String mobile=msgModel.getReceiveNo(); 
+    	String content = msgModel.getReceiveContext();
         String dateStr = sf.format(new Date());
         String str = account + password + dateStr;//MD5加密，账号+密码+时间戳
         String sign = MD5(str);
@@ -198,21 +201,7 @@ public class ChuangxinSmsSendMode extends SmsSendAbstractMode
 
 
     public static void main(String[] args){
-        ChuangxinSmsSendMode mode = new ChuangxinSmsSendMode("http://dc.28inter.com/v2sms.aspx/v2sms.aspx","1706","sjhc1","sjhc1@123456");
-        mode.sendSms("18392101807", "【四季花城】尊敬的郭纯，您2019/05/09的消费金额为1350元，剩余金额1234元，剩余积分7820分。为提升品牌服务，诚邀您参与满意度测评，点击http://agsl.biz/Fcd7ML 可对本次体验作出评价，期待您的宝贵建议！");
+        //ChuangxinSmsSendMode mode = new ChuangxinSmsSendMode("http://dc.28inter.com/v2sms.aspx/v2sms.aspx","1706","sjhc1","sjhc1@123456");
+        //mode.sendSms("18392101807", "【四季花城】尊敬的郭纯，您2019/05/09的消费金额为1350元，剩余金额1234元，剩余积分7820分。为提升品牌服务，诚邀您参与满意度测评，点击http://agsl.biz/Fcd7ML 可对本次体验作出评价，期待您的宝贵建议！");
     }
-
-
-	@Override
-	public MsgModel sendMms(String mobile, String content, String path) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public MsgModel gxhSendSms(String mobile, String content) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

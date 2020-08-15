@@ -18,6 +18,16 @@ public interface TabMessagePoolService {
 	 * @return
 	 */
 	public List<TabMessagePool> queryByTempCodeList(String tempCode);
+	/**
+	 * 根据模板code查询,分页
+	 * @param page
+	 * @return
+	 */
+	public List<TabMessagePool> queryTabMessagePoolPageList(int pageIndex, int pageSize, String tempCode);
+	/**
+	 * 根据模板code查询总条数
+	 */
+	public int tabMessagePoolPageCount(String tempCode);
 	
 	public TabMessagePool queryPoolByUuid(String msgUuid);
 	/**
