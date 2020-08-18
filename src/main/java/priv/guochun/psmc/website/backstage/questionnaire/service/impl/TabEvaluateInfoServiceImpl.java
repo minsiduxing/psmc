@@ -88,6 +88,8 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
         	sm.setSmsId(ContantsUtil.MSG_CONTENT_1);
         }else if(ContantsUtil.NOTICE_TYPE_2.equals(evaluateInfo.getEvaluateNoticeType())) {
         	sm.setSmsId(ContantsUtil.MSG_CONTENT_2);
+        }else if(ContantsUtil.NOTICE_TYPE_3.equals(evaluateInfo.getEvaluateNoticeType())) {
+        	sm.setSmsId(ContantsUtil.MSG_CONTENT_3);
         }
         sm.setReceiveNo(evaluateInfo.getEvaluatePhone());
         MsgModel mm = baseMobileSmsSendService.sendSms(sm);
