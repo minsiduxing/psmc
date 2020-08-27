@@ -204,4 +204,11 @@ public class ChuangxinSmsSendMode extends SmsSendAbstractMode
         //ChuangxinSmsSendMode mode = new ChuangxinSmsSendMode("http://dc.28inter.com/v2sms.aspx/v2sms.aspx","1706","sjhc1","sjhc1@123456");
         //mode.sendSms("18392101807", "【四季花城】尊敬的郭纯，您2019/05/09的消费金额为1350元，剩余金额1234元，剩余积分7820分。为提升品牌服务，诚邀您参与满意度测评，点击http://agsl.biz/Fcd7ML 可对本次体验作出评价，期待您的宝贵建议！");
     }
+
+
+	@Override
+	public String getBalance(String sendType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

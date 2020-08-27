@@ -52,12 +52,15 @@ public class DefaultSmsModeBuildFactory {
         if(mmsUtilSendMode == null){
             Properties pp = SystemPropertiesUtil.getProps();
             String zhongyi_sms_create_url =pp.getProperty("create_url");
-            String zhongyi_sms_send_url = pp.getProperty("sms_send_url");
-            String zhongyi_ssm_send_url = pp.getProperty("send_url");
+            String zhongyi_sms_send_url = pp.getProperty("send_mms_url");
+            String zhongyi_ssm_send_url = pp.getProperty("send_group_url");
             String zhongyi_sms_custom_url = pp.getProperty("custom_url");
+            String zhongyi_mms_balance_url = pp.getProperty("mms_balance_url");
+    		String zhongyi_sms_group_url = pp.getProperty("sms_group_url");
+    		String zhongyi_sms_custom_balance_url = pp.getProperty("sms_custom_url");
             String zhongyi_appid = pp.getProperty("appid");
             String zhongyi_appkey = pp.getProperty("appkey");
-            mmsUtilSendMode = new MmsUtilSendMode(zhongyi_sms_create_url, zhongyi_sms_send_url, zhongyi_ssm_send_url,zhongyi_sms_custom_url, zhongyi_appid, zhongyi_appkey);
+            mmsUtilSendMode = new MmsUtilSendMode(zhongyi_sms_create_url, zhongyi_sms_send_url, zhongyi_ssm_send_url,zhongyi_sms_custom_url,zhongyi_mms_balance_url, zhongyi_sms_group_url,zhongyi_sms_custom_balance_url,zhongyi_appid, zhongyi_appkey);
         }
         return mmsUtilSendMode;
     }

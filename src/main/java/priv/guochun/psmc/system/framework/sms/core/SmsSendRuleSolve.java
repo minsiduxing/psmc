@@ -95,4 +95,39 @@ public class SmsSendRuleSolve
 		}
 		
 	}
+	//查询余额
+	public String getBalance(String sendType){
+		Properties pp = SystemPropertiesUtil.getProps();
+		String balance = "0";
+		try{
+			//短信是否开启
+			boolean sms_enable =Boolean.parseBoolean(pp.getProperty("sms_enable"));
+			if(sms_enable)
+				if(StringUtils.isNotBlank(sendType)) {
+					balance = smsSendModeSrategy.getBalance(sendType);
+				}
+			
+			//todo 这里可以统一处理短信的重发机制、日志记录等
+			TSysOperLog sysOperLog = new TSysOperLog();
+			sysOperLog.setUuid(UUIDGenerator.createUUID());
+			sysOperLog.setLogType(LogTypeEnum.LogTypeSysOper3.getIndex());
+			sysOperLog.setLogTypeName(LogTypeEnum.LogTypeSysOper3.getName());
+			sysOperLog.setLogSubType(LogTypeEnum.LogTypeSysOper3_1.getIndex());
+			sysOperLog.setLogSubTypeName(LogTypeEnum.LogTypeSysOper3_1.getName());
+			sysOperLog.setOperDate(DateUtil.getCurrentTimstamp());
+			
+			sysOperLog.setOperInput("");
+			sysOperLog.setOperOutput(balance);
+			sysOperLog.setOperResult(null);
+			sysOperLog.setOperResultDesc("系统发送短信日志记录!");
+			sysOperLog.setBussinessUuid("");
+			TSysOperLogMapFactory.getInstance().getTSysOperLog().put(sysOperLog.getUuid(), sysOperLog);
+			return balance;
+		}catch(Exception e){
+			String msg = "调用短信查询余额服务异常 "+e;
+			logger.error(msg);
+			return null;
+		}
+		
+	}
 }

@@ -100,4 +100,10 @@ public class DefaultAliyunSmsSendMode extends SmsSendAbstractMode
 			 return MsgModel.buildDefaultError(sendSmsResponse.getCode());
 		 }
 	}
+
+	@Override
+	public String getBalance(String sendType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

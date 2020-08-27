@@ -1,6 +1,7 @@
 package priv.guochun.psmc.website.backstage.message.service;
 
 import java.util.List;
+import java.util.Map;
 
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.website.backstage.message.model.TabMessagePool;
@@ -66,4 +67,10 @@ public interface TabMessagePoolService {
 	public void sendMsg();
 	
 	public void deletePoolAndAddBlackByPhone(String phone,String content);
+	
+	/**
+	 * 查询短信余额
+	 * @return
+	 */
+	public Map<String, String> getBalance();
 }

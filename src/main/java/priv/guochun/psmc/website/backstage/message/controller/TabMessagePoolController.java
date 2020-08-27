@@ -253,4 +253,14 @@ public class TabMessagePoolController extends MyController{
 	public void handSendSms() throws IOException {
 		tabMessagePoolService.sendMsg();
 	}
+	
+	/**
+	 * 跳转到消息池界面
+	 * @return
+	 */
+	@RequestMapping(params="method=getBalance")
+	public String getBalance(HttpServletRequest request,HttpServletResponse response){
+		request.setAttribute("tabMessagePool",tabMessagePoolService.getBalance());
+		return "backstage/message/smsBalance";
+	}
 }

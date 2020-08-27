@@ -7,6 +7,7 @@ import java.util.Base64;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -26,17 +27,24 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
     private  String zhongyi_sms_send_url = "";
     private  String zhongyi_ssm_send_url = "";
     private  String zhongyi_sms_custom_url ="";
+    private  String zhongyi_mms_balance_url = "";
+    private  String zhongyi_sms_group_url = "";
+    private  String zhongyi_sms_custom_balance_url ="";
     private  String zhongyi_appid = "";
     private  String zhongyi_appkey = "";
     
     
     public MmsUtilSendMode(String zhongyi_sms_create_url, String zhongyi_sms_send_url, String zhongyi_ssm_send_url,String zhongyi_sms_custom_url,
+    		String zhongyi_mms_balance_url, String zhongyi_sms_group_url,String zhongyi_sms_custom_balance_url,
 			String zhongyi_appid, String zhongyi_appkey) {
 
     	this.zhongyi_sms_create_url = zhongyi_sms_create_url;
 		this.zhongyi_sms_send_url = zhongyi_sms_send_url;
 		this.zhongyi_ssm_send_url = zhongyi_ssm_send_url;
 		this.zhongyi_sms_custom_url = zhongyi_sms_custom_url;
+		this.zhongyi_mms_balance_url = zhongyi_mms_balance_url;
+		this.zhongyi_sms_group_url = zhongyi_sms_group_url;
+		this.zhongyi_sms_custom_balance_url = zhongyi_sms_custom_balance_url;
 		this.zhongyi_appid = zhongyi_appid;
 		this.zhongyi_appkey = zhongyi_appkey;
 	}
@@ -276,4 +284,46 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
 			return send(taskId, mobile);
 		}
 	}
+
+
+	//短信余额查询
+	public String smsBalance(String url){
+		HttpClient client = new HttpClient();
+		
+		GetMethod get = new GetMethod(url+"appId="+zhongyi_appid+"&appKey="+zhongyi_appkey);
+		try {
+			client.executeMethod(get);
+			String result = new String(get.getResponseBodyAsString().getBytes());
+			JSONObject jsonObject = JSONObject.parseObject(result);
+            if (jsonObject.get("returnStatus").equals("1")) {
+                	return jsonObject.get("remainpoint").toString();
+            } else {
+            	logger.info("短信余额接口返回result:"+result);
+            }
+            get.releaseConnection();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return null;
+	}
+	
+	
+	@Override
+	public String getBalance(String sendType) {
+		switch(sendType){
+			case "0":
+				//短信
+				return smsBalance(zhongyi_sms_group_url);
+			case "1":
+				//彩信
+				return smsBalance(zhongyi_mms_balance_url);
+			case "2":
+				//个性化短信
+				return smsBalance(zhongyi_sms_custom_balance_url);
+		}
+		return null;
+	}
+	
+	
 }

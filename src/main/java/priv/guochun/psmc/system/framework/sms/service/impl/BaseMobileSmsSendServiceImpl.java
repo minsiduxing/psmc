@@ -36,5 +36,17 @@ public class BaseMobileSmsSendServiceImpl implements MobileSmsSendService {
     {
         this.smsSendRuleSolve = smsSendRuleSolve;
     }
+
+
+	@Override
+	public String getBalance(String sendType) {
+		Properties pp = SystemPropertiesUtil.getProps();
+		String sms_model =pp.getProperty("sms_model");
+		if("xasjhc".equals(sms_model)){
+            smsSendRuleSolve.setSmsSendModeSrategy(DefaultSmsModeBuildFactory.getInstance().createZhongYiSsm());
+            return smsSendRuleSolve.getBalance(sendType);
+        }
+		return null;
+	}
 	
 }

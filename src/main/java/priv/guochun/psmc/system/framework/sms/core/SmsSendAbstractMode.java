@@ -20,4 +20,10 @@ public abstract class SmsSendAbstractMode
 	 * flag:短信发送成功失败标识 returnmsg:接口调用返回信息 
 	 */
 	public abstract MsgModel sendSms(SmsModel smsModel);
+	/**
+	 * 查询余额
+	 * @param sendType 短信类型（0短信、1彩信、2个性化短信）
+	 * @return
+	 */
+	public abstract String getBalance(String sendType);
 }

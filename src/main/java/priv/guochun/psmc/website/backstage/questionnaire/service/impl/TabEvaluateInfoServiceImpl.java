@@ -78,7 +78,7 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 		
 		String msgContent = this.getMsgContent(evaluateInfo);
 		evaluateInfo.setNoticeNote(msgContent);
-		//baseDao.insert(insertEvaluateSelective, evaluateInfo);
+		baseDao.insert(insertEvaluateSelective, evaluateInfo);
 		//发送短信
 		SmsModel sm = new SmsModel();
         sm.setCreateTime(TimestampUtil.createCurTimestamp());

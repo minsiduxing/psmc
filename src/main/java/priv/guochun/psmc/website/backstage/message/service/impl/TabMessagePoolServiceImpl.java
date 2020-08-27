@@ -214,4 +214,16 @@ public class TabMessagePoolServiceImpl implements TabMessagePoolService {
 		tabMessagePool.setTempCode(tempCode);
 		return (int) baseDao.queryForObject(countMessagePageList, tabMessagePool);
 	}
+
+	@Override
+	public Map<String, String> getBalance() {
+		String smsGroup =baseMobileSmsSendService.getBalance("0");
+		String mmsBalance =baseMobileSmsSendService.getBalance("1");
+		String smsCustom =baseMobileSmsSendService.getBalance("2");
+		Map<String, String> dataMap = new HashMap<String,String>();
+		dataMap.put("smsGroup", smsGroup);
+		dataMap.put("mmsBalance", mmsBalance);
+		dataMap.put("smsCustom", smsCustom);
+		return dataMap;
+	}
 }
