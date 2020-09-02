@@ -67,7 +67,7 @@ public class SmsSendRuleSolve
 		    	if(StringUtils.isNotBlank(smsModel.getSendType())) {
 		    		mm = smsSendModeSrategy.sendSms(smsModel);
 		    	}else {
-		    		mm = MsgModel.buildDefaultSuccess("发送类型为空",null);
+		    		mm = MsgModel.buildDefaultError("发送类型为空");
 		    	}
 	        else
 	            mm = MsgModel.buildDefaultSuccess("非生产环境模拟短信发送成功:"+smsModel.getReceiveContext(),null);
