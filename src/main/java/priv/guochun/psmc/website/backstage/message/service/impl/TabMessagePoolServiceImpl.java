@@ -118,7 +118,7 @@ public class TabMessagePoolServiceImpl implements TabMessagePoolService {
 	
 	public void sendMsg() {
 		//超过该数值分页
-		int isPageCount = 2;
+		int isPageCount = 1000;
 		//查询所有模板(正在有效使用的)
 		List<String> slist =  queryTempCode();
 		for (String tCode : slist) {

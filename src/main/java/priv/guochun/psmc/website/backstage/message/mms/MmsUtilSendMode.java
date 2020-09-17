@@ -87,15 +87,20 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
      * @return
      */
     public  String content(String mmsContent,String mmsPath) {
+    	String content = mmsContent.substring(mmsContent.indexOf("|")+1, mmsContent.length());
+    	String paths = mmsContent.substring(0, mmsContent.indexOf("|"));
+    	String[] pathStr = paths.split(",");
         StringBuffer sb = new StringBuffer();
-        // --------文件-----
-        sb.append(3);
-        //获取文件
-        sb.append(",jpg|" + encodeFile(mmsPath));
-        // --------文字-----
-        sb.append(",txt|" + encodeTxt(mmsContent));
-        sb.append(";");
-        System.out.println("彩信报文："+sb.substring(0, sb.length() - 1));
+        for (String string : pathStr) {
+	        // --------文件-----
+	        sb.append(3);
+	        //获取文件
+        	sb.append(",jpg|" + encodeFile(string));
+        	// --------文字-----
+        	sb.append(",txt|" + encodeTxt(content));
+        	sb.append(";");
+		}
+        logger.info("彩信报文："+sb.substring(0, sb.length() - 1));
         return sb.substring(0, sb.length() - 1);
     }
 
