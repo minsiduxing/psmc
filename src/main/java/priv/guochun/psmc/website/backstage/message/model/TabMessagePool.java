@@ -11,6 +11,8 @@ public class TabMessagePool implements Serializable{
     private String tempCode;
 
     private Date addTime;
+    
+    private String customVal;
 
     public String getMsgUuid() {
         return msgUuid;
@@ -43,4 +45,11 @@ public class TabMessagePool implements Serializable{
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
+
+	public String getCustomVal() {
+		return customVal;
+	}
+	public void setCustomVal(String customVal) {
+		this.customVal = customVal == null ? null : customVal.trim();
+	}
 }

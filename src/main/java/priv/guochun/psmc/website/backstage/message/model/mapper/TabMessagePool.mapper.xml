@@ -6,6 +6,7 @@
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="temp_code" jdbcType="VARCHAR" property="tempCode" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="custom_val" jdbcType="VARCHAR" property="customVal" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    msg_uuid, phone, temp_code, add_time
+    msg_uuid, phone, temp_code, add_time,custom_val
   </sql>
   <select id="selectMessagePoolByExampleNotPage" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessagePoolExample" resultMap="BaseResultMap">
     select
@@ -102,7 +103,7 @@
   </delete>
   <insert id="insert" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessagePool">
     insert into tab_message_pool (msg_uuid, phone, temp_code, 
-      add_time)
+      add_time,custom_val)
     values (#{msgUuid,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{tempCode,jdbcType=VARCHAR}, 
       #{addTime,jdbcType=TIMESTAMP})
   </insert>
@@ -121,6 +122,9 @@
       <if test="addTime != null">
         add_time,
       </if>
+      <if test="customVal != null">
+        custom_val,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="msgUuid != null">
@@ -134,6 +138,9 @@
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customVal  != null">
+        #{customVal ,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -158,6 +165,9 @@
       <if test="record.addTime != null">
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.customVal != null">
+        custom_val = #{record.customVal,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -168,7 +178,8 @@
     set msg_uuid = #{record.msgUuid,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       temp_code = #{record.tempCode,jdbcType=VARCHAR},
-      add_time = #{record.addTime,jdbcType=TIMESTAMP}
+      add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      custom_val = #{record.customVal,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -185,6 +196,9 @@
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="customVal != null">
+        custom_val = #{customVal,jdbcType=VARCHAR},
+      </if>
     </set>
     where msg_uuid = #{msgUuid,jdbcType=VARCHAR}
   </update>
@@ -192,7 +206,8 @@
     update tab_message_pool
     set phone = #{phone,jdbcType=VARCHAR},
       temp_code = #{tempCode,jdbcType=VARCHAR},
-      add_time = #{addTime,jdbcType=TIMESTAMP}
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      custom_val = #{customVal,jdbcType=VARCHAR}
     where msg_uuid = #{msgUuid,jdbcType=VARCHAR}
   </update>
   <select id="selectMessageList" parameterType="hashmap" resultType="java.util.Map">

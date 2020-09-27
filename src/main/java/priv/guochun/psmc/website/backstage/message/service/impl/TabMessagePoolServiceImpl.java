@@ -22,6 +22,7 @@ import priv.guochun.psmc.website.backstage.message.model.TabMessageTemp;
 import priv.guochun.psmc.website.backstage.message.service.TabMessageBlackService;
 import priv.guochun.psmc.website.backstage.message.service.TabMessagePoolService;
 import priv.guochun.psmc.website.backstage.message.service.TabMessageTempService;
+import priv.guochun.psmc.website.backstage.util.MsgTemplateUtil;
 
 @Service
 public class TabMessagePoolServiceImpl implements TabMessagePoolService {
@@ -98,11 +99,18 @@ public class TabMessagePoolServiceImpl implements TabMessagePoolService {
 		if(excelList != null && !excelList.isEmpty()) {
 			//第一条数据是表头，跳过
             for(int i=1; i<excelList.size(); i++) {
+            	String customVals = "";
             	String[] strs = excelList.get(i);
             	TabMessagePool messagePool = new TabMessagePool();
             	messagePool.setMsgUuid(UUID.randomUUID().toString().replace("-", ""));
             	messagePool.setPhone(strs[0]);
             	messagePool.setTempCode(strs[1]);
+            	customVals+=strs[2]+"|";
+            	customVals+=strs[3]+"|";
+            	customVals+=strs[4]+"|";
+            	customVals+=strs[5]+"|";
+            	customVals+=strs[6];
+            	messagePool.setCustomVal(customVals.substring(0, customVals.length()-1));
         		baseDao.insert(insertMessagePoolSelective, messagePool);
             }
         }
@@ -171,8 +179,27 @@ public class TabMessagePoolServiceImpl implements TabMessagePoolService {
 			baseMobileSmsSendService.sendSms(smsModel);
 			//String taskId = mmsutil.create(tmt.getTempContent(),resPath);
 			//mmsutil.send(taskId,phone);
+		}else if(tmt.getType().equals("3")){
+			Map<String, Object> contentParamMap =null;
+			for (TabMessagePool tabMessagePool : tmpPoollist) {
+				//个性化自定义短信
+				SmsModel smsModel = new SmsModel();
+				smsModel.setReceiveNo(phone);
+				smsModel.setSendType("2");
+				smsModel.setSmsId(tmt.getTempId());
+				//内容拼接
+				String [] customVals = tabMessagePool.getCustomVal().split("\\|");
+				contentParamMap = new HashMap<String, Object>();
+				for (int i = 0; i < customVals.length; i++) {
+					contentParamMap.put("content"+(i+1), customVals[i]);
+				}
+				String tempContent = MsgTemplateUtil.handleTemplate(tmt.getTempContent(), contentParamMap);
+				smsModel.setReceiveContext(tempContent);
+				baseMobileSmsSendService.sendSms(smsModel);
+			}
 		}
 	}
+	
 	
 	//拼接手机号
     private String AssemblingPhone(List<TabMessagePool> list) {

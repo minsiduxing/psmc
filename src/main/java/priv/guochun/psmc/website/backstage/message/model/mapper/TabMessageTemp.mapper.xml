@@ -6,6 +6,7 @@
     <result column="temp_code" jdbcType="VARCHAR" property="tempCode" />
     <result column="temp_content" jdbcType="VARCHAR" property="tempContent" />
     <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="temp_id" jdbcType="VARCHAR" property="tempId" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    temp_uuid, temp_code, temp_content, type, add_time
+    temp_uuid, temp_code, temp_content, type, temp_id,add_time
   </sql>
   <select id="selectByTempExample" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessageTempExample" resultMap="BaseResultMap">
     select

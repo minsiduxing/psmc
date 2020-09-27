@@ -16,6 +16,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ import priv.guochun.psmc.system.framework.excel.ExcelUtil;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.framework.upload.factory.MyCommonsMultipartResolverFactory;
 import priv.guochun.psmc.system.util.JsonUtil;
+import priv.guochun.psmc.website.backstage.message.model.ContentDataDto;
 import priv.guochun.psmc.website.backstage.message.model.TabMessagePool;
 import priv.guochun.psmc.website.backstage.message.model.TabMessageTemp;
 import priv.guochun.psmc.website.backstage.message.service.TabMessagePoolService;
@@ -119,10 +121,15 @@ public class TabMessagePoolController extends MyController{
 	}
 	
 	@RequestMapping(params="method=submit")
-	public void submit(TabMessagePool tabMessagePool) throws IOException {
+	public void submit(TabMessagePool tabMessagePool,ContentDataDto contentDataDto) throws IOException {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		int num=0;
 		try {
+			String contents="";
+			if(contentDataDto!=null) {
+				contents=contentDataDto.getContent1()+"|"+contentDataDto.getContent2()+"|"+contentDataDto.getContent3()+"|"+contentDataDto.getContent4()+"|"+contentDataDto.getContent5();
+			}
+			tabMessagePool.setCustomVal(contents);
 			if(tabMessagePool.getMsgUuid() ==null || tabMessagePool.getMsgUuid().equals("")) {
 				num = tabMessagePoolService.insert(tabMessagePool);
 			}else {
@@ -150,10 +157,19 @@ public class TabMessagePoolController extends MyController{
 	public String toAddMessagePool(HttpServletRequest request,HttpServletResponse response) {
 		String msgUuid=request.getParameter("msgUuid");
 		TabMessagePool tabMessagePool = new TabMessagePool();
+		Map<String, Object> contentParamMap =null;
 		if(msgUuid!=null) {
 			tabMessagePool = tabMessagePoolService.queryPoolByUuid(msgUuid);
+			if(StringUtils.isNotBlank(tabMessagePool.getCustomVal())) {
+				String [] customVals = tabMessagePool.getCustomVal().split("\\|");
+				contentParamMap = new HashMap<String, Object>();
+				for (int i = 0; i < customVals.length; i++) {
+					contentParamMap.put("content"+(i+1), customVals[i]);
+				}
+			}
 		}
 		request.setAttribute("tabMessagePool",tabMessagePool);
+		request.setAttribute("contentParamMap",contentParamMap);
 		return "backstage/message/addMessagePool";
 	}
 	
@@ -251,7 +267,17 @@ public class TabMessagePoolController extends MyController{
 	@RequestMapping(params="method=handSendSms")
 	@ResponseBody
 	public void handSendSms() throws IOException {
-		tabMessagePoolService.sendMsg();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			tabMessagePoolService.sendMsg();
+			resultMap.put("success", true);
+			resultMap.put("msg", "发送成功");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			resultMap.put("success", true);
+			resultMap.put("msg", "发送失败："+e.getMessage());
+		}
+		super.responseJson(Boolean.valueOf(resultMap.get("success").toString()), resultMap.get("msg").toString(), this.response());
 	}
 	
 	/**

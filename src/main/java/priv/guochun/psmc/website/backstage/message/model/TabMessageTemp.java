@@ -10,6 +10,8 @@ public class TabMessageTemp {
     private String tempContent;
 
     private String type;
+    
+    private String tempId;
 
     private Date addTime;
 
@@ -52,4 +54,12 @@ public class TabMessageTemp {
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
+
+	public String getTempId() {
+		return tempId;
+	}
+
+	public void setTempId(String tempId) {
+		this.tempId = tempId == null ? null : tempId.trim();
+	}
 }
