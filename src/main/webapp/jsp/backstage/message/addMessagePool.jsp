@@ -61,6 +61,7 @@
 		var url = '<c:url value="/website/backstage/TabMessagePoolController.do"/>?method=queryTempCode';
 		$.ajax({ 
 			url: url,
+			async: false,
 			dataType: 'json', 
 			success: function(data){   
 				var str="";
@@ -74,6 +75,8 @@
 				$("#tempCode").html(str);
 			}
 		});
+		//初始化模板
+		selTemp($("#tempCode"));
 	}); 
 	
 	
