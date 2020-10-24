@@ -31,4 +31,9 @@ public class CacheContants
      */
     public final static String REAL_NAME_AUTHENTICATION = "REAL_NAME_AUTHENTICATION";
     
+  //系统类缓存对象
+  	public final static String CACHE_SYSTEM_KEY_INFO ="CACHE_SYSTEM_KEY_INFO";
+  	//系统类缓存对象KEY
+  	public final static String CACHE_SYSTEM_KEY_INFO_KEY ="CACHE_SYSTEM_KEY_INFO_KEY";
+    
 }

@@ -140,5 +140,6 @@
 	 <bean id="tabMessagePoolService" class="priv.guochun.psmc.website.backstage.message.service.impl.TabMessagePoolServiceImpl"/>
 	 <bean id="tabMessageTempService" class="priv.guochun.psmc.website.backstage.message.service.impl.TabMessageTempServiceImpl"/>
 	 <bean id="tabMessageBlackService" class="priv.guochun.psmc.website.backstage.message.service.impl.TabMessageBlackServiceImpl"/>
+	 <bean id="tabSysKeyInfoService" class="priv.guochun.psmc.website.backstage.message.service.impl.TabSysKeyInfoServiceImpl"/>
 	 
 </beans>

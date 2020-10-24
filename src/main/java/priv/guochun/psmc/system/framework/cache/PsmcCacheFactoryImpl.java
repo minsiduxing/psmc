@@ -16,6 +16,7 @@ public class PsmcCacheFactoryImpl implements PsmcCacheFactory
     
     private Cache cacheSystem = null;
     private Cache workflowSystem = null;
+    private Cache cacheSysKeyInfo = null;
     
     public Cache getCacheSystem(){
         if(cacheSystem == null){
@@ -42,7 +43,13 @@ public class PsmcCacheFactoryImpl implements PsmcCacheFactory
         }
         return cache;
     }
-    
+    public Cache getCacheSysKeyInfo(){
+        if(cacheSysKeyInfo == null){
+            Cache cacheObj= getCacheByName(CacheContants.CACHE_SYSTEM_KEY_INFO);
+            cacheSysKeyInfo = new CacheProxy(cacheObj,psmcInitCacheTool);
+        }
+        return cacheSystem;
+    }
 
     public CacheManager getCacheManager()
     {
