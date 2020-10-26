@@ -26,7 +26,7 @@ public class BaseMobileSmsSendServiceImpl implements MobileSmsSendService {
     
 	@Override
 	public MsgModel sendSms(SmsModel smsModel) {
-		Cache cache = psmcCacheFactory.getCacheSystem();
+		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
     	Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
     	System.out.println(map.get("sms_model"));
 	    Properties pp = SystemPropertiesUtil.getProps();
