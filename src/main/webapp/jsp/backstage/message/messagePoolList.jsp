@@ -30,6 +30,7 @@
 <div id="toolbarId">
 	<g:auth operateNo="<%=OperateContantsUtil.SJHC_ADD_EVALUATE%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add" onclick="openAddDialog();">新增</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="oneDel" onclick="oneDel();">一键删除</a>
 	</g:auth>
 
 	<g:auth operateNo="<%=OperateContantsUtil.SJHC_IMPORT_EXCEL%>">
@@ -71,6 +72,7 @@ var toAddMessageUrl = '<c:url value="'+infoDo+'"/>?method=toAddMessagePool';
 var uploadExcelUrl = '<c:url value="'+infoDo+'"/>?method=loadExcelMessagePool';
 var dowloadUrl = '<c:url value="'+infoDo+'"/>?method=downloadExcelTemplate'; 
 var delUrl = '<c:url value="'+infoDo+'"/>?method=deleteByMsgUuid'; 
+var delAllUrl = '<c:url value="'+infoDo+'"/>?method=deleteAllMsg'; 
 var updateUrl = '<c:url value="'+infoDo+'"/>?method=updateByPrimaryKey'; 
 $(document).ready(function(){ 
 	//datagrid 初始化 
@@ -114,6 +116,18 @@ function openAddDialog(){
 	addDialog.panel({iconCls:'icon-save'});
 	addDialog.panel({href:toAddMessageUrl});
 	addDialog.window("open");
+}
+function oneDel(){
+	//一键清空
+	if (!confirm('您确认要一键删除所有数据吗？')) {
+		return;
+	}
+		$.ajax({
+			  type: "POST",
+			  url: delAllUrl
+			}).done(function( data ) {
+	 			successCallback(data);
+			});
 }
 //打开更新信息录入界面
 function updateDialog(msgUuid){

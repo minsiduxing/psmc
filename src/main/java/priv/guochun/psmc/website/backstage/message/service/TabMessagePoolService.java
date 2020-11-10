@@ -43,6 +43,11 @@ public interface TabMessagePoolService {
 	 * @return
 	 */
 	public int deleteMessagegPoolByPrimaryKey(String msgUuid);
+	/**
+	 * 删除表数据
+	 * @return
+	 */
+	public int deleteMessagegPoolAll();
 	
 	public int deleteByPhone(String phone);
 	/**

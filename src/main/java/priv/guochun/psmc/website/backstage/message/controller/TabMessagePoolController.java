@@ -99,6 +99,26 @@ public class TabMessagePoolController extends MyController{
 		}
 		super.responseJson(Boolean.valueOf(resultMap.get("success").toString()), resultMap.get("msg").toString(), this.response());
 	}
+	@RequestMapping(params="method=deleteAllMsg")
+	@ResponseBody
+	public void deleteAllMsg() throws IOException {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		int num=0;
+		try {
+			num = tabMessagePoolService.deleteMessagegPoolAll();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(num>0) {
+			resultMap.put("success", true);
+			resultMap.put("msg", "删除成功");
+		}else {
+			resultMap.put("success", true);
+			resultMap.put("msg", "删除失败");
+		}
+		super.responseJson(Boolean.valueOf(resultMap.get("success").toString()), resultMap.get("msg").toString(), this.response());
+	}
 	@RequestMapping(params="method=updateByPrimaryKey")
 	@ResponseBody
 	public void updateByPrimaryKey(TabMessagePool tabMessagePool) throws IOException {

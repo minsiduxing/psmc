@@ -35,6 +35,7 @@ public class TabMessagePoolServiceImpl implements TabMessagePoolService {
 	private static final String insertMessagePoolSelective = "insertMessagePoolSelective";
 	private static final String deleteMessagegPoolByPrimaryKey = "deleteMessagegPoolByPrimaryKey";
 	private static final String deleteMessagegPoolByPhone = "deleteMessagegPoolByPhone";
+	private static final String deleteMessagegPoolAll = "deleteMessagegPoolAll";
 	private static final String updatePoolByPrimaryKey = "updatePoolByPrimaryKey";
 	private static final String selectMessagePoolByPrimaryKey = "selectMessagePoolByPrimaryKey";
 	private static final String selectMessagePageList = "selectMessagePageList";
@@ -69,6 +70,11 @@ public class TabMessagePoolServiceImpl implements TabMessagePoolService {
 	public int deleteMessagegPoolByPrimaryKey(String msgUuid) {
 		// TODO Auto-generated method stub
 		return baseDao.delete(deleteMessagegPoolByPrimaryKey, msgUuid);
+	}
+	@Override
+	public int deleteMessagegPoolAll() {
+		// TODO Auto-generated method stub
+		return baseDao.delete(deleteMessagegPoolAll);
 	}
 	@Override
 	public int deleteByPhone(String phone) {
@@ -253,4 +259,6 @@ public class TabMessagePoolServiceImpl implements TabMessagePoolService {
 		dataMap.put("smsCustom", smsCustom);
 		return dataMap;
 	}
+
+	
 }

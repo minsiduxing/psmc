@@ -91,6 +91,9 @@
     delete from tab_message_pool
     where msg_uuid = #{msgUuid,jdbcType=VARCHAR}
   </delete>
+  <delete id="deleteMessagegPoolAll" parameterType="java.lang.String">
+    delete from tab_message_pool
+  </delete>
   <delete id="deleteMessagegPoolByPhone" parameterType="java.lang.String">
     delete from tab_message_pool
     where phone = #{phone}
