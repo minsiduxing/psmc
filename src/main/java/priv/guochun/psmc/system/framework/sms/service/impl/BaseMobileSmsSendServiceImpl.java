@@ -48,9 +48,6 @@ public class BaseMobileSmsSendServiceImpl implements MobileSmsSendService {
 
 	@Override
 	public String getBalance(String sendType) {
-		/*Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
-    	Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-    	System.out.println(map.get("sms_model"));*/
 		Properties pp = SystemPropertiesUtil.getProps();
 		String sms_model =pp.getProperty("sms_model");
 		if("xasjhc".equals(sms_model)){

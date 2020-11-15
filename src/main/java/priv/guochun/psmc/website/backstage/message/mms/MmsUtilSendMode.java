@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
+import java.util.Map;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
@@ -12,12 +13,19 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.alibaba.fastjson.JSONObject;
 
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.sms.core.SmsSendAbstractMode;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 
 public class MmsUtilSendMode extends SmsSendAbstractMode{
 	
@@ -38,15 +46,6 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
     		String zhongyi_mms_balance_url, String zhongyi_sms_group_url,String zhongyi_sms_custom_balance_url,
 			String zhongyi_appid, String zhongyi_appkey) {
 
-    	this.zhongyi_sms_create_url = zhongyi_sms_create_url;
-		this.zhongyi_sms_send_url = zhongyi_sms_send_url;
-		this.zhongyi_ssm_send_url = zhongyi_ssm_send_url;
-		this.zhongyi_sms_custom_url = zhongyi_sms_custom_url;
-		this.zhongyi_mms_balance_url = zhongyi_mms_balance_url;
-		this.zhongyi_sms_group_url = zhongyi_sms_group_url;
-		this.zhongyi_sms_custom_balance_url = zhongyi_sms_custom_balance_url;
-		this.zhongyi_appid = zhongyi_appid;
-		this.zhongyi_appkey = zhongyi_appkey;
 	}
 
     
@@ -316,6 +315,18 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
 	
 	@Override
 	public String getBalance(String sendType) {
+		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory)MySpringApplicationContext.getObject("psmcCacheFactory");
+		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+    	this.zhongyi_sms_create_url = map.get("create_url");
+		this.zhongyi_sms_send_url = map.get("send_mms_url");
+		this.zhongyi_ssm_send_url = map.get("send_group_url");
+		this.zhongyi_sms_custom_url = map.get("custom_url");
+		this.zhongyi_mms_balance_url = map.get("mms_balance_url");
+		this.zhongyi_sms_group_url = map.get("sms_group_url");
+		this.zhongyi_sms_custom_balance_url = map.get("sms_custom_url");
+		this.zhongyi_appid = map.get("appid");
+		this.zhongyi_appkey = map.get("appkey");
 		switch(sendType){
 			case "0":
 				//短信
@@ -329,6 +340,5 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
 		}
 		return null;
 	}
-	
 	
 }
