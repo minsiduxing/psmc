@@ -1,31 +1,28 @@
 package priv.guochun.psmc.website.backstage.message.mms;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Base64;
-import java.util.Map;
-
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.SimpleHttpConnectionManager;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.alibaba.fastjson.JSONObject;
-
 import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.sms.core.SmsSendAbstractMode;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Base64;
+import java.util.Map;
 
 public class MmsUtilSendMode extends SmsSendAbstractMode{
 	
@@ -50,9 +47,10 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
 
     
     public String create(String mmsContent,String mmsPath) {
-        try {
-            HttpClient client = new HttpClient();
-            PostMethod post = new PostMethod(zhongyi_sms_create_url);
+		PostMethod post = null;
+		try {
+            HttpClient client = new HttpClient(new HttpClientParams(),new SimpleHttpConnectionManager(true));
+            post = new PostMethod(zhongyi_sms_create_url);
             post.addRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
             post.setRequestHeader("Connection", "close");
             NameValuePair[] data = { 
@@ -72,10 +70,12 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
             } else {
             	logger.info("创建彩信接口失败");
             }
-            post.releaseConnection();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }finally{
+			if(post !=null)
+				post.releaseConnection();
+		}
         return null;
     }
 
@@ -318,15 +318,15 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
 		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory)MySpringApplicationContext.getObject("psmcCacheFactory");
 		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
 		Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-    	this.zhongyi_sms_create_url = map.get("create_url");
-		this.zhongyi_sms_send_url = map.get("send_mms_url");
-		this.zhongyi_ssm_send_url = map.get("send_group_url");
-		this.zhongyi_sms_custom_url = map.get("custom_url");
-		this.zhongyi_mms_balance_url = map.get("mms_balance_url");
-		this.zhongyi_sms_group_url = map.get("sms_group_url");
-		this.zhongyi_sms_custom_balance_url = map.get("sms_custom_url");
-		this.zhongyi_appid = map.get("appid");
-		this.zhongyi_appkey = map.get("appkey");
+    	this.zhongyi_sms_create_url = map.get("zhongyi_create_url");
+		this.zhongyi_sms_send_url = map.get("zhongyi_send_mms_url");
+		this.zhongyi_ssm_send_url = map.get("zhongyi_send_group_url");
+		this.zhongyi_sms_custom_url = map.get("zhongyi_custom_url");
+		this.zhongyi_mms_balance_url = map.get("zhongyi_mms_balance_url");
+		this.zhongyi_sms_group_url = map.get("zhongyi_sms_group_url");
+		this.zhongyi_sms_custom_balance_url = map.get("zhongyi_sms_custom_url");
+		this.zhongyi_appid = map.get("zhongyi_appid");
+		this.zhongyi_appkey = map.get("zhongyi_appkey");
 		switch(sendType){
 			case "0":
 				//短信

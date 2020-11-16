@@ -241,29 +241,29 @@ public class SystemPropertiesUtil
 		return getPropertyValue(dept_literary_form_custom);
 	}
 	public static String getCustomImagePath() {
-		return getPropertyValue(custom_image_path);
-	}
-	public static String getMobileImagePath(){
-		return getPropertyValue(mobile_image_path);
-	}
-	public static String getActivityCustomPath(){
-		return getPropertyValue(activity_custom);
-	}
-	public static String getNewsImagePath(){
-		return getPropertyValue(news_image_path);
-	}
-	public static String getRecipesImagePath(){
-		return getPropertyValue(recipes_image_path);
-	}
-	public static String getNoticeImagePath(){
-		return getPropertyValue(notice_image_path);
-	}
-	
-	public static String getMsgContent_1(){
-		return getPropertyValue(MSG_CONTENT_1);
-	}
-	public static String getMsgContent_2(){
-		return getPropertyValue(MSG_CONTENT_2);
+			return getPropertyValue(custom_image_path);
+		}
+		public static String getMobileImagePath(){
+			return getPropertyValue(mobile_image_path);
+		}
+		public static String getActivityCustomPath(){
+			return getPropertyValue(activity_custom);
+		}
+		public static String getNewsImagePath(){
+			return getPropertyValue(news_image_path);
+		}
+		public static String getRecipesImagePath(){
+			return getPropertyValue(recipes_image_path);
+		}
+		public static String getNoticeImagePath(){
+			return getPropertyValue(notice_image_path);
+		}
+
+		public static String getMsgContent_1(){
+			return getPropertyValue(MSG_CONTENT_1);
+		}
+		public static String getMsgContent_2(){
+			return getPropertyValue(MSG_CONTENT_2);
 	}
 	public static String getMsgContent_3(){
 		return getPropertyValue(MSG_CONTENT_3);

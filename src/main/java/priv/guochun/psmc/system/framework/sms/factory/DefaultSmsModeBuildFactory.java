@@ -1,10 +1,15 @@
 package priv.guochun.psmc.system.framework.sms.factory;
 
+import java.util.Map;
 import java.util.Properties;
 
+import org.springframework.cache.Cache;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.sms.core.SmsSendAbstractMode;
 import priv.guochun.psmc.system.framework.sms.core.impl.ChuangxinSmsSendMode;
 import priv.guochun.psmc.system.framework.sms.core.impl.DefaultAliyunSmsSendMode;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.website.backstage.message.mms.MmsUtilSendMode;
 
@@ -25,13 +30,15 @@ public class DefaultSmsModeBuildFactory {
 	 * @return
 	 */
 	public SmsSendAbstractMode createDefaultAlSsm(){
-		Properties pp = SystemPropertiesUtil.getProps();
-		String product =pp.getProperty("ali_sms_product");
-		String domain = pp.getProperty("ali_sms_domain");
-		String accessKeyId = pp.getProperty("ali_sms_accessKeyId");
-		String accessKeySecret = pp.getProperty("ali_sms_accessKeySecret");
-		String signName = pp.getProperty("ali_sms_vcode_signName");
-		String templateCode = pp.getProperty("ali_sms_vcode_templateCode");
+        PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+        Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+        Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+		String product =map.get("ali_sms_product").toString();
+		String domain = map.get("ali_sms_domain").toString();
+		String accessKeyId = map.get("ali_sms_accessKeyId").toString();
+		String accessKeySecret = map.get("ali_sms_accessKeySecret").toString();
+		String signName = map.get("ali_sms_vcode_signName").toString();
+		String templateCode = map.get("ali_sms_vcode_templateCode").toString();
 		DefaultAliyunSmsSendMode aliSmsMode = new DefaultAliyunSmsSendMode(product,domain,accessKeyId,accessKeySecret,signName,templateCode);
 		return aliSmsMode;
 	}
@@ -39,11 +46,13 @@ public class DefaultSmsModeBuildFactory {
 	
     public SmsSendAbstractMode createChuangXinSsm(){
         if(chuangxinSmsMode == null){
-            Properties pp = SystemPropertiesUtil.getProps();
-            String chuangx_url =pp.getProperty("chuangx_url");
-            String chuangx_userid = pp.getProperty("chuangx_userid");
-            String chuangx_account = pp.getProperty("chuangx_account");
-            String chuangx_password = pp.getProperty("chuangx_password");
+            PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+            Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+            Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+            String chuangx_url =map.get("chuangx_url").toString();
+            String chuangx_userid = map.get("chuangx_userid").toString();
+            String chuangx_account = map.get("chuangx_account").toString();
+            String chuangx_password =map.get("chuangx_password").toString();
             chuangxinSmsMode = new ChuangxinSmsSendMode(chuangx_url,chuangx_userid,chuangx_account,chuangx_password);
         }
         return chuangxinSmsMode;
@@ -51,15 +60,15 @@ public class DefaultSmsModeBuildFactory {
     public SmsSendAbstractMode createZhongYiSsm(){
         if(mmsUtilSendMode == null){
             Properties pp = SystemPropertiesUtil.getProps();
-            String zhongyi_sms_create_url =pp.getProperty("create_url");
-            String zhongyi_sms_send_url = pp.getProperty("send_mms_url");
-            String zhongyi_ssm_send_url = pp.getProperty("send_group_url");
-            String zhongyi_sms_custom_url = pp.getProperty("custom_url");
-            String zhongyi_mms_balance_url = pp.getProperty("mms_balance_url");
-    		String zhongyi_sms_group_url = pp.getProperty("sms_group_url");
-    		String zhongyi_sms_custom_balance_url = pp.getProperty("sms_custom_url");
-            String zhongyi_appid = pp.getProperty("appid");
-            String zhongyi_appkey = pp.getProperty("appkey");
+            String zhongyi_sms_create_url =pp.getProperty("zhongyi_create_url");
+            String zhongyi_sms_send_url = pp.getProperty("zhongyi_send_mms_url");
+            String zhongyi_ssm_send_url = pp.getProperty("zhongyi_send_group_url");
+            String zhongyi_sms_custom_url = pp.getProperty("zhongyi_custom_url");
+            String zhongyi_mms_balance_url = pp.getProperty("zhongyi_mms_balance_url");
+    		String zhongyi_sms_group_url = pp.getProperty("zhongyi_sms_group_url");
+    		String zhongyi_sms_custom_balance_url = pp.getProperty("zhongyi_sms_custom_url");
+            String zhongyi_appid = pp.getProperty("zhongyi_appid");
+            String zhongyi_appkey = pp.getProperty("zhongyi_appkey");
             mmsUtilSendMode = new MmsUtilSendMode(zhongyi_sms_create_url, zhongyi_sms_send_url, zhongyi_ssm_send_url,zhongyi_sms_custom_url,zhongyi_mms_balance_url, zhongyi_sms_group_url,zhongyi_sms_custom_balance_url,zhongyi_appid, zhongyi_appkey);
         }
         return mmsUtilSendMode;

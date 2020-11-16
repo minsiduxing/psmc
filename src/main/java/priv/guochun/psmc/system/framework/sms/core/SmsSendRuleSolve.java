@@ -1,21 +1,23 @@
 package priv.guochun.psmc.system.framework.sms.core;
 
 
-import java.util.Properties;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
+import org.springframework.cache.Cache;
 import priv.guochun.psmc.system.common.log.factory.TSysOperLogMapFactory;
 import priv.guochun.psmc.system.common.log.model.TSysOperLog;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
 import priv.guochun.psmc.system.framework.util.LogResultEnum;
 import priv.guochun.psmc.system.framework.util.LogTypeEnum;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.DateUtil;
-import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
+
+import java.util.Map;
 
 
 /**
@@ -58,19 +60,20 @@ public class SmsSendRuleSolve
 	
 
 	public MsgModel sendSms(SmsModel smsModel){
-		Properties pp = SystemPropertiesUtil.getProps();
+		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+		String sms_enable =map.get("sms_enable").toString();
 		MsgModel mm = null;
 		try{
-		    //短信是否开启
-	        boolean sms_enable =Boolean.parseBoolean(pp.getProperty("sms_enable"));
-		    if(sms_enable)
+		    if(Boolean.getBoolean(sms_enable))
 		    	if(StringUtils.isNotBlank(smsModel.getSendType())) {
 		    		mm = smsSendModeSrategy.sendSms(smsModel);
 		    	}else {
 		    		mm = MsgModel.buildDefaultError("发送类型为空");
 		    	}
 	        else
-	            mm = MsgModel.buildDefaultSuccess("非生产环境模拟短信发送成功:"+smsModel.getReceiveContext(),null);
+	            mm = MsgModel.buildDefaultSuccess("模拟短信发送成功:"+smsModel.getReceiveContext(),null);
 		    
 		     //todo 这里可以统一处理短信的重发机制、日志记录等
 	         TSysOperLog sysOperLog = new TSysOperLog();
@@ -97,12 +100,13 @@ public class SmsSendRuleSolve
 	}
 	//查询余额
 	public String getBalance(String sendType){
-		Properties pp = SystemPropertiesUtil.getProps();
+		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+		String sms_enable =map.get("sms_enable").toString();
 		String balance = "0";
 		try{
-			//短信是否开启
-			boolean sms_enable =Boolean.parseBoolean(pp.getProperty("sms_enable"));
-			if(sms_enable)
+			if(Boolean.getBoolean(sms_enable))
 				if(StringUtils.isNotBlank(sendType)) {
 					balance = smsSendModeSrategy.getBalance(sendType);
 				}
