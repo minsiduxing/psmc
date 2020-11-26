@@ -1,8 +1,5 @@
 package priv.guochun.psmc.system.framework.sms.factory;
 
-import java.util.Map;
-import java.util.Properties;
-
 import org.springframework.cache.Cache;
 import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
@@ -10,8 +7,9 @@ import priv.guochun.psmc.system.framework.sms.core.SmsSendAbstractMode;
 import priv.guochun.psmc.system.framework.sms.core.impl.ChuangxinSmsSendMode;
 import priv.guochun.psmc.system.framework.sms.core.impl.DefaultAliyunSmsSendMode;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
-import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.website.backstage.message.mms.MmsUtilSendMode;
+
+import java.util.Map;
 
 public class DefaultSmsModeBuildFactory {
 
@@ -59,17 +57,19 @@ public class DefaultSmsModeBuildFactory {
     }
     public SmsSendAbstractMode createZhongYiSsm(){
         if(mmsUtilSendMode == null){
-            Properties pp = SystemPropertiesUtil.getProps();
-            String zhongyi_sms_create_url =pp.getProperty("zhongyi_create_url");
-            String zhongyi_sms_send_url = pp.getProperty("zhongyi_send_mms_url");
-            String zhongyi_ssm_send_url = pp.getProperty("zhongyi_send_group_url");
-            String zhongyi_sms_custom_url = pp.getProperty("zhongyi_custom_url");
-            String zhongyi_mms_balance_url = pp.getProperty("zhongyi_mms_balance_url");
-    		String zhongyi_sms_group_url = pp.getProperty("zhongyi_sms_group_url");
-    		String zhongyi_sms_custom_balance_url = pp.getProperty("zhongyi_sms_custom_url");
-            String zhongyi_appid = pp.getProperty("zhongyi_appid");
-            String zhongyi_appkey = pp.getProperty("zhongyi_appkey");
-            mmsUtilSendMode = new MmsUtilSendMode(zhongyi_sms_create_url, zhongyi_sms_send_url, zhongyi_ssm_send_url,zhongyi_sms_custom_url,zhongyi_mms_balance_url, zhongyi_sms_group_url,zhongyi_sms_custom_balance_url,zhongyi_appid, zhongyi_appkey);
+            PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+            Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+            Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+            String zhongyi_sms_create_url =map.get("zhongyi_create_url").toString();
+            String zhongyi_sms_send_url = map.get("zhongyi_sms_send_url").toString();
+            String zhongyi_mms_send_url = map.get("zhongyi_mms_send_url").toString();
+            String zhongyi_sms_custom_url = map.get("zhongyi_sms_custom_url").toString();
+            String zhongyi_mms_balance_url = map.get("zhongyi_mms_balance_url").toString();
+    		String zhongyi_sms_balance_url = map.get("zhongyi_sms_balance_url").toString();
+    		String zhongyi_sms_custom_balance_url = map.get("zhongyi_sms_custom_balance_url").toString();
+            String zhongyi_appid = map.get("zhongyi_appid").toString();
+            String zhongyi_appkey = map.get("zhongyi_appkey").toString();
+            mmsUtilSendMode = new MmsUtilSendMode(zhongyi_sms_create_url, zhongyi_sms_send_url, zhongyi_mms_send_url,zhongyi_sms_custom_url,zhongyi_mms_balance_url, zhongyi_sms_balance_url,zhongyi_sms_custom_balance_url,zhongyi_appid, zhongyi_appkey);
         }
         return mmsUtilSendMode;
     }

@@ -66,7 +66,7 @@ public class SmsSendRuleSolve
 		String sms_enable =map.get("sms_enable").toString();
 		MsgModel mm = null;
 		try{
-		    if(Boolean.getBoolean(sms_enable))
+		    if(Boolean.valueOf(sms_enable))
 		    	if(StringUtils.isNotBlank(smsModel.getSendType())) {
 		    		mm = smsSendModeSrategy.sendSms(smsModel);
 		    	}else {
@@ -88,13 +88,13 @@ public class SmsSendRuleSolve
 	         sysOperLog.setOperOutput(GsonUtil.toJsonForObject(mm));
 	         sysOperLog.setOperResult(true == mm.isSuccess()?LogResultEnum.success.getIndex():LogResultEnum.error.getIndex());
 	         sysOperLog.setOperResultDesc("系统发送短信日志记录!");
-	         sysOperLog.setBussinessUuid(smsModel.getReceiveNo());
-	         TSysOperLogMapFactory.getInstance().getTSysOperLog().put(sysOperLog.getUuid(), sysOperLog);
-	         return mm;
+			sysOperLog.setBussinessUuid(smsModel.getReceiveNo());
+			TSysOperLogMapFactory.getInstance().getTSysOperLog().put(sysOperLog.getUuid(), sysOperLog);
+			return mm;
 		}catch(Exception e){
-		    String msg = "调用短信发送服务异常 "+e;
-		    logger.error(msg);
-		    return MsgModel.buildDefaultError(msg);
+			String msg = "调用短信发送服务异常 "+e;
+			logger.error(msg);
+			return MsgModel.buildDefaultError(msg);
 		}
 		
 	}
@@ -104,9 +104,9 @@ public class SmsSendRuleSolve
 		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
 		Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
 		String sms_enable =map.get("sms_enable").toString();
-		String balance = "0";
-		try{
-			if(Boolean.getBoolean(sms_enable))
+			String balance = "0";
+			try{
+			if(Boolean.valueOf(sms_enable))
 				if(StringUtils.isNotBlank(sendType)) {
 					balance = smsSendModeSrategy.getBalance(sendType);
 				}

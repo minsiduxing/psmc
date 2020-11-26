@@ -1,36 +1,26 @@
 package priv.guochun.psmc.website.backstage.questionnaire.service.impl;
 
-import java.math.BigDecimal;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.cache.Cache;
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
-import priv.guochun.psmc.system.framework.util.GsonUtil;
-import priv.guochun.psmc.system.util.ContantsUtil;
-import priv.guochun.psmc.system.util.DateUtil;
-import priv.guochun.psmc.system.util.JsonUtil;
-import priv.guochun.psmc.system.util.SystemPropertiesUtil;
-import priv.guochun.psmc.system.util.TimestampUtil;
-import priv.guochun.psmc.system.util.UUIDGenerator;
+import priv.guochun.psmc.system.util.*;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
 import priv.guochun.psmc.website.backstage.questionnaire.model.TabEvaluateInfo;
 import priv.guochun.psmc.website.backstage.questionnaire.model.TabRealUrl;
 import priv.guochun.psmc.website.backstage.questionnaire.service.TabEvaluateInfoService;
 import priv.guochun.psmc.website.backstage.questionnaire.service.TabRealUrlService;
-import priv.guochun.psmc.website.backstage.util.GenerateShortUrlUtil;
-import priv.guochun.psmc.website.backstage.util.MsgTemplateUtil;
+
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.util.*;
 
 public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 
@@ -45,7 +35,8 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 	private MobileSmsSendService baseMobileSmsSendService;
 	@Autowired
 	private TabRealUrlService tabRealUrlService;
-
+	@Autowired
+	private PsmcCacheFactory psmcCacheFactory;
 	@Override
 	public Map<String, Object> insertEvaluateInfoBusinessMethod(TabEvaluateInfo evaluateInfo, User user) {
 		Map<String, Object> resultmap = new HashMap<String, Object>();
@@ -55,12 +46,16 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 		evaluateInfo.setInputAccUuid(user.getUserUuid());
 		evaluateInfo.setInputTime(currentDate);
 		evaluateInfo.setNoticeTime(currentDate);
+
+		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+
 		//消费金额、消费项目
 		if(ContantsUtil.NOTICE_TYPE_1.equals(evaluateInfo.getEvaluateNoticeType()) 
 				|| ContantsUtil.NOTICE_TYPE_2.equals(evaluateInfo.getEvaluateNoticeType())){
 			//获取问卷地址
-			String url = SystemPropertiesUtil.getQuestionnaireUrl();
-			String url1 = SystemPropertiesUtil.getShortUrl();
+			String url =map.get("questionnaireUrl").toString();
+			String url1 =map.get("shotUrl").toString();
 			String visitUrl = url+"&questionnaireUuid="+evaluateInfo.getQuestionnaireUuid()+"&evaluateInfoUuid="+evaluateInfo.getEvaluateInfoUuid();
 			evaluateInfo.setVisitUrl(visitUrl);
 			TabRealUrl realUrl = new TabRealUrl();
@@ -312,5 +307,12 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 	public void updateEvaluate(TabEvaluateInfo tabEvaluateInfo){
 		baseDao.update(updateEvaluateSelective, tabEvaluateInfo);
 	}
-	
+
+	public PsmcCacheFactory getPsmcCacheFactory() {
+		return psmcCacheFactory;
+	}
+
+	public void setPsmcCacheFactory(PsmcCacheFactory psmcCacheFactory) {
+		this.psmcCacheFactory = psmcCacheFactory;
+	}
 }

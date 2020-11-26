@@ -100,13 +100,7 @@ public class SystemPropertiesUtil
     private static final String dept_literary_form_custom = "dept_literary_form";
     private static final String activity_custom = "activity_custom";
     private static final String mobile_image_path = "mobile_image_path";
-    
-    /** 短信通知内容-消费金额*/
-    public final static String MSG_CONTENT_1 = "msg_content_1";
-    /** 短信通知内容-消费项目*/
-    public final static String MSG_CONTENT_2 = "msg_content_2";
-    /** 短信通知内容-充值金额 */
-    public final static String MSG_CONTENT_3 = "msg_content_3";
+
     /** 问卷访问地址 */
     public final static String QUESTIONS_URL = "questionnaireUrl";
     /** 虚拟短链接 */
@@ -259,15 +253,6 @@ public class SystemPropertiesUtil
 			return getPropertyValue(notice_image_path);
 		}
 
-		public static String getMsgContent_1(){
-			return getPropertyValue(MSG_CONTENT_1);
-		}
-		public static String getMsgContent_2(){
-			return getPropertyValue(MSG_CONTENT_2);
-	}
-	public static String getMsgContent_3(){
-		return getPropertyValue(MSG_CONTENT_3);
-	}
 	public static String getQuestionnaireUrl(){
 		return getPropertyValue(QUESTIONS_URL);
 	}

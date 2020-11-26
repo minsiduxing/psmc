@@ -10,52 +10,63 @@ import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.Cache;
-import priv.guochun.psmc.system.framework.cache.CacheContants;
-import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.sms.core.SmsSendAbstractMode;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
-import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
-import java.util.Map;
 
 public class MmsUtilSendMode extends SmsSendAbstractMode{
 	
 	protected static final  Logger logger  = LoggerFactory.getLogger(MmsUtilSendMode.class);
-	
-	private  String zhongyi_sms_create_url = "";
+
+	//彩信创建接口
+	private  String zhongyi_create_url = "";
+	//短信发送地址
     private  String zhongyi_sms_send_url = "";
-    private  String zhongyi_ssm_send_url = "";
+    //彩信发送地址
+    private  String zhongyi_mms_send_url = "";
+    //个性化短信发送URL
     private  String zhongyi_sms_custom_url ="";
+    //彩信群发余额查询地址
     private  String zhongyi_mms_balance_url = "";
-    private  String zhongyi_sms_group_url = "";
+    //短信群发余额查询地址
+    private  String zhongyi_sms_balance_url = "";
+    //自定义短信余额查询地址
     private  String zhongyi_sms_custom_balance_url ="";
     private  String zhongyi_appid = "";
     private  String zhongyi_appkey = "";
     
     
-    public MmsUtilSendMode(String zhongyi_sms_create_url, String zhongyi_sms_send_url, String zhongyi_ssm_send_url,String zhongyi_sms_custom_url,
-    		String zhongyi_mms_balance_url, String zhongyi_sms_group_url,String zhongyi_sms_custom_balance_url,
+    public MmsUtilSendMode(String zhongyi_create_url, String zhongyi_sms_send_url, String zhongyi_mms_send_url,String zhongyi_sms_custom_url,
+    		String zhongyi_mms_balance_url, String zhongyi_sms_balance_url,String zhongyi_sms_custom_balance_url,
 			String zhongyi_appid, String zhongyi_appkey) {
-
+		this.zhongyi_create_url = zhongyi_create_url;
+		this.zhongyi_sms_send_url = zhongyi_sms_send_url;
+		this.zhongyi_mms_send_url = zhongyi_mms_send_url;
+		this.zhongyi_sms_custom_url = zhongyi_sms_custom_url;
+		this.zhongyi_mms_balance_url = zhongyi_mms_balance_url;
+		this.zhongyi_sms_balance_url = zhongyi_sms_balance_url;
+		this.zhongyi_sms_custom_balance_url = zhongyi_sms_custom_balance_url;
+		this.zhongyi_appid = zhongyi_appid;
+		this.zhongyi_appkey = zhongyi_appkey;
 	}
 
-    
+    //彩信创建
     public String create(String mmsContent,String mmsPath) {
 		PostMethod post = null;
 		try {
             HttpClient client = new HttpClient(new HttpClientParams(),new SimpleHttpConnectionManager(true));
-            post = new PostMethod(zhongyi_sms_create_url);
+            post = new PostMethod(zhongyi_create_url);
             post.addRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
             post.setRequestHeader("Connection", "close");
             NameValuePair[] data = { 
                     new NameValuePair("appId", zhongyi_appid), 
                     new NameValuePair("appKey", zhongyi_appkey),
+					//todo 彩信标题不能写死 后期改
                     new NameValuePair("title", "四季花城助力健康生活"), 
                     new NameValuePair("content", content(mmsContent,mmsPath)) 
                     };
@@ -124,11 +135,11 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
         }
         return null;
     }
-    
+    //彩信发送
     public MsgModel send(String mmsId,String phone) {
         
             HttpClient client = new HttpClient();
-            PostMethod post = new PostMethod(zhongyi_sms_send_url);
+            PostMethod post = new PostMethod(zhongyi_mms_send_url);
             post.addRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
             post.setRequestHeader("Connection", "close");
             NameValuePair[] data = { 
@@ -144,18 +155,18 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
 	            logger.info("彩信发送回执："+result);
 	            
 	            if(StringUtils.isEmpty(result)){
-	            	return MsgModel.buildDefaultError("短信接口调用失败,返回信息为空!");
+	            	return MsgModel.buildDefaultError("彩信接口调用失败,返回信息为空!");
 	            }else {
 		            JSONObject jsonObject = JSONObject.parseObject(result);
 		            if (jsonObject.get("returnStatus").equals("1")) {
-		            	return MsgModel.buildDefaultSuccess("短信接口调用成功 "+jsonObject.toJSONString());
+		            	return MsgModel.buildDefaultSuccess("彩信接口调用成功 "+jsonObject.toJSONString());
 		            } else {
-		            	return MsgModel.buildDefaultError("短信接口调用失败 "+jsonObject.toJSONString());
+		            	return MsgModel.buildDefaultError("彩信接口调用失败 "+jsonObject.toJSONString());
 		            }
 	            }
         } catch (Exception e) {
             e.printStackTrace();
-            return MsgModel.buildDefaultError("短信接口调用失败!:"+e.getMessage());
+            return MsgModel.buildDefaultError("彩信接口调用失败!:"+e.getMessage());
         }finally {
         	post.releaseConnection();
 		}
@@ -171,7 +182,7 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
 		// 获取连接
         HttpClient client = new HttpClient();
         // 短信群发API接口地址
-        PostMethod method = new PostMethod(zhongyi_ssm_send_url);
+        PostMethod method = new PostMethod(zhongyi_sms_send_url);
         // 设置编码
         client.getParams().setContentCharset("UTF-8");
         method.setRequestHeader("ContentType", "application/x-www-form-urlencoded;charset=utf-8");
@@ -290,10 +301,10 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
 	}
 
 
-	//短信余额查询
+	//短彩信余额查询
 	public String smsBalance(String url){
 		HttpClient client = new HttpClient();
-		
+
 		GetMethod get = new GetMethod(url+"appId="+zhongyi_appid+"&appKey="+zhongyi_appkey);
 		try {
 			client.executeMethod(get);
@@ -302,11 +313,11 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
             if (jsonObject.get("returnStatus").equals("1")) {
                 	return jsonObject.get("remainpoint").toString();
             } else {
-            	logger.info("短信余额接口返回result:"+result);
+            	logger.info("短彩信余额查询接口返回结果:"+result);
             }
             get.releaseConnection();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			logger.error("短彩信余额查询接口异常"+e.getMessage());
 			e.printStackTrace();
 		} 
 		return null;
@@ -315,24 +326,12 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
 	
 	@Override
 	public String getBalance(String sendType) {
-		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory)MySpringApplicationContext.getObject("psmcCacheFactory");
-		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
-		Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-    	this.zhongyi_sms_create_url = map.get("zhongyi_create_url");
-		this.zhongyi_sms_send_url = map.get("zhongyi_send_mms_url");
-		this.zhongyi_ssm_send_url = map.get("zhongyi_send_group_url");
-		this.zhongyi_sms_custom_url = map.get("zhongyi_custom_url");
-		this.zhongyi_mms_balance_url = map.get("zhongyi_mms_balance_url");
-		this.zhongyi_sms_group_url = map.get("zhongyi_sms_group_url");
-		this.zhongyi_sms_custom_balance_url = map.get("zhongyi_sms_custom_url");
-		this.zhongyi_appid = map.get("zhongyi_appid");
-		this.zhongyi_appkey = map.get("zhongyi_appkey");
 		switch(sendType){
 			case "0":
-				//短信
-				return smsBalance(zhongyi_sms_group_url);
+				//短信群发
+				return smsBalance(zhongyi_sms_balance_url);
 			case "1":
-				//彩信
+				//彩信群发
 				return smsBalance(zhongyi_mms_balance_url);
 			case "2":
 				//个性化短信
