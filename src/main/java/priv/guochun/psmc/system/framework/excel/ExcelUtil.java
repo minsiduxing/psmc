@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import jxl.Cell;
 import jxl.Sheet;
@@ -130,6 +132,67 @@ public class ExcelUtil
 		else
 			return "";
 	}
+	
+	//读取Excel内容
+	public List<String[]> readExcel() {
+		try {
+			this.getWorkbook();
+		} catch (BiffException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        List<String[]> list = new ArrayList<String[]>();
+        for(int k=0; k<wb.getNumberOfSheets(); k++){
+        	//获取sheet页
+            Sheet sheet = wb.getSheet(k);
+            //获得指定Sheet含有的行数
+            int num = sheet.getRows();
+            //循环读取数据
+            for(int i=0;i<num;i++) {
+                //得到第i行的数据..返回cell数组
+                Cell[] cell = sheet.getRow(i);
+                //装载读取数据的集合
+                String[] results = new String[cell.length];
+                boolean isAdd = true;
+                for(int j = 0; j < cell.length; j++) {
+                	if(StringUtils.isBlank(cell[0].getContents())){
+                		isAdd = false;
+                		continue;
+                	}
+                    results[j] = cell[j].getContents();
+                }
+                if(isAdd){
+                	list.add(results);
+                }
+            }
+        }
+        
+        return list;
+	}
+	
+	public static void main(String[] args) {
+		ExcelUtil util = new ExcelUtil("C:\\Users\\Administrator\\Desktop\\消费信息.xls");
+		try {
+			System.out.println(util.getVersion());
+		} catch (BiffException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 List<String[]> listStr = util.readExcel();
+		 if(listStr != null && !listStr.isEmpty()) {
+            for(String[] strs : listStr) {
+            	System.out.println(strs[0]+" "+strs[6]);
+                
+            }
+        }
+	}
+
 
 	public File getFile()
 	{

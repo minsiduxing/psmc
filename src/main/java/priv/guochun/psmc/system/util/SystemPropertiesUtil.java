@@ -5,6 +5,8 @@ import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.support.EncodedResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 
@@ -98,6 +100,12 @@ public class SystemPropertiesUtil
     private static final String dept_literary_form_custom = "dept_literary_form";
     private static final String activity_custom = "activity_custom";
     private static final String mobile_image_path = "mobile_image_path";
+
+    /** 问卷访问地址 */
+    public final static String QUESTIONS_URL = "questionnaireUrl";
+    /** 虚拟短链接 */
+    public final static String SHORT_URL = "shotUrl";
+
     
     /**
      * 初始化system.propeties
@@ -108,7 +116,10 @@ public class SystemPropertiesUtil
         file_name = propertiesfileName;
         props = new Properties();  
             try {  
-                props=PropertiesLoaderUtils.loadAllProperties(file_name);  
+            	//解决读取中文乱码
+            	EncodedResource encodedResource = new EncodedResource(new ClassPathResource(file_name), "UTF-8");
+            	props=PropertiesLoaderUtils.loadProperties(encodedResource);
+//                props=PropertiesLoaderUtils.loadAllProperties(file_name); 
                 for(Object key:props.keySet()){  
                     logger.debug(key+":");  
                     logger.debug(props.get(key).toString());  
@@ -224,22 +235,29 @@ public class SystemPropertiesUtil
 		return getPropertyValue(dept_literary_form_custom);
 	}
 	public static String getCustomImagePath() {
-		return getPropertyValue(custom_image_path);
+			return getPropertyValue(custom_image_path);
+		}
+		public static String getMobileImagePath(){
+			return getPropertyValue(mobile_image_path);
+		}
+		public static String getActivityCustomPath(){
+			return getPropertyValue(activity_custom);
+		}
+		public static String getNewsImagePath(){
+			return getPropertyValue(news_image_path);
+		}
+		public static String getRecipesImagePath(){
+			return getPropertyValue(recipes_image_path);
+		}
+		public static String getNoticeImagePath(){
+			return getPropertyValue(notice_image_path);
+		}
+
+	public static String getQuestionnaireUrl(){
+		return getPropertyValue(QUESTIONS_URL);
 	}
-	public static String getMobileImagePath(){
-		return getPropertyValue(mobile_image_path);
-	}
-	public static String getActivityCustomPath(){
-		return getPropertyValue(activity_custom);
-	}
-	public static String getNewsImagePath(){
-		return getPropertyValue(news_image_path);
-	}
-	public static String getRecipesImagePath(){
-		return getPropertyValue(recipes_image_path);
-	}
-	public static String getNoticeImagePath(){
-		return getPropertyValue(notice_image_path);
+	public static String getShortUrl(){
+		return getPropertyValue(SHORT_URL);
 	}
 
 	public static String getPropertyValue(String key){

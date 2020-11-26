@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
- <classPathEntry    location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.41\mysql-connector-java-5.1.41.jar"/>
+ <classPathEntry    location="D:/work/maven/repository/mysql/mysql-connector-java/5.1.41/mysql-connector-java-5.1.41.jar"/>
   <context id="context1">
       <commentGenerator>
          <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
@@ -9,20 +9,13 @@
     </commentGenerator>
     <jdbcConnection connectionURL="jdbc:mysql://67.209.190.156:3306/psmc?characterEncoding=UTF-8"
      driverClass="com.mysql.jdbc.Driver" password="3edc#EDC" userId="root" />
-    
     <javaModelGenerator targetPackage="priv.guochun.psmc.website.backstage.questionnaire.model" targetProject="psmc">
-            <!-- enableSubPackages:是否让schema作为包的后缀 -->  
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false" />  
             <!-- 从数据库返回的值被清理前后的空格 -->  
             <property name="trimStrings" value="true" />  
     </javaModelGenerator>
-    
     <sqlMapGenerator targetPackage="priv.guochun.psmc.website.backstage.questionnaire.model.mapper" targetProject="psmc">
-        <!-- enableSubPackages:是否让schema作为包的后缀 -->  
-            <property name="enableSubPackages" value="false" />  
-    </sqlMapGenerator>
-    
-    
     <table schema="psmc" tableName="tab_subject_result" domainObjectName="TabSubjectResult"></table>
   </context>
 </generatorConfiguration>

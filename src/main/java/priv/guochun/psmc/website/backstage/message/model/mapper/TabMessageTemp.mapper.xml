@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.guochun.psmc.website.backstage.message.dao.TabMessageTempMapper">
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.message.model.TabMessageTemp">
+    <id column="temp_uuid" jdbcType="VARCHAR" property="tempUuid" />
+    <result column="temp_code" jdbcType="VARCHAR" property="tempCode" />
+    <result column="temp_content" jdbcType="VARCHAR" property="tempContent" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="temp_id" jdbcType="VARCHAR" property="tempId" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    temp_uuid, temp_code, temp_content, type, temp_id,add_time
+  </sql>
+  <select id="selectByTempExample" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessageTempExample" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tab_message_temp
+    <if test="tempCode != null and tempCode !=''">
+        where temp_code=#{tempCode}
+      </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tab_message_temp
+    where temp_uuid = #{tempUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tab_message_temp
+    where temp_uuid = #{tempUuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessageTempExample">
+    delete from tab_message_temp
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessageTemp">
+    insert into tab_message_temp (temp_uuid, temp_code, temp_content, 
+      type, add_time)
+    values (#{tempUuid,jdbcType=VARCHAR}, #{tempCode,jdbcType=VARCHAR}, #{tempContent,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessageTemp">
+    insert into tab_message_temp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tempUuid != null">
+        temp_uuid,
+      </if>
+      <if test="tempCode != null">
+        temp_code,
+      </if>
+      <if test="tempContent != null">
+        temp_content,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tempUuid != null">
+        #{tempUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="tempCode != null">
+        #{tempCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tempContent != null">
+        #{tempContent,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessageTempExample" resultType="java.lang.Integer">
+    select count(*) from tab_message_temp
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tab_message_temp
+    <set>
+      <if test="record.tempUuid != null">
+        temp_uuid = #{record.tempUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tempCode != null">
+        temp_code = #{record.tempCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tempContent != null">
+        temp_content = #{record.tempContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addTime != null">
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tab_message_temp
+    set temp_uuid = #{record.tempUuid,jdbcType=VARCHAR},
+      temp_code = #{record.tempCode,jdbcType=VARCHAR},
+      temp_content = #{record.tempContent,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessageTemp">
+    update tab_message_temp
+    <set>
+      <if test="tempCode != null">
+        temp_code = #{tempCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tempContent != null">
+        temp_content = #{tempContent,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where temp_uuid = #{tempUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessageTemp">
+    update tab_message_temp
+    set temp_code = #{tempCode,jdbcType=VARCHAR},
+      temp_content = #{tempContent,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP}
+    where temp_uuid = #{tempUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

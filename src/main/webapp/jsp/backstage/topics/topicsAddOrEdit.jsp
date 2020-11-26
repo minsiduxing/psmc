@@ -52,7 +52,7 @@
 			        	<table id="picTable" width="80%">
 			        		<c:forEach var="att" items="${attachmentList}" varStatus="status">
 			        		<tr id="${att.attachment_uuid }">
-			        			<td ><a href="javascript:imgShow('${att.file_prefix }${att.file_path}')">${att.file_real_name}.${att.file_suffix} </a></td>
+			        			<td ><a href="javascript:savepic('${att.file_prefix }${att.file_path}')">${att.file_real_name}.${att.file_suffix} </a></td>
 			        			<td ><input style="width:50px; height: 25px;" class="easyui-linkbutton" onclick="deleteImage('${att.attachment_uuid}')" value="删除"/></td>
 			        		</tr>
 			        		
@@ -69,6 +69,7 @@
 			<input id="submitbtn" type="button" class="easyui-linkbutton" onclick="save()" value="提交"/>
 			<input id="button" type="reset" class="easyui-linkbutton" onclick=" retList() "  value="返回列表"/>
 	</div>
+	<img id='downImg' src='' style='display: none;' />
 	<div id="outerdiv" style="position:fixed;top:0;left:0;background:rgba(0,0,0,0.7);z-index:10000;width:100%;height:100%;display:none;">
 		    <div id="innerdiv" style="position:absolute;">
 		        <img id="bigimg" style="border:5px solid #fff;" src="" />
@@ -243,6 +244,28 @@ var deleteAttachment = '<c:url value="/website/backstage/tabAttachmentController
         if ($("#IframeReportImg").src != "about:blank")
         	$("#IframeReportImg").document.execCommand("SaveAs");
 	}
+	
+	/* function download(url) {
+		debugger;
+		var a = window.open(url)
+		a.document.execCommand('Saveas',true,"test.png")
+		a.window.close()
+		return false
+    } */
+	
+    function savepic(url) { 
+    	　　if (document.all.a1 == null) { 
+    	　　　　var objIframe = document.createElement("IFRAME"); 
+    	　　　　document.body.insertBefore(objIframe, document.getElementById("outerdiv")); 
+    	　　　　objIframe.outerHTML = "<iframe name=a1 style='width:400px;hieght:300px' src=" + url + "></iframe>"; 
+    	　　　　var re = setTimeout("savepic()", 1) 
+    	　　} else { 
+    	　　　　clearTimeout(re) 
+    	　　　　var pic = window.open(url, "a1") 
+    	　　　　pic.document.execCommand("SaveAs") 
+    	　　　　document.all.a1.removeNode(true) 
+    	　　} 
+    	} 
 	
 
 </script>

@@ -30,5 +30,10 @@ public interface PsmcCacheFactory
      */
     public Cache getWorkFlow();
     
-    
+    /**
+     * 得到系统缓存key=CACHE_SYSTEM_KEY_INFO的缓存对象
+     * <p>Description:<p>
+     * @return
+     */
+    public Cache getCacheSysKeyInfo();
 }
