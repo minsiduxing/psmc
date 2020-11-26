@@ -5,24 +5,17 @@
   <context id="context1">
       <commentGenerator>
          <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
-         <property name="suppressAllComments" value="true" />
+         <property name="suppressAllComments" value="false" />
     </commentGenerator>
-    <jdbcConnection connectionURL="jdbc:mysql://39.96.115.144:3306/psmc?characterEncoding=UTF-8"
-     driverClass="com.mysql.jdbc.Driver" password="admin1234" userId="admin" />
-    
-    <javaModelGenerator targetPackage="priv.guochun.psmc.website.backstage.message.model" targetProject="psmc">
-            <!-- enableSubPackages:是否让schema作为包zzzz的后缀 -->  
+    <jdbcConnection connectionURL="jdbc:mysql://67.209.190.156:3306/psmc?characterEncoding=UTF-8"
+     driverClass="com.mysql.jdbc.Driver" password="3edc#EDC" userId="root" />
+    <javaModelGenerator targetPackage="priv.guochun.psmc.website.backstage.questionnaire.model" targetProject="psmc">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false" />  
             <!-- 从数据库返回的值被清理前后的空格 -->  
             <property name="trimStrings" value="true" />  
     </javaModelGenerator>
-    
-    <sqlMapGenerator targetPackage="priv.guochun.psmc.website.backstage.message.model.mapper" targetProject="psmc">
-        <!-- enableSubPackages:是否让schema作为包的后缀 -->  
-            <property name="enableSubPackages" value="false" />  
-    </sqlMapGenerator>
-    
-    
-    <table schema="psmc" tableName="tab_sys_key_info" domainObjectName="TabSysKeyInfo"></table>
+    <sqlMapGenerator targetPackage="priv.guochun.psmc.website.backstage.questionnaire.model.mapper" targetProject="psmc">
+    <table schema="psmc" tableName="tab_subject_result" domainObjectName="TabSubjectResult"></table>
   </context>
 </generatorConfiguration>
