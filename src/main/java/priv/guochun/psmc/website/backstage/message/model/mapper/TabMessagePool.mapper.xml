@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.guochun.psmc.website.backstage.message.dao.TabMessagePoolMapper">
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.message.model.TabMessagePool">
+    <id column="msg_uuid" jdbcType="VARCHAR" property="msgUuid" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="temp_code" jdbcType="VARCHAR" property="tempCode" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="custom_val" jdbcType="VARCHAR" property="customVal" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    msg_uuid, phone, temp_code, add_time,custom_val
+  </sql>
+  <select id="selectMessagePoolByExampleNotPage" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessagePoolExample" resultMap="BaseResultMap">
+    select
+    
+      distinct
+    
+    <include refid="Base_Column_List" />
+    from tab_message_pool 
+    <if test="tempCode != null">
+        where temp_code=#{tempCode}
+      </if>
+    order by temp_code
+  </select>
+  <select id="selectMessagePoolByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tab_message_pool
+    where msg_uuid = #{msgUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteMessagegPoolByPrimaryKey" parameterType="java.lang.String">
+    delete from tab_message_pool
+    where msg_uuid = #{msgUuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteMessagegPoolAll" parameterType="java.lang.String">
+    delete from tab_message_pool
+  </delete>
+  <delete id="deleteMessagegPoolByPhone" parameterType="java.lang.String">
+    delete from tab_message_pool
+    where phone = #{phone}
+  </delete>
+  <delete id="deleteByExample" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessagePoolExample">
+    delete from tab_message_pool
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessagePool">
+    insert into tab_message_pool (msg_uuid, phone, temp_code, 
+      add_time,custom_val)
+    values (#{msgUuid,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{tempCode,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertMessagePoolSelective" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessagePool">
+    insert into tab_message_pool
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="msgUuid != null">
+        msg_uuid,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="tempCode != null">
+        temp_code,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="customVal != null">
+        custom_val,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="msgUuid != null">
+        #{msgUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="tempCode != null">
+        #{tempCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customVal  != null">
+        #{customVal ,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessagePoolExample" resultType="java.lang.Integer">
+    select count(*) from tab_message_pool
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tab_message_pool
+    <set>
+      <if test="record.msgUuid != null">
+        msg_uuid = #{record.msgUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tempCode != null">
+        temp_code = #{record.tempCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addTime != null">
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.customVal != null">
+        custom_val = #{record.customVal,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tab_message_pool
+    set msg_uuid = #{record.msgUuid,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      temp_code = #{record.tempCode,jdbcType=VARCHAR},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      custom_val = #{record.customVal,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updatePoolByPrimaryKey" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessagePool">
+    update tab_message_pool
+    <set>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="tempCode != null">
+        temp_code = #{tempCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customVal != null">
+        custom_val = #{customVal,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where msg_uuid = #{msgUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="priv.guochun.psmc.website.backstage.message.model.TabMessagePool">
+    update tab_message_pool
+    set phone = #{phone,jdbcType=VARCHAR},
+      temp_code = #{tempCode,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      custom_val = #{customVal,jdbcType=VARCHAR}
+    where msg_uuid = #{msgUuid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectMessageList" parameterType="hashmap" resultType="java.util.Map">
+    SELECT * FROM tab_message_pool 
+    <if test="phone != null and phone !='' ">
+        where phone=#{phone}
+      </if>
+    ORDER BY add_time DESC
+  </select>
+  <select id="selectMessagePageList" parameterType="hashmap" resultType="priv.guochun.psmc.website.backstage.message.model.TabMessagePool">
+    SELECT * FROM tab_message_pool 
+    <if test="tempCode != null and tempCode !='' ">
+        where temp_code=#{tempCode}
+      </if>
+    ORDER BY add_time DESC
+    LIMIT #{pageIndex},#{pageSize}
+  </select>
+  <select id="countMessagePageList" parameterType="hashmap" resultType="java.lang.Integer">
+    SELECT count(1) FROM tab_message_pool 
+    <if test="tempCode != null and tempCode !='' ">
+        where temp_code=#{tempCode}
+      </if>
+  </select>
+  <select id="selectTempCode" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT DISTINCT temp_code FROM tab_message_pool WHERE temp_code is not NULL
+  </select>
+  
+</mapper>

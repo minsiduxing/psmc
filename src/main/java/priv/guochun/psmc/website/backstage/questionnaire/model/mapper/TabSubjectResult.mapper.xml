@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.guochun.psmc.website.backstage.questionnaire.model.mapper.TabSubjectResultMapper">
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectResult">
+    <id column="result_uuid" jdbcType="VARCHAR" property="resultUuid" />
+    <result column="subject_uuid" jdbcType="VARCHAR" property="subjectUuid" />
+    <result column="evaluate_info_uuid" jdbcType="VARCHAR" property="evaluateInfoUuid" />
+    <result column="result_value" jdbcType="VARCHAR" property="resultValue" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    result_uuid, subject_uuid, evaluate_info_uuid, result_value
+  </sql>
+  
+  <select id="selectResultList" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectResult" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tab_subject_result
+    <where>
+    	<if test="evaluateInfoUuid != null ">
+    		and evaluate_info_uuid = #{evaluateInfoUuid}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectResultDetails" parameterType="hashmap" resultType="java.util.Map">
+  	SELECT
+	    t1.*,
+	   ( case when t3.subject_type = '6' then CONCAT(t1.result_value ,'星') else t1.result_value end) as res,
+	    t3.subject_name,
+	    t3.subject_type
+	FROM
+	    tab_subject_result t1
+	INNER JOIN
+	    tab_evaluate_info t2
+	ON
+	    t1.evaluate_info_uuid = t2.evaluate_info_uuid
+	LEFT JOIN
+	    tab_subject_config t3
+	ON
+	    t1.subject_uuid = t3.subject_uuid
+	AND t2.questionnaire_uuid = t3.questionnaire_uuid
+	<where>
+		<if test="evaluateInfoUuid != null ">
+		 	and t2.evaluate_info_uuid = #{evaluateInfoUuid}
+		</if>
+		<if test="questionnaireUuid != null ">
+		 	and t2.questionnaire_uuid = #{questionnaireUuid}
+		</if>
+	</where>
+	order by t3.subject_order
+  </select>
+  
+  <select id="selectResultByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tab_subject_result
+    where result_uuid = #{resultUuid,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteResultByPrimaryKey" parameterType="java.lang.String">
+    delete from tab_subject_result
+    where result_uuid = #{resultUuid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertResult" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectResult">
+    insert into tab_subject_result (result_uuid, subject_uuid, evaluate_info_uuid, 
+      result_value)
+    values (#{resultUuid,jdbcType=VARCHAR}, #{subjectUuid,jdbcType=VARCHAR}, #{evaluateInfoUuid,jdbcType=VARCHAR}, 
+      #{resultValue,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertResultSelective" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectResult">
+    insert into tab_subject_result
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="resultUuid != null">
+        result_uuid,
+      </if>
+      <if test="subjectUuid != null">
+        subject_uuid,
+      </if>
+      <if test="evaluateInfoUuid != null">
+        evaluate_info_uuid,
+      </if>
+      <if test="resultValue != null">
+        result_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="resultUuid != null">
+        #{resultUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectUuid != null">
+        #{subjectUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateInfoUuid != null">
+        #{evaluateInfoUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="resultValue != null">
+        #{resultValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateResultSelective" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectResult">
+    update tab_subject_result
+    <set>
+      <if test="subjectUuid != null">
+        subject_uuid = #{subjectUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateInfoUuid != null">
+        evaluate_info_uuid = #{evaluateInfoUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="resultValue != null">
+        result_value = #{resultValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where result_uuid = #{resultUuid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateResult" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectResult">
+    update tab_subject_result
+    set subject_uuid = #{subjectUuid,jdbcType=VARCHAR},
+      evaluate_info_uuid = #{evaluateInfoUuid,jdbcType=VARCHAR},
+      result_value = #{resultValue,jdbcType=VARCHAR}
+    where result_uuid = #{resultUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

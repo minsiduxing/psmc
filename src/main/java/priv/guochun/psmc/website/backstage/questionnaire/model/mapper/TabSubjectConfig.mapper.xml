@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.guochun.psmc.website.backstage.questionnaire.model.mapper.TabSubjectConfigMapper">
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectConfig">
+    <id column="subject_uuid" jdbcType="VARCHAR" property="subjectUuid" />
+    <result column="questionnaire_uuid" jdbcType="VARCHAR" property="questionnaireUuid" />
+    <result column="subject_name" jdbcType="VARCHAR" property="subjectName" />
+    <result column="subject_order" jdbcType="SMALLINT" property="subjectOrder" />
+    <result column="subject_type" jdbcType="SMALLINT" property="subjectType" />
+    <collection property="optionList" ofType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectOptions" column="subject_uuid">
+    	<result column="optionsUuid" property="options_uuid"/>
+    	<result column="optionsValue" property="options_value"/>
+    	<result column="optionsName" property="options_name"/>
+    </collection>
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    subject_uuid, questionnaire_uuid, subject_name, subject_order, subject_type
+  </sql>
+  
+  <select id="selectConflist" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectConfig" resultMap="BaseResultMap">
+    select
+    	t1.*, t2.*
+    from tab_subject_config t1
+    left join tab_subject_options t2
+    on t1.subject_uuid = t2.subject_uuid
+    <where>
+    	<if test="questionnaireUuid != null and questionnaireUuid !='' ">
+	      and t1.questionnaire_uuid = #{questionnaireUuid}
+	    </if>
+    	<if test="subjectUuid != null and subjectUuid !='' ">
+	      and t1.subject_uuid = #{subjectUuid}
+	    </if>
+	    <if test="subjectName != null and subjectName !='' ">
+	      and t1.subject_name like concat(concat('%',#{topicName}),'%')
+	    </if>
+    </where>	
+    order by t1.subject_order asc
+  </select>
+  
+  <select id="selectSubjectTypeNums" parameterType="java.lang.String" resultType="java.util.Map">
+  	 select
+    	sum(case when t1.subject_type = 1 then 1 else 0 end) as type1,
+    	sum(case when t1.subject_type = 2 then 1 else 0 end) as type2,
+    	sum(case when t1.subject_type = 3 then 1 else 0 end) as type3,
+    	sum(case when t1.subject_type = 4 then 1 else 0 end) as type4,
+    	sum(case when t1.subject_type = 5 then 1 else 0 end) as type5,
+    	sum(case when t1.subject_type = 6 then 1 else 0 end) as type6
+     from tab_subject_config t1
+     where t1.questionnaire_uuid = #{questionnaireUuid}
+  </select>
+  
+  <select id="selectConfPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tab_subject_config
+    where subject_uuid = #{subjectUuid,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteConf" parameterType="java.lang.String">
+    delete from tab_subject_config
+    <where>
+    	<if test="questionnaireUuid != null and questionnaireUuid !='' ">
+	      and questionnaire_uuid = #{questionnaireUuid}
+	    </if>
+    	<if test="subjectUuid != null and subjectUuid !='' ">
+	      and subject_uuid = #{subjectUuid}
+	    </if>
+    </where>
+  </delete>
+  
+  
+  <insert id="insertConf" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectConfig">
+    insert into tab_subject_config (subject_uuid, questionnaire_uuid, subject_name, 
+      subject_order, subject_type)
+    values (#{subjectUuid,jdbcType=VARCHAR}, #{questionnaireUuid,jdbcType=VARCHAR}, #{subjectName,jdbcType=VARCHAR}, 
+      #{subjectOrder,jdbcType=SMALLINT}, #{subjectType,jdbcType=SMALLINT})
+  </insert>
+  
+  <insert id="insertConfSelective" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectConfig">
+    insert into tab_subject_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="subjectUuid != null">
+        subject_uuid,
+      </if>
+      <if test="questionnaireUuid != null">
+        questionnaire_uuid,
+      </if>
+      <if test="subjectName != null">
+        subject_name,
+      </if>
+      <if test="subjectOrder != null">
+        subject_order,
+      </if>
+      <if test="subjectType != null">
+        subject_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="subjectUuid != null">
+        #{subjectUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="questionnaireUuid != null">
+        #{questionnaireUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null">
+        #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectOrder != null">
+        #{subjectOrder,jdbcType=SMALLINT},
+      </if>
+      <if test="subjectType != null">
+        #{subjectType,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateConfSelective" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectConfig">
+    update tab_subject_config
+    <set>
+      <if test="questionnaireUuid != null">
+        questionnaire_uuid = #{questionnaireUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null">
+        subject_name = #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectOrder != null">
+        subject_order = #{subjectOrder,jdbcType=SMALLINT},
+      </if>
+      <if test="subjectType != null">
+        subject_type = #{subjectType,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where subject_uuid = #{subjectUuid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateConf" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectConfig">
+    update tab_subject_config
+    set questionnaire_uuid = #{questionnaireUuid,jdbcType=VARCHAR},
+      subject_name = #{subjectName,jdbcType=VARCHAR},
+      subject_order = #{subjectOrder,jdbcType=SMALLINT},
+      subject_type = #{subjectType,jdbcType=SMALLINT}
+    where subject_uuid = #{subjectUuid,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

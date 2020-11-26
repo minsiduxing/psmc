@@ -17,6 +17,8 @@ import priv.guochun.psmc.system.common.sysConfig.service.TabSysConfigService;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfigExample;
 import priv.guochun.psmc.system.framework.activiti.service.TFlowConfigService;
+import priv.guochun.psmc.website.backstage.message.model.TabSysKeyInfo;
+import priv.guochun.psmc.website.backstage.message.service.TabSysKeyInfoService;
 
 public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
 {
@@ -28,6 +30,7 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
     private CityService cityService;
     private TFlowConfigService tFlowConfigService;
     private TabSysConfigService tabSysConfigService;
+    private TabSysKeyInfoService tabSysKeyInfoService;
     
     
     public void resourcePermitOperatesInit(){
@@ -80,6 +83,19 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
     	
     }
     
+    public void sysKeyInfoInit(){
+    	logger.debug("开始加载缓存[系统信息配置Key]start!!!!!!!!!!!!!!");
+    	List<TabSysKeyInfo> sysConfigList = tabSysKeyInfoService.findSysKeyInfoList(null, null);
+    	Map<String, String> map = new HashMap<String, String>();
+    	for (TabSysKeyInfo sysConfig : sysConfigList) {
+    		map.put(sysConfig.getSysKey(), sysConfig.getSysValue());
+    	}
+    	Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+    	cache.put(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, map);
+    	logger.debug("开始加载缓存[系统信息配置Key]end!!!!!!!!!!!!!!");
+    	
+    }
+    
     public void initCache(Object key){
         if(key == null)
             return;
@@ -94,6 +110,8 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
         	workFlowDefinitionInit();
         }else if(cacheKey.equals(CacheContants.CACHE_SYS_CONFIG)){
         	sysConfigInit();
+        }else if(cacheKey.equals(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY)){
+        	sysKeyInfoInit();
         }else{
             logger.warn("缓存["+cacheKey+"]没有可以进行初始化的方法!!!");
         }
@@ -155,6 +173,14 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
 
 	public void setTabSysConfigService(TabSysConfigService tabSysConfigService) {
 		this.tabSysConfigService = tabSysConfigService;
+	}
+
+	public TabSysKeyInfoService getTabSysKeyInfoService() {
+		return tabSysKeyInfoService;
+	}
+
+	public void setTabSysKeyInfoService(TabSysKeyInfoService tabSysKeyInfoService) {
+		this.tabSysKeyInfoService = tabSysKeyInfoService;
 	}
     
     

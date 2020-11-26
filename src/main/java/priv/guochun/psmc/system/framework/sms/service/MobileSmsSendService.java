@@ -13,5 +13,10 @@ public interface MobileSmsSendService {
 	 */
 	public MsgModel sendSms(SmsModel smsModel);
 	
-
+	/**
+	 * 查询余额
+	 * @param sendType 短信类型（0短信、1彩信、2个性化短信）
+	 * @return
+	 */
+	public String getBalance(String sendType);
 }

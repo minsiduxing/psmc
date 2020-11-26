@@ -113,9 +113,9 @@
 		            <bean class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider"/>
 		        </jaxrs:providers>
      </jaxrs:server>
-	
-	 <!-- 工会短信发送类 -->	
-	 <bean id="chjghMobileSmsSendService" class="priv.guochun.psmc.system.framework.sms.service.impl.ChjghMobileSmsSendServiceImpl" />
+     
+	 <!-- 短信发送实现类 -->	
+	 <bean id="baseMobileSmsSendService" class="priv.guochun.psmc.system.framework.sms.service.impl.BaseMobileSmsSendServiceImpl" />
 	 
 	 <!-- 工会服务请求前置拦截器 -->
 	 <bean id="psmcChjghServicePreInterceptor" class="priv.guochun.psmc.website.backstage.common.interceptor.PsmcChjghServicePreInterceptor" />
@@ -128,5 +128,18 @@
 	
 	 <!-- 实名认证 -->
 	 <bean id="realNameAuthService" class="priv.guochun.psmc.website.backstage.common.realNameAuth.impl.RealNameAuthServiceImpl"/>
+	 
+	 <!-- 客户信息 -->
+	 <bean id="tabEvaluateInfoService" class="priv.guochun.psmc.website.backstage.questionnaire.service.impl.TabEvaluateInfoServiceImpl"/>
+	 <!-- 问卷信息 -->
+	 <bean id="tabQuestionnaireService" class="priv.guochun.psmc.website.backstage.questionnaire.service.impl.TabQuestionnaireServiceImpl"/>
+	 
+	 <bean id="tabRealUrlService" class="priv.guochun.psmc.website.backstage.questionnaire.service.impl.TabRealUrlServiceImpl"/>
 	
+	 <!-- 消息 -->
+	 <bean id="tabMessagePoolService" class="priv.guochun.psmc.website.backstage.message.service.impl.TabMessagePoolServiceImpl"/>
+	 <bean id="tabMessageTempService" class="priv.guochun.psmc.website.backstage.message.service.impl.TabMessageTempServiceImpl"/>
+	 <bean id="tabMessageBlackService" class="priv.guochun.psmc.website.backstage.message.service.impl.TabMessageBlackServiceImpl"/>
+	 <bean id="tabSysKeyInfoService" class="priv.guochun.psmc.website.backstage.message.service.impl.TabSysKeyInfoServiceImpl"/>
+	 
 </beans>

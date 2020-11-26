@@ -53,6 +53,18 @@
             diskPersistent="false" 
             diskExpiryThreadIntervalSeconds="300"
             memoryStoreEvictionPolicy="LRU"  
+            />   
+            
+        <cache 	
+   			name="CACHE_SYSTEM_KEY_INFO" 
+   			maxElementsInMemory="50" 
+   			eternal="true"  
+            timeToIdleSeconds="0" 
+            timeToLiveSeconds="0" 
+            overflowToDisk="false"  
+            diskPersistent="false" 
+            diskExpiryThreadIntervalSeconds="300"
+            memoryStoreEvictionPolicy="LRU"  
             />              
             
 </ehcache>  

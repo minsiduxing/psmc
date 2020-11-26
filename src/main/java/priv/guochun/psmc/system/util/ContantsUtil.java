@@ -83,4 +83,25 @@ public class ContantsUtil {
     public final static String BLOCK_03 = "03";	//合理化建议
     public final static String BLOCK_04 = "04";	//表扬
     public final static String BLOCK_05 = "05";	//投诉
+    
+    /** 通知类型 */
+    public final static Integer NOTICE_TYPE_1 = 1; //消费金额
+    public final static Integer NOTICE_TYPE_2 = 2; //消费项目
+    public final static Integer NOTICE_TYPE_3 = 3; //充值
+    
+    /** 评价状态 **/
+    public final static Integer EVALUATE_STATUS_1 = 1; //待评价
+    public final static Integer EVALUATE_STATUS_2 = 2; //已评价
+    public final static Integer EVALUATE_STATUS_3 = 3; //无，不用评价
+    public final static Integer EVALUATE_STATUS_4 = 4; //短信发送失败
+
+    /** 短信通知内容-消费金额 */
+    //    //【四季花城】尊敬的${evaluateNickName}，您${consumptionDate}的消费金额为${consumptionAmount}元，剩余金额${surplusAmount}元，剩余积分${surplusScore}分。为提升品牌服务，诚邀您参与满意度测评，点击${visitShortUrl} 可对本次体验作出评价，期待您的宝贵建议！
+        public final static String MSG_CONTENT_1 = "7370";
+    //    /** 短信通知内容-消费项目*/
+    //    //【四季花城】尊敬的${evaluateNickName}，您${consumptionDate}的消费项目为：${itemContent}剩余积分${surplusScore}分。为提升品牌服务，欢迎您参与满意度测评，点击${visitShortUrl} 可对本次体验作出评价，期待您的宝贵建议！
+        public final static String MSG_CONTENT_2 = "7371";
+    //    /** 短信通知内容-充值金额 */
+    //    //【四季花城】尊敬的${evaluateNickName}，您${consumptionDate}的充值金额为${rechargeAmount}元，赠送金额为${giveAmount}，剩余${surplusAmount}元.
+    public final static String MSG_CONTENT_3 = "7372";
 }

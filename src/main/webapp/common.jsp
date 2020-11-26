@@ -39,6 +39,8 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/wangEditor/wangEditor-fullscreen-plugin${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/uploadfy/jquery.Huploadify${jssuffix}"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/jcrop/js/browser${jssuffix}"></script>
+
+
 <input type="hidden" id="basePath" name="basePath" value="<%=request.getContextPath()%>"/>
 
 <script type="text/javascript">
@@ -62,9 +64,12 @@ var basePath = $("#basePath").val();
 var initDictUrl=basePath+"/system/common/dictController.do";
 //部门信息变量定义
 var initDeptUrl=basePath+"/website/backstage/TabDeptController.do";
+//问卷信息URL变量定义
+var initQuestionnaireUrl=basePath+"/website/backstage/QuestionnaireController.do";
 
 initDictUrl ='<c:url value="'+initDictUrl+'"/>?method=loadDict';
 initDeptUrl ='<c:url value="'+initDeptUrl+'"/>?method=loadDept';
+initQuestionnaireUrl ='<c:url value="'+initQuestionnaireUrl+'"/>?method=loadQuestionnaire';
 //查询属地树URL变量定义
 var regionTreeDiaLogUrl =basePath+"/jsp/system/common/city/cityTree.jsp";
 regionTreeDiaLogUrl ='<c:url value="'+regionTreeDiaLogUrl+'"/>';

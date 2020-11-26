@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.guochun.psmc.website.backstage.questionnaire.model.mapper.TabSubjectOptionsMapper">
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectOptions">
+    <id column="options_uuid" jdbcType="VARCHAR" property="optionsUuid" />
+    <result column="subject_uuid" jdbcType="VARCHAR" property="subjectUuid" />
+    <result column="options_value" jdbcType="VARCHAR" property="optionsValue" />
+    <result column="options_name" jdbcType="VARCHAR" property="optionsName" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    options_uuid, subject_uuid, options_value, options_name
+  </sql>
+  
+  <select id="selectOptionsByExample" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectOptions" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tab_subject_options
+  </select>
+  
+  <select id="selectOptionsByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tab_subject_options
+    where options_uuid = #{optionsUuid,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteOptionsByPrimaryKey" parameterType="java.lang.String">
+    delete from tab_subject_options
+    where options_uuid = #{optionsUuid,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  <insert id="insertOptions" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectOptions">
+    insert into tab_subject_options (options_uuid, subject_uuid, options_value, 
+      options_name)
+    values (#{optionsUuid,jdbcType=VARCHAR}, #{subjectUuid,jdbcType=VARCHAR}, #{optionsValue,jdbcType=VARCHAR}, 
+      #{optionsName,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertOptionsSelective" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectOptions">
+    insert into tab_subject_options
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="optionsUuid != null">
+        options_uuid,
+      </if>
+      <if test="subjectUuid != null">
+        subject_uuid,
+      </if>
+      <if test="optionsValue != null">
+        options_value,
+      </if>
+      <if test="optionsName != null">
+        options_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="optionsUuid != null">
+        #{optionsUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectUuid != null">
+        #{subjectUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="optionsValue != null">
+        #{optionsValue,jdbcType=VARCHAR},
+      </if>
+      <if test="optionsName != null">
+        #{optionsName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateOptionsSelective" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectOptions">
+    update tab_subject_options
+    <set>
+      <if test="subjectUuid != null">
+        subject_uuid = #{subjectUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="optionsValue != null">
+        options_value = #{optionsValue,jdbcType=VARCHAR},
+      </if>
+      <if test="optionsName != null">
+        options_name = #{optionsName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where options_uuid = #{optionsUuid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateOptions" parameterType="priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectOptions">
+    update tab_subject_options
+    set subject_uuid = #{subjectUuid,jdbcType=VARCHAR},
+      options_value = #{optionsValue,jdbcType=VARCHAR},
+      options_name = #{optionsName,jdbcType=VARCHAR}
+    where options_uuid = #{optionsUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>
