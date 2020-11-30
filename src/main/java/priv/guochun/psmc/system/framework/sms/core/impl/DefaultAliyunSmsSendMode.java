@@ -23,8 +23,8 @@ public class DefaultAliyunSmsSendMode extends SmsSendAbstractMode
 	private String product = "Dysmsapi";//短信API产品名称（短信产品名固定，无需修改）
 	private String domain = "dysmsapi.aliyuncs.com";//短信API产品域名（接口地址固定，无需修改）
 	
-	private String accessKeyId = "LTAIpW6AHbK6GmwQ";//你的accessKeyId,参考本文档步骤2
-	private String accessKeySecret = "jq9FnqoALSDpLnCjM7AkCKyH34a0WT";//你的accessKeySecret，参考本文档步骤2
+	private String accessKeyId = "";//你的accessKeyId,参考本文档步骤2
+	private String accessKeySecret = "";//你的accessKeySecret，参考本文档步骤2
 	
 	private String signName;
 	private String templateCode;
