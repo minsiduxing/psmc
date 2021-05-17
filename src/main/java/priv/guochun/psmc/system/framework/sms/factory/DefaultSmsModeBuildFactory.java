@@ -6,8 +6,9 @@ import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.sms.core.SmsSendAbstractMode;
 import priv.guochun.psmc.system.framework.sms.core.impl.ChuangxinSmsSendMode;
 import priv.guochun.psmc.system.framework.sms.core.impl.DefaultAliyunSmsSendMode;
+import priv.guochun.psmc.system.framework.sms.core.impl.MmsUtilSendMode;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
-import priv.guochun.psmc.website.backstage.message.mms.MmsUtilSendMode;
+
 
 import java.util.Map;
 

@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+import org.springframework.cache.Cache;
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
 import priv.guochun.psmc.authentication.user.model.TabAccount;
@@ -34,12 +35,16 @@ import priv.guochun.psmc.system.enums.AccountTypeEnum;
 import priv.guochun.psmc.system.enums.IfEnum;
 import priv.guochun.psmc.system.enums.VerificationCodeTypeEnum;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
+import priv.guochun.psmc.system.framework.sms.util.SmsTypeEnum;
 import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
@@ -64,6 +69,7 @@ import priv.guochun.psmc.website.backstage.topics.service.TabCommentService;
 import priv.guochun.psmc.website.backstage.topics.service.TabTopicsService;
 import priv.guochun.psmc.website.backstage.util.ChjghContants;
 import priv.guochun.psmc.website.backstage.util.IdCardUtil;
+import priv.guochun.psmc.website.backstage.util.MsgTemplateUtil;
 import priv.guochun.psmc.website.enums.ModuleEnum;
 
 
@@ -141,16 +147,24 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		 
          TabVerificationCode verificationCode = verificationCodeService.createCode(type, phone);
          String code =  verificationCode.getCode();
-         
+
+         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+		 Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		 Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+
+
          SmsModel sm = new SmsModel();
          sm.setCreateTime(TimestampUtil.createCurTimestamp());
-         sm.setReceiveContext("{\"code\":\""+code+"\"}");
-         sm.setReceiveNo(phone);
+		 sm.setReceiveNo(phone);
+		 sm.setSendType(SmsTypeEnum.SmsTypeEnum2.getUuid());
+         sm.setReceiveContext("[{\"手机号码\":\""+phone+"\",\"code\":\""+code+"\"}]");
+		 sm.setSmsId(SmsTypeEnum.ZY_PLATFORM_SCZGYJ_VERIFICATION_CODE_SMS_ID);
+
          MsgModel mm = baseMobileSmsSendService.sendSms(sm);
          if(mm.isSuccess()){
         	Properties pp = SystemPropertiesUtil.getProps();
         	//短信是否开启
-     		boolean sms_enable =Boolean.parseBoolean(pp.getProperty("sms_enable"));
+     		boolean sms_enable =Boolean.valueOf(map.get("sms_enable").toString());
      		if(sms_enable)
      			return GsonUtil.toJsonForObject(MsgModel.buildDefaultSuccess());
      		else

@@ -1,4 +1,4 @@
-package priv.guochun.psmc.website.backstage.message.mms;
+package priv.guochun.psmc.system.framework.sms.core.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.httpclient.HttpClient;
@@ -41,9 +41,9 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
     private  String zhongyi_appkey = "";
     
     
-    public MmsUtilSendMode(String zhongyi_create_url, String zhongyi_sms_send_url, String zhongyi_mms_send_url,String zhongyi_sms_custom_url,
-    		String zhongyi_mms_balance_url, String zhongyi_sms_balance_url,String zhongyi_sms_custom_balance_url,
-			String zhongyi_appid, String zhongyi_appkey) {
+    public MmsUtilSendMode(String zhongyi_create_url, String zhongyi_sms_send_url, String zhongyi_mms_send_url, String zhongyi_sms_custom_url,
+                           String zhongyi_mms_balance_url, String zhongyi_sms_balance_url, String zhongyi_sms_custom_balance_url,
+                           String zhongyi_appid, String zhongyi_appkey) {
 		this.zhongyi_create_url = zhongyi_create_url;
 		this.zhongyi_sms_send_url = zhongyi_sms_send_url;
 		this.zhongyi_mms_send_url = zhongyi_mms_send_url;
@@ -139,7 +139,7 @@ public class MmsUtilSendMode extends SmsSendAbstractMode{
     public MsgModel send(String mmsId,String phone) {
         
             HttpClient client = new HttpClient();
-            PostMethod post = new PostMethod(zhongyi_mms_send_url);
+			PostMethod post = new PostMethod(zhongyi_mms_send_url);
             post.addRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
             post.setRequestHeader("Connection", "close");
             NameValuePair[] data = { 
