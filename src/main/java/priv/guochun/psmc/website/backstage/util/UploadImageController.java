@@ -11,9 +11,11 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import org.springframework.cache.Cache;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,10 +23,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.upload.factory.MyCommonsMultipartResolverFactory;
 import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
 import priv.guochun.psmc.system.framework.upload.util.FtpUtil;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 
@@ -140,6 +145,10 @@ public class UploadImageController extends MyController{
 		UploadFileModel model = new UploadFileModel();
 		String filepath = null;
 		try {
+			PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+			Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+			Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+			String system_upload_dir =map.get("system_upload_dir").toString();
 			if(imageFile != null){
 				String name = imageFile.getName();
 				 String filename = name.substring(0,name.indexOf("."));
@@ -151,7 +160,7 @@ public class UploadImageController extends MyController{
 			     model.setFileSystemName(fileSystemName);
 			     String customFilePath = SystemPropertiesUtil.getCustomImagePath() + fileSystemName + "." + suffix;
 			     String fileTempAllPath = SystemPropertiesUtil.getUploadTempPathPropertyValue() +fileSystemName+"."+suffix; 
-			     String fileRealAllPath = SystemPropertiesUtil.getUploadPathPropertyValue()+customFilePath;
+			     String fileRealAllPath = system_upload_dir+customFilePath;
 			     model.setFile_upload_real_path(fileRealAllPath);
 			     model.setTemp_file_path(fileTempAllPath);
 			     model.setCustom_file_path(customFilePath);

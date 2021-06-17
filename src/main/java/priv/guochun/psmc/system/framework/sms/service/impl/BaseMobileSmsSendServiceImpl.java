@@ -17,7 +17,7 @@ public class BaseMobileSmsSendServiceImpl implements MobileSmsSendService {
 
     private SmsSendRuleSolve smsSendRuleSolve = null;
     @Autowired
-	private PsmcCacheFactory psmcCacheFactory;
+    private PsmcCacheFactory psmcCacheFactory;
     
     
     

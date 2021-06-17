@@ -21,10 +21,14 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.log4j.Logger;
 
+import org.springframework.cache.Cache;
 import priv.guochun.psmc.system.enums.FileEnum;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.upload.model.FtpModel;
 import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 
 /**
@@ -93,12 +97,17 @@ public class FtpUtil {
      * @return
      * @author wanglei 2017年8月22日
      */
-    private FtpModel  getFtpProperFromFile(){ 
+    private FtpModel  getFtpProperFromFile(){
+		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		Map<String, String> sysMap = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+		String system_upload_dir =sysMap.get("system_upload_dir").toString();
+
     	String ip = SystemPropertiesUtil.getSystemRemoteIp();
     	String port = SystemPropertiesUtil.getSystemRemotePort();
     	String user = SystemPropertiesUtil.getSystemRemoteUsername();
     	String password = SystemPropertiesUtil.getSystemRemotePassword();
-    	String path = SystemPropertiesUtil.getUploadPathPropertyValue();
+    	String path = system_upload_dir;
     	String isRemote = SystemPropertiesUtil.getSystemUploadIsremote();
     	String os = SystemPropertiesUtil.getSystemRemoteOs();
     	String uptempDir = SystemPropertiesUtil.getUploadTempPathPropertyValue();

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +23,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.Thumbnails.Builder;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
 import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
 import priv.guochun.psmc.system.framework.upload.util.FtpUtil;
 import priv.guochun.psmc.system.framework.upload.util.PSMCFileUtils;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
@@ -84,28 +88,41 @@ public class InfoReleaseController extends MyController{
 			module.setModelUuid(infoRelease.getNewsUuid());
 			module.setModifyAccUuid(this.getUserBySeesion(request).getUserUuid());
 		}
-		
+
+		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+		//这里只改了file_prefix_path从缓存取，因为12、14分类是老的版本，其他地方基本不会用，所以暂时不改了，后续新开发的一律从缓存取
+		String file_prefix_path =map.get("file_prefix_path").toString();
+		infoRelease.setImagePath(file_prefix_path);
+
+		/**
+		 * 以下代码是设置新闻略缩图的默认图片存储地址的
+		 */
 		if(ContantsUtil.IS_CUSTOM_0.equals(infoRelease.getIsCustom()) && StringUtils.isBlank(infoRelease.getImagePath())){
-			if(ContantsUtil.ONE_LEVEL_CLASSIFY_12.equals(module.getOneLevelClassify())){
-				infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getLegalProvisionsImagePath());			
-			}
+				if(ContantsUtil.ONE_LEVEL_CLASSIFY_12.equals(module.getOneLevelClassify())){
+					infoRelease.setImagePath(file_prefix_path + SystemPropertiesUtil.getLegalProvisionsImagePath());
+				}
 			//早知道信息分类
 			if(ContantsUtil.ONE_LEVEL_CLASSIFY_14.equals(module.getOneLevelClassify())){
 				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1401.equals(module.getTowLevelClassify())){
-					infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getRecipesImagePath());
+					infoRelease.setImagePath(file_prefix_path + SystemPropertiesUtil.getRecipesImagePath());
 				}
 				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1402.equals(module.getTowLevelClassify())){
-					infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getNoticeImagePath());			
+					infoRelease.setImagePath(file_prefix_path + SystemPropertiesUtil.getNoticeImagePath());
 								}
 				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1403.equals(module.getTowLevelClassify())){
-					infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getNewsImagePath());
+					infoRelease.setImagePath(file_prefix_path + SystemPropertiesUtil.getNewsImagePath());
 				}
 				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1405.equals(module.getTowLevelClassify())){
-					infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getLegalProvisionsImagePath());
+					infoRelease.setImagePath(file_prefix_path + SystemPropertiesUtil.getLegalProvisionsImagePath());
 				}
 				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1406.equals(module.getTowLevelClassify())){
-                    infoRelease.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getNoticeImagePath());
+                    infoRelease.setImagePath(file_prefix_path + SystemPropertiesUtil.getNoticeImagePath());
                 }
+			}
+			if(ContantsUtil.ONE_LEVEL_CLASSIFY_15.equals(module.getOneLevelClassify())){
+				infoRelease.setImagePath(file_prefix_path);
 			}
 		}
 		infoReleaseService.saveOrUpdateInfoReleaseBusinessMethod(infoRelease, module);
@@ -259,6 +276,11 @@ public class InfoReleaseController extends MyController{
 	@ResponseBody
 	public  void confirmPicture(int x,int y,int w,int h,String pirSrc,HttpServletResponse response) throws IOException {
 		Map<String,Object> returnmap = new HashMap<String,Object>();
+		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+		String system_upload_dir =map.get("system_upload_dir").toString();
+
 		try {
 			int newsw = new Integer(SystemPropertiesUtil.getNewsPicWidth());
 			int newsh = new Integer(SystemPropertiesUtil.getNewsPicHeight());
@@ -271,7 +293,7 @@ public class InfoReleaseController extends MyController{
 			//从临时文件上传文件到正式服务器
 			UploadFileModel upm = new UploadFileModel();
 			upm.setFile(tf);
-			upm.setFile_upload_real_path(SystemPropertiesUtil.getUploadPathPropertyValue());
+			upm.setFile_upload_real_path(system_upload_dir);
 			upm.setFileSize(String.valueOf(tf.length()));
 			upm.setTemp_file_path(pirSrc);
 			FtpUtil ftu = FtpUtil.getFtputil();

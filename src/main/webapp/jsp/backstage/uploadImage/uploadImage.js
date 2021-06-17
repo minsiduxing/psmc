@@ -20,7 +20,7 @@ function openUploadDialog(){
 	editdialog.panel({iconCls:'icon-save'});
 	var imagePath = $("#imagePath").val();
 	if(imagePath){
-		$("#preview").css({"width":"130px", "height":"130px", "margin-left":"0", "margin-top":"0"});
+		$("#preview").css({"width":"330px", "height":"80px", "margin-left":"0", "margin-top":"0"});
 		$("#preview").attr("src", imagePath);
 	}
 	editdialog.window("open");

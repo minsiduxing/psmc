@@ -29,6 +29,11 @@ public class ContantsUtil {
      * 后勤中心-早知道
      */
     public final static String ONE_LEVEL_CLASSIFY_14 = "14";
+
+    /**
+     * 通用信息发布
+     */
+    public final static String ONE_LEVEL_CLASSIFY_15 = "15";
     
     //后勤中心-早知道信息分类
     /**

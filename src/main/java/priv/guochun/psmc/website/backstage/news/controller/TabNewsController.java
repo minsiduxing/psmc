@@ -19,18 +19,22 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
 import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
 import priv.guochun.psmc.system.framework.upload.util.FtpUtil;
 import priv.guochun.psmc.system.framework.upload.util.PSMCFileUtils;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.JsonUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
@@ -162,6 +166,10 @@ public class TabNewsController extends MyController {
 	public  void confirmPic(int x,int y,int w,int h,String pirSrc,HttpServletResponse response) throws IOException {
 		Map<String,Object> returnmap = new HashMap<String,Object>();
 		try {
+			PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+			Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+			Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+			String system_upload_dir =map.get("system_upload_dir").toString();
 			int newsw = new Integer(SystemPropertiesUtil.getNewsPicWidth());
 			int newsh = new Integer(SystemPropertiesUtil.getNewsPicHeight());
 			File tf = new File(pirSrc);
@@ -173,7 +181,7 @@ public class TabNewsController extends MyController {
 			//从临时文件上传文件到正式服务器
 			UploadFileModel upm = new UploadFileModel();
 			upm.setFile(tf);
-			upm.setFile_upload_real_path(SystemPropertiesUtil.getUploadPathPropertyValue());
+			upm.setFile_upload_real_path(system_upload_dir);
 			upm.setFileSize(String.valueOf(tf.length()));
 			upm.setTemp_file_path(pirSrc);
 			FtpUtil ftu = FtpUtil.getFtputil();

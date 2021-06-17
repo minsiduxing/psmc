@@ -3,11 +3,10 @@
 	pageEncoding="UTF-8"%>
 <html>
 <head>
-<%@ include file="../../../../../common.jsp"%>
+<%@ include file="../../../../common.jsp"%>
 
 <title>系统日志列表</title>
 <script type="text/javascript" src="sysOperLog_list.js"></script>
-<script type="text/javascript" src="../../../js/md5.js"></script>
 </head>
 <body id="body">
 

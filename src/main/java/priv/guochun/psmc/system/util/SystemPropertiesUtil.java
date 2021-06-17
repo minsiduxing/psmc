@@ -1,13 +1,18 @@
 package priv.guochun.psmc.system.util;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.Cache;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 
 
 public class SystemPropertiesUtil
@@ -141,11 +146,7 @@ public class SystemPropertiesUtil
     public static String getUploadTempPathPropertyValue(){
         return getPropertyValue(system_upload_temp_dir);
     }
-    
-    public static String getUploadPathPropertyValue(){
-        return getPropertyValue(system_upload_dir);
-    }
-    
+
     public static String getSystemUploadIsremote() {
 		return getPropertyValue(system_upload_isremote);
 	}
@@ -191,10 +192,25 @@ public class SystemPropertiesUtil
 	public static String getIsPublish() {
 		return getPropertyValue(is_publish);
 	}
-	
+
+	/**
+	 * 这个方法应该删除的，系统引用太多，暂时不删，不要引用了，如果要获取，直接用里面的代码复制过去就行
+	 * @return
+	 */
+	@Deprecated
 	public static String getfilePrefixPath(){
-		return getPropertyValue(file_prefix_path);
+		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		Map<String, String> sysMap = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+		String file_prefix_path =sysMap.get("file_prefix_path").toString();
+		return file_prefix_path;
 	}
+
+	/**
+	 * 方法废弃了不要引用了，如果要使用 从cache里获取 参考上面代码
+	 * @return
+	 */
+	@Deprecated
 	public static String getHelpDeclareImagePath(){
 		return getPropertyValue(help_declare_image_path);
 	}
