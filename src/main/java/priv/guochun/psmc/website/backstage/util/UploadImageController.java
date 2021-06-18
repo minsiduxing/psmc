@@ -149,6 +149,8 @@ public class UploadImageController extends MyController{
 			Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
 			Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
 			String system_upload_dir =map.get("system_upload_dir").toString();
+			String system_upload_temp_dir =map.get("system_upload_temp_dir").toString();
+			String custom_image_path =map.get("custom_image_path").toString();
 			if(imageFile != null){
 				String name = imageFile.getName();
 				 String filename = name.substring(0,name.indexOf("."));
@@ -158,8 +160,8 @@ public class UploadImageController extends MyController{
 			     model.setFile(imageFile);
 			     String fileSystemName = filename;
 			     model.setFileSystemName(fileSystemName);
-			     String customFilePath = SystemPropertiesUtil.getCustomImagePath() + fileSystemName + "." + suffix;
-			     String fileTempAllPath = SystemPropertiesUtil.getUploadTempPathPropertyValue() +fileSystemName+"."+suffix; 
+			     String customFilePath = custom_image_path+ fileSystemName + "." + suffix;
+			     String fileTempAllPath = system_upload_temp_dir +fileSystemName+"."+suffix;
 			     String fileRealAllPath = system_upload_dir+customFilePath;
 			     model.setFile_upload_real_path(fileRealAllPath);
 			     model.setTemp_file_path(fileTempAllPath);

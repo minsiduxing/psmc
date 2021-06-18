@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
 import priv.guochun.psmc.authentication.user.model.TabPerson;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
@@ -65,6 +69,12 @@ public class TabActivityManageController extends MyController{
 	 */
 	@RequestMapping(params="method=addOrUpdate")
 	public void addOrUpdate(TabActivityManage activity,TabModule module,String isEdit) throws IOException{
+		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+		String file_prefix_path =map.get("file_prefix_path").toString();
+		String activity_image_path =map.get("activity_image_path").toString();
+
 		if(isEdit.equals("add")){
 			activity.setCreateDate(DateUtil.getCurrentTimstamp());
 			activity.setCreatePerson(this.getUserBySeesion(this.request()).getPersonName());
@@ -75,7 +85,7 @@ public class TabActivityManageController extends MyController{
 		}
 		//如果配图为空，则添加默认配图
 		if(ContantsUtil.IS_CUSTOM_0.equals(activity.getIsCustom()) && StringUtils.isBlank(activity.getImagePath())){
-			activity.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getActivityImagePath());
+			activity.setImagePath(file_prefix_path +activity_image_path);
 		}
 		tabActivityManageService.addOrupdateActivity(activity, module);
 		super.responseJson(true, "操作成功!", this.response());

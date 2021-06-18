@@ -96,29 +96,35 @@ public class InfoReleaseController extends MyController{
 		String file_prefix_path =map.get("file_prefix_path").toString();
 		infoRelease.setImagePath(file_prefix_path);
 
+
+		String recipes_image_path =map.get("recipes_image_path").toString();
+		String notice_image_path =map.get("notice_image_path").toString();
+		String news_image_path =map.get("file_prefix_path").toString();
+		String Legal_provisions_image_path =map.get("Legal_provisions_image_path").toString();
+
 		/**
 		 * 以下代码是设置新闻略缩图的默认图片存储地址的
 		 */
 		if(ContantsUtil.IS_CUSTOM_0.equals(infoRelease.getIsCustom()) && StringUtils.isBlank(infoRelease.getImagePath())){
 				if(ContantsUtil.ONE_LEVEL_CLASSIFY_12.equals(module.getOneLevelClassify())){
-					infoRelease.setImagePath(file_prefix_path + SystemPropertiesUtil.getLegalProvisionsImagePath());
+					infoRelease.setImagePath(file_prefix_path + Legal_provisions_image_path);
 				}
 			//早知道信息分类
 			if(ContantsUtil.ONE_LEVEL_CLASSIFY_14.equals(module.getOneLevelClassify())){
 				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1401.equals(module.getTowLevelClassify())){
-					infoRelease.setImagePath(file_prefix_path + SystemPropertiesUtil.getRecipesImagePath());
+					infoRelease.setImagePath(file_prefix_path + recipes_image_path);
 				}
 				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1402.equals(module.getTowLevelClassify())){
-					infoRelease.setImagePath(file_prefix_path + SystemPropertiesUtil.getNoticeImagePath());
+					infoRelease.setImagePath(file_prefix_path + notice_image_path);
 								}
 				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1403.equals(module.getTowLevelClassify())){
-					infoRelease.setImagePath(file_prefix_path + SystemPropertiesUtil.getNewsImagePath());
+					infoRelease.setImagePath(file_prefix_path + news_image_path);
 				}
 				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1405.equals(module.getTowLevelClassify())){
-					infoRelease.setImagePath(file_prefix_path + SystemPropertiesUtil.getLegalProvisionsImagePath());
+					infoRelease.setImagePath(file_prefix_path + Legal_provisions_image_path);
 				}
 				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1406.equals(module.getTowLevelClassify())){
-                    infoRelease.setImagePath(file_prefix_path + SystemPropertiesUtil.getNoticeImagePath());
+                    infoRelease.setImagePath(file_prefix_path + notice_image_path);
                 }
 			}
 			if(ContantsUtil.ONE_LEVEL_CLASSIFY_15.equals(module.getOneLevelClassify())){

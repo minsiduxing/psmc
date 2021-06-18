@@ -116,8 +116,40 @@ insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '8615ca6386f340b48e1992c676ee2606');
 
 
-delete from tab_sys_key_info where id=24 or id=25;
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (24, 'file_prefix_path', 'E:/export/home/suoji/upload/', null);
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (25, 'system_upload_dir', '/export/home/suoji/upload/', null);
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (26, 'news_image_path', '/export/home/suoji/upload/', null);
+delete from tab_sys_key_info where id in(24,25,26,27,28,29,30,31,32,33,34,35);
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (24, 'file_prefix_path', 'E:/export/home/suoji/upload/', '文件上传后生成的url前缀');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (25, 'system_upload_dir', '/export/home/suoji/upload/', '文件上传后实际保存的服务器地址');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (26, 'news_image_path', 'default/news.png', '新闻缺省配图地址-大院新闻');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (27, 'system_upload_temp_dir', '/log/psmc-temp-upload/', '系统上传临时文件目录');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (28, 'system_download_temp_dir', '/log/psmc-temp-download/', '系统下载临时文件目录');
 
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (29, 'system_upload_isremote', 'false', '是否开启ftp远程上传（被动模式）');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (30, 'system_remote_ip', 'ip', '远程主机ip');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (31, 'system_remote_port', 'port', '远程主机port');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (32, 'system_remote_username', '', '主机ftp用户名');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (33, 'system_remote_password', '', '主机ftp密码');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (34, 'system_remote_os', 'linux', '远程主机系统');
+
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (35, 'excel_export_length', '10000', '系统导出excel每个sheet页的最大限制');
+
+delete from tab_sys_key_info where id in(36,37,38,39,40,41,42,43,44);
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (36, 'mobile_image_path', 'mobile/', '陕测-移动端上传图片自定义路径');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (37, 'activity_custom', 'activity/', '陕测-活动-图片路径');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (38, 'dept_literary_form_custom', 'deptLiteraryForm/', '陕测-文体协会-图片路径');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (39, 'dept_innovation_custom', 'deptInnovation/', '陕测-信息编辑自定义配图路径');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (40, 'logistics_center_custom', 'logisticsCenter/', '陕测-后勤中心-早知道-图片路径');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (41, 'literary_form_custom', 'literaryForm/', '陕测-文体协会-最新活动-图片路径');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (42, 'assistance_custom', 'assistance/', '陕测-援助帮扶-法条维护-图片路径');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (43, 'innovation_custom', 'innovation/', '陕测-创新工作室-图片路径');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (44, 'custom_image_path', 'custom/', '陕测-信息列表自定义配图路径');
+
+delete from tab_sys_key_info where id in(45,46,47,48,49,50,51,52,53);
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (45, 'help_declare_image_path', 'default/help_declare.png', '陕测-帮扶申报-默认配图');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (46, 'law_help_image_path', 'default/law_help.png', '陕测-法律援助-默认配图');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (47, 'Legal_provisions_image_path', 'default/Legal_provisions.png', '陕测-法条维护-默认配图');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (48, 'work_manage_image_path', 'default/work_manage.png', '陕测-工作管理-默认配图');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (49, 'work_release_image_path', 'default/work_manage.png', '陕测-工作发布-默认配图');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (50, 'activity_image_path', 'default/activity.png', '陕测-活动管理-默认配图');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (51, 'innovation_image_path', 'default/innovation.png', '陕测-优秀创新-默认配图');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (52, 'recipes_image_path', 'default/recipes.png', '陕测-美味食谱-默认配图');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (53, 'notice_image_path', 'default/notice.png', '陕测-日常通知-默认配图');

@@ -1,18 +1,5 @@
 package priv.guochun.psmc.system.framework.upload.util;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.RandomAccessFile;
-import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.PrintCommandListener;
@@ -20,7 +7,6 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.log4j.Logger;
-
 import org.springframework.cache.Cache;
 import priv.guochun.psmc.system.enums.FileEnum;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
@@ -29,19 +15,17 @@ import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.upload.model.FtpModel;
 import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
-import priv.guochun.psmc.system.util.SystemPropertiesUtil;
+
+import java.io.*;
+import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * <p>Title:文件上传ftp工具 </p>
- * <p>Description:该类为 文件上传ftp工具其中支持的方法有：
- * 1、读取缓存中的文件上传配置。2、配置文件读取文件配置
- * 3、封装ftp的model对象。4、上传文件返回文件路径，5、删除文件。
- * 6、删除文件夹。7、连接文件服务器。8、关闭连接
- * 9、下载文件（返回文件）10、下载文件（返回二进制流）</p>
- * @author <a href="mailTo:18829012118@126.com">wanglei</a>
- * @version 1.0
- * @history:
- * Created by wanglei 2017年8月21日
+ * FTP文件服务器，处理逻辑如下：
+ * 如果system_upload_isremote 为true，则将文件通过ftp协议上传至远端服务器 删除本地临时文件，否则，将文件移动到本地目标目录，删除本地临时文件。
  */
 public class FtpUtil {
  	private static final Logger logger = Logger.getLogger(FtpUtil.class);
@@ -67,32 +51,6 @@ public class FtpUtil {
     	   
     }
     /**
-     * <p>Description:根据缓存获取文件上传对象:<p>
-     * @return
-     * @author wanglei 2017年8月21日
-     */
-//    private FtpModel  getFtpProperFromCache(){
-//    	 PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory)MySpringApplicationContext.getObject("psmcCacheFactory");
-//    	   
-//    	Cache cache = psmcCacheFactory.getCacheSystem();
-//    	String ip = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_IP,String.class);
-//    	String port = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_PORT,String.class);
-//    	String user = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_USER,String.class);
-//    	String password = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_PARSSWORD,String.class);
-//    	String path = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_PATH,String.class);
-//    	String isRemote = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_IS_REMOTE,String.class);
-//    	String os = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_OS,String.class);
-//    	String uptempDir = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_UP_TEMP_DIR,String.class);
-//    	String downtempDir = cache.get(CacheContants.CACHE_SYSTEM_UPLOAD_REMOTE_DOWN_TEMP_DIR,String.class);
-//    	
-//    	FtpModel ftm = null;
-//    	if(null!=isRemote &&!"".equals(isRemote)){
-//    		ftm = new FtpModel(ip,port, user, password, path, os, isRemote,uptempDir,downtempDir);
-//    	}
-//    	
-//    	return ftm;
-//    }
-    /**
      * <p>Description:根据配置文件返回ftpmodel<p>
      * @return
      * @author wanglei 2017年8月22日
@@ -102,17 +60,17 @@ public class FtpUtil {
 		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
 		Map<String, String> sysMap = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
 		String system_upload_dir =sysMap.get("system_upload_dir").toString();
+		String system_upload_temp_dir =sysMap.get("system_upload_temp_dir").toString();
+		String system_download_temp_dir =sysMap.get("system_download_temp_dir").toString();
 
-    	String ip = SystemPropertiesUtil.getSystemRemoteIp();
-    	String port = SystemPropertiesUtil.getSystemRemotePort();
-    	String user = SystemPropertiesUtil.getSystemRemoteUsername();
-    	String password = SystemPropertiesUtil.getSystemRemotePassword();
-    	String path = system_upload_dir;
-    	String isRemote = SystemPropertiesUtil.getSystemUploadIsremote();
-    	String os = SystemPropertiesUtil.getSystemRemoteOs();
-    	String uptempDir = SystemPropertiesUtil.getUploadTempPathPropertyValue();
-    	String downtempDir = SystemPropertiesUtil.getDownloadTempPathPropertyValue();
-    	FtpModel ftm = FtpModel.getInstanceOfFtpModle(ip,port, user, password, path, os, isRemote,uptempDir,downtempDir);
+    	String ip = sysMap.get("system_remote_ip").toString();
+    	String port = sysMap.get("system_remote_port").toString();
+		String user = sysMap.get("system_remote_username").toString();
+		String password = sysMap.get("system_remote_password").toString();
+		String path = system_upload_dir;
+    	String isRemote = sysMap.get("system_upload_isremote").toString();
+		String os = sysMap.get("system_remote_os").toString();
+		FtpModel ftm = FtpModel.getInstanceOfFtpModle(ip,port, user, password, path, os, isRemote,system_upload_temp_dir,system_download_temp_dir);
     	return ftm;
     }
     /**
@@ -269,6 +227,10 @@ public class FtpUtil {
      */
     public String uploadFile(UploadFileModel ufm) throws IOException
     {
+		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+		String file_prefix_path =map.get("file_prefix_path").toString();
         if (ufm != null && null!=ufm.getFile())
         {
         	FtpModel ftm = this.readPro();
@@ -288,14 +250,12 @@ public class FtpUtil {
         		+PSMCFileUtils.getFileNameByPath(ufm.getFileSystemName())+"]上传成功！总耗时："
         		+(endTime-beginTime)+"ms;"+"文件大小：["+PSMCFileUtils.GetFileSize(ufm.getFile())+"]"
         		);
-            	  //清空缓存目录
-            	 File tempDir = new File(ftm.getUploadTempDir());
-            	 tempDir.delete();
+            	  //删除临时文件
+            	 ufm.getFile().delete();
         	}else{
         		throw new PsmcBuisnessException("文件上传失败！");
         	}
-        	String filePrefixPath = SystemPropertiesUtil.getfilePrefixPath();
-            return filePrefixPath + ufm.getCustom_file_path();
+            return file_prefix_path + ufm.getCustom_file_path();
         }
         else
         {
@@ -400,9 +360,7 @@ public class FtpUtil {
     }
 	
     /**  
-     * 从FTP服务器上下载文件,支持断点续传，上传百分比汇报  
-     * @param remote 远程文件路径  
-     * @param local 本地文件路径  
+     * 从FTP服务器上下载文件,支持断点续传，上传百分比汇报
      * @return 上传的状态  
      * @throws IOException   
 	 *  @author wanglei 2017年8月27日 

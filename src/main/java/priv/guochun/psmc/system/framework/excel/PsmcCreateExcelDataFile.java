@@ -1,5 +1,15 @@
 package priv.guochun.psmc.system.framework.excel;
 
+import jxl.Workbook;
+import jxl.format.Alignment;
+import jxl.write.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.Cache;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,20 +17,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import jxl.Workbook;
-import jxl.format.Alignment;
-import jxl.write.Label;
-import jxl.write.WritableCellFormat;
-import jxl.write.WritableFont;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
-import jxl.write.WriteException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 
 public class PsmcCreateExcelDataFile implements CreateExcelDataFileInterface {
 
@@ -30,13 +26,23 @@ public class PsmcCreateExcelDataFile implements CreateExcelDataFileInterface {
 	@Override
 	public File getExcelFile(String fileName, List<?> dataList,
 			String[] dataColumns, String[] dataTitles) {
-		String fileUrl = SystemPropertiesUtil.getDownloadTempPathPropertyValue()+new Date().getTime()+fileName;
+		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		Map<String, String> sysMap = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+		String system_download_temp_dir =sysMap.get("system_download_temp_dir").toString();
+		String excel_export_length =sysMap.get("excel_export_length").toString();
+		File downLoadDir = new File(system_download_temp_dir);
+		if(!downLoadDir.exists()){
+			//创建目录
+			downLoadDir.mkdir();
+		}
+		String fileUrl = system_download_temp_dir+new Date().getTime()+fileName;
 		
 		logger.debug("create excel temp file path :"+fileUrl);
 		
-		WritableWorkbook wwb;
-        FileOutputStream fos;
-        
+		WritableWorkbook wwb = null;
+        FileOutputStream fos = null;
+		WritableSheet ws = null;
 		File file = new File(fileUrl);
 
 		try {
@@ -49,10 +55,9 @@ public class PsmcCreateExcelDataFile implements CreateExcelDataFileInterface {
 				
 				int k=0;
 				
-				int dataLength = Integer.parseInt(SystemPropertiesUtil.getPropertyValue("excel_export_length"));
+				int dataLength = Integer.parseInt(excel_export_length);
 				
-				WritableSheet ws = null;
-				
+
 				WritableFont font1= new 
 				WritableFont(WritableFont.TIMES,9,WritableFont.BOLD); 
 
@@ -103,6 +108,8 @@ public class PsmcCreateExcelDataFile implements CreateExcelDataFileInterface {
 				{
 					wwb.write();
 		            wwb.close();
+					fos.close();
+
 				}
 	            
 	
@@ -119,6 +126,25 @@ public class PsmcCreateExcelDataFile implements CreateExcelDataFileInterface {
 			logger.warn("excel file wirte error...."+fileUrl);
 		} catch (WriteException e) {
 			e.printStackTrace();
+		}finally{
+			if(ws != null)
+			{
+					try {
+						wwb.write();
+						wwb.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (WriteException e) {
+						e.printStackTrace();
+					}
+			}
+			if(fos != null){
+				try {
+					fos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return file;
 	}

@@ -11,6 +11,7 @@ import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.*;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
 import priv.guochun.psmc.website.backstage.questionnaire.model.TabEvaluateInfo;
@@ -136,8 +137,11 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 		if(excelList != null && !excelList.isEmpty()) {
 			Date currentDate = new Date();
 			//获取问卷地址
-			String url = SystemPropertiesUtil.getQuestionnaireUrl();
-			String url1 = SystemPropertiesUtil.getShortUrl();
+			PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+			Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+			Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+			String url =map.get("questionnaireUrl").toString();
+			String url1 =map.get("shotUrl").toString();
 			//第一条数据是表头，跳过
             for(int i=1; i<excelList.size(); i++) {
             	String[] strs = excelList.get(i);

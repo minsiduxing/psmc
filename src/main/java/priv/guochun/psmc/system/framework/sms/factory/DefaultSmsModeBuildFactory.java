@@ -66,7 +66,7 @@ public class DefaultSmsModeBuildFactory {
             String zhongyi_mms_send_url = map.get("zhongyi_mms_send_url").toString();
             String zhongyi_sms_custom_url = map.get("zhongyi_sms_custom_url").toString();
             String zhongyi_mms_balance_url = map.get("zhongyi_mms_balance_url").toString();
-    		String zhongyi_sms_balance_url = map.get("zhongyi_sms_balance_url").toString();
+            String zhongyi_sms_balance_url = map.get("zhongyi_sms_balance_url").toString();
     		String zhongyi_sms_custom_balance_url = map.get("zhongyi_sms_custom_balance_url").toString();
             String zhongyi_appid = map.get("zhongyi_appid").toString();
             String zhongyi_appkey = map.get("zhongyi_appkey").toString();

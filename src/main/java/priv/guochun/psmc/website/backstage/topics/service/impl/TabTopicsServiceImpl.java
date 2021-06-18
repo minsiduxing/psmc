@@ -6,8 +6,12 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.cache.Cache;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
@@ -37,6 +41,17 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 		if(tabTopics == null) {
 			throw new PsmcBuisnessException("主题信息数据为null!");
 		}
+		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+		String file_prefix_path =map.get("file_prefix_path").toString();
+		String activity_image_path =map.get("activity_image_path").toString();
+		String help_declare_image_path =map.get("help_declare_image_path").toString();
+		String innovation_image_path =map.get("innovation_image_path").toString();
+		String law_help_image_path =map.get("law_help_image_path").toString();
+		String work_manage_image_path =map.get("work_manage_image_path").toString();
+
+
 		if(StringUtils.isBlank(tabTopics.getTopicUuid())) {
 			//新增
 			String topicUuid = UUIDGenerator.createUUID();
@@ -49,15 +64,15 @@ public class TabTopicsServiceImpl implements TabTopicsService{
 			//添加列表的默认配图
 			String imagePath = "";
 			if(ContantsUtil.BLOCK_01.equals(tabTopics.getBlockUuid())){
-				imagePath = SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getActivityImagePath();
+				imagePath = file_prefix_path + activity_image_path;
 			}else if(ContantsUtil.BLOCK_02.equals(tabTopics.getBlockUuid())){
-				imagePath = SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getHelpDeclareImagePath();
+				imagePath = file_prefix_path + help_declare_image_path;
 			}else if(ContantsUtil.BLOCK_03.equals(tabTopics.getBlockUuid())){
-				imagePath = SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getInnovationImagePath();
+				imagePath = file_prefix_path + innovation_image_path;
 			}else if(ContantsUtil.BLOCK_04.equals(tabTopics.getBlockUuid())){
-				imagePath = SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getLawHelpImagePath();
+				imagePath = file_prefix_path+ law_help_image_path;
 			}else if(ContantsUtil.BLOCK_05.equals(tabTopics.getBlockUuid())){
-				imagePath = SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getWorkManageImagePath();
+				imagePath = file_prefix_path+ work_manage_image_path;
 			}
 			tabTopics.setImagePath(imagePath);
 			baseDao.insert(insertTopics, tabTopics);
