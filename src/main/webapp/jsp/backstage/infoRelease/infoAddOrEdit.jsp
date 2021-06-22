@@ -7,7 +7,12 @@
 		text-align:right;
 		width:10%
 	}
-	
+	.w-e-menu{
+		z-index: 2 !important;
+	}
+	.w-e-text-container{
+		z-index: 1 !important;
+	}
   </style>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
@@ -85,6 +90,10 @@ var _url = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fi
 
 //图片上路经
 var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUpload&oneLevelClassify='+$("#oneLevelClassify").val();
+//图片上路经
+var videouploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUploadVideo&oneLevelClassify='+$("#oneLevelClassify").val();
+
+
 //修改保存路径
 var path = '<c:url value="'+ basePath+'/website/backstage/InfoReleaseController.do"/>?method=confirmPicture';
 //表单数据初始化---------------------------------------------------
