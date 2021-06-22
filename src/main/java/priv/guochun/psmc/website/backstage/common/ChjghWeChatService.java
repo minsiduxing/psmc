@@ -80,7 +80,7 @@ public interface ChjghWeChatService {
 	@Path("/getDetailInfo")
     @POST
 	@Consumes("application/x-www-form-urlencoded")
-	public String infoDetail(@FormParam("uuid") String uuid);
+	public String infoDetail(@FormParam("uuid") String uuid,@FormParam("oneLevelClassify") String oneLevelClassify,@FormParam("twoLevelClassify") String twoLevelClassify);
 	
 	/**
 	 * 获取优秀创新列表
@@ -250,7 +250,7 @@ public interface ChjghWeChatService {
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
 	public String commentList(String pageJson);
-	
+
 	/**
 	 * 新增评论信息
 	 * @param tabComment 评论信息实体类

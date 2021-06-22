@@ -54,6 +54,9 @@ public class PsmcChjghServicePreInterceptor extends
 		Iterator iter = set.iterator();
 		String targetUri = null;
 		String targetMethod = null;
+		String pathToMatchSlash = null;
+		String basePath = null;
+		String basePathRaiseRoot = null;
 		while(iter.hasNext())
 		{
 			Entry map = (Entry)iter.next();
@@ -65,13 +68,22 @@ public class PsmcChjghServicePreInterceptor extends
 			if("org.apache.cxf.resource.method".equals(key)){
 				targetMethod = map.getValue().toString();
 			}
+			if("path_to_match_slash".equals(key)){
+				pathToMatchSlash = map.getValue().toString();
+			}
+			if("org.apache.cxf.message.Message.BASE_PATH".equals(key)){
+				basePath = map.getValue().toString();
+				basePathRaiseRoot = basePath.substring(basePath.indexOf("/",1),basePath.length());
+			}
 		}
 		VisitModel visitModel = new VisitModel();
 		visitModel.setClientIp(clientIp);
 		visitModel.setVisitDate(new Date());
 		visitModel.setVisitTargetMethod(targetMethod);
 		visitModel.setTargetUri(targetUri);
-		
+		visitModel.setPathToMatchSlash(pathToMatchSlash);
+		visitModel.setBasePath(basePath);
+		visitModel.setBasePathRaiseRoot(basePathRaiseRoot);
 		//组装处理链 对请求进行层层筛查
 		String result = psmcChjghProcessChinaFactory.buildChjghProcessChina().processTask(visitModel);
 		if(StringUtils.isNotBlank(result)){

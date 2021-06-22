@@ -16,10 +16,16 @@ public abstract class PsmcChjghBaseProcessChina extends PsmcAbstractProcessChina
 	 * 允许访问的集合 子类创建时进行初始化
 	 */
 	protected Map<String,String> allowedUri = new HashMap<String,String>();
-	
-	
+
+
 	protected boolean uriIsPassed(String methodName){
 		return allowedUri.containsKey(methodName);
 	}
+
+
+	protected boolean basePathRaiseRootIsPassed(String basePathRaiseRoot){
+		return allowedUri.containsKey(basePathRaiseRoot);
+	}
+
 	
 }

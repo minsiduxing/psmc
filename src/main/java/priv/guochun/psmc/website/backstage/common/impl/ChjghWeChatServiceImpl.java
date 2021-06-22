@@ -1,24 +1,12 @@
 package priv.guochun.psmc.website.backstage.common.impl;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.regex.Pattern;
-
-import javax.annotation.Resource;
-import javax.ws.rs.FormParam;
-import javax.xml.ws.WebServiceContext;
-
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-
 import org.springframework.cache.Cache;
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
@@ -45,17 +33,12 @@ import priv.guochun.psmc.system.framework.sms.util.SmsTypeEnum;
 import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
-import priv.guochun.psmc.system.util.ContantsUtil;
-import priv.guochun.psmc.system.util.DateUtil;
-import priv.guochun.psmc.system.util.SystemPropertiesUtil;
-import priv.guochun.psmc.system.util.TimestampUtil;
-import priv.guochun.psmc.system.util.UUIDGenerator;
+import priv.guochun.psmc.system.util.*;
 import priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService;
 import priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService;
 import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentService;
 import priv.guochun.psmc.website.backstage.common.ChjghWeChatService;
 import priv.guochun.psmc.website.backstage.common.realNameAuth.RealNameAuthService;
-import priv.guochun.psmc.website.backstage.common.realNameAuth.impl.RealNameAuthServiceImpl;
 import priv.guochun.psmc.website.backstage.dept.service.TabDeptService;
 import priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService;
 import priv.guochun.psmc.website.backstage.laud.service.TabLaudService;
@@ -69,83 +52,90 @@ import priv.guochun.psmc.website.backstage.topics.service.TabCommentService;
 import priv.guochun.psmc.website.backstage.topics.service.TabTopicsService;
 import priv.guochun.psmc.website.backstage.util.ChjghContants;
 import priv.guochun.psmc.website.backstage.util.IdCardUtil;
-import priv.guochun.psmc.website.backstage.util.MsgTemplateUtil;
 import priv.guochun.psmc.website.enums.ModuleEnum;
 
+import javax.annotation.Resource;
+import javax.xml.ws.WebServiceContext;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.regex.Pattern;
 
 
-public class ChjghWeChatServiceImpl implements ChjghWeChatService {
-	
-	protected static final  Logger logger  = LoggerFactory.getLogger(ChjghWeChatServiceImpl.class);
 
-	private LoginService loginService;
-	
-	private VerificationCodeService verificationCodeService;
-	
-	
-	private ExcellentInnovationService excellentInnovationService;
-	
-	
-	private MobileSmsSendService baseMobileSmsSendService;
-	
-	
-	private InfoReleaseService infoReleaseService;
-	
-	
-	private TabPageViewService tabPageViewService;
-	
-	private TabActivityManageService tabActivityManageService;
+		public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 
-	@Resource  
-	private WebServiceContext context;  
-	
-	private TabAccountService tabAccountService;
+			protected static final  Logger logger  = LoggerFactory.getLogger(ChjghWeChatServiceImpl.class);
 
-	@Autowired
-	private ReportService reportService;
-	
-	private TabDeptService tabDeptService;
+			private LoginService loginService;
 
-	@Autowired
-	TabPersonService tabPersonService;
-
-	private TabTopicsService tabTopicsService;
-	private TabCommentService tabCommentService;
-	private UploadAssemblyInterface uploadAssemblyInterface;
-	private TabAttachmentService tabAttachmentService;
-	private TabLaudService tabLaudService;
-	@Autowired
-	private RealNameAuthService realNameAuthService;
-	@Autowired
-	private TabFunctionExplainService tabFunctionExplainService;
-	
-	public TabAttachmentService getTabAttachmentService() {
-		return tabAttachmentService;
-	}
-
-	public void setTabAttachmentService(TabAttachmentService tabAttachmentService) {
-		this.tabAttachmentService = tabAttachmentService;
-	}
+			private VerificationCodeService verificationCodeService;
 
 
-	@Override
-	public String createVcode(int type,String phone) {
-		 
-		if((type != VerificationCodeTypeEnum.VCODE_LOGIN.getValue().intValue()
-				&& type != VerificationCodeTypeEnum.VCODE_REGISTER.getValue().intValue())
-			 	|| StringUtils.isBlank(phone)){
-			 return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("非法参数!"));
-		 }
-		 
-		 if(type == VerificationCodeTypeEnum.VCODE_LOGIN.getValue().intValue()){
-			 	//如果是登录，需要验证该手机号为注册用户
-			 User user = loginService.buildUserByPhone(phone,AccountTypeEnum.WECHAT_USER.getValue().intValue());
-			 if(user == null){
-				 return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("该手机号未注册,请先进行注册!"));
-			 }
-		 }
-		 
-         TabVerificationCode verificationCode = verificationCodeService.createCode(type, phone);
+			private ExcellentInnovationService excellentInnovationService;
+
+
+			private MobileSmsSendService baseMobileSmsSendService;
+
+
+			private InfoReleaseService infoReleaseService;
+
+
+			private TabPageViewService tabPageViewService;
+
+			private TabActivityManageService tabActivityManageService;
+
+			@Resource
+			private WebServiceContext context;
+
+			private TabAccountService tabAccountService;
+
+			@Autowired
+			private ReportService reportService;
+
+			private TabDeptService tabDeptService;
+
+			@Autowired
+			TabPersonService tabPersonService;
+
+			private TabTopicsService tabTopicsService;
+			private TabCommentService tabCommentService;
+			private UploadAssemblyInterface uploadAssemblyInterface;
+			private TabAttachmentService tabAttachmentService;
+			private TabLaudService tabLaudService;
+			@Autowired
+			private RealNameAuthService realNameAuthService;
+			@Autowired
+			private TabFunctionExplainService tabFunctionExplainService;
+
+			public TabAttachmentService getTabAttachmentService() {
+				return tabAttachmentService;
+			}
+
+			public void setTabAttachmentService(TabAttachmentService tabAttachmentService) {
+				this.tabAttachmentService = tabAttachmentService;
+			}
+
+
+			@Override
+			public String createVcode(int type,String phone) {
+
+				if((type != VerificationCodeTypeEnum.VCODE_LOGIN.getValue().intValue()
+						&& type != VerificationCodeTypeEnum.VCODE_REGISTER.getValue().intValue())
+						|| StringUtils.isBlank(phone)){
+					return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("非法参数!"));
+				}
+
+				if(type == VerificationCodeTypeEnum.VCODE_LOGIN.getValue().intValue()){
+					//如果是登录，需要验证该手机号为注册用户
+					User user = loginService.buildUserByPhone(phone,AccountTypeEnum.WECHAT_USER.getValue().intValue());
+					if(user == null){
+						return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("该手机号未注册,请先进行注册!"));
+					}
+				}
+
+				TabVerificationCode verificationCode = verificationCodeService.createCode(type, phone);
          String code =  verificationCode.getCode();
 
          PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
@@ -319,24 +309,54 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 
 
 	@Override
-	public String infoDetail(String uuid) {
+	public String infoDetail(String uuid,String oneLevelClassify,String twoLevelClassify) {
+		MyPage page = JSON.parseObject(null, MyPage.class) ;
+		if(page == null){
+			page = new MyPage();
+			page.setPageSize(10);
+		}
+		Map<String, Object> paramMap = page.getQueryParams();
+		if(paramMap == null){
+			paramMap = new HashMap<String, Object>();
+		}
+		//审核通过已发布的信息
+		paramMap.put("audit", ModuleEnum.AUDITED_PASS.getValue());
+		paramMap.put("releaseStatus", ModuleEnum.IS_RELEASEED.getValue());
+		//移动端只查询未过期的信息
+		paramMap.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
+		if(StringUtils.isNotBlank(uuid))
+			paramMap.put("uuid", uuid);
+		if(StringUtils.isNotBlank(oneLevelClassify))
+			paramMap.put("oneLevelClassify", oneLevelClassify);
+		if(StringUtils.isNotBlank(twoLevelClassify))
+			paramMap.put("towLevelClassify", twoLevelClassify);
+
+		page.setQueryParams(paramMap);
+
 		MsgModel msg = null;
 		try {
-			Map<String, Object> dataMap = infoReleaseService.getInfoDetailToMobile(uuid);
-			int nums = 0;
-			TabPageView pageView = tabPageViewService.queryPageviewByUuid(uuid);//获取浏览量
-			if(pageView != null){
-				nums = pageView.getNums();
+			page = infoReleaseService.queryInfoListToMobile(page);
+			List datas = page.getDataList();
+			if(datas !=null && datas.size()>0){
+				Map<String, Object> dataMap = (Map<String, Object>)datas.get(0);
+				uuid = dataMap.get("uuid").toString();
+				int nums = 0;
+				TabPageView pageView = tabPageViewService.queryPageviewByUuid(uuid);//获取浏览量
+				if(pageView != null){
+					nums = pageView.getNums();
+				}
+				//更新浏览次数
+				tabPageViewService.saveOrUpdate(uuid);
+				dataMap.put("nums", nums);
+				msg = MsgModel.buildDefaultSuccess(dataMap);
+			}else{
+				msg = MsgModel.buildDefaultSuccess();
 			}
-			//更新浏览次数
-			tabPageViewService.saveOrUpdate(uuid);
-			dataMap.put("nums", nums);
-			msg = MsgModel.buildDefaultSuccess(dataMap);
 		} catch (Exception e) {
 			logger.error("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
-		return GsonUtil.toJsonForObject(msg); 
+		return GsonUtil.toJsonForObject(msg);
 	}
 
 

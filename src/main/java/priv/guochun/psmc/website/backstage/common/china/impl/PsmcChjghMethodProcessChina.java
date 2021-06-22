@@ -4,10 +4,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.cache.Cache;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.filter.interceptor.china.PsmcChjghBaseProcessChina;
 import priv.guochun.psmc.system.framework.filter.interceptor.model.VisitModel;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.DateUtil;
 
 /**
@@ -18,19 +22,23 @@ import priv.guochun.psmc.system.util.DateUtil;
 public class PsmcChjghMethodProcessChina extends  PsmcChjghBaseProcessChina{
 
 	private Map<String,Long> loginMap =  new HashMap<String,Long>();
-	
+
 	//服务方法访问间隔时间 单位秒
 	private long visitLockTime = 20;
 	
 	public PsmcChjghMethodProcessChina(){
-		this.allowedUri.put("/psmc/services/chjgh/weChatService/register",null);
-		this.allowedUri.put("/psmc/services/chjgh/weChatService/login",null);
-		this.allowedUri.put("/psmc/services/chjgh/weChatService/getVcode",null);
+
+		this.allowedUri.put("/services/chjgh/weChatService/register",null);
+		this.allowedUri.put("/services/chjgh/weChatService/login",null);
+		this.allowedUri.put("/services/chjgh/weChatService/getVcode",null);
+
+		this.allowedUri.put("/services/chjgh/weChatService/getInfoList",null);
+		this.allowedUri.put("/services/chjgh/weChatService/getDetailInfo",null);
 	}
 	
 	@Override
 	public String processTask(VisitModel visitModel) {
-		if(visitModel != null && uriIsPassed(visitModel.getTargetUri())){
+		if(visitModel != null && this.basePathRaiseRootIsPassed(visitModel.getBasePathRaiseRoot()+visitModel.getPathToMatchSlash())){
 			String clientIp = visitModel.getClientIp();
 			String visitTargetMethod = visitModel.getVisitTargetMethod();
 			Date visitDate = visitModel.getVisitDate();
@@ -42,7 +50,7 @@ public class PsmcChjghMethodProcessChina extends  PsmcChjghBaseProcessChina{
 			}else{
 				long lastLoginTime = loginMap.get(visitKey);
 				long visitTime = visitDate.getTime();
-				//如果第二次访问在5分钟内
+
 				if((visitTime - lastLoginTime)/1000 <= visitLockTime){
 					String msg = "您访问的太频繁了,请稍等片刻操作!";
 					logger.warn(visitKey+" 访问频率超过限定时间 ");
@@ -50,9 +58,10 @@ public class PsmcChjghMethodProcessChina extends  PsmcChjghBaseProcessChina{
 				}else
 					loginMap.put(visitKey, DateUtil.getCurrentDateTime());
 			}
-		}
-		//传递给下一个链类处理
-		return this.processNextChina(visitModel);
+			//传递给下一个链类处理
+			return this.processNextChina(visitModel);
+		}else
+			return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("非法请求"));
 	}
 	
 }
