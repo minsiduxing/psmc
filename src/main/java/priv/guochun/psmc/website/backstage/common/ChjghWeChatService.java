@@ -80,7 +80,7 @@ public interface ChjghWeChatService {
 	@Path("/getDetailInfo")
     @POST
 	@Consumes("application/x-www-form-urlencoded")
-	public String infoDetail(@FormParam("uuid") String uuid,@FormParam("oneLevelClassify") String oneLevelClassify,@FormParam("twoLevelClassify") String twoLevelClassify);
+	public String infoDetail(@FormParam("uuid") String uuid,@FormParam("oneLevelClassify") String oneLevelClassify,@FormParam("towLevelClassify") String towLevelClassify);
 	
 	/**
 	 * 获取优秀创新列表

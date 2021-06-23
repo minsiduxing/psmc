@@ -310,7 +310,7 @@ import java.util.regex.Pattern;
 
 
 	@Override
-	public String infoDetail(String uuid,String oneLevelClassify,String twoLevelClassify) {
+	public String infoDetail(String uuid,String oneLevelClassify,String towLevelClassify) {
 		MyPage page = JSON.parseObject(null, MyPage.class) ;
 		if(page == null){
 			page = new MyPage();
@@ -329,8 +329,8 @@ import java.util.regex.Pattern;
 			paramMap.put("uuid", uuid);
 		if(StringUtils.isNotBlank(oneLevelClassify))
 			paramMap.put("oneLevelClassify", oneLevelClassify);
-		if(StringUtils.isNotBlank(twoLevelClassify))
-			paramMap.put("towLevelClassify", twoLevelClassify);
+		if(StringUtils.isNotBlank(towLevelClassify))
+			paramMap.put("towLevelClassify", towLevelClassify);
 
 		page.setQueryParams(paramMap);
 
