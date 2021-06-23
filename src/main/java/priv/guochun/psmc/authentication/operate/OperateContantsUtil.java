@@ -106,6 +106,19 @@ public class OperateContantsUtil {
     public final static String WORK_RELEASE_RELEASE = "WORK_RELEASE_RELEASE";
     public final static String WORK_RELEASE_PREVIEW = "WORK_RELEASE_PREVIEW";
     public final static String WORK_RELEASE_UNDO = "WORK_RELEASE_UNDO";
+
+
+    /**
+     * 新闻发布（索骥-网站）
+     */
+    public final static String NEW_WORK_RELEASE_ADD = "NEW_WORK_RELEASE_ADD";
+    public final static String NEW_WORK_RELEASE_AUDIT = "NEW_WORK_RELEASE_AUDIT";
+    public final static String NEW_WORK_RELEASE_DEL = "NEW_WORK_RELEASE_DEL";
+    public final static String NEW_WORK_RELEASE_EDIT = "NEW_WORK_RELEASE_EDIT";
+    public final static String NEW_WORK_RELEASE_LIST = "NEW_WORK_RELEASE_LIST";
+    public final static String NEW_WORK_RELEASE_RELEASE = "NEW_WORK_RELEASE_RELEASE";
+    public final static String NEW_WORK_RELEASE_PREVIEW = "NEW_WORK_RELEASE_PREVIEW";
+    public final static String NEW_WORK_RELEASE_UNDO = "NEW_WORK_RELEASE_UNDO";
     
     /**
      * 法条维护信息操作编码
@@ -270,5 +283,8 @@ public class OperateContantsUtil {
      */
     public final static String SJHC_ADD_EVALUATE = "SJHC_ADD_EVALUATE";
     public final static String SJHC_IMPORT_EXCEL = "SJHC_IMPORT_EXCEL";
+
+
+
 
 }

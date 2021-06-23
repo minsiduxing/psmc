@@ -1,10 +1,5 @@
-SELECT * FROM tab_group;
-
 delete from tab_group where uuid<>'e30f6d26f09646aaa18460c086a206da';
 update tab_group set group_name='默认组';
-
-select * from tab_resource;
-
 
 delete from tab_data_dict;
 
@@ -56,7 +51,6 @@ INSERT INTO TAB_DATA_DICT(ID,DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,DICT_NO
 INSERT INTO TAB_DATA_DICT(ID,DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,DICT_NO) VALUES(4,'1504','联系我们','信息分类',10,4,'NEWS_TYPE');
 
 
-
 delete from TAB_DATA_DICT where DICT_NO='INFO_TYPE';
 
 INSERT INTO TAB_DATA_DICT(ID,DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,DICT_NO) VALUES(1,'1501','关于介绍','信息分类',11,1,'INFO_TYPE');
@@ -71,39 +65,46 @@ INSERT INTO TAB_DATA_DICT(ID,DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,DICT_NO
 INSERT INTO TAB_DATA_DICT(ID,DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,DICT_NO) VALUES(3,'3','辅助人员','法律人员分类',12,3,'LEGAL_PERSON_TYPE');
 
 
-insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
-('8e059c578c204fbbb29086aa72ec88f9','新闻发布',2,'','e51a8663876f4a3394bb194d89d96735','admin',str_to_date('2021-06-08','%Y-%m-%d %T'),'文体协会管理',23,1);
+delete from tab_role_operate where operate_uuid in(select uuid from tab_operate where resource_uuid in('8e059c578c204fbbb29086aa72ec88f9','0b62d21d1ecd471f958d96b43471dcca'));
+delete from tab_operate where resource_uuid in('8e059c578c204fbbb29086aa72ec88f9','0b62d21d1ecd471f958d96b43471dcca');
+delete from tab_role_resource where resource_id in('8e059c578c204fbbb29086aa72ec88f9','0b62d21d1ecd471f958d96b43471dcca');
+delete from tab_resource where uuid in('8e059c578c204fbbb29086aa72ec88f9','0b62d21d1ecd471f958d96b43471dcca');
+
 
 insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
-('0b62d21d1ecd471f958d96b43471dcca','新闻动态',3,'/website/backstage/InfoReleaseController.do?method=infoReleaseList&oneLevelClassify=15','8e059c578c204fbbb29086aa72ec88f9','admin',str_to_date('2021-06-08','%Y-%m-%d %T'),'工作发布菜单',24,1);
+('8e059c578c204fbbb29086aa72ec88f9','信息发布',2,'','e51a8663876f4a3394bb194d89d96735','admin',str_to_date('2021-06-08','%Y-%m-%d %T'),'',23,1);
+
+insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+('0b62d21d1ecd471f958d96b43471dcca','信息发布',3,'/website/backstage/InfoReleaseController.do?method=infoReleaseList&oneLevelClassify=15','8e059c578c204fbbb29086aa72ec88f9','admin',str_to_date('2021-06-08','%Y-%m-%d %T'),'工作发布菜单',24,1);
 
 insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '8e059c578c204fbbb29086aa72ec88f9');
 insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '0b62d21d1ecd471f958d96b43471dcca');
 
-
-
-/**初始化新闻动态（原文体协会)**/
+/**初始化信息发布（原文体协会)**/
 insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
 ('4855162ac2014d3fb5cf5bee17075e28','0b62d21d1ecd471f958d96b43471dcca','756d6e80c9d74b4389c918ab50ee19c3',
-'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','getInfoReleaseListBusinessMethod','查询','查询',1,'WORK_RELEASE_LIST');
+'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','getInfoReleaseListBusinessMethod','查询','查询',1,'NEW_WORK_RELEASE_LIST');
 insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
 ('392b972ef167498896caa46644221319','0b62d21d1ecd471f958d96b43471dcca','dec3b327b8a54d66bd644c544ea65c5e',
-'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','deleteInfoReleaseByUuidsBusinessMethod','删除','删除',1,'WORK_RELEASE_DEL');
+'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','deleteInfoReleaseByUuidsBusinessMethod','删除','删除',1,'NEW_WORK_RELEASE_DEL');
 insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
 ('5b4bea13b8dc4b6eac9ea7a7f6867456','0b62d21d1ecd471f958d96b43471dcca','022a43088dcd46d4b201b43b32d3d85a',
-'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','executeAuditModuleBusinessMethod','审核','审核',1,'WORK_RELEASE_AUDIT');
+'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','executeAuditModuleBusinessMethod','审核','审核',1,'NEW_WORK_RELEASE_AUDIT');
 insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
 ('c3cdc2664df14b07a5994f2b9bc2ca03','0b62d21d1ecd471f958d96b43471dcca','022a43088dcd46d4b201b43b32d3d85a',
-'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','executeReleaseModuleBusinessMethod','发布','发布',1,'WORK_RELEASE_RELEASE');
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
-('28979cdd48d04f83b5f79abf813e769c','0b62d21d1ecd471f958d96b43471dcca','fe755fa4bd25475fa1a9d841caa16f44',
-'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','saveOrUpdateInfoReleaseBusinessMethod','编辑','编辑',1,'WORK_RELEASE_EDIT');
+-- 'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','executeReleaseModuleBusinessMethod','发布','发布',1,'NEW_WORK_RELEASE_RELEASE');
+-- insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+-- ('28979cdd48d04f83b5f79abf813e769c','0b62d21d1ecd471f958d96b43471dcca','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','saveOrUpdateInfoReleaseBusinessMethod','编辑','编辑',1,'NEW_WORK_RELEASE_EDIT');
 insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
 ('1f96c131e4b3436486f7e4c92e8399df','0b62d21d1ecd471f958d96b43471dcca','022a43088dcd46d4b201b43b32d3d85a',
-'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','getInfoReleaseByUuidBusinessMethod','查看','查看',1,'WORK_RELEASE_PREVIEW');
+'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','getInfoReleaseByUuidBusinessMethod','查看','查看',1,'NEW_WORK_RELEASE_PREVIEW');
 insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
 ('8615ca6386f340b48e1992c676ee2606','0b62d21d1ecd471f958d96b43471dcca','607e8bc6f9bb4afa9be3cfdc72a1a326',
-'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','saveOrUpdateInfoReleaseBusinessMethod','新增','新增',1,'WORK_RELEASE_ADD');
+'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','saveOrUpdateInfoReleaseBusinessMethod','新增','新增',1,'NEW_WORK_RELEASE_ADD');
+-- insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+-- ('c24864b488dc4d3aac34ca5ac310b636','0b62d21d1ecd471f958d96b43471dcca','cb14b0e3d47647e58da01ab09e0d373c',
+-- 'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','executeUndoBusinessMethod','撤销','撤销',1,'NEW_WORK_RELEASE_UNDO');
 
 
 
@@ -111,9 +112,14 @@ insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '392b972ef167498896caa46644221319');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '5b4bea13b8dc4b6eac9ea7a7f6867456');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', 'c3cdc2664df14b07a5994f2b9bc2ca03');
-insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '28979cdd48d04f83b5f79abf813e769c');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '1f96c131e4b3436486f7e4c92e8399df');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '8615ca6386f340b48e1992c676ee2606');
+-- insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '28979cdd48d04f83b5f79abf813e769c');
+-- insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', 'c24864b488dc4d3aac34ca5ac310b636');
+
+
+
+
 
 
 delete from tab_sys_key_info where id in(24,25,26,27,28,29,30,31,32,33,34,35);

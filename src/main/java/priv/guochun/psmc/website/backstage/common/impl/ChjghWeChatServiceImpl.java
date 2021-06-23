@@ -289,12 +289,13 @@ import java.util.regex.Pattern;
 		if(paramMap == null){
 			paramMap = new HashMap<String, Object>();
 		}
-		//审核通过已发布的信息
+		//审核通过 modify 20210623 修改只查询已审核过的就行了。
 		paramMap.put("audit", ModuleEnum.AUDITED_PASS.getValue());
-		paramMap.put("releaseStatus", ModuleEnum.IS_RELEASEED.getValue());
-		//paramMap.put("oneLevelClassify", infoType);
-		//移动端只查询未过期的信息
-		paramMap.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
+//		//已发布
+//		paramMap.put("releaseStatus", ModuleEnum.IS_RELEASEED.getValue());
+//		//移动端只查询未过期的信息
+//		paramMap.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
+
 		page.setQueryParams(paramMap);
 		MsgModel msg = null;
 		try {
@@ -321,9 +322,9 @@ import java.util.regex.Pattern;
 		}
 		//审核通过已发布的信息
 		paramMap.put("audit", ModuleEnum.AUDITED_PASS.getValue());
-		paramMap.put("releaseStatus", ModuleEnum.IS_RELEASEED.getValue());
+		//paramMap.put("releaseStatus", ModuleEnum.IS_RELEASEED.getValue());
 		//移动端只查询未过期的信息
-		paramMap.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
+		//paramMap.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
 		if(StringUtils.isNotBlank(uuid))
 			paramMap.put("uuid", uuid);
 		if(StringUtils.isNotBlank(oneLevelClassify))
