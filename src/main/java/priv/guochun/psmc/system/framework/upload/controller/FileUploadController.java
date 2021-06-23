@@ -57,6 +57,16 @@ public class FileUploadController extends MyController {
 		String filepath = ftu.uploadFile(upf);
 		super.responseJson(true,filepath, response);
 	}
+
+	@RequestMapping(params="method=fileUploadVideo")
+	@ResponseBody
+	public void fileUploadVideo(HttpServletRequest request,HttpServletResponse response,String oneLevelClassify) throws IllegalStateException, IOException{
+		UploadFileModel upf = uploadAssemblyInterface.getFile(request);
+		FtpUtil ftu = FtpUtil.getFtputil();
+		String filepath = ftu.uploadFile(upf);
+		super.responseJson(true,filepath, response);
+	}
+
 	@RequestMapping(params="method=testFileDownload")
 	public View testFileDownload(HttpServletRequest request,HttpServletResponse response,String filePath) throws IllegalStateException, IOException{
 		FtpUtil ftu = FtpUtil.getFtputil();
