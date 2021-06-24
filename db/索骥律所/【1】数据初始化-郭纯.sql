@@ -124,10 +124,10 @@ insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02
 
 delete from tab_sys_key_info where id in(24,25,26,27,28,29,30,31,32,33,34,35);
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (24, 'file_prefix_path', 'E:/export/home/suoji/upload/', '文件上传后生成的url前缀');
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (25, 'system_upload_dir', '/export/home/suoji/upload/', '文件上传后实际保存的服务器地址');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (25, 'system_upload_dir', '/export/home/websit/suoji/upload/', '文件上传后实际保存的服务器地址');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (26, 'news_image_path', 'default/news.png', '新闻缺省配图地址-大院新闻');
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (27, 'system_upload_temp_dir', '/log/psmc-temp-upload/', '系统上传临时文件目录');
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (28, 'system_download_temp_dir', '/log/psmc-temp-download/', '系统下载临时文件目录');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (27, 'system_upload_temp_dir', '/log/suoji-temp-upload/', '系统上传临时文件目录');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (28, 'system_download_temp_dir', '/log/suoji-temp-download/', '系统下载临时文件目录');
 
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (29, 'system_upload_isremote', 'false', '是否开启ftp远程上传（被动模式）');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (30, 'system_remote_ip', 'ip', '远程主机ip');

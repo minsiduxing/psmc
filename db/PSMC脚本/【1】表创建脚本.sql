@@ -51,7 +51,7 @@ DROP TABLE IF EXISTS tab_module;
 CREATE TABLE tab_module (
   uuid varchar(100) NOT NULL,
   create_acc_uuid varchar(100) DEFAULT NULL,
-  create_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  create_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   modify_acc_uuid varchar(100) DEFAULT NULL,
   modify_date timestamp NULL DEFAULT NULL,
   audit decimal(10,0) DEFAULT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE tab_module (
   audit_date timestamp NULL DEFAULT NULL,
   release_acc_uuid varchar(100) DEFAULT NULL,
   release_date timestamp NULL DEFAULT NULL,
-  one_level_classify varchar(20) DEFAULT NULL COMMENT '1、新闻。2、微课程、3、视频',
+  one_level_classify varchar(20) DEFAULT NULL COMMENT '参考数据字典one_level classify',
   two_level_classify varchar(20) DEFAULT NULL COMMENT '参考数据字典two_level classify',
   release_status varchar(20) DEFAULT NULL,
   PRIMARY KEY (uuid)

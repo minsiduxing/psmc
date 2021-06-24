@@ -58,7 +58,7 @@ function  wangEditorInit(isEdit){
 		  editor.config.zindex = 1;//高度
 		  editor.config.height = 500;//高度
 		  editor.config.showMenuTooltips = false;//菜单栏提示
-    	  editor.config.uploadImgMaxSize = 1024 * 1024;//限制图片最大不超过1M
+    	  editor.config.uploadImgMaxSize = 5 * 1024 * 1024;//限制图片最大不超过1M
           editor.config.uploadImgServer = imageuploadsrc;  // 上传图片到服务器
 		  editor.config.showLinkImg = false;//隐藏插入网络图片
 		  editor.config.pasteIgnoreImg = true; //黏贴内容把图片过滤
