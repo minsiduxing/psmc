@@ -1,18 +1,13 @@
 package priv.guochun.psmc.website.backstage.common.china.impl;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.cache.Cache;
-import priv.guochun.psmc.system.framework.cache.CacheContants;
-import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.filter.interceptor.china.PsmcChjghBaseProcessChina;
 import priv.guochun.psmc.system.framework.filter.interceptor.model.VisitModel;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
-import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
-import priv.guochun.psmc.system.util.DateUtil;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 测绘局工会部分方法 预处理链路类
@@ -45,19 +40,19 @@ public class PsmcChjghMethodProcessChina extends  PsmcChjghBaseProcessChina{
 			String visitKey = clientIp+"_"+visitTargetMethod;
 			
 			//如果没有访问信息，则记录一条并返回
-			if(!loginMap.containsKey(visitKey)){
-				loginMap.put(visitKey, DateUtil.getCurrentDateTime());
-			}else{
-				long lastLoginTime = loginMap.get(visitKey);
-				long visitTime = visitDate.getTime();
-
-				if((visitTime - lastLoginTime)/1000 <= visitLockTime){
-					String msg = "您访问的太频繁了,请稍等片刻操作!";
-					logger.warn(visitKey+" 访问频率超过限定时间 ");
-					return GsonUtil.toJsonForObject(MsgModel.buildDefaultError(msg));
-				}else
-					loginMap.put(visitKey, DateUtil.getCurrentDateTime());
-			}
+//			if(!loginMap.containsKey(visitKey)){
+//				loginMap.put(visitKey, DateUtil.getCurrentDateTime());
+//			}else{
+//				long lastLoginTime = loginMap.get(visitKey);
+//				long visitTime = visitDate.getTime();
+//
+//				if((visitTime - lastLoginTime)/1000 <= visitLockTime){
+//					String msg = "您访问的太频繁了,请稍等片刻操作!";
+//					logger.warn(visitKey+" 访问频率超过限定时间 ");
+//					return GsonUtil.toJsonForObject(MsgModel.buildDefaultError(msg));
+//				}else
+//					loginMap.put(visitKey, DateUtil.getCurrentDateTime());
+//			}
 			//传递给下一个链类处理
 			return this.processNextChina(visitModel);
 		}else
