@@ -337,7 +337,7 @@ import java.util.regex.Pattern;
 						paramMap.put("oneLevelClassify", oneLevelClassify);
 						paramMap.put("towLevelClassify", towLevelClassify);
 						page.setQueryParams(paramMap);
-						dataMap = (Map<String, Object>)infoReleaseService.getInfoDetailToMobile(oneLevelClassify,towLevelClassify);
+						dataMap = (Map<String, Object>)infoReleaseService.getInfoDetailToMobile(paramMap);
 					}else
 						msg = MsgModel.buildDefaultError("参数不全");
 				}

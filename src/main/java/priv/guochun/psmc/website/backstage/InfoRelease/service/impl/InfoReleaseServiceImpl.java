@@ -114,11 +114,8 @@ public class InfoReleaseServiceImpl implements InfoReleaseService{
 		}
 		return baseDao.getMyPage(myPage, getInfoReleaseList, condition);
 	}
-	public Map<String,Object> getInfoDetailToMobile(String oneLevelClassify,String towLevelClassify){
-		Map<String,Object> condition = new HashMap<String,Object>();
-		condition.put("oneLevelClassify", oneLevelClassify);
-		condition.put("towLevelClassify", towLevelClassify);
-		return (Map<String, Object>) baseDao.queryForObject(getInfoReleaseByUuid, condition);
+	public Map<String,Object> getInfoDetailToMobile(Map<String, Object> paramMap){
+		return (Map<String, Object>) baseDao.queryForObject(getInfoReleaseByUuid, paramMap);
 	}
 	@Override
 	public void executeUndoBusinessMethod(String uuids, TabModule module) {

@@ -72,7 +72,7 @@ public interface InfoReleaseService {
 	 * @param uuid
 	 * @return
 	 */
-	public Map<String,Object> getInfoDetailToMobile(String oneLevelClassify,String towLevelClassify);
+	public Map<String,Object> getInfoDetailToMobile(Map<String, Object> paramMap);
 	
 	/**
 	 * 获取信息列表 - mobile

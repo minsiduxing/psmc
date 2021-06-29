@@ -171,6 +171,9 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 			<if test="towLevelClassify!=null and towLevelClassify!=''">
 				and  t2.two_level_classify =#{towLevelClassify}
 			</if>
+			<if test="audit!=null and audit!=''">
+				and  t2.audit =#{audit}
+			</if>
 		</where>
   	 	</select>
   	 	<!-- 根据二级分类获取信息发布标题列表 -->

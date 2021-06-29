@@ -69,7 +69,7 @@ DROP TABLE IF EXISTS tab_module_publish;
 CREATE TABLE tab_module_publish (
   publish_uuid varchar(100) NOT NULL,
   module_uuid varchar(100) DEFAULT NULL,
-  publish_date timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '1是\r\n            2否',
+  publish_date timestamp NULL DEFAULT NULL,
   publish_expire_date timestamp NULL DEFAULT NULL,
   publish_account_uuid varchar(100) DEFAULT NULL,
   PRIMARY KEY (publish_uuid)
@@ -81,7 +81,7 @@ CREATE TABLE tab_news (
   news_title varchar(400) DEFAULT NULL,
   news_subtitle varchar(300) DEFAULT NULL,
   news_content varchar(3000) CHARACTER SET utf8mb4 DEFAULT NULL,
-  news_date timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  news_date timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   news_author varchar(200) DEFAULT NULL,
   thumbnail_image_url varchar(200) DEFAULT NULL,
   news_abstract varchar(500) DEFAULT NULL,

@@ -110,13 +110,13 @@ public class InfoReleaseController extends MyController{
 					infoRelease.setImagePath(file_prefix_path + Legal_provisions_image_path);
 				}
 			//早知道信息分类
-			if(ContantsUtil.ONE_LEVEL_CLASSIFY_14.equals(module.getOneLevelClassify())){
-				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1401.equals(module.getTowLevelClassify())){
-					infoRelease.setImagePath(file_prefix_path + recipes_image_path);
-				}
-				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1402.equals(module.getTowLevelClassify())){
-					infoRelease.setImagePath(file_prefix_path + notice_image_path);
-								}
+				if(ContantsUtil.ONE_LEVEL_CLASSIFY_14.equals(module.getOneLevelClassify())){
+					if(ContantsUtil.TOW_LEVEL_CLASSIFY_1401.equals(module.getTowLevelClassify())){
+						infoRelease.setImagePath(file_prefix_path + recipes_image_path);
+					}
+					if(ContantsUtil.TOW_LEVEL_CLASSIFY_1402.equals(module.getTowLevelClassify())){
+						infoRelease.setImagePath(file_prefix_path + notice_image_path);
+					}
 				if(ContantsUtil.TOW_LEVEL_CLASSIFY_1403.equals(module.getTowLevelClassify())){
 					infoRelease.setImagePath(file_prefix_path + news_image_path);
 				}
@@ -128,7 +128,7 @@ public class InfoReleaseController extends MyController{
                 }
 			}
 			if(ContantsUtil.ONE_LEVEL_CLASSIFY_15.equals(module.getOneLevelClassify())){
-				infoRelease.setImagePath(file_prefix_path);
+				infoRelease.setImagePath(file_prefix_path + news_image_path);
 			}
 		}
 		infoReleaseService.saveOrUpdateInfoReleaseBusinessMethod(infoRelease, module);
