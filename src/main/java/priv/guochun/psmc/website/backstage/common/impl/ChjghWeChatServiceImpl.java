@@ -325,34 +325,34 @@ import java.util.regex.Pattern;
 		//paramMap.put("releaseStatus", ModuleEnum.IS_RELEASEED.getValue());
 		//移动端只查询未过期的信息
 		//paramMap.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
-		if(StringUtils.isNotBlank(uuid))
-			paramMap.put("uuid", uuid);
-		if(StringUtils.isNotBlank(oneLevelClassify))
-			paramMap.put("oneLevelClassify", oneLevelClassify);
-		if(StringUtils.isNotBlank(towLevelClassify))
-			paramMap.put("towLevelClassify", towLevelClassify);
-
-		page.setQueryParams(paramMap);
-
 		MsgModel msg = null;
 		try {
-			page = infoReleaseService.queryInfoListToMobile(page);
-			List datas = page.getDataList();
-			if(datas !=null && datas.size()>0){
-				Map<String, Object> dataMap = (Map<String, Object>)datas.get(0);
-				uuid = dataMap.get("uuid").toString();
-				int nums = 0;
-				TabPageView pageView = tabPageViewService.queryPageviewByUuid(uuid);//获取浏览量
-				if(pageView != null){
-					nums = pageView.getNums();
+				Map<String, Object> dataMap = null;
+				if(StringUtils.isNotBlank(uuid)){
+					paramMap.put("uuid", uuid);
+					page.setQueryParams(paramMap);
+					dataMap = (Map<String, Object>)infoReleaseService.getInfoDetailToMobile(uuid);
+				}else{
+					if(StringUtils.isNotBlank(oneLevelClassify) && StringUtils.isNotBlank(towLevelClassify)) {
+						paramMap.put("oneLevelClassify", oneLevelClassify);
+						paramMap.put("towLevelClassify", towLevelClassify);
+						page.setQueryParams(paramMap);
+						dataMap = (Map<String, Object>)infoReleaseService.getInfoDetailToMobile(oneLevelClassify,towLevelClassify);
+					}else
+						msg = MsgModel.buildDefaultError("参数不全");
 				}
-				//更新浏览次数
-				tabPageViewService.saveOrUpdate(uuid);
-				dataMap.put("nums", nums);
-				msg = MsgModel.buildDefaultSuccess(dataMap);
-			}else{
-				msg = MsgModel.buildDefaultSuccess();
-			}
+				if(dataMap != null){
+					uuid = dataMap.get("uuid").toString();
+					int nums = 0;
+					TabPageView pageView = tabPageViewService.queryPageviewByUuid(uuid);//获取浏览量
+					if(pageView != null){
+						nums = pageView.getNums();
+					}
+					//更新浏览次数
+					tabPageViewService.saveOrUpdate(uuid);
+					dataMap.put("nums", nums);
+					msg = MsgModel.buildDefaultSuccess(dataMap);
+				}
 		} catch (Exception e) {
 			logger.error("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
@@ -361,10 +361,10 @@ import java.util.regex.Pattern;
 	}
 
 
-	@Override
-	public String getInnovationList(String pageJson) {
-		MyPage page = JSON.parseObject(pageJson, MyPage.class) ;
-		Map<String, Object> paramMap = page.getQueryParams();
+		@Override
+		public String getInnovationList(String pageJson) {
+			MyPage page = JSON.parseObject(pageJson, MyPage.class) ;
+			Map<String, Object> paramMap = page.getQueryParams();
 		if(paramMap == null){
 			paramMap = new HashMap<String, Object>();
 		}
