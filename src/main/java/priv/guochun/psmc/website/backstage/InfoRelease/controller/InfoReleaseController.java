@@ -94,12 +94,11 @@ public class InfoReleaseController extends MyController{
 		Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
 		//这里只改了file_prefix_path从缓存取，因为12、14分类是老的版本，其他地方基本不会用，所以暂时不改了，后续新开发的一律从缓存取
 		String file_prefix_path =map.get("file_prefix_path").toString();
-		infoRelease.setImagePath(file_prefix_path);
 
 
 		String recipes_image_path =map.get("recipes_image_path").toString();
 		String notice_image_path =map.get("notice_image_path").toString();
-		String news_image_path =map.get("file_prefix_path").toString();
+		String news_image_path =map.get("news_image_path").toString();
 		String Legal_provisions_image_path =map.get("Legal_provisions_image_path").toString();
 
 		/**
