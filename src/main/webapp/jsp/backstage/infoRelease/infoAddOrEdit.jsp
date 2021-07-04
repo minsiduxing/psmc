@@ -7,12 +7,6 @@
 		text-align:right;
 		width:10%
 	}
-	.w-e-menu{
-		z-index: 2 !important;
-	}
-	.w-e-text-container{
-		z-index: 1 !important;
-	}
   </style>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
@@ -33,8 +27,8 @@
 				<td width="25%"><input id="newAutor" name="newAutor" style="width:50%;" value="${info.news_author}"/></td>
 			</tr>
 			<tr>
-				<c:if test="${oneLevelClassify == '14' || oneLevelClassify == '15'}">
-					<td class="tds">信息分类：</td>
+				<c:if test="${oneLevelClassify == '14' || oneLevelClassify == '15' || oneLevelClassify == '16'}">
+					<td class="tds">分类：</td>
 					<td width="25%"><input id="towLevelClassify" name="towLevelClassify" style="width:50%;"/></td>
 				</c:if>
 				<td class="tds">自定义配图：</td>
@@ -75,6 +69,10 @@
     <div id="uploadImageDiv" style="display: none;">
 		 <%@ include file="../uploadImage/uploadImage.jsp"%>
 	</div>
+    <!-- 不裁剪文件上传框 -->
+	<div id="uploadNoCutImageDiv" style="display: none;">
+		<%@ include file="../uploadImage/uploadNoCutImage.jsp"%>
+	</div>
   </body>
 </html>
 <script type="text/javascript">
@@ -104,12 +102,17 @@ var retrunUrl =  '<c:url value="/website/backstage/InfoReleaseController.do"/>?m
 
 //上传配图
 var uploadPhoto = '<c:url value="/website/backstage/uploadImageController.do"/>?method=uploadPhoto';
-
+var uploadPhotoNoCut = '<c:url value="/website/backstage/uploadImageController.do"/>?method=uploadPhotoNoCut';
 //默认选中否
 if($("#isCustom").val() == "" || $("#isCustom").val() == null){
 	$("input[name='isCustom1']:eq(0)").attr("checked",'checked');
 }
-commonObj.initDictCombobox("towLevelClassify","INFO_TYPE","<c:out value="${info.two_level_classify}"/>",true,false);
+if ($("#oneLevelClassify").val() == '16'){
+	commonObj.initDictCombobox("towLevelClassify","PRODUCT_TYPE","<c:out value="${info.two_level_classify}"/>",true,false);
+}else {
+	commonObj.initDictCombobox("towLevelClassify","INFO_TYPE","<c:out value="${info.two_level_classify}"/>",true,false);
+}
+
 
 function formInint(isEdit){
 	if(isEdit == "query"){
@@ -140,4 +143,3 @@ function formInint(isEdit){
 
 </script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/infoRelease/infoAddOrEdit.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/uploadImage/uploadImage.js"></script>

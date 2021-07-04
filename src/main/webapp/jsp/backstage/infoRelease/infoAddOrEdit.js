@@ -55,7 +55,7 @@ function successCallback(data){
 function  wangEditorInit(isEdit){
     	  var E = window.wangEditor;
           editor = new E('#newsContent');
-		  editor.config.zindex = 1;//高度
+	      editor.config.zIndex = 500;
 		  editor.config.height = 500;//高度
 		  editor.config.showMenuTooltips = false;//菜单栏提示
     	  editor.config.uploadImgMaxSize = 5 * 1024 * 1024;//限制图片最大不超过1M
@@ -115,3 +115,39 @@ function retList(){
 	window.location.href=retrunUrl;
 }
 //表单数据初始化结束--------------------------------------
+
+
+var editdialog;
+
+//表单dialog初始化方法
+function initDialog(){
+	var oneLevelClassify = $("#oneLevelClassify").val();
+	var uploadDiv = "#uploadImageDiv";
+	if (oneLevelClassify == '16'){
+		uploadDiv = "#uploadNoCutImageDiv";
+	}
+	editdialog = $(uploadDiv).dialog({
+		modal: true,
+		closed: true,
+		width: 615,
+		height: 550,
+		cache: false
+	});
+}
+
+//打开图片上传dialog
+function openUploadDialog(){
+	if(editdialog){
+		editdialog = null;
+	}
+	initDialog();
+	editdialog.panel({title:"选择图片"});
+	editdialog.panel({iconCls:'icon-save'});
+	var imagePath = $("#imagePath").val();
+	if(imagePath){
+		$("#preview").css({"width":"330px", "height":"80px", "margin-left":"0", "margin-top":"0"});
+		$("#preview").attr("src", imagePath);
+		$("#targetView").attr("src", imagePath);
+	}
+	editdialog.window("open");
+}

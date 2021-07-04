@@ -45,6 +45,44 @@ public class UploadImageController extends MyController{
 	public String toImageUplodDialog(){
 		return "backstage/uploadImage/uploadImage";
 	}
+
+	/**
+	 * 不裁剪直接上传
+	 * @throws Exception
+	 */
+	@RequestMapping(params="method=uploadPhotoNoCut")
+	@ResponseBody
+	public void uploadPhotoNoCut() throws Exception {
+		MultipartFile imageFile = null;
+		CommonsMultipartResolver multipartResolver =MyCommonsMultipartResolverFactory.getInstance().createCommonsMultipartResolver(this.request());
+		//判断 request 是否有文件上传
+		if(multipartResolver.isMultipart(this.request())){
+			//转换成多部分request
+			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)this.request();
+			//取得request中的所有文件名
+			Iterator<String> iter = multiRequest.getFileNames();
+			while(iter.hasNext()){
+				//取得上传文件
+				imageFile = multiRequest.getFile(iter.next());
+			}
+		}
+		String realPath = this.request().getSession().getServletContext().getRealPath("/");
+		String resourcePath = "upload/";
+		String fileName = getFileName(imageFile);
+		String tempFilePath = realPath + resourcePath + fileName;
+		File tempFile = new File(tempFilePath);
+		if (!tempFile.getParentFile().exists()) {
+			tempFile.getParentFile().mkdir();
+		}
+		if (!tempFile.exists()) {
+			tempFile.createNewFile();
+		}
+		//图片写到指定的临时位置
+		imageFile.transferTo(tempFile);
+		//图片上传服务器，并删除临时图片
+		String filePath = this.uploadCutImage(tempFile);
+		super.responseJson(true,filePath, this.response());
+	}
 	
 	@RequestMapping(params="method=uploadPhoto")
 	@ResponseBody
@@ -150,7 +188,7 @@ public class UploadImageController extends MyController{
 			Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
 			String system_upload_dir =map.get("system_upload_dir").toString();
 			String system_upload_temp_dir =map.get("system_upload_temp_dir").toString();
-			String custom_image_path =map.get("custom_image_path").toString();
+//			String custom_image_path =map.get("custom_image_path").toString();
 			if(imageFile != null){
 				String name = imageFile.getName();
 				 String filename = name.substring(0,name.indexOf("."));
@@ -160,7 +198,7 @@ public class UploadImageController extends MyController{
 			     model.setFile(imageFile);
 			     String fileSystemName = filename;
 			     model.setFileSystemName(fileSystemName);
-			     String customFilePath = custom_image_path+ fileSystemName + "." + suffix;
+			     String customFilePath = fileSystemName + "." + suffix;
 			     String fileTempAllPath = system_upload_temp_dir +fileSystemName+"."+suffix;
 			     String fileRealAllPath = system_upload_dir+customFilePath;
 			     model.setFile_upload_real_path(fileRealAllPath);
