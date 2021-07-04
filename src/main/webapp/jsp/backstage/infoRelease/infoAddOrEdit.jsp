@@ -56,7 +56,7 @@
 	 <input type="hidden" id="newsUuid" name=newsUuid value="${info.uuid }"/>
 	 <input type="hidden" id="oneLevelClassify" name="oneLevelClassify" value="${oneLevelClassify}"/>
 	 <%-- <input type="hidden" id="towLevelClassify" name="towLevelClassify" value='${param.towLevelClassify}' /> --%>
-	 <input type="hidden" id="imagePath" name="imagePath" value="" />
+	 <input type="hidden" id="imagePath" name="imagePath" value="${info.image_path}" />
 	  <div style= "width:75%; margin-top: 20px" class="operButon" align="center">
 			<input id="submitbtn" type="button" class="easyui-linkbutton" onclick=" sbmit()" value="提交"/>
 			<input id="reset" type="reset" class="easyui-linkbutton" onclick=" "  value="重置"/>
