@@ -33,8 +33,8 @@ public class DictController extends MyController {
 	 @RequestMapping(params="method=loadDict")  
 	 @ResponseBody
 	 public void loadDict(HttpServletRequest request,
-	            HttpServletResponse response,String dictNo) throws IOException{
-	        List<Map<?,?>> list = tabDataDictService.getDictDataList(dictNo);
+	            HttpServletResponse response,String dictNo,String parentDictType) throws IOException{
+	        List<Map<?,?>> list = tabDataDictService.getDictDataList(dictNo,parentDictType);
 	        JSONArray ja = JsonUtil.convertToJSONArray(list);
 	        super.responseJson(ja, response);
 	 } 

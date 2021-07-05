@@ -29,6 +29,7 @@ public class PsmcChjghMethodProcessChina extends  PsmcChjghBaseProcessChina{
 
 		this.allowedUri.put("/services/chjgh/weChatService/getInfoList",null);
 		this.allowedUri.put("/services/chjgh/weChatService/getDetailInfo",null);
+		this.allowedUri.put("/services/chjgh/weChatService/getDict",null);
 	}
 	
 	@Override

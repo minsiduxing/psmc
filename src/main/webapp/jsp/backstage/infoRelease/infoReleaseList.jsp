@@ -244,11 +244,7 @@ $('#modifyAccName').textbox({
 commonObj.initDictCombobox("audit","IF","",false,true);
 commonObj.initDictCombobox("releaseStatus","IF","<c:out value="${account.IS_LOCKED}"/>",false,true);
 commonObj.initDictCombobox("towLevelClassify","NEWS_TYPE","<c:out value="${account.IS_LOCKED}"/>",false,true);
-if ($("#oneLevelClassify").val() == '16'){
-	commonObj.initDictCombobox("towLevelClassify","PRODUCT_TYPE","<c:out value="${info.two_level_classify}"/>",true,false);
-}else {
-	commonObj.initDictCombobox("towLevelClassify","INFO_TYPE","<c:out value="${info.two_level_classify}"/>",true,false);
-}
+commonObj.initDictCombobox("towLevelClassify","INFO_TYPE","<c:out value="${info.two_level_classify}"/>",true,false,$("#oneLevelClassify").val());
 //----------------------------查询框初始化结束
 //表单提交成功后的回调方法
 function successCallback(data){

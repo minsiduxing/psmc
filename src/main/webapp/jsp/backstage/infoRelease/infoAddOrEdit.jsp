@@ -107,11 +107,7 @@ var uploadPhotoNoCut = '<c:url value="/website/backstage/uploadImageController.d
 if($("#isCustom").val() == "" || $("#isCustom").val() == null){
 	$("input[name='isCustom1']:eq(0)").attr("checked",'checked');
 }
-if ($("#oneLevelClassify").val() == '16'){
-	commonObj.initDictCombobox("towLevelClassify","PRODUCT_TYPE","<c:out value="${info.two_level_classify}"/>",true,false);
-}else {
-	commonObj.initDictCombobox("towLevelClassify","INFO_TYPE","<c:out value="${info.two_level_classify}"/>",true,false);
-}
+commonObj.initDictCombobox("towLevelClassify","INFO_TYPE","<c:out value="${info.two_level_classify}"/>",true,false,$("#oneLevelClassify").val());
 
 
 function formInint(isEdit){

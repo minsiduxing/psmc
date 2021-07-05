@@ -102,9 +102,12 @@ commonObj.initPaginationGrid = function(option){
  *  @param defaultValue 默认选中的值
  *  @param isQuery 是否是查询使用，如果是查询则默认显示全部
  */
-commonObj.initDictCombobox = function(id,dictNo,defaultValue,validate,isQuery){
+commonObj.initDictCombobox = function(id,dictNo,defaultValue,validate,isQuery,parentDictType){
 	var url = initDictUrl+'&dictNo='+dictNo;
-	$.ajax({ 
+	if(parentDictType != null && parentDictType != '' && parentDictType != 'undefined' && typeof(parentDictType) != undefined ){
+		url+='&parentDictType='+parentDictType;
+	}
+	$.ajax({
 		url: url,
 		dataType: 'json', 
 		success: function(data){   

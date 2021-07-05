@@ -322,4 +322,15 @@ public interface ChjghWeChatService {
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	public String deleteReport(@FormParam("reportUuid") String reportUuid);
+
+
+	/**
+	 * 删除上报信息信息
+	 * @param dictNo
+	 * @return
+	 */
+	@Path("/getDict")
+	@POST
+	@Consumes("application/x-www-form-urlencoded")
+	public String getDict(@FormParam("dictNo") String dictNo,@FormParam("parentDictType") String parentDictType);
 }

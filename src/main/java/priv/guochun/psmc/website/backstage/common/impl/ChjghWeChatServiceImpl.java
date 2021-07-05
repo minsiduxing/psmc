@@ -4,6 +4,7 @@ package priv.guochun.psmc.website.backstage.common.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang.StringUtils;
+import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import priv.guochun.psmc.authentication.user.model.TabAccount;
 import priv.guochun.psmc.authentication.user.model.TabPerson;
 import priv.guochun.psmc.authentication.user.service.TabAccountService;
 import priv.guochun.psmc.authentication.user.service.TabPersonService;
+import priv.guochun.psmc.system.common.dict.service.TabDataDictService;
 import priv.guochun.psmc.system.common.explain.model.TabFunctionExplain;
 import priv.guochun.psmc.system.common.explain.service.TabFunctionExplainService;
 import priv.guochun.psmc.system.common.vcode.model.TabVerificationCode;
@@ -108,6 +110,9 @@ import java.util.regex.Pattern;
 			private RealNameAuthService realNameAuthService;
 			@Autowired
 			private TabFunctionExplainService tabFunctionExplainService;
+
+			@Autowired
+			private TabDataDictService tabDataDictService;
 
 			public TabAttachmentService getTabAttachmentService() {
 				return tabAttachmentService;
@@ -781,8 +786,15 @@ import java.util.regex.Pattern;
 		}
 		return GsonUtil.toJsonForObject(msg);
 	}
-	
-	public ExcellentInnovationService getExcellentInnovationService() {
+
+	@Override
+	public String getDict(String dictNo,String parentDictType) {
+		List<Map<?,?>> list = tabDataDictService.getDictDataList(dictNo,parentDictType);
+		JSONArray ja = JsonUtil.convertToJSONArray(list);
+		return GsonUtil.toJsonForObject(ja);
+	}
+
+			public ExcellentInnovationService getExcellentInnovationService() {
 		return excellentInnovationService;
 	}
 	
@@ -907,5 +919,6 @@ import java.util.regex.Pattern;
 	public void setTabLaudService(TabLaudService tabLaudService) {
 		this.tabLaudService = tabLaudService;
 	}
-	
+
+
 }

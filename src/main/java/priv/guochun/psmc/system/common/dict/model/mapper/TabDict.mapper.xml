@@ -4,7 +4,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="priv.guochun.psmc.system.common.dict.model.TabDataDict">  
     
     <select id="getDictDataList"  resultType="java.util.Map" parameterType="integer">  
-        select dict_id as ID,dict_name as NAME,DICT_TYPE,DICT_NO from tab_data_dict 
+        select dict_id as ID,dict_name as NAME,DICT_TYPE,DICT_NO,PARENT_DICT_TYPE from tab_data_dict
         <where>
         	<if test="dictType != null">
         		 and  dict_type = #{dictType}
