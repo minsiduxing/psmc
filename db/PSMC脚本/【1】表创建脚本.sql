@@ -161,3 +161,6 @@ create table tab_sign_up_info
         sign_up_date timestamp  comment '报名时间',
         constraint tab_sign_up_info primary key (sign_up_uuid)
 ) comment '报名信息表';
+
+
+alter table  add column PARENT_DICT_TYPE INT(5);
