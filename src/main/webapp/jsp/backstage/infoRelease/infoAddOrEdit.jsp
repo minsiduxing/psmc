@@ -31,7 +31,9 @@
 					<td class="tds">分类：</td>
 					<td width="25%"><input id="towLevelClassify" name="towLevelClassify" style="width:50%;"/></td>
 				</c:if>
-				<td class="tds">自定义配图：</td>
+				<td class="tds">
+					信息图像：
+				</td>
 				<td width="25%">
 	                <input type="radio" name="isCustom1" <c:if test="${info.is_custom == '0'}">checked</c:if> value="0" style="width:5%;margin-right: 0">否</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="radio" name="isCustom1" <c:if test="${info.is_custom == '1'}">checked</c:if> value="1" style="width:5%;margin-right: 0" onclick="openUploadDialog()">是</input>
