@@ -1,16 +1,12 @@
 package priv.guochun.psmc.system.framework.servletlistener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import priv.guochun.psmc.system.util.SystemPropertiesUtil;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
-import priv.guochun.psmc.system.util.SystemPropertiesUtil;
-import priv.guochun.psmc.website.stage.bhkn.service.GenerateStageHtmlService;
 
 public class SysPropertiesFileInitListener implements ServletContextListener
 {

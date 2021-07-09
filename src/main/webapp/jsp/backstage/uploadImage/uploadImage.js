@@ -1,30 +1,30 @@
-var editdialog;
-
-//表单dialog初始化方法
-function initDialog(){
-	editdialog = $("#uploadImageDiv").dialog({
-		modal: true,
-		closed: true,
-	    width: 615,
-	    height: 550,
-	    cache: false
-	});
-}
-
-//打开图片上传dialog
-function openUploadDialog(){
-	if(!editdialog){
-		initDialog();
-	}
-	editdialog.panel({title:"选择图片"});
-	editdialog.panel({iconCls:'icon-save'});
-	var imagePath = $("#imagePath").val();
-	if(imagePath){
-		$("#preview").css({"width":"130px", "height":"130px", "margin-left":"0", "margin-top":"0"});
-		$("#preview").attr("src", imagePath);
-	}
-	editdialog.window("open");
-}
+// var editdialog;
+//
+// //表单dialog初始化方法
+// function initDialog(){
+// 	editdialog = $("#uploadImageDiv").dialog({
+// 		modal: true,
+// 		closed: true,
+// 	    width: 615,
+// 	    height: 550,
+// 	    cache: false
+//     });
+// }
+//
+// //打开图片上传dialog
+// function openUploadDialog(){
+// 	if(!editdialog){
+// 		initDialog();
+// 	}
+// 	editdialog.panel({title:"选择图片"});
+// 	editdialog.panel({iconCls:'icon-save'});
+// 	var imagePath = $("#imagePath").val();
+// 	if(imagePath){
+// 		$("#preview").css({"width":"330px", "height":"80px", "margin-left":"0", "margin-top":"0"});
+// 		$("#preview").attr("src", imagePath);
+// 	}
+// 	editdialog.window("open");
+// }
 
 var jcrop_api;
 function previewImage(fileObj){

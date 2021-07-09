@@ -1,18 +1,16 @@
 package priv.guochun.psmc.website.backstage.attachment.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import priv.guochun.psmc.system.util.DateUtil;
-import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.attachment.model.TabAttachment;
 import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentService;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TabAttachmentServiceImpl implements TabAttachmentService {
 

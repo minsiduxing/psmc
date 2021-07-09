@@ -114,7 +114,9 @@ public class InfoReleaseServiceImpl implements InfoReleaseService{
 		}
 		return baseDao.getMyPage(myPage, getInfoReleaseList, condition);
 	}
-
+	public Map<String,Object> getInfoDetailToMobile(Map<String, Object> paramMap){
+		return (Map<String, Object>) baseDao.queryForObject(getInfoReleaseByUuid, paramMap);
+	}
 	@Override
 	public void executeUndoBusinessMethod(String uuids, TabModule module) {
 		tabModuleService.executeUndoTabModule(uuids, module);

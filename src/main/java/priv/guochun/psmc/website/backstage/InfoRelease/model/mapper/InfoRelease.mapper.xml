@@ -165,6 +165,15 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 			<if test="newsUuid !=null and newsUuid!=''">
 				and t1.uuid = #{newsUuid}
 			</if>
+			<if test="oneLevelClassify!=null and oneLevelClassify!=''">
+				and  t2.one_level_classify =#{oneLevelClassify}
+			</if>
+			<if test="towLevelClassify!=null and towLevelClassify!=''">
+				and  t2.two_level_classify =#{towLevelClassify}
+			</if>
+			<if test="audit!=null and audit!=''">
+				and  t2.audit =#{audit}
+			</if>
 		</where>
   	 	</select>
   	 	<!-- 根据二级分类获取信息发布标题列表 -->

@@ -7,9 +7,13 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.cache.Cache;
 import priv.guochun.psmc.authentication.user.service.TabPersonService;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
@@ -140,6 +144,13 @@ public class ReportServiceImpl implements ReportService{
 	}
 	private void addRport( TabReport report){
 		if(null == report){ throw new PsmcBuisnessException("operte data is null！");}
+		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+		String file_prefix_path =map.get("file_prefix_path").toString();
+		String help_declare_image_path =map.get("help_declare_image_path").toString();
+		String law_help_image_path =map.get("law_help_image_path").toString();
+
 		//根据主键是否为空判断是判断还是新增
 		String reportUuid = report.getReportUuid();
 		String addUserID = report.getReportUserUuid();
@@ -160,10 +171,10 @@ public class ReportServiceImpl implements ReportService{
 			//如果是困难申报，则初始状态为已提交，其他为待回复
 			if("report".equals(report.getReportType())){
 				report.setReportStaus(ReportEnum.REPORT_STAUS_SUBMIT.getValue());
-				report.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getHelpDeclareImagePath());
+				report.setImagePath(file_prefix_path + help_declare_image_path);
 			}else{
 				report.setReportStaus(ReportEnum.REPORT_STAUS_WAIT_REPLY.getValue());
-				report.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getLawHelpImagePath());
+				report.setImagePath(file_prefix_path+ law_help_image_path);
 			}
 			//如果是合理化建议或者维护报修,初始设置为未发布
 			if("advice".equals(report.getReportType()) || "repair".equals(report.getReportType())){

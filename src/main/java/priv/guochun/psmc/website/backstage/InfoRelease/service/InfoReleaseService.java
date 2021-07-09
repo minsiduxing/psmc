@@ -66,6 +66,13 @@ public interface InfoReleaseService {
 	 * @return
 	 */
 	public Map<String,Object> getInfoDetailToMobile(String uuid);
+
+	/**
+	 * 查看信息详情 - mobile
+	 * @param uuid
+	 * @return
+	 */
+	public Map<String,Object> getInfoDetailToMobile(Map<String, Object> paramMap);
 	
 	/**
 	 * 获取信息列表 - mobile

@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.user.model.TabPerson;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.JsonUtil;
 import priv.guochun.psmc.system.util.SystemPropertiesUtil;
@@ -62,6 +66,11 @@ public class TabDeptController extends MyController{
 	 */
 	@RequestMapping(params="method=saveOrUpdateDept")
 	public void saveOrUpdateDept(TabDept dept, String isEdit, TabModule module) throws IOException{
+		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+		String file_prefix_path =map.get("file_prefix_path").toString();
+		String work_manage_image_path =map.get("work_manage_image_path").toString();
 		User user = this.getUserBySeesion(this.request());
 		if("add".equals(isEdit)){
 			dept.setCreatePerson(user.getUserUuid());
@@ -75,7 +84,7 @@ public class TabDeptController extends MyController{
 		}
 		//如果配图为空，则添加默认配图
 		if(ContantsUtil.IS_CUSTOM_0.equals(dept.getIsCustom()) && StringUtils.isBlank(dept.getImagePath())){
-			dept.setImagePath(SystemPropertiesUtil.getfilePrefixPath() + SystemPropertiesUtil.getWorkManageImagePath());
+			dept.setImagePath(file_prefix_path + work_manage_image_path);
 		}
 		tabDeptService.saveOrUpdateDeptBusinessMethod(dept, module);
 		super.responseJson(true, "操作成功!", this.response());

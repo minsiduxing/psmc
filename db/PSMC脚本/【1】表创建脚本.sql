@@ -51,7 +51,7 @@ DROP TABLE IF EXISTS tab_module;
 CREATE TABLE tab_module (
   uuid varchar(100) NOT NULL,
   create_acc_uuid varchar(100) DEFAULT NULL,
-  create_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  create_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   modify_acc_uuid varchar(100) DEFAULT NULL,
   modify_date timestamp NULL DEFAULT NULL,
   audit decimal(10,0) DEFAULT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE tab_module (
   audit_date timestamp NULL DEFAULT NULL,
   release_acc_uuid varchar(100) DEFAULT NULL,
   release_date timestamp NULL DEFAULT NULL,
-  one_level_classify varchar(20) DEFAULT NULL COMMENT '1、新闻。2、微课程、3、视频',
+  one_level_classify varchar(20) DEFAULT NULL COMMENT '参考数据字典one_level classify',
   two_level_classify varchar(20) DEFAULT NULL COMMENT '参考数据字典two_level classify',
   release_status varchar(20) DEFAULT NULL,
   PRIMARY KEY (uuid)
@@ -69,7 +69,7 @@ DROP TABLE IF EXISTS tab_module_publish;
 CREATE TABLE tab_module_publish (
   publish_uuid varchar(100) NOT NULL,
   module_uuid varchar(100) DEFAULT NULL,
-  publish_date timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '1是\r\n            2否',
+  publish_date timestamp NULL DEFAULT NULL,
   publish_expire_date timestamp NULL DEFAULT NULL,
   publish_account_uuid varchar(100) DEFAULT NULL,
   PRIMARY KEY (publish_uuid)
@@ -81,7 +81,7 @@ CREATE TABLE tab_news (
   news_title varchar(400) DEFAULT NULL,
   news_subtitle varchar(300) DEFAULT NULL,
   news_content varchar(3000) CHARACTER SET utf8mb4 DEFAULT NULL,
-  news_date timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  news_date timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   news_author varchar(200) DEFAULT NULL,
   thumbnail_image_url varchar(200) DEFAULT NULL,
   news_abstract varchar(500) DEFAULT NULL,
@@ -161,3 +161,6 @@ create table tab_sign_up_info
         sign_up_date timestamp  comment '报名时间',
         constraint tab_sign_up_info primary key (sign_up_uuid)
 ) comment '报名信息表';
+
+
+alter table  add column PARENT_DICT_TYPE INT(5);

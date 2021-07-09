@@ -97,7 +97,7 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
 	</g:auth>
 </c:if>
-<c:if test="${param.oneLevelClassify=='12'}">
+<c:if test="${param.oneLevelClassify=='12' || param.oneLevelClassify=='16'}">
 	<g:auth operateNo="<%=OperateContantsUtil.LEGAL_PROVISIONS_ADD%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
 	</g:auth>
@@ -166,6 +166,29 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
 	</g:auth>
 </c:if>
+	<c:if test="${param.oneLevelClassify=='15'}">
+		<g:auth operateNo="<%=OperateContantsUtil.NEW_WORK_RELEASE_ADD%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
+		</g:auth>
+		<g:auth operateNo="<%=OperateContantsUtil.NEW_WORK_RELEASE_EDIT%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="edit">修改</a>
+		</g:auth>
+		<g:auth operateNo="<%=OperateContantsUtil.NEW_WORK_RELEASE_DEL%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
+		</g:auth>
+		<g:auth operateNo="<%=OperateContantsUtil.NEW_WORK_RELEASE_PREVIEW%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-view" onclick="javascript:event.preventDefault();" plain="true" id="priview">查看</a>
+		</g:auth>
+		<g:auth operateNo="<%=OperateContantsUtil.NEW_WORK_RELEASE_AUDIT%>">
+			<a href="#" id="auditNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-audit">审核</a>
+		</g:auth>
+		<g:auth operateNo="<%=OperateContantsUtil.NEW_WORK_RELEASE_RELEASE%>">
+			<a href="#" id="releaseNews" class="easyui-linkbutton" onclick="javascript:event.preventDefault();"  plain="true" iconCls="icon-release">发布</a>
+		</g:auth>
+		<g:auth operateNo="<%=OperateContantsUtil.NEW_WORK_RELEASE_UNDO%>">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
+		</g:auth>
+	</c:if>
 </div>
 
 <div id="dlg" class="easyui-dialog" title="信息到期日期" style="width:200px;height:120px;padding:10px"
@@ -221,7 +244,7 @@ $('#modifyAccName').textbox({
 commonObj.initDictCombobox("audit","IF","",false,true);
 commonObj.initDictCombobox("releaseStatus","IF","<c:out value="${account.IS_LOCKED}"/>",false,true);
 commonObj.initDictCombobox("towLevelClassify","NEWS_TYPE","<c:out value="${account.IS_LOCKED}"/>",false,true);
-
+commonObj.initDictCombobox("towLevelClassify","INFO_TYPE","<c:out value="${info.two_level_classify}"/>",true,false,$("#oneLevelClassify").val());
 //----------------------------查询框初始化结束
 //表单提交成功后的回调方法
 function successCallback(data){

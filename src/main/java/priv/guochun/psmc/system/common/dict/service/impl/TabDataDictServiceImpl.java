@@ -42,7 +42,7 @@ public class TabDataDictServiceImpl implements TabDataDictService {
 //    }
 	
 	@SuppressWarnings("unchecked")
-    public List<Map<?,?>> getDictDataList(String dict_no){
+    public List<Map<?,?>> getDictDataList(String dict_no,String parentDictType){
 	    Cache cache = psmcCacheFactory.getCacheSystem();
         List<Map<?,?>> list = cache.get(CacheContants.CACHE_SYSTEM_DATA_DICT, List.class);
         if(StringUtils.isBlank(dict_no) || list == null || list.size()<1)
@@ -52,8 +52,16 @@ public class TabDataDictServiceImpl implements TabDataDictService {
             for(int i=0;i<list.size();i++){
                 Map<?,?> map = list.get(i);
                 String DICT_NO = map.get("DICT_NO").toString();
+                String PARENT_DICT_TYPE = map.get("PARENT_DICT_TYPE")!=null?map.get("PARENT_DICT_TYPE").toString():null;
                 if(DICT_NO.equals(dict_no))
-                newList.add(map);
+                {
+                    if(!StringUtils.isBlank(parentDictType)){
+                        if(parentDictType.equals(PARENT_DICT_TYPE)){
+                            newList.add(map);
+                        }
+                    }else
+                    newList.add(map);
+                }
             }
             return newList;
         }

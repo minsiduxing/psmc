@@ -1,30 +1,21 @@
 package priv.guochun.psmc.website.backstage.common.impl;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.regex.Pattern;
-
-import javax.annotation.Resource;
-import javax.ws.rs.FormParam;
-import javax.xml.ws.WebServiceContext;
-
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang.StringUtils;
+import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-
+import org.springframework.cache.Cache;
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
 import priv.guochun.psmc.authentication.user.model.TabAccount;
 import priv.guochun.psmc.authentication.user.model.TabPerson;
 import priv.guochun.psmc.authentication.user.service.TabAccountService;
 import priv.guochun.psmc.authentication.user.service.TabPersonService;
+import priv.guochun.psmc.system.common.dict.service.TabDataDictService;
 import priv.guochun.psmc.system.common.explain.model.TabFunctionExplain;
 import priv.guochun.psmc.system.common.explain.service.TabFunctionExplainService;
 import priv.guochun.psmc.system.common.vcode.model.TabVerificationCode;
@@ -34,23 +25,22 @@ import priv.guochun.psmc.system.enums.AccountTypeEnum;
 import priv.guochun.psmc.system.enums.IfEnum;
 import priv.guochun.psmc.system.enums.VerificationCodeTypeEnum;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
+import priv.guochun.psmc.system.framework.sms.util.SmsTypeEnum;
 import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
-import priv.guochun.psmc.system.util.ContantsUtil;
-import priv.guochun.psmc.system.util.DateUtil;
-import priv.guochun.psmc.system.util.SystemPropertiesUtil;
-import priv.guochun.psmc.system.util.TimestampUtil;
-import priv.guochun.psmc.system.util.UUIDGenerator;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
+import priv.guochun.psmc.system.util.*;
 import priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService;
 import priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService;
 import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentService;
 import priv.guochun.psmc.website.backstage.common.ChjghWeChatService;
 import priv.guochun.psmc.website.backstage.common.realNameAuth.RealNameAuthService;
-import priv.guochun.psmc.website.backstage.common.realNameAuth.impl.RealNameAuthServiceImpl;
 import priv.guochun.psmc.website.backstage.dept.service.TabDeptService;
 import priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService;
 import priv.guochun.psmc.website.backstage.laud.service.TabLaudService;
@@ -66,91 +56,110 @@ import priv.guochun.psmc.website.backstage.util.ChjghContants;
 import priv.guochun.psmc.website.backstage.util.IdCardUtil;
 import priv.guochun.psmc.website.enums.ModuleEnum;
 
+import javax.annotation.Resource;
+import javax.xml.ws.WebServiceContext;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.regex.Pattern;
 
 
-public class ChjghWeChatServiceImpl implements ChjghWeChatService {
-	
-	protected static final  Logger logger  = LoggerFactory.getLogger(ChjghWeChatServiceImpl.class);
 
-	private LoginService loginService;
-	
-	private VerificationCodeService verificationCodeService;
-	
-	
-	private ExcellentInnovationService excellentInnovationService;
-	
-	
-	private MobileSmsSendService baseMobileSmsSendService;
-	
-	
-	private InfoReleaseService infoReleaseService;
-	
-	
-	private TabPageViewService tabPageViewService;
-	
-	private TabActivityManageService tabActivityManageService;
+		public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 
-	@Resource  
-	private WebServiceContext context;  
-	
-	private TabAccountService tabAccountService;
+			protected static final  Logger logger  = LoggerFactory.getLogger(ChjghWeChatServiceImpl.class);
 
-	@Autowired
-	private ReportService reportService;
-	
-	private TabDeptService tabDeptService;
+			private LoginService loginService;
 
-	@Autowired
-	TabPersonService tabPersonService;
-
-	private TabTopicsService tabTopicsService;
-	private TabCommentService tabCommentService;
-	private UploadAssemblyInterface uploadAssemblyInterface;
-	private TabAttachmentService tabAttachmentService;
-	private TabLaudService tabLaudService;
-	@Autowired
-	private RealNameAuthService realNameAuthService;
-	@Autowired
-	private TabFunctionExplainService tabFunctionExplainService;
-	
-	public TabAttachmentService getTabAttachmentService() {
-		return tabAttachmentService;
-	}
-
-	public void setTabAttachmentService(TabAttachmentService tabAttachmentService) {
-		this.tabAttachmentService = tabAttachmentService;
-	}
+			private VerificationCodeService verificationCodeService;
 
 
-	@Override
-	public String createVcode(int type,String phone) {
-		 
-		if((type != VerificationCodeTypeEnum.VCODE_LOGIN.getValue().intValue()
-				&& type != VerificationCodeTypeEnum.VCODE_REGISTER.getValue().intValue())
-			 	|| StringUtils.isBlank(phone)){
-			 return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("非法参数!"));
-		 }
-		 
-		 if(type == VerificationCodeTypeEnum.VCODE_LOGIN.getValue().intValue()){
-			 	//如果是登录，需要验证该手机号为注册用户
-			 User user = loginService.buildUserByPhone(phone,AccountTypeEnum.WECHAT_USER.getValue().intValue());
-			 if(user == null){
-				 return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("该手机号未注册,请先进行注册!"));
-			 }
-		 }
-		 
-         TabVerificationCode verificationCode = verificationCodeService.createCode(type, phone);
+			private ExcellentInnovationService excellentInnovationService;
+
+
+			private MobileSmsSendService baseMobileSmsSendService;
+
+
+			private InfoReleaseService infoReleaseService;
+
+
+			private TabPageViewService tabPageViewService;
+
+			private TabActivityManageService tabActivityManageService;
+
+			@Resource
+			private WebServiceContext context;
+
+			private TabAccountService tabAccountService;
+
+			@Autowired
+			private ReportService reportService;
+
+			private TabDeptService tabDeptService;
+
+			@Autowired
+			TabPersonService tabPersonService;
+
+			private TabTopicsService tabTopicsService;
+			private TabCommentService tabCommentService;
+			private UploadAssemblyInterface uploadAssemblyInterface;
+			private TabAttachmentService tabAttachmentService;
+			private TabLaudService tabLaudService;
+			@Autowired
+			private RealNameAuthService realNameAuthService;
+			@Autowired
+			private TabFunctionExplainService tabFunctionExplainService;
+
+			@Autowired
+			private TabDataDictService tabDataDictService;
+
+			public TabAttachmentService getTabAttachmentService() {
+				return tabAttachmentService;
+			}
+
+			public void setTabAttachmentService(TabAttachmentService tabAttachmentService) {
+				this.tabAttachmentService = tabAttachmentService;
+			}
+
+
+			@Override
+			public String createVcode(int type,String phone) {
+
+				if((type != VerificationCodeTypeEnum.VCODE_LOGIN.getValue().intValue()
+						&& type != VerificationCodeTypeEnum.VCODE_REGISTER.getValue().intValue())
+						|| StringUtils.isBlank(phone)){
+					return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("非法参数!"));
+				}
+
+				if(type == VerificationCodeTypeEnum.VCODE_LOGIN.getValue().intValue()){
+					//如果是登录，需要验证该手机号为注册用户
+					User user = loginService.buildUserByPhone(phone,AccountTypeEnum.WECHAT_USER.getValue().intValue());
+					if(user == null){
+						return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("该手机号未注册,请先进行注册!"));
+					}
+				}
+
+				TabVerificationCode verificationCode = verificationCodeService.createCode(type, phone);
          String code =  verificationCode.getCode();
-         
+
+         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+		 Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		 Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+
+
          SmsModel sm = new SmsModel();
          sm.setCreateTime(TimestampUtil.createCurTimestamp());
-         sm.setReceiveContext("{\"code\":\""+code+"\"}");
-         sm.setReceiveNo(phone);
+		 sm.setReceiveNo(phone);
+		 sm.setSendType(SmsTypeEnum.SmsTypeEnum2.getUuid());
+         sm.setReceiveContext("[{\"手机号码\":\""+phone+"\",\"code\":\""+code+"\"}]");
+		 sm.setSmsId(SmsTypeEnum.ZY_PLATFORM_SCZGYJ_VERIFICATION_CODE_SMS_ID);
+
          MsgModel mm = baseMobileSmsSendService.sendSms(sm);
          if(mm.isSuccess()){
         	Properties pp = SystemPropertiesUtil.getProps();
         	//短信是否开启
-     		boolean sms_enable =Boolean.parseBoolean(pp.getProperty("sms_enable"));
+     		boolean sms_enable =Boolean.valueOf(map.get("sms_enable").toString());
      		if(sms_enable)
      			return GsonUtil.toJsonForObject(MsgModel.buildDefaultSuccess());
      		else
@@ -285,12 +294,13 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		if(paramMap == null){
 			paramMap = new HashMap<String, Object>();
 		}
-		//审核通过已发布的信息
+		//审核通过 modify 20210623 修改只查询已审核过的就行了。
 		paramMap.put("audit", ModuleEnum.AUDITED_PASS.getValue());
-		paramMap.put("releaseStatus", ModuleEnum.IS_RELEASEED.getValue());
-		//paramMap.put("oneLevelClassify", infoType);
-		//移动端只查询未过期的信息
-		paramMap.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
+//		//已发布
+//		paramMap.put("releaseStatus", ModuleEnum.IS_RELEASEED.getValue());
+//		//移动端只查询未过期的信息
+//		paramMap.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
+
 		page.setQueryParams(paramMap);
 		MsgModel msg = null;
 		try {
@@ -305,31 +315,61 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 
 
 	@Override
-	public String infoDetail(String uuid) {
+	public String infoDetail(String uuid,String oneLevelClassify,String towLevelClassify) {
+		MyPage page = JSON.parseObject(null, MyPage.class) ;
+		if(page == null){
+			page = new MyPage();
+			page.setPageSize(10);
+		}
+		Map<String, Object> paramMap = page.getQueryParams();
+		if(paramMap == null){
+			paramMap = new HashMap<String, Object>();
+		}
+		//审核通过已发布的信息
+		paramMap.put("audit", ModuleEnum.AUDITED_PASS.getValue());
+		//paramMap.put("releaseStatus", ModuleEnum.IS_RELEASEED.getValue());
+		//移动端只查询未过期的信息
+		//paramMap.put("publishExpireDateBegin", DateUtil.getCurrentTimstamp());
 		MsgModel msg = null;
 		try {
-			Map<String, Object> dataMap = infoReleaseService.getInfoDetailToMobile(uuid);
-			int nums = 0;
-			TabPageView pageView = tabPageViewService.queryPageviewByUuid(uuid);//获取浏览量
-			if(pageView != null){
-				nums = pageView.getNums();
-			}
-			//更新浏览次数
-			tabPageViewService.saveOrUpdate(uuid);
-			dataMap.put("nums", nums);
-			msg = MsgModel.buildDefaultSuccess(dataMap);
+				Map<String, Object> dataMap = null;
+				if(StringUtils.isNotBlank(uuid)){
+					paramMap.put("uuid", uuid);
+					page.setQueryParams(paramMap);
+					dataMap = (Map<String, Object>)infoReleaseService.getInfoDetailToMobile(uuid);
+				}else{
+					if(StringUtils.isNotBlank(oneLevelClassify) && StringUtils.isNotBlank(towLevelClassify)) {
+						paramMap.put("oneLevelClassify", oneLevelClassify);
+						paramMap.put("towLevelClassify", towLevelClassify);
+						page.setQueryParams(paramMap);
+						dataMap = (Map<String, Object>)infoReleaseService.getInfoDetailToMobile(paramMap);
+					}else
+						msg = MsgModel.buildDefaultError("参数不全");
+				}
+				if(dataMap != null){
+					uuid = dataMap.get("uuid").toString();
+					int nums = 0;
+					TabPageView pageView = tabPageViewService.queryPageviewByUuid(uuid);//获取浏览量
+					if(pageView != null){
+						nums = pageView.getNums();
+					}
+					//更新浏览次数
+					tabPageViewService.saveOrUpdate(uuid);
+					dataMap.put("nums", nums);
+					msg = MsgModel.buildDefaultSuccess(dataMap);
+				}
 		} catch (Exception e) {
 			logger.error("获取数据异常." + e);
 			msg = MsgModel.buildDefaultError("获取数据异常");
 		}
-		return GsonUtil.toJsonForObject(msg); 
+		return GsonUtil.toJsonForObject(msg);
 	}
 
 
-	@Override
-	public String getInnovationList(String pageJson) {
-		MyPage page = JSON.parseObject(pageJson, MyPage.class) ;
-		Map<String, Object> paramMap = page.getQueryParams();
+		@Override
+		public String getInnovationList(String pageJson) {
+			MyPage page = JSON.parseObject(pageJson, MyPage.class) ;
+			Map<String, Object> paramMap = page.getQueryParams();
 		if(paramMap == null){
 			paramMap = new HashMap<String, Object>();
 		}
@@ -746,8 +786,15 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 		}
 		return GsonUtil.toJsonForObject(msg);
 	}
-	
-	public ExcellentInnovationService getExcellentInnovationService() {
+
+	@Override
+	public String getDict(String dictNo,String parentDictType) {
+		List<Map<?,?>> list = tabDataDictService.getDictDataList(dictNo,parentDictType);
+		JSONArray ja = JsonUtil.convertToJSONArray(list);
+		return GsonUtil.toJsonForObject(ja);
+	}
+
+			public ExcellentInnovationService getExcellentInnovationService() {
 		return excellentInnovationService;
 	}
 	
@@ -872,5 +919,6 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
 	public void setTabLaudService(TabLaudService tabLaudService) {
 		this.tabLaudService = tabLaudService;
 	}
-	
+
+
 }

@@ -14,8 +14,9 @@ public interface TabDataDictService {
     /**
      * 根据数据字典key获取当前数据字典信息
      * @param dict_no
+     * @param parentDictType 上级字典类别
      * @return
      */
-	public List<Map<?,?>> getDictDataList(String dict_no);
+	public List<Map<?,?>> getDictDataList(String dict_no,String parentDictType);
 	
 }

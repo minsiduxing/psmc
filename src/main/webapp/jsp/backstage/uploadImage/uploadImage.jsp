@@ -32,7 +32,7 @@
                  </div>
              </td>
              <td  align="center">
-                 
+
                  <div id="preview-panel" style="width:150px;height:140px;border:0px solid green;margin-top:100px;">
                  	<div>预览：</div>
                       <div class = "previewDiv" style="width: 132px;height: 132px;overflow: hidden;border:1px solid #ececec" >
@@ -64,4 +64,5 @@
 <script type="text/javascript">
 	
 </script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/uploadImage/uploadImage.js"></script>
 </html>

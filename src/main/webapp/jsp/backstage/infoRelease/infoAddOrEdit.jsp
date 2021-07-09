@@ -7,7 +7,6 @@
 		text-align:right;
 		width:10%
 	}
-	
   </style>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
@@ -28,15 +27,17 @@
 				<td width="25%"><input id="newAutor" name="newAutor" style="width:50%;" value="${info.news_author}"/></td>
 			</tr>
 			<tr>
-				<c:if test="${oneLevelClassify == '14'}">
-					<td class="tds">信息分类：</td>
+				<c:if test="${oneLevelClassify == '14' || oneLevelClassify == '15' || oneLevelClassify == '16'}">
+					<td class="tds">分类：</td>
 					<td width="25%"><input id="towLevelClassify" name="towLevelClassify" style="width:50%;"/></td>
 				</c:if>
-				<td class="tds">自定义配图：</td>
+				<td class="tds">
+					信息图像：
+				</td>
 				<td width="25%">
 	                <input type="radio" name="isCustom1" <c:if test="${info.is_custom == '0'}">checked</c:if> value="0" style="width:5%;margin-right: 0">否</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                <input type="radio" name="isCustom1" <c:if test="${info.is_custom == '1'}">checked</c:if> value="1" style="width:5%;margin-right: 0" onclick="openUploadDialog()">是</input>
-	                <input type="hidden" id="isCustom" name="isCustom" value="${info.is_custom}"/>
+					<input type="radio" name="isCustom1" <c:if test="${info.is_custom == '1'}">checked</c:if> value="1" style="width:5%;margin-right: 0" onclick="openUploadDialog()">是</input>
+					<input type="hidden" id="isCustom" name="isCustom" value="${info.is_custom}"/>
 				</td>
 			</tr>
 			<tr>
@@ -57,7 +58,7 @@
 	 <input type="hidden" id="newsUuid" name=newsUuid value="${info.uuid }"/>
 	 <input type="hidden" id="oneLevelClassify" name="oneLevelClassify" value="${oneLevelClassify}"/>
 	 <%-- <input type="hidden" id="towLevelClassify" name="towLevelClassify" value='${param.towLevelClassify}' /> --%>
-	 <input type="hidden" id="imagePath" name="imagePath" value="" />
+	 <input type="hidden" id="imagePath" name="imagePath" value="${info.image_path}" />
 	  <div style= "width:75%; margin-top: 20px" class="operButon" align="center">
 			<input id="submitbtn" type="button" class="easyui-linkbutton" onclick=" sbmit()" value="提交"/>
 			<input id="reset" type="reset" class="easyui-linkbutton" onclick=" "  value="重置"/>
@@ -69,6 +70,10 @@
     <div id="cover" ></div>
     <div id="uploadImageDiv" style="display: none;">
 		 <%@ include file="../uploadImage/uploadImage.jsp"%>
+	</div>
+    <!-- 不裁剪文件上传框 -->
+	<div id="uploadNoCutImageDiv" style="display: none;">
+		<%@ include file="../uploadImage/uploadNoCutImage.jsp"%>
 	</div>
   </body>
 </html>
@@ -85,6 +90,10 @@ var _url = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fi
 
 //图片上路经
 var imageuploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUpload&oneLevelClassify='+$("#oneLevelClassify").val();
+//图片上路经
+var videouploadsrc = '<c:url value="/system/freamwork/fileUploadController.do"/>?method=fileUploadVideo&oneLevelClassify='+$("#oneLevelClassify").val();
+
+
 //修改保存路径
 var path = '<c:url value="'+ basePath+'/website/backstage/InfoReleaseController.do"/>?method=confirmPicture';
 //表单数据初始化---------------------------------------------------
@@ -95,12 +104,13 @@ var retrunUrl =  '<c:url value="/website/backstage/InfoReleaseController.do"/>?m
 
 //上传配图
 var uploadPhoto = '<c:url value="/website/backstage/uploadImageController.do"/>?method=uploadPhoto';
-
+var uploadPhotoNoCut = '<c:url value="/website/backstage/uploadImageController.do"/>?method=uploadPhotoNoCut';
 //默认选中否
 if($("#isCustom").val() == "" || $("#isCustom").val() == null){
 	$("input[name='isCustom1']:eq(0)").attr("checked",'checked');
 }
-commonObj.initDictCombobox("towLevelClassify","INFO_TYPE","<c:out value="${info.two_level_classify}"/>",true,false);
+commonObj.initDictCombobox("towLevelClassify","INFO_TYPE","<c:out value="${info.two_level_classify}"/>",true,false,$("#oneLevelClassify").val());
+
 
 function formInint(isEdit){
 	if(isEdit == "query"){
@@ -131,4 +141,3 @@ function formInint(isEdit){
 
 </script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/infoRelease/infoAddOrEdit.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/jsp/backstage/uploadImage/uploadImage.js"></script>

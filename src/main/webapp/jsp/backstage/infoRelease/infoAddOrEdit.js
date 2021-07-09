@@ -55,56 +55,99 @@ function successCallback(data){
 function  wangEditorInit(isEdit){
     	  var E = window.wangEditor;
           editor = new E('#newsContent');
-    	  editor.customConfig.menus = [
-    	                                'head',  // 标题
-									    'bold',  // 粗体
-									    'fontSize',  // 字号
-									    'fontName',  // 字体
-									    'italic',  // 斜体
-									    'underline',  // 下划线
-									    'strikeThrough',  // 删除线
-									    'foreColor',  // 文字颜色
-									    'backColor',  // 背景颜色
-									    'link',  // 插入链接
-									    'list',  // 列表
-									    'justify',  // 对齐方式
-									    'emoticon',  // 表情
-									    'image',  // 插入图片
-									    'table',  // 表格
-									    'undo',  // 撤销
-									    'redo'  // 重复
-									   ]
-    	  editor.customConfig.uploadImgMaxSize = 1000 * 1000;//限制图片最大不超过1M
-    	  editor.customConfig.zIndex = 500;
-          editor.customConfig.uploadImgServer = imageuploadsrc;  // 上传图片到服务器
-          editor.customConfig.uploadImgHooks = {
-        		    // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
-        		    // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
+	      editor.config.zIndex = 500;
+		  editor.config.height = 500;//高度
+		  editor.config.showMenuTooltips = false;//菜单栏提示
+    	  editor.config.uploadImgMaxSize = 5 * 1024 * 1024;//限制图片最大不超过1M
+          editor.config.uploadImgServer = imageuploadsrc;  // 上传图片到服务器
+		  editor.config.showLinkImg = false;//隐藏插入网络图片
+		  editor.config.pasteIgnoreImg = true; //黏贴内容把图片过滤
+          editor.config.uploadImgHooks = {
         		    customInsert: function (insertImg, result, editor) {
-        		        // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
-        		        // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
-
-        		        // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
-        		    	console.info(result.rmsg);
-        		        var url = result.rmsg;
-        		        insertImg(url);
-
-        		        // result 必须是一个 JSON 格式字符串！！！否则报错
+        		        insertImg(result.rmsg);
         		    }
         		}
-          editor.create(); 
-          E.fullscreen.init('#newsContent');
+		    editor.config.uploadVideoMaxSize = 1 * 50 * 1024 * 1024; // 限制50m
+			/**
+			 * html5 video 支持的视频格式
+			 * MP4 = MPEG 4文件使用 H264 视频编解码器和AAC音频编解码器
+			 *WebM = WebM 文件使用 VP8 视频编解码器和 Vorbis 音频编解码器
+			 *Ogg = Ogg 文件使用 Theora 视频编解码器和 Vorbis音频编解码器
+			 */
+			editor.config.uploadVideoAccept = ['mp4','mpeg4','webm'];
+			editor.config.uploadVideoServer = videouploadsrc;  // 上传视频到服务器
+
+			editor.config.uploadVideoHooks  = {
+				before: function(xhr) {
+					alert('正在上传视频,请勿进行其他业务操作,请耐心等待,留意编辑栏的进度条和系统提示!');
+					editor.disable();
+				},
+				// 视频上传并返回了结果，视频插入已成功
+				success: function(xhr) {
+					editor.enable();
+				},
+				// 视频上传并返回了结果，但视频插入时出错了
+				fail: function(xhr, editor, resData) {
+					editor.enable();
+				},
+				customInsert: function(insertVideoFn, result) {
+					editor.enable();
+					if('success' == result.res){
+						console.info(result);
+						insertVideoFn(result.rmsg);
+					}
+
+				}
+			}
+          editor.create();
+
           if (isEdit=="edit") {
-        	  editor.txt.html($("#infoContent").html()) ;
+			  editor.txt.html($("#infoContent").html()) ;
+			  editor.enable();
           }
           if(isEdit=="query"){
         	  editor.txt.html($("#infoContent").html()) ;
-        	  editor.$textElem.attr('contenteditable', false);
+			  editor.disable();
           }
-          
     }
 //富文本编辑器结束-----------------------------
 function retList(){
 	window.location.href=retrunUrl;
 }
 //表单数据初始化结束--------------------------------------
+
+
+var editdialog;
+
+//表单dialog初始化方法
+function initDialog(){
+	var oneLevelClassify = $("#oneLevelClassify").val();
+	var uploadDiv = "#uploadImageDiv";
+	if (oneLevelClassify == '16'){
+		uploadDiv = "#uploadNoCutImageDiv";
+	}
+	editdialog = $(uploadDiv).dialog({
+		modal: true,
+		closed: true,
+		width: 615,
+		height: 550,
+		cache: false
+	});
+}
+
+//打开图片上传dialog
+function openUploadDialog(){
+	if(editdialog){
+		editdialog = null;
+	}
+	initDialog();
+	editdialog.panel({title:"选择图片"});
+	editdialog.panel({iconCls:'icon-save'});
+	var imagePath = $("#imagePath").val();
+	if(imagePath){
+		$("#preview").css({"width":"330px", "height":"80px", "margin-left":"0", "margin-top":"0"});
+		$("#preview").attr("src", imagePath);
+		$("#targetView").attr("src", imagePath);
+	}
+	editdialog.window("open");
+}

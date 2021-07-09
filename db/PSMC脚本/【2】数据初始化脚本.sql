@@ -239,6 +239,8 @@ insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_n
 insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values 
 ('022a43088dcd46d4b201b43b32d3d85a','deploy','配置','','admin',str_to_date('2016-8-9','%Y-%m-%d %T'));
 
+insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values
+('cb14b0e3d47647e58da01ab09e0d373c','undo','撤回','','admin',str_to_date('2021-6-23','%Y-%m-%d %T'));
 
 /*-----------------------------定义菜单的业务操作-----------------------------*/
 /*菜单----[账户信息]业务操作*/

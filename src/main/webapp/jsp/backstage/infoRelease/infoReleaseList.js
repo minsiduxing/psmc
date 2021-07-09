@@ -27,6 +27,14 @@ $(document).ready(function(){
 	                     if(value=='1403'){return "大院新闻"; }
 	                     if(value=='1404'){return "便民电话"; }
 	                     if(value=='1405'){return "政策法律"; }
+	                     if(value=='1501'){return "关于介绍"; }
+	                     if(value=='1502'){return "业务领域"; }
+	                     if(value=='1503'){return "新闻动态"; }
+	                     if(value=='1504'){return "联系我们"; }
+	                     if(value=='1601'){return "合伙人"; }
+	                     if(value=='1602'){return "专职律师"; }
+	                     if(value=='1603'){return "辅助人员"; }
+
 	                  }},
 		          {field:'release_status',title:'发布状态',resizable:true,align:'center',sortable:true,formatter: function (value, row, index) {
 	                     if(value=='2'){return "未发布"; }

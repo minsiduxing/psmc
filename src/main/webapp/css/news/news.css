@@ -80,7 +80,13 @@
 	border-top: 0;
 	background-color: #fff;
 	margin-top: 1%;
-	z-index: 998;!important
+	z-index: 998;
+}
+.w-e-toolbar .w-e-menu{
+	z-index: 2 !important;
+}
+.w-e-text-container{
+	z-index: 1 !important;
 }
 
 .cover {
@@ -91,7 +97,8 @@
 	right: 5px;
 	bottom: 2px;
 	height: 98%;
-	width: 100% padding: 20px;
+	width: 100%;
+	padding: 20px;
 	background-color: #f1f1f1;
 }
 /* #picpreview{
