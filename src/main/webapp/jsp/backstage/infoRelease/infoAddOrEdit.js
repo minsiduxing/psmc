@@ -74,7 +74,7 @@ function  wangEditorInit(isEdit){
 			 *WebM = WebM 文件使用 VP8 视频编解码器和 Vorbis 音频编解码器
 			 *Ogg = Ogg 文件使用 Theora 视频编解码器和 Vorbis音频编解码器
 			 */
-			editor.config.uploadVideoAccept = ['mp4','mpeg4','webm'];
+			editor.config.uploadVideoAccept = ['mp4','mpeg4','webm','mp3','wav','ogg','acc'];
 			editor.config.uploadVideoServer = videouploadsrc;  // 上传视频到服务器
 
 			editor.config.uploadVideoHooks  = {
