@@ -31,7 +31,7 @@ public class BaseMobileSmsSendServiceImpl implements MobileSmsSendService {
             smsSendRuleSolve.setSmsSendModeSrategy(DefaultSmsModeBuildFactory.getInstance().createZhongYiSsm());
             return smsSendRuleSolve.sendSms(smsModel);
         }else if("sczgyj".equals(sms_channel)){
-            smsSendRuleSolve.setSmsSendModeSrategy(DefaultSmsModeBuildFactory.getInstance().createDefaultAlSsm());
+            smsSendRuleSolve.setSmsSendModeSrategy(DefaultSmsModeBuildFactory.getInstance().createZhongYiSsm());
         }else
             smsSendRuleSolve.setSmsSendModeSrategy(DefaultSmsModeBuildFactory.getInstance().createZhongYiSsm());
 	    

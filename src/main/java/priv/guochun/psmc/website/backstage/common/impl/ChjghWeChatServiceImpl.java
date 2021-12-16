@@ -144,8 +144,10 @@ public class ChjghWeChatServiceImpl implements ChjghWeChatService {
          
          SmsModel sm = new SmsModel();
          sm.setCreateTime(TimestampUtil.createCurTimestamp());
-         sm.setReceiveContext("{\"code\":\""+code+"\"}");
+         sm.setReceiveContext("[{\"code\":\""+code+"\",\"手机号码\":\""+phone+"\"}]");
          sm.setReceiveNo(phone);
+         sm.setSendType("2");
+         sm.setSmsId("12587");
          MsgModel mm = baseMobileSmsSendService.sendSms(sm);
          if(mm.isSuccess()){
         	Properties pp = SystemPropertiesUtil.getProps();

@@ -45,7 +45,7 @@ public class PsmcCacheFactoryImpl implements PsmcCacheFactory
     }
     public Cache getCacheSysKeyInfo(){
         if(cacheSysKeyInfo == null){
-            Cache cacheObj= getCacheByName(CacheContants.CACHE_SYSTEM_KEY_INFO);
+            Cache cacheObj= getCacheByName(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY);
             cacheSysKeyInfo = new CacheProxy(cacheObj,psmcInitCacheTool);
         }
         return cacheSysKeyInfo;
