@@ -150,11 +150,10 @@ import java.util.regex.Pattern;
 
          SmsModel sm = new SmsModel();
          sm.setCreateTime(TimestampUtil.createCurTimestamp());
-		 sm.setReceiveNo(phone);
-		 sm.setSendType(SmsTypeEnum.SmsTypeEnum2.getUuid());
-         sm.setReceiveContext("[{\"手机号码\":\""+phone+"\",\"code\":\""+code+"\"}]");
-		 sm.setSmsId(SmsTypeEnum.ZY_PLATFORM_SCZGYJ_VERIFICATION_CODE_SMS_ID);
-
+         sm.setReceiveContext("[{\"code\":\""+code+"\",\"手机号码\":\""+phone+"\"}]");
+         sm.setReceiveNo(phone);
+         sm.setSendType("2");
+         sm.setSmsId("12587");
          MsgModel mm = baseMobileSmsSendService.sendSms(sm);
          if(mm.isSuccess()){
         	Properties pp = SystemPropertiesUtil.getProps();

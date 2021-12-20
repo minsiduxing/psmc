@@ -56,7 +56,7 @@
             />   
             
         <cache 	
-   			name="CACHE_SYSTEM_KEY_INFO" 
+   			name="CACHE_SYSTEM_KEY_INFO_KEY"
    			maxElementsInMemory="50" 
    			eternal="true"  
             timeToIdleSeconds="0" 
