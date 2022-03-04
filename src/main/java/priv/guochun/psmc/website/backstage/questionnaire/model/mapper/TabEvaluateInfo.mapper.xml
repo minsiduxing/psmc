@@ -26,13 +26,19 @@
     <result column="recharge_amount" jdbcType="DECIMAL" property="rechargeAmount" />
     <result column="consumption_item" jdbcType="VARCHAR" property="consumptionItem" />
     <result column="evaluate_time" jdbcType="TIMESTAMP" property="evaluateTime" />
+    <result column="notice_content" jdbcType="VARCHAR" property="noticeContent" />
+    <result column="other_remark" jdbcType="VARCHAR" property="otherRemark" />
+    <result column="butler" jdbcType="VARCHAR" property="butler" />
+    <result column="vip_remark" jdbcType="VARCHAR" property="vipRemark" />
+    <result column="vaild_date" jdbcType="DATE" property="vaildDate" />
   </resultMap>
   
   <sql id="Base_Column_List">
     evaluate_info_uuid, questionnaire_uuid, evaluate_name, evaluate_phone, evaluate_notice_type, 
     input_acc_uuid, input_time, visit_url, visit_short_url, notice_note, is_enable_notice, 
     notice_time, evaluate_status, effective_end_date,evaluate_nick_name,consumption_date,
-    consumption_amount,surplus_amount,surplus_score,surplus_number,recharge_amount,consumption_item,evaluate_time
+    consumption_amount,surplus_amount,surplus_score,surplus_number,recharge_amount,consumption_item,evaluate_time,
+    notice_content,other_remark,butler,vip_remark,vaild_date
   </sql>
   
   <select id="selectEvaluateList" parameterType="hashmap" resultType="java.util.Map">
@@ -87,8 +93,8 @@
       input_acc_uuid, input_time, visit_url, 
       visit_short_url, notice_note, is_enable_notice, 
       notice_time, evaluate_status, effective_end_date,evaluate_nick_name,consumption_date,
-      consumption_amount,surplus_amount,surplus_score,surplus_number,recharge_amount,consumption_item,evaluate_time
-      )
+      consumption_amount,surplus_amount,surplus_score,surplus_number,recharge_amount,consumption_item,evaluate_time,
+      notice_content,other_remark,butler,vip_remark,vaild_date)
     values (#{evaluateInfoUuid,jdbcType=VARCHAR}, #{questionnaireUuid,jdbcType=VARCHAR}, 
       #{evaluateName,jdbcType=VARCHAR}, #{evaluatePhone,jdbcType=VARCHAR}, #{evaluateNoticeType,jdbcType=SMALLINT}, 
       #{inputAccUuid,jdbcType=VARCHAR}, #{inputTime,jdbcType=TIMESTAMP}, #{visitUrl,jdbcType=VARCHAR}, 
@@ -96,7 +102,9 @@
       #{noticeTime,jdbcType=TIMESTAMP}, #{evaluateStatus,jdbcType=SMALLINT}, #{effectiveEndDate,jdbcType=TIMESTAMP},
       #{evaluateNickName,jdbcType=VARCHAR}, #{consumptionDate,jdbcType=DATE}, #{consumptionAmount,jdbcType=DECIMAL},
       #{surplusAmount,jdbcType=DECIMAL}, #{surplusScore,jdbcType=INTEGER}, #{surplusNumber,jdbcType=VARCHAR},
-      #{rechargeAmount,jdbcType=DECIMAL}, #{consumptionItem,jdbcType=VARCHAR},#{evaluateTime,jdbcType=TIMESTAMP}
+      #{rechargeAmount,jdbcType=DECIMAL}, #{consumptionItem,jdbcType=VARCHAR},#{evaluateTime,jdbcType=TIMESTAMP},
+      #{noticeContent,jdbcType=VARCHAR},#{otherRemark,jdbcType=VARCHAR},#{butler,jdbcType=VARCHAR},
+      #{vipRemark,jdbcType=VARCHAR},#{vaildDate,jdbcType=DATE}
       )
   </insert>
   
@@ -172,6 +180,21 @@
       <if test="evaluateTime != null">
         evaluate_time,
       </if>
+      <if test="noticeContent != null">
+        notice_content,
+      </if>
+      <if test="otherRemark != null">
+        other_remark,
+      </if>
+      <if test="butler != null">
+        butler,
+      </if>
+      <if test="vipRemark != null">
+        vip_remark,
+      </if>
+      <if test="vaildDate != null">
+        vaild_date
+      </if>
       
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -242,7 +265,23 @@
         #{consumptionItem,jdbcType=VARCHAR},
       </if>
       <if test="evaluateTime != null">
-        #{evaluateTime,jdbcType=TIMESTAMP}
+        #{evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+
+      <if test="noticeContent != null">
+        #{noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="otherRemark != null">
+        #{otherRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="butler != null">
+        #{butler,jdbcType=VARCHAR},
+      </if>
+      <if test="vipRemark != null">
+        #{vipRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="vaildDate != null">
+        #{vaildDate,jdbcType=DATE}
       </if>
     </trim>
   </insert>
@@ -314,7 +353,22 @@
         consumption_item = #{consumptionItem,jdbcType=VARCHAR},
       </if>
       <if test="evaluateTime != null">
-        evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP}
+        evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeContent != null">
+        notice_content = #{noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="otherRemark != null">
+        other_remark = #{otherRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="butler != null">
+        butler = #{butler,jdbcType=VARCHAR},
+      </if>
+      <if test="vipRemark != null">
+        vip_remark = #{vipRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="vaildDate != null">
+        vaild_date = #{vaildDate,jdbcType=Date}
       </if>
     </set>
     where evaluate_info_uuid = #{evaluateInfoUuid,jdbcType=VARCHAR}
@@ -343,7 +397,12 @@
 	  surplus_number = #{surplusNumber,jdbcType=VARCHAR},
 	  recharge_amount = #{rechargeAmount,jdbcType=DECIMAL}, 
 	  consumption_item = #{consumptionItem,jdbcType=VARCHAR},
-	  evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP}
+	  evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP},
+      notice_content = #{noticeContent,jdbcType=VARCHAR},
+      other_remark = #{otherRemark,jdbcType=VARCHAR},
+      butler = #{butler,jdbcType=VARCHAR},
+      vip_remark = #{vipRemark,jdbcType=VARCHAR},
+      vaild_date = #{vaildDate,jdbcType=DATE}
     where evaluate_info_uuid = #{evaluateInfoUuid,jdbcType=VARCHAR}
   </update>
 </mapper>
