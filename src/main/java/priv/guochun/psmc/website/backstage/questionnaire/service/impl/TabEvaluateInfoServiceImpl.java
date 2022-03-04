@@ -73,43 +73,19 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 		}
 
 		evaluateInfo = this.getMsgContent(evaluateInfo);
-
 		baseDao.insert(insertEvaluateSelective, evaluateInfo);
-		//发送短信
-		SmsModel sm = new SmsModel();
-        sm.setCreateTime(TimestampUtil.createCurTimestamp());
-        sm.setReceiveContext(evaluateInfo.getNoticeNote());
-        sm.setSendType("2");
 
-        if(ContantsUtil.NOTICE_TYPE_1.equals(evaluateInfo.getEvaluateNoticeType())) {
-        	sm.setSmsId(ContantsUtil.MSG_CONTENT_1);
-        }else if(ContantsUtil.NOTICE_TYPE_2.equals(evaluateInfo.getEvaluateNoticeType())) {
-        	sm.setSmsId(ContantsUtil.MSG_CONTENT_2);
-        }else if(ContantsUtil.NOTICE_TYPE_3.equals(evaluateInfo.getEvaluateNoticeType())) {
-        	sm.setSmsId(ContantsUtil.MSG_CONTENT_3);
-        }else if(ContantsUtil.NOTICE_TYPE_4.equals(evaluateInfo.getEvaluateNoticeType())) {
-			sm.setSmsId(ContantsUtil.MSG_CONTENT_4);
-		}else if(ContantsUtil.NOTICE_TYPE_5.equals(evaluateInfo.getEvaluateNoticeType())) {
-			sm.setSmsId(ContantsUtil.MSG_CONTENT_5);
-		}else if(ContantsUtil.NOTICE_TYPE_6.equals(evaluateInfo.getEvaluateNoticeType())) {
-			sm.setSmsId(ContantsUtil.MSG_CONTENT_6);
-		}else if(ContantsUtil.NOTICE_TYPE_7.equals(evaluateInfo.getEvaluateNoticeType())) {
-			sm.setSmsId(ContantsUtil.MSG_CONTENT_7);
-		}else if(ContantsUtil.NOTICE_TYPE_8.equals(evaluateInfo.getEvaluateNoticeType())) {
-			sm.setSmsId(ContantsUtil.MSG_CONTENT_8);
-		}else if(ContantsUtil.NOTICE_TYPE_9.equals(evaluateInfo.getEvaluateNoticeType())) {
-			sm.setSmsId(ContantsUtil.MSG_CONTENT_9);
+		MsgModel mm = send(evaluateInfo);
+		//发送成功
+		if(!mm.isSuccess()){
+			evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_4); //短信发送失败;
+			baseDao.update(updateEvaluateSelective, evaluateInfo);
+			resultmap.put("success", false);
+			resultmap.put("msg", "保存成功，短信发送失败");
+		}else{
+			resultmap.put("success", true);
+			resultmap.put("msg", "保存成功");
 		}
-        sm.setReceiveNo(evaluateInfo.getEvaluatePhone());
-        MsgModel mm = baseMobileSmsSendService.sendSms(sm);
-        resultmap.put("success", true);
-		resultmap.put("msg", "保存成功");
-        if(!mm.isSuccess()){
-        	evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_4); //短信发送失败;
-        	baseDao.update(updateEvaluateSelective, evaluateInfo);
-        	resultmap.put("success", false);
-            resultmap.put("msg", "保存成功，短信发送失败");
-        }
 		return resultmap;
 	}
 	
@@ -126,21 +102,49 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 	@Override
 	public boolean sendMsg(String evaluateInfoUuid) {
 		TabEvaluateInfo evaluateInfo = this.selectById(evaluateInfoUuid);
+		MsgModel mm = send(evaluateInfo);
+		//发送成功
+		if(!mm.isSuccess()){
+			evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_4);
+			this.updateEvaluate(evaluateInfo);
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+
+	private MsgModel send(TabEvaluateInfo evaluateInfo){
 		//发送短信
 		SmsModel sm = new SmsModel();
-        sm.setCreateTime(TimestampUtil.createCurTimestamp());
-        sm.setReceiveContext(evaluateInfo.getNoticeNote());
-        sm.setReceiveNo(evaluateInfo.getEvaluatePhone());
-        MsgModel mm = baseMobileSmsSendService.sendSms(sm);
-        //发送成功
-        if(mm.isSuccess()){
-        	evaluateInfo.setEvaluateStatus(ContantsUtil.EVALUATE_STATUS_1); //待评价;
-        	this.updateEvaluate(evaluateInfo);
-        	return true;
-        }else{
-        	return false;
-        }
+		sm.setCreateTime(TimestampUtil.createCurTimestamp());
+		sm.setReceiveContext(evaluateInfo.getNoticeNote());
+		sm.setReceiveNo(evaluateInfo.getEvaluatePhone());
+		sm.setSendType("2");
+		if(ContantsUtil.NOTICE_TYPE_1.equals(evaluateInfo.getEvaluateNoticeType())) {
+			sm.setSmsId(ContantsUtil.MSG_CONTENT_1);
+		}else if(ContantsUtil.NOTICE_TYPE_2.equals(evaluateInfo.getEvaluateNoticeType())) {
+			sm.setSmsId(ContantsUtil.MSG_CONTENT_2);
+		}else if(ContantsUtil.NOTICE_TYPE_3.equals(evaluateInfo.getEvaluateNoticeType())) {
+			sm.setSmsId(ContantsUtil.MSG_CONTENT_3);
+		}else if(ContantsUtil.NOTICE_TYPE_4.equals(evaluateInfo.getEvaluateNoticeType())) {
+			sm.setSmsId(ContantsUtil.MSG_CONTENT_4);
+		}else if(ContantsUtil.NOTICE_TYPE_5.equals(evaluateInfo.getEvaluateNoticeType())) {
+			sm.setSmsId(ContantsUtil.MSG_CONTENT_5);
+		}else if(ContantsUtil.NOTICE_TYPE_6.equals(evaluateInfo.getEvaluateNoticeType())) {
+			sm.setSmsId(ContantsUtil.MSG_CONTENT_6);
+		}else if(ContantsUtil.NOTICE_TYPE_7.equals(evaluateInfo.getEvaluateNoticeType())) {
+			sm.setSmsId(ContantsUtil.MSG_CONTENT_7);
+		}else if(ContantsUtil.NOTICE_TYPE_8.equals(evaluateInfo.getEvaluateNoticeType())) {
+			sm.setSmsId(ContantsUtil.MSG_CONTENT_8);
+		}else if(ContantsUtil.NOTICE_TYPE_9.equals(evaluateInfo.getEvaluateNoticeType())) {
+			sm.setSmsId(ContantsUtil.MSG_CONTENT_9);
+		}
+		MsgModel mm = baseMobileSmsSendService.sendSms(sm);
+		return mm;
 	}
+
+
 	
 	/**
 	 * 导入Excel数据

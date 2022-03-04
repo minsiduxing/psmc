@@ -124,19 +124,19 @@ public class ContantsUtil {
     public final static String MSG_CONTENT_4 = "17762";
     public final static String MSG_CONTENT_REMARK_4 = "【四季花城功能SPA】尊敬的花城会员${evaluateNickName}，截止目前,您的会员卡余额为${surplusAmount}元,待体验项目有${consumptionItem}等共计${surplusNumber}次,${otherRemark}。退订回复TD";
 
-    public final static String MSG_CONTENT_5 = "17762";
+    public final static String MSG_CONTENT_5 = "17805";
     public final static String MSG_CONTENT_REMARK_5 = "【四季花城功能SPA】尊敬的花城会员${evaluateNickName}，截止目前,您的会员卡余额为${surplusAmount}元,待体验项目有${consumptionItem}。退订回复TD";
 
-    public final static String MSG_CONTENT_6 = "17762";
+    public final static String MSG_CONTENT_6 = "17806";
     public final static String MSG_CONTENT_REMARK_6 = "【四季花城功能SPA】尊敬的花城会员${evaluateNickName}，截止目前,您的会员卡余额为${surplusAmount}元,${otherRemark}。退订回复TD";
 
-    public final static String MSG_CONTENT_7 = "17762";
+    public final static String MSG_CONTENT_7 = "17807";
     public final static String MSG_CONTENT_REMARK_7 = "【四季花城功能SPA】尊敬的花城会员${evaluateNickName}，截止目前,您会员卡内未体验的项目有${consumptionItem}。退订回复TD";
 
-    public final static String MSG_CONTENT_8 = "17762";
+    public final static String MSG_CONTENT_8 = "17808";
     public final static String MSG_CONTENT_REMARK_8 = "【四季花城功能SPA】尊敬的花城会员${evaluateNickName}，截止目前,您会员卡内未体验的项目有${consumptionItem}等共计${surplusNumber}次,${otherRemark}。退订回复TD";
 
-    public final static String MSG_CONTENT_9 = "17762";
+    public final static String MSG_CONTENT_9 = "17809";
     public final static String MSG_CONTENT_REMARK_9 = "【四季花城功能SPA】尊敬的花城会员${evaluateNickName}，您的专属福利：最近店内${otherRemark},您回店后,联系您的管家${butler},即可专享${vipRemark},有效期截止到${consumptionDate},期待与您相遇~退订回复TD";
 
 }

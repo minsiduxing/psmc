@@ -159,7 +159,7 @@ $(document).ready(function(){
 			 {field:'recharge_amount',title:'充值金额（元）',resizable:true,align:'center',sortable:true},
 			 {field:'consumption_item',title:'消费项目',align:'center'},
 			 */
-				  {field:'notice_content',title:'短信内容',align:'left',width:"700px"},
+				  {field:'notice_content',title:'短信内容',align:'left',width:"370px"},
 			      {field:'questionnaire_name',title:'问卷名称',align:'center'},
 		          {field:'input_time',title:'录入时间',align:'center',sortable:true,width:"120px"},
 		          {field:'evaluate_status',title:'状态',align:'center',formatter:function(value, row, index){
