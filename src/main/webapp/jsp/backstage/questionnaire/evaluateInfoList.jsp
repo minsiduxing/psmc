@@ -11,6 +11,7 @@
 <div class="query-content panel easyui-accordion accordion " data-options="selected:false" style="width:100%"> 
  <div title="信息查询" > 
     <form id="searchform" method="POST" class="query-form" >
+		<input type="hidden" id="smsBusniessType" name="smsBusniessType" value="<c:out value="${smsBusniessType}"/>">
 	<ul class="">
 			<li class="li-input"><label for="" class="input-label">客户姓名：</label>
 				<input class="myinput" id="evaluateName1" name="evaluateName1"></input>
@@ -19,7 +20,7 @@
 				<input class="myinput" id="evaluatePhone1" name="evaluatePhone1"></input>
 			</li>
 			
-		    <li class="li-input"><label for="" class="input-label">消费类型：</label>
+		    <li class="li-input"><label for="" class="input-label">短信类型：</label>
 				<input id="evaluateNoticeType1" name="evaluateNoticeType1"/>
 			</li>
 			
@@ -50,8 +51,10 @@
 	</g:auth>
 
 	<g:auth operateNo="<%=OperateContantsUtil.SJHC_IMPORT_EXCEL%>">
+		<c:if test="${smsBusniessType == 13}">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-redo" plain="true" id="upload" onclick="openUploadDialog();">导入Excel</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-excel" plain="true" onclick="openDowloadDialog();">下载模板</a>
+		</c:if>
 	</g:auth>
 </div>
 
@@ -103,7 +106,7 @@ var sendMsgUrl = '<c:url value="'+infoDo+'"/>?method=sendMsg';
 var questionDo = basePath+"/website/backstage/QuestionnaireController.do";
 var queryResultDetailsUrl = '<c:url value="'+questionDo+'"/>?method=queryResultDetails';
 
-commonObj.initDictCombobox("evaluateNoticeType1","NOTICE_TYPE",null,true,false);
+commonObj.initDictCombobox("evaluateNoticeType1","NOTICE_TYPE",null,false,true,'<c:out value="${smsBusniessType}"/>');
 commonObj.initDictCombobox("evaluateStatus","EVALUATE_STATUS",null,true,false);
 commonObj.initDictCombobox("noticeType","NOTICE_TYPE",null,true,false);
 commonObj.initQuestionnaireCombobox("questionUuid",null,true);
@@ -124,7 +127,7 @@ $('#noticeType').combobox({
     }
 });
 
-$(document).ready(function(){ 
+$(document).ready(function(){
 	//datagrid 初始化 
 	var evaluateOption = {
 		tabId:"evaluateTableId",
@@ -133,6 +136,7 @@ $(document).ready(function(){
 		sortName:"input_time",
 		sortOrder:"desc",
 		remoteSort:true,
+		queryParams:{queryParams:{'smsBusniessType':'<c:out value="${smsBusniessType}"/>'}},
 		columns:[[   
 		          {field:'evaluate_info_uuid',title:'消费信息主键标识',checkbox:true},
 		          {field:'questionnaire_uuid',title:'问卷信息id',hidden:true},
@@ -159,7 +163,7 @@ $(document).ready(function(){
 			 {field:'recharge_amount',title:'充值金额（元）',resizable:true,align:'center',sortable:true},
 			 {field:'consumption_item',title:'消费项目',align:'center'},
 			 */
-				  {field:'notice_content',title:'短信内容',align:'left',width:"370px"},
+				  {field:'notice_content',title:'短信内容',align:'left',width:"350px"},
 			      {field:'questionnaire_name',title:'问卷名称',align:'center'},
 		          {field:'input_time',title:'录入时间',align:'center',sortable:true,width:"120px"},
 		          {field:'evaluate_status',title:'状态',align:'center',formatter:function(value, row, index){
@@ -176,7 +180,9 @@ $(document).ready(function(){
 		      ]
 	};
 	//初始化优秀创新列表
+	console.info(evaluateOption);
 	commonObj.initPaginationGrid(evaluateOption);
+	// commonObj.query('evaluateTableId','searchform');
 
 });
 

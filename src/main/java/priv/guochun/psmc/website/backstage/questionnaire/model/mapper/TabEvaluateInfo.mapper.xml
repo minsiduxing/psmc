@@ -52,6 +52,7 @@
 	    tab_questionnaire t2
 	ON
 	    t1.questionnaire_uuid = t2.questionnaire_uuid
+	LEFT JOIN tab_data_dict t3 on t1.evaluate_notice_type=t3.dict_id and t3.dict_no='NOTICE_TYPE'
 	    <where>
 	     <if test="evaluateName1 != null and evaluateName1 !='' ">
 	     	and t1.evaluate_name like concat(concat('%',#{evaluateName1}),'%')
@@ -71,6 +72,9 @@
 	     <if test="evaluateStatus != null and evaluateStatus !='' ">
 	     	and t1.evaluate_status = #{evaluateStatus}
 	     </if>
+          <if test="smsBusniessType != null and smsBusniessType !='' ">
+            and t3.parent_dict_type=#{smsBusniessType}
+          </if>
 	    </where>
 	     order by t1.input_time desc
   </select>
