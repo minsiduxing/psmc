@@ -43,7 +43,7 @@ public class TabEvaluateInfoServiceImpl implements TabEvaluateInfoService{
 		Map<String, Object> resultmap = new HashMap<String, Object>();
 		Date currentDate = new Date();
 		evaluateInfo.setEvaluateInfoUuid(UUIDGenerator.createUUID());
-		evaluateInfo.setConsumptionDate(currentDate);
+//		evaluateInfo.setConsumptionDate(currentDate);
 		evaluateInfo.setInputAccUuid(user.getUserUuid());
 		evaluateInfo.setInputTime(currentDate);
 		evaluateInfo.setNoticeTime(currentDate);
