@@ -106,7 +106,7 @@ public class TabEvaluateInfo implements Serializable{
     private String visitShortUrl;
 
     /**
-     * 通知内容
+     * 通知参数
      * @mbg.generated Sat Apr 20 17:20:54 CST 2019
      */
     private String noticeNote;
@@ -143,6 +143,22 @@ public class TabEvaluateInfo implements Serializable{
     /** 非持久化字段 **/
     //赠送金额
     private String giveAmount;
+
+    //有效期
+    private Date vaildDate;
+
+    //专享描述
+    private String vipRemark;
+
+    //管家
+    private String butler;
+
+    //通知内容
+    private String noticeContent;
+
+    //其余内容描述
+    private String otherRemark;
+
 
     public String getEvaluateInfoUuid() {
         return evaluateInfoUuid;
@@ -335,5 +351,44 @@ public class TabEvaluateInfo implements Serializable{
 	public void setGiveAmount(String giveAmount) {
 		this.giveAmount = giveAmount;
 	}
-    
+
+    public Date getVaildDate() {
+        return vaildDate;
+    }
+
+    public void setVaildDate(Date vaildDate) {
+        this.vaildDate = vaildDate;
+    }
+
+    public String getVipRemark() {
+        return vipRemark;
+    }
+
+    public void setVipRemark(String vipRemark) {
+        this.vipRemark = vipRemark;
+    }
+
+    public String getButler() {
+        return butler;
+    }
+
+    public void setButler(String butler) {
+        this.butler = butler;
+    }
+
+    public String getNoticeContent() {
+        return noticeContent;
+    }
+
+    public void setNoticeContent(String noticeContent) {
+        this.noticeContent = noticeContent;
+    }
+
+    public String getOtherRemark() {
+        return otherRemark;
+    }
+
+    public void setOtherRemark(String otherRemark) {
+        this.otherRemark = otherRemark;
+    }
 }
