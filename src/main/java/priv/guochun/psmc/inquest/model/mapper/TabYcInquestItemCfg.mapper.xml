@@ -72,6 +72,7 @@
             b.is_affected_bsg,
             b.is_affected_jlcl,
             b.is_affected_bhdcs,
+            b.is_negative,
             b.display_atlas,
             b.display_vidio,
             b.releation_item_uuid,

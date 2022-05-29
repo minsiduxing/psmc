@@ -319,4 +319,12 @@ public class TabYcInquestItemCfgVO implements Serializable {
     public void setNextStageUuid(String nextStageUuid) {
         this.nextStageUuid = nextStageUuid;
     }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
 }
