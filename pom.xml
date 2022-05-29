@@ -7,6 +7,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>psmc Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.3.0.RELEASE</spring.version>  
@@ -398,6 +400,11 @@
 		</dependency>
 		
 		<dependency>
+		    <groupId>net.oschina.zcx7878</groupId>
+		    <artifactId>fastdfs-client-java</artifactId>
+		    <version>1.27.0.0</version>
+		</dependency>
+		<dependency>
             <groupId> org.apache.httpcomponents </groupId>
             <artifactId> httpclient </artifactId>
             <version> 4.2.1 </version >
@@ -407,11 +414,6 @@
             <artifactId> httpcore </artifactId>
             <version> 4.2.1 </version>
         </dependency>
-        <dependency>
-		   <groupId>org.apache.httpcomponents</groupId>
-		   <artifactId>httpclient</artifactId>
-		   <version>4.3.6</version>
-		</dependency>
 		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>

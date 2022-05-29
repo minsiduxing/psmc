@@ -30,7 +30,7 @@
 			<li class="li-input"><label for="" class="input-label" style="width: 120px;">客户电话：</label>
 				<input id="evaluatePhone" name="evaluatePhone"></input>
 			</li>
-			<li class="li-input"><label for="" class="input-label" style="width: 120px;">消费（充值）时间：</label>
+			<li id="consumptionDateLi" class="li-input"><label for="" class="input-label" style="width: 120px;">消费（充值）时间：</label>
 				<input id="consumptionDate" name="consumptionDate"></input>
 			</li>
 			<li id="active1" class="li-input"><label for="" class="input-label" style="width: 120px;">消费金额：</label>
@@ -53,6 +53,17 @@
 			</li>
 			<li id="active6" class="li-input"><label for="" class="input-label" style="width: 120px;">剩余积分：</label>
 				<input id="surplusScore" name="surplusScore"></input>
+			</li>
+
+			<li id="active10" class="li-input"><label for="" class="input-label" style="width: 120px;">专享：</label>
+				<input id="vipRemark" name="vipRemark"></input>
+			</li>
+
+			<li id="active11" class="li-input"><label for="" class="input-label" style="width: 120px;">管家：</label>
+				<input id="butler" name="butler"></input>
+			</li>
+			<li id="active12" class="li-input"><label for="" class="input-label" style="width: 120px;">其余描述：</label>
+				<input id="otherRemark" name="otherRemark"></input>
 			</li>
 		</ul>
 	</form>
@@ -105,43 +116,99 @@
 	$('#giveAmount').numberbox({
 		required : true
 	});
+	$('#vipRemark').textbox({
+		required : true
+	});
+	$('#butler').textbox({
+		required : true
+	});
+	$('#otherRemark').textbox({
+		required : true
+	});
+
 	
 	$(document).ready(function() {
 		commonObj.initDictCombobox("evaluateNoticeType","NOTICE_TYPE",null,true,false);
 		commonObj.initQuestionnaireCombobox("questionnaireUuid",null,true);
 	});
-	
+
+	function  sethiden(){
+		$("#active1").hide();$('#consumptionAmount').numberbox({required:false});
+		$("#active2").hide();$('#consumptionItem').textbox({required:false});
+		$("#active3").hide();$('#rechargeAmount').numberbox({required:false});
+		$("#active4").hide();$('#surplusAmount').numberbox({required:false});
+		$("#active5").hide();$('#surplusNumber').textbox({required:false});
+		$("#active6").hide();$('#surplusScore').numberbox({required:false});
+		$("#active7").hide();
+		$("#active8").hide();$('#giveAmount').numberbox({required:false});
+		$("#active10").hide();$('#vipRemark').textbox({required:false});
+		$("#active11").hide();$('#butler').textbox({required:false});
+		$("#active12").hide();$('#otherRemark').textbox({required:false});
+		$("#consumptionDateLi").hide();$('#consumptionDate').datebox({required:false});
+
+	}
+
 	 $("#evaluateNoticeType").combobox({
 	        onSelect: function () {
 	            var evaluateNoticeType = $("#evaluateNoticeType").combobox('getValue');
 	            if(evaluateNoticeType == "1"){ //消费金额
-	    			$("#active2").hide();$('#consumptionItem').textbox({required:false});
-	    			$("#active3").hide();$('#rechargeAmount').numberbox({required:false});
-	    			$("#active5").hide();$('#surplusNumber').textbox({required:false});
-	    			$("#active8").hide();$('#giveAmount').numberbox({required:false});
+					sethiden();
 	    			$("#active1").show();$('#consumptionAmount').numberbox({required:true});
 	    			$("#active4").show();$('#surplusAmount').numberbox({required:true});
 	    			$("#active6").show();$('#surplusScore').numberbox({required:true});
 	    			$("#active7").show();
+					$("#consumptionDateLi").show();$('#consumptionDate').datebox({required:true});
 	    		}else if(evaluateNoticeType == "2"){ //消费项目
-	    			$("#active1").hide();$('#consumptionAmount').numberbox({required:false});
-	    			$("#active3").hide();$('#rechargeAmount').numberbox({required:false});
-	    			$("#active4").hide();$('#surplusAmount').numberbox({required:false});
-	    			$("#active8").hide();$('#giveAmount').numberbox({required:false});
+					sethiden();
 	    			$("#active2").show();$('#consumptionItem').textbox({required:true});
 	    			$("#active5").show();$('#surplusNumber').textbox({required:true});
 	    			$("#active6").show();$('#surplusScore').numberbox({required:true});
 	    			$("#active7").show();
+					$("#consumptionDateLi").show();$('#consumptionDate').datebox({required:true});
 	    		}else if(evaluateNoticeType == "3"){ //充值金额
-	    			$("#active1").hide();$('#consumptionAmount').numberbox({required:false});
-	    			$("#active2").hide();$('#consumptionItem').textbox({required:false});
-	    			$("#active5").hide();$('#surplusNumber').textbox({required:false});
-	    			$("#active6").hide();$('#surplusScore').numberbox({required:false});
-	    			$("#active7").hide();
+					sethiden();
 	    			$("#active3").show();$('#rechargeAmount').numberbox({required:true});
 	    			$("#active4").show();$('#surplusAmount').numberbox({required:true});
 	    			$("#active8").show();$('#giveAmount').numberbox({required:true});
-	    		}
+					$("#consumptionDateLi").show();$('#consumptionDate').datebox({required:true});
+	    		}else if(evaluateNoticeType == "4"){ //卡余提醒一类
+					sethiden();
+					$("#active4").show();$('#surplusAmount').numberbox({required:true});
+					$("#active2").show();$('#consumptionItem').textbox({required:true});
+					$("#active12").show();$('#otherRemark').textbox({required:true});
+					$("#active5").show();$('#surplusNumber').textbox({required:true});
+					$("#active2 label:first-child").text("待体验项目：");
+
+				}else if(evaluateNoticeType == "5"){ //卡余提醒二类
+					sethiden();
+					$("#active4").show();$('#surplusAmount').numberbox({required:true});
+					$("#active2").show();$('#consumptionItem').textbox({required:true});
+					$("#active2 label:first-child").text("待体验项目：");
+				}else if(evaluateNoticeType == "6"){ //卡余提醒三类
+					sethiden();
+					$("#active4").show();$('#surplusAmount').numberbox({required:true});
+					$("#active12").show();$('#otherRemark').textbox({required:true});
+
+				}else if(evaluateNoticeType == "7"){ //未体验提醒一类
+					sethiden();
+					$("#active2").show();$('#consumptionItem').textbox({required:true});
+					$("#active2 label:first-child").text("未体验项目：");
+
+				}else if(evaluateNoticeType == "8"){ //未体验提醒二类
+					sethiden();
+					$("#active2").show();$('#consumptionItem').textbox({required:true});
+					$("#active5").show();$('#surplusNumber').textbox({required:true});
+					$("#active12").show();$('#otherRemark').textbox({required:true});
+					$("#active2 label:first-child").text("未体验项目：");
+				}else if(evaluateNoticeType == "9"){ //专享
+					sethiden();
+					$("#active12").show();$('#otherRemark').textbox({required:true});
+					$("#active11").show();$('#butler').textbox({required:true});
+					$("#active10").show();$('#vipRemark').textbox({required:true});
+					$("#consumptionDateLi").show();$('#consumptionDate').datebox({required:true});
+					$("#consumptionDateLi label:first-child").text("有效期：");
+					$("#active12 label:first-child").text("最近店内描述：");
+				}
 	        }
 	   })
 	
@@ -154,7 +221,7 @@
 			commonObj.alert("请选择类型!","warning");
 			return;
 		}
-		if(evaluateNoticeType != '3'){
+		if(evaluateNoticeType == '1' || evaluateNoticeType == '2' ){
 			if(questionnaireUuid==null || questionnaireUuid==""){
 				commonObj.alert("请选择问卷!","warning");
 				return;

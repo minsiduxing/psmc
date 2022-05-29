@@ -163,4 +163,12 @@ create table tab_sign_up_info
 ) comment '报名信息表';
 
 
-alter table  add column PARENT_DICT_TYPE INT(5);
+alter table tab_data_dict add column PARENT_DICT_TYPE INT(5);
+
+/************************************20220303sjhc增加*********************************************/
+alter table tab_evaluate_info add column vaild_date date COMMENT  '有效期';
+alter table tab_evaluate_info add column vip_remark varchar(100) COMMENT  '专享描述';
+alter table tab_evaluate_info add column butler varchar(100) COMMENT  '管家';
+ALTER TABLE tab_evaluate_info modify COLUMN notice_note varchar(500) COMMENT '通知参数';
+ALTER TABLE tab_evaluate_info add COLUMN notice_content varchar(500) COMMENT '通知内容';
+ALTER TABLE tab_evaluate_info add COLUMN other_remark varchar(500) COMMENT '其余描述';

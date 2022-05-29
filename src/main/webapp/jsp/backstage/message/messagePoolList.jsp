@@ -31,6 +31,7 @@
 	<g:auth operateNo="<%=OperateContantsUtil.SJHC_ADD_EVALUATE%>">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add" onclick="openAddDialog();">新增</a>
 		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="oneDel" onclick="oneDel();">一键删除</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="oneSend" onclick="oneSend();">一键发送</a>
 	</g:auth>
 
 	<g:auth operateNo="<%=OperateContantsUtil.SJHC_IMPORT_EXCEL%>">
@@ -72,8 +73,9 @@ var toAddMessageUrl = '<c:url value="'+infoDo+'"/>?method=toAddMessagePool';
 var uploadExcelUrl = '<c:url value="'+infoDo+'"/>?method=loadExcelMessagePool';
 var dowloadUrl = '<c:url value="'+infoDo+'"/>?method=downloadExcelTemplate'; 
 var delUrl = '<c:url value="'+infoDo+'"/>?method=deleteByMsgUuid'; 
-var delAllUrl = '<c:url value="'+infoDo+'"/>?method=deleteAllMsg'; 
-var updateUrl = '<c:url value="'+infoDo+'"/>?method=updateByPrimaryKey'; 
+var delAllUrl = '<c:url value="'+infoDo+'"/>?method=deleteAllMsg';
+var sendAllUrl = '<c:url value="'+infoDo+'"/>?method=handSendSms';
+var updateUrl = '<c:url value="'+infoDo+'"/>?method=updateByPrimaryKey';
 $(document).ready(function(){ 
 	//datagrid 初始化 
 	var messageOption = {
@@ -129,6 +131,21 @@ function oneDel(){
 	 			successCallback(data);
 			});
 }
+function oneSend(){
+	//一键发送
+	if (!confirm('您确认要将所有数据发出短信吗？')) {
+		return;
+	}
+	$.ajax({
+		type: "POST",
+		url: sendAllUrl
+	}).done(function( data ) {
+		successCallback(data);
+	});
+}
+
+
+
 //打开更新信息录入界面
 function updateDialog(msgUuid){
 	addDialog = $("#addMessageDlg").dialog({
