@@ -23,6 +23,8 @@ public class VisitModel {
 	private String basePathRaiseRoot;
 	//业务路由（排除根路由）
 	private String pathToMatchSlash;
+
+	private String tk;
 	
 	public Message getMessage() {
 		return message;
@@ -85,5 +87,12 @@ public class VisitModel {
 	public void setBasePath(String basePath) {
 		this.basePath = basePath;
 	}
-	
+
+	public String getTk() {
+		return tk;
+	}
+
+	public void setTk(String tk) {
+		this.tk = tk;
+	}
 }

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tab_yc_stage">
+
+    <resultMap type="priv.guochun.psmc.inquest.model.TabYcStage" id="tabYcStageMap">
+        <result property="stageUuid" column="stage_uuid"/>
+        <result property="stageCode" column="stage_code"/>
+        <result property="stageName" column="stage_name"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="sort" column="sort"/>
+        <result property="orgCode" column="org_code"/>
+        <result property="stageLevel" column="stage_level"/>
+        <result property="itemDisplayType" column="item_display_type"/>
+        <result property="resultJudge" column="result_judge"/>
+        <result property="nextStageUuid" column="next_stage_uuid"/>
+        <result property="isActive" column="IS_ACTIVE"/>
+        <result property="creator" column="CREATOR"/>
+        <result property="createTime" column="CREATE_TIME"/>
+    </resultMap>
+
+    <select id="selectStageList" resultMap="tabYcStageMap">
+        select * from tab_yc_stage
+        <where>
+              IS_ACTIVE = 1
+            <if test="stageUuid != null and stageUuid != ''">
+                and stage_uuid = #{stageUuid}
+            </if>
+            <if test="stageCode != null and stageCode != ''">
+                and stage_code = #{stageCode}
+            </if>
+            <if test="orgCode != null and orgCode != ''">
+                and org_code = #{orgCode}
+            </if>
+        </where>
+        order by sort
+    </select>
+
+    <insert id="insertInquestStage" parameterType="priv.guochun.psmc.inquest.model.TabYcStage">
+        insert into tab_yc_stage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="stageUuid != null">
+                stage_uuid,
+            </if>
+            <if test="stageCode != null">
+                stage_code,
+            </if>
+            <if test="stageName != null">
+                stage_name,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="orgCode != null">
+                org_code,
+            </if>
+            <if test="stageLevel != null">
+                stage_level,
+            </if>
+            <if test="itemDisplayType != null">
+                item_display_type,
+            </if>
+            <if test="resultJudge != null">
+                result_judge,
+            </if>
+            <if test="nextStageUuid != null">
+                next_stage_uuid,
+            </if>
+            <if test="isActive != null">
+                IS_ACTIVE,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="stageUuid != null">
+                #{stageUuid},
+            </if>
+            <if test="stageCode != null">
+                #{stageCode},
+            </if>
+            <if test="stageName != null">
+                #{stageName},
+            </if>
+            <if test="parentId != null">
+                #{parentId},
+            </if>
+            <if test="sort != null">
+                #{sort},
+            </if>
+            <if test="orgCode != null">
+                #{orgCode},
+            </if>
+            <if test="stageLevel != null">
+                #{stageLevel},
+            </if>
+            <if test="itemDisplayType != null">
+                #{itemDisplayType},
+            </if>
+            <if test="resultJudge != null">
+                #{resultJudge},
+            </if>
+            <if test="nextStageUuid != null">
+                #{nextStageUuid},
+            </if>
+            <if test="isActive != null">
+                #{isActive},
+            </if>
+            <if test="creator != null">
+                #{creator},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateInquestStage" parameterType="priv.guochun.psmc.inquest.model.TabYcStage">
+        update tab_yc_stage
+        <set>
+            <if test="stageCode != null">
+                stage_code = #{stageCode},
+            </if>
+            <if test="stageName != null">
+                stage_name = #{stageName},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="orgCode != null">
+                org_code = #{orgCode},
+            </if>
+            <if test="stageLevel != null">
+                stage_level = #{stageLevel},
+            </if>
+            <if test="itemDisplayType != null">
+                item_display_type = #{itemDisplayType},
+            </if>
+            <if test="resultJudge != null">
+                result_judge = #{resultJudge},
+            </if>
+            <if test="nextStageUuid != null">
+                next_stage_uuid = #{nextStageUuid},
+            </if>
+            <if test="isActive != null">
+                IS_ACTIVE = #{isActive},
+            </if>
+            <if test="creator != null">
+                creator = #{creator},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime},
+            </if>
+        </set>
+        where stage_uuid = #{stageUuid}
+    </update>
+
+</mapper>

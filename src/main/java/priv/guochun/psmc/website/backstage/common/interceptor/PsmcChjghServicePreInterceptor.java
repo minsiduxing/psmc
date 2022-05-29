@@ -50,6 +50,7 @@ public class PsmcChjghServicePreInterceptor extends
 	public void handleMessage(Message message) throws Fault {
 		HttpServletRequest request = (HttpServletRequest) message.get(AbstractHTTPDestination.HTTP_REQUEST);
 		String clientIp = IpUtil.getIpAddr(request);
+		String tk = request.getHeader("tk");
 		Set set = message.entrySet();
 		Iterator iter = set.iterator();
 		String targetUri = null;
@@ -84,6 +85,7 @@ public class PsmcChjghServicePreInterceptor extends
 		visitModel.setPathToMatchSlash(pathToMatchSlash);
 		visitModel.setBasePath(basePath);
 		visitModel.setBasePathRaiseRoot(basePathRaiseRoot);
+		visitModel.setTk(tk);
 		//组装处理链 对请求进行层层筛查
 		String result = psmcChjghProcessChinaFactory.buildChjghProcessChina().processTask(visitModel);
 		if(StringUtils.isNotBlank(result)){
