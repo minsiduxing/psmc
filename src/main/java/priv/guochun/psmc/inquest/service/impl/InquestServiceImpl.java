@@ -87,7 +87,6 @@ public class InquestServiceImpl implements InquestService {
             user = executeLogin(openId, mobile, unionid);
             return ResultInfo.ok("登录成功", user);
         }
-        executeLogin("875397ofkjshd943j543sf", "15596680701", "yw893294jhj8762fh2387");
         return ResultInfo.error("登录失败");
 
     }
