@@ -1,8 +1,12 @@
 package priv.guochun.psmc.inquest.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.cache.Cache;
 import priv.guochun.psmc.inquest.service.AccessTokenService;
 import priv.guochun.psmc.inquest.utils.HttpConnectUtil;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +39,10 @@ public class AccessTokenServiceImpl implements AccessTokenService {
         lock.lock();
         try {
             if (this.isAccessTokenExpired()) {
-                String url = "https://api.weixin.qq.com/cgi-bin/token";
+                PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+                Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+                Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+                String url =map.get("wx_getAccessToken_url").toString();
                 Map<String, String> queryMap = new HashMap<>();
                 queryMap.put("grant_type", "client_credential");
                 queryMap.put("appid", appid);

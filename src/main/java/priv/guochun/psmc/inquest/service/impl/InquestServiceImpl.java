@@ -3,6 +3,7 @@ package priv.guochun.psmc.inquest.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
 import org.springframework.web.bind.annotation.RequestBody;
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
@@ -20,6 +21,9 @@ import priv.guochun.psmc.inquest.utils.HttpConnectUtil;
 import priv.guochun.psmc.inquest.utils.ResultInfo;
 import priv.guochun.psmc.system.common.dict.service.TabDataDictService;
 import priv.guochun.psmc.system.enums.AccountLockEnum;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
 
@@ -36,9 +40,6 @@ import java.util.Map;
  * @date 2022/5/24
  */
 public class InquestServiceImpl implements InquestService {
-
-    private final static String APP_ID = "wx62223ebfa5229efc";
-    private final static String APP_SECRET = "f501a3d21e670c6ba8bdf095df1ee94e";
 
     @Autowired
     private TabAccountService tabAccountService;
@@ -58,9 +59,15 @@ public class InquestServiceImpl implements InquestService {
     @Override
     public ResultInfo getPhoneNo(String code) {
         Map<String, String> queryMap = new HashMap<>();
-        queryMap.put("access_token", accessTokenService.getAccessToken(APP_ID, APP_SECRET));
+        PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+        Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+        Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+        String wx_appid =map.get("wx_appid").toString();
+        String wx_secret =map.get("wx_secret").toString();
+        String url =map.get("wx_getuserphonenumber_url").toString();
+
+        queryMap.put("access_token", accessTokenService.getAccessToken(wx_appid, wx_secret));
         queryMap.put("code", code);
-        String url = "https://api.weixin.qq.com/wxa/business/getuserphonenumber";
         String result = HttpConnectUtil.post(url, queryMap);
         JSONObject resultObj = (JSONObject)JSONObject.parse(result);
         if (resultObj != null && resultObj.getIntValue("errcode") == 0){
@@ -73,11 +80,18 @@ public class InquestServiceImpl implements InquestService {
     public ResultInfo codeToSession(String js_code, String mobile) {
         User user = null;
         Map<String, String> queryMap = new HashMap<>();
-        queryMap.put("appid", APP_ID);
-        queryMap.put("secret", APP_SECRET);
+        PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+        Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+        Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+        String wx_appid =map.get("wx_appid").toString();
+        String wx_secret =map.get("wx_secret").toString();
+        String wx_grant_type =map.get("wx_grant_type").toString();
+        String url =map.get("wx_jscode2session_url").toString();
+
+        queryMap.put("appid", wx_appid);
+        queryMap.put("secret", wx_secret);
         queryMap.put("js_code", js_code);
-        queryMap.put("grant_type", "authorization_code");
-        String url = "https://api.weixin.qq.com/sns/jscode2session";
+        queryMap.put("grant_type", wx_grant_type);
         String result = HttpConnectUtil.get(url, queryMap);
         JSONObject resultObj = (JSONObject)JSONObject.parse(result);
         if (resultObj != null && resultObj.getIntValue("errcode") == 0){
@@ -128,10 +142,18 @@ public class InquestServiceImpl implements InquestService {
         User user = null;
         Map map = tabAccountService.getTabAccount(openId, null);
         if (map == null) {
+            PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+            Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+            Map<String, String> cacheMap = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+            String default_pass =cacheMap.get("default_pass").toString();
+            String default_city =cacheMap.get("default_city").toString();
+            String default_groupid =cacheMap.get("default_groupid").toString();
+            String default_roleid =cacheMap.get("default_roleid").toString();
+
             TabAccount account = new TabAccount();
             account.setUuid(openId);
             account.setAccountName(mobile);
-            account.setAccountPass("123456");
+            account.setAccountPass(default_pass);
             account.setIsLocked(AccountLockEnum.NO_LOCKED.getValue().toString());
 
             TabPerson person = new TabPerson();
@@ -139,11 +161,11 @@ public class InquestServiceImpl implements InquestService {
             person.setPersonName(unionid);
             person.setTelephone(mobile);
             person.setAccUuid(account.getUuid());
-            person.setCity("00");
-            person.setGroupid("10000");
-            tabAccountService.register(account, person, "e8d791272c7e437c8f8a72355bb0c231");
+            person.setCity(default_city);
+            person.setGroupid(default_groupid);
+            tabAccountService.register(account, person, default_roleid);
             tabPersonService.saveOrUpdate(person);
-            Map tabRole = tabRoleService.getTabRole("e8d791272c7e437c8f8a72355bb0c231");
+            Map tabRole = tabRoleService.getTabRole(default_roleid);
             user = new User(JSONObject.parseObject(JSONObject.toJSONString(account), Map.class), JSONObject.parseObject(JSONObject.toJSONString(person), Map.class), tabRole);
         } else {
             user = loginService.buildUser(openId);
