@@ -68,7 +68,8 @@ public class EvauateInfoController extends MyController{
 	 * @return
 	 */
 	@RequestMapping(params="method=toEvaluateInfoList")
-	public String toEvaluateInfoList(){
+	public String toEvaluateInfoList(String smsBusniessType){
+		request().setAttribute("smsBusniessType",smsBusniessType);
 		return "backstage/questionnaire/evaluateInfoList";
 	}
 	

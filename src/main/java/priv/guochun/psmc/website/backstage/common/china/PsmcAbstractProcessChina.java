@@ -12,7 +12,7 @@ public abstract class PsmcAbstractProcessChina implements PsmcInterfaceServicePr
 	 
 	private PsmcInterfaceServiceProcessChina ifProcessChina;
 	
-	
+	@Override
 	public void setNextProcessChina(PsmcInterfaceServiceProcessChina ifProcessChina) {
 		logger.debug(" set next interface service proess china : " + ifProcessChina.toString());
 		this.ifProcessChina = ifProcessChina;

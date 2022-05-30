@@ -17,6 +17,8 @@ public interface PsmcInterfaceServiceProcessChina {
 	 * @return
 	 */
 	public String processTask(VisitModel visitModel);
+
+	public abstract void setNextProcessChina(PsmcInterfaceServiceProcessChina ifProcessChina) ;
 	
 	
 }

@@ -30,6 +30,13 @@ public class PsmcChjghMethodProcessChina extends  PsmcChjghBaseProcessChina{
 		this.allowedUri.put("/services/chjgh/weChatService/getInfoList",null);
 		this.allowedUri.put("/services/chjgh/weChatService/getDetailInfo",null);
 		this.allowedUri.put("/services/chjgh/weChatService/getDict",null);
+
+		this.allowedUri.put("/services/inquest/inquestWechatService/getPhoneNo",null);
+		this.allowedUri.put("/services/inquest/inquestWechatService/codeToSession",null);
+		this.allowedUri.put("/services/inquest/inquestWechatService/findInquestItemList",null);
+		this.allowedUri.put("/services/inquest/inquestWechatService/saveOrUpdateInquestRecord",null);
+		this.allowedUri.put("/services/inquest/inquestWechatService/getDictInfo",null);
+		this.allowedUri.put("/services/inquest/inquestWechatService/selectStageList",null);
 	}
 	
 	@Override

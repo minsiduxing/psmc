@@ -77,7 +77,7 @@ commonObj.initPaginationGrid = function(option){
 	    autoRowHeight:false,
 	    toolbar:"#"+option.toolbar,
 	    pagination:true,
-	    queryParams: {},  
+		queryParams: option.queryParams,
 	    rownumbers:true,
 	    fitColumns:true,
 	    autoRowHeight:false,

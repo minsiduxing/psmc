@@ -13,6 +13,7 @@ public class PsmcChjghProcessChinaFactory {
 	 * @return
 	 */
 	public static synchronized PsmcInterfaceServiceProcessChina buildChjghProcessChina(){
+
 		if(firstChina == null){
 			Object obj = MySpringApplicationContext.getObject("psmcChjghMethodProcessChina");
 			if(obj == null)
@@ -20,6 +21,14 @@ public class PsmcChjghProcessChinaFactory {
 			
 			firstChina = (PsmcInterfaceServiceProcessChina)obj;
 		}
+
+
+//		Object headProcessChina = MySpringApplicationContext.getObject("headProcessChina");
+//		if(headProcessChina == null)
+//			throw new RuntimeException(" build china error: psmcChjghMethodProcessChina not in spring ioc!!! ");
+//
+//		firstChina.setNextProcessChina((PsmcInterfaceServiceProcessChina)headProcessChina);
+
 
 		return firstChina;
 	}
