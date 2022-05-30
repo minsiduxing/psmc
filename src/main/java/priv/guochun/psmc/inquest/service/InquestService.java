@@ -43,7 +43,7 @@ public interface InquestService {
      * @param tabYcInquestItemCfgVO
      * @return
      */
-    @GET
+    @POST
     @Path("/findInquestItemList")
     ResultInfo findInquestItemList(@RequestBody TabYcInquestItemCfgVO tabYcInquestItemCfgVO);
 
@@ -52,7 +52,7 @@ public interface InquestService {
      * @param stage
      * @return
      */
-    @GET
+    @POST
     @Path("/selectStageList")
     ResultInfo selectStageList(@RequestBody TabYcStage stage);
 
