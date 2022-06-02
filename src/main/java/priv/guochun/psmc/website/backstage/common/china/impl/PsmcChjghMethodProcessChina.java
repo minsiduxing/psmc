@@ -1,5 +1,8 @@
 package priv.guochun.psmc.website.backstage.common.china.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import priv.guochun.psmc.authentication.user.service.TabAccountService;
 import priv.guochun.psmc.system.framework.filter.interceptor.china.PsmcChjghBaseProcessChina;
 import priv.guochun.psmc.system.framework.filter.interceptor.model.VisitModel;
 import priv.guochun.psmc.system.framework.model.MsgModel;
@@ -17,7 +20,8 @@ import java.util.Map;
 public class PsmcChjghMethodProcessChina extends  PsmcChjghBaseProcessChina{
 
 	private Map<String,Long> loginMap =  new HashMap<String,Long>();
-
+	@Autowired
+	private TabAccountService tabAccountService;
 	//服务方法访问间隔时间 单位秒
 	private long visitLockTime = 20;
 	
@@ -33,20 +37,34 @@ public class PsmcChjghMethodProcessChina extends  PsmcChjghBaseProcessChina{
 
 		this.allowedUri.put("/services/inquest/inquestWechatService/getPhoneNo",null);
 		this.allowedUri.put("/services/inquest/inquestWechatService/codeToSession",null);
-		this.allowedUri.put("/services/inquest/inquestWechatService/findInquestItemList",null);
-		this.allowedUri.put("/services/inquest/inquestWechatService/saveOrUpdateInquestRecord",null);
-		this.allowedUri.put("/services/inquest/inquestWechatService/getDictInfo",null);
-		this.allowedUri.put("/services/inquest/inquestWechatService/selectStageList",null);
+		this.allowedUri.put("/services/inquest/inquestWechatService/findInquestItemList","{checkHeader}");
+		this.allowedUri.put("/services/inquest/inquestWechatService/saveOrUpdateInquestRecord","{checkHeader}");
+		this.allowedUri.put("/services/inquest/inquestWechatService/getDictInfo","{checkHeader}");
+		this.allowedUri.put("/services/inquest/inquestWechatService/selectStageList","{checkHeader}");
 	}
 	
 	@Override
 	public String processTask(VisitModel visitModel) {
-		if(visitModel != null && this.basePathRaiseRootIsPassed(visitModel.getBasePathRaiseRoot()+visitModel.getPathToMatchSlash())){
+		String visitUrl = visitModel.getBasePathRaiseRoot() + visitModel.getPathToMatchSlash();
+		if (visitModel != null && this.basePathRaiseRootIsPassed(visitUrl)) {
 			String clientIp = visitModel.getClientIp();
 			String visitTargetMethod = visitModel.getVisitTargetMethod();
 			Date visitDate = visitModel.getVisitDate();
-			String visitKey = clientIp+"_"+visitTargetMethod;
-			
+			String visitKey = clientIp + "_" + visitTargetMethod;
+
+			if (this.allowedUri.get(visitUrl) !=null && this.allowedUri.get(visitUrl).toString().indexOf("checkHeader") != -1) {
+				//todo 此处应借助redis实现，目前从表里查，此版本暂不处理
+				String tk = visitModel.getTk();
+				if (StringUtils.isNotBlank(tk)) {
+					Map map = tabAccountService.getTabAccount(tk);
+					if(map == null)
+						return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("非法请求"));
+					//传递给下一个链类处理
+					return this.processNextChina(visitModel);
+				} else
+					return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("非法请求"));
+			}
+
 			//如果没有访问信息，则记录一条并返回
 //			if(!loginMap.containsKey(visitKey)){
 //				loginMap.put(visitKey, DateUtil.getCurrentDateTime());
@@ -63,8 +81,7 @@ public class PsmcChjghMethodProcessChina extends  PsmcChjghBaseProcessChina{
 //			}
 			//传递给下一个链类处理
 			return this.processNextChina(visitModel);
-		}else
+		} else
 			return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("非法请求"));
 	}
-	
 }
