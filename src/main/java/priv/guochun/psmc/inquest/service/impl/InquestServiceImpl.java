@@ -143,7 +143,7 @@ public class InquestServiceImpl implements InquestService {
 
     public User executeLogin(String openId, String mobile, String unionid) {
         User user = null;
-        Map map = tabAccountService.getTabAccount(openId, null);
+        Map map = tabAccountService.getTabAccount(openId);
         if (map == null) {
             PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
             Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
