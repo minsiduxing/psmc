@@ -66,11 +66,10 @@ public class InquestServiceImpl implements InquestService {
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
         String wx_appid =map.get("wx_appid").toString();
         String wx_secret =map.get("wx_secret").toString();
-        String url =map.get("wx_getuserphonenumber_url").toString();
+        String url =map.get("wx_getuserphonenumber_url").toString()+"?access_token="+accessTokenService.getAccessToken(wx_appid, wx_secret);
 
-        queryMap.put("access_token", accessTokenService.getAccessToken(wx_appid, wx_secret));
         queryMap.put("code", code);
-        String result = HttpConnectUtil.get(url, queryMap);
+        String result = HttpConnectUtil.postJson(url, queryMap);
         logger.info("微信小程序getPhoneNo参数：wx_appid="+wx_appid+" wx_secret="+wx_secret+" url="+url+" 结果result="+result);
         JSONObject resultObj = (JSONObject)JSONObject.parse(result);
         if (resultObj != null && resultObj.getIntValue("errcode") == 0){
