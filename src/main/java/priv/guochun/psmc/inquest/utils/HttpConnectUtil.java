@@ -34,7 +34,7 @@ public class HttpConnectUtil {
             }
 
             targetURL = targetURL + uriMapToString(paramMap);
-            logger.info("http get请求 url:"+targetURL);
+            logger.debug("http get请求 url:"+targetURL);
             httpConnection = getHttpConnection(targetURL);
             httpConnection.setRequestMethod("GET");
             httpConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -64,7 +64,7 @@ public class HttpConnectUtil {
                 targetURL = targetURL + str;
             }
             targetURL = targetURL + uriMapToString(paramMap);
-            logger.info("http get请求 url:"+targetURL);
+            logger.debug("http post请求 url:"+targetURL);
             httpConnection = getHttpConnection(targetURL);
             httpConnection.setRequestMethod("POST");
             httpConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -93,7 +93,7 @@ public class HttpConnectUtil {
 
     public static String postJson(String targetURL, Map<String, String> paramMap) {
         HttpURLConnection httpConnection = null;
-
+        logger.debug("http post Json 请求 url:"+targetURL);
         try {
             httpConnection = getHttpConnection(targetURL);
             httpConnection.setRequestMethod("POST");
@@ -123,7 +123,7 @@ public class HttpConnectUtil {
 
     public static String postXml(String targetURL, String parameter) {
         HttpURLConnection httpConnection = null;
-
+        logger.debug("http postXml 请求 url:"+targetURL);
         String var7;
         try {
             httpConnection = getHttpConnection(targetURL);

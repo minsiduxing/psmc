@@ -23,11 +23,16 @@ import priv.guochun.psmc.inquest.utils.HttpConnectUtil;
 import priv.guochun.psmc.inquest.utils.ResultInfo;
 import priv.guochun.psmc.system.common.dict.service.TabDataDictService;
 import priv.guochun.psmc.system.enums.AccountLockEnum;
+import priv.guochun.psmc.system.enums.AccountTypeEnum;
+import priv.guochun.psmc.system.enums.VerificationCodeTypeEnum;
 import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
+import priv.guochun.psmc.system.framework.model.MsgModel;
+import priv.guochun.psmc.system.framework.util.GsonUtil;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.website.backstage.util.ChjghContants;
 
 import javax.ws.rs.FormParam;
 import java.util.Date;
@@ -101,7 +106,7 @@ public class InquestServiceImpl implements InquestService {
             String openId = resultObj.getString("openid");
             String session_key = resultObj.getString("session_key");
             String unionid = resultObj.getString("unionid");
-            user = executeLogin(openId, mobile, unionid);
+            user = executeLogin("oxvWZ4s93Gq-q7oDeosZc5m6OKGE", mobile, unionid);
             return ResultInfo.ok("登录成功", user);
         }
         return ResultInfo.error("登录失败");
@@ -158,18 +163,19 @@ public class InquestServiceImpl implements InquestService {
             account.setAccountName(mobile);
             account.setAccountPass(default_pass);
             account.setIsLocked(AccountLockEnum.NO_LOCKED.getValue().toString());
+            account.setAccountType(AccountTypeEnum.WECHAT_USER.getValue().intValue());
 
             TabPerson person = new TabPerson();
             person.setUuid(openId);
-            person.setPersonName(unionid);
+            person.setPersonName(openId);
             person.setTelephone(mobile);
             person.setAccUuid(account.getUuid());
-            person.setCity(default_city);
+            person.setCityId(default_city);
             person.setGroupid(default_groupid);
-            tabAccountService.register(account, person, default_roleid);
-            tabPersonService.saveOrUpdate(person);
-            Map tabRole = tabRoleService.getTabRole(default_roleid);
-            user = new User(JSONObject.parseObject(JSONObject.toJSONString(account), Map.class), JSONObject.parseObject(JSONObject.toJSONString(person), Map.class), tabRole);
+            person.setEmail(openId);
+
+            boolean flag = tabAccountService.register(account, person, default_roleid);
+            user = loginService.buildUserByPhone(mobile,AccountTypeEnum.WECHAT_USER.getValue().intValue());
         } else {
             user = loginService.buildUser(map.get("ACCOUNT_NAME").toString());
         }
