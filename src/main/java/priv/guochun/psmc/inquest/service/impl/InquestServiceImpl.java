@@ -2,6 +2,8 @@ package priv.guochun.psmc.inquest.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,7 +42,7 @@ import java.util.Map;
  * @date 2022/5/24
  */
 public class InquestServiceImpl implements InquestService {
-
+    protected static final Logger logger  = LoggerFactory.getLogger(InquestServiceImpl.class);
     @Autowired
     private TabAccountService tabAccountService;
     @Autowired
@@ -69,6 +71,7 @@ public class InquestServiceImpl implements InquestService {
         queryMap.put("access_token", accessTokenService.getAccessToken(wx_appid, wx_secret));
         queryMap.put("code", code);
         String result = HttpConnectUtil.post(url, queryMap);
+        logger.info("微信小程序getPhoneNo参数：wx_appid="+wx_appid+" wx_secret="+wx_secret+" url="+url+" 结果result="+result);
         JSONObject resultObj = (JSONObject)JSONObject.parse(result);
         if (resultObj != null && resultObj.getIntValue("errcode") == 0){
             return ResultInfo.ok("手机号获取成功", resultObj.get("phone_info"));
@@ -93,6 +96,7 @@ public class InquestServiceImpl implements InquestService {
         queryMap.put("js_code", js_code);
         queryMap.put("grant_type", wx_grant_type);
         String result = HttpConnectUtil.get(url, queryMap);
+        logger.info("微信小程序codeToSession参数：appid="+wx_appid+" js_code="+js_code+" url="+url+" 结果result="+result);
         JSONObject resultObj = (JSONObject)JSONObject.parse(result);
         if (resultObj != null && resultObj.getIntValue("errcode") == 0){
             String openId = resultObj.getString("openid");

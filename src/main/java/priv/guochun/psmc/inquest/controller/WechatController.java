@@ -45,7 +45,7 @@ public class WechatController extends MyController {
     private TabRoleService tabRoleService;
     @Autowired
     private LoginService loginService;
-    protected static final Logger logger  = LoggerFactory.getLogger(AccessTokenServiceImpl.class);
+    protected static final Logger logger  = LoggerFactory.getLogger(WechatController.class);
     /**
      * 小程序获取手机号
      * @param access_token
