@@ -3,6 +3,8 @@ package priv.guochun.psmc.inquest.controller;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +15,7 @@ import priv.guochun.psmc.authentication.user.model.TabAccount;
 import priv.guochun.psmc.authentication.user.model.TabPerson;
 import priv.guochun.psmc.authentication.user.service.TabAccountService;
 import priv.guochun.psmc.authentication.user.service.TabPersonService;
+import priv.guochun.psmc.inquest.service.impl.AccessTokenServiceImpl;
 import priv.guochun.psmc.inquest.utils.ResultInfo;
 import priv.guochun.psmc.system.enums.AccountLockEnum;
 import priv.guochun.psmc.system.framework.controller.MyController;
@@ -42,7 +45,7 @@ public class WechatController extends MyController {
     private TabRoleService tabRoleService;
     @Autowired
     private LoginService loginService;
-
+    protected static final Logger logger  = LoggerFactory.getLogger(AccessTokenServiceImpl.class);
     /**
      * 小程序获取手机号
      * @param access_token
@@ -58,6 +61,7 @@ public class WechatController extends MyController {
         String url = "https://api.weixin.qq.com/wxa/business/getuserphonenumber";
         HttpResponse response = HttpUtils.postForm(url, queryMap);
         String result = EntityUtils.toString(response.getEntity());
+        logger.info("小程序获取手机号参数：access_token="+access_token+" code="+code+" 结果result="+result);
         JSONObject resultObj = (JSONObject)JSONObject.parse(result);
         return ResultInfo.ok(resultObj.getString("errmsg"), resultObj.get("phone_info"));
     }
@@ -79,6 +83,7 @@ public class WechatController extends MyController {
         String url = "https://api.weixin.qq.com/sns/jscode2session";
         HttpResponse response = HttpUtils.doGet(url, null, null, new HashMap<>(), null);
         String result = EntityUtils.toString(response.getEntity());
+        logger.info("小程序codeToSession参数：js_code="+js_code+" appid="+appid+" secret="+secret+" 结果result="+result);
         JSONObject resultObj = (JSONObject)JSONObject.parse(result);
         if (resultObj.getIntValue("errcode") != 0){
             String openId = resultObj.getString("openid");
