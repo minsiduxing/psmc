@@ -1,6 +1,8 @@
 package priv.guochun.psmc.inquest.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
 import priv.guochun.psmc.inquest.service.AccessTokenService;
 import priv.guochun.psmc.inquest.utils.HttpConnectUtil;
@@ -20,7 +22,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @date 2022/5/24
  */
 public class AccessTokenServiceImpl implements AccessTokenService {
-
+    protected static final Logger logger  = LoggerFactory.getLogger(AccessTokenServiceImpl.class);
     protected volatile String accessToken;
     protected volatile long expiresTime;
     protected Lock accessTokenLock;
