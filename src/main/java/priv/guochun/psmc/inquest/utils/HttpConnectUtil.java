@@ -91,7 +91,7 @@ public class HttpConnectUtil {
         return var6;
     }
 
-    public String postJson(String targetURL, Map<String, String> paramMap) {
+    public static String postJson(String targetURL, Map<String, String> paramMap) {
         HttpURLConnection httpConnection = null;
 
         try {
