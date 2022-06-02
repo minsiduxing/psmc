@@ -18,6 +18,11 @@ public interface PsmcInterfaceServiceProcessChina {
 	 */
 	public String processTask(VisitModel visitModel);
 
+	/**
+	 * 设置下一个处理链路
+	 * @param ifProcessChina
+	 */
+
 	public abstract void setNextProcessChina(PsmcInterfaceServiceProcessChina ifProcessChina) ;
 	
 	

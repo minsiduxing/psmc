@@ -3,7 +3,7 @@ package priv.guochun.psmc.system.enums;
 public enum AccountTypeEnum {
 	
 	PC_USER("后台系统账户",1),
-	WECHAT_USER("微信订阅号账户",2),
+	WECHAT_USER("微信公众号小程序账户",2),
 	OTHER_USER("前端网站账户",99);
 	
 	private String name;

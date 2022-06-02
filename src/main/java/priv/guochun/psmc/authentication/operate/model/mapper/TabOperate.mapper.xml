@@ -26,7 +26,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 					WHERE A.UUID=B.RESOURCE_UUID AND B.PRIVILEGE_UUID=C.UUID 
 					AND a.UUID = d.RESOURCE_ID AND d.ROLE_ID=e.ROLE_UUID 
 					AND b.UUID = e.OPERATE_UUID
-		 		<if  test="roleId != null">
+		 		<if  test="roleUuid != null">
 		 				AND D.ROLE_ID=#{roleId}		
 		 		</if>
    	</select>
