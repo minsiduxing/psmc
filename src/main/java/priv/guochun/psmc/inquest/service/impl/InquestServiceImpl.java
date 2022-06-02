@@ -171,7 +171,7 @@ public class InquestServiceImpl implements InquestService {
             Map tabRole = tabRoleService.getTabRole(default_roleid);
             user = new User(JSONObject.parseObject(JSONObject.toJSONString(account), Map.class), JSONObject.parseObject(JSONObject.toJSONString(person), Map.class), tabRole);
         } else {
-            user = loginService.buildUser(openId);
+            user = loginService.buildUser(map.get("ACCOUNT_NAME").toString());
         }
         return user;
     }
