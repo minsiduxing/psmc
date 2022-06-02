@@ -55,7 +55,7 @@ public class LoginServiceImpl implements LoginService
     	Map<?,?> accountMap = tabAccountDao.getTabAccount(username, null);
     	String accountId = accountMap.get("UUID").toString();
     	Map<?,?> personMap = tabPersonDao.getTabPersonByAccountId(accountId);
-    	TabGroup group = tabGroupDao.getTabGroupsBygroupCode(personMap.get("groupid").toString());
+    	TabGroup group = tabGroupDao.getTabGroupsBygroupCode(personMap.get("GROUPID").toString());
     	List<?> accRoleLits = tabRoleDao.getAccountUnionRoleByAccount(accountId);
     	Map<?,?> accRoleMap = (Map<?, ?>)accRoleLits.get(0);
     	String roleUuid = accRoleMap.get("UUID").toString();
