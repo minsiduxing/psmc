@@ -70,7 +70,7 @@ public class InquestServiceImpl implements InquestService {
 
         queryMap.put("access_token", accessTokenService.getAccessToken(wx_appid, wx_secret));
         queryMap.put("code", code);
-        String result = HttpConnectUtil.post(url, queryMap);
+        String result = HttpConnectUtil.get(url, queryMap);
         logger.info("微信小程序getPhoneNo参数：wx_appid="+wx_appid+" wx_secret="+wx_secret+" url="+url+" 结果result="+result);
         JSONObject resultObj = (JSONObject)JSONObject.parse(result);
         if (resultObj != null && resultObj.getIntValue("errcode") == 0){
