@@ -1,5 +1,8 @@
 package priv.guochun.psmc.inquest.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import priv.guochun.psmc.inquest.service.impl.InquestServiceImpl;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
 
 import java.io.*;
@@ -19,7 +22,7 @@ import java.util.Set;
  * @date 2022/5/25
  */
 public class HttpConnectUtil {
-
+    protected static final Logger logger  = LoggerFactory.getLogger(HttpConnectUtil.class);
     public static String get(String targetURL, Map<String, String> paramMap) {
         HttpURLConnection httpConnection = null;
 
@@ -31,6 +34,7 @@ public class HttpConnectUtil {
             }
 
             targetURL = targetURL + uriMapToString(paramMap);
+            logger.info("http get请求 url:"+targetURL);
             httpConnection = getHttpConnection(targetURL);
             httpConnection.setRequestMethod("GET");
             httpConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -59,11 +63,18 @@ public class HttpConnectUtil {
             if (targetURL.indexOf(str) == -1) {
                 targetURL = targetURL + str;
             }
-
             targetURL = targetURL + uriMapToString(paramMap);
+            logger.info("http get请求 url:"+targetURL);
             httpConnection = getHttpConnection(targetURL);
             httpConnection.setRequestMethod("POST");
             httpConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+
+            String postData = uriMapToString(paramMap);
+            OutputStream out = httpConnection.getOutputStream();
+            out.write(postData.substring(1,postData.length()).getBytes());
+            out.flush();
+            out.close();
+
             if (httpConnection.getResponseCode() != 200) {
                 throw new RuntimeException("HTTP POST Request Failed with Error code : " + httpConnection.getResponseCode());
             }
