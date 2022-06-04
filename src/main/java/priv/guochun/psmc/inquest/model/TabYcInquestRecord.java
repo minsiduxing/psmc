@@ -28,7 +28,7 @@ public class TabYcInquestRecord implements Serializable {
 	/**
 	 * 当前勘验阶段
 	 */
-	private Integer currentStage;
+	private String currentStage;
 	/**
 	 * 勘验结果(0：不通过，1：通过)
 	 */
@@ -70,11 +70,11 @@ public class TabYcInquestRecord implements Serializable {
 		this.mobile = mobile;
 	}
 
-	public Integer getCurrentStage() {
+	public String getCurrentStage() {
 		return currentStage;
 	}
 
-	public void setCurrentStage(Integer currentStage) {
+	public void setCurrentStage(String currentStage) {
 		this.currentStage = currentStage;
 	}
 
