@@ -45,6 +45,18 @@ public class TabYcInquestRecord implements Serializable {
 	 * 修改时间
 	 */
 	private Date modifyTime;
+	/**
+	 * 经营地址
+	 */
+	private String businessAddress;
+	/**
+	 * 经度
+	 */
+	private String longitude;
+	/**
+	 * 纬度
+	 */
+	private String latitude;
 
 	public String getRecordUuid() {
 		return recordUuid;
@@ -108,5 +120,29 @@ public class TabYcInquestRecord implements Serializable {
 
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+
+	public String getBusinessAddress() {
+		return businessAddress;
+	}
+
+	public void setBusinessAddress(String businessAddress) {
+		this.businessAddress = businessAddress;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 }
