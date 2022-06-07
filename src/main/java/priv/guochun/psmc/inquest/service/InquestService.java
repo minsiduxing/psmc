@@ -73,4 +73,13 @@ public interface InquestService {
     @GET
     @Path("/getDictInfo")
     ResultInfo getDictInfo(@QueryParam("dictNo") String dictNo);
+
+    /**
+     * 查询勘验记录
+     * @param openid
+     * @return
+     */
+    @GET
+    @Path("selectInquestRecord")
+    ResultInfo selectInquestRecord(@QueryParam("openid") String openid);
 }

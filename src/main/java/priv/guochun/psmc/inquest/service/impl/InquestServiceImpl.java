@@ -145,6 +145,13 @@ public class InquestServiceImpl implements InquestService {
         return ResultInfo.ok("查询成功", list);
     }
 
+    @Override
+    public ResultInfo selectInquestRecord(String openid) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("userId", openid);
+        List<TabYcInquestRecord> list = baseDao.queryForList("selectInquestRecord", paramMap);
+        return ResultInfo.ok("查询成功", list);
+    }
 
     public User executeLogin(String openId, String mobile, String unionid) {
         User user = null;
