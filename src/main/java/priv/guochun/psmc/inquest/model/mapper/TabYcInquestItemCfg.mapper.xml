@@ -48,6 +48,7 @@
         <result property="resultJudge" column="result_judge"/>
         <result property="nextStageUuid" column="next_stage_uuid"/>
         <result property="parentId" column="parent_id"/>
+        <result property="createTime" column="CREATE_TIME"/>
         <collection property="optionCfgList" ofType="priv.guochun.psmc.inquest.model.TabYcInquestOptionCfg">
             <result property="optionContent" column="OPTION_CONTENT"/>
             <result property="optionValue" column="OPTION_VALUE"/>
@@ -87,6 +88,7 @@
             a.stage_uuid=b.STAGE_UUID
           AND b.ITEM_UUID=c.ITEM_UUID
           AND a.is_active=1
+          AND b.is_active=1
         <if test="stageCode != null and stageCode != ''">
             and a.stage_code = #{stageCode}
         </if>
@@ -99,11 +101,70 @@
         <if test="releationItemUuid != null and releationItemUuid != ''">
             and b.releation_item_uuid = #{releationItemUuid}
         </if>
+        <if test="orgCode != null and orgCode != ''">
+            and b.org_code = #{orgCode}
+        </if>
         ORDER BY
             a.sort,
             b.sort,
             c.sort ASC
     </select>
+
+    <select id="selectItemCfgList" resultMap="inquestItemCfgVOMap" parameterType="hashmap">
+        SELECT
+            a.stage_uuid,
+            a.stage_name,
+            a.stage_code,
+            b.item_uuid,
+            b.QUESTION_NAME,
+            b.QUESTION_TYPE,
+            b.STANDARD_ANSWER,
+            b.TIPS_INFO,
+            b.is_affected_bsg,
+            b.is_affected_jlcl,
+            b.is_affected_bhdcs,
+            b.display_atlas,
+            b.display_vidio,
+            b.releation_item_uuid,
+            b.org_code,
+            date_format(b.CREATE_TIME, '%Y-%m-%d %H:%i:%S') as CREATE_TIME
+        FROM
+            TAB_YC_STAGE a,
+            TAB_YC_INQUEST_ITEM_CFG b
+        WHERE
+            a.stage_uuid=b.STAGE_UUID
+          AND a.is_active=1
+          AND b.is_active=1
+        <if test="stageCode != null and stageCode != ''">
+            AND a.stage_code = #{stageCode}
+        </if>
+        <if test="questionType != null and questionType != ''">
+            AND b.QUESTION_TYPE = #{questionType}
+        </if>
+        <if test="questionName != null and questionName != ''">
+            AND b.QUESTION_NAME = CONCAT('%', #{questionName},'%')
+        </if>
+        <if test="orgCode != null and orgCode != ''">
+            and b.org_code = #{orgCode}
+        </if>
+    </select>
+
+    <select id="getInquestItemById" resultMap="inquestItemCfgVOMap">
+        select
+               t1.*,
+               option_content,
+               c.option_value
+        from
+            TAB_YC_INQUEST_ITEM_CFG t1
+        inner join
+            TAB_YC_INQUEST_OPTION_CFG t2
+        on t1.ITEM_UUID=t2.ITEM_UUID
+        where t1.ITEM_UUID = #{itemUuid}
+    </select>
+
+    <delete id="deleteInquestItemById">
+        delete from TAB_YC_INQUEST_ITEM_CFG where ITEM_UUID = #{itemUuid}
+    </delete>
 
     <insert id="insertInquestItemCfg" parameterType="priv.guochun.psmc.inquest.model.TabYcInquestItemCfg">
         insert into TAB_YC_INQUEST_ITEM_CFG
