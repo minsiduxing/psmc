@@ -96,6 +96,7 @@
 	<!-- 烟草勘验 -->
 	<bean id="inquestService" class="priv.guochun.psmc.inquest.service.impl.InquestServiceImpl"/>
 	<bean id="accessTokenService" class="priv.guochun.psmc.inquest.service.impl.AccessTokenServiceImpl"/>
+	<bean id="tabYcInquestItemCfgService" class="priv.guochun.psmc.inquest.service.impl.TabYcInquestItemCfgServiceImpl"/>
 
 	<jaxrs:server id="chjghWeChatCxfService" address="/chjgh" >
                 <jaxrs:serviceBeans>

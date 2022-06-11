@@ -102,4 +102,12 @@
         where OPTION_UUID = #{optionUuid}
     </update>
 
+    <delete id="deleteOptionByItemUuid" parameterType="map">
+        delete from tab_yc_inquest_option_cfg
+        where ITEM_UUID in
+        <foreach item="item" index="index" collection="itemUuids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
 </mapper>
