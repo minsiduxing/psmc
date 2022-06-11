@@ -1,8 +1,11 @@
 package priv.guochun.psmc.inquest.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -20,7 +23,7 @@ public class TabYcInquestItemCfg implements Serializable {
 	 */
 	private String itemUuid;
 	/**
-	 * 勘验阶段(1：资格审验，2：场所确认，3：距离测算，4：饱和度测算)
+	 * 勘验阶段
 	 */
 	private String stageUuid;
 	/**
@@ -42,14 +45,17 @@ public class TabYcInquestItemCfg implements Serializable {
 	/**
 	 * 是否受特殊群体影响
 	 */
+	@JsonProperty("isAffectedBsg")
 	private Boolean isAffectedBsg;
 	/**
 	 * 是否进行距离测算
 	 */
+	@JsonProperty("isAffectedJlcl")
 	private Boolean isAffectedJlcl;
 	/**
 	 * 是否进行饱和度测算
 	 */
+	@JsonProperty("isAffectedBhdcs")
 	private Boolean isAffectedBhdcs;
 	/**
 	 * 展示图集地址 英文;分割
@@ -87,6 +93,22 @@ public class TabYcInquestItemCfg implements Serializable {
 	 * 创建时间
 	 */
 	private Date createTime;
+
+
+
+	/**
+	 * 附件id，逗号分隔
+	 */
+	private String attachmentUuids;
+	/**
+	 * 阶段编码
+	 */
+	private String stageCode;
+
+	/**
+	 * 选项列表
+	 */
+	List<TabYcInquestOptionCfg> optionCfgList;
 
 	public String getItemUuid() {
 		return itemUuid;
@@ -136,28 +158,28 @@ public class TabYcInquestItemCfg implements Serializable {
 		this.tipsInfo = tipsInfo;
 	}
 
-	public Boolean getAffectedBsg() {
+	public Boolean getIsAffectedBsg() {
 		return isAffectedBsg;
 	}
 
-	public void setAffectedBsg(Boolean affectedBsg) {
-		isAffectedBsg = affectedBsg;
+	public void setIsAffectedBsg(Boolean isAffectedBsg) {
+		this.isAffectedBsg = isAffectedBsg;
 	}
 
-	public Boolean getAffectedJlcl() {
+	public Boolean getIsAffectedJlcl() {
 		return isAffectedJlcl;
 	}
 
-	public void setAffectedJlcl(Boolean affectedJlcl) {
-		isAffectedJlcl = affectedJlcl;
+	public void setIsAffectedJlcl(Boolean isAffectedJlcl) {
+		this.isAffectedJlcl = isAffectedJlcl;
 	}
 
-	public Boolean getAffectedBhdcs() {
+	public Boolean getIsAffectedBhdcs() {
 		return isAffectedBhdcs;
 	}
 
-	public void setAffectedBhdcs(Boolean affectedBhdcs) {
-		isAffectedBhdcs = affectedBhdcs;
+	public void setIsAffectedBhdcs(Boolean isAffectedBhdcs) {
+		this.isAffectedBhdcs = isAffectedBhdcs;
 	}
 
 	public String getDisplayAtlas() {
@@ -230,5 +252,29 @@ public class TabYcInquestItemCfg implements Serializable {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public List<TabYcInquestOptionCfg> getOptionCfgList() {
+		return optionCfgList;
+	}
+
+	public void setOptionCfgList(List<TabYcInquestOptionCfg> optionCfgList) {
+		this.optionCfgList = optionCfgList;
+	}
+
+	public String getAttachmentUuids() {
+		return attachmentUuids;
+	}
+
+	public void setAttachmentUuids(String attachmentUuids) {
+		this.attachmentUuids = attachmentUuids;
+	}
+
+	public String getStageCode() {
+		return stageCode;
+	}
+
+	public void setStageCode(String stageCode) {
+		this.stageCode = stageCode;
 	}
 }

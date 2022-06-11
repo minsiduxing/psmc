@@ -152,18 +152,26 @@
     <select id="getInquestItemById" resultMap="inquestItemCfgVOMap">
         select
                t1.*,
-               option_content,
-               c.option_value
+               t2.option_content,
+               t2.option_value,
+               t3.stage_code
         from
             TAB_YC_INQUEST_ITEM_CFG t1
-        inner join
+        left join
             TAB_YC_INQUEST_OPTION_CFG t2
         on t1.ITEM_UUID=t2.ITEM_UUID
+        left join
+            TAB_YC_STAGE t3
+        on t1.stage_uuid=t3.STAGE_UUID
         where t1.ITEM_UUID = #{itemUuid}
     </select>
 
     <delete id="deleteInquestItemById">
-        delete from TAB_YC_INQUEST_ITEM_CFG where ITEM_UUID = #{itemUuid}
+        delete from TAB_YC_INQUEST_ITEM_CFG
+        where ITEM_UUID in
+        <foreach item="item" index="index" collection="itemUuids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </delete>
 
     <insert id="insertInquestItemCfg" parameterType="priv.guochun.psmc.inquest.model.TabYcInquestItemCfg">

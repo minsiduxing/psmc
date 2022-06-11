@@ -1,5 +1,7 @@
 package priv.guochun.psmc.inquest.model.vo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import priv.guochun.psmc.inquest.model.TabYcInquestOptionCfg;
 
 import java.io.Serializable;
@@ -85,6 +87,8 @@ public class TabYcInquestItemCfgVO implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
@@ -119,6 +123,10 @@ public class TabYcInquestItemCfgVO implements Serializable {
      * 选项列表
      */
     List<TabYcInquestOptionCfg> optionCfgList;
+
+    private String videoName;
+
+    private String attachmentUuids;
 
     public String getItemUuid() {
         return itemUuid;
@@ -168,28 +176,28 @@ public class TabYcInquestItemCfgVO implements Serializable {
         this.tipsInfo = tipsInfo;
     }
 
-    public Boolean getAffectedBsg() {
+    public Boolean getIsAffectedBsg() {
         return isAffectedBsg;
     }
 
-    public void setAffectedBsg(Boolean affectedBsg) {
-        isAffectedBsg = affectedBsg;
+    public void setIsAffectedBsg(Boolean isAffectedBsg) {
+        this.isAffectedBsg = isAffectedBsg;
     }
 
-    public Boolean getAffectedJlcl() {
+    public Boolean getIsAffectedJlcl() {
         return isAffectedJlcl;
     }
 
-    public void setAffectedJlcl(Boolean affectedJlcl) {
-        isAffectedJlcl = affectedJlcl;
+    public void setIsAffectedJlcl(Boolean isAffectedJlcl) {
+        this.isAffectedJlcl = isAffectedJlcl;
     }
 
-    public Boolean getAffectedBhdcs() {
+    public Boolean getIsAffectedBhdcs() {
         return isAffectedBhdcs;
     }
 
-    public void setAffectedBhdcs(Boolean affectedBhdcs) {
-        isAffectedBhdcs = affectedBhdcs;
+    public void setIsAffectedBhdcs(Boolean isAffectedBhdcs) {
+        this.isAffectedBhdcs = isAffectedBhdcs;
     }
 
     public String getDisplayAtlas() {
@@ -326,5 +334,21 @@ public class TabYcInquestItemCfgVO implements Serializable {
 
     public void setParentId(String parentId) {
         this.parentId = parentId;
+    }
+
+    public String getVideoName() {
+        return videoName;
+    }
+
+    public void setVideoName(String videoName) {
+        this.videoName = videoName;
+    }
+
+    public String getAttachmentUuids() {
+        return attachmentUuids;
+    }
+
+    public void setAttachmentUuids(String attachmentUuids) {
+        this.attachmentUuids = attachmentUuids;
     }
 }

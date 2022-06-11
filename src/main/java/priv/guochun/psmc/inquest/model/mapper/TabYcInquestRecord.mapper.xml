@@ -13,6 +13,9 @@
         <result property="orgCode" column="org_code"/>
         <result property="createTime" column="CREATE_TIME"/>
         <result property="modifyTime" column="MODIFY_TIME"/>
+        <result property="businessAddress" column="BUSINESS_ADDRESS"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
     </resultMap>
 
     <select id="selectInquestRecord" resultMap="tabYcInquestRecordMap">
@@ -27,6 +30,7 @@
         <if test="mobile != null and mobile != ''">
             and MOBILE = #{mobile}
         </if>
+        order by CREATE_TIME desc
     </select>
 
     <insert id="insertInquestRecord" parameterType="priv.guochun.psmc.inquest.model.TabYcInquestRecord">
@@ -56,6 +60,15 @@
             <if test="modifyTime != null">
                 MODIFY_TIME,
             </if>
+            <if test="businessAddress != null">
+                BUSINESS_ADDRESS,
+            </if>
+            <if test="longitude != null">
+                longitude,
+            </if>
+            <if test="latitude != null">
+                latitude,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="recordUuid != null">
@@ -81,6 +94,15 @@
             </if>
             <if test="modifyTime != null">
                 #{modifyTime},
+            </if>
+            <if test="businessAddress != null">
+                #{businessAddress},
+            </if>
+            <if test="longitude != null">
+                #{longitude},
+            </if>
+            <if test="latitude != null">
+                #{latitude},
             </if>
         </trim>
     </insert>
@@ -109,6 +131,15 @@
             </if>
             <if test="modifyTime != null">
                 MODIFY_TIME = #{modifyTime},
+            </if>
+            <if test="businessAddress != null">
+                BUSINESS_ADDRESS = #{businessAddress},
+            </if>
+            <if test="longitude != null">
+                longitude = #{longitude},
+            </if>
+            <if test="latitude != null">
+                latitude = #{latitude},
             </if>
         </set>
         where RECORD_UUID = #{recordUuid}

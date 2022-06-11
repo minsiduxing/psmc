@@ -97,6 +97,15 @@ public class JsonUtil {
 		return jo;
 	}
 
-  
+	public static JSONObject convertJavaBeanToJSONObject(MyPage mypage ){
+		if(mypage == null)
+			return null;
+		JSONObject jo = new JSONObject();
+		jo.put("total", mypage.getTotalData());
+		List dataList = mypage.getDataList();
+		com.alibaba.fastjson.JSONArray ja = com.alibaba.fastjson.JSONObject.parseArray(com.alibaba.fastjson.JSONObject.toJSONString(dataList));
+		jo.put("rows", ja);
+		return jo;
+	}
 
 }

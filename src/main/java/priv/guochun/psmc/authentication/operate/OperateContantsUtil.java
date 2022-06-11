@@ -284,7 +284,12 @@ public class OperateContantsUtil {
     public final static String SJHC_ADD_EVALUATE = "SJHC_ADD_EVALUATE";
     public final static String SJHC_IMPORT_EXCEL = "SJHC_IMPORT_EXCEL";
 
-
-
-
+    /**
+     * 烟草勘验-勘验题目信息操作编码
+     */
+    public final static String INQUEST_UPDATE = "INQUEST_UPDATE";
+    public final static String INQUEST_DELETE = "INQUEST_DELETE";
+    public final static String INQUEST_LIST = "INQUEST_DELETE";
+    public final static String INQUEST_ADD = "INQUEST_DELETE";
+    public final static String INQUEST_PREVIEW = "INQUEST_DELETE";
 }
