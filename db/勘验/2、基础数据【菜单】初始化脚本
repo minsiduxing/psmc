@@ -130,7 +130,7 @@ delete from TAB_DATA_DICT where DICT_NO='BELONG_TO_ZMJ';
 INSERT INTO TAB_DATA_DICT(ID,DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,DICT_NO,PARENT_DICT_TYPE) VALUES(1701,'1701','福建省城北鼓楼区烟草专卖局','归属专卖局',17,1,'BELONG_TO_ZMJ',NULL);
 INSERT INTO TAB_DATA_DICT(ID,DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,DICT_NO,PARENT_DICT_TYPE) VALUES(1702,'1702','福建省罗源县烟草专卖局','归属专卖局',17,2,'BELONG_TO_ZMJ',NULL);
 
-delete from tab_sys_key_info where id in(54,55,56,57,58,59,60,61);
+delete from tab_sys_key_info where id in(54,55,56,57,58,59,60,61,62,63);
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (54, 'wx_getAccessToken_url', 'https://api.weixin.qq.com/cgi-bin/token', '微信getAccessToken接口地址');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (55, 'wx_getuserphonenumber_url', 'https://api.weixin.qq.com/wxa/business/getuserphonenumber', '微信getuserphonenumber接口地址');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (56, 'wx_jscode2session_url', 'https://api.weixin.qq.com/sns/jscode2session', '微信jscode2session接口地址');
@@ -139,3 +139,6 @@ INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (58, 'defau
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (59, 'default_city', '00', '外网注册用户缺省所属地');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (60, 'default_groupid', '10000', '外网注册用户缺省所属组');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (61, 'default_roleid', 'e8d791272c7e437c8f8a72355bb0c231', '外网注册用户缺省所属角色');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (62, 'wx_appid', 'wx591b083250978728', '微信appid');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (63, 'wx_secret', '85e9f4b443190c407e12b46e08464731', '微信secret');
+
