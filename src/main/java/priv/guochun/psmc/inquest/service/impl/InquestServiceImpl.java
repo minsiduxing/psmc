@@ -106,7 +106,7 @@ public class InquestServiceImpl implements InquestService {
             String openId = resultObj.getString("openid");
             String session_key = resultObj.getString("session_key");
             String unionid = resultObj.getString("unionid");
-            user = executeLogin("openId", mobile, unionid);
+            user = executeLogin(openId, mobile, unionid);
             return ResultInfo.ok("登录成功", user);
         }
         return ResultInfo.error("登录失败");
