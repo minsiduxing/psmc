@@ -438,7 +438,7 @@
 				</includes>
 			</resource>
 		</resources>
-		<finalName>ycky</finalName>
+		<finalName>yckystd</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
