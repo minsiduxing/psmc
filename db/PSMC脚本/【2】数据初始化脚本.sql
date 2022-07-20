@@ -138,7 +138,7 @@ INSERT INTO TAB_CITY (CITY_ID, CITY_NAME, PARENT_ID, REMARK, ORDERNUM, CITY_LAYE
 INSERT INTO TAB_CITY (CITY_ID, CITY_NAME, PARENT_ID, REMARK, ORDERNUM, CITY_LAYER) VALUES ('001015', '大柳塔', '0010', '', 123, 3);
 INSERT INTO TAB_CITY (CITY_ID, CITY_NAME, PARENT_ID, REMARK, ORDERNUM, CITY_LAYER) VALUES ('001016', '庙沟门', '0010', '', 124, 3);
 
---2、TAB_DATA_DICT表数据初始化
+/**2、TAB_DATA_DICT表数据初始化**/
 DELETE  FROM TAB_DATA_DICT WHERE DICT_TYPE='1';
 INSERT INTO TAB_DATA_DICT(ID,DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,DICT_NO) VALUES(1,'1','是','是否判断',1,1,'IF');
 INSERT INTO TAB_DATA_DICT(ID,DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,DICT_NO) VALUES(2,'2','否','是否判断',1,2,'IF');
@@ -151,56 +151,56 @@ INSERT INTO TAB_DATA_DICT(ID,DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,DICT_NO
 
 
 /*-----------------------------人员和角色-----------------------------*/
-insert into tab_accounts (uuid, account_name, account_pass, is_locked) values 
-('38ee6b0869c9411a948d4bda69c2d216','admin','MDc4ca4238a0b923820dcc509a6f75849','2');
+insert into tab_accounts (uuid, account_name, account_pass, is_locked) values
+    ('38ee6b0869c9411a948d4bda69c2d216','admin','MDc4ca4238a0b923820dcc509a6f75849','2');
 
-insert into tab_person (uuid, person_name, sex, age, telephone, email, acc_uuid,city_id) values 
-('bd474935a3894530af485bea128501ec','李艾洋',1,0,'13572568827','','38ee6b0869c9411a948d4bda69c2d216','00');
+insert into tab_person (uuid, person_name, sex, age, telephone, email, acc_uuid,city_id) values
+    ('bd474935a3894530af485bea128501ec','李艾洋',1,0,'13572568827','','38ee6b0869c9411a948d4bda69c2d216','00');
 
-insert into tab_role (uuid, role_no, role_name, creator, create_time, remark) 
+insert into tab_role (uuid, role_no, role_name, creator, create_time, remark)
 values('efb74820f0564d02bb68fdf3190a6430','sys_manager','系统管理员','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'系统权限最大的管理者');
 
 insert into tab_acc_role (acc_uuid, role_uuid) values ('38ee6b0869c9411a948d4bda69c2d216','efb74820f0564d02bb68fdf3190a6430');
 
 
 /*-----------------------------系统菜单-----------------------------*/
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('e51a8663876f4a3394bb194d89d96735','PSMC系统树根目录',1,'','0','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'子系统',0,1);
+insert into tab_resource
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+    ('e51a8663876f4a3394bb194d89d96735','PSMC系统树根目录',1,'','0','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'子系统',0,1);
 
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('f55580fa321b4d34a172628d5825c4dc','系统管理',2,'','e51a8663876f4a3394bb194d89d96735','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'导航模块',13,1);
+insert into tab_resource
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+    ('f55580fa321b4d34a172628d5825c4dc','系统管理',2,'','e51a8663876f4a3394bb194d89d96735','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'导航模块',13,1);
 
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('deab504ee54b4f10b65fb17c7615ab9c','用户管理',3,'','f55580fa321b4d34a172628d5825c4dc','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',14,1);
+insert into tab_resource
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+    ('deab504ee54b4f10b65fb17c7615ab9c','用户管理',3,'','f55580fa321b4d34a172628d5825c4dc','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',14,1);
 
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('d4f3b60bfdcc4314baf65448d1284080','账户信息',3,'/jsp/authentication/user/account_list.jsp','deab504ee54b4f10b65fb17c7615ab9c','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',15,1);
-
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('74385facee5148cbb0c9d69ecc1b8636','修改密码',3,'/jsp/updatePasswd.jsp','deab504ee54b4f10b65fb17c7615ab9c','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',16,1);
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('9563b511d42f4768aa08cc506571de0a','角色管理',3,'','f55580fa321b4d34a172628d5825c4dc','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',17,1);
-
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('a807a90d00fb48c4bdf1d82ab41a9bc0','角色信息',3,'/jsp/authentication/role/role_list.jsp','9563b511d42f4768aa08cc506571de0a','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',18,1);
+insert into tab_resource
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+    ('d4f3b60bfdcc4314baf65448d1284080','账户信息',3,'/jsp/authentication/user/account_list.jsp','deab504ee54b4f10b65fb17c7615ab9c','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',15,1);
 
 
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('8d5276afc8444b47a842da1f42aaac34','资源管理',3,'','f55580fa321b4d34a172628d5825c4dc','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',21,1);
+insert into tab_resource
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+    ('74385facee5148cbb0c9d69ecc1b8636','修改密码',3,'/jsp/updatePasswd.jsp','deab504ee54b4f10b65fb17c7615ab9c','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',16,1);
 
-insert into tab_resource 
-(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('1a1a1817883142e7a9c9e06c477360cc','资源信息',3,'/jsp/authentication/resource/sys_resource_tree.jsp','8d5276afc8444b47a842da1f42aaac34','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',22,1);
+insert into tab_resource
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+    ('9563b511d42f4768aa08cc506571de0a','角色管理',3,'','f55580fa321b4d34a172628d5825c4dc','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',17,1);
+
+insert into tab_resource
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+    ('a807a90d00fb48c4bdf1d82ab41a9bc0','角色信息',3,'/jsp/authentication/role/role_list.jsp','9563b511d42f4768aa08cc506571de0a','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',18,1);
+
+
+insert into tab_resource
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+    ('8d5276afc8444b47a842da1f42aaac34','资源管理',3,'','f55580fa321b4d34a172628d5825c4dc','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',21,1);
+
+insert into tab_resource
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+    ('1a1a1817883142e7a9c9e06c477360cc','资源信息',3,'/jsp/authentication/resource/sys_resource_tree.jsp','8d5276afc8444b47a842da1f42aaac34','admin',str_to_date('2016-8-9','%Y-%m-%d %T'),'菜单',22,1);
 
 
 
@@ -218,56 +218,56 @@ insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb
 
 /*-----------------------------系统抽象权限定义-----------------------------*/
 
-insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values 
-('756d6e80c9d74b4389c918ab50ee19c3','query','查询列表','','admin',str_to_date('2016-8-9','%Y-%m-%d %T'));
-
-insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values 
-('607e8bc6f9bb4afa9be3cfdc72a1a326','add','新增','','admin',str_to_date('2016-8-9','%Y-%m-%d %T'));
-
-insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values 
-('fe755fa4bd25475fa1a9d841caa16f44','update','修改','','admin',str_to_date('2016-8-9','%Y-%m-%d %T'));
-
-insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values 
-('dec3b327b8a54d66bd644c544ea65c5e','delete','删除','','admin',str_to_date('2016-8-9','%Y-%m-%d %T'));
-
-insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values 
-('460283cc3e2c4d0a8b6bbbd75698a339','export','导出','','admin',str_to_date('2016-8-9','%Y-%m-%d %T'));
-
-insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values 
-('d3ad7cefb81040ac8c935e7ee5602f5c','import','导入','','admin',str_to_date('2016-8-9','%Y-%m-%d %T'));
-
-insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values 
-('022a43088dcd46d4b201b43b32d3d85a','deploy','配置','','admin',str_to_date('2016-8-9','%Y-%m-%d %T'));
+insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values
+    ('756d6e80c9d74b4389c918ab50ee19c3','query','查询列表','','admin',str_to_date('2016-8-9','%Y-%m-%d %T'));
 
 insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values
-('cb14b0e3d47647e58da01ab09e0d373c','undo','撤回','','admin',str_to_date('2021-6-23','%Y-%m-%d %T'));
+    ('607e8bc6f9bb4afa9be3cfdc72a1a326','add','新增','','admin',str_to_date('2016-8-9','%Y-%m-%d %T'));
+
+insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values
+    ('fe755fa4bd25475fa1a9d841caa16f44','update','修改','','admin',str_to_date('2016-8-9','%Y-%m-%d %T'));
+
+insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values
+    ('dec3b327b8a54d66bd644c544ea65c5e','delete','删除','','admin',str_to_date('2016-8-9','%Y-%m-%d %T'));
+
+insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values
+    ('460283cc3e2c4d0a8b6bbbd75698a339','export','导出','','admin',str_to_date('2016-8-9','%Y-%m-%d %T'));
+
+insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values
+    ('d3ad7cefb81040ac8c935e7ee5602f5c','import','导入','','admin',str_to_date('2016-8-9','%Y-%m-%d %T'));
+
+insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values
+    ('022a43088dcd46d4b201b43b32d3d85a','deploy','配置','','admin',str_to_date('2016-8-9','%Y-%m-%d %T'));
+
+insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_name, creator_time) values
+    ('cb14b0e3d47647e58da01ab09e0d373c','undo','撤回','','admin',str_to_date('2021-6-23','%Y-%m-%d %T'));
 
 /*-----------------------------定义菜单的业务操作-----------------------------*/
 /*菜单----[账户信息]业务操作*/
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('14a2243153eb483caf3573246148e9cc','d4f3b60bfdcc4314baf65448d1284080','756d6e80c9d74b4389c918ab50ee19c3',
-'priv.guochun.psmc.authentication.user.service.TabAccountService','getTabAccountsBusinessMethod','查询','',1,'');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('14a2243153eb483caf3573246148e9cc','d4f3b60bfdcc4314baf65448d1284080','756d6e80c9d74b4389c918ab50ee19c3',
+     'priv.guochun.psmc.authentication.user.service.TabAccountService','getTabAccountsBusinessMethod','查询','',1,'');
 
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('14a2243153eb483caf3573246148e93c','d4f3b60bfdcc4314baf65448d1284080','756d6e80c9d74b4389c918ab50ee19c3',
-'priv.guochun.psmc.authentication.user.service.TabAccountService','getTabAccountsBusinessMethod','查询','',1,'ACCOUNT_QUERY');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('14a2243153eb483caf3573246148e93c','d4f3b60bfdcc4314baf65448d1284080','756d6e80c9d74b4389c918ab50ee19c3',
+     'priv.guochun.psmc.authentication.user.service.TabAccountService','getTabAccountsBusinessMethod','查询','',1,'ACCOUNT_QUERY');
 
 
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('3a764c1f79294c8b903ebb80abf07220','d4f3b60bfdcc4314baf65448d1284080','607e8bc6f9bb4afa9be3cfdc72a1a326',
-'priv.guochun.psmc.authentication.user.service.TabAccountService','saveOrUpdateBusinessMethod','新增','',2,'ACCOUNT_ADD');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('3a764c1f79294c8b903ebb80abf07220','d4f3b60bfdcc4314baf65448d1284080','607e8bc6f9bb4afa9be3cfdc72a1a326',
+     'priv.guochun.psmc.authentication.user.service.TabAccountService','saveOrUpdateBusinessMethod','新增','',2,'ACCOUNT_ADD');
 
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('705d01ec02d24d79bf9ea64c0a04385e','d4f3b60bfdcc4314baf65448d1284080','fe755fa4bd25475fa1a9d841caa16f44',
-'priv.guochun.psmc.authentication.user.service.TabAccountService','saveOrUpdateBusinessMethod','修改','',3,'ACCOUNT_UPDATE');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('705d01ec02d24d79bf9ea64c0a04385e','d4f3b60bfdcc4314baf65448d1284080','fe755fa4bd25475fa1a9d841caa16f44',
+     'priv.guochun.psmc.authentication.user.service.TabAccountService','saveOrUpdateBusinessMethod','修改','',3,'ACCOUNT_UPDATE');
 
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('8dfc1b3b65694a0a8ec7f9f09148f0f2','d4f3b60bfdcc4314baf65448d1284080','dec3b327b8a54d66bd644c544ea65c5e',
-'priv.guochun.psmc.authentication.user.service.TabAccountService','deletesBusinessMethod','删除','',4,'ACCOUNT_DEL');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('8dfc1b3b65694a0a8ec7f9f09148f0f2','d4f3b60bfdcc4314baf65448d1284080','dec3b327b8a54d66bd644c544ea65c5e',
+     'priv.guochun.psmc.authentication.user.service.TabAccountService','deletesBusinessMethod','删除','',4,'ACCOUNT_DEL');
 
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('8dfc1b3b65694a0a8ec7f9f09148f0f3','d4f3b60bfdcc4314baf65448d1284080','460283cc3e2c4d0a8b6bbbd75698a339',
-'priv.guochun.psmc.authentication.user.service.TabAccountService','getTabAccountsBusinessMethod','导出','',5,'ACCOUNT_EXPORT');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('8dfc1b3b65694a0a8ec7f9f09148f0f3','d4f3b60bfdcc4314baf65448d1284080','460283cc3e2c4d0a8b6bbbd75698a339',
+     'priv.guochun.psmc.authentication.user.service.TabAccountService','getTabAccountsBusinessMethod','导出','',5,'ACCOUNT_EXPORT');
 
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','14a2243153eb483caf3573246148e9cc');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','3a764c1f79294c8b903ebb80abf07220');
@@ -279,25 +279,25 @@ insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02
 
 
 /*菜单----[资源信息]业务操作*/
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('24d1fd15ba54491982f91ed98f8e8d8c','1a1a1817883142e7a9c9e06c477360cc','756d6e80c9d74b4389c918ab50ee19c3',
-'priv.guochun.psmc.authentication.resource.service.TabResourceService','getSystemAllResourcesBusinessMethod','查询','',1,'');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('24d1fd15ba54491982f91ed98f8e8d8c','1a1a1817883142e7a9c9e06c477360cc','756d6e80c9d74b4389c918ab50ee19c3',
+     'priv.guochun.psmc.authentication.resource.service.TabResourceService','getSystemAllResourcesBusinessMethod','查询','',1,'');
 
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('6f0d3821e9cc43be828eeeedc95cf269','1a1a1817883142e7a9c9e06c477360cc','607e8bc6f9bb4afa9be3cfdc72a1a326',
-'priv.guochun.psmc.authentication.resource.service.TabResourceService','saveOrUpdateTabResourceBusinessMethod','新增','',2,'RESOURCE_ADD');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('6f0d3821e9cc43be828eeeedc95cf269','1a1a1817883142e7a9c9e06c477360cc','607e8bc6f9bb4afa9be3cfdc72a1a326',
+     'priv.guochun.psmc.authentication.resource.service.TabResourceService','saveOrUpdateTabResourceBusinessMethod','新增','',2,'RESOURCE_ADD');
 
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('3408bb85700742e2b9142ee1c69eb21e','1a1a1817883142e7a9c9e06c477360cc','dec3b327b8a54d66bd644c544ea65c5e',
-'priv.guochun.psmc.authentication.resource.service.TabResourceService','deleteTabResourceBusinessMethod','删除','',3,'RESOURCE_DEL');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('3408bb85700742e2b9142ee1c69eb21e','1a1a1817883142e7a9c9e06c477360cc','dec3b327b8a54d66bd644c544ea65c5e',
+     'priv.guochun.psmc.authentication.resource.service.TabResourceService','deleteTabResourceBusinessMethod','删除','',3,'RESOURCE_DEL');
 
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('e5cb125131bf4978a1e166e0bcf631cf','1a1a1817883142e7a9c9e06c477360cc','fe755fa4bd25475fa1a9d841caa16f44',
-'priv.guochun.psmc.authentication.resource.service.TabResourceService','updateResourceTheParentUuidBusinessMethod','拖拽','',4,'RESOURCE_DRAG');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('e5cb125131bf4978a1e166e0bcf631cf','1a1a1817883142e7a9c9e06c477360cc','fe755fa4bd25475fa1a9d841caa16f44',
+     'priv.guochun.psmc.authentication.resource.service.TabResourceService','updateResourceTheParentUuidBusinessMethod','拖拽','',4,'RESOURCE_DRAG');
 
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('97edba427bbd40aea43295595a30cddd','1a1a1817883142e7a9c9e06c477360cc','fe755fa4bd25475fa1a9d841caa16f44',
-'priv.guochun.psmc.authentication.resource.service.TabResourceService','updateResourceTheNameBusinessMethod','更新','',4,'RESOURCE_UPDATE');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('97edba427bbd40aea43295595a30cddd','1a1a1817883142e7a9c9e06c477360cc','fe755fa4bd25475fa1a9d841caa16f44',
+     'priv.guochun.psmc.authentication.resource.service.TabResourceService','updateResourceTheNameBusinessMethod','更新','',4,'RESOURCE_UPDATE');
 
 INSERT INTO tab_operate VALUES ('23ef454491484c7b8665bef3390a0cc9', '1a1a1817883142e7a9c9e06c477360cc', '022a43088dcd46d4b201b43b32d3d85a', 'priv.guochun.psmc.authentication.operate.service.TabOperateService', 'getTabOperatesBusinessMethod', 'RESOURCE_OPERATE', '资源业务配置', '', '32');
 
@@ -320,39 +320,39 @@ insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02
 
 
 /*菜单----[角色信息]业务操作*/
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('dc5648b017404cbb80fcde8947b5bea3','a807a90d00fb48c4bdf1d82ab41a9bc0','756d6e80c9d74b4389c918ab50ee19c3',
-'priv.guochun.psmc.authentication.role.service.TabRoleService','getRolesListBusinessMethod','查询','',1,'');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('dc5648b017404cbb80fcde8947b5bea3','a807a90d00fb48c4bdf1d82ab41a9bc0','756d6e80c9d74b4389c918ab50ee19c3',
+     'priv.guochun.psmc.authentication.role.service.TabRoleService','getRolesListBusinessMethod','查询','',1,'');
 
 
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('5a06ae4977b6448e89eaba7029bb8286','a807a90d00fb48c4bdf1d82ab41a9bc0','607e8bc6f9bb4afa9be3cfdc72a1a326',
-'priv.guochun.psmc.authentication.role.service.TabRoleService','saveOrUpdateRoleBusinessMethod','新增','',2,'ROLE_ADD');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('5a06ae4977b6448e89eaba7029bb8286','a807a90d00fb48c4bdf1d82ab41a9bc0','607e8bc6f9bb4afa9be3cfdc72a1a326',
+     'priv.guochun.psmc.authentication.role.service.TabRoleService','saveOrUpdateRoleBusinessMethod','新增','',2,'ROLE_ADD');
 
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('bd1aac73b28448abad87bc82d2b7049a','a807a90d00fb48c4bdf1d82ab41a9bc0','fe755fa4bd25475fa1a9d841caa16f44',
-'priv.guochun.psmc.authentication.role.service.TabRoleService','saveOrUpdateRoleBusinessMethod','修改','',3,'ROLE_UPDATE');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('bd1aac73b28448abad87bc82d2b7049a','a807a90d00fb48c4bdf1d82ab41a9bc0','fe755fa4bd25475fa1a9d841caa16f44',
+     'priv.guochun.psmc.authentication.role.service.TabRoleService','saveOrUpdateRoleBusinessMethod','修改','',3,'ROLE_UPDATE');
 
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('9142c050077d49dabf323d06ac49a3c6','a807a90d00fb48c4bdf1d82ab41a9bc0','dec3b327b8a54d66bd644c544ea65c5e',
-'priv.guochun.psmc.authentication.role.service.TabRoleService','deletesRoleByUuidsBusinessMethod','删除','',4,'ROLE_DEL');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('9142c050077d49dabf323d06ac49a3c6','a807a90d00fb48c4bdf1d82ab41a9bc0','dec3b327b8a54d66bd644c544ea65c5e',
+     'priv.guochun.psmc.authentication.role.service.TabRoleService','deletesRoleByUuidsBusinessMethod','删除','',4,'ROLE_DEL');
 
 
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('a5bf5461a44d4fc9b4531483dffa2192','a807a90d00fb48c4bdf1d82ab41a9bc0','022a43088dcd46d4b201b43b32d3d85a',
-'priv.guochun.psmc.authentication.resource.service.TabResourceService','saveOrUpateResourceRoleRelationBusinessMethod','资源归属配置','',5,'ROLE_HAVE_RESOURCE');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('a5bf5461a44d4fc9b4531483dffa2192','a807a90d00fb48c4bdf1d82ab41a9bc0','022a43088dcd46d4b201b43b32d3d85a',
+     'priv.guochun.psmc.authentication.resource.service.TabResourceService','saveOrUpateResourceRoleRelationBusinessMethod','资源归属配置','',5,'ROLE_HAVE_RESOURCE');
 
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('35559c19ed964e37b2fbb0892b13b339','a807a90d00fb48c4bdf1d82ab41a9bc0','022a43088dcd46d4b201b43b32d3d85a',
-'priv.guochun.psmc.authentication.resource.service.TabResourceService','saveRoleResourceOperateRelationsBusinessMethod','业务操作配置','',6,'ROLE_HAVE_OPERATE');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('35559c19ed964e37b2fbb0892b13b339','a807a90d00fb48c4bdf1d82ab41a9bc0','022a43088dcd46d4b201b43b32d3d85a',
+     'priv.guochun.psmc.authentication.resource.service.TabResourceService','saveRoleResourceOperateRelationsBusinessMethod','业务操作配置','',6,'ROLE_HAVE_OPERATE');
 
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('dc5648b017404cbb80fcde8947b8cea3','a807a90d00fb48c4bdf1d82ab41a9bc0','756d6e80c9d74b4389c918ab50ee19c3',
-'priv.guochun.psmc.authentication.role.service.TabRoleService','getRolesListBusinessMethod','查询','',1,'');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('dc5648b017404cbb80fcde8947b8cea3','a807a90d00fb48c4bdf1d82ab41a9bc0','756d6e80c9d74b4389c918ab50ee19c3',
+     'priv.guochun.psmc.authentication.role.service.TabRoleService','getRolesListBusinessMethod','查询','',1,'');
 
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values 
-('dc5648b017404cbb80fccf8947b8cea3','a807a90d00fb48c4bdf1d82ab41a9bc0','756d6e80c9d74b4389c918ab50ee19c3',
-'priv.guochun.psmc.authentication.role.service.TabRoleService','getRolesListBusinessMethod','导出','',1,'');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('dc5648b017404cbb80fccf8947b8cea3','a807a90d00fb48c4bdf1d82ab41a9bc0','756d6e80c9d74b4389c918ab50ee19c3',
+     'priv.guochun.psmc.authentication.role.service.TabRoleService','getRolesListBusinessMethod','导出','',1,'');
 
 
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','dc5648b017404cbb80fcde8947b5bea3');
