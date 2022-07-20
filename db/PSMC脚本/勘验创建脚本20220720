@@ -1,0 +1,99 @@
+drop table if exists TAB_YC_INQUEST_ITEM_CFG;
+
+/*==============================================================*/
+/* Table: TAB_YC_INQUEST_ITEM_CFG                               */
+/*==============================================================*/
+create table TAB_YC_INQUEST_ITEM_CFG
+(
+   ITEM_UUID            varchar(32) not null comment '主键',
+   STAGE_UUID           varchar(32) comment '勘验阶段(1：资格审验，2：场所确认，3：距离测算，4：饱和度测算)',
+   QUESTION_TYPE        smallint comment '题目类型(1：单选，2多选)',
+   QUESTION_NAME        varchar(500) comment '标题',
+   STANDARD_ANSWER      varchar(200) comment '标准答案',
+   TIPS_INFO            varchar(500) comment '提示信息',
+   is_affected_bsg      bit,
+   is_affected_jlcl     bit,
+   is_affected_bhdcs    bit,
+   display_atlas        varchar(500) comment '英文;分割',
+   display_vidio        varchar(500),
+   sort                 smallint,
+   org_code             varchar(32),
+   releation_item_uuid  varchar(32) comment '关联题目id',
+   is_negative          smallint,
+   IS_ACTIVE            bit comment '是否有效',
+   CREATOR              varchar(50) comment '创建人',
+   CREATE_TIME          datetime comment '创建时间',
+   primary key (ITEM_UUID)
+);
+
+alter table TAB_YC_INQUEST_ITEM_CFG comment '资格勘验题目配置表';
+
+
+drop table if exists TAB_YC_STAGE;
+
+/*==============================================================*/
+/* Table: TAB_YC_STAGE                                          */
+/*==============================================================*/
+create table TAB_YC_STAGE
+(
+   stage_uuid           varchar(32) not null,
+   stage_code           varchar(20),
+   stage_name           varchar(50),
+   parent_id            varchar(32),
+   sort                 smallint,
+   org_code             varchar(32) not null,
+   stage_level          smallint,
+   item_display_type    smallint comment '1、平铺。2、单条引导。',
+   result_judge         smallint comment '101：满足全部
+            102：都不满足
+            103：满足其一',
+   next_stage_uuid      varchar(200),
+   IS_ACTIVE            bit comment '是否有效',
+   CREATOR              varchar(50) comment '创建人',
+   CREATE_TIME          datetime comment '创建时间',
+   primary key (stage_uuid, org_code)
+);
+
+
+drop table if exists TAB_YC_INQUEST_OPTION_CFG;
+
+/*==============================================================*/
+/* Table: TAB_YC_INQUEST_OPTION_CFG                             */
+/*==============================================================*/
+create table TAB_YC_INQUEST_OPTION_CFG
+(
+   OPTION_UUID          varchar(32) not null comment '选项主键',
+   ITEM_UUID            varchar(32) comment '题目主键',
+   OPTION_CONTENT       varchar(50) comment '选项内容',
+   OPTION_VALUE         varchar(20) comment '选项值',
+   sort                 smallint,
+   IS_ACTIVE            bit comment '是否有效',
+   CREATOR              varchar(50) comment '创建人',
+   CREATE_TIME          datetime comment '创建时间',
+   primary key (OPTION_UUID)
+);
+
+alter table TAB_YC_INQUEST_OPTION_CFG comment '勘验选项表';
+
+drop table if exists TAB_YC_INQUEST_RECORD;
+
+/*==============================================================*/
+/* Table: TAB_YC_INQUEST_RECORD                                 */
+/*==============================================================*/
+create table TAB_YC_INQUEST_RECORD
+(
+   RECORD_UUID          varchar(32) not null comment '勘验记录id',
+   USER_ID              varchar(60) comment '勘验人id',
+   MOBILE               varchar(20) comment '勘验人手机号',
+   CURRENT_STAGE        varchar(20) comment '当前勘验阶段',
+   INQUEST_RESULT       smallint comment '勘验结果(0：不通过，1：通过)',
+   org_code             varchar(32),
+   CREATE_TIME          datetime comment '创建时间',
+   MODIFY_TIME          datetime comment '修改时间',
+   BUSINESS_ADDRESS     varchar(256),
+   longitude            varchar(20),
+   latitude             varchar(20),
+   primary key (RECORD_UUID)
+);
+
+alter table TAB_YC_INQUEST_RECORD comment '勘验记录表';
