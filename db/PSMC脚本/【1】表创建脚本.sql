@@ -622,3 +622,6 @@ CREATE TABLE
 )
     ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_general_ci;
 
+--增加账户分类
+alter table tab_accounts drop column account_type;
+alter table tab_accounts add column account_type TINYINT;
