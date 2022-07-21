@@ -164,6 +164,8 @@ insert into tab_acc_role (acc_uuid, role_uuid) values ('38ee6b0869c9411a948d4bda
 
 update tab_accounts t set account_type=1 where account_type<>2 or account_type is null ;
 
+INSERT INTO tab_group(uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum)
+VALUES('e30f6d26f09646aaa18460c086a206da', '缺省组', 1, '10000', null, 'admin','2018-6-8 00:00:00' , '根目录', 1);
 
 /*-----------------------------系统菜单-----------------------------*/
 insert into tab_resource
