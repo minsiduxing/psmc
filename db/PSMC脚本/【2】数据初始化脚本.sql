@@ -370,4 +370,63 @@ insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02
 
 
 
+delete from tab_role_resource where resource_id='a75345fa89e5409684a2795eed7f5900';
+delete from tab_resource where uuid='a75345fa89e5409684a2795eed7f5900';
+
+insert into tab_resource
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+    ('a75345fa89e5409684a2795eed7f5900','用户组',3,'/jsp/authentication/user/tab_group_tree.jsp','deab504ee54b4f10b65fb17c7615ab9c','admin',str_to_date('2018-6-8','%Y-%m-%d %T'),'菜单',17,1);
+
+insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', 'a75345fa89e5409684a2795eed7f5900');
+
+/*用户组操作*/
+
+/**查询*/
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('cf083ec8d0a24a9a94798fe897d1fcf1','a75345fa89e5409684a2795eed7f5900','756d6e80c9d74b4389c918ab50ee19c3',
+     'priv.guochun.psmc.authentication.user.service.TabGroupService','getTabGroupsBusinessMethod','[查询]','',1,'USER_GROUP_QUERY');
+
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','cf083ec8d0a24a9a94798fe897d1fcf1');
+
+/**修改名称*/
+
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('05e5d3c16d054483ab95c4892c33979d','a75345fa89e5409684a2795eed7f5900','fe755fa4bd25475fa1a9d841caa16f44',
+     'priv.guochun.psmc.authentication.user.service.TabGroupService','updateParentGroupCodeBusinessMethod','[归属组修改]','',2,'USER_GROUP_PARENT_UPDATE');
+
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','05e5d3c16d054483ab95c4892c33979d');
+
+
+/*新增*/
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('952197c168944aa19d0930f383eeae5c','a75345fa89e5409684a2795eed7f5900','607e8bc6f9bb4afa9be3cfdc72a1a326',
+     'priv.guochun.psmc.authentication.user.service.TabGroupService','saveTabGroupBusinessMethod','[新增]','',3,'USER_GROUP_ADD');
+
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','952197c168944aa19d0930f383eeae5c');
+
+/*修改*/
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('2bc28c4901fc4e169ba1fa10abaf95d1','a75345fa89e5409684a2795eed7f5900','fe755fa4bd25475fa1a9d841caa16f44',
+     'priv.guochun.psmc.authentication.user.service.TabGroupService','updateTabGroupBusinessMethod','[修改]','',4,'USER_GROUP_UPDATE');
+
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','2bc28c4901fc4e169ba1fa10abaf95d1');
+
+/*删除*/
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('f27181121e0f4de6aaac05468a3cff3f','a75345fa89e5409684a2795eed7f5900','dec3b327b8a54d66bd644c544ea65c5e',
+     'priv.guochun.psmc.authentication.user.service.TabGroupService','deleteTabGroupBusinessMethod','[删除]','',5,'USER_GROUP_DEL');
+
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','f27181121e0f4de6aaac05468a3cff3f');
+
+/**日志列表菜单*/
+delete from tab_role_resource where resource_id='6b5de11e5c0e4a53aad76f74fd6a1df6';
+delete from tab_resource where uuid='6b5de11e5c0e4a53aad76f74fd6a1df6';
+
+insert into tab_resource
+(uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+    ('6b5de11e5c0e4a53aad76f74fd6a1df6','日志列表',3,'/jsp/system/common/log/sysOperLog_list.jsp','f55580fa321b4d34a172628d5825c4dc','admin',str_to_date('2018-6-6','%Y-%m-%d %T'),'菜单',16,1);
+
+
+insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '6b5de11e5c0e4a53aad76f74fd6a1df6');
+
 
