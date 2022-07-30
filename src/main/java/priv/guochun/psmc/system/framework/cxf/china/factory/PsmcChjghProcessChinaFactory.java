@@ -1,4 +1,4 @@
-package priv.guochun.psmc.website.backstage.common.china.factory;
+package priv.guochun.psmc.system.framework.cxf.china.factory;
 
 import priv.guochun.psmc.system.framework.filter.interceptor.china.PsmcInterfaceServiceProcessChina;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
@@ -15,19 +15,19 @@ public class PsmcChjghProcessChinaFactory {
 	public static synchronized PsmcInterfaceServiceProcessChina buildChjghProcessChina(){
 
 		if(firstChina == null){
-			Object obj = MySpringApplicationContext.getObject("psmcChjghMethodProcessChina");
+			Object obj = MySpringApplicationContext.getObject("psmcFirstValiateProcessChina");
 			if(obj == null)
-				throw new RuntimeException(" build china error: psmcChjghMethodProcessChina not in spring ioc!!! ");
+				throw new RuntimeException(" build china error: psmcFirstValiateProcessChina not in spring ioc!!! ");
 			
 			firstChina = (PsmcInterfaceServiceProcessChina)obj;
 		}
 
 
-//		Object headProcessChina = MySpringApplicationContext.getObject("headProcessChina");
-//		if(headProcessChina == null)
-//			throw new RuntimeException(" build china error: psmcChjghMethodProcessChina not in spring ioc!!! ");
-//
-//		firstChina.setNextProcessChina((PsmcInterfaceServiceProcessChina)headProcessChina);
+		Object tkProcessChina = MySpringApplicationContext.getObject("psmcTkValiateProcessChina");
+		if(tkProcessChina == null)
+			throw new RuntimeException(" build china error: psmcTkValiateProcessChina not in spring ioc!!! ");
+
+		firstChina.setNextProcessChina((PsmcInterfaceServiceProcessChina)tkProcessChina);
 
 
 		return firstChina;

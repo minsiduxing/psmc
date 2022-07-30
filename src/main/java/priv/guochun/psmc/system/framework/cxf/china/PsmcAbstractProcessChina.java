@@ -1,4 +1,4 @@
-package priv.guochun.psmc.website.backstage.common.china;
+package priv.guochun.psmc.system.framework.cxf.china;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,6 @@ public abstract class PsmcAbstractProcessChina implements PsmcInterfaceServicePr
 	
 	@Override
 	public void setNextProcessChina(PsmcInterfaceServiceProcessChina ifProcessChina) {
-		logger.debug(" set next interface service proess china : " + ifProcessChina.toString());
 		this.ifProcessChina = ifProcessChina;
 	}
 	
