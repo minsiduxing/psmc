@@ -79,3 +79,19 @@ INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (60, 'defau
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (61, 'default_roleid', 'e8d791272c7e437c8f8a72355bb0c231', '外网注册用户缺省所属角色');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (62, 'wx_appid', 'wx591b083250978728', '微信appid');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (63, 'wx_secret', '85e9f4b443190c407e12b46e08464731', '微信secret');
+
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum, is_view) VALUES ('3842888467ae425c893b8cb75c0bd26a', '勘验管理', 3, '/inquest/tabYcInquestItemCfgController.do?method=ycInquestItemCfgList', '8e059c578c204fbbb29086aa72ec88f9', 'admin', '2022-06-04 00:00:00', '菜单', 1, 1);
+
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('0d8e9dc82c4c4d22ab4fdb018c9c0f1f', '3842888467ae425c893b8cb75c0bd26a', 'fe755fa4bd25475fa1a9d841caa16f44', 'priv.guochun.psmc.inquest.service.TabYcInquestItemCfgService', 'saveOrUpdateInquestItemMethod', 'INQUEST_UPDATE', '修改', null, 2);
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('17c0e25ebba44a5391455242e37e38c8', '3842888467ae425c893b8cb75c0bd26a', 'dec3b327b8a54d66bd644c544ea65c5e', 'priv.guochun.psmc.inquest.service.TabYcInquestItemCfgService', 'deleteInquestItemByIdMethod', 'INQUEST_DELETE', '删除', null, 3);
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('416d85050111410a901e6ef0ddbc3b2d', '3842888467ae425c893b8cb75c0bd26a', '756d6e80c9d74b4389c918ab50ee19c3', 'priv.guochun.psmc.inquest.service.TabYcInquestItemCfgService', 'selectItemCfgListMethod', 'INQUEST_LIST', '查询', null, 5);
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('71035b98ae004357acc53c7f8b959f24', '3842888467ae425c893b8cb75c0bd26a', '607e8bc6f9bb4afa9be3cfdc72a1a326', 'priv.guochun.psmc.inquest.service.TabYcInquestItemCfgService', 'saveOrUpdateInquestItemMethod', 'INQUEST_ADD', '新增', null, 1);
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('b361508563a148c0884abeaaeb4bd4bc', '3842888467ae425c893b8cb75c0bd26a', '022a43088dcd46d4b201b43b32d3d85a', 'priv.guochun.psmc.inquest.service.TabYcInquestItemCfgService', 'getInquestItemByIdMethod', 'INQUEST_PREVIEW', '查看', null, 4);
+
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', '3842888467ae425c893b8cb75c0bd26a');
+
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '0d8e9dc82c4c4d22ab4fdb018c9c0f1f');
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '17c0e25ebba44a5391455242e37e38c8');
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '416d85050111410a901e6ef0ddbc3b2d');
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '71035b98ae004357acc53c7f8b959f24');
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'b361508563a148c0884abeaaeb4bd4bc');
