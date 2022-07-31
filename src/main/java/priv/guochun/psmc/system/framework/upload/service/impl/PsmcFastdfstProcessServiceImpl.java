@@ -30,6 +30,9 @@ public class PsmcFastdfstProcessServiceImpl implements PsmcBaseFileProcessServic
             }
             byte[] fileB = file.getBytes();
             String [] result = FastdfsUtils.uploadFile(fileB,myFileName,fileB.length);
+            for(int i=0;i<result.length;i++){
+                System.out.println(result[0]);
+            }
             model.setFile_upload_real_path(result[0]);
             files.add(model);
         }
