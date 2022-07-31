@@ -42,19 +42,6 @@ public class FastdfsUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		/*
-		 * File file =
-		 * Paths.get("C:","Users","lpfnwndproc","Pictures","Saved Pictures"
-		 * ,"2016111321375964401.jpg").toFile();
-		 * 
-		 * String[] files = uploadFile(file, "test.jpg", file.length());
-		 * System.out.println(Arrays.asList(files));
-		 */
-
-		// downloadFile("group1",
-		// "M00/00/00/CphkZltdcpyAQvt0AAFaTFDqkE4094.jpg");
-		// deleteFile("group1", "M00/00/00/CphkZltkfcSAT48uAAFaTFDqkE4771.jpg");
 		getToken("M00/00/00/CphkZltdcpyAQvt0AAFaTFDqkE4094.jpg", "FastDFS1234567890");
 	}
 
@@ -81,7 +68,6 @@ public class FastdfsUtils {
 		sb.append("token=").append(token);
 		sb.append("&ts=").append(ts);
 
-		System.out.println(sb.toString());
 	}
 	/**
 	 * 文件缓冲区，web上没啥用
@@ -116,7 +102,6 @@ public class FastdfsUtils {
 	 */
 	public static String[] uploadFile(byte[] fileBuff, String uploadFileName, long fileLength) throws IOException {
 		logger.info("上传文件=======================");
-		//byte[] fileBuff = getFileBuffer(new FileInputStream(file), fileLength);
 		String[] files = null;
 		String fileExtName = "";
 		if (uploadFileName.contains(".")) {

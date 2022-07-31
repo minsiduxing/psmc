@@ -13,6 +13,7 @@ import org.springframework.web.servlet.View;
 import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.controller.MyController;
+import priv.guochun.psmc.system.framework.upload.base.PsmcBaseFileProcessService;
 import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
 import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
 import priv.guochun.psmc.system.framework.upload.util.FtpUtil;
@@ -57,9 +58,9 @@ public class FileUploadController extends MyController {
 	public void fileUpload(HttpServletRequest request,HttpServletResponse response,String oneLevelClassify) throws IllegalStateException, IOException{
 		request.setAttribute("imagePath", this.getImagePath(oneLevelClassify));
 		UploadFileModel upf = uploadAssemblyInterface.getFile(request);
-		FtpUtil ftu = FtpUtil.getFtputil();
-		String filepath = ftu.uploadFile(upf);
-		super.responseJson(true,filepath, response);
+//		FtpUtil ftu = FtpUtil.getFtputil();
+//		String filepath = ftu.uploadFile(upf);
+		super.responseJson(true,upf.getFile_upload_real_path(), response);
 	}
 
 	@RequestMapping(params="method=fileUploadVideo")
