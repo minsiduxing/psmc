@@ -1,5 +1,4 @@
-package priv.guochun.psmc.website.backstage.common.interceptor;
-import java.io.IOException;
+package priv.guochun.psmc.system.framework.cxf.interceptor;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -18,28 +17,28 @@ import org.apache.cxf.transport.http.AbstractHTTPDestination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import priv.guochun.psmc.system.framework.filter.interceptor.model.VisitModel;
+import priv.guochun.psmc.system.framework.cxf.china.model.VisitModel;
 import priv.guochun.psmc.system.util.IpUtil;
-import priv.guochun.psmc.website.backstage.common.china.factory.PsmcChjghProcessChinaFactory;
+import priv.guochun.psmc.system.framework.cxf.china.factory.PsmcChjghProcessChinaFactory;
 
 /**
  * psmc接口服务器拦截器
  * @author guochun
  *
  */
-public class PsmcChjghServicePreInterceptor extends
+public class PsmcServicePreInterceptor extends
 		AbstractPhaseInterceptor<Message> {
 
-	protected static final  Logger logger  = LoggerFactory.getLogger(PsmcChjghServicePreInterceptor.class);
+	protected static final  Logger logger  = LoggerFactory.getLogger(PsmcServicePreInterceptor.class);
 	 
 	protected PsmcChjghProcessChinaFactory psmcChjghProcessChinaFactory;
 	
 	
-	public PsmcChjghServicePreInterceptor(){
+	public PsmcServicePreInterceptor(){
 		super(Phase.PRE_INVOKE);
 	}
 	
-	public PsmcChjghServicePreInterceptor(String phase){
+	public PsmcServicePreInterceptor(String phase){
 		super(phase);
 	}
 	
@@ -90,7 +89,7 @@ public class PsmcChjghServicePreInterceptor extends
 		String result = psmcChjghProcessChinaFactory.buildChjghProcessChina().processTask(visitModel);
 		if(StringUtils.isNotBlank(result)){
 			//如果不为空 说明链路处理期间遇到错误被拦截
-			logger.debug(result);
+			logger.warn(result);
 			HttpServletResponse response = (HttpServletResponse)message.get(AbstractHTTPDestination.HTTP_RESPONSE);
 			ServletOutputStream out;
 			try {

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
+	default-lazy-init="false"  default-autowire="byName">
+
+	<!-- 服务请求前置拦截器 -->
+	<bean id="psmcServicePreInterceptor" class="priv.guochun.psmc.system.framework.cxf.interceptor.PsmcServicePreInterceptor" />
+
+	<!-- 服务请求处理链路构建工厂-->
+	<bean id="psmcChjghProcessChinaFactory" class="priv.guochun.psmc.system.framework.cxf.china.factory.PsmcChjghProcessChinaFactory" />
+
+	<!-- 服务请求处理链路类 -->
+	<bean id="psmcFirstValiateProcessChina" class="priv.guochun.psmc.system.framework.cxf.china.service.impl.PsmcFirstValiateProcessChina" />
+	<bean id="psmcTkValiateProcessChina" class="priv.guochun.psmc.system.framework.cxf.china.service.impl.PsmcTkValiateProcessChina" />
+
+
+</beans>
