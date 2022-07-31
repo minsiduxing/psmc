@@ -622,3 +622,17 @@ CREATE TABLE
 )
     ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_general_ci;
 
+/*增加账户分类*/
+alter table tab_accounts drop column account_type;
+alter table tab_accounts add column account_type TINYINT;
+
+
+/*新增字段*/
+alter table tab_dept drop is_custom;
+alter table tab_excellent_innovation drop is_custom;
+alter table tab_activity_manage drop is_custom;
+alter table tab_news drop is_custom;
+alter table tab_dept add is_custom integer comment '是否自定义配图';
+alter table tab_excellent_innovation add is_custom integer comment '是否自定义配图';
+alter table tab_activity_manage add is_custom integer comment '是否自定义配图';
+alter table tab_news add is_custom integer comment '是否自定义配图';
