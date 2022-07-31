@@ -1,4 +1,4 @@
-package priv.guochun.psmc.system.framework.upload.service.impl.;
+package priv.guochun.psmc.system.framework.upload.service.impl;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
