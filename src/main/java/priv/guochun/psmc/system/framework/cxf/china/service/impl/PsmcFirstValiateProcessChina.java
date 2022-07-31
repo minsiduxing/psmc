@@ -1,8 +1,8 @@
-package priv.guochun.psmc.system.framework.cxf.china.impl;
+package priv.guochun.psmc.system.framework.cxf.china.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import priv.guochun.psmc.system.framework.filter.interceptor.china.PsmcChjghBaseProcessChina;
-import priv.guochun.psmc.system.framework.filter.interceptor.model.VisitModel;
+import priv.guochun.psmc.system.framework.cxf.china.service.PsmCxfBaseProcessChina;
+import priv.guochun.psmc.system.framework.cxf.china.model.VisitModel;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
 import priv.guochun.psmc.system.util.DateUtil;
@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * 接口处理首链路（次数校验）
  */
-public class PsmcFirstValiateProcessChina extends  PsmcChjghBaseProcessChina{
+public class PsmcFirstValiateProcessChina extends PsmCxfBaseProcessChina {
 
 	private Map<String,Long> loginMap =  new HashMap<String,Long>();
 
@@ -24,7 +24,7 @@ public class PsmcFirstValiateProcessChina extends  PsmcChjghBaseProcessChina{
 			return GsonUtil.toJsonForObject(MsgModel.buildDefaultError("系统初始化未完成,请稍后在试!"));
 		}
 		String visitUrl = visitModel.getBasePathRaiseRoot() + visitModel.getPathToMatchSlash();
-		if (visitModel != null && this.basePathRaiseRootIsPassed(visitUrl)) {
+		if (visitModel != null && this.uriIsPassed(visitUrl)) {
 			String clientIp = visitModel.getClientIp();
 			String visitTargetMethod = visitModel.getVisitTargetMethod();
 			Date visitDate = visitModel.getVisitDate();
@@ -32,7 +32,7 @@ public class PsmcFirstValiateProcessChina extends  PsmcChjghBaseProcessChina{
 
 			JSONObject jo = this.getNumberValiateJSONObject(visitUrl);
 			if(jo != null){
-				//默认校验时间一分钟，部分接口可以根据配置来
+				//默认校验时间一分钟，接口还可以根据配置来调整
 				long visitLockTime = 60;
 				if(jo.getLong("second") != 0)
 					visitLockTime = jo.getLong("second");

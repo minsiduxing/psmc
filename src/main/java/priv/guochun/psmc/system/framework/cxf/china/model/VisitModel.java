@@ -1,4 +1,4 @@
-package priv.guochun.psmc.system.framework.filter.interceptor.model;
+package priv.guochun.psmc.system.framework.cxf.china.model;
 
 import java.util.Date;
 

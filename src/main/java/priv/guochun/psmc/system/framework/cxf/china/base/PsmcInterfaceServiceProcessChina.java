@@ -1,6 +1,6 @@
-package priv.guochun.psmc.system.framework.filter.interceptor.china;
+package priv.guochun.psmc.system.framework.cxf.china.base;
 
-import priv.guochun.psmc.system.framework.filter.interceptor.model.VisitModel;
+import priv.guochun.psmc.system.framework.cxf.china.model.VisitModel;
 
 
 /**
@@ -24,6 +24,9 @@ public interface PsmcInterfaceServiceProcessChina {
 	 */
 
 	public abstract void setNextProcessChina(PsmcInterfaceServiceProcessChina ifProcessChina) ;
-	
-	
+
+	/**
+	 * 初始化处理权限
+	 */
+	public abstract void initCxfallowedUri();
 }

@@ -12,15 +12,8 @@
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
 	default-lazy-init="false"  default-autowire="byName">
 
-	<!-- 服务请求前置拦截器 -->
-	<bean id="psmcServicePreInterceptor" class="priv.guochun.psmc.system.framework.cxf.interceptor.PsmcServicePreInterceptor" />
-
-	<!-- 服务请求处理链路构建工厂-->
-	<bean id="psmcChjghProcessChinaFactory" class="priv.guochun.psmc.system.framework.cxf.china.factory.PsmcChjghProcessChinaFactory" />
-
-	<!-- 服务请求处理链路类 -->
-	<bean id="psmcFirstValiateProcessChina" class="priv.guochun.psmc.system.framework.cxf.china.service.impl.PsmcFirstValiateProcessChina" />
-	<bean id="psmcTkValiateProcessChina" class="priv.guochun.psmc.system.framework.cxf.china.service.impl.PsmcTkValiateProcessChina" />
+	<!-- 自定义spring初始化完成事件监听 -->
+	<bean id="psmcCustomApplicationListener" class="priv.guochun.psmc.system.framework.listener.PsmcCustomApplicationListener" />
 
 
 </beans>

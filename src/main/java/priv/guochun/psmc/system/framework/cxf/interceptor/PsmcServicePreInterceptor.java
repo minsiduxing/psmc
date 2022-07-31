@@ -17,7 +17,7 @@ import org.apache.cxf.transport.http.AbstractHTTPDestination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import priv.guochun.psmc.system.framework.filter.interceptor.model.VisitModel;
+import priv.guochun.psmc.system.framework.cxf.china.model.VisitModel;
 import priv.guochun.psmc.system.util.IpUtil;
 import priv.guochun.psmc.system.framework.cxf.china.factory.PsmcChjghProcessChinaFactory;
 

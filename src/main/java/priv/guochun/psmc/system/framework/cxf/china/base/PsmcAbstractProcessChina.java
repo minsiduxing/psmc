@@ -1,10 +1,9 @@
-package priv.guochun.psmc.system.framework.cxf.china;
+package priv.guochun.psmc.system.framework.cxf.china.base;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import priv.guochun.psmc.system.framework.filter.interceptor.china.PsmcInterfaceServiceProcessChina;
-import priv.guochun.psmc.system.framework.filter.interceptor.model.VisitModel;
+import priv.guochun.psmc.system.framework.cxf.china.model.VisitModel;
 
 public abstract class PsmcAbstractProcessChina implements PsmcInterfaceServiceProcessChina{
 

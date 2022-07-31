@@ -1,6 +1,6 @@
 package priv.guochun.psmc.system.framework.cxf.china.factory;
 
-import priv.guochun.psmc.system.framework.filter.interceptor.china.PsmcInterfaceServiceProcessChina;
+import priv.guochun.psmc.system.framework.cxf.china.base.PsmcInterfaceServiceProcessChina;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 
 public class PsmcChjghProcessChinaFactory {
