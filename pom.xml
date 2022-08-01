@@ -438,7 +438,7 @@
 				</includes>
 			</resource>
 		</resources>
-		<finalName>yckystd</finalName>
+		<finalName>psmc</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

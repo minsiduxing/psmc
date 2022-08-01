@@ -126,7 +126,7 @@ public class FastdfsUtils {
 		try {
 			files = client.upload_file(fileBuff, fileExtName, metaList);
 		} catch (Exception e) {
-			System.out.println("Upload file \"" + uploadFileName + "\"fails");
+			e.printStackTrace();
 		}
 		trackerServer.close();
 		return files;

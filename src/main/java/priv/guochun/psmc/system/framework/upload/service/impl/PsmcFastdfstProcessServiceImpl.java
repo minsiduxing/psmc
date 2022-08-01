@@ -30,10 +30,13 @@ public class PsmcFastdfstProcessServiceImpl implements PsmcBaseFileProcessServic
             }
             byte[] fileB = file.getBytes();
             String [] result = FastdfsUtils.uploadFile(fileB,myFileName,fileB.length);
+            StringBuffer sb1 = new StringBuffer();
             for(int i=0;i<result.length;i++){
-                System.out.println(result[0]);
+                sb1.append(result[i]);
+                if(i<result.length-1)
+                    sb1.append("/");
             }
-            model.setFile_upload_real_path(result[0]);
+            model.setFile_upload_real_path("http://www.suojilawyer.com/"+ sb1.toString());
             files.add(model);
         }
         return files.size()>0?files:null;
