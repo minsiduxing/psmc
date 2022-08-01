@@ -4,7 +4,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.cache.Cache;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
@@ -21,6 +20,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 集成fastdfs的实现
+ */
 public class PsmcFastdfstProcessServiceImpl implements PsmcBaseFileProcessService {
 
     private CommonsMultipartResolver multipartResolver;

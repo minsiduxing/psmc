@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * psmc 标准文件操作接口
+ */
 public interface PsmcBaseFileProcessService {
 
     /**

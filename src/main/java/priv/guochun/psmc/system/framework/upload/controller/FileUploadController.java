@@ -1,27 +1,22 @@
 package priv.guochun.psmc.system.framework.upload.controller;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.View;
 import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.upload.base.PsmcBaseFileProcessService;
 import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
-import priv.guochun.psmc.system.framework.upload.util.FtpUtil;
-import priv.guochun.psmc.system.framework.upload.util.PSMCFileUtils;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.website.backstage.attachment.model.TabAttachment;
 import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -67,15 +62,7 @@ public class FileUploadController extends MyController {
 		psmcBaseFileProcessService.deleteFile(filePath);
 		super.responseJson(true,"文件："+filePath+"删除成功！", response);
 	}
-	@RequestMapping(params="method=listFiles")
-	@ResponseBody
-	public void listFiles(HttpServletRequest request,HttpServletResponse response,String filePath) throws IllegalStateException, IOException{
-		FtpUtil ftu = FtpUtil.getFtputil();
-	    Map<String,Object> resm = ftu.getFileList(filePath);
-	    JSONObject jsob = new JSONObject(resm);
-		super.responseJson(jsob, response);
-	}
-	
+
 	/**
 	 * 文件批量上传（目前是提供给移动端使用）这个方法不应该放在公共里面，应该放在陕测的里面，不要共用
 	 * @param request

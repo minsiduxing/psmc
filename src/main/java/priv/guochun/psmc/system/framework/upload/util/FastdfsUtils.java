@@ -167,7 +167,7 @@ public class FastdfsUtils {
 			return i == 0 ? true : false;
 		}catch(Exception e){
 			e.printStackTrace();
-			return false;
+			throw new RuntimeException("文件删除失败");
 		}
 	}
 }
