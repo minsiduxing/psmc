@@ -59,24 +59,12 @@ public class FileUploadController extends MyController {
 		super.responseJson(true,upf.getFileCompleteUrl(), response);
 	}
 
-	@RequestMapping(params="method=testFileDownload")
-	public View testFileDownload(HttpServletRequest request,HttpServletResponse response,String filePath) throws IllegalStateException, IOException{
-		FtpUtil ftu = FtpUtil.getFtputil();
-		File resFiel = ftu.downloadFileByFtp(filePath);
-		return this.responseFile(resFiel, PSMCFileUtils.getFileNameByPath(filePath), response);
-	}
-	@RequestMapping(params="method=getImage")
-	public void getImage(HttpServletRequest request,HttpServletResponse response,String filePath) throws Exception{
-		filePath = PSMCFileUtils.decodedFileName(filePath);
-		FtpUtil ftu = FtpUtil.getFtputil();
-		File resFiel = ftu.downloadFileByFtp(filePath);
-		this.responseImage(response, resFiel);
-	}
+
+
 	@RequestMapping(params="method=fileDelete")
 	@ResponseBody
 	public void fileDelete(HttpServletRequest request,HttpServletResponse response,String filePath) throws IllegalStateException, IOException{
-		FtpUtil ftu = FtpUtil.getFtputil();
-	     ftu.deleteFile(filePath);
+		psmcBaseFileProcessService.deleteFile(filePath);
 		super.responseJson(true,"文件："+filePath+"删除成功！", response);
 	}
 	@RequestMapping(params="method=listFiles")

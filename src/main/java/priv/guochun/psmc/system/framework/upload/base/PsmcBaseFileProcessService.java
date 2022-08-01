@@ -24,4 +24,12 @@ public interface PsmcBaseFileProcessService {
      * @throws IOException
      */
     public UploadFileModel uploadFile(HttpServletRequest request) throws IOException;
+
+    /**
+     * 文件删除
+     * @param filePath
+     * @return
+     * @throws IOException
+     */
+    public Boolean deleteFile(String filePath) throws IOException;
 }

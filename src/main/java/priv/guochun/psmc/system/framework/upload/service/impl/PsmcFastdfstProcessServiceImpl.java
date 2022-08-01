@@ -1,5 +1,6 @@
 package priv.guochun.psmc.system.framework.upload.service.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.cache.Cache;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -69,5 +70,19 @@ public class PsmcFastdfstProcessServiceImpl implements PsmcBaseFileProcessServic
     public UploadFileModel uploadFile(HttpServletRequest request) throws IOException{
         List<UploadFileModel> uploadFiles = uploadFiles(request);
         return  uploadFiles !=null?uploadFiles.get(0):null;
+    }
+
+    public Boolean deleteFile(String filePath){
+        PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+        Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+        Map<String, String> sysMap = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+        String file_prefix_path = sysMap.get("file_prefix_path").toString();
+        if(StringUtils.isNotBlank(filePath)){
+            filePath = filePath.replaceAll(file_prefix_path,"");
+            String groupName = filePath.substring(0,filePath.indexOf("/"));
+            String realFilePath = filePath.substring(filePath.indexOf("/")+1,filePath.length());
+            return FastdfsUtils.deleteFile(groupName,realFilePath);
+        }
+        return false;
     }
 }
