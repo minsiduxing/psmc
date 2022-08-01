@@ -104,15 +104,6 @@ public class PsmcCreateExcelDataFile implements CreateExcelDataFileInterface {
 					}
 					rows++;
 				}
-				if(ws != null)
-				{
-					wwb.write();
-		            wwb.close();
-					fos.close();
-
-				}
-	            
-	
 				Date fileWriteEndDate = new Date();
 				
 				long second = (fileWriteEndDate.getTime() - fileWriteStartDate.getTime());
