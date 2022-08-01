@@ -249,10 +249,6 @@ insert into tab_privilege (uuid, privilege_id, privilege_name, remark, creator_n
 /*-----------------------------定义菜单的业务操作-----------------------------*/
 /*菜单----[账户信息]业务操作*/
 insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
-    ('14a2243153eb483caf3573246148e9cc','d4f3b60bfdcc4314baf65448d1284080','756d6e80c9d74b4389c918ab50ee19c3',
-     'priv.guochun.psmc.authentication.user.service.TabAccountService','getTabAccountsBusinessMethod','查询','',1,'');
-
-insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
     ('14a2243153eb483caf3573246148e93c','d4f3b60bfdcc4314baf65448d1284080','756d6e80c9d74b4389c918ab50ee19c3',
      'priv.guochun.psmc.authentication.user.service.TabAccountService','getTabAccountsBusinessMethod','查询','',1,'ACCOUNT_QUERY');
 
@@ -271,7 +267,7 @@ insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_metho
 
 insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
     ('8dfc1b3b65694a0a8ec7f9f09148f0f3','d4f3b60bfdcc4314baf65448d1284080','460283cc3e2c4d0a8b6bbbd75698a339',
-     'priv.guochun.psmc.authentication.user.service.TabAccountService','getTabAccountsBusinessMethod','导出','',5,'ACCOUNT_EXPORT');
+     'priv.guochun.psmc.authentication.user.service.TabAccountService','getAllTabAccountsBusinessMethod','导出','',5,'ACCOUNT_EXPORT');
 
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','14a2243153eb483caf3573246148e9cc');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','3a764c1f79294c8b903ebb80abf07220');
