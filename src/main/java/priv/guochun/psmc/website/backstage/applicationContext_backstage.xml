@@ -97,6 +97,7 @@
 	<bean id="inquestService" class="priv.guochun.psmc.inquest.service.impl.InquestServiceImpl"/>
 	<bean id="accessTokenService" class="priv.guochun.psmc.inquest.service.impl.AccessTokenServiceImpl"/>
 	<bean id="tabYcInquestItemCfgService" class="priv.guochun.psmc.inquest.service.impl.TabYcInquestItemCfgServiceImpl"/>
+	<bean id="tabYcWaitQueueCfgService" class="priv.guochun.psmc.inquest.service.impl.TabYcWaitQueueCfgServiceImpl"/>
 
 	<jaxrs:server id="chjghWeChatCxfService" address="/chjgh" >
                 <jaxrs:serviceBeans>

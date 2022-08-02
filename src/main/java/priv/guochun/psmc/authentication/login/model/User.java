@@ -27,6 +27,8 @@ public class User implements Serializable
     private String userUuid;
     
     private String groupName;
+
+	private String groupCode;
     
     
     public User(Map tabAccount,Map tabPerson,Map tabRole){
@@ -161,14 +163,12 @@ public class User implements Serializable
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
-    
-	
 
-	
+	public String getGroupCode() {
+		return groupCode;
+	}
 
-	
-
-    
-    
-    
+	public void setGroupCode(String groupCode) {
+		this.groupCode = groupCode;
+	}
 }
