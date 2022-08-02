@@ -12,6 +12,7 @@ import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.upload.base.PsmcBaseFileProcessService;
 import priv.guochun.psmc.system.framework.upload.factory.MyCommonsMultipartResolverFactory;
 import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
+import priv.guochun.psmc.system.framework.upload.util.FtpUtil;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.DateUtil;
 
@@ -75,11 +76,6 @@ public class PsmcLocalProcessServiceImpl implements PsmcBaseFileProcessService {
                         String fileTempAllPath =system_upload_temp_dir +cutomFilePath;
                         String fileRealAllPath =system_upload_dir+cutomFilePath;
 //
-                        //如果文件为图片则新建image文件夹
-//                          if(PSMCFileUtils.isPicture(fileSuffix)){
-//                        	  cutomFilePath = "image/" + cutomFilePath;
-//                        	  fileRealAllPath = system_upload_dir+cutomFilePath;
-//                          }
                         File localFile = new File(fileTempAllPath);
                         if(!localFile.exists()){
                             localFile.mkdirs();
@@ -89,7 +85,10 @@ public class PsmcLocalProcessServiceImpl implements PsmcBaseFileProcessService {
                         model.setFile_upload_real_path(fileRealAllPath);
                         model.setFile(localFile);
                         model.setCustom_file_path(cutomFilePath);
-                        model.setFileCompleteUrl(file_prefix_path.toString());
+
+                        FtpUtil ftu = FtpUtil.getFtputil();
+                        String filepath = ftu.uploadFile(model);
+                        model.setFileCompleteUrl(file_prefix_path+filepath);
                         files.add(model);
                     }else{
                         logger.warn("文件不存在.............file name is null ");
