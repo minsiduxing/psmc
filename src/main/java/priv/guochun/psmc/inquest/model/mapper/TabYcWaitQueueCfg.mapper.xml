@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tab_yc_wait_queue_cfg">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="priv.guochun.psmc.inquest.model.TabYcWaitQueueCfg" id="waitQueueCfgMap">
+        <result property="cfgUuid" column="cfg_uuid"/>
+        <result property="orgName" column="org_name"/>
+        <result property="orgCode" column="org_code"/>
+        <result property="defaultLongitude" column="default_longitude"/>
+        <result property="defaultLatitude" column="default_latitude"/>
+        <result property="contactAddress" column="contact_address"/>
+        <result property="contactTel" column="contact_tel"/>
+        <result property="addressLongitude" column="address_longitude"/>
+        <result property="addressLatitude" column="address_latitude"/>
+        <result property="workTime" column="work_time"/>
+        <result property="isFictitiousGrid" column="is_fictitious_grid"/>
+        <result property="overdueDays" column="overdue_days"/>
+        <result property="isClosedRetain" column="is_closed_retain"/>
+        <result property="closedRetainDays" column="closed_retain_days"/>
+        <result property="qrcodePath" column="qrcode_path"/>
+        <result property="sort" column="sort"/>
+        <result property="isActive" column="IS_ACTIVE"/>
+        <result property="creator" column="CREATOR"/>
+        <result property="createTime" column="CREATE_TIME"/>
+    </resultMap>
+
+
+    <select id="selectWaitQueueCfgList" resultMap="waitQueueCfgMap" parameterType="hashmap">
+        SELECT
+            a.*
+        FROM
+            tab_yc_wait_queue_cfg a
+        WHERE a.is_active=1
+        <if test="orgCode != null and orgCode != ''">
+            and a.org_code in (
+                select group_code
+                from tab_group
+                WHERE parent_group_code = #{orgCode}
+                or group_code = #{orgCode}
+            )
+        </if>
+        ORDER BY a.sort ASC
+    </select>
+
+
+</mapper>
