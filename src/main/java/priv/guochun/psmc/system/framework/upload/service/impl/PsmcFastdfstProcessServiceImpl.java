@@ -37,6 +37,7 @@ public class PsmcFastdfstProcessServiceImpl implements PsmcBaseFileProcessServic
             PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
             Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
             Map<String, String> sysMap = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+            String file_prefix_path = sysMap.get("file_prefix_path").toString();
             //转换成多部分request
             MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
             Iterator<String> iter = multiRequest.getFileNames();
@@ -62,7 +63,7 @@ public class PsmcFastdfstProcessServiceImpl implements PsmcBaseFileProcessServic
                 }
                 model.setFileSystemName(result[1]);
                 model.setFile_upload_real_path(sb1.toString());
-                model.setFileCompleteUrl(sysMap.get("file_prefix_path").toString()+ sb1.toString());
+                model.setFileCompleteUrl(file_prefix_path.toString()+ sb1.toString());
                 files.add(model);
             }
         }

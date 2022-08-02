@@ -19,5 +19,5 @@
         </property>    
     </bean>  
     <!--文件上传组件service注入  -->
-	<bean id="psmcBaseFileProcessService" class="priv.guochun.psmc.system.framework.upload.service.impl.PsmcFastdfstProcessServiceImpl"/>
+	<bean id="psmcBaseFileProcessService" class="priv.guochun.psmc.system.framework.upload.service.impl.PsmcLocalProcessServiceImpl"/>
 </beans>
