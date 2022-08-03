@@ -437,7 +437,7 @@
 				</includes>
 			</resource>
 		</resources>
-		<finalName>psmc</finalName>
+		<finalName>sjhc</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
