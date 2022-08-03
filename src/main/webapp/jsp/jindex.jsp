@@ -28,7 +28,7 @@
     <div id="sysFootDiv" data-options="region:'south',title:'',split:false" style="height:7%">
     	<div style="padding:0.9%;font-family:serif;font-size:12px;text-align:center;
     	font-style:inherit;font-variant-caps:titling-caps;background:#F8F8FF;color:black;">
-    			Powered By  西安敏思笃行信息技术有限公司 电话:18392101807 邮箱:minsiduxing@163.com
+			技术支持电话:18392101807 邮箱:minsiduxing@163.com
     	</div>
     </div>
     

@@ -100,6 +100,9 @@
   <listener>
     <listener-class>priv.guochun.psmc.authentication.login.controller.SessionListener</listener-class>
   </listener>
+  <listener>
+    <listener-class>priv.guochun.psmc.system.framework.servletlistener.QuartzContextListener</listener-class>
+  </listener>
   
   <servlet>
     <description>Apache CXF Endpoint</description>

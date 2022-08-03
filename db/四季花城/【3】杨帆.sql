@@ -1,42 +1,4 @@
--- ----------------------------
--- Table structure for tab_message_black
--- ----------------------------
-DROP TABLE IF EXISTS `tab_message_black`;
-CREATE TABLE `tab_message_black`  (
-  `black_uuid` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
-  `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '电话号码',
-  `reason` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '原因',
-  `add_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`black_uuid`) USING BTREE
-) 
 
--- ----------------------------
--- Table structure for tab_message_pool
--- ----------------------------
-DROP TABLE IF EXISTS `tab_message_pool`;
-CREATE TABLE `tab_message_pool`  (
-  `msg_uuid` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
-  `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '电话号码',
-  `temp_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '模板code',
-  `add_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`msg_uuid`) USING BTREE
-) 
-
--- ----------------------------
--- Table structure for tab_message_temp
--- ----------------------------
-DROP TABLE IF EXISTS `tab_message_temp`;
-CREATE TABLE `tab_message_temp`  (
-  `temp_uuid` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键',
-  `temp_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '模板code',
-  `temp_content` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '模板内容',
-  `type` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型：0短信，1彩信',
-  `add_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`temp_uuid`) USING BTREE
-) 
-
-
----------------------------------------------------------------------------------
 insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
 ('e2ab21ca3bd14c92b0b9bf158e34a8fc','短彩信推广',2,'','e51a8663876f4a3394bb194d89d96735','admin',str_to_date('2018-05-13','%Y-%m-%d %T'),'短彩信推广',31,1);
 

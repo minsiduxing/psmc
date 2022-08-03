@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tab_yc_inquest_option_cfg">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="priv.guochun.psmc.inquest.model.TabYcInquestOptionCfg" id="tabYcInquestOptionCfgMap">
+        <result property="optionUuid" column="OPTION_UUID"/>
+        <result property="itemUuid" column="ITEM_UUID"/>
+        <result property="optionContent" column="OPTION_CONTENT"/>
+        <result property="optionValue" column="OPTION_VALUE"/>
+        <result property="sort" column="sort"/>
+        <result property="isActive" column="IS_ACTIVE"/>
+        <result property="creator" column="CREATOR"/>
+        <result property="createTime" column="CREATE_TIME"/>
+    </resultMap>
+
+
+
+    <insert id="insertInquestOptionCfg" parameterType="priv.guochun.psmc.inquest.model.TabYcInquestOptionCfg">
+        insert into tab_yc_inquest_option_cfg
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="optionUuid != null">
+                OPTION_UUID,
+            </if>
+            <if test="itemUuid != null">
+                ITEM_UUID,
+            </if>
+            <if test="optionContent != null">
+                OPTION_CONTENT,
+            </if>
+            <if test="optionValue != null">
+                OPTION_VALUE,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="isActive != null">
+                IS_ACTIVE,
+            </if>
+            <if test="creator != null">
+                CREATOR,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="optionUuid != null">
+                #{optionUuid},
+            </if>
+            <if test="itemUuid != null">
+                #{itemUuid},
+            </if>
+            <if test="optionContent != null">
+                #{optionContent},
+            </if>
+            <if test="optionValue != null">
+                #{optionValue},
+            </if>
+            <if test="sort != null">
+                #{sort},
+            </if>
+            <if test="isActive != null">
+                #{isActive},
+            </if>
+            <if test="creator != null">
+                #{creator},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateInquestOptionCfg" parameterType="priv.guochun.psmc.inquest.model.TabYcInquestOptionCfg">
+        update tab_yc_inquest_option_cfg
+        <set>
+            <if test="itemUuid != null">
+                ITEM_UUID = #{optionUuid},
+            </if>
+            <if test="optionContent != null">
+                OPTION_CONTENT = #{optionContent},
+            </if>
+            <if test="optionValue != null">
+                OPTION_VALUE = #{optionValue},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="isActive != null">
+                IS_ACTIVE = #{isActive},
+            </if>
+            <if test="creator != null">
+                CREATOR = #{creator},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime},
+            </if>
+        </set>
+        where OPTION_UUID = #{optionUuid}
+    </update>
+
+    <delete id="deleteOptionByItemUuid" parameterType="map">
+        delete from tab_yc_inquest_option_cfg
+        where ITEM_UUID in
+        <foreach item="item" index="index" collection="itemUuids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>

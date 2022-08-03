@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tab_yc_inquest_record">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="priv.guochun.psmc.inquest.model.TabYcInquestRecord" id="tabYcInquestRecordMap">
+        <result property="recordUuid" column="RECORD_UUID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="mobile" column="MOBILE"/>
+        <result property="currentStage" column="CURRENT_STAGE"/>
+        <result property="inquestResult" column="INQUEST_RESULT"/>
+        <result property="orgCode" column="org_code"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="modifyTime" column="MODIFY_TIME"/>
+        <result property="businessAddress" column="BUSINESS_ADDRESS"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
+    </resultMap>
+
+    <select id="selectInquestRecord" resultMap="tabYcInquestRecordMap">
+        select * from tab_yc_inquest_record
+        where 1=1
+        <if test="recordUuid != null and recordUuid != ''">
+            and RECORD_UUID = #{recordUuid}
+        </if>
+        <if test="userId != null and userId != ''">
+            and USER_ID = #{userId}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            and MOBILE = #{mobile}
+        </if>
+        order by CREATE_TIME desc
+    </select>
+
+    <insert id="insertInquestRecord" parameterType="priv.guochun.psmc.inquest.model.TabYcInquestRecord">
+        insert into tab_yc_inquest_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recordUuid != null">
+                RECORD_UUID,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="mobile != null">
+                MOBILE,
+            </if>
+            <if test="currentStage != null">
+                CURRENT_STAGE,
+            </if>
+            <if test="inquestResult != null">
+                INQUEST_RESULT,
+            </if>
+            <if test="orgCode != null">
+                org_code,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="modifyTime != null">
+                MODIFY_TIME,
+            </if>
+            <if test="businessAddress != null">
+                BUSINESS_ADDRESS,
+            </if>
+            <if test="longitude != null">
+                longitude,
+            </if>
+            <if test="latitude != null">
+                latitude,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="recordUuid != null">
+                #{recordUuid},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="mobile != null">
+                #{mobile},
+            </if>
+            <if test="currentStage != null">
+                #{currentStage},
+            </if>
+            <if test="inquestResult != null">
+                #{inquestResult},
+            </if>
+            <if test="orgCode != null">
+                #{orgCode},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime},
+            </if>
+            <if test="businessAddress != null">
+                #{businessAddress},
+            </if>
+            <if test="longitude != null">
+                #{longitude},
+            </if>
+            <if test="latitude != null">
+                #{latitude},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateInquestRecord" parameterType="priv.guochun.psmc.inquest.model.TabYcInquestRecord">
+        update tab_yc_inquest_record
+        <set>
+            <if test="userId != null">
+                USER_ID = #{userId},
+            </if>
+            <if test="mobile != null">
+                MOBILE = #{mobile},
+            </if>
+            <if test="currentStage != null">
+                CURRENT_STAGE = #{currentStage},
+            </if>
+            <if test="inquestResult != null">
+                INQUEST_RESULT = #{inquestResult},
+            </if>
+            <if test="orgCode != null">
+                org_code = #{orgCode},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime},
+            </if>
+            <if test="modifyTime != null">
+                MODIFY_TIME = #{modifyTime},
+            </if>
+            <if test="businessAddress != null">
+                BUSINESS_ADDRESS = #{businessAddress},
+            </if>
+            <if test="longitude != null">
+                longitude = #{longitude},
+            </if>
+            <if test="latitude != null">
+                latitude = #{latitude},
+            </if>
+        </set>
+        where RECORD_UUID = #{recordUuid}
+    </update>
+
+</mapper>

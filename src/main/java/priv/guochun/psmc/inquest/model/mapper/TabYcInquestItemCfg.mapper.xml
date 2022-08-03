@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TAB_YC_INQUEST_ITEM_CFG">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="priv.guochun.psmc.inquest.model.TabYcInquestItemCfg" id="tabYcInquestItemCfgMap">
+        <result property="itemUuid" column="ITEM_UUID"/>
+        <result property="stageUuid" column="STAGE_UUID"/>
+        <result property="questionType" column="QUESTION_TYPE"/>
+        <result property="questionName" column="QUESTION_NAME"/>
+        <result property="standardAnswer" column="STANDARD_ANSWER"/>
+        <result property="tipsInfo" column="TIPS_INFO"/>
+        <result property="isAffectedBsg" column="is_affected_bsg"/>
+        <result property="isAffectedJlcl" column="is_affected_jlcl"/>
+        <result property="isAffectedBhdcs" column="is_affected_bhdcs"/>
+        <result property="displayAtlas" column="display_atlas"/>
+        <result property="displayVidio" column="display_vidio"/>
+        <result property="sort" column="sort"/>
+        <result property="orgCode" column="org_code"/>
+        <result property="releationItemUuid" column="releation_item_uuid"/>
+        <result property="isNegative" column="is_negative"/>
+        <result property="isActive" column="IS_ACTIVE"/>
+        <result property="creator" column="CREATOR"/>
+        <result property="createTime" column="CREATE_TIME"/>
+    </resultMap>
+
+    <resultMap id="inquestItemCfgVOMap" type="priv.guochun.psmc.inquest.model.vo.TabYcInquestItemCfgVO">
+        <result property="itemUuid" column="ITEM_UUID"/>
+        <result property="stageUuid" column="STAGE_UUID"/>
+        <result property="questionType" column="QUESTION_TYPE"/>
+        <result property="questionName" column="QUESTION_NAME"/>
+        <result property="standardAnswer" column="STANDARD_ANSWER"/>
+        <result property="tipsInfo" column="TIPS_INFO"/>
+        <result property="isAffectedBsg" column="is_affected_bsg"/>
+        <result property="isAffectedJlcl" column="is_affected_jlcl"/>
+        <result property="isAffectedBhdcs" column="is_affected_bhdcs"/>
+        <result property="displayAtlas" column="display_atlas"/>
+        <result property="displayVidio" column="display_vidio"/>
+        <result property="sort" column="sort"/>
+        <result property="orgCode" column="org_code"/>
+        <result property="releationItemUuid" column="releation_item_uuid"/>
+        <result property="isNegative" column="is_negative"/>
+        <result property="stageCode" column="stage_code"/>
+        <result property="stageName" column="stage_name"/>
+        <result property="stageLevel" column="stage_level"/>
+        <result property="itemDisplayType" column="item_display_type"/>
+        <result property="resultJudge" column="result_judge"/>
+        <result property="nextStageUuid" column="next_stage_uuid"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <collection property="optionCfgList" ofType="priv.guochun.psmc.inquest.model.TabYcInquestOptionCfg">
+            <result property="optionContent" column="OPTION_CONTENT"/>
+            <result property="optionValue" column="OPTION_VALUE"/>
+        </collection>
+    </resultMap>
+
+    <select id="findInquestItemList" resultMap="inquestItemCfgVOMap" parameterType="priv.guochun.psmc.inquest.model.vo.TabYcInquestItemCfgVO">
+        SELECT
+            a.stage_uuid,
+            a.stage_name,
+            a.stage_code,
+            a.stage_level,
+            a.item_display_type,
+            a.result_judge,
+            a.next_stage_uuid,
+            a.parent_id,
+            b.item_uuid,
+            b.QUESTION_NAME,
+            b.QUESTION_TYPE,
+            b.STANDARD_ANSWER,
+            b.TIPS_INFO,
+            b.is_affected_bsg,
+            b.is_affected_jlcl,
+            b.is_affected_bhdcs,
+            b.is_negative,
+            b.display_atlas,
+            b.display_vidio,
+            b.releation_item_uuid,
+            b.org_code,
+            c.option_content,
+            c.option_value
+        FROM
+            TAB_YC_STAGE a
+        left join
+            TAB_YC_INQUEST_ITEM_CFG b on a.stage_uuid=b.STAGE_UUID
+        left join
+            TAB_YC_INQUEST_OPTION_CFG c on b.ITEM_UUID=c.ITEM_UUID
+        WHERE
+            1=1
+          AND a.is_active=1
+          AND b.is_active=1
+          AND c.is_active=1
+        <if test="stageCode != null and stageCode != ''">
+            and a.stage_code = #{stageCode}
+        </if>
+        <if test="stageUuid != null and stageUuid != ''">
+            and a.stage_uuid = #{stageUuid}
+        </if>
+        <if test="itemUuid != null and itemUuid != ''">
+            and b.item_uuid = #{itemUuid}
+        </if>
+        <if test="releationItemUuid != null and releationItemUuid != ''">
+            and b.releation_item_uuid = #{releationItemUuid}
+        </if>
+        <if test="orgCode != null and orgCode != ''">
+            and b.org_code = #{orgCode}
+        </if>
+        ORDER BY
+            a.sort,
+            b.sort,
+            c.sort ASC
+    </select>
+
+    <select id="selectItemCfgList" resultMap="inquestItemCfgVOMap" parameterType="hashmap">
+        SELECT
+            a.stage_uuid,
+            a.stage_name,
+            a.stage_code,
+            b.item_uuid,
+            b.QUESTION_NAME,
+            b.QUESTION_TYPE,
+            b.STANDARD_ANSWER,
+            b.TIPS_INFO,
+            b.is_affected_bsg,
+            b.is_affected_jlcl,
+            b.is_affected_bhdcs,
+            b.display_atlas,
+            b.display_vidio,
+            b.releation_item_uuid,
+            b.org_code,
+            date_format(b.CREATE_TIME, '%Y-%m-%d %H:%i:%S') as CREATE_TIME
+        FROM
+            TAB_YC_STAGE a
+        left join
+            TAB_YC_INQUEST_ITEM_CFG b on a.stage_uuid=b.STAGE_UUID
+        left join
+            (
+                select group_code
+                from tab_group
+                WHERE parent_group_code = #{orgCode}
+                or group_code = #{orgCode}
+            ) d on b.org_code = d.group_code
+        WHERE a.is_active=1
+          AND b.is_active=1
+        <if test="stageCode != null and stageCode != ''">
+            AND a.stage_code = #{stageCode}
+        </if>
+        <if test="questionType != null and questionType != ''">
+            AND b.QUESTION_TYPE = #{questionType}
+        </if>
+        <if test="questionName != null and questionName != ''">
+            AND b.QUESTION_NAME = CONCAT('%', #{questionName},'%')
+        </if>
+        ORDER BY
+        a.sort, b.sort ASC
+    </select>
+
+    <select id="getInquestItemById" resultMap="inquestItemCfgVOMap">
+        select
+               t1.*,
+               t2.option_content,
+               t2.option_value,
+               t3.stage_code
+        from
+            TAB_YC_INQUEST_ITEM_CFG t1
+        left join
+            TAB_YC_INQUEST_OPTION_CFG t2
+        on t1.ITEM_UUID=t2.ITEM_UUID
+        left join
+            TAB_YC_STAGE t3
+        on t1.stage_uuid=t3.STAGE_UUID
+        where t1.ITEM_UUID = #{itemUuid}
+    </select>
+
+    <delete id="deleteInquestItemById">
+        delete from TAB_YC_INQUEST_ITEM_CFG
+        where ITEM_UUID in
+        <foreach item="item" index="index" collection="itemUuids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <insert id="insertInquestItemCfg" parameterType="priv.guochun.psmc.inquest.model.TabYcInquestItemCfg">
+        insert into TAB_YC_INQUEST_ITEM_CFG
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="itemUuid != null">
+                ITEM_UUID,
+            </if>
+            <if test="stageUuid != null">
+                STAGE_UUID,
+            </if>
+            <if test="questionType != null">
+                QUESTION_TYPE,
+            </if>
+            <if test="questionName != null">
+                QUESTION_NAME,
+            </if>
+            <if test="standardAnswer != null">
+                STANDARD_ANSWER,
+            </if>
+            <if test="tipsInfo != null">
+                TIPS_INFO,
+            </if>
+            <if test="isAffectedBsg != null">
+                is_affected_bsg,
+            </if>
+            <if test="isAffectedJlcl != null">
+                is_affected_jlcl,
+            </if>
+            <if test="isAffectedBhdcs != null">
+                is_affected_bhdcs,
+            </if>
+            <if test="displayAtlas != null">
+                display_atlas,
+            </if>
+            <if test="displayVidio != null">
+                display_vidio,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="orgCode != null">
+                org_code,
+            </if>
+            <if test="releationItemUuid != null">
+                releation_item_uuid,
+            </if>
+            <if test="isNegative != null">
+                is_negative,
+            </if>
+            <if test="isActive != null">
+                IS_ACTIVE,
+            </if>
+            <if test="creator != null">
+                CREATOR,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="itemUuid != null">
+                #{itemUuid},
+            </if>
+            <if test="stageUuid != null">
+                #{stageUuid},
+            </if>
+            <if test="questionType != null">
+                #{questionType},
+            </if>
+            <if test="questionName != null">
+                #{questionName},
+            </if>
+            <if test="standardAnswer != null">
+                #{standardAnswer},
+            </if>
+            <if test="tipsInfo != null">
+                #{tipsInfo},
+            </if>
+            <if test="isAffectedBsg != null">
+                #{isAffectedBsg},
+            </if>
+            <if test="isAffectedJlcl != null">
+                #{isAffectedJlcl},
+            </if>
+            <if test="isAffectedBhdcs != null">
+                #{isAffectedBhdcs},
+            </if>
+            <if test="displayAtlas != null">
+                #{displayAtlas},
+            </if>
+            <if test="displayVidio != null">
+                #{displayVidio},
+            </if>
+            <if test="sort != null">
+                #{sort},
+            </if>
+            <if test="orgCode != null">
+                #{orgCode},
+            </if>
+            <if test="releationItemUuid != null">
+                #{releationItemUuid},
+            </if>
+            <if test="isNegative != null">
+                #{isNegative},
+            </if>
+            <if test="isActive != null">
+                #{isActive},
+            </if>
+            <if test="creator != null">
+                #{creator},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateInquestItemCfg" parameterType="priv.guochun.psmc.inquest.model.TabYcInquestItemCfg">
+        update TAB_YC_INQUEST_ITEM_CFG
+        <set>
+            <if test="stageUuid != null">
+                STAGE_UUID = #{stageUuid},
+            </if>
+            <if test="questionType != null">
+                QUESTION_TYPE = #{questionType},
+            </if>
+            <if test="questionName != null">
+                QUESTION_NAME = #{questionName},
+            </if>
+            <if test="standardAnswer != null">
+                STANDARD_ANSWER = #{standardAnswer},
+            </if>
+            <if test="tipsInfo != null">
+                TIPS_INFO = #{tipsInfo},
+            </if>
+            <if test="isAffectedBsg != null">
+                is_affected_bsg = #{isAffectedBsg},
+            </if>
+            <if test="isAffectedJlcl != null">
+                is_affected_jlcl = #{isAffectedJlcl},
+            </if>
+            <if test="isAffectedBhdcs != null">
+                is_affected_bhdcs = #{isAffectedBhdcs},
+            </if>
+            <if test="displayAtlas != null">
+                display_atlas = #{displayAtlas},
+            </if>
+            <if test="displayVidio != null">
+                display_vidio = #{displayVidio},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="orgCode != null">
+                org_code = #{orgCode},
+            </if>
+            <if test="releationItemUuid != null">
+                releation_item_uuid = #{releationItemUuid},
+            </if>
+            <if test="isNegative != null">
+                is_negative = #{isNegative},
+            </if>
+            <if test="isActive != null">
+                IS_ACTIVE = #{isActive},
+            </if>
+            <if test="creator != null">
+                CREATOR = #{creator},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime},
+            </if>
+        </set>
+        where ITEM_UUID = #{itemUuid}
+    </update>
+
+</mapper>

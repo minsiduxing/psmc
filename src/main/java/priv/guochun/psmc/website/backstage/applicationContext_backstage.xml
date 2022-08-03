@@ -93,6 +93,12 @@
 	<!-- 点赞service注入 -->
 	<bean id="tabLaudService" class="priv.guochun.psmc.website.backstage.laud.service.impl.TabLaudServiceImpl"/>
 
+	<!-- 烟草勘验 -->
+	<bean id="inquestService" class="priv.guochun.psmc.inquest.service.impl.InquestServiceImpl"/>
+	<bean id="accessTokenService" class="priv.guochun.psmc.inquest.service.impl.AccessTokenServiceImpl"/>
+	<bean id="tabYcInquestItemCfgService" class="priv.guochun.psmc.inquest.service.impl.TabYcInquestItemCfgServiceImpl"/>
+	<bean id="tabYcWaitQueueCfgService" class="priv.guochun.psmc.inquest.service.impl.TabYcWaitQueueCfgServiceImpl"/>
+
 	<jaxrs:server id="chjghWeChatCxfService" address="/chjgh" >
                 <jaxrs:serviceBeans>
                     <ref bean="chjghWeChatService" />
@@ -100,7 +106,7 @@
                 <!-- 输入日志拦截器 -->
                 <jaxrs:inInterceptors>
                     <ref bean="loggingInInterceptor"/>
-                    <ref bean="psmcChjghServicePreInterceptor"/>
+                    <ref bean="psmcServicePreInterceptor"/>
                 </jaxrs:inInterceptors>
                 <!-- 输出日志拦截器 -->
                 <jaxrs:outInterceptors>
@@ -111,19 +117,29 @@
 		            <bean class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider"/>
 		        </jaxrs:providers>
      </jaxrs:server>
+
+	<jaxrs:server id="inquestCxfService" address="/inquest" >
+		<jaxrs:serviceBeans>
+			<ref bean="inquestService" />
+		</jaxrs:serviceBeans>
+		<!-- 输入日志拦截器 -->
+		<jaxrs:inInterceptors>
+			<ref bean="loggingInInterceptor"/>
+			<ref bean="psmcServicePreInterceptor"/>
+		</jaxrs:inInterceptors>
+		<!-- 输出日志拦截器 -->
+		<jaxrs:outInterceptors>
+			<ref bean="loggingOutInterceptor" />
+		</jaxrs:outInterceptors>
+		<!--对象转换-->
+		<jaxrs:providers>
+			<bean class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider"/>
+		</jaxrs:providers>
+	</jaxrs:server>
      
 	 <!-- 短信发送实现类 -->	
 	 <bean id="baseMobileSmsSendService" class="priv.guochun.psmc.system.framework.sms.service.impl.BaseMobileSmsSendServiceImpl" />
 	 
-	 <!-- 工会服务请求前置拦截器 -->
-	 <bean id="psmcChjghServicePreInterceptor" class="priv.guochun.psmc.website.backstage.common.interceptor.PsmcChjghServicePreInterceptor" />
-	
-	 <!-- 工会服务请求处理链路构建工厂-->	
-	 <bean id="psmcChjghProcessChinaFactory" class="priv.guochun.psmc.website.backstage.common.china.factory.PsmcChjghProcessChinaFactory" />
-	 
-	 <!-- 工会服务请求处理链路类 -->
-	 <bean id="psmcChjghMethodProcessChina" class="priv.guochun.psmc.website.backstage.common.china.impl.PsmcChjghMethodProcessChina" />
-	
 	 <!-- 实名认证 -->
 	 <bean id="realNameAuthService" class="priv.guochun.psmc.website.backstage.common.realNameAuth.impl.RealNameAuthServiceImpl"/>
 	 

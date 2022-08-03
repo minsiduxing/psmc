@@ -1,0 +1,97 @@
+update tab_group set group_code='17',group_name='福州市烟草专卖局' where uuid='e30f6d26f09646aaa18460c086a206da';
+INSERT INTO tab_group (uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) VALUES ('3fab4a2b1d2247558e156346e82f0df3', '福州市城北区烟草专卖局', 2, '1701', '10000', 'admin', '2018-06-08 00:00:00', '根目录', 1);
+INSERT INTO tab_group (uuid, group_name, group_type, group_code, parent_group_code, creator_name, create_time, remark, ordernum) VALUES ('a980ab6b14c14672b6c2b6122e958e3c', '福州市罗源县烟草专卖局', 2, '1702', '10000', 'admin', '2018-06-08 00:00:00', '根目录', 1);
+update tab_person set groupid='17' where groupid='10000';
+
+delete from TAB_DATA_DICT where DICT_NO='INFO_TYPE';
+
+INSERT INTO TAB_DATA_DICT(ID,DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,DICT_NO,PARENT_DICT_TYPE) VALUES(1,'1501','欢迎页','信息分类',11,1,'INFO_TYPE',15);
+INSERT INTO TAB_DATA_DICT(ID,DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,DICT_NO,PARENT_DICT_TYPE) VALUES(4,'1504','联系我们','信息分类',11,4,'INFO_TYPE',15);
+
+
+delete from tab_role_operate where operate_uuid in(select uuid from tab_operate where resource_uuid in('8e059c578c204fbbb29086aa72ec88f9','0b62d21d1ecd471f958d96b43471dcca','cd98d21d1ecd471f958d96b43471bbbf'));
+delete from tab_operate where resource_uuid in('8e059c578c204fbbb29086aa72ec88f9','0b62d21d1ecd471f958d96b43471dcca','cd98d21d1ecd471f958d96b43471bbbf');
+delete from tab_role_resource where resource_id in('8e059c578c204fbbb29086aa72ec88f9','0b62d21d1ecd471f958d96b43471dcca','cd98d21d1ecd471f958d96b43471bbbf');
+delete from tab_resource where uuid in('8e059c578c204fbbb29086aa72ec88f9','0b62d21d1ecd471f958d96b43471dcca','cd98d21d1ecd471f958d96b43471bbbf');
+
+
+insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+('8e059c578c204fbbb29086aa72ec88f9','信息发布',2,'','e51a8663876f4a3394bb194d89d96735','admin',str_to_date('2021-06-08','%Y-%m-%d %T'),'',23,1);
+
+insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+('0b62d21d1ecd471f958d96b43471dcca','信息发布',3,'/website/backstage/InfoReleaseController.do?method=infoReleaseList&oneLevelClassify=15','8e059c578c204fbbb29086aa72ec88f9','admin',str_to_date('2021-06-08','%Y-%m-%d %T'),'工作发布菜单',24,1);
+
+
+insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '8e059c578c204fbbb29086aa72ec88f9');
+insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '0b62d21d1ecd471f958d96b43471dcca');
+
+/**初始化信息发布（原文体协会)**/
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+('4855162ac2014d3fb5cf5bee17075e28','0b62d21d1ecd471f958d96b43471dcca','756d6e80c9d74b4389c918ab50ee19c3',
+'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','getInfoReleaseListBusinessMethod','查询','查询',1,'NEW_WORK_RELEASE_LIST');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+('392b972ef167498896caa46644221319','0b62d21d1ecd471f958d96b43471dcca','dec3b327b8a54d66bd644c544ea65c5e',
+'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','deleteInfoReleaseByUuidsBusinessMethod','删除','删除',1,'NEW_WORK_RELEASE_DEL');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+('5b4bea13b8dc4b6eac9ea7a7f6867456','0b62d21d1ecd471f958d96b43471dcca','022a43088dcd46d4b201b43b32d3d85a',
+'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','executeAuditModuleBusinessMethod','审核','审核',1,'NEW_WORK_RELEASE_AUDIT');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+('c3cdc2664df14b07a5994f2b9bc2ca03','0b62d21d1ecd471f958d96b43471dcca','022a43088dcd46d4b201b43b32d3d85a',
+-- 'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','executeReleaseModuleBusinessMethod','发布','发布',1,'NEW_WORK_RELEASE_RELEASE');
+-- insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+-- ('28979cdd48d04f83b5f79abf813e769c','0b62d21d1ecd471f958d96b43471dcca','fe755fa4bd25475fa1a9d841caa16f44',
+'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','saveOrUpdateInfoReleaseBusinessMethod','编辑','编辑',1,'NEW_WORK_RELEASE_EDIT');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+('1f96c131e4b3436486f7e4c92e8399df','0b62d21d1ecd471f958d96b43471dcca','022a43088dcd46d4b201b43b32d3d85a',
+'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','getInfoReleaseByUuidBusinessMethod','查看','查看',1,'NEW_WORK_RELEASE_PREVIEW');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+('8615ca6386f340b48e1992c676ee2606','0b62d21d1ecd471f958d96b43471dcca','607e8bc6f9bb4afa9be3cfdc72a1a326',
+'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','saveOrUpdateInfoReleaseBusinessMethod','新增','新增',1,'NEW_WORK_RELEASE_ADD');
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+('c24864b488dc4d3aac34ca5ac310b636','0b62d21d1ecd471f958d96b43471dcca','cb14b0e3d47647e58da01ab09e0d373c',
+'priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService','executeUndoBusinessMethod','撤销','撤销',1,'NEW_WORK_RELEASE_UNDO');
+
+
+
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '4855162ac2014d3fb5cf5bee17075e28');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '392b972ef167498896caa46644221319');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '5b4bea13b8dc4b6eac9ea7a7f6867456');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', 'c3cdc2664df14b07a5994f2b9bc2ca03');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '1f96c131e4b3436486f7e4c92e8399df');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '8615ca6386f340b48e1992c676ee2606');
+-- insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '28979cdd48d04f83b5f79abf813e769c');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', 'c24864b488dc4d3aac34ca5ac310b636');
+
+
+delete from TAB_DATA_DICT where DICT_NO='BELONG_TO_ZMJ';
+
+INSERT INTO TAB_DATA_DICT(ID,DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,DICT_NO,PARENT_DICT_TYPE) VALUES(1701,'1701','福建省城北鼓楼区烟草专卖局','归属专卖局',17,1,'BELONG_TO_ZMJ',NULL);
+INSERT INTO TAB_DATA_DICT(ID,DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,DICT_NO,PARENT_DICT_TYPE) VALUES(1702,'1702','福建省罗源县烟草专卖局','归属专卖局',17,2,'BELONG_TO_ZMJ',NULL);
+
+delete from tab_sys_key_info where id in(54,55,56,57,58,59,60,61,62,63);
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (54, 'wx_getAccessToken_url', 'https://api.weixin.qq.com/cgi-bin/token', '微信getAccessToken接口地址');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (55, 'wx_getuserphonenumber_url', 'https://api.weixin.qq.com/wxa/business/getuserphonenumber', '微信getuserphonenumber接口地址');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (56, 'wx_jscode2session_url', 'https://api.weixin.qq.com/sns/jscode2session', '微信jscode2session接口地址');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (57, 'wx_grant_type', 'authorization_code', '微信使用');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (58, 'default_pass', 'Aa123456', '外网注册用户缺省密码');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (59, 'default_city', '00', '外网注册用户缺省所属地');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (60, 'default_groupid', '10000', '外网注册用户缺省所属组');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (61, 'default_roleid', 'e8d791272c7e437c8f8a72355bb0c231', '外网注册用户缺省所属角色');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (62, 'wx_appid', 'wx591b083250978728', '微信appid');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (63, 'wx_secret', '85e9f4b443190c407e12b46e08464731', '微信secret');
+
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum, is_view) VALUES ('3842888467ae425c893b8cb75c0bd26a', '勘验管理', 3, '/inquest/tabYcInquestItemCfgController.do?method=ycInquestItemCfgList', '8e059c578c204fbbb29086aa72ec88f9', 'admin', '2022-06-04 00:00:00', '菜单', 1, 1);
+
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('0d8e9dc82c4c4d22ab4fdb018c9c0f1f', '3842888467ae425c893b8cb75c0bd26a', 'fe755fa4bd25475fa1a9d841caa16f44', 'priv.guochun.psmc.inquest.service.TabYcInquestItemCfgService', 'saveOrUpdateInquestItemMethod', 'INQUEST_UPDATE', '修改', null, 2);
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('17c0e25ebba44a5391455242e37e38c8', '3842888467ae425c893b8cb75c0bd26a', 'dec3b327b8a54d66bd644c544ea65c5e', 'priv.guochun.psmc.inquest.service.TabYcInquestItemCfgService', 'deleteInquestItemByIdMethod', 'INQUEST_DELETE', '删除', null, 3);
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('416d85050111410a901e6ef0ddbc3b2d', '3842888467ae425c893b8cb75c0bd26a', '756d6e80c9d74b4389c918ab50ee19c3', 'priv.guochun.psmc.inquest.service.TabYcInquestItemCfgService', 'selectItemCfgListMethod', 'INQUEST_LIST', '查询', null, 5);
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('71035b98ae004357acc53c7f8b959f24', '3842888467ae425c893b8cb75c0bd26a', '607e8bc6f9bb4afa9be3cfdc72a1a326', 'priv.guochun.psmc.inquest.service.TabYcInquestItemCfgService', 'saveOrUpdateInquestItemMethod', 'INQUEST_ADD', '新增', null, 1);
+INSERT INTO tab_operate (uuid, resource_uuid, privilege_uuid, fun_class, fun_method, OPERATE_NO, OPERATE_NAME, OPERATE_DESC, ORDERNUM) VALUES ('b361508563a148c0884abeaaeb4bd4bc', '3842888467ae425c893b8cb75c0bd26a', '022a43088dcd46d4b201b43b32d3d85a', 'priv.guochun.psmc.inquest.service.TabYcInquestItemCfgService', 'getInquestItemByIdMethod', 'INQUEST_PREVIEW', '查看', null, 4);
+
+INSERT INTO tab_role_resource (role_id, resource_id) VALUES ('efb74820f0564d02bb68fdf3190a6430', '3842888467ae425c893b8cb75c0bd26a');
+
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '0d8e9dc82c4c4d22ab4fdb018c9c0f1f');
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '17c0e25ebba44a5391455242e37e38c8');
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '416d85050111410a901e6ef0ddbc3b2d');
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', '71035b98ae004357acc53c7f8b959f24');
+INSERT INTO tab_role_operate (role_uuid, operate_uuid) VALUES ('efb74820f0564d02bb68fdf3190a6430', 'b361508563a148c0884abeaaeb4bd4bc');

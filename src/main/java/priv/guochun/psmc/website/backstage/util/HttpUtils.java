@@ -1,5 +1,6 @@
 package priv.guochun.psmc.website.backstage.util;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.KeyManagementException;
@@ -57,6 +58,18 @@ public class HttpUtils {
         
         return httpClient.execute(request);
     }
+
+	public static HttpResponse postForm(String url, Map<String, String> querys){
+		HttpClient httpClient = wrapClient(url);
+		HttpResponse httpResponse = null;
+		try {
+			HttpPost request = new HttpPost(buildUrl(url, null, querys));
+			httpResponse = httpClient.execute(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return httpResponse;
+	}
 	
 	/**
 	 * post form
