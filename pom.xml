@@ -441,7 +441,7 @@
 				</includes>
 			</resource>
 		</resources>
-		<finalName>psmc</finalName>
+		<finalName>yckystd</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -512,6 +512,7 @@
 					<configurationFile>generatorConfig.xml</configurationFile>
 					<verbose>true</verbose>
 					<overwrite>true</overwrite>
+					<skip>true</skip>
 				</configuration>
 				<executions>
 					<execution>
