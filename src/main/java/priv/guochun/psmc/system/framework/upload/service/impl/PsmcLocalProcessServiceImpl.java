@@ -113,12 +113,8 @@ public class PsmcLocalProcessServiceImpl implements PsmcBaseFileProcessService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> sysMap = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        if(StringUtils.isNotBlank(filePath)){
-                File file = new File(filePath);
-                if(file.exists())
-                    file.delete();
-                return true;
-        }
-        return false;
+        FtpUtil ftu = FtpUtil.getFtputil();
+        ftu.deleteFile(filePath);
+        return true;
     }
 }

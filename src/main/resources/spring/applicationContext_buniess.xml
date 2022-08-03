@@ -20,7 +20,7 @@
     </bean>  
     <!--文件上传组件service注入  -->
 
-	<bean id="psmcBaseFileProcessService" class="priv.guochun.psmc.system.framework.upload.base.PsmcProxyProcessServiceImpl"/>
+	<bean id="psmcBaseFileProcessService" class="priv.guochun.psmc.system.framework.upload.base.PsmcProxyFileProcessServiceImpl"/>
 
 	<bean id="psmcLocalFileProcessService" class="priv.guochun.psmc.system.framework.upload.service.impl.PsmcLocalProcessServiceImpl"/>
 
