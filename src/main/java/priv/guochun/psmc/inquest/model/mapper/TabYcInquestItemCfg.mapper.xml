@@ -81,14 +81,16 @@
             c.option_content,
             c.option_value
         FROM
-            TAB_YC_STAGE a,
-            TAB_YC_INQUEST_ITEM_CFG b,
-            TAB_YC_INQUEST_OPTION_CFG c
+            TAB_YC_STAGE a
+        left join
+            TAB_YC_INQUEST_ITEM_CFG b on a.stage_uuid=b.STAGE_UUID
+        left join
+            TAB_YC_INQUEST_OPTION_CFG c on b.ITEM_UUID=c.ITEM_UUID
         WHERE
-            a.stage_uuid=b.STAGE_UUID
-          AND b.ITEM_UUID=c.ITEM_UUID
+            1=1
           AND a.is_active=1
           AND b.is_active=1
+          AND c.is_active=1
         <if test="stageCode != null and stageCode != ''">
             and a.stage_code = #{stageCode}
         </if>
@@ -129,11 +131,17 @@
             b.org_code,
             date_format(b.CREATE_TIME, '%Y-%m-%d %H:%i:%S') as CREATE_TIME
         FROM
-            TAB_YC_STAGE a,
-            TAB_YC_INQUEST_ITEM_CFG b
-        WHERE
-            a.stage_uuid=b.STAGE_UUID
-          AND a.is_active=1
+            TAB_YC_STAGE a
+        left join
+            TAB_YC_INQUEST_ITEM_CFG b on a.stage_uuid=b.STAGE_UUID
+        left join
+            (
+                select group_code
+                from tab_group
+                WHERE parent_group_code = #{orgCode}
+                or group_code = #{orgCode}
+            ) d on b.org_code = d.group_code
+        WHERE a.is_active=1
           AND b.is_active=1
         <if test="stageCode != null and stageCode != ''">
             AND a.stage_code = #{stageCode}
@@ -144,9 +152,8 @@
         <if test="questionName != null and questionName != ''">
             AND b.QUESTION_NAME = CONCAT('%', #{questionName},'%')
         </if>
-        <if test="orgCode != null and orgCode != ''">
-            and b.org_code = #{orgCode}
-        </if>
+        ORDER BY
+        a.sort, b.sort ASC
     </select>
 
     <select id="getInquestItemById" resultMap="inquestItemCfgVOMap">

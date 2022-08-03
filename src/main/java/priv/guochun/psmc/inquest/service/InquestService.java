@@ -3,6 +3,7 @@ package priv.guochun.psmc.inquest.service;
 import org.springframework.web.bind.annotation.RequestBody;
 import priv.guochun.psmc.inquest.model.TabYcInquestRecord;
 import priv.guochun.psmc.inquest.model.TabYcStage;
+import priv.guochun.psmc.inquest.model.TabYcWaitQueueCfg;
 import priv.guochun.psmc.inquest.model.vo.TabYcInquestItemCfgVO;
 import priv.guochun.psmc.inquest.utils.ResultInfo;
 
@@ -82,4 +83,13 @@ public interface InquestService {
     @GET
     @Path("selectInquestRecord")
     ResultInfo selectInquestRecord(@QueryParam("openid") String openid);
+
+    /**
+     * 查询专卖局轮候配置列表
+     * @param orgCode
+     * @return
+     */
+    @GET
+    @Path("selectWaitQueueCfgList")
+    ResultInfo selectWaitQueueCfgList(@QueryParam("orgCode") String orgCode);
 }

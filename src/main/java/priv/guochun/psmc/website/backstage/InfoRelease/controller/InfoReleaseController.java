@@ -27,8 +27,8 @@ import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.framework.upload.base.PsmcBaseFileProcessService;
 import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
-import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
 import priv.guochun.psmc.system.framework.upload.util.FtpUtil;
 import priv.guochun.psmc.system.framework.upload.util.PSMCFileUtils;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
@@ -40,7 +40,6 @@ import priv.guochun.psmc.website.backstage.InfoRelease.model.InfoImage;
 import priv.guochun.psmc.website.backstage.InfoRelease.model.InfoRelease;
 import priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
-import priv.guochun.psmc.website.backstage.module.service.TabModuleService;
 
 @Controller
 @RequestMapping("/website/backstage/InfoReleaseController")
@@ -50,7 +49,7 @@ public class InfoReleaseController extends MyController{
 	private InfoReleaseService infoReleaseService;
 	
 	@Autowired
-	private UploadAssemblyInterface uploadAssemblyInterface;
+	private PsmcBaseFileProcessService psmcBaseFileProcessService;
 	
 	/**
 	 * 查询信息列表
@@ -237,7 +236,7 @@ public class InfoReleaseController extends MyController{
 	public void uploadPicture(HttpServletRequest request,
 		 	HttpServletResponse response) throws IOException{
 		Map<String,Object> returnmap = new HashMap<String,Object>();
-	    	UploadFileModel upf = uploadAssemblyInterface.getFile(request);
+	    	UploadFileModel upf = psmcBaseFileProcessService.uploadFile(request);
 	    	//判断图片的大小是否符合系统要求
 	    	String tempFilePath = upf.getTemp_file_path();
 	    	File tempPic = upf.getFile();

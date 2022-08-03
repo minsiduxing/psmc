@@ -63,6 +63,7 @@ public class LoginServiceImpl implements LoginService
     	List<Map<?,?>> operrateMap = tabOperateDao.getPermitOperatesByRoleUuid(roleUuid);
     	User user = new User(accountMap,personMap,roleMap,operrateMap);
     	user.setGroupName(group.getGroupName());
+        user.setGroupCode(group.getGroupCode());
     	logger.debug("username "+username+" buildUser end");
     	return user;
     }
@@ -80,8 +81,13 @@ public class LoginServiceImpl implements LoginService
      	Map<?,?> accRoleMap = (Map<?, ?>)accRoleLits.get(0);
      	String roleUuid = accRoleMap.get("UUID").toString();
      	Map<?, ?> roleMap = tabRoleDao.getTableRoleByUuid(roleUuid);
+        TabGroup group = tabGroupDao.getTabGroupsBygroupCode(personMap.get("groupid").toString());
 //     	List<Map<?,?>> operrateMap = tabOperateDao.getPermitOperatesByRoleUuid(roleUuid);
      	User user = new User(accountMap,personMap,roleMap);
+        if (group!=null){
+            user.setGroupName(group.getGroupName());
+            user.setGroupCode(group.getGroupCode());
+        }
      	logger.debug("username "+phone+" buildUser end");
      	return user;
     }

@@ -16,6 +16,7 @@ import priv.guochun.psmc.system.util.JsonUtil;
 import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentService;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +43,13 @@ public class TabYcInquestItemCfgController extends MyController {
     @RequestMapping(params="method=selectItemCfgList")
     @ResponseBody
     public void selectItemCfgList(MyPage myPage) throws IOException {
+        String orgCode = this.getUserBySeesion(this.request()).getGroupCode();
+        Map<String, Object> queryParams = myPage.getQueryParams();
+        if (queryParams == null){
+            queryParams = new HashMap<>();
+        }
+        queryParams.put("orgCode", orgCode);
+        myPage.setQueryParams(queryParams);
         myPage = tabYcInquestItemCfgService.selectItemCfgList(myPage);
         super.responseJson(JsonUtil.convertJavaBeanToJSONObject(myPage), this.response());
     }

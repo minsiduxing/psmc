@@ -31,8 +31,7 @@ import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
-import priv.guochun.psmc.system.framework.sms.util.SmsTypeEnum;
-import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
+import priv.guochun.psmc.system.framework.upload.base.PsmcBaseFileProcessService;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.*;
@@ -103,7 +102,7 @@ import java.util.regex.Pattern;
 
 			private TabTopicsService tabTopicsService;
 			private TabCommentService tabCommentService;
-			private UploadAssemblyInterface uploadAssemblyInterface;
+			private PsmcBaseFileProcessService psmcBaseFileProcessService;
 			private TabAttachmentService tabAttachmentService;
 			private TabLaudService tabLaudService;
 			@Autowired
@@ -901,14 +900,6 @@ import java.util.regex.Pattern;
 
 	public void setTabCommentService(TabCommentService tabCommentService) {
 		this.tabCommentService = tabCommentService;
-	}
-
-	public UploadAssemblyInterface getUploadAssemblyInterface() {
-		return uploadAssemblyInterface;
-	}
-
-	public void setUploadAssemblyInterface(UploadAssemblyInterface uploadAssemblyInterface) {
-		this.uploadAssemblyInterface = uploadAssemblyInterface;
 	}
 
 	public TabLaudService getTabLaudService() {

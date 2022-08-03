@@ -5,18 +5,22 @@ import java.io.File;
 public class UploadFileModel
 {
     public File file;
-    
+    //临时文件地址（psmc传统上传使用，后续废弃）
     public String temp_file_path;
-    
+    //真实文件地址(如果是fastdfs 就是上传返回的id，oss类似）
     public String file_upload_real_path;
-    
+    //文件完整url
+    public String fileCompleteUrl;
+
+    //文件真实名称
     public String fileRealName;
-    
+    //文件系统名称
     public String fileSystemName;
-    
+    //文件后缀
     public String suffix;
+    //文件大小
     public String fileSize;
-    
+    //临时文件地址（psmc传统上传使用，后续废弃）
     public String custom_file_path;
     
     public File getFile()
@@ -94,6 +98,12 @@ public class UploadFileModel
 	public void setCustom_file_path(String custom_file_path) {
 		this.custom_file_path = custom_file_path;
 	}
-    
-    
+
+    public String getFileCompleteUrl() {
+        return fileCompleteUrl;
+    }
+
+    public void setFileCompleteUrl(String fileCompleteUrl) {
+        this.fileCompleteUrl = fileCompleteUrl;
+    }
 }

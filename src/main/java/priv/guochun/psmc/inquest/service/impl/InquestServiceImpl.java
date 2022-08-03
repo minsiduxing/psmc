@@ -1,7 +1,7 @@
 package priv.guochun.psmc.inquest.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,32 +9,27 @@ import org.springframework.cache.Cache;
 import org.springframework.web.bind.annotation.RequestBody;
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.login.service.LoginService;
-import priv.guochun.psmc.authentication.role.service.TabRoleService;
 import priv.guochun.psmc.authentication.user.model.TabAccount;
 import priv.guochun.psmc.authentication.user.model.TabPerson;
 import priv.guochun.psmc.authentication.user.service.TabAccountService;
-import priv.guochun.psmc.authentication.user.service.TabPersonService;
 import priv.guochun.psmc.inquest.model.TabYcInquestRecord;
 import priv.guochun.psmc.inquest.model.TabYcStage;
+import priv.guochun.psmc.inquest.model.TabYcWaitQueueCfg;
 import priv.guochun.psmc.inquest.model.vo.TabYcInquestItemCfgVO;
 import priv.guochun.psmc.inquest.service.AccessTokenService;
 import priv.guochun.psmc.inquest.service.InquestService;
+import priv.guochun.psmc.inquest.service.TabYcWaitQueueCfgService;
 import priv.guochun.psmc.inquest.utils.HttpConnectUtil;
 import priv.guochun.psmc.inquest.utils.ResultInfo;
 import priv.guochun.psmc.system.common.dict.service.TabDataDictService;
 import priv.guochun.psmc.system.enums.AccountLockEnum;
 import priv.guochun.psmc.system.enums.AccountTypeEnum;
-import priv.guochun.psmc.system.enums.VerificationCodeTypeEnum;
 import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
-import priv.guochun.psmc.system.framework.model.MsgModel;
-import priv.guochun.psmc.system.framework.util.GsonUtil;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
-import priv.guochun.psmc.website.backstage.util.ChjghContants;
 
-import javax.ws.rs.FormParam;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -51,10 +46,6 @@ public class InquestServiceImpl implements InquestService {
     @Autowired
     private TabAccountService tabAccountService;
     @Autowired
-    private TabPersonService tabPersonService;
-    @Autowired
-    private TabRoleService tabRoleService;
-    @Autowired
     private LoginService loginService;
     @Autowired
     private AccessTokenService accessTokenService;
@@ -62,6 +53,8 @@ public class InquestServiceImpl implements InquestService {
     private BaseDao baseDao;
     @Autowired
     private TabDataDictService tabDataDictService;
+    @Autowired
+    private TabYcWaitQueueCfgService tabYcWaitQueueCfgService;
 
     @Override
     public ResultInfo getPhoneNo(String code) {
@@ -150,6 +143,12 @@ public class InquestServiceImpl implements InquestService {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("userId", openid);
         List<TabYcInquestRecord> list = baseDao.queryForList("selectInquestRecord", paramMap);
+        return ResultInfo.ok("查询成功", list);
+    }
+
+    @Override
+    public ResultInfo selectWaitQueueCfgList(String orgCode){
+        List<TabYcWaitQueueCfg> list = tabYcWaitQueueCfgService.selectWaitQueueCfgList(orgCode);
         return ResultInfo.ok("查询成功", list);
     }
 
