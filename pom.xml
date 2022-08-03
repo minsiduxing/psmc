@@ -168,17 +168,6 @@
 		    <version>${activiti.version}</version>
 		</dependency>
 		
-		
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>4.3.11.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-ehcache</artifactId>
-			<version>4.3.11.Final</version>
-		</dependency>
 		<dependency>
 			<!-- 低版本log4j漏洞，目前暂无法修复 -->
 			<groupId>net.sourceforge.jexcelapi</groupId>
@@ -191,12 +180,6 @@
 			<artifactId>json</artifactId>
 			<version>20160212</version>
 		</dependency>
-		<dependency>
-		      <groupId>c3p0</groupId>
-		      <artifactId>c3p0</artifactId>
-		      <version>0.9.1.1</version>
-		      <scope>compile</scope>
-	    </dependency>
 	    <dependency>
 		    <groupId>com.mchange</groupId>
 		    <artifactId>mchange-commons-java</artifactId>
@@ -512,6 +495,7 @@
 					<configurationFile>generatorConfig.xml</configurationFile>
 					<verbose>true</verbose>
 					<overwrite>true</overwrite>
+					<skip>true</skip>
 				</configuration>
 				<executions>
 					<execution>
