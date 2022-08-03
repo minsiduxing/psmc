@@ -488,7 +488,7 @@ create table TAB_REPORT_REPLY_REL
 
 alter table TAB_REPORT_REPLY_REL comment '上报答复关联关系表';
 
---增加账户分类
+/*增加账户分类*/
 alter table tab_accounts drop column account_type;
 alter table tab_accounts add column account_type TINYINT;
 
@@ -611,6 +611,8 @@ create table tab_sys_config
     ordernum integer comment '排序码',
     primary key (sys_uuid)
 );
+
+drop table tab_sys_key_info;
 CREATE TABLE
     tab_sys_key_info
 (
@@ -628,10 +630,10 @@ alter table tab_accounts add column account_type TINYINT;
 
 
 /*新增字段*/
-alter table tab_dept drop is_custom;
-alter table tab_excellent_innovation drop is_custom;
-alter table tab_activity_manage drop is_custom;
-alter table tab_news drop is_custom;
+alter table tab_dept drop column is_custom;
+alter table tab_excellent_innovation drop column is_custom;
+alter table tab_activity_manage drop column is_custom;
+alter table tab_news drop column is_custom;
 alter table tab_dept add is_custom integer comment '是否自定义配图';
 alter table tab_excellent_innovation add is_custom integer comment '是否自定义配图';
 alter table tab_activity_manage add is_custom integer comment '是否自定义配图';
