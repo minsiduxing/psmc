@@ -13,9 +13,9 @@
     <div title="信息查询" >
         <form id="searchform" method="POST" class="query-form" >
             <ul class="">
-                <li class="li-input"><label for="" class="input-label">勘验阶段：</label>
+                <%--<li class="li-input"><label for="" class="input-label">勘验阶段：</label>
                     <input id="stageCode" name="stageCode"/>
-                </li>
+                </li>--%>
                 <li class="li-input"><label for="" class="input-label">题目类型：</label>
                     <input id="questionType" name="questionType"/>
                 </li>
