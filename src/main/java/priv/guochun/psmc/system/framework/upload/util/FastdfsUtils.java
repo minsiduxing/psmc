@@ -29,34 +29,6 @@ public class FastdfsUtils {
 			logger.error("FastDFS Client Init Fail!", e);
 		}
 	}
-	/**
-	 * 测试
-	 * @param args
-	 * @throws Exception
-	 */
-	public static void main(String[] args) throws Exception {
-
-		String configFileName = System.getProperty("user.dir") + "/src/main/resources/fdfs_client.properties";
-		try {
-			ClientGlobal.init(configFileName);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		/*
-		 * File file =
-		 * Paths.get("C:","Users","lpfnwndproc","Pictures","Saved Pictures"
-		 * ,"2016111321375964401.jpg").toFile();
-		 * 
-		 * String[] files = uploadFile(file, "test.jpg", file.length());
-		 * System.out.println(Arrays.asList(files));
-		 */
-
-		// downloadFile("group1",
-		// "M00/00/00/CphkZltdcpyAQvt0AAFaTFDqkE4094.jpg");
-		// deleteFile("group1", "M00/00/00/CphkZltkfcSAT48uAAFaTFDqkE4771.jpg");
-		getToken("M00/00/00/CphkZltdcpyAQvt0AAFaTFDqkE4094.jpg", "FastDFS1234567890");
-	}
 
 	/**
 	 * 获取访问服务器的token，拼接到地址后面
@@ -81,7 +53,6 @@ public class FastdfsUtils {
 		sb.append("token=").append(token);
 		sb.append("&ts=").append(ts);
 
-		System.out.println(sb.toString());
 	}
 	/**
 	 * 文件缓冲区，web上没啥用
@@ -115,15 +86,13 @@ public class FastdfsUtils {
 	 * @throws IOException
 	 */
 	public static String[] uploadFile(byte[] fileBuff, String uploadFileName, long fileLength) throws IOException {
-		logger.info("上传文件=======================");
-		//byte[] fileBuff = getFileBuffer(new FileInputStream(file), fileLength);
+		logger.debug("上传文件=======================");
 		String[] files = null;
 		String fileExtName = "";
 		if (uploadFileName.contains(".")) {
 			fileExtName = uploadFileName.substring(uploadFileName.lastIndexOf(".") + 1);
 		} else {
-			System.out.println("Fail to upload file, because the format of filename is illegal.");
-			return null;
+			throw new RuntimeException("非法文件");
 		}
 
 		// 建立连接
@@ -141,7 +110,7 @@ public class FastdfsUtils {
 		try {
 			files = client.upload_file(fileBuff, fileExtName, metaList);
 		} catch (Exception e) {
-			System.out.println("Upload file \"" + uploadFileName + "\"fails");
+			e.printStackTrace();
 		}
 		trackerServer.close();
 		return files;
@@ -149,20 +118,19 @@ public class FastdfsUtils {
 
 	// 下载文件
 	public static byte[]  downloadFile(String groupName, String filepath) throws Exception {
-		logger.info("下载文件=======================");
+		logger.debug("下载文件=======================");
 		TrackerClient tracker = new TrackerClient();
 		TrackerServer trackerServer = tracker.getConnection();
 		StorageServer storageServer = null;
 
 		StorageClient storageClient = new StorageClient(trackerServer, storageServer);
 		byte[] bytes = storageClient.download_file(groupName, filepath);
-		System.out.println("文件大小:" + bytes.length);
 		return bytes;
 	}
 
 	// 查看文件信息
 	public static FileInfo getFileInfo(String groupName, String filepath) throws Exception {
-		logger.info("获取文件信息=======================");
+		logger.debug("获取文件信息=======================");
 		TrackerClient tracker = new TrackerClient();
 		TrackerServer trackerServer = tracker.getConnection();
 		StorageServer storageServer = null;
@@ -173,7 +141,7 @@ public class FastdfsUtils {
 	}
 
 	public static NameValuePair [] getFileMate(String groupName, String filepath) throws Exception {
-		logger.info("获取文件Mate=======================");
+		logger.debug("获取文件Mate=======================");
 		TrackerClient tracker = new TrackerClient();
 		TrackerServer trackerServer = tracker.getConnection();
 		StorageServer storageServer = null;
@@ -188,13 +156,18 @@ public class FastdfsUtils {
 	 * @param filepath
 	 * @throws Exception
 	 */
-	public static Boolean deleteFile(String groupName, String filepath) throws Exception {
-		logger.info("删除文件=======================");
-		TrackerClient tracker = new TrackerClient();
-		TrackerServer trackerServer = tracker.getConnection();
-		StorageServer storageServer = null;
-		StorageClient storageClient = new StorageClient(trackerServer, storageServer);
-		int i = storageClient.delete_file(groupName, filepath);
-		return i == 0 ? true : false;
+	public static Boolean deleteFile(String groupName, String filepath){
+		logger.debug("删除文件=======================");
+		try{
+			TrackerClient tracker = new TrackerClient();
+			TrackerServer trackerServer = tracker.getConnection();
+			StorageServer storageServer = null;
+			StorageClient storageClient = new StorageClient(trackerServer, storageServer);
+			int i = storageClient.delete_file(groupName, filepath);
+			return i == 0 ? true : false;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new RuntimeException("文件删除失败");
+		}
 	}
 }

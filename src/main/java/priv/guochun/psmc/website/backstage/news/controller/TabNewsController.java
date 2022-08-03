@@ -30,8 +30,8 @@ import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.framework.upload.base.PsmcBaseFileProcessService;
 import priv.guochun.psmc.system.framework.upload.model.UploadFileModel;
-import priv.guochun.psmc.system.framework.upload.service.UploadAssemblyInterface;
 import priv.guochun.psmc.system.framework.upload.util.FtpUtil;
 import priv.guochun.psmc.system.framework.upload.util.PSMCFileUtils;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
@@ -51,7 +51,7 @@ public class TabNewsController extends MyController {
 	@Autowired
 	private TabNewsService tabNewsService;
 	@Autowired
-	private UploadAssemblyInterface uploadAssemblyInterface;
+	private PsmcBaseFileProcessService psmcBaseFileProcessService;
 	@Autowired
 	private GenerateStageHtmlService generateStageHtmlService;
 	
@@ -121,7 +121,7 @@ public class TabNewsController extends MyController {
 	public void uploadPic(HttpServletRequest request,
 		 	HttpServletResponse response) throws IOException{
 		Map<String,Object> returnmap = new HashMap<String,Object>();
-	    	UploadFileModel upf = uploadAssemblyInterface.getFile(request);
+	    	UploadFileModel upf = psmcBaseFileProcessService.uploadFile(request);
 	    	//判断图片的大小是否符合系统要求
 	    	String tempFilePath = upf.getTemp_file_path();
 	    	File tempPic = upf.getFile();

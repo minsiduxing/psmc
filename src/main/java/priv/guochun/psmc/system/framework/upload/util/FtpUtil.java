@@ -227,10 +227,6 @@ public class FtpUtil {
      */
     public String uploadFile(UploadFileModel ufm) throws IOException
     {
-		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
-		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
-		Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-		String file_prefix_path =map.get("file_prefix_path").toString();
         if (ufm != null && null!=ufm.getFile())
         {
         	FtpModel ftm = this.readPro();
@@ -255,7 +251,7 @@ public class FtpUtil {
         	}else{
         		throw new PsmcBuisnessException("文件上传失败！");
         	}
-            return file_prefix_path + ufm.getCustom_file_path();
+            return ufm.getCustom_file_path();
         }
         else
         {
