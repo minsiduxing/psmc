@@ -485,6 +485,7 @@
 		            <jswarn>false</jswarn> 
 		            <force>true</force>
 		            <encoding>UTF-8</encoding>
+					<skip>true</skip>
 		            <includes>  
 		              <include>**/*.js</include>  
 		              <include>**/*.css</include>  
