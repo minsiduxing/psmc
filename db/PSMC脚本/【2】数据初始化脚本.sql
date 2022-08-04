@@ -269,7 +269,7 @@ insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_metho
     ('8dfc1b3b65694a0a8ec7f9f09148f0f3','d4f3b60bfdcc4314baf65448d1284080','460283cc3e2c4d0a8b6bbbd75698a339',
      'priv.guochun.psmc.authentication.user.service.TabAccountService','getAllTabAccountsBusinessMethod','µ¼³ö','',5,'ACCOUNT_EXPORT');
 
-insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','14a2243153eb483caf3573246148e9cc');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','14a2243153eb483caf3573246148e93c');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','3a764c1f79294c8b903ebb80abf07220');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','705d01ec02d24d79bf9ea64c0a04385e');
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430','8dfc1b3b65694a0a8ec7f9f09148f0f2');
