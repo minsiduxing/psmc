@@ -33,7 +33,7 @@ public class LogOutServlet extends HttpServlet {
 	}
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String loginurl = response.encodeRedirectURL(request.getServletContext().getContextPath()+"/login.jsp");
+        String loginurl = response.encodeRedirectURL(request.getContextPath()+"/login.jsp");
         HttpSession httpSession = request.getSession(false);//防止创建Session
     	if(null == httpSession){
     	    response.sendRedirect(loginurl);
