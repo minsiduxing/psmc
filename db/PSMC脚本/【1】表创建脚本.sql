@@ -610,7 +610,7 @@ create table tab_sys_config
     column2 varchar(100) comment '备用字段2',
     ordernum integer comment '排序码',
     primary key (sys_uuid)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_general_ci;
 
 drop table tab_sys_key_info;
 CREATE TABLE
