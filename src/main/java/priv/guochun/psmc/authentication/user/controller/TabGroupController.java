@@ -14,6 +14,7 @@ import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,9 +24,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.user.model.TabGroup;
 import priv.guochun.psmc.authentication.user.service.TabGroupService;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
+import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.JsonUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
 
@@ -122,9 +126,13 @@ public class TabGroupController extends MyController {
 	@ResponseBody
 	public void getTreeJson(HttpServletRequest request,HttpServletResponse response,String id) throws IOException{
 		String tree = null;
+		PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+		Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+		Map<String, String> cacheMap = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+		String default_groupid =cacheMap.get("default_groupid").toString();
 		if(StringUtils.isEmpty(id)){
 			//默认获取组织机构根根节点
-			TabGroup tg = tabGroupService.getTabGroupsByGroupCode("10000");
+			TabGroup tg = tabGroupService.getTabGroupsByGroupCode(default_groupid);
 			tree="[{\"id\": "+tg.getGroupCode()+", \"text\": \""+tg.getGroupName()+"\",\"state\": \"closed\",\"children\": null  }] ";
 		}else{
 			List<TabGroup> list = tabGroupService.getSubTabGroupsByGroupCode(id);
