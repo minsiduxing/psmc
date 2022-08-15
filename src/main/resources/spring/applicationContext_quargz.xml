@@ -66,7 +66,7 @@
         <prop key="org.quartz.jobStore.misfireThreshold">120000</prop>  
         
      
-        <prop key="org.quartz.jobStore.isClustered">false</prop>  
+        <prop key="org.quartz.jobStore.isClustered">true</prop>
         <prop key="org.quartz.jobStore.clusterCheckinInterval">10000</prop>  
         <prop key="org.quartz.jobStore.maxMisfiresToHandleAtATime">1</prop>  
        
