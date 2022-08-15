@@ -71,7 +71,16 @@
       <param-value>/ru.do,/website/backstage/QuestionnaireController.do,/system/freamwork/fileUploadController.do,/common.jsp,/sessionTimeout.jsp,/login.jsp,/logOut,/login,*.js,*.css,*.gif,*.htm,*.png,*.map,*.html,*.jpg,/api/sms/SmsController.do</param-value>
     </init-param>
   </filter>
-  
+
+  <filter>
+    <filter-name>DruidWebStatFilter</filter-name>
+    <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+    <init-param>
+      <param-name>exclusions</param-name>
+      <param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>
+    </init-param>
+  </filter>
+
   <filter-mapping>
     <filter-name>MyEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
@@ -86,8 +95,12 @@
     <filter-name>loginFilter</filter-name>
     <url-pattern>*.do</url-pattern>
   </filter-mapping>
-  
-  
+  <filter-mapping>
+    <filter-name>DruidWebStatFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
@@ -132,7 +145,10 @@
 	   <servlet-class>priv.guochun.psmc.authentication.login.servlet.LogOutServlet</servlet-class>
 	   <load-on-startup>2</load-on-startup>
   </servlet>
-    
+  <servlet>
+    <servlet-name>DruidStatView</servlet-name>
+    <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>cxf</servlet-name>
     <url-pattern>/services/*</url-pattern>
@@ -151,7 +167,10 @@
     <servlet-name>LogOutServlet</servlet-name>
     <url-pattern>/logOut</url-pattern>
   </servlet-mapping>
-  
+  <servlet-mapping>
+    <servlet-name>DruidStatView</servlet-name>
+    <url-pattern>/druid/*</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>jsp/loginTransfer.jsp</welcome-file>
   </welcome-file-list>
