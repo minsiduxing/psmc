@@ -21,7 +21,7 @@ public interface PsmcTjyFlowTestService {
 	public MsgModel completeTask(String taskId, Map<String, Object> variables);
 
 	/**
-	 * 认领任务（认领后其他人看不到任务了）
+	 * 接收认领任务，认领后其他人待接收任务列表就没有了
 	 * @param taskId
 	 * @param userId
 	 * @return
@@ -29,7 +29,7 @@ public interface PsmcTjyFlowTestService {
 	public MsgModel claimTask(String taskId, String userId);
 
 	/**
-	 * 释放任务
+	 * 释放任务，释放后其他人待接收任务列表就出现了
 	 * @param taskId
 	 * @return
 	 */

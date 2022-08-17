@@ -2,6 +2,10 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="tjyflowId" name="tjyflow" isExecutable="true" activiti:candidateStarterUsers="${role_requirement}">
     <documentation>测试流程</documentation>
+    <extensionElements>
+      <activiti:executionListener event="start" class="priv.guochun.psmc.system.framework.activiti.core.listener.PsmcActivitiExecutionListener"></activiti:executionListener>
+      <activiti:executionListener event="end" class="priv.guochun.psmc.system.framework.activiti.core.listener.PsmcActivitiExecutionListener"></activiti:executionListener>
+    </extensionElements>
     <startEvent id="startevent1" name="需求部申请"></startEvent>
     <userTask id="audit" name="科长审核" activiti:candidateGroups="${role_chief}"></userTask>
     <userTask id="usertask2" name="业务部立项" activiti:candidateUsers="${role_businessment}"></userTask>

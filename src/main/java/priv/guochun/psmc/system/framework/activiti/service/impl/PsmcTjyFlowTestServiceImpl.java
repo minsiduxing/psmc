@@ -1,15 +1,13 @@
 package priv.guochun.psmc.system.framework.activiti.service.impl;
 
-import java.util.Map;
-
-import org.activiti.engine.runtime.ProcessInstance;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
+import org.activiti.engine.runtime.ProcessInstance;
 import priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContext;
 import priv.guochun.psmc.system.framework.activiti.service.PsmcTjyFlowTestService;
 import priv.guochun.psmc.system.framework.model.MsgModel;
+
+import java.util.Map;
 
 public class PsmcTjyFlowTestServiceImpl implements PsmcTjyFlowTestService {
 

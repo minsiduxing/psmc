@@ -9,11 +9,4 @@ public class FlowContans {
 	public final static int FLOW_STATE_RUNNING=2;
 	//已完成
 	public final static int FLOW_STATE_END=3;
-
-	//候选人
-	public final static String CANDIDATE = "candidate";
-	//参与人
-	public final static String PARTICIPANT = "participant";
-
-	
 }
