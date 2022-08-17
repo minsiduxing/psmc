@@ -19,4 +19,19 @@ public interface PsmcTjyFlowTestService {
 	 * @return
 	 */
 	public MsgModel completeTask(String taskId, Map<String, Object> variables);
+
+	/**
+	 * 认领任务（认领后其他人看不到任务了）
+	 * @param taskId
+	 * @param userId
+	 * @return
+	 */
+	public MsgModel claimTask(String taskId, String userId);
+
+	/**
+	 * 释放任务
+	 * @param taskId
+	 * @return
+	 */
+	public MsgModel unClaimTask(String taskId);
 }

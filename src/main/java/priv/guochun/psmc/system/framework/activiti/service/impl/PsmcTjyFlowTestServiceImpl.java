@@ -27,6 +27,17 @@ public class PsmcTjyFlowTestServiceImpl implements PsmcTjyFlowTestService {
 		return MsgModel.buildDefaultSuccess();
 	}
 
+	public MsgModel claimTask(String taskId, String userId){
+		MsgModel mm = null;
+		psmcWorkFlowContext.getTaskService().claim(taskId,userId);
+		return MsgModel.buildDefaultSuccess();
+	}
+
+	public MsgModel unClaimTask(String taskId){
+		MsgModel mm = null;
+		psmcWorkFlowContext.getTaskService().unclaim(taskId);
+		return MsgModel.buildDefaultSuccess();
+	}
 	public PsmcWorkFlowContext getPsmcWorkFlowContext() {
 		return psmcWorkFlowContext;
 	}

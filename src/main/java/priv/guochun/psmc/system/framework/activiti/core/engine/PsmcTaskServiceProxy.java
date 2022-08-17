@@ -37,42 +37,42 @@ public class PsmcTaskServiceProxy implements TaskService {
 
 	@Override
 	public void deleteTask(String taskId) {
-
+		realTaskService.deleteTask(taskId);
 	}
 
 	@Override
 	public void deleteTasks(Collection<String> taskIds) {
-
+		realTaskService.deleteTasks(taskIds);
 	}
 
 	@Override
 	public void deleteTask(String taskId, boolean cascade) {
-
+		realTaskService.deleteTask(taskId,cascade);
 	}
 
 	@Override
 	public void deleteTasks(Collection<String> taskIds, boolean cascade) {
-
+		realTaskService.deleteTasks(taskIds,cascade);
 	}
 
 	@Override
 	public void deleteTask(String taskId, String deleteReason) {
-
+		realTaskService.deleteTask(taskId,deleteReason);
 	}
 
 	@Override
 	public void deleteTask(String taskId, String deleteReason, boolean cancel) {
-
+		realTaskService.deleteTask(taskId,deleteReason,cancel);
 	}
 
 	@Override
 	public void deleteTasks(Collection<String> taskIds, String deleteReason) {
-
+		realTaskService.deleteTasks(taskIds,deleteReason);
 	}
 
 	@Override
 	public void deleteTasks(Collection<String> taskIds, String deleteReason, boolean cancel) {
-
+		realTaskService.deleteTasks(taskIds,deleteReason,cancel);
 	}
 
 	@Override
@@ -102,12 +102,12 @@ public class PsmcTaskServiceProxy implements TaskService {
 
 	@Override
 	public void resolveTask(String taskId, Map<String, Object> variables) {
-
+		realTaskService.resolveTask(taskId,variables);
 	}
 
 	@Override
 	public void resolveTask(String taskId, Map<String, Object> variables, Map<String, Object> transientVariables) {
-
+		realTaskService.resolveTask(taskId,variables,transientVariables);
 	}
 
 	@Override
@@ -117,112 +117,112 @@ public class PsmcTaskServiceProxy implements TaskService {
 
 	@Override
 	public void complete(String taskId, Map<String, Object> variables, Map<String, Object> transientVariables) {
-
+		realTaskService.complete(taskId,variables,transientVariables);
 	}
 
 	@Override
 	public void complete(String taskId, Map<String, Object> variables, boolean localScope) {
-
+		realTaskService.complete(taskId,variables,localScope);
 	}
 
 	@Override
 	public void setAssignee(String taskId, String userId) {
-
+		realTaskService.setAssignee(taskId,userId);
 	}
 
 	@Override
 	public void setOwner(String taskId, String userId) {
-
+		realTaskService.setOwner(taskId,userId);
 	}
 
 	@Override
 	public List<IdentityLink> getIdentityLinksForTask(String taskId) {
-		return null;
+		return realTaskService.getIdentityLinksForTask(taskId);
 	}
 
 	@Override
 	public void addCandidateUser(String taskId, String userId) {
-
+		realTaskService.addCandidateUser(taskId,userId);
 	}
 
 	@Override
 	public void addCandidateGroup(String taskId, String groupId) {
-
+		realTaskService.addCandidateGroup(taskId,groupId);
 	}
 
 	@Override
 	public void addUserIdentityLink(String taskId, String userId, String identityLinkType) {
-
+		realTaskService.addUserIdentityLink(taskId,userId,identityLinkType);
 	}
 
 	@Override
 	public void addGroupIdentityLink(String taskId, String groupId, String identityLinkType) {
-
+		realTaskService.addGroupIdentityLink(taskId,groupId,identityLinkType);
 	}
 
 	@Override
 	public void deleteCandidateUser(String taskId, String userId) {
-
+		realTaskService.deleteCandidateUser(taskId,userId);
 	}
 
 	@Override
 	public void deleteCandidateGroup(String taskId, String groupId) {
-
+		realTaskService.deleteCandidateGroup(taskId,groupId);
 	}
 
 	@Override
 	public void deleteUserIdentityLink(String taskId, String userId, String identityLinkType) {
-
+		realTaskService.deleteUserIdentityLink(taskId,userId,identityLinkType);
 	}
 
 	@Override
 	public void deleteGroupIdentityLink(String taskId, String groupId, String identityLinkType) {
-
+		realTaskService.deleteGroupIdentityLink(taskId,groupId,identityLinkType);
 	}
 
 	@Override
 	public void setPriority(String taskId, int priority) {
-
+		realTaskService.setPriority(taskId,priority);
 	}
 
 	@Override
 	public void setDueDate(String taskId, Date dueDate) {
-
+		realTaskService.setDueDate(taskId,dueDate);
 	}
 
 	@Override
 	public TaskQuery createTaskQuery() {
-		return null;
+		return realTaskService.createTaskQuery();
 	}
 
 	@Override
 	public NativeTaskQuery createNativeTaskQuery() {
-		return null;
+		return realTaskService.createNativeTaskQuery();
 	}
 
 	@Override
 	public void setVariable(String taskId, String variableName, Object value) {
-
+		realTaskService.setVariable(taskId,variableName,value);
 	}
 
 	@Override
 	public void setVariables(String taskId, Map<String, ?> variables) {
-
+		realTaskService.setVariables(taskId,variables);
 	}
 
 	@Override
 	public void setVariableLocal(String taskId, String variableName, Object value) {
-
+		realTaskService.setVariableLocal(taskId,variableName,value);
 	}
 
 	@Override
 	public void setVariablesLocal(String taskId, Map<String, ?> variables) {
-
+		realTaskService.setVariablesLocal(taskId,variables);
 	}
 
 	@Override
 	public Object getVariable(String taskId, String variableName) {
-		return null;
+		return realTaskService.getVariable(taskId,variableName);
 	}
 
 	@Override

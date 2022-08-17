@@ -2,6 +2,7 @@ package priv.guochun.psmc.system.framework.activiti.core;
 
 import java.util.List;
 
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 
 import org.activiti.engine.TaskService;
@@ -18,10 +19,17 @@ import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
  */
 public class PsmcWorkFlowContextImpl implements PsmcWorkFlowContext {
 
-	
+	/**
+	 * 包装后的runtimeService
+	 */
 	private RuntimeService	runtimeService;
 
+	/**
+	 * 包装后的taskService
+	 */
 	private TaskService	taskService;
+
+	private RepositoryService repositoryService;
 	private PsmcCacheFactory psmcCacheFactory;
 	
 	@Override
@@ -34,23 +42,6 @@ public class PsmcWorkFlowContextImpl implements PsmcWorkFlowContext {
 		return true;
 	}
 
-	@Override
-	public RuntimeService getRuntimeService() {
-		return runtimeService;
-	}
-
-	public void setRuntimeService(RuntimeService runtimeService) {
-		this.runtimeService = runtimeService;
-	}
-
-	@Override
-	public TaskService getTaskService() {
-		return taskService;
-	}
-
-	public void setTaskService(TaskService taskService) {
-		this.taskService = taskService;
-	}
 
 	@Override
 	public Integer getRetryCount() {
@@ -89,6 +80,31 @@ public class PsmcWorkFlowContextImpl implements PsmcWorkFlowContext {
 
 	public void setPsmcCacheFactory(PsmcCacheFactory psmcCacheFactory) {
 		this.psmcCacheFactory = psmcCacheFactory;
+	}
+
+	public RepositoryService getRepositoryService() {
+		return repositoryService;
+	}
+
+	public void setRepositoryService(RepositoryService repositoryService) {
+		this.repositoryService = repositoryService;
+	}
+	@Override
+	public RuntimeService getRuntimeService() {
+		return runtimeService;
+	}
+
+	public void setRuntimeService(RuntimeService runtimeService) {
+		this.runtimeService = runtimeService;
+	}
+
+	@Override
+	public TaskService getTaskService() {
+		return taskService;
+	}
+
+	public void setTaskService(TaskService taskService) {
+		this.taskService = taskService;
 	}
 
 }

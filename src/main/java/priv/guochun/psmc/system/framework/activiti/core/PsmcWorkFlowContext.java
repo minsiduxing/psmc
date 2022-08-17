@@ -2,6 +2,7 @@ package priv.guochun.psmc.system.framework.activiti.core;
 
 import java.util.List;
 
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 
 import org.activiti.engine.TaskService;
@@ -35,4 +36,6 @@ public interface PsmcWorkFlowContext {
 	public TFlowConfig getWorkFlowDefinition(String formno);
 
 	public TaskService getTaskService();
+
+	public RepositoryService getRepositoryService();
 }
