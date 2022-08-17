@@ -15,11 +15,10 @@ public class PsmcActivitiQueryServiceImpl implements PsmcActivitiQueryService {
 	
 	@Override
 	public List<?> getWaitTask(User user,MyPage page) {
-//		TaskQuery tq = psmcWorkFlowContext.getTaskService().createTaskQuery();
-//		long count = tq.psmcWorkFlowContext(user.getRoleNo()).count();
-//		List<?> list = tq.list();
-//		page.setTotalData((int)count);
-//		return list;
+		/**
+		 * SELECT b.NAME_ as startName,a.*
+		 * FROM act_ru_task a,act_ru_variable b where a.PROC_INST_ID_=b.PROC_INST_ID_ and b.name_='startUserId'
+		 */
 		return null;
 	}
 

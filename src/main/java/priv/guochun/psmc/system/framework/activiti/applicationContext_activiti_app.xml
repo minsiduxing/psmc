@@ -2,24 +2,24 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
-		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd"
 	default-lazy-init="false"  default-autowire="byName">
 	
   	<!-- psmc封装的runtimeService对象 -->
 	<bean id="runtimeService" class="priv.guochun.psmc.system.framework.activiti.core.engine.PsmcRuntimeServiceProxy"/>
 	
 	<bean id="psmcRuntimeServiceBoost" class="priv.guochun.psmc.system.framework.activiti.core.engine.PsmcRuntimeServiceBoost"/>
-	
+
+	<bean id="taskService" class="priv.guochun.psmc.system.framework.activiti.core.engine.PsmcTaskServiceProxy"/>
   	<!-- psmc的activiti上下文对象 -->
 	<bean id="psmcWorkFlowContext" class="priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContextImpl"/>
-	
+
 	<!-- 流程定义配置服务 -->
 	<bean id="tFlowConfigService" class="priv.guochun.psmc.system.framework.activiti.service.impl.TFlowConfigServiceImpl" />
 	

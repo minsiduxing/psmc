@@ -6,7 +6,7 @@ package priv.guochun.psmc.system.framework.activiti.service;
  *
  */
 public interface PsmcActivitiOperService {
-	
-	
-	
+
+    public void taskComplete(String taskId);
+
 }

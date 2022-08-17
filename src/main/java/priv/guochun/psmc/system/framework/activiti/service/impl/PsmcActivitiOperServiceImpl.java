@@ -11,8 +11,10 @@ public class PsmcActivitiOperServiceImpl implements PsmcActivitiOperService {
 	protected static final  Logger logger  = LoggerFactory.getLogger(PsmcActivitiOperServiceImpl.class);
 	
 	private PsmcWorkFlowContext psmcWorkFlowContext;
-	
-		
+
+	public void taskComplete(String taskId){
+		psmcWorkFlowContext.getTaskService().complete(taskId);
+	}
 	
 	
 }

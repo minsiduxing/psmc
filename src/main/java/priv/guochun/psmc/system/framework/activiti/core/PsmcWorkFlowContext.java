@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.activiti.engine.RuntimeService;
 
+import org.activiti.engine.TaskService;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
 
 /**
@@ -32,6 +33,6 @@ public interface PsmcWorkFlowContext {
 	 * @return
 	 */
 	public TFlowConfig getWorkFlowDefinition(String formno);
-	
-	
+
+	public TaskService getTaskService();
 }
