@@ -15,17 +15,17 @@ $(document).ready(function(){
 		           */
 		          {field:'uuid',title:'唯一标示',hidden:true},
 		          {field:'log_type',hidden:true}, 
-		          {field:'log_type_name',title:"一级分类"}, 
+		          {field:'log_type_name',title:"一级分类",width:$(this).width() * 0.2},
 		          {field:'log_sub_type',hidden:true}, 
-		          {field:'log_sub_type_name',title:"二级分类"}, 
+		          {field:'log_sub_type_name',title:"二级分类",width:$(this).width() * 0.2},
 		          {field:'bussiness_uuid',title:'业务ID',hidden:true},  
 		          {field:'operid',hidden:true}, 
-		          {field:'opername',title:"操作人"},   
-		          {field:'oper_date',title:"操作时间"},
-		          {field:'oper_input',title:"输入",width:300,fixed:true},
-		          {field:'oper_output',title:"输出",width:300,fixed:true},
-		          {field:'oper_result_desc',title:"操作描述"},
-		          {field:'oper_result',title:"操作结果"}
+		          {field:'opername',title:"操作人",width:$(this).width() * 0.2},
+		          {field:'oper_date',title:"操作时间",width:$(this).width() * 0.2},
+		          {field:'oper_input',title:"输入",width:$(this).width() * 0.2},
+		          {field:'oper_output',title:"输出",width:$(this).width() * 0.2},
+		          {field:'oper_result_desc',title:"操作描述",width:$(this).width() * 0.2},
+		          {field:'oper_result',title:"操作结果",width:$(this).width() * 0.2}
 		         ] 
 		      ]
 	};

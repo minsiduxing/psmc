@@ -72,19 +72,19 @@ $(document).ready(function(){
 		           * width:parseInt($(this).width()*0.3)
 		           */
 		          {field:'UUID',title:'账号唯一ID',checkbox:true},
-		          {field:'ACCOUNT_NAME',title:'账号名称'},    
-		          {field:'ISLOCKEDNAME',title:'是否锁定'},  
-		          {field:'PERSON_NAME',title:'姓名'}, 
-		          {field:'SEXNAME',title:'性别'}, 
-		          {field:'AGE',title:'年龄'}, 
-		          {field:'TELEPHONE',title:'手机号'}, 
-		          {field:'id_card',title:'身份证号'},
-		          {field:'area',title:'所在地区'},
-		          {field:'authTypeName',title:'实名认证方式'},
-		          {field:'GROUP_CODE',title:'隶属组编码'}, 
-		          {field:'GROUP_NAME',title:'隶属组名称'}, 
-		          {field:'EMAIL',title:'Email',resizable:true},
-		          {field:'ACCOUNT_TYPE_NAME',title:'账户类型'}
+		          {field:'ACCOUNT_NAME',title:'账号名称',width:$(this).width() * 0.2},
+		          {field:'ISLOCKEDNAME',title:'是否锁定',width:$(this).width() * 0.2},
+		          {field:'PERSON_NAME',title:'姓名',width:$(this).width() * 0.2},
+		          {field:'SEXNAME',title:'性别',width:$(this).width() * 0.2},
+		          {field:'AGE',title:'年龄',width:$(this).width() * 0.2},
+		          {field:'TELEPHONE',title:'手机号',width:$(this).width() * 0.2},
+		          {field:'id_card',title:'身份证号',width:$(this).width() * 0.2},
+		          {field:'area',title:'所在地区',width:$(this).width() * 0.2},
+		          {field:'authTypeName',title:'实名认证方式',width:$(this).width() * 0.2},
+		          {field:'GROUP_CODE',title:'隶属组编码',width:$(this).width() * 0.2},
+		          {field:'GROUP_NAME',title:'隶属组名称',width:$(this).width() * 0.2},
+		          {field:'EMAIL',title:'Email',resizable:true,width:$(this).width() * 0.2},
+		          {field:'ACCOUNT_TYPE_NAME',title:'账户类型',width:$(this).width() * 0.2}
 		         ] 
 		      ]
 	};

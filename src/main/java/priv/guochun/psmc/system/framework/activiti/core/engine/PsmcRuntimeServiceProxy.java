@@ -19,6 +19,7 @@ import priv.guochun.psmc.system.framework.activiti.model.TFlowInstance;
 import priv.guochun.psmc.system.framework.activiti.service.TFlowInstanceService;
 import priv.guochun.psmc.system.framework.activiti.util.FlowContans;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
+import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.TimestampUtil;
 
 import java.util.Collection;
@@ -71,9 +72,12 @@ public class PsmcRuntimeServiceProxy implements RuntimeService {
 		
 		TFlowInstance flowInstance = new TFlowInstance();
 		BeanUtils.copyProperties(tFlowConfig, flowInstance);
-		flowInstance.setFlowState(FlowContans.FLOW_STATE_STARTED);
+		flowInstance.setFlowState(FlowContans.FLOW_STATE_RUNNING);
 		flowInstance.setFlowStartTime(TimestampUtil.createCurTimestamp());
-		
+		if(flowInstance.getFlowLimitHour() !=null){
+			flowInstance.setFlowEndLimitTime(DateUtil.getDateByHours(flowInstance.getFlowStartTime(),flowInstance.getFlowLimitHour()));
+		}
+
 		ProcessInstance pi = null;
 		//日志记录(审计)及补偿机制
 		RuntimeService psmcRuntimeServiceBoost = (RuntimeService)MySpringApplicationContext.getObject(PsmcRuntimeServiceProxy.runtimeServiceBoost);

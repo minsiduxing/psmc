@@ -9,6 +9,7 @@ import priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContext;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.util.JsonUtil;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -84,9 +85,10 @@ public class PsmcTjyFlowTestController extends MyController {
 	 * @throws IOException
 	 */
 	@RequestMapping(params="method=selectWaitReceiveTasks")
+	@ResponseBody
 	public void selectWaitReceiveTasks(MyPage myPage) throws IOException{
 		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectWaitReceiveTasks(this.getUserBySeesion(this.request()),myPage);
-		this.responseHtmltext(JSON.toJSONString(page), this.response());
+		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
 	}
 
 	/**
@@ -95,9 +97,10 @@ public class PsmcTjyFlowTestController extends MyController {
 	 * @throws IOException
 	 */
 	@RequestMapping(params="method=selectWaitProcessTasks")
+	@ResponseBody
 	public void selectWaitProcessTasks(MyPage myPage) throws IOException{
 		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectWaitProcessTasks(this.getUserBySeesion(this.request()),myPage);
-		this.responseHtmltext(JSON.toJSONString(page), this.response());
+		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
 	}
 
 	/**
@@ -106,9 +109,10 @@ public class PsmcTjyFlowTestController extends MyController {
 	 * @throws IOException
 	 */
 	@RequestMapping(params="method=selectProcessedTasks")
+	@ResponseBody
 	public void selectProcessedTasks(MyPage myPage) throws IOException{
 		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectProcessedTasks(this.getUserBySeesion(this.request()),myPage);
-		this.responseHtmltext(JSON.toJSONString(page), this.response());
+		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
 	}
 
 	/**
@@ -117,9 +121,10 @@ public class PsmcTjyFlowTestController extends MyController {
 	 * @throws IOException
 	 */
 	@RequestMapping(params="method=selectStartedByMeTasks")
+	@ResponseBody
 	public void selectStartedByMeTasks(MyPage myPage) throws IOException{
 		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectStartedByMeTasks(this.getUserBySeesion(this.request()),myPage);
-		this.responseHtmltext(JSON.toJSONString(page), this.response());
+		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
 	}
 
 }

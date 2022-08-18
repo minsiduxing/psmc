@@ -178,7 +178,12 @@ public class DateUtil {
 		return new java.sql.Date(calendar.getTime().getTime());
 	}
 
-	
+	public static java.sql.Date getDateByHours(Date date, BigDecimal hours) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + hours.intValue());
+		return new java.sql.Date(calendar.getTime().getTime());
+	}
 	
 	public static Date getDateByLastMonth(Date date, int month) {
 		Calendar calendar = Calendar.getInstance();
