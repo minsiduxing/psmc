@@ -7,9 +7,10 @@ import org.activiti.engine.RuntimeService;
 
 import org.activiti.engine.TaskService;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
+import priv.guochun.psmc.system.framework.activiti.service.PsmcBaseWorkFlowService;
 
 /**
- * psmc工作流上下文
+ * psmc工作流上下文，一切操作工作流的对象都从这个上下文获取，主要是隔离业务和activiti的关联
  * @author Administrator
  */
 public interface PsmcWorkFlowContext {
@@ -38,4 +39,6 @@ public interface PsmcWorkFlowContext {
 	public TaskService getTaskService();
 
 	public RepositoryService getRepositoryService();
+
+	public PsmcBaseWorkFlowService getPsmcBaseWorkFlowService();
 }

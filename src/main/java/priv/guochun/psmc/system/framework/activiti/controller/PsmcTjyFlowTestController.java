@@ -5,9 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import priv.guochun.psmc.system.framework.activiti.service.PsmcTjyFlowTestService;
+import priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContext;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.model.MsgModel;
+import priv.guochun.psmc.system.framework.page.MyPage;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -18,8 +19,8 @@ import java.util.Map;
 public class PsmcTjyFlowTestController extends MyController {
 	
 	@Autowired
-	private PsmcTjyFlowTestService psmcTjyFlowTestService;
-	
+	private PsmcWorkFlowContext psmcWorkFlowContext;
+
 	@ResponseBody
 	@RequestMapping(params="method=startFlow")  
 	public void startFlow() throws IOException{
@@ -29,9 +30,9 @@ public class PsmcTjyFlowTestController extends MyController {
 		//流程启动人
 		variables.put("startUserId", this.getUserBySeesion(this.request()).getAccountName());
 		//立项人角色
-		variables.put("role_businessment", "lx_admin,lx_admin2,lx_admin3");
+		variables.put("role_businessment", "admin,lx_admin2,lx_admin3");
 
-		MsgModel mm = psmcTjyFlowTestService.startFlow(variables);
+		MsgModel mm = psmcWorkFlowContext.getPsmcBaseWorkFlowService().startFlow(variables);
 		this.responseHtmltext(JSON.toJSONString(mm), this.response());
 	}
 
@@ -51,7 +52,7 @@ public class PsmcTjyFlowTestController extends MyController {
 			//局长审批角色
 			variables.put("role_director", "jz_admin");
 		}
-		MsgModel mm = psmcTjyFlowTestService.completeTask(this.request().getParameter("taskId"),variables);
+		MsgModel mm = psmcWorkFlowContext.getPsmcBaseWorkFlowService().completeTask(this.request().getParameter("taskId"),variables);
 		this.responseHtmltext(JSON.toJSONString(mm), this.response());
 	}
 
@@ -62,7 +63,7 @@ public class PsmcTjyFlowTestController extends MyController {
 	@RequestMapping(params="method=claimTask")
 	public void claimTask() throws IOException{
 		Map<String, Object> variables = new HashMap<String, Object>();
-		MsgModel mm = psmcTjyFlowTestService.claimTask(this.request().getParameter("taskId"),this.request().getParameter("userId"));
+		MsgModel mm = psmcWorkFlowContext.getPsmcBaseWorkFlowService().claimTask(this.request().getParameter("taskId"),this.request().getParameter("userId"));
 		this.responseHtmltext(JSON.toJSONString(mm), this.response());
 	}
 
@@ -73,7 +74,52 @@ public class PsmcTjyFlowTestController extends MyController {
 	@RequestMapping(params="method=unClaimTask")
 	public void unClaimTask() throws IOException{
 		Map<String, Object> variables = new HashMap<String, Object>();
-		MsgModel mm = psmcTjyFlowTestService.unClaimTask(this.request().getParameter("taskId"));
+		MsgModel mm = psmcWorkFlowContext.getPsmcBaseWorkFlowService().unClaimTask(this.request().getParameter("taskId"));
 		this.responseHtmltext(JSON.toJSONString(mm), this.response());
 	}
+
+	/**
+	 * 待接收任务
+	 * @param myPage
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=selectWaitReceiveTasks")
+	public void selectWaitReceiveTasks(MyPage myPage) throws IOException{
+		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectWaitReceiveTasks(this.getUserBySeesion(this.request()),myPage);
+		this.responseHtmltext(JSON.toJSONString(page), this.response());
+	}
+
+	/**
+	 * 待处理任务（已接收）
+	 * @param myPage
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=selectWaitProcessTasks")
+	public void selectWaitProcessTasks(MyPage myPage) throws IOException{
+		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectWaitProcessTasks(this.getUserBySeesion(this.request()),myPage);
+		this.responseHtmltext(JSON.toJSONString(page), this.response());
+	}
+
+	/**
+	 * 已处理任务
+	 * @param myPage
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=selectProcessedTasks")
+	public void selectProcessedTasks(MyPage myPage) throws IOException{
+		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectProcessedTasks(this.getUserBySeesion(this.request()),myPage);
+		this.responseHtmltext(JSON.toJSONString(page), this.response());
+	}
+
+	/**
+	 * 我发起的任务
+	 * @param myPage
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=selectStartedByMeTasks")
+	public void selectStartedByMeTasks(MyPage myPage) throws IOException{
+		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectStartedByMeTasks(this.getUserBySeesion(this.request()),myPage);
+		this.responseHtmltext(JSON.toJSONString(page), this.response());
+	}
+
 }

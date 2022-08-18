@@ -395,4 +395,116 @@
       flow_end_limit_time = #{flowEndLimitTime,jdbcType=TIMESTAMP}
     where tfi_uuid = #{tfiUuid,jdbcType=VARCHAR}
   </update>
+
+
+
+  <sql id="work_flow_run_query_sql1">
+    a.tfi_uuid,a.tfc_uuid,a.flow_no,a.flow_cn_name,a.flow_en_name,a.flow_entrance,a.flow_version,a.flow_state,a.flow_start_time,a.flow_end_time,
+    b.ID_ as taskId,b.TASK_DEF_KEY_ as task_step_key,b.name_ as task_step_name,b.CLAIM_TIME_ as claim_time,b.CREATE_TIME_ as task_start_time,'' as task_end_time,b.SUSPENSION_STATE_ as task_state
+  </sql>
+
+  <sql id="work_flow_his_query_sql1">
+    a.tfi_uuid,a.tfc_uuid,a.flow_no,a.flow_cn_name,a.flow_en_name,a.flow_entrance,a.flow_version,a.flow_state,a.flow_start_time,a.flow_end_time,
+b.ID_ as taskId,b.TASK_DEF_KEY_ as task_step_key,b.name_ as task_step_name,b.CLAIM_TIME_ as claim_time,b.START_TIME_ as task_start_time,b.END_TIME_ as task_end_time,'99' as task_state
+  </sql>
+
+  <select id="selectWaitReceiveTasks" parameterType="hashmap" resultType="java.util.Map">
+    select
+      <include refid="work_flow_run_query_sql1" />,
+      c.USER_ID_ account_id,e.person_name
+      from t_flow_instance a,act_ru_task b,act_ru_identitylink c
+      left join tab_accounts d on c.USER_ID_=d.uuid
+      left join tab_person e on  d.uuid=e.acc_uuid
+    <where>
+      1 = 1
+      and a.tfi_uuid=b.PROC_INST_ID_ and b.ID_=c.TASK_ID_
+      and b.CLAIM_TIME_ is null
+
+      <if test="account_id != null and account_id != ''">
+        and c.USER_ID_ = #{account_id}
+      </if>
+      <if test="tfi_uuid != null and tfi_uuid != ''">
+        and a.tfi_uuid = #{tfi_uuid}
+      </if>
+      <if test="person_name != null and person_name != ''">
+        and e.person_name like concat(concat('%',#{deptName}),'%')
+      </if>
+    </where>
+    order by b.CREATE_TIME_ desc
+  </select>
+
+  <select id="selectWaitProcessTasks" parameterType="hashmap" resultType="java.util.Map">
+    select
+    <include refid="work_flow_run_query_sql1" />,
+    b.ASSIGNEE_ account_id,e.person_name
+    from t_flow_instance a,act_ru_task b
+    left join tab_accounts d on b.ASSIGNEE_=d.uuid
+    left join tab_person e on  d.uuid=e.acc_uuid
+    <where>
+      1 = 1
+      and a.tfi_uuid=b.PROC_INST_ID_
+      and b.CLAIM_TIME_ is not null
+      <if test="account_id != null and account_id != ''">
+        and b.ASSIGNEE_ = #{account_id}
+      </if>
+      <if test="tfi_uuid != null and tfi_uuid != ''">
+        and a.tfi_uuid = #{tfi_uuid}
+      </if>
+    </where>
+    order by b.CREATE_TIME_ desc
+  </select>
+
+  <select id="selectProcessedTasks" parameterType="hashmap" resultType="java.util.Map">
+    SELECT
+    <include refid="work_flow_his_query_sql1" />,
+    b.ASSIGNEE_ account_id,e.person_name
+    from t_flow_instance a,act_hi_taskinst b
+    left join tab_accounts d on b.ASSIGNEE_=d.uuid
+    left join tab_person e on  d.uuid=e.acc_uuid
+    <where>
+      1 = 1
+      and a.tfi_uuid=b.PROC_INST_ID_
+      and b.CLAIM_TIME_ is not null
+      <if test="account_id != null and account_id != ''">
+        and b.ASSIGNEE_ = #{account_id}
+      </if>
+      <if test="tfi_uuid != null and tfi_uuid != ''">
+        and a.tfi_uuid = #{tfi_uuid}
+      </if>
+    </where>
+    order by b.START_TIME_ desc
+  </select>
+
+
+  <select id="selectStartedByMeTasks" parameterType="hashmap" resultType="java.util.Map">
+    select * from (
+    select
+    <include refid="work_flow_run_query_sql1" />,
+    d.uuid account_id,e.person_name
+    from t_flow_instance a,act_ru_task b,act_ru_variable c
+    left join tab_accounts d on c.TEXT_=d.uuid
+    left join tab_person e on  d.uuid=e.acc_uuid
+    where a.tfi_uuid = b.PROC_INST_ID_ and b.PROC_INST_ID_=c.PROC_INST_ID_
+    union
+    select
+    <include refid="work_flow_his_query_sql1" />,
+    d.uuid account_id,e.person_name
+    from t_flow_instance a,act_hi_taskinst b,act_hi_varinst c
+    left join tab_accounts d on c.TEXT_=d.uuid
+    left join tab_person e on  d.uuid=e.acc_uuid
+    where a.tfi_uuid = b.PROC_INST_ID_ and b.PROC_INST_ID_=c.PROC_INST_ID_
+    ) a
+    <where>
+      1 = 1
+      <if test="account_id != null and account_id != ''">
+        and a.account_id = #{account_id}
+      </if>
+      <if test="tfi_uuid != null and tfi_uuid != ''">
+        and a.tfi_uuid = #{tfi_uuid}
+      </if>
+    </where>
+    order by a.task_start_time desc
+  </select>
+
+
 </mapper>

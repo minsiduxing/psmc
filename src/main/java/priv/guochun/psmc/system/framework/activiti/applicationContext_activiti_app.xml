@@ -10,21 +10,20 @@
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd"
 	default-lazy-init="false"  default-autowire="byName">
-	
-  	<!-- psmc封装的runtimeService对象 -->
-	<bean id="runtimeService" class="priv.guochun.psmc.system.framework.activiti.core.engine.PsmcRuntimeServiceProxy"/>
-	
-	<bean id="psmcRuntimeServiceBoost" class="priv.guochun.psmc.system.framework.activiti.core.engine.PsmcRuntimeServiceBoost"/>
 
+	<!-- psmc 代理的runtimeService -->
+	<bean id="runtimeService" class="priv.guochun.psmc.system.framework.activiti.core.engine.PsmcRuntimeServiceProxy"/>
+	<!-- runtimeService增强实现 -->
+	<bean id="psmcRuntimeServiceBoost" class="priv.guochun.psmc.system.framework.activiti.core.engine.PsmcRuntimeServiceBoost"/>
+	<!-- psmc 代理的taskService -->
 	<bean id="taskService" class="priv.guochun.psmc.system.framework.activiti.core.engine.PsmcTaskServiceProxy"/>
-  	<!-- psmc的activiti上下文对象 -->
+	<!-- psmc的activiti上下文对象 -->
 	<bean id="psmcWorkFlowContext" class="priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContextImpl"/>
 
-	<!-- 流程定义配置服务 -->
+	<!-- 流程自定义配置服务 -->
 	<bean id="tFlowConfigService" class="priv.guochun.psmc.system.framework.activiti.service.impl.TFlowConfigServiceImpl" />
-	
-	<bean id="psmcTjyFlowTestService" class="priv.guochun.psmc.system.framework.activiti.service.impl.PsmcTjyFlowTestServiceImpl" />
-	
+	<!-- 流程自定义实例服务 -->
 	<bean id="TFlowInstanceService" class="priv.guochun.psmc.system.framework.activiti.service.impl.TFlowInstanceServiceImpl" />
-
+	<!-- psmc基础工作流服务 -->
+	<bean id="psmcBaseWorkFlowService" class="priv.guochun.psmc.system.framework.activiti.service.impl.PsmcBaseWorkFlowServiceImpl" />
 </beans>

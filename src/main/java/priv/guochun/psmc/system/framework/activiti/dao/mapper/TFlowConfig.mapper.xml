@@ -363,4 +363,7 @@
       flow_limit_hour = #{flowLimitHour,jdbcType=DECIMAL}
     where tfc_uuid = #{tfcUuid,jdbcType=VARCHAR}
   </update>
+
+
+
 </mapper>

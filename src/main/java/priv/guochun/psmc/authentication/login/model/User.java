@@ -29,17 +29,19 @@ public class User implements Serializable
     private String groupName;
 
 	private String groupCode;
-    
-    
+    private String accountId;
+
+	//构造外网登陆用户会用到这个方法
     public User(Map tabAccount,Map tabPerson,Map tabRole){
     	this.tabAccount = tabAccount;
     	this.tabPerson = tabPerson;
     	this.tabRole = tabRole;
-    	
-    	
+
+
+		accountId = tabAccount.get("UUID").toString();
     	accountName = tabAccount.get("ACCOUNT_NAME").toString();
     	isLocked = tabAccount.get("IS_LOCKED").toString();
-    	
+
     	personName = tabPerson.get("PERSON_NAME").toString();
     	personTelephone = tabPerson.get("TELEPHONE").toString();
     	personEmail = tabPerson.get("EMAIL")!=null?
@@ -49,7 +51,7 @@ public class User implements Serializable
     	roleUuid = tabRole.get("UUID").toString();
     	roleNo = tabRole.get("ROLE_NO").toString();
     	roleName = tabRole.get("ROLE_NAME").toString();
-    		
+
     }
     
     public User(Map tabAccount,Map tabPerson,Map tabRole,List operateList){
@@ -57,8 +59,8 @@ public class User implements Serializable
     	this.tabPerson = tabPerson;
     	this.tabRole = tabRole;
     	this.operateList = operateList;
-    	
-    	
+
+		accountId = tabAccount.get("UUID").toString();
     	accountName = tabAccount.get("ACCOUNT_NAME").toString();
     	isLocked = tabAccount.get("IS_LOCKED").toString();
     	
@@ -170,5 +172,13 @@ public class User implements Serializable
 
 	public void setGroupCode(String groupCode) {
 		this.groupCode = groupCode;
+	}
+
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
 	}
 }

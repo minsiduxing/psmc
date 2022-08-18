@@ -36,7 +36,7 @@ public class PsmcActivitiTaskHandlerListener implements TaskListener
         if("create".equalsIgnoreCase(delegateTask.getEventName())){
             System.out.println(this.toString());
             TaskService taskService = psmcWorkFlowContext.getTaskService();
-            taskService.addUserIdentityLink(delegateTask.getId(),"zx_admin1",IdentityLinkType.CANDIDATE);
+            taskService.addUserIdentityLink(delegateTask.getId(),"admin",IdentityLinkType.CANDIDATE);
             taskService.addUserIdentityLink(delegateTask.getId(),"zx_admin2",IdentityLinkType.CANDIDATE);
             taskService.addUserIdentityLink(delegateTask.getId(),"zx_admin3",IdentityLinkType.CANDIDATE);
         }

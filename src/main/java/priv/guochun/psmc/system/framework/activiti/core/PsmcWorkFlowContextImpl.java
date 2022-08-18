@@ -6,7 +6,9 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 
 import org.activiti.engine.TaskService;
+import org.springframework.beans.factory.annotation.Autowired;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
+import priv.guochun.psmc.system.framework.activiti.service.PsmcBaseWorkFlowService;
 import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 
@@ -31,6 +33,8 @@ public class PsmcWorkFlowContextImpl implements PsmcWorkFlowContext {
 
 	private RepositoryService repositoryService;
 	private PsmcCacheFactory psmcCacheFactory;
+
+	private PsmcBaseWorkFlowService psmcBaseWorkFlowService;
 	
 	@Override
 	public boolean enableEqualize(){
@@ -107,4 +111,12 @@ public class PsmcWorkFlowContextImpl implements PsmcWorkFlowContext {
 		this.taskService = taskService;
 	}
 
+	@Override
+	public PsmcBaseWorkFlowService getPsmcBaseWorkFlowService() {
+		return psmcBaseWorkFlowService;
+	}
+
+	public void setPsmcBaseWorkFlowService(PsmcBaseWorkFlowService psmcBaseWorkFlowService) {
+		this.psmcBaseWorkFlowService = psmcBaseWorkFlowService;
+	}
 }

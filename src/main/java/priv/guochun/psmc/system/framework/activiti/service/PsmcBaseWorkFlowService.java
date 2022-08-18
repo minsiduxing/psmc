@@ -1,10 +1,40 @@
 package priv.guochun.psmc.system.framework.activiti.service;
 
+import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.system.framework.model.MsgModel;
+import priv.guochun.psmc.system.framework.page.MyPage;
 
 import java.util.Map;
 
-public interface PsmcTjyFlowTestService {
+/**
+ * PSMC工作流基础服务
+ * @author Administrator
+ *
+ */
+public interface PsmcBaseWorkFlowService {
+	
+	/**
+	 * 待接收任务
+	 */
+	public MyPage selectWaitReceiveTasks(User user,MyPage page);
+
+	/**
+	 * 待处理任务
+	 */
+	public MyPage selectWaitProcessTasks(User user,MyPage page);
+
+	/**
+	 * 已处理任务
+	 */
+	public MyPage selectProcessedTasks(User user,MyPage page);
+
+	/**
+	 * 我发起的任务（目前仅仅是由我发起，后续可以扩展我的单位或角色下的任务
+	 * @param user
+	 * @param page
+	 * @return
+	 */
+	public MyPage selectStartedByMeTasks(User user,MyPage page);
 
 	/**
 	 * 发起流程
@@ -34,4 +64,7 @@ public interface PsmcTjyFlowTestService {
 	 * @return
 	 */
 	public MsgModel unClaimTask(String taskId);
+
+
+
 }

@@ -5,6 +5,9 @@ import java.util.List;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfigExample;
 
+/**
+ * 自定义的工作流配置表
+ */
 public interface TFlowConfigService {
 
 	/**
