@@ -43,7 +43,6 @@ public class PsmcActivitiTaskHandlerListener implements TaskListener
         }
         if("create".equalsIgnoreCase(delegateTask.getEventName()) && "usertask2".equals(taskDefinitionKey)){
             TaskService taskService = psmcWorkFlowContext.getTaskService();
-//            delegateTask.setAssignee("admin");
             taskService.claim(delegateTask.getId(),"admin");
         }
 

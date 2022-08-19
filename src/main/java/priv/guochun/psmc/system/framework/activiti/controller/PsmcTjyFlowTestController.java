@@ -125,4 +125,13 @@ public class PsmcTjyFlowTestController extends MyController {
 		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
 	}
 
+	/**
+	 * 获取到下一节点任务的处理用户
+	 * @param processDefId
+	 * @param taskId
+	 */
+	@RequestMapping(params="method=getCurrentNextUserTaskUser")
+	public void getCurrentNextUserTaskUser(String processDefId,String taskId){
+		psmcWorkFlowContext.getPsmcBaseWorkFlowService().getCurrentNextUserTaskUser(processDefId,taskId);
+	}
 }

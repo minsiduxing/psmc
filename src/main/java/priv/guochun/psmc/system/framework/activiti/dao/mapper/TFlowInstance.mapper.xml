@@ -432,7 +432,7 @@
       and a.tfi_uuid=b.PROC_INST_ID_
       and b.CLAIM_TIME_ is null
       <!-- 候选类型 可以是人、组、角色 -->
-      and c.type='candidate'
+      and c.type_='candidate'
       and (c.USER_ID_ = #{account_id} or c.GROUP_ID_ = #{group_id} or c.GROUP_ID_ = #{role_id} or b.ASSIGNEE_= #{account_id})
       <if test="tfi_uuid != null and tfi_uuid != ''">
         and a.tfi_uuid = #{tfi_uuid}

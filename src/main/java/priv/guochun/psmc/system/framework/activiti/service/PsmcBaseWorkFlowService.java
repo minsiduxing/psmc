@@ -65,6 +65,10 @@ public interface PsmcBaseWorkFlowService {
 	 */
 	public MsgModel unClaimTask(String taskId);
 
-
+	/**
+	 * 得到当前节点下一任务的用户
+	 * @param taskId
+	 */
+	public void getCurrentNextUserTaskUser(String processDefId,String taskId);
 
 }
