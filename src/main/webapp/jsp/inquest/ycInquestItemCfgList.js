@@ -15,7 +15,7 @@ $(document).ready(function(){
                     if(value=='1'){return "单选"; }
                     if(value=='2'){return "多选"; }
                 }},
-            {field:'questionName',title:'题目名称',halign:'center',width:$(this).width() * 0.2},
+            {field:'questionName',title:'题目名称',halign:'center',width:'25%'},
             {field:'isAffectedBsg',title:'是否受特殊群体影响',width:$(this).width() * 0.2,align:'center',formatter: function (value, row, index) {
                     if(value){
                         return "是";

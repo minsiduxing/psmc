@@ -1,16 +1,16 @@
 package priv.guochun.psmc.system.framework.activiti.core;
 
-import java.util.List;
-
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
-
 import org.activiti.engine.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
 import priv.guochun.psmc.system.framework.activiti.service.PsmcBaseWorkFlowService;
+import priv.guochun.psmc.system.framework.activiti.service.TFlowConfigService;
+import priv.guochun.psmc.system.framework.activiti.service.TFlowInstanceService;
 import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
+
+import java.util.List;
 
 /**
  * 1、psmc工作流上下文实现类,主要作用是包装发布一些流程相关的基础公共操作
@@ -35,6 +35,10 @@ public class PsmcWorkFlowContextImpl implements PsmcWorkFlowContext {
 	private PsmcCacheFactory psmcCacheFactory;
 
 	private PsmcBaseWorkFlowService psmcBaseWorkFlowService;
+
+	private TFlowInstanceService tFlowInstanceService;
+
+	private TFlowConfigService tFlowConfigService;
 	
 	@Override
 	public boolean enableEqualize(){
@@ -54,28 +58,6 @@ public class PsmcWorkFlowContextImpl implements PsmcWorkFlowContext {
 		}else
 			return new Integer(0);
 		
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<TFlowConfig> getWorkFlowDefinition() {
-		List<TFlowConfig> list = psmcCacheFactory.getWorkFlow().get(CacheContants.CACHE_SYSTEM_WORKFOLW_DEFINITION,List.class);
-		return list;
-	}
-
-	public TFlowConfig getWorkFlowDefinition(String formno){
-		TFlowConfig result = null;
-		List<TFlowConfig> list = getWorkFlowDefinition();
-		if(list !=null && list.size()>0){
-			for(int i=0;i<list.size();i++){
-				TFlowConfig obj = list.get(i);
-				if(obj.getFlowNo().equals(formno)){
-					result = obj;
-					break;
-				}
-			}
-		}
-		return result;
 	}
 
 	public PsmcCacheFactory getPsmcCacheFactory() {
@@ -118,5 +100,21 @@ public class PsmcWorkFlowContextImpl implements PsmcWorkFlowContext {
 
 	public void setPsmcBaseWorkFlowService(PsmcBaseWorkFlowService psmcBaseWorkFlowService) {
 		this.psmcBaseWorkFlowService = psmcBaseWorkFlowService;
+	}
+
+	public TFlowInstanceService gettFlowInstanceService() {
+		return tFlowInstanceService;
+	}
+
+	public void settFlowInstanceService(TFlowInstanceService tFlowInstanceService) {
+		this.tFlowInstanceService = tFlowInstanceService;
+	}
+
+	public TFlowConfigService gettFlowConfigService() {
+		return tFlowConfigService;
+	}
+
+	public void settFlowConfigService(TFlowConfigService tFlowConfigService) {
+		this.tFlowConfigService = tFlowConfigService;
 	}
 }

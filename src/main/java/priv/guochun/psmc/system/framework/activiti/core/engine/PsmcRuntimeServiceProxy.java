@@ -64,7 +64,7 @@ public class PsmcRuntimeServiceProxy implements RuntimeService {
 
 	@Override
 	public ProcessInstance startProcessInstanceByKey(String processDefinitionKey, Map<String, Object> variables) {
-		TFlowConfig tFlowConfig = psmcWorkFlowContext.getWorkFlowDefinition(processDefinitionKey);
+		TFlowConfig tFlowConfig = psmcWorkFlowContext.gettFlowConfigService().getWorkFlowDefinition(processDefinitionKey);
 		
 		if(tFlowConfig == null){
 			throw new IllegalArgumentException("流程启动初始化参数异常:formNo为"+processDefinitionKey+"的流程表单配置不存在!");

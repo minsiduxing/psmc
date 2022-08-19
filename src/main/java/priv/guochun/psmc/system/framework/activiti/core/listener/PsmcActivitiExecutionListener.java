@@ -1,14 +1,14 @@
 package priv.guochun.psmc.system.framework.activiti.core.listener;
 
-import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.ExecutionListener;
-import org.activiti.engine.task.IdentityLinkType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContext;
+import priv.guochun.psmc.system.framework.activiti.model.TFlowInstance;
+import priv.guochun.psmc.system.framework.activiti.util.FlowContans;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
+import priv.guochun.psmc.system.util.TimestampUtil;
 
 /**
  * psmc自定义流程人员查找
@@ -37,5 +37,14 @@ import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
         logger.debug("psmc自定义执行监听器执行了execution.getCurrentActivityId():"+execution.getCurrentActivityId());
         logger.debug("psmc自定义执行监听器执行了execution.getProcessDefinitionId():"+execution.getProcessDefinitionId());
         logger.debug("psmc自定义执行监听器执行了execution.getProcessInstanceId():"+execution.getProcessInstanceId());
+
+        String eventName = execution.getEventName();
+        if(FlowContans.FLOW_END_EVENT.equals(eventName)){
+            String tfiId = execution.getProcessInstanceId();
+            TFlowInstance tFlowInstance = psmcWorkFlowContext.gettFlowInstanceService().getTFlowInstanceBytfiId(tfiId);
+            tFlowInstance.setFlowState(FlowContans.FLOW_STATE_END);
+            tFlowInstance.setFlowStartTime(TimestampUtil.createCurTimestamp());
+            psmcWorkFlowContext.gettFlowInstanceService().update(tFlowInstance);
+        }
     }
 }

@@ -10,5 +10,11 @@ import priv.guochun.psmc.system.framework.activiti.model.TFlowInstance;
 public interface TFlowInstanceService {
 
 	public JSONObject save(TFlowInstance tFlowInstance);
+
+
+	public TFlowInstance getTFlowInstanceBytfiId(String tfiId);
+
+
+	public void update(TFlowInstance tFlowInstance);
 	
 }

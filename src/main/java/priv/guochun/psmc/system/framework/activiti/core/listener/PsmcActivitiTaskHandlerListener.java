@@ -33,12 +33,18 @@ public class PsmcActivitiTaskHandlerListener implements TaskListener
          * 1、可以提供给前端做选择；
          * 2、可以提供给后端做自动化设置；
          */
-        if("create".equalsIgnoreCase(delegateTask.getEventName())){
-            System.out.println(this.toString());
+        final String taskDefinitionKey = delegateTask.getTaskDefinitionKey();
+
+        if("create".equalsIgnoreCase(delegateTask.getEventName()) && "usertask1".equals(taskDefinitionKey)){
             TaskService taskService = psmcWorkFlowContext.getTaskService();
             taskService.addUserIdentityLink(delegateTask.getId(),"admin",IdentityLinkType.CANDIDATE);
             taskService.addUserIdentityLink(delegateTask.getId(),"zx_admin2",IdentityLinkType.CANDIDATE);
             taskService.addUserIdentityLink(delegateTask.getId(),"zx_admin3",IdentityLinkType.CANDIDATE);
+        }
+        if("create".equalsIgnoreCase(delegateTask.getEventName()) && "usertask2".equals(taskDefinitionKey)){
+            TaskService taskService = psmcWorkFlowContext.getTaskService();
+//            delegateTask.setAssignee("admin");
+            taskService.claim(delegateTask.getId(),"admin");
         }
 
         /**
@@ -62,8 +68,6 @@ public class PsmcActivitiTaskHandlerListener implements TaskListener
         final String executionId = delegateTask.getExecutionId();
         // 流程定义ID
         final String processDefinitionId = delegateTask.getProcessDefinitionId();
-        // 当前节点的Id, 这个Id就是流程图中任务的Id列, 自己起的那个名字(参考下面的截图就明白了, 截图中的Id)
-        final String taskDefinitionKey = delegateTask.getTaskDefinitionKey();
         // 监听器类型, 实现TaskListener接口的监听器类型有create,assignment,complete,delete,all
         final String eventName = delegateTask.getEventName();
         // 当前任务节点的签收人

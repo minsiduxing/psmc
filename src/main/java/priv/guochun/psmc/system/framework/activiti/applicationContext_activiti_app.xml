@@ -23,7 +23,7 @@
 	<!-- 流程自定义配置服务 -->
 	<bean id="tFlowConfigService" class="priv.guochun.psmc.system.framework.activiti.service.impl.TFlowConfigServiceImpl" />
 	<!-- 流程自定义实例服务 -->
-	<bean id="TFlowInstanceService" class="priv.guochun.psmc.system.framework.activiti.service.impl.TFlowInstanceServiceImpl" />
-	<!-- psmc基础工作流服务 -->
+	<bean id="tFlowInstanceService" class="priv.guochun.psmc.system.framework.activiti.service.impl.TFlowInstanceServiceImpl" />
+	<!-- psmc基础工作流服务(开放给业务使用） -->
 	<bean id="psmcBaseWorkFlowService" class="priv.guochun.psmc.system.framework.activiti.service.impl.PsmcBaseWorkFlowServiceImpl" />
 </beans>

@@ -34,6 +34,8 @@ public class PsmcBaseWorkFlowServiceImpl implements PsmcBaseWorkFlowService {
 			condition = new HashMap<String, Object>();
 		}
 		condition.put("account_id",user.getAccountName());
+		condition.put("role_id",user.getRoleNo());
+		condition.put("group_id",user.getGroupCode());
 		return baseDao.getMyPage(page, selectWaitReceiveTasks, condition);
 	}
 
@@ -69,7 +71,7 @@ public class PsmcBaseWorkFlowServiceImpl implements PsmcBaseWorkFlowService {
 
 	public MsgModel startFlow(Map<String, Object> variables){
 		MsgModel mm = null;
-		ProcessInstance pi = psmcWorkFlowContext.getRuntimeService().startProcessInstanceByKey(variables.get("formNo").toString(), variables);
+		ProcessInstance pi = psmcWorkFlowContext.getRuntimeService().startProcessInstanceByKey(variables.get("flow_en_name").toString(), variables);
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		return MsgModel.buildDefaultSuccess(gson.toJson(pi));
 	}
