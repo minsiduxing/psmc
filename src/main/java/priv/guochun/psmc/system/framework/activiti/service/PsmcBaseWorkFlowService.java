@@ -4,6 +4,7 @@ import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -66,9 +67,12 @@ public interface PsmcBaseWorkFlowService {
 	public MsgModel unClaimTask(String taskId);
 
 	/**
-	 * 得到当前节点下一任务的用户
-	 * @param taskId
+	 * 得到下一节点处理用户的分页集合
+	 * @param pid 流程实例id
+	 * @param currTaskId 当前节点id
+	 * @param myPage 分页控件
+	 * @return
 	 */
-	public void getCurrentNextUserTaskUser(String processDefId,String taskId);
+	public MyPage getNextTaskUser(String pid, String currTaskId,MyPage myPage);
 
 }

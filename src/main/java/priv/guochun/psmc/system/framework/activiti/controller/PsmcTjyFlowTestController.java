@@ -127,11 +127,14 @@ public class PsmcTjyFlowTestController extends MyController {
 
 	/**
 	 * 获取到下一节点任务的处理用户
-	 * @param processDefId
+	 * @param pid
 	 * @param taskId
+	 * @param myPage
+	 * @throws IOException
 	 */
-	@RequestMapping(params="method=getCurrentNextUserTaskUser")
-	public void getCurrentNextUserTaskUser(String processDefId,String taskId){
-		psmcWorkFlowContext.getPsmcBaseWorkFlowService().getCurrentNextUserTaskUser(processDefId,taskId);
+	@RequestMapping(params="method=getNextTaskUser")
+	public void getNextTaskUser(String pid,String taskId,MyPage myPage) throws IOException {
+		myPage = psmcWorkFlowContext.getPsmcBaseWorkFlowService().getNextTaskUser(pid,taskId,myPage);
+		super.responseJson(JsonUtil.convertToJSONObject(myPage), this.response());
 	}
 }
