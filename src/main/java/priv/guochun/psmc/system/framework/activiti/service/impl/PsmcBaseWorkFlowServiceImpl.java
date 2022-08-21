@@ -135,29 +135,32 @@ public class PsmcBaseWorkFlowServiceImpl implements PsmcBaseWorkFlowService {
 			if(ExclusiveGateway.class.isInstance(targetFlowElement)){
 				ExclusiveGateway gateway = (ExclusiveGateway)targetFlowElement;
 				//递归调用
-				return recursionProcess(currTaskId,taskLists,gateway.getOutgoingFlows(),variables);
+				return recursionProcess(gateway.getId(),taskLists,gateway.getOutgoingFlows(),variables);
 			}
 			if(UserTask.class.isInstance(targetFlowElement)){
-				boolean skipResult = true;
+				boolean skipResult = false;
 				List<SequenceFlow> inFlows = ((UserTask) targetFlowElement).getIncomingFlows();
 				for(SequenceFlow inFlow:inFlows){
 					FlowElement sourceFlowElement = inFlow.getSourceFlowElement();
 					if(sourceFlowElement.getId().equals(currTaskId)){
 						if(StringUtils.isNotBlank(inFlow.getSkipExpression())){
 							skipResult = FlowElContans.isConditionOfBool(inFlow.getSkipExpression(),variables);
-							if(!skipResult) break;
+							if(skipResult){break;
+							}
 						}
 					}
 				}
-				if(!skipResult) break;
-				//再次遍历所有普通任务节点
-				for(UserTask userTasks:taskLists) {
-					String flowId = userTasks.getId();
-					if (flowId.equals(nextId)) {
-						nextTargetTask = userTasks;
+				if(skipResult){
+					//再次遍历所有普通任务节点
+					for(UserTask userTasks:taskLists) {
+						String flowId = userTasks.getId();
+						if (flowId.equals(nextId)) {
+							nextTargetTask = userTasks;
+						}
 					}
 				}
 			}
+			if(nextTargetTask !=null)break;
 		}
 		return nextTargetTask;
 	}
