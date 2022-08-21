@@ -51,34 +51,11 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
     		<if test="accountName !=null and accountName !=''">
    					and a.ACCOUNT_NAME like concat(concat('%',#{accountName}),'%')
    			</if>
-			<if test = "accountNames !=null ">
-				<if test = "flowRoleOrGroupIds.indexOf(',') != -1  ">
-					and a.ACCOUNT_NAME IN
-					<foreach collection = "accountNames" item = "item" separator = "," open = "("  close = ")">
-						#{item}
-					</foreach>
-				</if>
-				<if test = "flowRoleOrGroupIds.indexOf(',') == -1  ">
-					and a.ACCOUNT_NAME IN =#{accountNames}
-				</if>
+			<if test="accountNames !=null and accountNames !=''">
+				${accountNames}
 			</if>
-			<if test = " flowRoleOrGroupIds !=null ">
-				<if test = "flowRoleOrGroupIds.indexOf(',') != -1  ">
-					and (
-					 g.uuid IN
-						<foreach collection = "flowRoleOrGroupIds" item = "item" separator = "," open = "(" close = ")">
-							#{item}
-						</foreach>
-					or
-					d.uuid IN
-						<foreach collection = "flowRoleOrGroupIds" item = "item" separator = "," open = "(" close = ")">
-							#{item}
-						</foreach>
-					)
-				</if>
-				<if test = "flowRoleOrGroupIds.indexOf(',') == -1  ">
-					and (g.uuid = #{flowRoleOrGroupIds} or d.uuid = #{flowRoleOrGroupIds})
-				</if>
+			<if test = "flowRoleOrGroupIds !=null">
+				${flowRoleOrGroupIds}
 			</if>
  			<if test="personName !=null and personName !=''">
  					and b.PERSON_NAME like concat(concat('%',#{personName}),'%')
@@ -131,7 +108,7 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   	
     <delete id="deletesAccounts" parameterType="hashmap">
     	DELETE FROM  TAB_ACCOUNTS where 1=1  and UUID in
-    	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+    	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
 				  #{item}  
 		</foreach>  
     </delete>

@@ -58,7 +58,7 @@ public class TabRoleDaoImplMybatis implements TabRoleDao {
 	
 	public List<?> getAccountUnionRoleByRoleUuids(String roleUuids){
 	    Map<String,Object> condition = new HashMap<String,Object>();
-        condition.put("roleUuids", roleUuids.split(MyStringUtil.stringFormat));
+        condition.put("roleUuids", roleUuids.split(MyStringUtil.stringFormat_comma));
         List<?> list = sqlSession.selectList(getAccountUnionRoleByRoleUuids,condition);
         return list;
 	}
@@ -106,14 +106,14 @@ public class TabRoleDaoImplMybatis implements TabRoleDao {
 	
 	public void deletesRoles(String uuids) {
 		Map<String,Object> condition4 = new HashMap<String,Object>();
-        condition4.put("ids", uuids.split(MyStringUtil.stringFormat));
+        condition4.put("ids", uuids.split(MyStringUtil.stringFormat_comma));
         sqlSession.delete(deletesTabRole,condition4);
 	}
 	
 	
 	 public void deletesAccountsRoleRelationsByAccountUuids(String accountUuids){
 	     Map<String,Object> condition4 = new HashMap<String,Object>();
-	     condition4.put("ids", accountUuids.split(MyStringUtil.stringFormat));
+	     condition4.put("ids", accountUuids.split(MyStringUtil.stringFormat_comma));
 	     sqlSession.delete(deletesAccountsRoleRelationsByAccountUuids,condition4);
 	 }
 	 
@@ -122,13 +122,13 @@ public class TabRoleDaoImplMybatis implements TabRoleDao {
     public void deletesAccountsRoleRelationsByRoleUuids(String roleUuids)
     {
         Map<String,Object> condition4 = new HashMap<String,Object>();
-        condition4.put("ids", roleUuids.split(MyStringUtil.stringFormat));
+        condition4.put("ids", roleUuids.split(MyStringUtil.stringFormat_comma));
         sqlSession.delete(deletesAccountsRoleRelationsByRoleUuids,condition4);
     }
 
     public void saveAccRoleRelations(String accUuid,String roleUuids){
 	     List<TabAccRole> objList = new ArrayList<TabAccRole>();
-	    String[] roleUuidObj =  roleUuids.split(MyStringUtil.stringFormat);
+	    String[] roleUuidObj =  roleUuids.split(MyStringUtil.stringFormat_comma);
 	    for(int i=0;i<roleUuidObj.length;i++) {
 	        TabAccRole  accRole = new TabAccRole();
 	        accRole.setAccUuid(accUuid);

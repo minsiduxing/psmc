@@ -14,6 +14,7 @@ import priv.guochun.psmc.system.framework.activiti.service.PsmcBaseWorkFlowServi
 import priv.guochun.psmc.system.framework.activiti.util.FlowElContans;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.util.MyStringUtil;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
 
 import java.util.ArrayList;
@@ -115,14 +116,14 @@ public class PsmcBaseWorkFlowServiceImpl implements PsmcBaseWorkFlowService {
 			String id  = userTask.getId();
 			if(id.equals(currTaskId)){
 				List<SequenceFlow> outgoingFlows = userTask.getOutgoingFlows();
-				targetTask = recursionProcess(pdefId,taskLists,outgoingFlows,myPage.getQueryParams());
+				targetTask = recursionProcess(currTaskId,taskLists,outgoingFlows,myPage.getQueryParams());
 			}
 		}
 		return getTaskUsers(targetTask,myPage);
 	}
 
 	//递归获取下一任务节点的UserTask对象
-	private UserTask recursionProcess(String pdefId,List<UserTask> taskLists,List<SequenceFlow> outgoingFlows,Map<String, Object> variables){
+	private UserTask recursionProcess(String currTaskId,List<UserTask> taskLists,List<SequenceFlow> outgoingFlows,Map<String, Object> variables){
 		UserTask nextTargetTask = null;
 		for(SequenceFlow outgoingFlow:outgoingFlows){
 			//获取出线连接的目标节点
@@ -130,27 +131,30 @@ public class PsmcBaseWorkFlowServiceImpl implements PsmcBaseWorkFlowService {
 			//获取到了下一个节点的Id
 			String nextId = targetFlowElement.getId();
 			String nextName = targetFlowElement.getName();
+
 			if(ExclusiveGateway.class.isInstance(targetFlowElement)){
 				ExclusiveGateway gateway = (ExclusiveGateway)targetFlowElement;
 				//递归调用
-				return recursionProcess(pdefId,taskLists,gateway.getOutgoingFlows(),variables);
-			}else{
-				if(UserTask.class.isInstance(targetFlowElement)){
-					boolean skipResult = true;
-					List<SequenceFlow> inFlows = ((UserTask) targetFlowElement).getIncomingFlows();
-					for(SequenceFlow inFlow:inFlows){
+				return recursionProcess(currTaskId,taskLists,gateway.getOutgoingFlows(),variables);
+			}
+			if(UserTask.class.isInstance(targetFlowElement)){
+				boolean skipResult = true;
+				List<SequenceFlow> inFlows = ((UserTask) targetFlowElement).getIncomingFlows();
+				for(SequenceFlow inFlow:inFlows){
+					FlowElement sourceFlowElement = inFlow.getSourceFlowElement();
+					if(sourceFlowElement.getId().equals(currTaskId)){
 						if(StringUtils.isNotBlank(inFlow.getSkipExpression())){
 							skipResult = FlowElContans.isConditionOfBool(inFlow.getSkipExpression(),variables);
 							if(!skipResult) break;
 						}
 					}
-					if(!skipResult) break;
-					//再次遍历所有普通任务节点
-					for(UserTask userTasks:taskLists) {
-						String flowId = userTasks.getId();
-						if (flowId.equals(nextId)) {
-							nextTargetTask = userTasks;
-						}
+				}
+				if(!skipResult) break;
+				//再次遍历所有普通任务节点
+				for(UserTask userTasks:taskLists) {
+					String flowId = userTasks.getId();
+					if (flowId.equals(nextId)) {
+						nextTargetTask = userTasks;
 					}
 				}
 			}
@@ -158,29 +162,42 @@ public class PsmcBaseWorkFlowServiceImpl implements PsmcBaseWorkFlowService {
 		return nextTargetTask;
 	}
 
-
+	//获取当前任务的候选处理人（支持角色、组查询，目前暂不支持合并，只能二选一，不支持流程任务直接指派人assignee的选择）
 	private MyPage getTaskUsers(UserTask task,MyPage myPage){
 		List<Map> flowChooseUsers = new ArrayList<Map>();
 		List<String> candidateUsers = task.getCandidateUsers();
+
 		if(candidateUsers != null && candidateUsers.size()>0){
-			StringBuffer sb = new StringBuffer();
+			StringBuffer accountNames = new StringBuffer();
 			for(String candidateUser:candidateUsers){
-				sb.append(FlowElContans.isConditionOfString(candidateUser,myPage.getQueryParams())+",");
+				accountNames.append(FlowElContans.isConditionOfString(candidateUser,myPage.getQueryParams()));
 			}
-			myPage.getQueryParams().put("accountNames",sb.substring(0,sb.lastIndexOf(",")));
-			return tabAccountService.getTabAccounts(myPage);
+			StringBuffer sb = new StringBuffer();
+			sb.append(" and a.ACCOUNT_NAME in").append(MyStringUtil.StringFormatMethod(accountNames.toString()));
+			Map<String, Object> queryParams = myPage.getQueryParams();
+			queryParams.put("accountNames",sb.toString());
+			myPage.setQueryParams(queryParams);
+			return this.tabAccountService.getTabAccounts(myPage);
 		}
 
 		List<String> candidateGroups = task.getCandidateGroups();
+		StringBuffer flowRoleOrGroupIds = new StringBuffer();
 		if(candidateGroups != null && candidateGroups.size()>0){
-			StringBuffer sb = new StringBuffer();
 			for(String candidateGroup:candidateGroups){
-				sb.append(FlowElContans.isConditionOfString(candidateGroup,myPage.getQueryParams())+",");
+				flowRoleOrGroupIds.append(FlowElContans.isConditionOfString(candidateGroup,myPage.getQueryParams()));
 			}
+			StringBuffer sb = new StringBuffer();
+			sb.append(" and ( ");
+			sb.append("  g.role_no IN ").append(MyStringUtil.StringFormatMethod(flowRoleOrGroupIds.toString()));
+			sb.append(" or d.group_code IN ").append(MyStringUtil.StringFormatMethod(flowRoleOrGroupIds.toString()));
+			sb.append(")");
 			Map<String, Object> queryParams = myPage.getQueryParams();
-			queryParams.put("flowRoleOrGroupIds",sb.substring(0,sb.lastIndexOf(",")));
+			queryParams.put("flowRoleOrGroupIds",sb.toString());
 			myPage.setQueryParams(queryParams);
 			return this.tabAccountService.getTabAccounts(myPage);
+		}
+		if(StringUtils.isNotBlank(task.getAssignee())){
+			throw new RuntimeException("流程不支持assignee配置人员方式!");
 		}
 		return myPage;
 	}

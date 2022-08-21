@@ -8,7 +8,7 @@
     </extensionElements>
     <startEvent id="startevent1" name="需求部申请"></startEvent>
     <userTask id="audit" name="科长审核" activiti:candidateGroups="${role_chief}"></userTask>
-    <userTask id="usertask2" name="业务部立项" activiti:assignee="admin">
+    <userTask id="usertask2" name="业务部立项" activiti:candidateUsers="${ywblx_hxr}">
       <extensionElements>
         <activiti:taskListener event="create" class="priv.guochun.psmc.system.framework.activiti.core.listener.PsmcActivitiTaskHandlerListener"></activiti:taskListener>
       </extensionElements>

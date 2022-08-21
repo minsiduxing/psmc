@@ -4,8 +4,14 @@ import org.apache.commons.lang.StringUtils;
 
 public class MyStringUtil {
 
-	public final static String stringFormat =",";
-	
+	//逗号
+	public final static String stringFormat_comma =",";
+
+	//分号
+	public final static String stringFormat_semicolon =";";
+
+
+
 	/**
 	 * 将一个,号分隔的字符串转换为('value')格式的字符串
 	 * @param ids
@@ -16,7 +22,7 @@ public class MyStringUtil {
 		if(StringUtils.isBlank(ids))
 			return null;
 		StringBuffer newId = new StringBuffer();
-		String[] strs = ids.split(stringFormat);
+		String[] strs = ids.split(stringFormat_comma);
 		int strsLength = strs.length;
 		newId.append("(");
 		 for(int i=0;i<strsLength;i++){
