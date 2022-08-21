@@ -10,7 +10,7 @@ import priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContext;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 
 /**
- * psmc自定义流程人员查找
+ * psmc自定义任务事件监听
  */
 public class PsmcActivitiTaskHandlerListener implements TaskListener
 {
@@ -42,8 +42,8 @@ public class PsmcActivitiTaskHandlerListener implements TaskListener
             taskService.addUserIdentityLink(delegateTask.getId(),"zx_admin3",IdentityLinkType.CANDIDATE);
         }
         if("create".equalsIgnoreCase(delegateTask.getEventName()) && "usertask2".equals(taskDefinitionKey)){
-            TaskService taskService = psmcWorkFlowContext.getTaskService();
-            taskService.claim(delegateTask.getId(),"admin");
+//            TaskService taskService = psmcWorkFlowContext.getTaskService();
+//            taskService.claim(delegateTask.getId(),"admin");
         }
 
         /**

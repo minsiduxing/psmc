@@ -26,6 +26,7 @@ public class TFlowInstanceServiceImpl implements TFlowInstanceService {
 		TFlowInstanceMapper mapper = sqlSession.getMapper(TFlowInstanceMapper.class);
 		mapper.updateByPrimaryKey(tFlowInstance);
 	}
+
 	public TFlowInstance getTFlowInstanceBytfiId(String tfiId) {
 
 		TFlowInstanceMapper mapper = sqlSession.getMapper(TFlowInstanceMapper.class);

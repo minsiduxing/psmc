@@ -11,7 +11,7 @@ import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.TimestampUtil;
 
 /**
- * psmc自定义流程人员查找
+ * 自定义监听器，监听流程完成后进行状态处理
  */
     public class PsmcActivitiExecutionListener implements ExecutionListener
 {
@@ -43,7 +43,7 @@ import priv.guochun.psmc.system.util.TimestampUtil;
             String tfiId = execution.getProcessInstanceId();
             TFlowInstance tFlowInstance = psmcWorkFlowContext.gettFlowInstanceService().getTFlowInstanceBytfiId(tfiId);
             tFlowInstance.setFlowState(FlowContans.FLOW_STATE_END);
-            tFlowInstance.setFlowStartTime(TimestampUtil.createCurTimestamp());
+            tFlowInstance.setFlowEndTime(TimestampUtil.createCurTimestamp());
             psmcWorkFlowContext.gettFlowInstanceService().update(tFlowInstance);
         }
     }

@@ -8,7 +8,7 @@
     </extensionElements>
     <startEvent id="startevent1" name="需求部申请"></startEvent>
     <userTask id="audit" name="科长审核" activiti:candidateGroups="${role_chief}"></userTask>
-    <userTask id="usertask2" name="业务部立项">
+    <userTask id="usertask2" name="业务部立项" activiti:assignee="admin">
       <extensionElements>
         <activiti:taskListener event="create" class="priv.guochun.psmc.system.framework.activiti.core.listener.PsmcActivitiTaskHandlerListener"></activiti:taskListener>
       </extensionElements>
@@ -16,7 +16,7 @@
     <sequenceFlow id="flow5" sourceRef="usertask2" targetRef="audit"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow6" sourceRef="audit" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="approval" name="局长审批" activiti:candidateUsers="${role_director}"></userTask>
+    <userTask id="approval" name="局长审批" activiti:candidateGroups="${group_director}"></userTask>
     <sequenceFlow id="flow7" sourceRef="exclusivegateway1" targetRef="approval" skipExpression="${chief_audit==1}"></sequenceFlow>
     <endEvent id="endevent1" name="完成"></endEvent>
     <sequenceFlow id="flow8" sourceRef="approval" targetRef="endevent1"></sequenceFlow>

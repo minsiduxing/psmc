@@ -43,13 +43,13 @@ public class PsmcTjyFlowTestController extends MyController {
 	public void completeTask() throws IOException{
 		Map<String, Object> variables = new HashMap<String, Object>();
 		if("usertask2".equalsIgnoreCase(this.request().getParameter("taskKeyId"))){
-			//科长审批角色
-			variables.put("role_chief", "sys_manager");
+			//科长审批候选(分配到角色)
+			variables.put("role_chief", this.getUserBySeesion(this.request()).getRoleNo());
 		} else if("audit".equalsIgnoreCase(this.request().getParameter("taskKeyId"))){
 			//1通过0不通过
 				variables.put("chief_audit", this.request().getParameter("audit"));
-			//局长审批角色
-			variables.put("role_director", "admin");
+			//局长审批候选（分配到组）
+			variables.put("group_director", this.getUserBySeesion(this.request()).getGroupCode());
 		}
 		MsgModel mm = psmcWorkFlowContext.getPsmcBaseWorkFlowService().completeTask(this.request().getParameter("taskId"),variables);
 		this.responseHtmltext(JSON.toJSONString(mm), this.response());

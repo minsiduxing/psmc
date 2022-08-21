@@ -1,6 +1,5 @@
 package priv.guochun.psmc.system.framework.activiti.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.activiti.bpmn.model.Process;

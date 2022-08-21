@@ -37,9 +37,7 @@ public class PsmcRuntimeServiceProxy implements RuntimeService {
 	private RuntimeService realRuntimeService;
 	
 	private PsmcWorkFlowContext psmcWorkFlowContext;
-	
-	private TFlowInstanceService TFlowInstanceService;
-	
+
 	protected static final  Logger logger  = LoggerFactory.getLogger(PsmcRuntimeServiceProxy.class);
 
 	private final static String runtimeServiceBoost = "psmcRuntimeServiceBoost";
@@ -85,7 +83,7 @@ public class PsmcRuntimeServiceProxy implements RuntimeService {
 		
 		if(pi != null){
 			flowInstance.setTfiUuid(pi.getProcessInstanceId());
-			TFlowInstanceService.save(flowInstance);
+			psmcWorkFlowContext.gettFlowInstanceService().save(flowInstance);
 		}
 			
 		return pi;
@@ -627,10 +625,5 @@ public class PsmcRuntimeServiceProxy implements RuntimeService {
 	public void setPsmcWorkFlowContext(PsmcWorkFlowContext psmcWorkFlowContext) {
 		this.psmcWorkFlowContext = psmcWorkFlowContext;
 	}
-
-	public void setTFlowInstanceService(TFlowInstanceService tFlowInstanceService) {
-		TFlowInstanceService = tFlowInstanceService;
-	}
-	
 	
 }
