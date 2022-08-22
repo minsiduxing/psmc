@@ -39,7 +39,12 @@ import priv.guochun.psmc.system.util.TimestampUtil;
         logger.debug("psmc自定义执行监听器执行了execution.getProcessInstanceId():"+execution.getProcessInstanceId());
 
         String eventName = execution.getEventName();
-        if(FlowContans.FLOW_END_EVENT.equals(eventName)){
+
+        if(FlowContans.FLOW_EVENT_START.equals(eventName)){
+            //流程启动在runtime的start方法里实现了，这里不管了。
+        }
+
+        if(FlowContans.FLOW_EVENT_END.equals(eventName)){
             String tfiId = execution.getProcessInstanceId();
             TFlowInstance tFlowInstance = psmcWorkFlowContext.gettFlowInstanceService().getTFlowInstanceBytfiId(tfiId);
             tFlowInstance.setFlowState(FlowContans.FLOW_STATE_END);

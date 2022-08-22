@@ -11,6 +11,7 @@ import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.user.service.TabAccountService;
 import priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContext;
 import priv.guochun.psmc.system.framework.activiti.service.PsmcBaseWorkFlowService;
+import priv.guochun.psmc.system.framework.activiti.util.FlowContans;
 import priv.guochun.psmc.system.framework.activiti.util.FlowElContans;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
@@ -80,7 +81,7 @@ public class PsmcBaseWorkFlowServiceImpl implements PsmcBaseWorkFlowService {
 
 	public MsgModel startFlow(Map<String, Object> variables){
 		MsgModel mm = null;
-		ProcessInstance pi = psmcWorkFlowContext.getRuntimeService().startProcessInstanceByKey(variables.get("flow_en_name").toString(), variables);
+		ProcessInstance pi = psmcWorkFlowContext.getRuntimeService().startProcessInstanceByKey(variables.get(FlowContans.FLOW_COMMON_VARIABLES_FLOW_EN_NAME).toString(), variables);
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		return MsgModel.buildDefaultSuccess(gson.toJson(pi));
 	}

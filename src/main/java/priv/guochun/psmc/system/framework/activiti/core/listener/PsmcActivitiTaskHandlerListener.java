@@ -7,6 +7,7 @@ import org.activiti.engine.task.IdentityLinkType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContext;
+import priv.guochun.psmc.system.framework.activiti.util.FlowContans;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 
 /**
@@ -35,17 +36,12 @@ public class PsmcActivitiTaskHandlerListener implements TaskListener
          */
         final String taskDefinitionKey = delegateTask.getTaskDefinitionKey();
 
-        if("create".equalsIgnoreCase(delegateTask.getEventName()) && "usertask1".equals(taskDefinitionKey)){
+        if("create".equalsIgnoreCase(delegateTask.getEventName()) && FlowContans.FLOW_TEST_ONE_FLOW_USERTASK1.equals(taskDefinitionKey)){
             TaskService taskService = psmcWorkFlowContext.getTaskService();
             taskService.addUserIdentityLink(delegateTask.getId(),"admin",IdentityLinkType.CANDIDATE);
             taskService.addUserIdentityLink(delegateTask.getId(),"zx_admin2",IdentityLinkType.CANDIDATE);
             taskService.addUserIdentityLink(delegateTask.getId(),"zx_admin3",IdentityLinkType.CANDIDATE);
         }
-        if("create".equalsIgnoreCase(delegateTask.getEventName()) && "usertask2".equals(taskDefinitionKey)){
-//            TaskService taskService = psmcWorkFlowContext.getTaskService();
-//            taskService.claim(delegateTask.getId(),"admin");
-        }
-
         /**
          * event (required): 事件类型.。支持的类型有：
          *

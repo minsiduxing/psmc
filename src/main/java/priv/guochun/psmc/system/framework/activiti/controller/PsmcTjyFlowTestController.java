@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContext;
+import priv.guochun.psmc.system.framework.activiti.util.FlowContans;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
@@ -27,9 +28,9 @@ public class PsmcTjyFlowTestController extends MyController {
 	public void startFlow() throws IOException{
 		
 		Map<String, Object> variables = new HashMap<String, Object>();
-		variables.put("flow_en_name", "TEST_ONE_FLOW");
+		variables.put(FlowContans.FLOW_COMMON_VARIABLES_FLOW_EN_NAME, "TEST_ONE_FLOW");
 		//流程启动人
-		variables.put("startUserId", this.getUserBySeesion(this.request()).getAccountName());
+		variables.put(FlowContans.FLOW_COMMON_VARIABLES_STARTED, this.getUserBySeesion(this.request()).getAccountName());
 
 		MsgModel mm = psmcWorkFlowContext.getPsmcBaseWorkFlowService().startFlow(variables);
 		this.responseHtmltext(JSON.toJSONString(mm), this.response());
@@ -42,17 +43,17 @@ public class PsmcTjyFlowTestController extends MyController {
 	@RequestMapping(params="method=completeTask")
 	public void completeTask() throws IOException{
 		Map<String, Object> variables = new HashMap<String, Object>();
-		if("usertask1".equalsIgnoreCase(this.request().getParameter("taskKeyId"))){
-			variables.put("ywblx_hxr", "lyadmin");
+		if(FlowContans.FLOW_TEST_ONE_FLOW_USERTASK1.equals(this.request().getParameter("taskKeyId"))){
+			variables.put(FlowContans.FLOW_TEST_ONE_FLOW_USERTASK2_VARS_YWBLX_HXR, "lyadmin");
 		}
-		if("usertask2".equalsIgnoreCase(this.request().getParameter("taskKeyId"))){
+		if(FlowContans.FLOW_TEST_ONE_FLOW_USERTASK2.equals(this.request().getParameter("taskKeyId"))){
 			//科长审批候选(分配到角色)
-			variables.put("role_chief", "sys_manager");
-		} else if("audit".equalsIgnoreCase(this.request().getParameter("taskKeyId"))){
+			variables.put(FlowContans.FLOW_TEST_ONE_FLOW_AUDIT_VARS_ROLE_CHIEF, "sys_manager");
+		} else if(FlowContans.FLOW_TEST_ONE_FLOW_AUDIT.equals(this.request().getParameter("taskKeyId"))){
 			//1通过0不通过
-			variables.put("chief_audit", this.request().getParameter("audit"));
+			variables.put(FlowContans.FLOW_TEST_ONE_FLOW_AUDIT_VARS_CHIEF_AUDIT, this.request().getParameter("audit"));
 			//局长审批候选（分配到组）
-			variables.put("group_director", "17,lyadmin");
+			variables.put(FlowContans.FLOW_TEST_ONE_FLOW_APPROVAL_VARS_GROUP_DIRECTOR, "17,lyadmin");
 		}
 		MsgModel mm = psmcWorkFlowContext.getPsmcBaseWorkFlowService().completeTask(this.request().getParameter("taskId"),variables);
 		this.responseHtmltext(JSON.toJSONString(mm), this.response());
@@ -64,7 +65,6 @@ public class PsmcTjyFlowTestController extends MyController {
 	 */
 	@RequestMapping(params="method=claimTask")
 	public void claimTask() throws IOException{
-		Map<String, Object> variables = new HashMap<String, Object>();
 		MsgModel mm = psmcWorkFlowContext.getPsmcBaseWorkFlowService().claimTask(this.request().getParameter("taskId"),this.request().getParameter("userId"));
 		this.responseHtmltext(JSON.toJSONString(mm), this.response());
 	}
@@ -75,7 +75,6 @@ public class PsmcTjyFlowTestController extends MyController {
 	 */
 	@RequestMapping(params="method=unClaimTask")
 	public void unClaimTask() throws IOException{
-		Map<String, Object> variables = new HashMap<String, Object>();
 		MsgModel mm = psmcWorkFlowContext.getPsmcBaseWorkFlowService().unClaimTask(this.request().getParameter("taskId"));
 		this.responseHtmltext(JSON.toJSONString(mm), this.response());
 	}
