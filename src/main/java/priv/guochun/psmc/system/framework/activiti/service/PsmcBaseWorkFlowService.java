@@ -49,7 +49,7 @@ public interface PsmcBaseWorkFlowService {
 	 * @param variables
 	 * @return
 	 */
-	public MsgModel completeTask(String taskId, Map<String, Object> variables);
+	public MsgModel completeTask(String taskId,Map<String, Object> variables,Map<String, Object> transientVariables);
 
 	/**
 	 * 接收认领任务，认领后其他人待接收任务列表就没有了

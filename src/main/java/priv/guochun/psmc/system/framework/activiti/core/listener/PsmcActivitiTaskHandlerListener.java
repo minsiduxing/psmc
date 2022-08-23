@@ -42,6 +42,8 @@ public class PsmcActivitiTaskHandlerListener implements TaskListener
             taskService.addUserIdentityLink(delegateTask.getId(),"zx_admin2",IdentityLinkType.CANDIDATE);
             taskService.addUserIdentityLink(delegateTask.getId(),"zx_admin3",IdentityLinkType.CANDIDATE);
         }
+        if("create".equalsIgnoreCase(delegateTask.getEventName()) && "Exclusive Gateway".equals(taskDefinitionKey)){
+        }
         /**
          * event (required): 事件类型.。支持的类型有：
          *

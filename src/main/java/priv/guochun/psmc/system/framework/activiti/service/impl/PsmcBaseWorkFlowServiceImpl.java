@@ -86,9 +86,9 @@ public class PsmcBaseWorkFlowServiceImpl implements PsmcBaseWorkFlowService {
 		return MsgModel.buildDefaultSuccess(gson.toJson(pi));
 	}
 
-	public MsgModel completeTask(String taskId,Map<String, Object> variables){
+	public MsgModel completeTask(String taskId,Map<String, Object> variables,Map<String, Object> transientVariables){
 		MsgModel mm = null;
-		psmcWorkFlowContext.getTaskService().complete(taskId,variables);
+		psmcWorkFlowContext.getTaskService().complete(taskId,variables,transientVariables);
 		return MsgModel.buildDefaultSuccess();
 	}
 
@@ -133,23 +133,23 @@ public class PsmcBaseWorkFlowServiceImpl implements PsmcBaseWorkFlowService {
 			String nextId = targetFlowElement.getId();
 			String nextName = targetFlowElement.getName();
 
-			if(ExclusiveGateway.class.isInstance(targetFlowElement)){
-				ExclusiveGateway gateway = (ExclusiveGateway)targetFlowElement;
+			if(Gateway.class.isInstance(targetFlowElement)){
+				Gateway gateway = (Gateway)targetFlowElement;
 				//递归调用
 				return recursionProcess(gateway.getId(),taskLists,gateway.getOutgoingFlows(),variables);
 			}
 			if(UserTask.class.isInstance(targetFlowElement)){
 				boolean skipResult = false;
 				List<SequenceFlow> inFlows = ((UserTask) targetFlowElement).getIncomingFlows();
-				for(SequenceFlow inFlow:inFlows){
+				for(SequenceFlow inFlow:inFlows) {
 					FlowElement sourceFlowElement = inFlow.getSourceFlowElement();
-					if(sourceFlowElement.getId().equals(currTaskId)){
-						if(StringUtils.isNotBlank(inFlow.getSkipExpression())){
-							skipResult = FlowElContans.isConditionOfBool(inFlow.getSkipExpression(),variables);
-							if(skipResult){break;
-							}
-						}
+					if (sourceFlowElement.getId().equals(currTaskId)) {
+						if (StringUtils.isNotBlank(inFlow.getConditionExpression())) {
+							skipResult = FlowElContans.isConditionOfBool(inFlow.getConditionExpression(), variables);
+						} else
+							skipResult = true;
 					}
+					if (skipResult) break;
 				}
 				if(skipResult){
 					//再次遍历所有普通任务节点

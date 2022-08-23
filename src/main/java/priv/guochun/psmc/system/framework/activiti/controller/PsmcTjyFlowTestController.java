@@ -43,8 +43,10 @@ public class PsmcTjyFlowTestController extends MyController {
 	@RequestMapping(params="method=completeTask")
 	public void completeTask() throws IOException{
 		Map<String, Object> variables = new HashMap<String, Object>();
+		Map<String, Object> transientVariables = new HashMap<String, Object>();
+
 		if(FlowContans.FLOW_TEST_ONE_FLOW_USERTASK1.equals(this.request().getParameter("taskKeyId"))){
-			variables.put(FlowContans.FLOW_TEST_ONE_FLOW_USERTASK2_VARS_YWBLX_HXR, "lyadmin");
+			variables.put(FlowContans.FLOW_TEST_ONE_FLOW_USERTASK2_VARS_YWBLX_HXR, "admin");
 		}
 		if(FlowContans.FLOW_TEST_ONE_FLOW_USERTASK2.equals(this.request().getParameter("taskKeyId"))){
 			//科长审批候选(分配到角色)
@@ -52,10 +54,15 @@ public class PsmcTjyFlowTestController extends MyController {
 		} else if(FlowContans.FLOW_TEST_ONE_FLOW_AUDIT.equals(this.request().getParameter("taskKeyId"))){
 			//1通过0不通过
 			variables.put(FlowContans.FLOW_TEST_ONE_FLOW_AUDIT_VARS_CHIEF_AUDIT, this.request().getParameter("audit"));
-			//局长审批候选（分配到组）
-			variables.put(FlowContans.FLOW_TEST_ONE_FLOW_APPROVAL_VARS_GROUP_DIRECTOR, "17,lyadmin");
+			if("1".equals(this.request().getParameter("audit"))){
+				variables.put(FlowContans.FLOW_TEST_ONE_FLOW_USERTASK2_VARS_YWBLX_HXR, "cbadmin");
+
+			}else{
+				//局长审批候选（分配到组）
+				variables.put(FlowContans.FLOW_TEST_ONE_FLOW_APPROVAL_VARS_GROUP_DIRECTOR, "17,lyadmin");
+			}
 		}
-		MsgModel mm = psmcWorkFlowContext.getPsmcBaseWorkFlowService().completeTask(this.request().getParameter("taskId"),variables);
+		MsgModel mm = psmcWorkFlowContext.getPsmcBaseWorkFlowService().completeTask(this.request().getParameter("taskId"),variables,transientVariables);
 		this.responseHtmltext(JSON.toJSONString(mm), this.response());
 	}
 
