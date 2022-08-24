@@ -36,7 +36,8 @@
 var basePath = $("#basePath").val();
 
 var getTabDataUrl = basePath+"/system/framework/tjyFlowTestController.do";
-getTabDataUrl ='<c:url value="'+getTabDataUrl+'"/>?method=selectWaitReceiveTasks';
+var selectWaitReceiveTasks ='<c:url value="'+getTabDataUrl+'"/>?method=selectWaitReceiveTasks';
+var claimTaskUrl ='<c:url value="'+getTabDataUrl+'"/>?method=claimTask';
 
 $('#flow_cn_name').textbox({
 	type : "text"
@@ -45,6 +46,7 @@ $('#flow_cn_name').textbox({
 $('#task_step_name').textbox({
 	type : "text"
 });
+
 
 </script>
 </html>

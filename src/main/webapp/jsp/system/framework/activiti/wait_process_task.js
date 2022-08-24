@@ -5,10 +5,10 @@ $(document).ready(function(){
 	var option = {
 		tabId:"sologTableId",
 		toolbar:"toolbarId",
-		url:getTabDataUrl,
-		columns:[[   
+		url:selectWaitProcessTasksUrl,
+		columns:[[
 				{field:'tfi_uuid',align:'center',title:'流程实例id',hidden:true},
-				{field:'tfi_uuid',align:'center',title:'流程实例id',hidden:true},
+				{field:'tfc_uuid',align:'center',title:'流程配置id',hidden:true},
 				{field:'flow_entrance',align:'center',title:"流程操作入口",hidden:true},
 				{field:'task_step_key',align:'center',title:"当前任务key",hidden:true},
 				{field:'flow_no',align:'center',title:"流程编号",width:$(this).width() * 0.2},
@@ -25,7 +25,10 @@ $(document).ready(function(){
 				{field:'task_start_time',align:'center',title:"任务开始时间",width:$(this).width() * 0.2},
 				{field:'task_end_time',align:'center',title:"任务结束时间",width:$(this).width() * 0.2},
 				{field:'task_state_name',align:'center',title:"任务状态",width:$(this).width() * 0.2},
-				{field:'oper_result',align:'center',title:"操作",width:$(this).width() * 0.2}
+				{field:' ',align:'center',title:"操作",width:$(this).width() * 0.2,formatter: function (value, row, index) {
+					return "<a href='javascript:void(0)' onclick='unclaimTask(&apos;" + row['task_id'] + "&apos;)'>释放</a>&nbsp;&nbsp;" +
+						"<a href='javascript:void(0)' onclick='completeTask(&apos;"+row['task_id']+ "&apos;,&apos;"+row['task_step_key']+"&apos;)'>处理</a>";
+				}}
 			]
 		]
 	};
@@ -33,7 +36,49 @@ $(document).ready(function(){
 	commonObj.initPaginationGrid(option);
 	
 });
+function unclaimTask(taskId){
+	$.messager.progress();
+	$.ajax({
+		type: "POST",
+		url: unclaimTaskUrl,
+		data: "&taskId="+taskId,
+		success: function(data){
+			successCallback(data);
+		},
+		error:function(XMLHttpRequest, textStatus, errorThrown){
+			commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+			$.messager.progress("close");
+		}
+	});
+}
 
+function completeTask(taskId,taskKey){
+	debugger;
+	var variables;
+	if(taskKey == 'usertask1'){
+		variables = "&taskId="+taskId+"&variables[ywblx_hxr]=admin&variables[test]=admin2";
+	}
+	$.messager.progress();
+	$.ajax({
+		type: "POST",
+		url: completeTaskUrl,
+		data: variables,
+		success: function(data){
+			successCallback(data);
+		},
+		error:function(XMLHttpRequest, textStatus, errorThrown){
+			commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+			$.messager.progress("close");
+		}
+	});
+}
+
+//表单提交成功后的回调方法
+function successCallback(data){
+	$.messager.progress("close");
+	$("#sologTableId").datagrid('reload');
+	commonObj.showResponse(data);
+}
 
 
 

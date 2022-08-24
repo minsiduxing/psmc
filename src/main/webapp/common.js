@@ -130,6 +130,46 @@ commonObj.initDictCombobox = function(id,dictNo,defaultValue,validate,isQuery,pa
 	});
 };
 
+commonObj.initPaginationGrid = function(option){
+	$('#'+option.tabId).datagrid({
+		title:"数据列表",
+		columns:option.columns,
+		url:option.url,
+		autoRowHeight:true,
+		toolbar:"#"+option.toolbar,
+		pagination:true,
+		queryParams: option.queryParams,
+		rownumbers:true,
+		fitColumns:true,
+		remoteSort:false,
+		resizeHandle:"both",
+		nowrap:false,
+		idField:option.idField,
+		striped:true,
+		ctrlSelect:true,
+		onLoadError:function(XMLHttpRequest, textStatus, errorThrown){
+			commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+		}
+	});
+	$('#'+option.tabId).datagrid('resize');
+};
+
+/**
+ * 初始化公共的折叠面板
+ * @param option
+ */
+commonObj.initAccordionPanel = function(option){
+	$('#'+option.id).accordion({
+		id:option.id,
+		width:option.width,
+		height:option.height,
+		fit:option.fit,
+		animate:option.animate,
+		multiple:option.multiple,//同时展开多个面板
+		border:option.border
+	});
+};
+
 /**
  *  初始化部门的combobox
  *  @param id input id

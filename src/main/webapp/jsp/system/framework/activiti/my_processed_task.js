@@ -5,10 +5,10 @@ $(document).ready(function(){
 	var option = {
 		tabId:"sologTableId",
 		toolbar:"toolbarId",
-		url:getTabDataUrl,
-		columns:[[   
-				{field:'tfi_uuid',align:'center',align:'center',title:'流程实例id',hidden:true},
+		url:selectWaitReceiveTasks,
+		columns:[[
 				{field:'tfi_uuid',align:'center',title:'流程实例id',hidden:true},
+				{field:'tfc_uuid',align:'center',title:'流程配置id',hidden:true},
 				{field:'flow_entrance',align:'center',title:"流程操作入口",hidden:true},
 				{field:'task_step_key',align:'center',title:"当前任务key",hidden:true},
 				{field:'flow_no',align:'center',title:"流程编号",width:$(this).width() * 0.2},
@@ -24,8 +24,8 @@ $(document).ready(function(){
 				{field:'task_process_name',align:'center',title:"任务处理人",width:$(this).width() * 0.2},
 				{field:'task_start_time',align:'center',title:"任务开始时间",width:$(this).width() * 0.2},
 				{field:'task_end_time',align:'center',title:"任务结束时间",width:$(this).width() * 0.2},
-				{field:'task_state_name',align:'center',title:"任务状态",width:$(this).width() * 0.2},
-				{field:'oper_result',align:'center',title:"操作",width:$(this).width() * 0.2}
+				{field:'task_state_name',align:'center',title:"任务状态",width:$(this).width() * 0.2}
+
 			]
 		]
 	};

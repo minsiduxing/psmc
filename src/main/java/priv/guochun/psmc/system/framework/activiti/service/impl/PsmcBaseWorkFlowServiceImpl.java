@@ -105,6 +105,8 @@ public class PsmcBaseWorkFlowServiceImpl implements PsmcBaseWorkFlowService {
 	}
 
 	public MsgModel claimTask(String taskId, String userId){
+		if(StringUtils.isBlank(taskId) || StringUtils.isBlank(userId))
+			throw new RuntimeException("任务号、用户id不能为空!");
 		MsgModel mm = null;
 		psmcWorkFlowContext.getTaskService().claim(taskId,userId);
 		return MsgModel.buildDefaultSuccess();

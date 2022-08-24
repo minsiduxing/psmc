@@ -402,7 +402,7 @@
     a.tfi_uuid,a.tfc_uuid,a.flow_no,a.flow_cn_name,a.flow_en_name,a.flow_entrance,a.flow_version,a.flow_state,
     (case when a.flow_state='1' then '进行中' when a.flow_state='2' then '已完成' end) as flow_state_name,
     a.flow_start_time,a.flow_end_time,a.flow_end_limit_time,
-    b.ID_ as taskId,b.TASK_DEF_KEY_ as task_step_key,b.name_ as task_step_name,b.CLAIM_TIME_ as claim_time,b.CREATE_TIME_ as task_start_time,'' as task_end_time,b.SUSPENSION_STATE_ as task_state,
+    b.ID_ as task_id,b.TASK_DEF_KEY_ as task_step_key,b.name_ as task_step_name,b.CLAIM_TIME_ as claim_time,b.CREATE_TIME_ as task_start_time,'' as task_end_time,b.SUSPENSION_STATE_ as task_state,
     (case when b.SUSPENSION_STATE_='1' then '进行中' when b.SUSPENSION_STATE_='2' then '挂起' end) as task_state_name
   </sql>
 
@@ -411,7 +411,7 @@
     a.tfi_uuid,a.tfc_uuid,a.flow_no,a.flow_cn_name,a.flow_en_name,a.flow_entrance,a.flow_version,a.flow_state,
     (case when a.flow_state='1' then '进行中' when a.flow_state='2' then '已完成' end) as flow_state_name,
     a.flow_start_time,a.flow_end_time,a.flow_end_limit_time,
-    b.ID_ as taskId,b.TASK_DEF_KEY_ as task_step_key,b.name_ as task_step_name,b.CLAIM_TIME_ as claim_time,b.START_TIME_ as task_start_time,b.END_TIME_ as task_end_time,'99' as task_state,
+    b.ID_ as task_id,b.TASK_DEF_KEY_ as task_step_key,b.name_ as task_step_name,b.CLAIM_TIME_ as claim_time,b.START_TIME_ as task_start_time,b.END_TIME_ as task_end_time,'99' as task_state,
     '已完成' as task_state_name
   </sql>
 
