@@ -261,8 +261,16 @@ public class MyController
         stream.flush();  
         stream.close();  
           
-    }  
-    /**
+    }
+
+	protected void responseImage(byte[] bytes,HttpServletResponse response) throws Exception{
+		response().setContentType("image/svg+xml");
+		OutputStream outputStream = response().getOutputStream();
+		outputStream.write(bytes);
+		outputStream.flush();
+		outputStream.close();
+	}
+	/**
      * <p>Description:获取项目的绝对根路径<p>
      * @return 项目根路径
      * @author wanglei 2017年8月18日

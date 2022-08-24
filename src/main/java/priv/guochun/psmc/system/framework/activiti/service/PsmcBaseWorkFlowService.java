@@ -4,6 +4,8 @@ import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -74,5 +76,13 @@ public interface PsmcBaseWorkFlowService {
 	 * @return
 	 */
 	public MyPage getNextTaskUser(String pid, String currTaskId,MyPage myPage);
+
+
+	/**
+	 * 根据流程id获取流程图InputStream
+	 * @param procInstId
+	 * @return
+	 */
+	public byte[]  getFlowImgByInstanceId(String procInstId);
 
 }

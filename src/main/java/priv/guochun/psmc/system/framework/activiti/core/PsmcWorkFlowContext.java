@@ -1,5 +1,6 @@
 package priv.guochun.psmc.system.framework.activiti.core;
 
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -28,6 +29,8 @@ public interface PsmcWorkFlowContext {
 	public TaskService getTaskService();
 
 	public RepositoryService getRepositoryService();
+
+	public HistoryService getHistoryService();
 
 	//得到psmc基础流程操作服务（任务查询、任务办理）
 	public PsmcBaseWorkFlowService getPsmcBaseWorkFlowService();

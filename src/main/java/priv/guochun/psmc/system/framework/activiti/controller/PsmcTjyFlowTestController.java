@@ -146,4 +146,15 @@ public class PsmcTjyFlowTestController extends MyController {
 		myPage = psmcWorkFlowContext.getPsmcBaseWorkFlowService().getNextTaskUser(pid,taskId,myPage);
 		super.responseJson(JsonUtil.convertToJSONObject(myPage), this.response());
 	}
+
+	/**
+	 * 根据流程id获取流程运行图片
+	 * @param pid
+	 * @throws Exception
+	 */
+	@RequestMapping(params="method=getFlowImgByInstanceId")
+	public void getFlowImgByInstanceId(String pid) throws Exception {
+		byte[] bytes = psmcWorkFlowContext.getPsmcBaseWorkFlowService().getFlowImgByInstanceId(pid);
+		super.responseImage(bytes, response());
+	}
 }

@@ -1,16 +1,13 @@
 package priv.guochun.psmc.system.framework.activiti.core;
 
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
 import priv.guochun.psmc.system.framework.activiti.service.PsmcBaseWorkFlowService;
 import priv.guochun.psmc.system.framework.activiti.service.TFlowConfigService;
 import priv.guochun.psmc.system.framework.activiti.service.TFlowInstanceService;
-import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
-
-import java.util.List;
 
 /**
  * 1、psmc工作流上下文实现类,主要作用是包装发布一些流程相关的基础公共操作
@@ -31,6 +28,7 @@ public class PsmcWorkFlowContextImpl implements PsmcWorkFlowContext {
 	 */
 	private TaskService	taskService;
 
+	private HistoryService historyService;
 	private RepositoryService repositoryService;
 	private PsmcCacheFactory psmcCacheFactory;
 
@@ -116,5 +114,13 @@ public class PsmcWorkFlowContextImpl implements PsmcWorkFlowContext {
 
 	public void settFlowConfigService(TFlowConfigService tFlowConfigService) {
 		this.tFlowConfigService = tFlowConfigService;
+	}
+
+	public HistoryService getHistoryService() {
+		return historyService;
+	}
+
+	public void setHistoryService(HistoryService historyService) {
+		this.historyService = historyService;
 	}
 }
