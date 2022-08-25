@@ -100,7 +100,11 @@ public class PsmcBaseWorkFlowServiceImpl implements PsmcBaseWorkFlowService {
 
 	public MsgModel completeTask(String taskId,Map<String, Object> variables,Map<String, Object> transientVariables){
 		MsgModel mm = null;
-		psmcWorkFlowContext.getTaskService().complete(taskId,variables,transientVariables);
+		try{
+			psmcWorkFlowContext.getTaskService().complete(taskId,variables,transientVariables);
+		}catch(Exception e){
+			return MsgModel.buildDefaultError(e.getMessage());
+		}
 		return MsgModel.buildDefaultSuccess();
 	}
 

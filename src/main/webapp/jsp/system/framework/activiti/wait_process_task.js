@@ -36,49 +36,7 @@ $(document).ready(function(){
 	commonObj.initPaginationGrid(option);
 	
 });
-function unclaimTask(taskId){
-	$.messager.progress();
-	$.ajax({
-		type: "POST",
-		url: unclaimTaskUrl,
-		data: "&taskId="+taskId,
-		success: function(data){
-			successCallback(data);
-		},
-		error:function(XMLHttpRequest, textStatus, errorThrown){
-			commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
-			$.messager.progress("close");
-		}
-	});
-}
 
-function completeTask(taskId,taskKey){
-	debugger;
-	var variables;
-	if(taskKey == 'usertask1'){
-		variables = "&taskId="+taskId+"&variables[ywblx_hxr]=admin&variables[test]=admin2";
-	}
-	$.messager.progress();
-	$.ajax({
-		type: "POST",
-		url: completeTaskUrl,
-		data: variables,
-		success: function(data){
-			successCallback(data);
-		},
-		error:function(XMLHttpRequest, textStatus, errorThrown){
-			commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
-			$.messager.progress("close");
-		}
-	});
-}
-
-//表单提交成功后的回调方法
-function successCallback(data){
-	$.messager.progress("close");
-	$("#sologTableId").datagrid('reload');
-	commonObj.showResponse(data);
-}
 
 
 

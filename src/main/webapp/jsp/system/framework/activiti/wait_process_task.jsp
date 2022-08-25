@@ -6,7 +6,8 @@
 <%@ include file="../../../../common.jsp"%>
 
 <title>工作流待处理列表</title>
-<script type="text/javascript" src="wait_process_task.js"></script>
+	<script type="text/javascript" src="wait_process_task.js"></script>
+	<script type="text/javascript" src="flow_common.js"></script>
 </head>
 <body id="body">
 
@@ -27,9 +28,14 @@
 	</div> 
  </div>
  </div>
- 
+
 <table id="sologTableId" style="width:100%"></table>
 <div id="toolbarId">
+</div>
+
+<!--流程信息展示dialogDiv -->
+<div id="flowdialogDiv">
+
 </div>
 </body>
 <script type="text/javascript">
@@ -39,6 +45,7 @@ var getTabDataUrl = basePath+"/system/framework/tjyFlowTestController.do";
 var selectWaitProcessTasksUrl ='<c:url value="'+getTabDataUrl+'"/>?method=selectWaitProcessTasks';
 var unclaimTaskUrl ='<c:url value="'+getTabDataUrl+'"/>?method=unClaimTask';
 var completeTaskUrl ='<c:url value="'+getTabDataUrl+'"/>?method=completeTask';
+var getFlowShowInfoUrl = basePath+"/jsp/system/framework/activiti/flowShowInfo.jsp";
 $('#flow_cn_name').textbox({
 	type : "text"
 });

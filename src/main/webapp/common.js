@@ -245,7 +245,6 @@ commonObj.showResponse = function(data,callback){
 				commonObj.alert("操作失败,["+data.rmsg+"]","warning");
 			}else{
 				commonObj.alert("操作失败,请联系管理员!","warning");
-				console.warn("错误描述:"+data.rmsg);
 			}
 		}
 	}catch(e){

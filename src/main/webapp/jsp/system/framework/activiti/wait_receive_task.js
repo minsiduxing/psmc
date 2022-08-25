@@ -1,12 +1,9 @@
 
-
-
-
 $(document).ready(function(){
 	var option = {
 		tabId:"sologTableId",
 		toolbar:"toolbarId",
-		url:selectWaitReceiveTasks,
+		url:selectWaitReceiveTasksUrl,
 		columns:[[
 				{field:'tfi_uuid',align:'center',title:'流程实例id',hidden:true},
 				{field:'tfc_uuid',align:'center',title:'流程配置id',hidden:true},
@@ -38,28 +35,3 @@ $(document).ready(function(){
 	commonObj.initPaginationGrid(option);
 	
 });
-
-
-
-function claimTask(taskId){
-	$.messager.progress();
-	$.ajax({
-		type: "POST",
-		url: claimTaskUrl,
-		data: "&taskId="+taskId,
-		success: function(data){
-			successCallback(data);
-		},
-		error:function(XMLHttpRequest, textStatus, errorThrown){
-			commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
-			$.messager.progress("close");
-		}
-	});
-}
-
-//表单提交成功后的回调方法
-function successCallback(data){
-	$.messager.progress("close");
-	$("#sologTableId").datagrid('reload');
-	commonObj.showResponse(data);
-}

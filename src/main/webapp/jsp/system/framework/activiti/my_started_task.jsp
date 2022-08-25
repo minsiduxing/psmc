@@ -32,7 +32,7 @@
 
 <div id="toolbarId">
 </div>
-
+<!--流程信息展示dialogDiv -->
 <div id="flowdialogDiv">
 
 </div>
@@ -41,8 +41,8 @@
 var basePath = $("#basePath").val();
 
 var getTabDataUrl = basePath+"/system/framework/tjyFlowTestController.do";
-selectStartedByMeTasks ='<c:url value="'+getTabDataUrl+'"/>?method=selectStartedByMeTasks';
-getFlowShowInfoUrl = basePath+"/jsp/system/framework/activiti/flowShowInfo.jsp";
+var selectStartedByMeTasks ='<c:url value="'+getTabDataUrl+'"/>?method=selectStartedByMeTasks';
+var getFlowShowInfoUrl = basePath+"/jsp/system/framework/activiti/flowShowInfo.jsp";
 $('#flow_cn_name').textbox({
 	type : "text"
 });

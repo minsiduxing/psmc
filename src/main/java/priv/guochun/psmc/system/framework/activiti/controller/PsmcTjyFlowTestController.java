@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContext;
+import priv.guochun.psmc.system.framework.activiti.model.FlowCommonParam;
 import priv.guochun.psmc.system.framework.activiti.util.FlowContans;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.model.MsgModel;
@@ -40,15 +41,11 @@ public class PsmcTjyFlowTestController extends MyController {
 
 	/**
 	 * 完成任务
-	 * @param taskId 任务id
-	 * @param variables 流程变量
-	 * @param transientVariables 流程本环节任务变量（预留，暂时不用）
+	 * @param flowCommonParam
 	 * @throws IOException
 	 */
 	@RequestMapping(params="method=completeTask")
-	public void completeTask(@PathParam(value="taskId") String taskId,
-							Map<String, Object> variables,
-							Map<String, Object> transientVariables) throws IOException{
+	public void completeTask(FlowCommonParam flowCommonParam) throws IOException{
 
 //		if(FlowContans.FLOW_TEST_ONE_FLOW_USERTASK1.equals(this.request().getParameter("taskKeyId"))){
 //			variables.put(FlowContans.FLOW_TEST_ONE_FLOW_USERTASK2_VARS_YWBLX_HXR, "admin");
@@ -67,8 +64,8 @@ public class PsmcTjyFlowTestController extends MyController {
 //				variables.put(FlowContans.FLOW_TEST_ONE_FLOW_APPROVAL_VARS_GROUP_DIRECTOR, "17,lyadmin");
 //			}
 //		}
-		MsgModel mm = psmcWorkFlowContext.getPsmcBaseWorkFlowService().completeTask(taskId,variables,transientVariables);
-		this.responseHtmltext(JSON.toJSONString(mm), this.response());
+		MsgModel mm = psmcWorkFlowContext.getPsmcBaseWorkFlowService().completeTask(flowCommonParam.getTaskId(),flowCommonParam.getVariables(),flowCommonParam.getTransientVariables());
+		this.responseMsgModel(mm, this.response());
 	}
 
 	/**

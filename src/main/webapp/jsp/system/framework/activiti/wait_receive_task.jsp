@@ -6,7 +6,8 @@
 <%@ include file="../../../../common.jsp"%>
 
 <title>工作流待接收列表</title>
-<script type="text/javascript" src="wait_receive_task.js"></script>
+	<script type="text/javascript" src="wait_receive_task.js"></script>
+	<script type="text/javascript" src="flow_common.js"></script>
 </head>
 <body id="body">
 
@@ -36,7 +37,7 @@
 var basePath = $("#basePath").val();
 
 var getTabDataUrl = basePath+"/system/framework/tjyFlowTestController.do";
-var selectWaitReceiveTasks ='<c:url value="'+getTabDataUrl+'"/>?method=selectWaitReceiveTasks';
+var selectWaitReceiveTasksUrl ='<c:url value="'+getTabDataUrl+'"/>?method=selectWaitReceiveTasks';
 var claimTaskUrl ='<c:url value="'+getTabDataUrl+'"/>?method=claimTask';
 
 $('#flow_cn_name').textbox({
