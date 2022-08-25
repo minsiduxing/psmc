@@ -7,6 +7,7 @@ import java.util.Map;
  */
 public class FlowCommonParam {
 
+    String  pid;
     //任务id
     String  taskId;
 
@@ -38,5 +39,13 @@ public class FlowCommonParam {
 
     public void setTransientVariables(Map<String, Object> transientVariables) {
         this.transientVariables = transientVariables;
+    }
+
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
     }
 }

@@ -27,14 +27,17 @@ $(document).ready(function(){
 				{field:'task_state_name',align:'center',title:"任务状态",width:$(this).width() * 0.2},
 				{field:' ',align:'center',title:"操作",width:$(this).width() * 0.2,formatter: function (value, row, index) {
 					return "<a href='javascript:void(0)' onclick='unclaimTask(&apos;" + row['task_id'] + "&apos;)'>释放</a>&nbsp;&nbsp;" +
-						"<a href='javascript:void(0)' onclick='completeTask(&apos;"+row['task_id']+ "&apos;,&apos;"+row['task_step_key']+"&apos;)'>处理</a>";
+						"<a href='javascript:void(0)' onclick='completeTask(" +
+						"&apos;"+row['tfi_uuid']+ "&apos;," +
+						"&apos;"+row['flow_entrance']+ "&apos;," +
+						"&apos;"+row['task_id']+ "&apos;," +
+						"&apos;"+row['task_step_key']+"&apos;)'>处理</a>";
 				}}
 			]
 		]
 	};
 	//初始化待接收任务列表
 	commonObj.initPaginationGrid(option);
-	
 });
 
 

@@ -1,8 +1,6 @@
 
 
 $(document).ready(function(){
-
-    alert("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     var option ={
         id:"flowShowInfoAccordionDiv",
         width:auto,
@@ -12,6 +10,7 @@ $(document).ready(function(){
         multiple:false,//同时展开多个面板
         selected:0
     };
+    //启动流程信息折叠面板
     commonObj.initAccordionPanel(option);
 });
 

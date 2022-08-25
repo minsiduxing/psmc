@@ -37,6 +37,13 @@
 <div id="flowdialogDiv">
 
 </div>
+
+<!-- 流程业务操作的dialogDiv-->
+<div id="flowOperdialogDiv">
+
+</div>
+
+
 </body>
 <script type="text/javascript">
 var basePath = $("#basePath").val();
@@ -44,8 +51,7 @@ var basePath = $("#basePath").val();
 var getTabDataUrl = basePath+"/system/framework/tjyFlowTestController.do";
 var selectWaitProcessTasksUrl ='<c:url value="'+getTabDataUrl+'"/>?method=selectWaitProcessTasks';
 var unclaimTaskUrl ='<c:url value="'+getTabDataUrl+'"/>?method=unClaimTask';
-var completeTaskUrl ='<c:url value="'+getTabDataUrl+'"/>?method=completeTask';
-var getFlowShowInfoUrl = basePath+"/jsp/system/framework/activiti/flowShowInfo.jsp";
+
 $('#flow_cn_name').textbox({
 	type : "text"
 });
