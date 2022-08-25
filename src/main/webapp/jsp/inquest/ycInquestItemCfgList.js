@@ -10,36 +10,36 @@ $(document).ready(function(){
              * width:parseInt($(this).width()*0.3)
              */
             {field:'itemUuid',title:'题目主键',checkbox:true},
-            {field:'stageName',title:'阶段名称',resizable:true,width:200,sortable:true},
-            {field:'questionType',title:'题目类型',align:'center',sortable:true,formatter: function (value, row, index) {
+            {field:'stageName',title:'阶段名称',resizable:true,width:$(this).width() * 0.2,sortable:true},
+            {field:'questionType',title:'题目类型',align:'center',width:$(this).width() * 0.2,sortable:true,formatter: function (value, row, index) {
                     if(value=='1'){return "单选"; }
                     if(value=='2'){return "多选"; }
                 }},
-            {field:'questionName',title:'题目名称',halign:'center',width:300},
-            {field:'isAffectedBsg',title:'是否受特殊群体影响',align:'center',formatter: function (value, row, index) {
+            {field:'questionName',title:'题目名称',halign:'center',width:'25%'},
+            {field:'isAffectedBsg',title:'是否受特殊群体影响',width:$(this).width() * 0.2,align:'center',formatter: function (value, row, index) {
                     if(value){
                         return "是";
                     }else{
                         return "否";
                     }
                 }},
-            {field:'isAffectedJlcl',title:'是否进行距离测算',align:'center',sortable:true,formatter: function (value, row, index) {
+            {field:'isAffectedJlcl',title:'是否进行距离测算',width:$(this).width() * 0.2,align:'center',sortable:true,formatter: function (value, row, index) {
                     if(value){
                         return "是";
                     }else{
                         return "否";
                     }
                 }},
-            {field:'isAffectedBhdcs',title:'是否进行饱和度测算',align:'center',sortable:true,formatter: function (value, row, index) {
+            {field:'isAffectedBhdcs',title:'是否进行饱和度测算',width:$(this).width() * 0.2,align:'center',sortable:true,formatter: function (value, row, index) {
                     if(value){
                         return "是";
                     }else{
                         return "否";
                     }
                 }},
-            {field:'displayAtlas',title:'配图地址',width:300,sortable:false},
-            {field:'displayVidio',title:'视频地址',width:300,sortable:false},
-            {field:'createTime',title:'创建时间',width:120,align:'center',sortable:true}
+            {field:'displayAtlas',title:'配图地址',width:$(this).width() * 0.2,sortable:false},
+            {field:'displayVidio',title:'视频地址',width:$(this).width() * 0.2,sortable:false},
+            {field:'createTime',title:'创建时间',width:$(this).width() * 0.2,align:'center',sortable:true}
         ]
         ],
     };

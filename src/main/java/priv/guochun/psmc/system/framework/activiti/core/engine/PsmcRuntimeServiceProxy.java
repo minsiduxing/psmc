@@ -1,30 +1,17 @@
 package priv.guochun.psmc.system.framework.activiti.core.engine;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.activiti.bpmn.model.FlowNode;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.impl.persistence.entity.VariableInstance;
-import org.activiti.engine.runtime.DataObject;
-import org.activiti.engine.runtime.Execution;
-import org.activiti.engine.runtime.ExecutionQuery;
-import org.activiti.engine.runtime.NativeExecutionQuery;
-import org.activiti.engine.runtime.NativeProcessInstanceQuery;
-import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.runtime.ProcessInstanceBuilder;
-import org.activiti.engine.runtime.ProcessInstanceQuery;
+import org.activiti.engine.runtime.*;
 import org.activiti.engine.task.Event;
 import org.activiti.engine.task.IdentityLink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-
 import priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContext;
 import priv.guochun.psmc.system.framework.activiti.core.factory.PsmcActivitiExceptionFactory;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
@@ -32,7 +19,13 @@ import priv.guochun.psmc.system.framework.activiti.model.TFlowInstance;
 import priv.guochun.psmc.system.framework.activiti.service.TFlowInstanceService;
 import priv.guochun.psmc.system.framework.activiti.util.FlowContans;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
+import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.TimestampUtil;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * RuntimeService的核心proxy类，主要用于RuntimeService的API调用时的附加操作的处理
@@ -44,11 +37,10 @@ public class PsmcRuntimeServiceProxy implements RuntimeService {
 	private RuntimeService realRuntimeService;
 	
 	private PsmcWorkFlowContext psmcWorkFlowContext;
-	
-	private TFlowInstanceService TFlowInstanceService;
-	
+
 	protected static final  Logger logger  = LoggerFactory.getLogger(PsmcRuntimeServiceProxy.class);
-	
+
+	private final static String runtimeServiceBoost = "psmcRuntimeServiceBoost";
 	public PsmcRuntimeServiceProxy(){
 		
 	}
@@ -70,7 +62,7 @@ public class PsmcRuntimeServiceProxy implements RuntimeService {
 
 	@Override
 	public ProcessInstance startProcessInstanceByKey(String processDefinitionKey, Map<String, Object> variables) {
-		TFlowConfig tFlowConfig = psmcWorkFlowContext.getWorkFlowDefinition(processDefinitionKey);
+		TFlowConfig tFlowConfig = psmcWorkFlowContext.gettFlowConfigService().getWorkFlowDefinition(processDefinitionKey);
 		
 		if(tFlowConfig == null){
 			throw new IllegalArgumentException("流程启动初始化参数异常:formNo为"+processDefinitionKey+"的流程表单配置不存在!");
@@ -78,17 +70,20 @@ public class PsmcRuntimeServiceProxy implements RuntimeService {
 		
 		TFlowInstance flowInstance = new TFlowInstance();
 		BeanUtils.copyProperties(tFlowConfig, flowInstance);
-		flowInstance.setFlowState(FlowContans.FLOW_STATE_STARTED);
+		flowInstance.setFlowState(FlowContans.FLOW_STATE_RUNNING);
 		flowInstance.setFlowStartTime(TimestampUtil.createCurTimestamp());
-		
+		if(flowInstance.getFlowLimitHour() !=null){
+			flowInstance.setFlowEndLimitTime(DateUtil.getDateByHours(flowInstance.getFlowStartTime(),flowInstance.getFlowLimitHour()));
+		}
+
 		ProcessInstance pi = null;
 		//日志记录(审计)及补偿机制
-		RuntimeService psmcRuntimeServiceBoost = (RuntimeService)MySpringApplicationContext.getObject("psmcRuntimeServiceBoost");
+		RuntimeService psmcRuntimeServiceBoost = (RuntimeService)MySpringApplicationContext.getObject(PsmcRuntimeServiceProxy.runtimeServiceBoost);
 		pi = psmcRuntimeServiceBoost.startProcessInstanceByKey(processDefinitionKey, variables);
 		
 		if(pi != null){
 			flowInstance.setTfiUuid(pi.getProcessInstanceId());
-			TFlowInstanceService.save(flowInstance);
+			psmcWorkFlowContext.gettFlowInstanceService().save(flowInstance);
 		}
 			
 		return pi;
@@ -630,10 +625,5 @@ public class PsmcRuntimeServiceProxy implements RuntimeService {
 	public void setPsmcWorkFlowContext(PsmcWorkFlowContext psmcWorkFlowContext) {
 		this.psmcWorkFlowContext = psmcWorkFlowContext;
 	}
-
-	public void setTFlowInstanceService(TFlowInstanceService tFlowInstanceService) {
-		TFlowInstanceService = tFlowInstanceService;
-	}
-	
 	
 }

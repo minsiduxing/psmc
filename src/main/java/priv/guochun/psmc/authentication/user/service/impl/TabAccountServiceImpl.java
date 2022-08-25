@@ -47,6 +47,11 @@ public class TabAccountServiceImpl implements TabAccountService
 	public MyPage getTabAccountsBusinessMethod(MyPage myPage){
 		return tabAccountDao.getMyPageOfTabAccounts(myPage);
 	}
+
+
+	public MyPage getTabAccounts(MyPage myPage){
+		return tabAccountDao.getMyPageOfTabAccounts(myPage);
+	}
 	
 	@Override
 	public List<?> getAllTabAccountsBusinessMethod(MyPage myPage){

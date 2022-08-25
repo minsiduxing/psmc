@@ -33,7 +33,7 @@ public class TabRoleResourceDaoImplMybatis implements TabRoleResourceDao
     public void deleteRoleResouceRelationByRoleUuids(String roleUuids)
     {
         Map<String,Object> condition4 = new HashMap<String,Object>();
-        condition4.put("roleUuids", roleUuids.split(MyStringUtil.stringFormat));
+        condition4.put("roleUuids", roleUuids.split(MyStringUtil.stringFormat_comma));
         sqlSession.delete(deleteRoleResoureRelations,condition4);
     }
     

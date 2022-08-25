@@ -71,20 +71,20 @@ $(document).ready(function(){
 		           * 可以解决表格右边空白的问题，但是没办法自适应浏览器大小，暂时不用
 		           * width:parseInt($(this).width()*0.3)
 		           */
-		          {field:'UUID',title:'账号唯一ID',checkbox:true},
-		          {field:'ACCOUNT_NAME',title:'账号名称'},    
-		          {field:'ISLOCKEDNAME',title:'是否锁定'},  
-		          {field:'PERSON_NAME',title:'姓名'}, 
-		          {field:'SEXNAME',title:'性别'}, 
-		          {field:'AGE',title:'年龄'}, 
-		          {field:'TELEPHONE',title:'手机号'}, 
-		          {field:'id_card',title:'身份证号'},
-		          {field:'area',title:'所在地区'},
-		          {field:'authTypeName',title:'实名认证方式'},
-		          {field:'GROUP_CODE',title:'隶属组编码'}, 
-		          {field:'GROUP_NAME',title:'隶属组名称'}, 
-		          {field:'EMAIL',title:'Email',resizable:true},
-		          {field:'ACCOUNT_TYPE_NAME',title:'账户类型'}
+		          {field:'UUID',align:'center',title:'账号唯一ID',checkbox:true},
+		          {field:'ACCOUNT_NAME',align:'center',title:'账号名称',width:$(this).width() * 0.2},
+		          {field:'ISLOCKEDNAME',align:'center',title:'是否锁定',width:$(this).width() * 0.2},
+		          {field:'PERSON_NAME',align:'center',title:'姓名',width:$(this).width() * 0.2},
+		          {field:'SEXNAME',align:'center',title:'性别',width:$(this).width() * 0.2},
+		          {field:'AGE',align:'center',title:'年龄',width:$(this).width() * 0.2},
+		          {field:'TELEPHONE',align:'center',title:'手机号',width:$(this).width() * 0.2},
+		          {field:'id_card',align:'center',title:'身份证号',width:$(this).width() * 0.2},
+		          {field:'area',align:'center',title:'所在地区',width:$(this).width() * 0.2},
+		          {field:'authTypeName',align:'center',title:'实名认证方式',width:$(this).width() * 0.2},
+		          {field:'GROUP_CODE',align:'center',title:'隶属组编码',width:$(this).width() * 0.2},
+		          {field:'GROUP_NAME',align:'center',title:'隶属组名称',width:$(this).width() * 0.2},
+		          {field:'EMAIL',align:'center',title:'Email',resizable:true,width:$(this).width() * 0.2},
+		          {field:'ACCOUNT_TYPE_NAME',align:'center',title:'账户类型',width:$(this).width() * 0.2}
 		         ] 
 		      ]
 	};
@@ -95,7 +95,7 @@ $(document).ready(function(){
 		if(!editdialog){
 			initDialog();
 		}
-		editdialog.panel({title:"新增"});
+		editdialog.panel({align:'center',title:"新增"});
 		editdialog.panel({iconCls:'icon-save'});
 		editdialog.panel({href:addAccountUrl});
 		editdialog.window("open");
@@ -110,7 +110,7 @@ $(document).ready(function(){
 			if(!editdialog){
 				initDialog();
 			}
-			editdialog.panel({title:"修改"});
+			editdialog.panel({align:'center',title:"修改"});
 			editdialog.panel({iconCls:'icon-edit'});
 			editdialog.panel({href:_url});
 			editdialog.window("open");

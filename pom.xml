@@ -171,7 +171,12 @@
 		    <artifactId>activiti-spring</artifactId>
 		    <version>${activiti.version}</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-image-generator</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
 		<dependency>
 			<!-- 低版本log4j漏洞，目前暂无法修复 -->
 			<groupId>net.sourceforge.jexcelapi</groupId>
@@ -353,14 +358,7 @@
 		    <artifactId>fastjson</artifactId>
 		    <version>1.2.31</version>
 		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/org.activiti/activiti-engine -->
-		<dependency>
-		    <groupId>org.activiti</groupId>
-		    <artifactId>activiti-engine</artifactId>
-		    <version>${activiti.version}</version>
-		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<dependency>
 		    <groupId>com.google.code.gson</groupId>

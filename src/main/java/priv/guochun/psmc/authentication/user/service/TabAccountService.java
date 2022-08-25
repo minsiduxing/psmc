@@ -19,6 +19,7 @@ public interface TabAccountService
      * @author guochun 2016-8-19
      */
     public Map getTabAccount(String username,String password);
+
     
     /**
      * 根据主键UUID获取账号信息
@@ -40,7 +41,13 @@ public interface TabAccountService
      * @return
      */
     public List<?> getAllTabAccountsBusinessMethod(MyPage myPage);
-    
+
+    /**
+     * 得到全部用户列表(不受权限控制，目前主要给工作流查询人员使用)
+     * @param myPage
+     * @return
+     */
+    public MyPage getTabAccounts(MyPage myPage);
     /**
      * 账号是否唯一 
      * @param accountName
