@@ -7,7 +7,7 @@
 
 <title>工作流我的发起列表</title>
 	<script type="text/javascript" src="my_processed_task.js"></script>
-	<script type="text/javascript" src="flow_common.js"></script>
+	<script type="text/javascript" src="flowCommon.js"></script>
 </head>
 <body id="body">
 
@@ -43,7 +43,7 @@
 <script type="text/javascript">
 var basePath = $("#basePath").val();
 
-var getTabDataUrl = basePath+"/system/framework/tjyFlowTestController.do";
+var getTabDataUrl = basePath+"/system/framework/flowCommonController.do";
 var selectProcessedTasks ='<c:url value="'+getTabDataUrl+'"/>?method=selectProcessedTasks';
 var getFlowShowInfoUrl = basePath+"/jsp/system/framework/activiti/flowShowInfo.jsp";
 $('#flow_cn_name').textbox({

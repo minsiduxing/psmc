@@ -8,7 +8,7 @@
 <script type="text/javascript">
 	var basePath = $("#basePath").val();
 	var ftiUuid = "<%= request.getParameter("ftiUuid") %>";
-	var getTabDataUrl = basePath+"/system/framework/tjyFlowTestController.do";
+	var getTabDataUrl = basePath+"/system/framework/flowCommonController.do";
 	getFlowImgByInstanceId ='<c:url value="'+getTabDataUrl+'"/>?method=getFlowImgByInstanceId&pid='+ftiUuid;
 	var option ={
 		id:"flowShowInfoAccordionDiv",

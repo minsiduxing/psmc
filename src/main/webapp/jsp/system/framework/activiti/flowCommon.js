@@ -35,7 +35,7 @@ function completeTask(tfi_uuid,flow_entrance,task_id,taskKey){
 	var url = flow_entrance+"?pid="+tfi_uuid+"&taskId="+task_id+"&taskKey="+taskKey;
 	var param;
 	//这里是测试流程的代码，和正式无关
-	if(flow_entrance == '/system/framework/tjyFlowTestController.do?method=selectWaitReceiveTasks'){
+	if(flow_entrance == '/system/framework/tjyFlowTestController.do?method=submitTask'){
 		if(taskKey == 'usertask1'){
 			param = "taskId="+taskId+"&variables[ywblx_hxr]=admin&variables[test]=admin2";
 		}else if(taskKey == 'usertask2'){
@@ -77,7 +77,7 @@ function successCallback(data){
  * 打开查看流程流转信息的dialog
  */
 var flowdialog;
-function initFlowDialog(row){
+function openFlowDialog(ftiUuid){
 	var url = getFlowShowInfoUrl+"?ftiUuid="+ftiUuid;
 	flowdialog = $("#flowdialogDiv").dialog({
 		modal: true,
@@ -109,7 +109,7 @@ function openFlowOperDialog(url){
 		maximized:true,
 		href:url
 	});
-	flowdialog.dialog({align:'center',title:"流程操作"});
-	flowdialog.dialog("open");
+	flowOperdialog.dialog({align:'center',title:"流程操作"});
+	flowOperdialog.dialog("open");
 }
 

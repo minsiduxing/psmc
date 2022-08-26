@@ -7,7 +7,7 @@
 
 <title>工作流待处理列表</title>
 	<script type="text/javascript" src="wait_process_task.js"></script>
-	<script type="text/javascript" src="flow_common.js"></script>
+	<script type="text/javascript" src="flowCommon.js"></script>
 </head>
 <body id="body">
 
@@ -48,7 +48,7 @@
 <script type="text/javascript">
 var basePath = $("#basePath").val();
 
-var getTabDataUrl = basePath+"/system/framework/tjyFlowTestController.do";
+var getTabDataUrl = basePath+"/system/framework/flowCommonController.do";
 var selectWaitProcessTasksUrl ='<c:url value="'+getTabDataUrl+'"/>?method=selectWaitProcessTasks';
 var unclaimTaskUrl ='<c:url value="'+getTabDataUrl+'"/>?method=unClaimTask';
 

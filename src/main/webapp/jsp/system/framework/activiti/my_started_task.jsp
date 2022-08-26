@@ -6,7 +6,8 @@
 <%@ include file="../../../../common.jsp"%>
 
 <title>工作流已处理列表</title>
-<script type="text/javascript" src="my_started_task.js"></script>
+	<script type="text/javascript" src="my_started_task.js"></script>
+	<script type="text/javascript" src="flowCommon.js"></script>
 </head>
 <body id="body">
 
@@ -32,15 +33,16 @@
 
 <div id="toolbarId">
 </div>
+
+</body>
 <!--流程信息展示dialogDiv -->
 <div id="flowdialogDiv">
 
 </div>
-</body>
 <script type="text/javascript">
 var basePath = $("#basePath").val();
 
-var getTabDataUrl = basePath+"/system/framework/tjyFlowTestController.do";
+var getTabDataUrl = basePath+"/system/framework/flowCommonController.do";
 var selectStartedByMeTasks ='<c:url value="'+getTabDataUrl+'"/>?method=selectStartedByMeTasks';
 var getFlowShowInfoUrl = basePath+"/jsp/system/framework/activiti/flowShowInfo.jsp";
 $('#flow_cn_name').textbox({
