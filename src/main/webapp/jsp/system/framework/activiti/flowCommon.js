@@ -31,7 +31,7 @@ function unclaimTask(taskId){
 	});
 }
 //处理任务
-function completeTask(tfi_uuid,flow_entrance,task_id,taskKey){
+function completeTask(accordionId,panelName,tfi_uuid,flow_entrance,task_id,taskKey){
 	debugger;
 	var url = flow_entrance+"&pid="+tfi_uuid+"&taskId="+task_id+"&taskKey="+taskKey;
 	var param;
@@ -45,9 +45,8 @@ function completeTask(tfi_uuid,flow_entrance,task_id,taskKey){
 			param = "variables[chief_audit]=0&variables[ywblx_hxr]=cbadmin&variables[group_director]=17,ly_manager";
 		}
 	}else{
-		//这里打开流程操作的showdialog窗口
-		openFlowOperDialog(url);
-		return;
+		// dynamicAddAccordion(accordionId,panelName,url);
+		window.location.href=url;
 	}
 
 	$.messager.progress();
@@ -79,7 +78,6 @@ function successCallback(data){
  * url 动态加载面板的url
  */
 function dynamicAddAccordion(accordionId,panelName,url){
-	debugger;
 	$("#"+accordionId).accordion('add', {
 		title:panelName,
 		closable:true,

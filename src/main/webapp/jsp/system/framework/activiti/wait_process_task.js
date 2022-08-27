@@ -28,6 +28,8 @@ $(document).ready(function(){
 				{field:' ',align:'center',title:"操作",width:$(this).width() * 0.2,formatter: function (value, row, index) {
 					return "<a href='javascript:void(0)' onclick='unclaimTask(&apos;" + row['task_id'] + "&apos;)'>释放</a>&nbsp;&nbsp;" +
 						"<a href='javascript:void(0)' onclick='completeTask(" +
+						"&apos;"+"queryAddDiv"+ "&apos;," +
+						"&apos;"+row['flow_cn_name']+ "&apos;," +
 						"&apos;"+row['tfi_uuid']+ "&apos;," +
 						"&apos;"+row['flow_entrance']+ "&apos;," +
 						"&apos;"+row['task_id']+ "&apos;," +
