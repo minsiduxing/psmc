@@ -170,6 +170,21 @@ commonObj.initAccordionPanel = function(option){
 	});
 };
 
+
+/**
+ * 初始化公共的折叠面板
+ * @param option
+ */
+commonObj.initTabsPanel = function(option){
+	$('#'+option.id).tabs({
+		id:option.id,
+		width:option.width,
+		height:option.height,
+		fit:option.fit,
+		border:option.border
+	});
+};
+
 /**
  *  初始化部门的combobox
  *  @param id input id

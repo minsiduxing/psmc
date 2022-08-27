@@ -32,18 +32,17 @@ function unclaimTask(taskId){
 }
 //处理任务
 function completeTask(tfi_uuid,flow_entrance,task_id,taskKey){
-	var url = flow_entrance+"?pid="+tfi_uuid+"&taskId="+task_id+"&taskKey="+taskKey;
+	debugger;
+	var url = flow_entrance+"&pid="+tfi_uuid+"&taskId="+task_id+"&taskKey="+taskKey;
 	var param;
 	//这里是测试流程的代码，和正式无关
-	if(flow_entrance == '/system/framework/tjyFlowTestController.do?method=submitTask'){
+	if(flow_entrance == 'http://127.0.0.1:8080/psmc/system/framework/tjyFlowTestController.do?method=submitTask'){
 		if(taskKey == 'usertask1'){
-			param = "taskId="+taskId+"&variables[ywblx_hxr]=admin&variables[test]=admin2";
+			param = "variables[ywblx_hxr]=admin&variables[test]=admin2";
 		}else if(taskKey == 'usertask2'){
-			param = "taskId="+taskId+"&variables[role_chief]=sys_manager";
+			param = "variables[role_chief]=sys_manager";
 		}else if(taskKey == 'audit'){
-			param = "taskId="+taskId+"&variables[chief_audit]=0&variables[ywblx_hxr]=cbadmin&variables[group_director]=17,ly_manager";
-		}else{
-			param = "taskId="+taskId;
+			param = "variables[chief_audit]=0&variables[ywblx_hxr]=cbadmin&variables[group_director]=17,ly_manager";
 		}
 	}else{
 		//这里打开流程操作的showdialog窗口
@@ -54,7 +53,7 @@ function completeTask(tfi_uuid,flow_entrance,task_id,taskKey){
 	$.messager.progress();
 	$.ajax({
 		type: "POST",
-		url: completeTaskUrl,
+		url: url,
 		data: param,
 		success: function(data){
 			successCallback(data);
@@ -74,23 +73,18 @@ function successCallback(data){
 }
 
 /**
- * 打开查看流程流转信息的dialog
+ * 基于主页面的查询条件（Accordion面板组件）动态增加一些展示面板，如流程图展示等，后续可以集成流程操作等。
+ * mark：最早实现方式是在主页面弹出dialog，然后在增加流程展示、操作的ccordion，但是这种方式会导致主页面的查询条件（ccordion）组件异常，解决好多次解决不了。
+ * accordionId 主界面的组件id
+ * url 动态加载面板的url
  */
-var flowdialog;
-function openFlowDialog(ftiUuid){
-	var url = getFlowShowInfoUrl+"?ftiUuid="+ftiUuid;
-	flowdialog = $("#flowdialogDiv").dialog({
-		modal: true,
-		closed: true,
-		width: "100%",
-		height: "100%",
-		resizable:true,
-		cache: false,
-		maximized:true,
+function dynamicAddAccordion(accordionId,panelName,url){
+	debugger;
+	$("#"+accordionId).accordion('add', {
+		title:panelName,
+		closable:true,
 		href:url
 	});
-	flowdialog.dialog({align:'center',title:"流程信息"});
-	flowdialog.dialog("open");
 }
 
 

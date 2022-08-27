@@ -38,11 +38,6 @@
 
 </div>
 
-<!-- 流程业务操作的dialogDiv-->
-<div id="flowOperdialogDiv">
-
-</div>
-
 
 </body>
 <script type="text/javascript">
