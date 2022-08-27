@@ -274,18 +274,19 @@ commonObj.showResponse = function(data,callback){
 	}
 };
 
-commonObj.alert = function(msg,icon){
+
+commonObj.alert = function(msg,icon,CallbachFunc){
 	if("error" == icon){
 		msg="系统错误,请联系管理员!";
-		$.messager.alert('错误',msg,icon);
+		$.messager.alert('错误',msg,icon,CallbachFunc);
 	}else if("info" == icon){
-		$.messager.alert('消息',msg,icon);
+		$.messager.alert('消息',msg,icon,CallbachFunc);
 	}else if("warning" == icon){
-		$.messager.alert('警告',msg,icon);
+		$.messager.alert('警告',msg,icon,CallbachFunc);
 	}else if("question" == icon){
-		$.messager.alert('question',msg,icon);
+		$.messager.alert('question',msg,icon,CallbachFunc);
 	}else{
-		$.messager.alert('消息',msg,icon);
+		$.messager.alert('消息',msg,icon,CallbachFunc);
 	}
 };
 

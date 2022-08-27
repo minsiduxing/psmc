@@ -83,27 +83,8 @@ function dynamicAddAccordion(accordionId,panelName,url){
 	$("#"+accordionId).accordion('add', {
 		title:panelName,
 		closable:true,
+		animate:true,
+		cache:false,
 		href:url
 	});
 }
-
-
-/**
- * 打开查看流程操作信息的dialog
- */
-var flowOperdialog;
-function openFlowOperDialog(url){
-	flowdialog = $("#flowdialogDiv").dialog({
-		modal: true,
-		closed: true,
-		width: "100%",
-		height: "100%",
-		resizable:true,
-		cache: false,
-		maximized:true,
-		href:url
-	});
-	flowOperdialog.dialog({align:'center',title:"流程操作"});
-	flowOperdialog.dialog("open");
-}
-

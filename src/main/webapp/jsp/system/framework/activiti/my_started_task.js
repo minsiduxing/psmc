@@ -21,7 +21,7 @@ $(document).ready(function(){
 				{field:' ',align:'center',title:"操作",width:$(this).width() * 0.2,formatter: function (value, row, index) {
 					return "<a href='javascript:void(0)' onclick='dynamicAddAccordion(" +
 						"&apos;"+"queryAddDiv" +"&apos;" +
-						",&apos;"+"流程图" +"&apos;" +
+						",&apos;"+row['flow_cn_name'] +"&apos;" +
 						",&apos;" + getFlowImgByInstanceId+row['tfi_uuid'] + "&apos;" +
 						")'>流程图</a>";
 				}}
