@@ -19,7 +19,7 @@ $(document).ready(function(){
 				{field:'flow_start_time',align:'center',title:"流程开始时间",width:$(this).width() * 0.2},
 				{field:'flow_end_time',align:'center',title:"流程结束时间",width:$(this).width() * 0.2},
 				{field:' ',align:'center',title:"操作",width:$(this).width() * 0.2,formatter: function (value, row, index) {
-					return "<a href='javascript:void(0)' onclick='dynamicAddAccordion(" +
+					return "<a href='javascript:void(0)' id=\""+row['tfi_uuid']+"\" onclick='dynamicAddAccordion(" +
 						"&apos;"+"queryAddDiv" +"&apos;" +
 						",&apos;"+row['flow_cn_name'] +"&apos;" +
 						",&apos;" + getFlowImgByInstanceId+row['tfi_uuid'] + "&apos;" +
