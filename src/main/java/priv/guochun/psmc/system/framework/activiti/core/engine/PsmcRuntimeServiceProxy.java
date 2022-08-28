@@ -72,6 +72,7 @@ public class PsmcRuntimeServiceProxy implements RuntimeService {
 		BeanUtils.copyProperties(tFlowConfig, flowInstance);
 		flowInstance.setFlowState(FlowContans.FLOW_STATE_RUNNING);
 		flowInstance.setFlowStartTime(TimestampUtil.createCurTimestamp());
+		flowInstance.setFlowEntrance(flowInstance.getFlowEntrance()+"?version="+flowInstance.getFlowVersion());
 		if(flowInstance.getFlowLimitHour() !=null){
 			flowInstance.setFlowEndLimitTime(DateUtil.getDateByHours(flowInstance.getFlowStartTime(),flowInstance.getFlowLimitHour()));
 		}

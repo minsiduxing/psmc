@@ -1,7 +1,7 @@
-﻿/**
- * jQuery EasyUI 1.4.5
+/**
+ * EasyUI for jQuery 1.7.0
  * 
- * Copyright (c) 2009-2016 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
@@ -111,7 +111,7 @@ _17.disabled=true;
 var _18=$(_14).attr("href");
 if(_18){
 _16.href=_18;
-$(_14).attr("href","javascript:void(0)");
+$(_14).attr("href","javascript:;");
 }
 if(_14.onclick){
 _16.onclick=_14.onclick;
@@ -139,7 +139,7 @@ if(_1b){
 $.extend(_1b.options,_19);
 }else{
 $.data(this,"linkbutton",{options:$.extend({},$.fn.linkbutton.defaults,$.fn.linkbutton.parseOptions(this),_19)});
-$(this).removeAttr("disabled");
+$(this)._propAttr("disabled",false);
 $(this).bind("_resize",function(e,_1c){
 if($(this).hasClass("easyui-fluid")||_1c){
 _1(this);

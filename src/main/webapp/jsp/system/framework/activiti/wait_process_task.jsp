@@ -7,11 +7,11 @@
 
 <title>工作流待处理列表</title>
 	<script type="text/javascript" src="wait_process_task.js"></script>
-	<script type="text/javascript" src="flow_common.js"></script>
+	<script type="text/javascript" src="flowCommon.js"></script>
 </head>
 <body id="body">
 
-<div class="query-content panel easyui-accordion accordion " data-options="selected:false" style="width:100%"> 
+<div id="queryAddDiv" class="query-content easyui-accordion" data-options="selected:false">
  <div title="信息查询" > 
     <form id="searchform" method="POST" class="query-form" >
 	<ul class="searchform">
@@ -37,15 +37,16 @@
 <div id="flowdialogDiv">
 
 </div>
+
+
 </body>
 <script type="text/javascript">
 var basePath = $("#basePath").val();
 
-var getTabDataUrl = basePath+"/system/framework/tjyFlowTestController.do";
+var getTabDataUrl = basePath+"/system/framework/flowCommonController.do";
 var selectWaitProcessTasksUrl ='<c:url value="'+getTabDataUrl+'"/>?method=selectWaitProcessTasks';
 var unclaimTaskUrl ='<c:url value="'+getTabDataUrl+'"/>?method=unClaimTask';
-var completeTaskUrl ='<c:url value="'+getTabDataUrl+'"/>?method=completeTask';
-var getFlowShowInfoUrl = basePath+"/jsp/system/framework/activiti/flowShowInfo.jsp";
+
 $('#flow_cn_name').textbox({
 	type : "text"
 });

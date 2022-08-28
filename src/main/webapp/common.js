@@ -166,6 +166,22 @@ commonObj.initAccordionPanel = function(option){
 		fit:option.fit,
 		animate:option.animate,
 		multiple:option.multiple,//同时展开多个面板
+		border:option.border,
+		onSelect:option.onSelect
+	});
+};
+
+
+/**
+ * 初始化公共的折叠面板
+ * @param option
+ */
+commonObj.initTabsPanel = function(option){
+	$('#'+option.id).tabs({
+		id:option.id,
+		width:option.width,
+		height:option.height,
+		fit:option.fit,
 		border:option.border
 	});
 };
@@ -259,18 +275,19 @@ commonObj.showResponse = function(data,callback){
 	}
 };
 
-commonObj.alert = function(msg,icon){
+
+commonObj.alert = function(msg,icon,CallbachFunc){
 	if("error" == icon){
 		msg="系统错误,请联系管理员!";
-		$.messager.alert('错误',msg,icon);
+		$.messager.alert('错误',msg,icon,CallbachFunc);
 	}else if("info" == icon){
-		$.messager.alert('消息',msg,icon);
+		$.messager.alert('消息',msg,icon,CallbachFunc);
 	}else if("warning" == icon){
-		$.messager.alert('警告',msg,icon);
+		$.messager.alert('警告',msg,icon,CallbachFunc);
 	}else if("question" == icon){
-		$.messager.alert('question',msg,icon);
+		$.messager.alert('question',msg,icon,CallbachFunc);
 	}else{
-		$.messager.alert('消息',msg,icon);
+		$.messager.alert('消息',msg,icon,CallbachFunc);
 	}
 };
 

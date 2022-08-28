@@ -31,6 +31,7 @@ public interface PsmcBaseWorkFlowService {
 	 */
 	public MyPage selectProcessedTasks(User user,MyPage page);
 
+
 	/**
 	 * 我发起的任务（目前仅仅是由我发起，后续可以扩展我的单位或角色下的任务
 	 * @param user
@@ -83,6 +84,6 @@ public interface PsmcBaseWorkFlowService {
 	 * @param procInstId
 	 * @return
 	 */
-	public byte[]  getFlowImgByInstanceId(String procInstId);
+	public byte[]  getFlowImgByInstanceId(String pid);
 
 }

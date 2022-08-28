@@ -77,7 +77,8 @@ public class PsmcBaseWorkFlowServiceImpl implements PsmcBaseWorkFlowService {
 		if(condition == null){
 			condition = new HashMap<String, Object>();
 		}
-		condition.put("account_id",user.getAccountName());
+		if(user !=null)
+			condition.put("account_id",user.getAccountName());
 		return baseDao.getMyPage(page, selectProcessedTasks, condition);
 	}
 

@@ -67,16 +67,6 @@
 .icon-more{
 	background:url('icons/more.png') no-repeat center center;
 }
-.icon-excel{
-	background:url('icons/excel.png') no-repeat center center;
-}
-.icon-audit{
-	background:url('icons/audit.png') no-repeat center center;
-}
-.icon-release{
-	background:url('icons/release.png') no-repeat center center;
-}
-
 
 
 .icon-mini-add{
@@ -101,15 +91,6 @@
 .icon-large-smartart{
 	background:url('icons/large_smartart.png') no-repeat center center;
 }
-.icon-view{
-    background:url('icons/view.png') no-repeat center center;
-}
 .icon-large-chart{
 	background:url('icons/large_chart.png') no-repeat center center;
-}
-.icon-export{
-	background:url('icons/export.png') no-repeat center center;
-}
-.icon-import{
-	background:url('icons/import.png') no-repeat center center;
 }
