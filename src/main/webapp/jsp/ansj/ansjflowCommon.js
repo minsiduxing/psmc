@@ -9,7 +9,10 @@ $(document).ready(function(){
             title = pp.panel("options").title;
 
             if("任务业务操作" == title){
-                //todo 这里进行扩展，编写自己的业务方法，加载自己流程任务对应的页面
+                /**
+                 * 这里进行扩展，编写自己的业务方法，加载自己流程任务对应的页面
+                 */
+
             }
 
             if("任务流转历史" == title){
