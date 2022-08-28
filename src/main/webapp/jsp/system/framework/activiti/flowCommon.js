@@ -32,7 +32,6 @@ function unclaimTask(taskId){
 }
 //处理任务
 function completeTask(accordionId,panelName,tfi_uuid,flow_entrance,task_id,taskKey){
-	debugger;
 	var url = flow_entrance+"&pid="+tfi_uuid+"&taskId="+task_id+"&taskKey="+taskKey;
 	var param;
 	//这里是测试流程的代码，和正式无关

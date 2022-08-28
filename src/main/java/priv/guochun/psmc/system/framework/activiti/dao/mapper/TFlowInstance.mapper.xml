@@ -397,7 +397,7 @@
   </update>
 
 
-
+  <!-- 待接收、待处理公共查询sql -->
   <sql id="work_flow_run_query_sql1">
     a.tfi_uuid,a.tfc_uuid,a.flow_no,a.flow_cn_name,a.flow_en_name,a.flow_entrance,a.flow_version,a.flow_state,
     (case when a.flow_state='1' then '进行中' when a.flow_state='2' then '已完成' end) as flow_state_name,
@@ -406,7 +406,7 @@
     (case when b.SUSPENSION_STATE_='1' then '进行中' when b.SUSPENSION_STATE_='2' then '挂起' end) as task_state_name
   </sql>
 
-
+  <!-- 查询历史流程的公共查询sql（带任务） -->
   <sql id="work_flow_his_query_sql1">
     a.tfi_uuid,a.tfc_uuid,a.flow_no,a.flow_cn_name,a.flow_en_name,a.flow_entrance,a.flow_version,a.flow_state,
     (case when a.flow_state='1' then '进行中' when a.flow_state='2' then '已完成' end) as flow_state_name,
@@ -415,7 +415,7 @@
     '已完成' as task_state_name
   </sql>
 
-
+  <!-- 查询历史流程的公共查询sql（仅查询流程） -->
   <sql id="work_flow_his_query_sql2">
     a.tfi_uuid,a.tfc_uuid,a.flow_no,a.flow_cn_name,a.flow_en_name,a.flow_entrance,a.flow_version,a.flow_state,
     (case when a.flow_state='1' then '进行中' when a.flow_state='2' then '已完成' end) as flow_state_name,
@@ -482,9 +482,15 @@
     SELECT
     <include refid="work_flow_his_query_sql1" />,
     b.ASSIGNEE_ account_id,e.person_name as task_process_name
+    <if test="queryAtachment != null and queryAtachment != ''">
+      ,g.file_prefix,g.file_path,g.file_name,g.file_real_name
+    </if>
     from t_flow_instance a,act_hi_taskinst b
     left join tab_accounts d on b.ASSIGNEE_=d.account_name
     left join tab_person e on  d.uuid=e.acc_uuid
+    <if test="queryAtachment != null and queryAtachment != ''">
+      left join tab_attachment g on b.ID_=g.business_uuid
+    </if>
     <where>
       1 = 1
       and a.tfi_uuid=b.PROC_INST_ID_
@@ -505,6 +511,7 @@
     </where>
     order by b.START_TIME_ desc
   </select>
+
 
 
   <select id="selectStartedByMeTasks" parameterType="hashmap" resultType="java.util.Map">

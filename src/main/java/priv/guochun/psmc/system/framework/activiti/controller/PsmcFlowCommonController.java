@@ -12,6 +12,8 @@ import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.JsonUtil;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/system/framework/flowCommonController")
@@ -84,6 +86,40 @@ public class PsmcFlowCommonController extends MyController {
 	@ResponseBody
 	public void selectProcessedTasks(MyPage myPage) throws IOException{
 		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectProcessedTasks(this.getUserBySeesion(this.request()),myPage);
+		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
+	}
+
+
+	/**
+	 * 已处理任务
+	 * @param pid
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=selectProcessedTasksByPid")
+	@ResponseBody
+	public void selectProcessedTasksByPid(String pid) throws IOException{
+		Map<String,Object> queryParams = new HashMap<>();
+		queryParams.put("tfi_uuid",pid);
+		MyPage page = new MyPage();
+		page.setQueryParams(queryParams);
+		page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectProcessedTasks(null,page);
+		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
+	}
+
+	/**
+	 * 已处理任务
+	 * @param pid
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=selectProcessedTaskAttachmentsByPid")
+	@ResponseBody
+	public void selectProcessedTaskAttachmentsByPid(String pid) throws IOException{
+		Map<String,Object> queryParams = new HashMap<>();
+		queryParams.put("queryAtachment","true");
+		queryParams.put("tfi_uuid",pid);
+		MyPage page = new MyPage();
+		page.setQueryParams(queryParams);
+		page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectProcessedTasks(null,page);
 		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
 	}
 

@@ -166,7 +166,8 @@ commonObj.initAccordionPanel = function(option){
 		fit:option.fit,
 		animate:option.animate,
 		multiple:option.multiple,//同时展开多个面板
-		border:option.border
+		border:option.border,
+		onSelect:option.onSelect
 	});
 };
 
