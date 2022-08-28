@@ -11,7 +11,7 @@
 </head>
 <body id="body">
 
-<div class="query-content panel easyui-accordion accordion " data-options="selected:false" style="width:100%"> 
+<div class="query-content panel easyui-accordion accordion " data-options="selected:false" style="width:100%">
  <div title="信息查询" > 
     <form id="searchform" method="POST" class="query-form" >
 	<ul class="searchform">
@@ -29,7 +29,7 @@
  </div>
  </div>
  
-<table id="sologTableId" style="width:100%"></table>
+<table id="sologTableId"  style="width:100%"></table>
 <div id="toolbarId">
 </div>
 </body>
