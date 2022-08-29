@@ -483,7 +483,7 @@
     <include refid="work_flow_his_query_sql1" />,
     b.ASSIGNEE_ account_id,e.person_name as task_process_name
     <if test="queryAtachment != null and queryAtachment != ''">
-      ,g.file_prefix,g.file_path,g.file_name,g.file_real_name
+      ,g.file_prefix,g.file_path,g.file_name,g.file_real_name,g.file_suffix,g.upload_date
     </if>
     from t_flow_instance a,act_hi_taskinst b
     left join tab_accounts d on b.ASSIGNEE_=d.account_name
@@ -509,7 +509,14 @@
         and b.name_  like concat(concat('%',#{task_step_name}),'%')
       </if>
     </where>
-    order by b.START_TIME_ desc
+      <if test="queryAtachment != null and queryAtachment != ''">
+        order by g.upload_date desc
+      </if>
+      <if test="queryAtachment == null">
+        order by b.START_TIME_ desc
+      </if>
+
+
   </select>
 
 

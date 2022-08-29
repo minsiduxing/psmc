@@ -31,8 +31,21 @@ function unclaimTask(taskId){
 	});
 }
 //处理任务
-function completeTask(accordionId,panelName,tfi_uuid,flow_entrance,task_id,taskKey){
-	var url = flow_entrance+"&pid="+tfi_uuid+"&taskId="+task_id+"&taskKey="+taskKey;
+function completeTask(jsonStr){
+	obj = JSON.parse(jsonStr);
+	var flow_entrance = obj.flow_entrance;
+	var taskKey = obj.task_step_key;
+	var tfi_uuid = obj.tfi_uuid;
+	var task_id = obj.task_id;
+	var task_step_key = obj.task_step_key;
+
+	var flow_cn_name = obj.flow_cn_name;
+	var flow_start_time = obj.flow_start_time;
+	var task_step_name = obj.task_step_name;
+	var task_process_name = obj.task_process_name;
+
+	var url = flow_entrance+"&pid="+tfi_uuid+"&taskId="+task_id+"&taskKey="+task_step_key
+		+"&flow_cn_name="+flow_cn_name+"&flow_start_time="+flow_start_time+"&task_step_name="+task_step_name+"&task_process_name="+task_process_name;
 	var param;
 	//这里是测试流程的代码，和正式无关
 	if(flow_entrance == 'http://127.0.0.1:8080/psmc/system/framework/tjyFlowTestController.do?method=submitTask'){
@@ -44,7 +57,6 @@ function completeTask(accordionId,panelName,tfi_uuid,flow_entrance,task_id,taskK
 			param = "variables[chief_audit]=0&variables[ywblx_hxr]=cbadmin&variables[group_director]=17,ly_manager";
 		}
 	}else{
-		// dynamicAddAccordion(accordionId,panelName,url);
 		window.location.href=url;
 	}
 
@@ -76,12 +88,12 @@ function successCallback(data){
  * accordionId 主界面的组件id
  * url 动态加载面板的url
  */
-function dynamicAddAccordion(accordionId,panelName,url){
+function dynamicAddAccordion(accordionId,panelName,obj){
 	$("#"+accordionId).accordion('add', {
 		title:panelName,
 		closable:true,
 		animate:true,
 		cache:false,
-		href:url
+		href:obj.url
 	});
 }
