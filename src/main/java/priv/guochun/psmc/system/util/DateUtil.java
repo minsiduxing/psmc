@@ -15,6 +15,9 @@ public class DateUtil {
     public final static String dateFormat2_contants = "yyy/MM/dd";
     public final static String dateFormat3_contants = "yyyy-MM-dd HH:mm:ss";
     public final static String dateFormat4_contants = "yyyy年MM月dd日";
+
+	public final static String dateFormat5_contants = "yyyyMMdd";
+
     public final static String monthFormat_contants = "yyyy-MM";
     
     public final static String oracle_dateFormat_contants = "yyyy-MM-dd hh24:mi:ss";

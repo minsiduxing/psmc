@@ -59,9 +59,8 @@
 		class="priv.guochun.psmc.authentication.license.sevice.LicenseReaderService" />
 	<bean id="counterDao"
 		class="priv.guochun.psmc.authentication.license.dao.impl.CounterDaoImpl" />
-		
-	<bean id="authAdvice" class="priv.guochun.psmc.authentication.aop.advice.AuthAdviceImpl"/>
-	
+
+
 	<bean id="tabPrivilegeService"
 		class="priv.guochun.psmc.authentication.privilege.service.impl.TabPrivilegeServiceImpl" />
 	<bean id="tabPrivilegeDao"
@@ -73,8 +72,10 @@
 
 	<bean id="tabGroupDao"
 		class="priv.guochun.psmc.authentication.user.dao.impl.TabGroupDaoImplMybatis" />
-	
-	
+
+	<!--鉴权注册 -->
+	<bean id="authAdvice" class="priv.guochun.psmc.authentication.aop.advice.AuthAdviceImpl"/>
+	<!--切面拦截 -->
 	<aop:config>
 		<aop:aspect id="authaop" ref="authAdvice">
 				<aop:pointcut id="authpointcut" expression="execution(public * priv.guochun.psmc..*ServiceImpl.*BusinessMethod(..))"/>
