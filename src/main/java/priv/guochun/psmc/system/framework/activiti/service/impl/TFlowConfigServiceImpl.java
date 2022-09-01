@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import priv.guochun.psmc.system.framework.activiti.dao.TFlowConfigMapper;
+import priv.guochun.psmc.system.framework.activiti.dao.TFlowInstanceMapper;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfigExample;
 import priv.guochun.psmc.system.framework.activiti.service.TFlowConfigService;
@@ -41,6 +42,11 @@ public class TFlowConfigServiceImpl implements TFlowConfigService {
 			}
 		}
 		return result;
+	}
+
+	public void update(TFlowConfig tFlowConfig){
+		TFlowConfigMapper mapper = sqlSession.getMapper(TFlowConfigMapper.class);
+		mapper.updateByPrimaryKey(tFlowConfig);
 	}
 
 	public SqlSession getSqlSession() {

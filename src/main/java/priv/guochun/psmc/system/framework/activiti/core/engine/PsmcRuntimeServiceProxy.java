@@ -22,10 +22,7 @@ import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.TimestampUtil;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * RuntimeService的核心proxy类，主要用于RuntimeService的API调用时的附加操作的处理
@@ -72,7 +69,21 @@ public class PsmcRuntimeServiceProxy implements RuntimeService {
 		BeanUtils.copyProperties(tFlowConfig, flowInstance);
 		flowInstance.setFlowState(FlowContans.FLOW_STATE_RUNNING);
 		flowInstance.setFlowStartTime(TimestampUtil.createCurTimestamp());
+		//入口增加版本，便于程序进行处理
 		flowInstance.setFlowEntrance(flowInstance.getFlowEntrance()+"?version="+flowInstance.getFlowVersion());
+
+		//增加流程编号
+		String flowNo = tFlowConfig.getFlowNo();
+		int supply = 5-flowNo.length();
+		StringBuffer sb = new StringBuffer(DateUtil.getDateString(new Date(),DateUtil.dateFormat5_contants));
+		for(int i=0;i<supply;i++){
+			sb.append("0");
+		}
+		sb.append(flowNo);
+		flowInstance.setFlowNo(sb.toString());
+
+		tFlowConfig.setFlowNo(String.valueOf(Integer.parseInt(flowNo)+1));
+
 		if(flowInstance.getFlowLimitHour() !=null){
 			flowInstance.setFlowEndLimitTime(DateUtil.getDateByHours(flowInstance.getFlowStartTime(),flowInstance.getFlowLimitHour()));
 		}
@@ -85,6 +96,7 @@ public class PsmcRuntimeServiceProxy implements RuntimeService {
 		if(pi != null){
 			flowInstance.setTfiUuid(pi.getProcessInstanceId());
 			psmcWorkFlowContext.gettFlowInstanceService().save(flowInstance);
+			psmcWorkFlowContext.gettFlowConfigService().update(tFlowConfig);
 		}
 			
 		return pi;

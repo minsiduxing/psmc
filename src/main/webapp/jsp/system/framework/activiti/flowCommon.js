@@ -88,12 +88,12 @@ function successCallback(data){
  * accordionId 主界面的组件id
  * url 动态加载面板的url
  */
-function dynamicAddAccordion(accordionId,panelName,obj){
+function dynamicAddAccordion(accordionId,panelName,url){
 	$("#"+accordionId).accordion('add', {
 		title:panelName,
 		closable:true,
 		animate:true,
 		cache:false,
-		href:obj.url
+		href:url
 	});
 }

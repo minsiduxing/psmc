@@ -4,9 +4,6 @@ import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,17 +16,17 @@ public interface PsmcBaseWorkFlowService {
 	/**
 	 * 待接收任务
 	 */
-	public MyPage selectWaitReceiveTasks(User user,MyPage page);
+	public MyPage selectWaitReceiveTasksBusinessMethod(User user,MyPage page);
 
 	/**
 	 * 待处理任务
 	 */
-	public MyPage selectWaitProcessTasks(User user,MyPage page);
+	public MyPage selectWaitProcessTasksBusinessMethod(User user,MyPage page);
 
 	/**
 	 * 已处理任务
 	 */
-	public MyPage selectProcessedTasks(User user,MyPage page);
+	public MyPage selectProcessedTasksBusinessMethod(User user,MyPage page);
 
 
 	/**
@@ -38,7 +35,7 @@ public interface PsmcBaseWorkFlowService {
 	 * @param page
 	 * @return
 	 */
-	public MyPage selectStartedByMeTasks(User user,MyPage page);
+	public MyPage selectStartedByMeTasksBusinessMethod(User user,MyPage page);
 
 	/**
 	 * 发起流程

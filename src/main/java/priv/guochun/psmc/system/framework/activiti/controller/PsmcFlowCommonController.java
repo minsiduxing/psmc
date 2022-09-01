@@ -61,7 +61,7 @@ public class PsmcFlowCommonController extends MyController {
 	@RequestMapping(params="method=selectWaitReceiveTasks")
 	@ResponseBody
 	public void selectWaitReceiveTasks(MyPage myPage) throws IOException{
-		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectWaitReceiveTasks(this.getUserBySeesion(this.request()),myPage);
+		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectWaitReceiveTasksBusinessMethod(this.getUserBySeesion(this.request()),myPage);
 		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
 	}
 
@@ -73,7 +73,7 @@ public class PsmcFlowCommonController extends MyController {
 	@RequestMapping(params="method=selectWaitProcessTasks")
 	@ResponseBody
 	public void selectWaitProcessTasks(MyPage myPage) throws IOException{
-		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectWaitProcessTasks(this.getUserBySeesion(this.request()),myPage);
+		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectWaitProcessTasksBusinessMethod(this.getUserBySeesion(this.request()),myPage);
 		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
 	}
 
@@ -85,7 +85,7 @@ public class PsmcFlowCommonController extends MyController {
 	@RequestMapping(params="method=selectProcessedTasks")
 	@ResponseBody
 	public void selectProcessedTasks(MyPage myPage) throws IOException{
-		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectProcessedTasks(this.getUserBySeesion(this.request()),myPage);
+		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectProcessedTasksBusinessMethod(this.getUserBySeesion(this.request()),myPage);
 		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
 	}
 
@@ -102,7 +102,7 @@ public class PsmcFlowCommonController extends MyController {
 		queryParams.put("tfi_uuid",pid);
 		MyPage page = new MyPage();
 		page.setQueryParams(queryParams);
-		page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectProcessedTasks(null,page);
+		page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectProcessedTasksBusinessMethod(null,page);
 		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
 	}
 
@@ -119,7 +119,7 @@ public class PsmcFlowCommonController extends MyController {
 		queryParams.put("tfi_uuid",pid);
 		MyPage page = new MyPage();
 		page.setQueryParams(queryParams);
-		page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectProcessedTasks(null,page);
+		page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectProcessedTasksBusinessMethod(null,page);
 		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
 	}
 
@@ -131,7 +131,7 @@ public class PsmcFlowCommonController extends MyController {
 	@RequestMapping(params="method=selectStartedByMeTasks")
 	@ResponseBody
 	public void selectStartedByMeTasks(MyPage myPage) throws IOException{
-		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectStartedByMeTasks(this.getUserBySeesion(this.request()),myPage);
+		MyPage page = psmcWorkFlowContext.getPsmcBaseWorkFlowService().selectStartedByMeTasksBusinessMethod(this.getUserBySeesion(this.request()),myPage);
 		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
 	}
 

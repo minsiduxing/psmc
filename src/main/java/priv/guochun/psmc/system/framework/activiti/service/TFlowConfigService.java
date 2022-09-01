@@ -1,10 +1,9 @@
 package priv.guochun.psmc.system.framework.activiti.service;
 
-import java.util.List;
-
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfigExample;
-import priv.guochun.psmc.system.framework.cache.CacheContants;
+
+import java.util.List;
 
 /**
  * 自定义的工作流配置表
@@ -23,4 +22,6 @@ public interface TFlowConfigService {
 
 	//从缓存获得配置
 	public TFlowConfig getWorkFlowDefinition(String flowEnName);
+
+	public void update(TFlowConfig tFlowConfig);
 }

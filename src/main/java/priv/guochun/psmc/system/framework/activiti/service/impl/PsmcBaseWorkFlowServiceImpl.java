@@ -27,7 +27,6 @@ import priv.guochun.psmc.system.util.MyStringUtil;
 import priv.guochun.psmc.website.backstage.common.BaseDao;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,7 +49,7 @@ public class PsmcBaseWorkFlowServiceImpl implements PsmcBaseWorkFlowService {
 	private BaseDao baseDao;
 
 	@Override
-	public MyPage selectWaitReceiveTasks(User user, MyPage page) {
+	public MyPage selectWaitReceiveTasksBusinessMethod(User user, MyPage page) {
 		Map<String, Object> condition = page.getQueryParams();
 		if(condition == null){
 			condition = new HashMap<String, Object>();
@@ -62,7 +61,7 @@ public class PsmcBaseWorkFlowServiceImpl implements PsmcBaseWorkFlowService {
 	}
 
 	@Override
-	public MyPage selectWaitProcessTasks(User user, MyPage page) {
+	public MyPage selectWaitProcessTasksBusinessMethod(User user, MyPage page) {
 		Map<String, Object> condition = page.getQueryParams();
 		if(condition == null){
 			condition = new HashMap<String, Object>();
@@ -72,7 +71,7 @@ public class PsmcBaseWorkFlowServiceImpl implements PsmcBaseWorkFlowService {
 	}
 
 	@Override
-	public MyPage selectProcessedTasks(User user, MyPage page) {
+	public MyPage selectProcessedTasksBusinessMethod(User user, MyPage page) {
 		Map<String, Object> condition = page.getQueryParams();
 		if(condition == null){
 			condition = new HashMap<String, Object>();
@@ -83,7 +82,7 @@ public class PsmcBaseWorkFlowServiceImpl implements PsmcBaseWorkFlowService {
 	}
 
 	@Override
-	public MyPage selectStartedByMeTasks(User user, MyPage page) {
+	public MyPage selectStartedByMeTasksBusinessMethod(User user, MyPage page) {
 		Map<String, Object> condition = page.getQueryParams();
 		if(condition == null){
 			condition = new HashMap<String, Object>();
