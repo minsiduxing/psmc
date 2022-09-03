@@ -70,7 +70,6 @@
 			 commonObj.alert('您登陆的密码不能为空!','warning',enableEnterKey);
 			 return false;
 		}
-		 debugger;
 		 // 测试，密码长度校验太麻烦，所以注释正式需要放开
 		console.info($("#ppassword").val());
 		if($("#ppassword").val().length<6){
