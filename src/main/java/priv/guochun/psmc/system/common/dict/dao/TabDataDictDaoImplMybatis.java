@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +20,10 @@ public class TabDataDictDaoImplMybatis   implements TabDataDictDao {
 	
 	
 	public List<Map<?, ?>> getDictDataListByDictNo(String dict_no){
-	    Map<String,Object> condition = new HashMap<String,Object>();
-        condition.put("dictNo", dict_no);
+        Map<String,Object> condition = new HashMap<String,Object>();
+        if(StringUtils.isBlank(dict_no)){
+            condition.put("dictNo", dict_no);
+        }
         List<Map<?, ?>> list = sqlSession.selectList(getDictDataList, condition);
         return list;
 	}

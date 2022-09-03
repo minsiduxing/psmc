@@ -425,4 +425,10 @@ insert into tab_resource
 
 insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '6b5de11e5c0e4a53aad76f74fd6a1df6');
 
+/*数据字典*/
+delete  from tab_resource where parent_resource_uuid  in('f55580fa321b4d34a172628d5825c4dc');
+
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum, is_view) VALUES ('5a5ea8abd5fd4e09822c4b7261e8bca3', '字典管理', 3, '/jsp/system/common/dict/dict.jsp', 'f55580fa321b4d34a172628d5825c4dc', 'admin', '2022-09-01 15:14:13', '菜单', 30, 1);
+
+insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '5a5ea8abd5fd4e09822c4b7261e8bca3');
 
