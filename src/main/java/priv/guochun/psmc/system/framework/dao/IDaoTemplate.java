@@ -3,6 +3,7 @@ package priv.guochun.psmc.system.framework.dao;
 import priv.guochun.psmc.system.framework.page.MyPage;
 
 
+@Deprecated
 public interface IDaoTemplate {
 
 	

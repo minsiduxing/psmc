@@ -1,34 +1,32 @@
 package priv.guochun.psmc.system.common.dict.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import priv.guochun.psmc.system.common.dict.service.TabDataDictService;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
+import priv.guochun.psmc.system.framework.page.MyPage;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.springframework.cache.Cache;
-
-import priv.guochun.psmc.system.common.dict.dao.TabDataDictDao;
-import priv.guochun.psmc.system.common.dict.service.TabDataDictService;
-import priv.guochun.psmc.system.framework.cache.CacheContants;
-import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
-import priv.guochun.psmc.system.framework.page.MyPage;
-import priv.guochun.psmc.website.backstage.common.BaseDao;
-
 public class TabDataDictServiceImpl implements TabDataDictService {
 	
-	
-	public TabDataDictDao tabDataDictDao;
 	private PsmcCacheFactory psmcCacheFactory;
 
     private final static String getDictDataList = "getDictDataList";
+    @Autowired
     private BaseDao baseDao;
 	@Override
 	public List<Map<?,?>> getDictDataList(){
-	    List<Map<?,?>> list =  tabDataDictDao.getDictDataListByDictNo(null);
+	    List<Map<?,?>> list =  baseDao.queryForList(getDictDataList);
         return list;
 	}
 
-    public MyPage getDictDataList(MyPage page){
+    public MyPage getDictDataListBusinessMethod(MyPage page){
         return baseDao.getMyPage(page,getDictDataList,page.getQueryParams());
     }
 	
@@ -57,16 +55,6 @@ public class TabDataDictServiceImpl implements TabDataDictService {
         }
 	}
 
-
-
-
-    public TabDataDictDao getTabDataDictDao() {
-		return tabDataDictDao;
-	}
-	public void setTabDataDictDao(TabDataDictDao tabDataDictDao) {
-		this.tabDataDictDao = tabDataDictDao;
-	}
-
     public PsmcCacheFactory getPsmcCacheFactory()
     {
         return psmcCacheFactory;
@@ -75,13 +63,5 @@ public class TabDataDictServiceImpl implements TabDataDictService {
     public void setPsmcCacheFactory(PsmcCacheFactory psmcCacheFactory)
     {
         this.psmcCacheFactory = psmcCacheFactory;
-    }
-
-    public BaseDao getBaseDao() {
-        return baseDao;
-    }
-
-    public void setBaseDao(BaseDao baseDao) {
-        this.baseDao = baseDao;
     }
 }

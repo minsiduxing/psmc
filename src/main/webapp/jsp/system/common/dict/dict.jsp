@@ -19,7 +19,7 @@
 var basePath = $("#basePath").val();
 
 var getTabDataUrl = basePath+"/system/common/dictController.do";
-getTabDataUrl ='<c:url value="'+getTabDataUrl+'"/>?method=selectAllDicts';
+getTabDataUrl ='<c:url value="'+getTabDataUrl+'"/>?method=selectAllDicts&pageSize=10000';
 
 $('#dict_id').textbox({
 	iconAlign:'left'
