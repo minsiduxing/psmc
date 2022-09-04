@@ -27,7 +27,7 @@ public class TabSysKeyInfoServiceImpl implements TabSysKeyInfoService {
 	}
 
 	@Override
-	public MyPage getSysKeyInfoList(MyPage page) {
+	public MyPage selectAllSysKeyInfosBusinessMethod(MyPage page) {
 		return baseDao.getMyPage(page,selectSysKeyListInfo,page.getQueryParams());
 	}
 

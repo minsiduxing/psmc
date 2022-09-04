@@ -20,5 +20,5 @@ public interface TabSysKeyInfoService {
 	 * @param page
 	 * @return
 	 */
-	public MyPage getSysKeyInfoList(MyPage page);
+	public MyPage selectAllSysKeyInfosBusinessMethod(MyPage page);
 }

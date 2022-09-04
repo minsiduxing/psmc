@@ -30,8 +30,8 @@ public class SysKeyController extends MyController  {
 
 	@RequestMapping(params="method=selectAllSysKeyInfos")
 	@ResponseBody
-	public void selectAllSysKeyInfos(MyPage page) throws IOException {
-		page = tabSysKeyInfoService.getSysKeyInfoList(page);
+	public void selectAllSysKeyInfosBusinessMethod(MyPage page) throws IOException {
+		page = tabSysKeyInfoService.selectAllSysKeyInfosBusinessMethod(page);
 		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
 	}
 

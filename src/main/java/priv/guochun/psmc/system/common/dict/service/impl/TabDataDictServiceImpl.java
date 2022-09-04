@@ -26,7 +26,7 @@ public class TabDataDictServiceImpl implements TabDataDictService {
         return list;
 	}
 
-    public MyPage getDictDataList(MyPage page){
+    public MyPage getDictDataListBusinessMethod(MyPage page){
         return baseDao.getMyPage(page,getDictDataList,page.getQueryParams());
     }
 	

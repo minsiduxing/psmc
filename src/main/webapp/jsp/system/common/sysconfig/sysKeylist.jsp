@@ -14,14 +14,14 @@
  <div title="信息查询" > 
     <form id="searchform" method="POST" class="query-form" >
 	<ul class="searchform">
-			<li class="li-input"><label for="" class="input-label">系统配置【键】：</label>
-				<input class="myinput" id="log_type" name="log_type"></input>
+			<li class="li-input"><label for="" class="input-label">键：</label>
+				<input class="myinput" id="sys_key" name="sys_key"></input>
 			</li>
-			<li class="li-input"><label for="" class="input-label">系统配置【值】：</label>
-				<input class="myinput" id="log_sub_type" name="log_sub_type"></input>
+			<li class="li-input"><label for="" class="input-label">值：</label>
+				<input class="myinput" id="sys_value" name="sys_value"></input>
 			</li>	
 			<li class="li-input"><label for="" class="input-label">描述：</label>
-				<input class="myinput" id="opername" name="opername"></input>
+				<input class="myinput" id="remark" name="remark"></input>
 			</li>
 	</ul>
 	</form>
@@ -41,8 +41,15 @@ var basePath = $("#basePath").val();
 var getTabDataUrl = basePath+"/system/common/sysKeyController.do";
 getTabDataUrl ='<c:url value="'+getTabDataUrl+'"/>?method=selectAllSysKeyInfos';
 
+$('#sys_key').textbox({
+	iconAlign:'left'
+})
 
-$('#opername').textbox({
+$('#sys_value').textbox({
+	iconAlign:'left'
+})
+
+$('#remark').textbox({
 	iconAlign:'left'
 })
 

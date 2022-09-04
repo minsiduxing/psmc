@@ -12,12 +12,15 @@
 
   <select id="selectSysKeyListInfo" parameterType="hashmap" resultType="java.util.Map">
     	select * from tab_sys_key_info where 1=1 
-    	<if test="sysKey != null and sysKey != ''">
-    		and sys_key = #{sysKey,jdbcType=VARCHAR}
+    	<if test="sys_key != null and sys_key != ''">
+    		and sys_key  like concat(concat('%',#{sys_key}),'%')
     	</if>
-    	<if test="sysValue != null and sysValue != ''">
-    		and sys_value = #{sysValue,jdbcType=VARCHAR}
+    	<if test="sys_value != null and sys_value != ''">
+    		and sys_value  like concat(concat('%',#{sys_value}),'%')
     	</if>
+          <if test="remark != null and remark != ''">
+              and remark  like concat(concat('%',#{remark}),'%')
+          </if>
         order by id asc
   </select>
 </mapper>

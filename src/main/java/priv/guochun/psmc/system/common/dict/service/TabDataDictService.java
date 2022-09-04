@@ -26,5 +26,5 @@ public interface TabDataDictService {
      * @param page
      * @return
      */
-    public MyPage getDictDataList(MyPage page);
+    public MyPage getDictDataListBusinessMethod(MyPage page);
 }
