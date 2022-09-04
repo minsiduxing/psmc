@@ -10,7 +10,7 @@ import priv.guochun.psmc.system.common.explain.model.TabFunctionExplain;
 import priv.guochun.psmc.system.common.explain.service.TabFunctionExplainService;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.util.UUIDGenerator;
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 
 public class TabFunctionExplainServiceImpl implements TabFunctionExplainService {
 

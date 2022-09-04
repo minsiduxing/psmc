@@ -1,4 +1,4 @@
-package priv.guochun.psmc.website.backstage.common;
+package priv.guochun.psmc.system.framework.dao;
 
 import java.util.List;
 

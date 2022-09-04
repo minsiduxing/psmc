@@ -42,7 +42,6 @@ public class DictController extends MyController {
 	@RequestMapping(params="method=selectAllDicts")
 	@ResponseBody
 	public void selectAllDicts(MyPage page) throws IOException{
-		page.setPageSize(10000);
 		page = tabDataDictService.getDictDataList(page);
 		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
 	}

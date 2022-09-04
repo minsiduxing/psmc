@@ -1,4 +1,4 @@
-package priv.guochun.psmc.website.backstage.common.impl;
+package priv.guochun.psmc.system.framework.dao.impl;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import priv.guochun.psmc.system.framework.page.MyPage;
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 
 public class BaseDaoImpl implements BaseDao {
 

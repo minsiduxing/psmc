@@ -8,7 +8,7 @@ import java.util.Map;
 public interface TabDataDictService {
     
     /**
-     * 获取系统所有的数据字典
+     * 获取系统所有的数据字典（初始化用）
      * @return
      */
     public List<Map<?,?>> getDictDataList();
@@ -22,7 +22,7 @@ public interface TabDataDictService {
 	public List<Map<?,?>> getDictDataList(String dict_no,String parentDictType);
 
     /**
-     * 得到分页的数据字典
+     * 从数据库中得到分页的数据字典
      * @param page
      * @return
      */

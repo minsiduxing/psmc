@@ -1,10 +1,9 @@
 package priv.guochun.psmc.system.common.sysConfig.service.impl;
 
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import priv.guochun.psmc.system.common.sysConfig.model.TabSysConfig;
 import priv.guochun.psmc.system.common.sysConfig.service.TabSysConfigService;
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 
 import java.util.HashMap;
 import java.util.List;

@@ -18,7 +18,7 @@ import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.activity.model.TabActivityManage;
 import priv.guochun.psmc.website.backstage.activity.model.TabSignUpInfo;
 import priv.guochun.psmc.website.backstage.activity.service.TabActivityManageService;
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
 import priv.guochun.psmc.website.backstage.module.service.TabModuleService;
 import priv.guochun.psmc.website.enums.ModuleEnum;

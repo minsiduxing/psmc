@@ -65,7 +65,7 @@
 		class="priv.guochun.psmc.website.backstage.webuser.service.impl.TabWebUserServiceImpl" />
 	
 	<!-- 公共dao注入 -->
-	<bean id="baseDao" class="priv.guochun.psmc.website.backstage.common.impl.BaseDaoImpl"/>	
+	<bean id="baseDao" class="priv.guochun.psmc.system.framework.dao.impl.BaseDaoImpl"/>
 	<!-- 信息发布service注入 -->
 	<bean id="infoReleaseService" class="priv.guochun.psmc.website.backstage.InfoRelease.service.impl.InfoReleaseServiceImpl"/>
 	<!-- 优秀创新service注入 -->
@@ -154,6 +154,5 @@
 	 <bean id="tabMessagePoolService" class="priv.guochun.psmc.website.backstage.message.service.impl.TabMessagePoolServiceImpl"/>
 	 <bean id="tabMessageTempService" class="priv.guochun.psmc.website.backstage.message.service.impl.TabMessageTempServiceImpl"/>
 	 <bean id="tabMessageBlackService" class="priv.guochun.psmc.website.backstage.message.service.impl.TabMessageBlackServiceImpl"/>
-	 <bean id="tabSysKeyInfoService" class="priv.guochun.psmc.website.backstage.message.service.impl.TabSysKeyInfoServiceImpl"/>
-	 
+
 </beans>

@@ -24,7 +24,7 @@ import priv.guochun.psmc.system.framework.activiti.util.FlowElContans;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.MyStringUtil;
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 
 import java.io.InputStream;
 import java.util.ArrayList;

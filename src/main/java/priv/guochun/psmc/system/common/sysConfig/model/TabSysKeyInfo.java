@@ -1,8 +1,8 @@
-package priv.guochun.psmc.system.common.dict.model;
+package priv.guochun.psmc.system.common.sysConfig.model;
 
 import java.io.Serializable;
 
-public class TabDataDict implements Serializable {
+public class TabSysKeyInfo implements Serializable {
     private Integer id;
 
     private String sysKey;
