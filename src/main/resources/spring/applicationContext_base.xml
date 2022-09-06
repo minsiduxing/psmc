@@ -111,6 +111,7 @@
 				<prop key="batch*">PROPAGATION_REQUIRED</prop>
 				<prop key="execute*">PROPAGATION_REQUIRED</prop>
 				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="select*">PROPAGATION_REQUIRED,readOnly</prop>
 				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
 				<prop key="query*">PROPAGATION_REQUIRED,readOnly</prop>
 				<prop key="search*">PROPAGATION_REQUIRED,readOnly</prop>

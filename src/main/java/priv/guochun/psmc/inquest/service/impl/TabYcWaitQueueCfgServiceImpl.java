@@ -3,7 +3,7 @@ package priv.guochun.psmc.inquest.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import priv.guochun.psmc.inquest.model.TabYcWaitQueueCfg;
 import priv.guochun.psmc.inquest.service.TabYcWaitQueueCfgService;
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 
 import java.util.HashMap;
 import java.util.List;

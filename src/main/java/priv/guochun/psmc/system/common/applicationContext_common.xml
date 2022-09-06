@@ -18,8 +18,6 @@
 	
 	<bean id="tabDataDictService" class="priv.guochun.psmc.system.common.dict.service.impl.TabDataDictServiceImpl" />
 
-	<bean id="tabDataDictDao" class="priv.guochun.psmc.system.common.dict.dao.TabDataDictDaoImplMybatis" />
-	
 	<bean id="tSysOperLogService" class=" priv.guochun.psmc.system.common.log.service.impl.TSysOperLogServiceImpl" />
 	
 	<bean id="verificationCodeService" class=" priv.guochun.psmc.system.common.vcode.service.impl.VerificationCodeServiceImpl" />
@@ -29,7 +27,9 @@
 	<bean id="tabSysConfigService" class="priv.guochun.psmc.system.common.sysConfig.service.impl.TabSysConfigServiceImpl"/>
 	
 	<bean id="tabFunctionExplainService" class="priv.guochun.psmc.system.common.explain.service.impl.TabFunctionExplainServiceImpl"/>
-	
+
+	<bean id="tabSysKeyInfoService" class="priv.guochun.psmc.system.common.sysConfig.service.impl.TabSysKeyInfoServiceImpl"/>
+
 	<bean id="logOperJobDetail"  
 	    class="org.springframework.scheduling.quartz.JobDetailFactoryBean">  
 	    <property name="jobClass">  

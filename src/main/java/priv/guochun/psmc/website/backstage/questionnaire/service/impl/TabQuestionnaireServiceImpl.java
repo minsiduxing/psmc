@@ -10,7 +10,7 @@ import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 import priv.guochun.psmc.website.backstage.questionnaire.model.TabEvaluateInfo;
 import priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectConfig;
 import priv.guochun.psmc.website.backstage.questionnaire.model.TabSubjectResult;

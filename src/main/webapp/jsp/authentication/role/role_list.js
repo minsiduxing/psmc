@@ -62,14 +62,14 @@ $(function() {
                  * 可以解决表格右边空白的问题，但是没办法自适应浏览器大小，暂时不用
                  * width:parseInt($(this).width()*0.3)
                  */
-                { field: 'UUID', title: '账号唯一ID', checkbox: true },
-                { field: 'ROLE_NO', title: '角色编码' },
-                { field: 'ROLE_NAME', title: '角色名称' },
-                { field: 'CREATOR', title: '创建者' },
-                { field: 'CREATE_TIME', title: '创建时间', sortable: true,formatter:function(value,row,index){
+                { field: 'UUID', align:'center',title: '账号唯一ID', checkbox: true,width:$(this).width() * 0.2 },
+                { field: 'ROLE_NO', align:'center',title: '角色编码',width:$(this).width() * 0.2 },
+                { field: 'ROLE_NAME', align:'center',title: '角色名称',width:$(this).width() * 0.2 },
+                { field: 'CREATOR', align:'center',title: '创建者',width:$(this).width() * 0.2 },
+                { field: 'CREATE_TIME', align:'center',title: '创建时间',width:$(this).width() * 0.2, sortable: true,formatter:function(value,row,index){
                 	return value;
                 } },
-                { field: 'REMARK', title: '角色描述' }
+                { field: 'REMARK', align:'center',title: '角色描述',width:$(this).width() * 0.2 }
             ]
         ]
     };
@@ -80,7 +80,7 @@ $(function() {
         if (!editdialog) {
             initDialog();
         }
-        editdialog.panel({ title: "新增" });
+        editdialog.panel({ align:'center',title: "新增" });
         editdialog.panel({ iconCls: 'icon-save'});
         editdialog.panel({ href: addRoleUrl });
         editdialog.window("open");
@@ -95,7 +95,7 @@ $(function() {
             if (!editdialog) {
                 initDialog();
             }
-            editdialog.panel({ title: "修改" });
+            editdialog.panel({ align:'center',title: "修改" });
             editdialog.panel({ iconCls: 'icon-edit' });
             editdialog.panel({ href: _url });
             editdialog.window("open");
@@ -182,7 +182,7 @@ $(function() {
                     }
                 }]
             });
-            resourceSetdialog.panel({ title: "资源配置" });
+            resourceSetdialog.panel({ align:'center',title: "资源配置" });
             resourceSetdialog.panel({ iconCls: 'icon-edit' });
             resourceSetdialog.panel({ href: _url });
             resourceSetdialog.window("open");
@@ -212,7 +212,7 @@ $(function() {
                 border:'thick',
                 cache: false,
                 href:_url,
-                title: "业务操作配置",
+                align:'center',title: "业务操作配置",
                 method:"get"
             });
             privilegeSetdialog.window("open");

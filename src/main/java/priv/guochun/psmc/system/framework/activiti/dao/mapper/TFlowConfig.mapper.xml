@@ -12,7 +12,7 @@
     <result column="flow_cn_name" jdbcType="VARCHAR" property="flowCnName" />
     <result column="flow_en_name" jdbcType="VARCHAR" property="flowEnName" />
     <result column="flow_entrance" jdbcType="VARCHAR" property="flowEntrance" />
-    <result column="flow_version" jdbcType="REAL" property="flowVersion" />
+    <result column="flow_version" jdbcType="VARCHAR" property="flowVersion" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
     <result column="enabled" jdbcType="DECIMAL" property="enabled" />
@@ -156,7 +156,7 @@
       create_time, last_update_time, enabled, 
       flow_limit_hour)
     values (#{tfcUuid,jdbcType=VARCHAR}, #{flowNo,jdbcType=VARCHAR}, #{flowCnName,jdbcType=VARCHAR}, 
-      #{flowEnName,jdbcType=VARCHAR}, #{flowEntrance,jdbcType=VARCHAR}, #{flowVersion,jdbcType=REAL}, 
+      #{flowEnName,jdbcType=VARCHAR}, #{flowEntrance,jdbcType=VARCHAR}, #{flowVersion,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{enabled,jdbcType=DECIMAL}, 
       #{flowLimitHour,jdbcType=DECIMAL})
   </insert>
@@ -216,7 +216,7 @@
         #{flowEntrance,jdbcType=VARCHAR},
       </if>
       <if test="flowVersion != null">
-        #{flowVersion,jdbcType=REAL},
+        #{flowVersion,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -267,7 +267,7 @@
         flow_entrance = #{record.flowEntrance,jdbcType=VARCHAR},
       </if>
       <if test="record.flowVersion != null">
-        flow_version = #{record.flowVersion,jdbcType=REAL},
+        flow_version = #{record.flowVersion,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -298,7 +298,7 @@
       flow_cn_name = #{record.flowCnName,jdbcType=VARCHAR},
       flow_en_name = #{record.flowEnName,jdbcType=VARCHAR},
       flow_entrance = #{record.flowEntrance,jdbcType=VARCHAR},
-      flow_version = #{record.flowVersion,jdbcType=REAL},
+      flow_version = #{record.flowVersion,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
       enabled = #{record.enabled,jdbcType=DECIMAL},
@@ -328,7 +328,7 @@
         flow_entrance = #{flowEntrance,jdbcType=VARCHAR},
       </if>
       <if test="flowVersion != null">
-        flow_version = #{flowVersion,jdbcType=REAL},
+        flow_version = #{flowVersion,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -356,11 +356,14 @@
       flow_cn_name = #{flowCnName,jdbcType=VARCHAR},
       flow_en_name = #{flowEnName,jdbcType=VARCHAR},
       flow_entrance = #{flowEntrance,jdbcType=VARCHAR},
-      flow_version = #{flowVersion,jdbcType=REAL},
+      flow_version = #{flowVersion,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
       enabled = #{enabled,jdbcType=DECIMAL},
       flow_limit_hour = #{flowLimitHour,jdbcType=DECIMAL}
     where tfc_uuid = #{tfcUuid,jdbcType=VARCHAR}
   </update>
+
+
+
 </mapper>

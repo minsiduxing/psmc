@@ -1,24 +1,22 @@
 package priv.guochun.psmc.system.framework.cache;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
-
 import priv.guochun.psmc.authentication.operate.service.TabOperateService;
 import priv.guochun.psmc.system.common.city.service.CityService;
 import priv.guochun.psmc.system.common.dict.service.TabDataDictService;
 import priv.guochun.psmc.system.common.sysConfig.model.TabSysConfig;
+import priv.guochun.psmc.system.common.sysConfig.model.TabSysKeyInfo;
 import priv.guochun.psmc.system.common.sysConfig.service.TabSysConfigService;
+import priv.guochun.psmc.system.common.sysConfig.service.TabSysKeyInfoService;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfig;
 import priv.guochun.psmc.system.framework.activiti.model.TFlowConfigExample;
 import priv.guochun.psmc.system.framework.activiti.service.TFlowConfigService;
-import priv.guochun.psmc.website.backstage.message.model.TabSysKeyInfo;
-import priv.guochun.psmc.website.backstage.message.service.TabSysKeyInfoService;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
 {
@@ -85,10 +83,10 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
     
     public void sysKeyInfoInit(){
     	logger.debug("开始加载缓存[系统信息配置Key]start!!!!!!!!!!!!!!");
-    	List<TabSysKeyInfo> sysConfigList = tabSysKeyInfoService.findSysKeyInfoList(null, null);
+    	List<Map> sysConfigList = (List<Map>)tabSysKeyInfoService.findSysKeyInfoList(null, null);
     	Map<String, String> map = new HashMap<String, String>();
-    	for (TabSysKeyInfo sysConfig : sysConfigList) {
-    		map.put(sysConfig.getSysKey(), sysConfig.getSysValue());
+    	for (Map sysConfig : sysConfigList) {
+    		map.put(sysConfig.get("sys_key").toString(), sysConfig.get("sys_value").toString());
     	}
     	Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
     	cache.put(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, map);

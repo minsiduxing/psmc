@@ -3,6 +3,7 @@ package priv.guochun.psmc.system.framework.myspringview;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.Map;
 
@@ -51,6 +52,36 @@ public class DownloadByFileView implements View {
         out.flush();
         out.close();
     }
+
+
+	public void renderStream(InputStream stream, String fileName,
+					   HttpServletResponse response) throws Exception {
+		ServletOutputStream out = null;
+		try{
+			// 避免下载时文件名乱码
+			filename = URLEncoder.encode(filename, "UTF-8");
+			response.setHeader("Content-Disposition", "attachment; filename=" + filename);
+			response.setContentType(getContentType());
+			//注释原因:如果是大文件会由于int的大小损失精度
+			//response.setContentLength((int)dfile.length());
+			// 得到输入流
+			out = response.getOutputStream();
+			// 下面是一个普通的流的复制 。。。忽略 .这样可以防止内存问题
+			byte[] bs = new byte[1024];
+			int len = 0;
+			while ((len = stream.read(bs)) != -1) {
+				out.write(bs);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			throw e;
+		}finally{
+			stream.close();
+			out.flush();
+			out.close();
+		}
+
+	}
 	
 
 	@Override
