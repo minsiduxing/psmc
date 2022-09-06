@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">  
+<mapper namespace="priv.guochun.psmc.system.common.dict.model.TabDataDict">  
+    
+    <select id="getDictDataList"  resultType="java.util.Map" parameterType="integer">
+        select a.id as UUID,a.dict_id as ID,a.dict_name as NAME,a.DICT_TYPE,a.DICT_NO,a.PARENT_DICT_TYPE,a.REMARK,
+        b.dict_id as _parentId,b.dict_id as PARENT_DICT_ID,b.DICT_NAME  AS PARENT_DICT_NAME
+        from tab_data_dict a left join tab_data_dict b on a.PARENT_DICT_TYPE=b.DICT_TYPE
+        <where>
+        	<if test="dictType != null">
+        		 and  a.dict_type = #{dictType}
+        	</if>
+        	<if test="dictNo !=null">
+        		  and  a.dict_no =  #{dictNo}
+        	</if>
+        </where>
+         order by a.dict_type,a.ordernum asc
+    </select>  
+   
+</mapper>  

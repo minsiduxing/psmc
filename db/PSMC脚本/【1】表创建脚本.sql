@@ -610,7 +610,7 @@ create table tab_sys_config
     column2 varchar(100) comment '备用字段2',
     ordernum integer comment '排序码',
     primary key (sys_uuid)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_general_ci;
 
 drop table tab_sys_key_info;
 CREATE TABLE
@@ -638,3 +638,36 @@ alter table tab_dept add is_custom integer comment '是否自定义配图';
 alter table tab_excellent_innovation add is_custom integer comment '是否自定义配图';
 alter table tab_activity_manage add is_custom integer comment '是否自定义配图';
 alter table tab_news add is_custom integer comment '是否自定义配图';
+
+
+/*工作流新增脚本*/
+drop table if exists t_flow_config;
+drop table if exists t_flow_instance;
+
+create table t_flow_config(
+                              tfc_uuid varchar(64) PRIMARY key,
+                              flow_no varchar(50),
+                              flow_cn_name varchar(50),
+                              flow_en_name varchar(50),
+                              flow_entrance varchar(100),
+                              flow_version varchar(50),
+                              create_time TIMESTAMP,
+                              last_update_time TIMESTAMP,
+                              enabled smallint,
+                              flow_limit_hour smallint
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table t_flow_instance(
+                                tfi_uuid varchar(64) PRIMARY key,
+                                tfc_uuid varchar(64),
+                                flow_no varchar(50),
+                                flow_cn_name varchar(50),
+                                flow_en_name varchar(50),
+                                flow_entrance varchar(100),
+                                flow_version varchar(50),
+                                flow_state smallint,
+                                flow_start_time TIMESTAMP,
+                                flow_limit_hour smallint  null,
+                                flow_end_time TIMESTAMP  null,
+                                flow_end_limit_time TIMESTAMP  null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

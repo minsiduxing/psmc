@@ -10,7 +10,7 @@ import priv.guochun.psmc.inquest.service.TabYcInquestItemCfgService;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentService;
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 
 import java.util.Date;
 import java.util.HashMap;

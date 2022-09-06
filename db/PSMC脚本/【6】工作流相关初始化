@@ -1,0 +1,58 @@
+/***************2022.8.30增加v1版本工作流基础功能菜单********************************/
+INSERT INTO t_flow_config (tfc_uuid, flow_no, flow_cn_name, flow_en_name, flow_entrance, flow_version, create_time, last_update_time, enabled, flow_limit_hour) VALUES
+('f67ec4bda97440e7af9e52d1dc6f2830', '46', '测试流程1', 'TEST_ONE_FLOW', 'http://127.0.0.1:8080/psmc/jsp/ansj/ansjflowCommon.jsp', 'v1', '2022-08-29 15:20:14', '2022-08-17 00:00:00', 1, 24);
+
+
+delete from tab_role_operate where operate_uuid in(select uuid from tab_operate where resource_uuid in('215d170230b64261b49a17c2e6771cb6','574e3b05ee0b4666b9e4214d0319ecaa','623006482b354e3c8714b89d275d074b','b0c787c3b19941ada98551631d75d5f9','2db3a63e27ee415c9a3aa7ea589363e7'));
+delete from tab_operate where resource_uuid in('215d170230b64261b49a17c2e6771cb6','574e3b05ee0b4666b9e4214d0319ecaa','623006482b354e3c8714b89d275d074b','b0c787c3b19941ada98551631d75d5f9','2db3a63e27ee415c9a3aa7ea589363e7');
+
+delete from tab_role_resource where resource_id in('215d170230b64261b49a17c2e6771cb6','574e3b05ee0b4666b9e4214d0319ecaa','623006482b354e3c8714b89d275d074b','b0c787c3b19941ada98551631d75d5f9','2db3a63e27ee415c9a3aa7ea589363e7');
+delete from tab_resource where uuid  in('215d170230b64261b49a17c2e6771cb6','574e3b05ee0b4666b9e4214d0319ecaa','623006482b354e3c8714b89d275d074b','b0c787c3b19941ada98551631d75d5f9','2db3a63e27ee415c9a3aa7ea589363e7');
+
+insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+('215d170230b64261b49a17c2e6771cb6','流程管理',2,'','e51a8663876f4a3394bb194d89d96735','admin',str_to_date('2022-08-18','%Y-%m-%d %T'),'',25,1);
+
+insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+('574e3b05ee0b4666b9e4214d0319ecaa','待接收任务',3,'/jsp/system/framework/activiti/wait_receive_task.jsp','215d170230b64261b49a17c2e6771cb6','admin',str_to_date('2021-06-08','%Y-%m-%d %T'),'待接收列表',25,1);
+
+insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+('623006482b354e3c8714b89d275d074b','待处理任务',3,'/jsp/system/framework/activiti/wait_process_task.jsp','215d170230b64261b49a17c2e6771cb6','admin',str_to_date('2021-06-08','%Y-%m-%d %T'),'待接收列表',26,1);
+
+insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+('b0c787c3b19941ada98551631d75d5f9','已处理任务',3,'/jsp/system/framework/activiti/my_processed_task.jsp','215d170230b64261b49a17c2e6771cb6','admin',str_to_date('2021-06-08','%Y-%m-%d %T'),'已处理列表',27,1);
+
+insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+('2db3a63e27ee415c9a3aa7ea589363e7','已发起任务',3,'/jsp/system/framework/activiti/my_started_task.jsp','215d170230b64261b49a17c2e6771cb6','admin',str_to_date('2021-06-08','%Y-%m-%d %T'),'已处理列表',28,1);
+
+
+insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '215d170230b64261b49a17c2e6771cb6');
+insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '574e3b05ee0b4666b9e4214d0319ecaa');
+insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '623006482b354e3c8714b89d275d074b');
+insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', 'b0c787c3b19941ada98551631d75d5f9');
+insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '2db3a63e27ee415c9a3aa7ea589363e7');
+
+
+
+
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+('a4bad1bce9734fd5a237bdc4e30e4891','574e3b05ee0b4666b9e4214d0319ecaa','756d6e80c9d74b4389c918ab50ee19c3',
+'priv.guochun.psmc.system.framework.activiti.service.PsmcBaseWorkFlowService','selectWaitReceiveTasksBusinessMethod','[查询]','[查询]',1,'FLOW_WAIT_RECEIVE_TASKS_LIST');
+
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+('faf748ea11d849f08b8a71125099647c','623006482b354e3c8714b89d275d074b','756d6e80c9d74b4389c918ab50ee19c3',
+'priv.guochun.psmc.system.framework.activiti.service.PsmcBaseWorkFlowService','selectWaitProcessTasksBusinessMethod','[查询]','[查询]',1,'FLOW_WAIT_PROCESS_TASKS_LIST');
+
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+('1293bb2d8fe24b419323a4b20ceedf55','b0c787c3b19941ada98551631d75d5f9','756d6e80c9d74b4389c918ab50ee19c3',
+'priv.guochun.psmc.system.framework.activiti.service.PsmcBaseWorkFlowService','selectProcessedTasksBusinessMethod','[查询]','[查询]',1,'FLOW_PROCESSED_TASKS_LIST');
+
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+('ccb12a75692b40c8a5f3bdab7e80f2fc','2db3a63e27ee415c9a3aa7ea589363e7','756d6e80c9d74b4389c918ab50ee19c3',
+'priv.guochun.psmc.system.framework.activiti.service.PsmcBaseWorkFlowService','selectStartedByMeTasksBusinessMethod','[查询]','[查询]',1,'FLOW_STARTED_BYME_TASKS_LIST');
+
+
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', 'a4bad1bce9734fd5a237bdc4e30e4891');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', 'faf748ea11d849f08b8a71125099647c');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '1293bb2d8fe24b419323a4b20ceedf55');
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', 'ccb12a75692b40c8a5f3bdab7e80f2fc');
+/***************2022.8.30增加v1版本工作流基础功能菜单end********************************/

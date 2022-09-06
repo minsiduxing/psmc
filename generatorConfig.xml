@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
- <classPathEntry    location="E:\mavenRepository\mysql\mysql-connector-java\5.1.41/mysql-connector-java-5.1.41.jar"/>
+ <classPathEntry    location="E:\apache-maven-3.3.9\localRepository\mysql\mysql-connector-java\5.1.41/mysql-connector-java-5.1.41.jar"/>
   <context id="context1">
       <!-- 格式化java代码 -->
       <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
@@ -19,13 +19,13 @@
     </commentGenerator>
     <jdbcConnection connectionURL="jdbc:mysql://8.141.76.254:12234/yckystd?characterEncoding=UTF-8&amp;useSSL=false"
      driverClass="com.mysql.jdbc.Driver" password="3edc#EDC" userId="ghdb" />
-    <javaModelGenerator targetPackage="priv.guochun.psmc.inquest.model" targetProject="src/main/java">
+    <javaModelGenerator targetPackage="priv.guochun.psmc.system.common.sysConfig.model" targetProject="src/main/java">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false" />  
             <!-- 从数据库返回的值被清理前后的空格 -->  
             <property name="trimStrings" value="true" />  
     </javaModelGenerator>
-      <sqlMapGenerator targetPackage="priv.guochun.psmc.inquest.model.mapper" targetProject="src/main/java"></sqlMapGenerator>
-    <table schema="psmc" tableName="tab_yc_wait_queue_cfg" domainObjectName="YcWaitQueueCfg"></table>
+      <sqlMapGenerator targetPackage="priv.guochun.psmc.system.common.sysConfig.model.mapper" targetProject="src/main/java"></sqlMapGenerator>
+    <table schema="psmc" tableName="tab_data_dict" domainObjectName="TabDataDict"></table>
   </context>
 </generatorConfiguration>

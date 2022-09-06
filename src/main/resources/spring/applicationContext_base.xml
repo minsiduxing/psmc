@@ -15,36 +15,38 @@
 	<bean id="mySpringApplicationContext" class="priv.guochun.psmc.system.framework.util.MySpringApplicationContext" />
 	
 	<context:property-placeholder location="classpath:jdbc.properties" />
-	
-	<bean id="dataSource"
-		class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="${jdbc_driverClass}"/>
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<!-- 基本属性 url、user、password -->
 		<property name="url" value="${jdbc_jdbcUrl}" />
 		<property name="username" value="${jdbc_username}" />
 		<property name="password" value="${jdbc_password}" />
-		<!-- 池启动时创建的连接数量 -->
-        <property name="initialSize" value="10"/>
-        <!-- 同一时间可以从池分配的最多连接数量。设置为0时表示无限制。 -->
-        <property name="maxActive" value="30"/>
-        <!-- 连接池中最大的空闲的连接数，超过的空闲连接将被释放 -->
-        <property name="maxIdle" value="20"/>
-        <!-- 连接池中最小的空闲的连接数，低于这个数量会被创建新的连接 -->
-        <property name="minIdle" value="10"/>
-        <!-- 最大等待时间，当没有可用连接时，连接池等待连接释放的最大时间，超过该时间限制会抛出异常，
-        	（默认为无限，调整为60000ms，避免因线程池不够用，而导致请求被无限制挂起） -->
-        <property name="maxWait" value="5000"/>
-        
-        <!-- 连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除-->
-        <property name="testWhileIdle" value="true"/>
-        <property name="validationQuery" value="SELECT 1"/>
-          
-        <!-- 超过此时间则被空闲线程进行回收 1000 * f60 * 20-->
-        <property name="minEvictableIdleTimeMillis" value="1200000"/>  
-		
-        <!--超过此时间则被废弃线程进行废弃 -单位（秒)-->
-        <property name="removeAbandoned" value="true"/>
-        <property name="removeAbandonedTimeout" value="300"/>
 
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="10" />
+		<property name="minIdle" value="10" />
+		<property name="maxActive" value="30" />
+
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+
+		<!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->
+		<property name="filters" value="stat" />
 	</bean>
 
 
@@ -109,6 +111,7 @@
 				<prop key="batch*">PROPAGATION_REQUIRED</prop>
 				<prop key="execute*">PROPAGATION_REQUIRED</prop>
 				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="select*">PROPAGATION_REQUIRED,readOnly</prop>
 				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
 				<prop key="query*">PROPAGATION_REQUIRED,readOnly</prop>
 				<prop key="search*">PROPAGATION_REQUIRED,readOnly</prop>

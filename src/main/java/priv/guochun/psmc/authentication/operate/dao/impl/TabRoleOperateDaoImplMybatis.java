@@ -28,7 +28,7 @@ public class TabRoleOperateDaoImplMybatis implements TabRoleOperateDao
     public void deleteRoleOperateRelationByRoleUuids(String roleUuids)
     {
         Map<String,Object> condition4 = new HashMap<String,Object>();
-        condition4.put("roleUuids", roleUuids.split(MyStringUtil.stringFormat));
+        condition4.put("roleUuids", roleUuids.split(MyStringUtil.stringFormat_comma));
         sqlSession.delete(deleteRoleOperateRelations,condition4);
     }
     
@@ -39,7 +39,7 @@ public class TabRoleOperateDaoImplMybatis implements TabRoleOperateDao
 
         Map<String,Object> condition4 = new HashMap<String,Object>();
         condition4.put("roleUuid", roleUuid);
-        condition4.put("resourceIds", resourceIds.split(MyStringUtil.stringFormat));
+        condition4.put("resourceIds", resourceIds.split(MyStringUtil.stringFormat_comma));
         sqlSession.insert(saveRoleResourceOperateRelationsTwo,condition4);
     }
     

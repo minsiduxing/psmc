@@ -43,5 +43,10 @@ getTabDataUrl ='<c:url value="'+getTabDataUrl+'"/>?method=sysOperLogList';
 
 commonObj.initDictCombobox("log_type","LOG_TYPE",null,false,true);
 commonObj.initDictCombobox("log_sub_type","LOG_SUB_TYPE",null,false,true);
+
+$('#opername').textbox({
+	iconAlign:'left'
+})
+
 </script>
 </html>

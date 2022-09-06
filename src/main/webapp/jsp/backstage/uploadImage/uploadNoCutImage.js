@@ -37,7 +37,6 @@ function previewImageNoCut(fileObj){
 }
 
 function imageNoCutUpload(){
-  debugger;
   var uploadPhotoNoCutUrl = uploadPhotoNoCut;
   $.messager.progress();
   $("#upload-file-no-cut").ajaxSubmit({

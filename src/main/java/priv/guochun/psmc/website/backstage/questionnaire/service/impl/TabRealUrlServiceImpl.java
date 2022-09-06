@@ -2,7 +2,7 @@ package priv.guochun.psmc.website.backstage.questionnaire.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 import priv.guochun.psmc.website.backstage.questionnaire.model.TabRealUrl;
 import priv.guochun.psmc.website.backstage.questionnaire.service.TabRealUrlService;
 

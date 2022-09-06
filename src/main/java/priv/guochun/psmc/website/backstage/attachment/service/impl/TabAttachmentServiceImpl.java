@@ -6,7 +6,7 @@ import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.attachment.model.TabAttachment;
 import priv.guochun.psmc.website.backstage.attachment.service.TabAttachmentService;
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 
 import java.util.HashMap;
 import java.util.List;

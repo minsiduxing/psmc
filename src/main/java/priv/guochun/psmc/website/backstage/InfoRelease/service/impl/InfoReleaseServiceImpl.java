@@ -13,7 +13,7 @@ import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
 import priv.guochun.psmc.website.backstage.InfoRelease.model.InfoRelease;
 import priv.guochun.psmc.website.backstage.InfoRelease.service.InfoReleaseService;
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;
 import priv.guochun.psmc.website.backstage.module.service.TabModuleService;
 import priv.guochun.psmc.website.enums.ModuleEnum;

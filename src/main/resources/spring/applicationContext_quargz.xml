@@ -70,15 +70,16 @@
         <prop key="org.quartz.jobStore.clusterCheckinInterval">10000</prop>  
         <prop key="org.quartz.jobStore.maxMisfiresToHandleAtATime">1</prop>  
        
-        <prop key="org.quartz.jobStore.dataSource">myDS</prop>  
-        <prop key="org.quartz.dataSource.myDS.driver">${jdbc_driverClass}</prop>  
-        <prop key="org.quartz.dataSource.myDS.URL">${jdbc_jdbcUrl}</prop>  
-        <prop key="org.quartz.dataSource.myDS.user">${jdbc_username}</prop>  
-        <prop key="org.quartz.dataSource.myDS.password">${jdbc_password}</prop>  
-        <prop key="org.quartz.dataSource.myDS.maxConnections">10</prop>  
+<!--        <prop key="org.quartz.jobStore.dataSource">dataSource</prop>-->
+<!--        <prop key="org.quartz.dataSource.myDS.driver">${jdbc_driverClass}</prop>-->
+<!--        <prop key="org.quartz.dataSource.myDS.URL">${jdbc_jdbcUrl}</prop>-->
+<!--        <prop key="org.quartz.dataSource.myDS.user">${jdbc_username}</prop>-->
+<!--        <prop key="org.quartz.dataSource.myDS.password">${jdbc_password}</prop>-->
+<!--        <prop key="org.quartz.dataSource.myDS.maxConnections">10</prop>-->
         
     </props>  
-	</property> 
+	</property>
+	<property name="dataSource" ref="dataSource"/>
 	<property name="schedulerName" value="CRMscheduler" />  
     <!--必须的，QuartzScheduler 延时启动，应用启动完后 QuartzScheduler 再启动-->  
     <property name="startupDelay" value="5"/>  

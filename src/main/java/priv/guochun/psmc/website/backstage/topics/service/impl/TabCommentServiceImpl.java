@@ -12,7 +12,7 @@ import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.ContantsUtil;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 import priv.guochun.psmc.website.backstage.topics.model.TabComment;
 import priv.guochun.psmc.website.backstage.topics.model.TabTopics;
 import priv.guochun.psmc.website.backstage.topics.service.TabCommentService;
