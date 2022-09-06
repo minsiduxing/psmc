@@ -11,7 +11,7 @@ insert into tab_resource (uuid, resource_name, resource_type, resource_url, pare
 ('05c8cface02b44cfbd8f906f791cf775','问卷调查',2,'','e51a8663876f4a3394bb194d89d96735','admin',str_to_date('2018-05-13','%Y-%m-%d %T'),'问卷调查',31,1);
 
 insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values 
-('fde5fcdbb47c4ad693f26d8d13cb99ce','客户消费列表',3,'/website/backstage/EvauateInfoController.do?method=toEvaluateInfoList','05c8cface02b44cfbd8f906f791cf775','admin',str_to_date('2018-05-13','%Y-%m-%d %T'),'客户消费列表',1,1);
+('fde5fcdbb47c4ad693f26d8d13cb99ce','客户消费列表',3,'/website/backstage/EvauateInfoController.do?method=toEvaluateInfoList&smsBusniessType=19','05c8cface02b44cfbd8f906f791cf775','admin',str_to_date('2018-05-13','%Y-%m-%d %T'),'客户消费列表',1,1);
 
 
 insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '05c8cface02b44cfbd8f906f791cf775');
