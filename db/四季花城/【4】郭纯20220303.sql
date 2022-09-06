@@ -17,7 +17,7 @@ INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, 
 INSERT INTO tab_data_dict (DICT_ID, DICT_NAME, REMARK, DICT_TYPE, ORDERNUM, id, DICT_NO,PARENT_DICT_TYPE) VALUES ('9', '专属福利', '短信类型', 12, 9, 9, 'NOTICE_TYPE',14);
 
 insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
-('1080b68d54eb45e1b547dc0e5b26d418','卡余体验列表',3,'/website/backstage/EvauateInfoController.do?method=toEvaluateInfoList&smsBusniessType=14','e2ab21ca3bd14c92b0b9bf158e34a8fc','admin',str_to_date('2018-05-13','%Y-%m-%d %T'),'消息池列表',1,1);
+('1080b68d54eb45e1b547dc0e5b26d418','卡余体验列表',3,'/website/backstage/EvauateInfoController.do?method=toEvaluateInfoList&smsBusniessType=20','e2ab21ca3bd14c92b0b9bf158e34a8fc','admin',str_to_date('2018-05-13','%Y-%m-%d %T'),'消息池列表',1,1);
 
 insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '1080b68d54eb45e1b547dc0e5b26d418');
 

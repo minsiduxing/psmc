@@ -671,3 +671,5 @@ create table t_flow_instance(
                                 flow_end_time TIMESTAMP  null,
                                 flow_end_limit_time TIMESTAMP  null
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+alter table tab_data_dict modify id varchar(32);

@@ -76,7 +76,10 @@ var delUrl = '<c:url value="'+infoDo+'"/>?method=deleteByMsgUuid';
 var delAllUrl = '<c:url value="'+infoDo+'"/>?method=deleteAllMsg';
 var sendAllUrl = '<c:url value="'+infoDo+'"/>?method=handSendSms';
 var updateUrl = '<c:url value="'+infoDo+'"/>?method=updateByPrimaryKey';
-$(document).ready(function(){ 
+$(document).ready(function(){
+	$("#phone").textbox({
+	});
+
 	//datagrid 初始化 
 	var messageOption = {
 		tabId:"messageTableId",
