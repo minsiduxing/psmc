@@ -22,6 +22,7 @@ import org.springframework.web.servlet.View;
 
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.system.framework.excel.CreateExcelDataFileFactory;
+import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.myspringview.DownloadByFileView;
 import priv.guochun.psmc.system.framework.myspringview.DownloadByURLView;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
@@ -154,8 +155,15 @@ public class MyController
 		JSONObject jo = ReturnModel.createFailJSONObject(rmsg);
         this.responseJson(jo, response);
     }
-	
-	
+
+
+	public void responseMsgModel(MsgModel mm, HttpServletResponse response) throws IOException{
+		if(mm.isSuccess()) {
+			responseSuccessJson(mm.getResult().getMsg(),response);
+		}else
+			responseFailJson(mm.getResult().getMsg(),response);
+	}
+
 	/**
 	 * 生成json串给前端
 	 * @param jo
@@ -243,7 +251,6 @@ public class MyController
     
     /**返回一个图片
      * @param response
-     * @param ins 图片二进制流
      * @throws Exception
      */
     protected void responseImage(HttpServletResponse response,File file) throws Exception{  
@@ -261,8 +268,16 @@ public class MyController
         stream.flush();  
         stream.close();  
           
-    }  
-    /**
+    }
+
+	protected void responseImage(byte[] bytes,HttpServletResponse response) throws Exception{
+		response().setContentType("image/svg+xml");
+		OutputStream outputStream = response().getOutputStream();
+		outputStream.write(bytes);
+		outputStream.flush();
+		outputStream.close();
+	}
+	/**
      * <p>Description:获取项目的绝对根路径<p>
      * @return 项目根路径
      * @author wanglei 2017年8月18日

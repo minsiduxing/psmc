@@ -246,7 +246,6 @@ var deleteAttachment = '<c:url value="/website/backstage/tabAttachmentController
 	}
 	
 	/* function download(url) {
-		debugger;
 		var a = window.open(url)
 		a.document.execCommand('Saveas',true,"test.png")
 		a.window.close()

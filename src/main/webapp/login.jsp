@@ -1,8 +1,8 @@
-
+<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<!DOCTYPE html>
+
 <html>
 <head>
 <%@ include file="common.jsp"%>
@@ -35,30 +35,49 @@
 </body>
 <script type="text/javascript" src="js/md5.js"></script>
 <script>
+	function cdk(){
+		if(event.keyCode ==13){
+			loginSubmit();
+		}
+	}
+	//绑定回车登陆事件
+	function enableEnterKey(){
+		document.onkeydown =cdk;
+	}
+	//取消回车登陆事件
+	function disableEnterKey(){
+		document.onkeydown =null;
+	}
+
+	enableEnterKey();
+
+
+
 	//校验用户名
 	function validateUserName(){
 		if(!$("#username").val()){
-			commonObj.alert("用户名不能为空!","warning");
+			disableEnterKey();
+			commonObj.alert('您登陆的用户名不能为空!','warning',enableEnterKey);
 			return false;
 		}else{
 			return true;
 		}
-			
 	}
 	//校验密码
 	function validateUserPassword(){
 		 if(!$("#ppassword").val()){
-			commonObj.alert("密码不能为空!","warning");
-			return false;
+			 disableEnterKey();
+			 commonObj.alert('您登陆的密码不能为空!','warning',enableEnterKey);
+			 return false;
 		}
 		 // 测试，密码长度校验太麻烦，所以注释正式需要放开
-		/* else if($("#password").val().length<6){
-			commonObj.alert("密码不能小于6位!","warning");
+		console.info($("#ppassword").val());
+		if($("#ppassword").val().length<6){
+			 disableEnterKey();
+			 commonObj.alert('您登陆的密码不能小于6位!','warning',enableEnterKey);
 			return false;
-		} */
-		else{
-			return true;
 		}
+			return true;
 	}
 	//登录校验
 	function validateLoginInfo (){
@@ -90,17 +109,18 @@
  				data:_data,
  				url:_url,
  				success:function(data){
+					disableEnterKey();
  					var dataObj = JSON.parse(data);
  					if(dataObj.msg =="success"){
  						window.location.href="<c:url value='/jsp/loginTransfer.jsp'/>";
  					}else{
  						$.messager.progress('close');
- 	 					commonObj.alert(dataObj.msg,"warning");
+ 	 					commonObj.alert(dataObj.msg,"warning",enableEnterKey);
  	 					loginReset();
  					}
- 					
  				},
  				error:function (XMLHttpRequest, textStatus, errorThrown) {
+					enableEnterKey();
  					commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
  				}
  			});

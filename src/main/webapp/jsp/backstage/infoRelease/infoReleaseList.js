@@ -10,18 +10,18 @@ $(document).ready(function(){
 		           * width:parseInt($(this).width()*0.3)
 		           */
 		          {field:'uuid',title:'信息标示',checkbox:true},
-		          {field:'news_title',title:'信息标题',resizable:true,align:'center',sortable:true},    
-		          {field:'news_date',title:'创建日期',align:'center',sortable:true}, 
-		          {field:'news_author',title:'信息创建人',align:'center',sortable:true}, 
-		          {field:'audit',title:'审核状态',align:'center',sortable:true,formatter: function (value, row, index) {
+		          {field:'news_title',title:'信息标题',resizable:true,align:'center',sortable:true,width:$(this).width() * 0.2},
+		          {field:'news_date',title:'创建日期',align:'center',sortable:true,width:$(this).width() * 0.2},
+		          {field:'news_author',title:'信息创建人',align:'center',sortable:true,width:$(this).width() * 0.2},
+		          {field:'audit',title:'审核状态',align:'center',sortable:true,width:$(this).width() * 0.2,formatter: function (value, row, index) {
                      if(value=='1'){return "审核通过"; }
                      if(value=='2'){return "未审核"; }
                      if(value=='3'){return "审核不通过"; }
                                                   
                   }},
-		          {field:'auditAccName',title:'信息审核人',align:'center',sortable:true}, 
-		          {field:'audit_date',title:'信息审核时间',resizable:true,align:'center',sortable:true}, 
-		          {field:'two_level_classify',title:'信息分类',resizable:true,align:'center',sortable:true,formatter: function (value, row, index) {
+		          {field:'auditAccName',title:'信息审核人',align:'center',sortable:true,width:$(this).width() * 0.2},
+		          {field:'audit_date',title:'信息审核时间',resizable:true,align:'center',sortable:true,width:$(this).width() * 0.2},
+		          {field:'two_level_classify',title:'信息分类',resizable:true,align:'center',sortable:true,width:$(this).width() * 0.2,formatter: function (value, row, index) {
 	                     if(value=='1401'){return "美味食谱"; }
 	                     if(value=='1402'){return "日常通知"; }
 	                     if(value=='1403'){return "大院新闻"; }
@@ -36,14 +36,14 @@ $(document).ready(function(){
 	                     if(value=='1603'){return "辅助人员"; }
 
 	                  }},
-		          {field:'release_status',title:'发布状态',resizable:true,align:'center',sortable:true,formatter: function (value, row, index) {
+		          {field:'release_status',title:'发布状态',resizable:true,align:'center',width:$(this).width() * 0.2,sortable:true,formatter: function (value, row, index) {
 	                     if(value=='2'){return "未发布"; }
 	                     if(value=='1'){return "已发布"; }
 	                                                  
 	                  }},
-		          {field:'releaseAccName',title:'信息发布人',align:'center',sortable:true}, 
-		          {field:'release_date',title:'信息发布时间',align:'center',sortable:true}, 
-		          {field:'publish_expire_date',title:'信息过期时间',align:'center',sortable:true}
+		          {field:'releaseAccName',title:'信息发布人',align:'center',sortable:true,width:$(this).width() * 0.2},
+		          {field:'release_date',title:'信息发布时间',align:'center',sortable:true,width:$(this).width() * 0.2},
+		          {field:'publish_expire_date',title:'信息过期时间',align:'center',sortable:true,width:$(this).width() * 0.2}
 		         ] 
 		      ]
 	};

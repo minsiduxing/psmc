@@ -4,7 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.util.UUIDGenerator;
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 import priv.guochun.psmc.website.backstage.report.model.TabReportReplyRel;
 import priv.guochun.psmc.website.backstage.report.service.ReportReplyRelService;
 

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 import priv.guochun.psmc.website.backstage.pageView.model.TabPageView;
 import priv.guochun.psmc.website.backstage.pageView.service.TabPageViewService;
 

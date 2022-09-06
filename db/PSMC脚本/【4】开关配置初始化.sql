@@ -87,4 +87,4 @@ INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (60, 'defau
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (61, 'default_roleid', 'e8d791272c7e437c8f8a72355bb0c231', '外网注册用户缺省所属角色');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (62, 'wx_appid', 'wx591b083250978728', '微信appid');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (63, 'wx_secret', '85e9f4b443190c407e12b46e08464731', '微信secret');
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (64, 'file_service_type', 'Local', '文件上传服务');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (64, 'file_service_type', 'Local', '文件上传服务Local/Fastdfst');

@@ -425,4 +425,36 @@ insert into tab_resource
 
 insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '6b5de11e5c0e4a53aad76f74fd6a1df6');
 
+/*数据字典*/
+delete from tab_role_operate where operate_uuid in(select uuid from tab_operate where resource_uuid in('5a5ea8abd5fd4e09822c4b7261e8bca3'));
+delete from tab_operate where resource_uuid in('5a5ea8abd5fd4e09822c4b7261e8bca3');
+delete from tab_role_resource where resource_id in('5a5ea8abd5fd4e09822c4b7261e8bca3');
+delete  from tab_resource where uuid  in('5a5ea8abd5fd4e09822c4b7261e8bca3');
 
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum, is_view)
+VALUES ('5a5ea8abd5fd4e09822c4b7261e8bca3', '字典管理', 3, '/jsp/system/common/dict/dict.jsp', 'f55580fa321b4d34a172628d5825c4dc', 'admin', '2022-09-01 15:14:13', '菜单', 30, 1);
+
+insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '5a5ea8abd5fd4e09822c4b7261e8bca3');
+
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('7495dbcf320946bfa898a8760f4e4f11','5a5ea8abd5fd4e09822c4b7261e8bca3','756d6e80c9d74b4389c918ab50ee19c3',
+     'priv.guochun.psmc.system.common.dict.service.TabDataDictService','getDictDataListBusinessMethod','[查询]','[查询]',1,'FLOW_WAIT_RECEIVE_TASKS_LIST');
+
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '7495dbcf320946bfa898a8760f4e4f11');
+
+/*配置管理*/
+delete from tab_role_operate where operate_uuid in(select uuid from tab_operate where resource_uuid in('839ba576c57047e8bd1ddc9a3c9fedbc'));
+delete from tab_operate where resource_uuid in('839ba576c57047e8bd1ddc9a3c9fedbc');
+delete from tab_role_resource where resource_id in('839ba576c57047e8bd1ddc9a3c9fedbc');
+delete  from tab_resource where uuid  in('839ba576c57047e8bd1ddc9a3c9fedbc');
+
+INSERT INTO tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark, ordernum, is_view) VALUES
+    ('839ba576c57047e8bd1ddc9a3c9fedbc', '配置管理', 3, '/jsp/system/common/sysconfig/sysKeylist.jsp', 'f55580fa321b4d34a172628d5825c4dc', 'admin', '2022-09-01 15:14:13', '菜单', 31, 1);
+
+insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '839ba576c57047e8bd1ddc9a3c9fedbc');
+
+insert into tab_operate (uuid, resource_uuid, privilege_uuid,fun_class,fun_method,operate_name,operate_desc,ordernum,OPERATE_NO) values
+    ('2c4806c8d9b84f47b4e4b778e2f61e8f','839ba576c57047e8bd1ddc9a3c9fedbc','756d6e80c9d74b4389c918ab50ee19c3',
+     'priv.guochun.psmc.system.common.sysConfig.service.TabSysKeyInfoService','selectAllSysKeyInfosBusinessMethod','[查询]','[查询]',1,'FLOW_WAIT_RECEIVE_TASKS_LIST');
+
+insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', '2c4806c8d9b84f47b4e4b778e2f61e8f');

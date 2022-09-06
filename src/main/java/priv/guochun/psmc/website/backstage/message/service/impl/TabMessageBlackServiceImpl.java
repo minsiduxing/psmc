@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 import priv.guochun.psmc.website.backstage.message.model.TabMessageBlack;
 import priv.guochun.psmc.website.backstage.message.service.TabMessageBlackService;
 

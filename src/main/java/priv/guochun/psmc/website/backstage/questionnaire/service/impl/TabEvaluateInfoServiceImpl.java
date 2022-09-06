@@ -13,7 +13,7 @@ import priv.guochun.psmc.system.framework.sms.model.SmsModel;
 import priv.guochun.psmc.system.framework.sms.service.MobileSmsSendService;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.*;
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 import priv.guochun.psmc.website.backstage.questionnaire.model.TabEvaluateInfo;
 import priv.guochun.psmc.website.backstage.questionnaire.model.TabRealUrl;
 import priv.guochun.psmc.website.backstage.questionnaire.service.TabEvaluateInfoService;

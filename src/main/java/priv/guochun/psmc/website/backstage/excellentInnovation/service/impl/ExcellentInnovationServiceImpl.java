@@ -11,7 +11,7 @@ import priv.guochun.psmc.system.exception.PsmcBuisnessException;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.DateUtil;
 import priv.guochun.psmc.system.util.UUIDGenerator;
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 import priv.guochun.psmc.website.backstage.excellentInnovation.model.TabExcellentInnovation;
 import priv.guochun.psmc.website.backstage.excellentInnovation.service.ExcellentInnovationService;
 import priv.guochun.psmc.website.backstage.module.model.TabModule;

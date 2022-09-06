@@ -1,47 +1,35 @@
 package priv.guochun.psmc.system.common.dict.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import priv.guochun.psmc.system.common.dict.service.TabDataDictService;
+import priv.guochun.psmc.system.framework.cache.CacheContants;
+import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
+import priv.guochun.psmc.system.framework.page.MyPage;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.springframework.cache.Cache;
-
-import priv.guochun.psmc.system.common.dict.dao.TabDataDictDao;
-import priv.guochun.psmc.system.common.dict.service.TabDataDictService;
-import priv.guochun.psmc.system.framework.cache.CacheContants;
-import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
-
 public class TabDataDictServiceImpl implements TabDataDictService {
 	
-	
-	public TabDataDictDao tabDataDictDao;
 	private PsmcCacheFactory psmcCacheFactory;
-	
+
+    private final static String getDictDataList = "getDictDataList";
+    @Autowired
+    private BaseDao baseDao;
 	@Override
 	public List<Map<?,?>> getDictDataList(){
-	    List<Map<?,?>> list =  tabDataDictDao.getDictDataListByDictNo(null);
+	    List<Map<?,?>> list =  baseDao.queryForList(getDictDataList);
         return list;
-	    
 	}
-//
-//	private Map ListToMap(List<Map> list,int flag){
-//        Map map = new HashMap();
-//        if(list !=null && list.size()>0){
-//            for(int i=0;i<list.size();i++){  
-//                Map mapObj = (Map)list.get(i);
-//                if(1==flag)
-//                    map.put(mapObj.get("NAME")!=null?mapObj.get("NAME").toString():"",
-//                            mapObj.get("ID")!=null?mapObj.get("ID").toString():"");
-//                else
-//                    map.put(mapObj.get("ID")!=null?mapObj.get("ID").toString():"",
-//                            mapObj.get("NAME")!=null?mapObj.get("NAME").toString():"");
-//            }
-//        }
-//        return map;
-//    }
+
+    public MyPage getDictDataListBusinessMethod(MyPage page){
+        return baseDao.getMyPage(page,getDictDataList,page.getQueryParams());
+    }
 	
-	@SuppressWarnings("unchecked")
     public List<Map<?,?>> getDictDataList(String dict_no,String parentDictType){
 	    Cache cache = psmcCacheFactory.getCacheSystem();
         List<Map<?,?>> list = cache.get(CacheContants.CACHE_SYSTEM_DATA_DICT, List.class);
@@ -60,21 +48,11 @@ public class TabDataDictServiceImpl implements TabDataDictService {
                             newList.add(map);
                         }
                     }else
-                    newList.add(map);
+                        newList.add(map);
                 }
             }
             return newList;
         }
-	}
-	
-
-	
-
-    public TabDataDictDao getTabDataDictDao() {
-		return tabDataDictDao;
-	}
-	public void setTabDataDictDao(TabDataDictDao tabDataDictDao) {
-		this.tabDataDictDao = tabDataDictDao;
 	}
 
     public PsmcCacheFactory getPsmcCacheFactory()
@@ -86,6 +64,4 @@ public class TabDataDictServiceImpl implements TabDataDictService {
     {
         this.psmcCacheFactory = psmcCacheFactory;
     }
-	
-
 }

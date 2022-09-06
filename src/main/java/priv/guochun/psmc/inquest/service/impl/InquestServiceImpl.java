@@ -28,7 +28,7 @@ import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
 import priv.guochun.psmc.system.framework.util.MySpringApplicationContext;
 import priv.guochun.psmc.system.util.UUIDGenerator;
-import priv.guochun.psmc.website.backstage.common.BaseDao;
+import priv.guochun.psmc.system.framework.dao.BaseDao;
 
 import java.util.Date;
 import java.util.HashMap;
