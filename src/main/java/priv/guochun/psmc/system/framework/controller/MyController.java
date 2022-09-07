@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.alibaba.fastjson.JSON;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -130,11 +131,10 @@ public class MyController
 		else
 			responseFailJson(rmsg,response);
 	}
-	
+
 	/**
-	 * 返回一个包装好的json对象给前端{res:success,rmsg:rmsg}
-	 * @param rvalue 返回业务值 
-	 * @param rmsg	  返回描述
+	 * 返回一个包装好的json对象给前端
+	 * @param rmsg
 	 * @param response
 	 * @throws IOException
 	 */
@@ -143,11 +143,10 @@ public class MyController
         JSONObject jo = ReturnModel.createSuccessJSONObject(rmsg);
         this.responseJson(jo, response);
     }
-	
+
 	/**
-	 * 返回一个包装好的json对象给前端{res:fail,rvalue:rvalue,rmsg:rmsg}
-	 * @param rvalue 返回业务值 
-	 * @param rmsg	  返回描述
+	 * 返回一个包装好的json对象给前端
+	 * @param rmsg
 	 * @param response
 	 * @throws IOException
 	 */
@@ -159,9 +158,9 @@ public class MyController
 
 	public void responseMsgModel(MsgModel mm, HttpServletResponse response) throws IOException{
 		if(mm.isSuccess()) {
-			responseSuccessJson(mm.getResult().getMsg(),response);
+			responseSuccessJson(GsonUtil.toJsonForObject(mm),response);
 		}else
-			responseFailJson(mm.getResult().getMsg(),response);
+			responseFailJson(GsonUtil.toJsonForObject(mm),response);
 	}
 
 	/**

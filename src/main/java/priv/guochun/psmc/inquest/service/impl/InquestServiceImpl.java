@@ -16,7 +16,7 @@ import priv.guochun.psmc.inquest.model.TabYcInquestRecord;
 import priv.guochun.psmc.inquest.model.TabYcStage;
 import priv.guochun.psmc.inquest.model.TabYcWaitQueueCfg;
 import priv.guochun.psmc.inquest.model.vo.TabYcInquestItemCfgVO;
-import priv.guochun.psmc.inquest.service.AccessTokenService;
+import priv.guochun.psmc.system.framework.wx.AccessTokenService;
 import priv.guochun.psmc.inquest.service.InquestService;
 import priv.guochun.psmc.inquest.service.TabYcWaitQueueCfgService;
 import priv.guochun.psmc.inquest.utils.HttpConnectUtil;

@@ -1,19 +1,26 @@
 package priv.guochun.psmc.inquest.utils;
 
+import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import priv.guochun.psmc.inquest.service.impl.InquestServiceImpl;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
 
 import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * http请求工具类
@@ -150,6 +157,121 @@ public class HttpConnectUtil {
         return var7;
     }
 
+
+    public static String postFile(String serviceURL, Map<String, String> textMap, Map<String, LinkedHashSet<String>> fileMap) throws IOException {
+        String res = "";
+        HttpURLConnection conn = null;
+        OutputStream out = null;
+        BufferedReader reader = null;
+        String BOUNDARY = "---------------------------" + System.currentTimeMillis(); // boundary就是request头和上传文件内容的分隔符
+        try {
+            URL url = new URL(serviceURL);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(5000);// 30秒连接
+            conn.setReadTimeout(5 * 60 * 1000);// 5分钟读数据
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
+
+            out = new DataOutputStream(conn.getOutputStream());
+            // text
+            if (!Objects.isNull(textMap) && !textMap.isEmpty()) {
+                StringBuffer strBuf = new StringBuffer();
+                Iterator<Map.Entry<String, String>> iter = textMap.entrySet().iterator();
+                while (iter.hasNext()) {
+                    Map.Entry<String, String> entry = iter.next();
+                    String inputName = entry.getKey();
+                    String inputValue = entry.getValue();
+                    if (StringUtils.isAnyBlank(inputName, inputValue)) {
+                        continue;
+                    }
+                    strBuf.append("\r\n").append("--").append(BOUNDARY).append("\r\n");
+                    strBuf.append("Content-Disposition: form-data; name=\"" + inputName + "\"\r\n\r\n");
+                    strBuf.append(inputValue);
+                }
+                out.write(strBuf.toString().getBytes());
+            }
+
+            // file
+            if (!Objects.isNull(fileMap) && !fileMap.isEmpty()) {
+                Iterator<Entry<String, LinkedHashSet<String>>> iter = fileMap.entrySet().iterator();
+                while (iter.hasNext()) {
+                    Entry<String, LinkedHashSet<String>> entry = iter.next();
+                    String inputName = entry.getKey();
+                    LinkedHashSet<String> inputValue = entry.getValue();
+                    if (StringUtils.isAnyBlank(inputName) || inputValue.isEmpty()) {
+                        continue;
+                    }
+                    for (String filePath : inputValue) {
+                        File file = new File(filePath);
+                        String filename = file.getName();
+                        Path path = Paths.get(filePath);
+                        String contentType = Files.probeContentType(path);
+                        StringBuffer strBuf = new StringBuffer();
+                        strBuf.append("\r\n").append("--").append(BOUNDARY).append("\r\n");
+                        strBuf.append("Content-Disposition: form-data; name=\"" + inputName + "\"; filename=\"" + filename + "\"\r\n");
+                        strBuf.append("Content-Type:" + contentType + "\r\n\r\n");
+                        logger.debug(String.format("filename:%s,contentType:%s", filename, contentType));
+                        out.write(strBuf.toString().getBytes());
+
+                        DataInputStream in = new DataInputStream(new FileInputStream(file));
+                        int bytes = 0;
+                        byte[] bufferOut = new byte[1024];
+                        while ((bytes = in.read(bufferOut)) != -1) {
+                            out.write(bufferOut, 0, bytes);
+                        }
+                        in.close();
+                    }
+                }
+            }
+            byte[] endData = ("\r\n--" + BOUNDARY + "--\r\n").getBytes();
+            out.write(endData);
+            out.flush();
+            // 读取返回数据
+            logger.debug(String.format("http 返回状态:ResponseCode=%s,ResponseMessage=%s", conn.getResponseCode(), conn.getResponseMessage()));
+            StringBuffer strBuf = new StringBuffer();
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                strBuf.append(line).append("\n");
+            }
+            res = strBuf.toString();
+            logger.debug(String.format("http 返回数据:%s", res));
+            reader.close();
+            reader = null;
+        } catch (IOException e) {
+            throw e;
+        } finally {
+            if (!Objects.isNull(out)) {
+                out.close();
+                out = null;
+            }
+            if (!Objects.isNull(reader)) {
+                reader.close();
+                reader = null;
+            }
+            if (conn != null) {
+                conn.disconnect();
+                conn = null;
+            }
+        }
+        return res;
+    }
+
+    public static void main(String[] args){
+        Map<String, LinkedHashSet<String>> fileMap = new HashMap<String, LinkedHashSet<String>>();
+        LinkedHashSet set = new LinkedHashSet();
+        set.add("D:/2.jpg");
+        fileMap.put("file",set);
+        try {
+            System.out.println(postFile(" https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=image&media=@2.jpg",null,fileMap));
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static HttpURLConnection getHttpConnection(String targetURL) {
         HttpURLConnection httpConnection = null;
 
@@ -238,26 +360,26 @@ public class HttpConnectUtil {
     }
 
     private static String uriMapToString(Map<String, String> paramMap) {
-        Set<String> set = paramMap.keySet();
         StringBuffer postedData = new StringBuffer();
+        if(paramMap != null){
+            Set<String> set = paramMap.keySet();
+            for(Iterator it = set.iterator(); it.hasNext(); postedData.append("&")) {
+                String key = (String)it.next();
+                String value = (String)paramMap.get(key);
+                postedData.append(key);
+                postedData.append("=");
 
-        for(Iterator it = set.iterator(); it.hasNext(); postedData.append("&")) {
-            String key = (String)it.next();
-            String value = (String)paramMap.get(key);
-            postedData.append(key);
-            postedData.append("=");
+                try {
+                    postedData.append(URLEncoder.encode(value, "UTF-8"));
+                } catch (UnsupportedEncodingException var8) {
+                    var8.printStackTrace();
+                }
+            }
 
-            try {
-                postedData.append(URLEncoder.encode(value, "UTF-8"));
-            } catch (UnsupportedEncodingException var8) {
-                var8.printStackTrace();
+            if (postedData.length() > 0) {
+                postedData.deleteCharAt(postedData.length() - 1);
             }
         }
-
-        if (postedData.length() > 0) {
-            postedData.deleteCharAt(postedData.length() - 1);
-        }
-
         return postedData.toString();
     }
 }
