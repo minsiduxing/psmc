@@ -1,17 +1,11 @@
 package priv.guochun.psmc.inquest.utils;
 
-import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
 
 import java.io.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -30,6 +24,15 @@ import java.util.Map.Entry;
  */
 public class HttpConnectUtil {
     protected static final Logger logger  = LoggerFactory.getLogger(HttpConnectUtil.class);
+
+    public static final String content_type_image_png = "image/png";
+    public static final String content_type_image_jpg = "image/jpg";
+
+    public static final String content_type_image_svg_xml = "image/svg+xml";
+
+
+
+
     public static String get(String targetURL, Map<String, String> paramMap) {
         HttpURLConnection httpConnection = null;
 
@@ -59,6 +62,34 @@ public class HttpConnectUtil {
         }
 
         return var6;
+    }
+
+
+    public static byte[] getFile(String targetURL, Map<String, String> paramMap) {
+        HttpURLConnection httpConnection = null;
+        String var6;
+        try {
+            String str = "?";
+            if (targetURL.indexOf(str) == -1) {
+                targetURL = targetURL + str;
+            }
+
+            targetURL = targetURL + uriMapToString(paramMap);
+            logger.debug("http getFile请求 url:"+targetURL);
+            httpConnection = getHttpConnection(targetURL);
+            httpConnection.setRequestMethod("GET");
+            httpConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            if (httpConnection.getResponseCode() != 200) {
+                throw new RuntimeException("HTTP GET Request Failed with Error code : " + httpConnection.getResponseCode());
+            }
+
+            return getBodyFileStreamFieds(httpConnection);
+        } catch (Exception var10) {
+            var10.printStackTrace();
+            return null;
+        } finally {
+            disconnect(httpConnection);
+        }
     }
 
     public static String post(String targetURL, Map<String, String> paramMap) {
@@ -167,6 +198,7 @@ public class HttpConnectUtil {
         try {
             URL url = new URL(serviceURL);
             conn = (HttpURLConnection) url.openConnection();
+            logger.debug("http postFile请求 url:"+serviceURL);
             conn.setConnectTimeout(5000);// 30秒连接
             conn.setReadTimeout(5 * 60 * 1000);// 5分钟读数据
             conn.setDoOutput(true);
@@ -174,7 +206,6 @@ public class HttpConnectUtil {
             conn.setUseCaches(false);
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
-
             out = new DataOutputStream(conn.getOutputStream());
             // text
             if (!Objects.isNull(textMap) && !textMap.isEmpty()) {
@@ -212,6 +243,7 @@ public class HttpConnectUtil {
                         StringBuffer strBuf = new StringBuffer();
                         strBuf.append("\r\n").append("--").append(BOUNDARY).append("\r\n");
                         strBuf.append("Content-Disposition: form-data; name=\"" + inputName + "\"; filename=\"" + filename + "\"\r\n");
+//                        strBuf.append(";filelength=\"" + file.length() + "\";\r\n");
                         strBuf.append("Content-Type:" + contentType + "\r\n\r\n");
                         logger.debug(String.format("filename:%s,contentType:%s", filename, contentType));
                         out.write(strBuf.toString().getBytes());
@@ -323,7 +355,6 @@ public class HttpConnectUtil {
         InputStreamReader isreader = null;
         BufferedReader responseBuffer = null;
         String outStr = null;
-
         try {
             is = httpConnection.getInputStream();
             isreader = new InputStreamReader(is, "utf-8");
@@ -342,11 +373,39 @@ public class HttpConnectUtil {
             } catch (Exception var15) {
                 var15.printStackTrace();
             }
-
         }
-
         return resultSb.toString();
     }
+
+    public static byte[] getBodyFileStreamFieds(HttpURLConnection httpConnection) {
+        InputStream is = null;
+        ByteArrayOutputStream swapStream = null;
+        try {
+            is = httpConnection.getInputStream();
+            swapStream = new ByteArrayOutputStream();
+            int available = is.available();
+            byte[] buff = new byte[available]; //buff用于存放循环读取的临时数据
+            int rc = 0;
+            while ((rc = is.read(buff, 0, available)) > 0) {
+                swapStream.write(buff, 0, rc);
+            }
+            logger.debug("http getFile请求结果，文件二进制长度"+swapStream.toByteArray().length);
+            return swapStream.toByteArray();
+        } catch (Exception var16) {
+            var16.printStackTrace();
+            return null;
+        }finally {
+            try{
+                if(is !=null)
+                    is.close();
+                if(swapStream !=null)
+                    swapStream.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     public static void disconnect(HttpURLConnection httpConnection) {
         try {
@@ -356,7 +415,6 @@ public class HttpConnectUtil {
         } catch (Exception var3) {
             var3.printStackTrace();
         }
-
     }
 
     private static String uriMapToString(Map<String, String> paramMap) {

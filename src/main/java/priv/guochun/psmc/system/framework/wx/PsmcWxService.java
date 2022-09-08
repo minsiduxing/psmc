@@ -52,21 +52,58 @@ public interface PsmcWxService {
     public MsgModel uploadTemporaryMediaForThumb(File file);
 
     /**
-     * 得到临时素材
+     * 得到临时素材(视频)
      * @param media_id
      * @return
      */
-    public MsgModel getTemporaryMedia(String media_id);
+    public MsgModel getTemporaryMediaForVideo(String media_id);
 
     /**
-     * 删除临时素材
+     * 得到临时素材（除视频外）因为视频返回的是下载地址而不是流
      * @param media_id
      * @return
      */
-    public MsgModel delTemporaryMedia(String media_id);
+    public byte[] getTemporaryMedia(String media_id);
 
-    public String uploadPersistentMedia( String type,String mediaFormData);
 
-    public String delPersistentMedia(String js_code, String mobile);
+    /**
+     * 上传持久图片素材
+     * @param file
+     * @return
+     */
+    public MsgModel uploadPersistentMediaForImage(File file,boolean isMsgMedia);
 
+    /**
+     * 上传持久音频素材
+     * @param file
+     * @return
+     */
+    public MsgModel uploadPersistentMediaForVoice(File file,boolean isMsgMedia);
+
+    /**
+     * 上传持久素材（视频）
+     * @return
+     */
+    public MsgModel uploadPersistentMediaForVideo(File file,boolean isMsgMedia);
+
+    /**
+     * 上传持久素材（主要用于视频与音乐格式的缩略图）
+     * @return
+     */
+    public MsgModel uploadPersistentMediaForThumb(File file,boolean isMsgMedia);
+
+
+    /**
+     * 删除持久素材
+     * @param media_id
+     * @return
+     */
+    public MsgModel delPersistentMedia(String media_id);
+
+    /**
+     * 获取持久素材
+     * @param media_id
+     * @return
+     */
+    public byte[] getPersistentMedia(String media_id);
 }
