@@ -7,11 +7,14 @@ import priv.guochun.psmc.inquest.utils.HttpConnectUtil;
 import priv.guochun.psmc.system.framework.activiti.model.FlowCommonParam;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.model.MsgModel;
+import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.framework.wx.PsmcWxService;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/system/framework/psmcWxController")
@@ -40,7 +43,7 @@ public class PsmcWxController extends MyController {
 	//上传永久素材（图片）
 	@RequestMapping(params="method=uploadPersistentMediaForImages")
 	public void uploadPersistentMediaForImages() throws IOException{
-		MsgModel mm = psmcWxService.uploadPersistentMediaForImage(new File("D:/2.jpg"),true);
+		MsgModel mm = psmcWxService.uploadPersistentMediaForImage(new File("D:/2.jpg"),false);
 		this.responseMsgModel(mm, this.response());
 	}
 
@@ -55,6 +58,40 @@ public class PsmcWxController extends MyController {
 	@RequestMapping(params="method=getPersistentMedia")
 	public void getPersistentMedia(String media_id) throws Exception {
 		this.responseImage(psmcWxService.getPersistentMedia(media_id), HttpConnectUtil.content_type_image_jpg,this.response());
+	}
+
+	@RequestMapping(params="method=queryPersistentMediaList")
+	public void queryPersistentMediaList(String type,String offset,String count) throws IOException{
+		StringBuffer sb1 = new StringBuffer();
+		sb1.append("{");
+		sb1.append("\"type\":").append("\"").append(type).append("\"").append(",");
+		sb1.append("\"offset\":").append("\"").append(offset).append("\"").append(",");
+		sb1.append("\"count\":").append("\"").append(count).append("\"");
+		sb1.append("}");
+		MsgModel mm = psmcWxService.getPersistentMediaList(sb1.toString());
+		this.responseMsgModel(mm, this.response());
+	}
+
+	@RequestMapping(params="method=saveDrafts")
+	public void saveDrafts() throws Exception {
+		StringBuffer sb1 = new StringBuffer();
+		sb1.append("{");
+			sb1.append("\"articles\"[");
+				for(int i=0;i<1;i++){
+					sb1.append("{");
+						sb1.append("\"title\":").append("\"").append("title").append(i).append("\"").append(",");
+						sb1.append("\"author\":").append("\"").append("author").append(i).append("\"").append(",");
+						sb1.append("\"digest\":").append("\"").append("digest").append(i).append("\"").append(",");
+						sb1.append("\"content\":").append("\"").append("content").append(i).append("\"").append(",");
+						sb1.append("\"content_source_url\":").append("\"").append("").append("\"").append(",");
+						sb1.append("\"thumb_media_id\":").append("\"").append("").append("\"").append(",");
+						sb1.append("\"need_open_comment\":").append("\"").append("0").append("\"").append(",");
+						sb1.append("\"only_fans_can_comment\":").append("\"").append("0").append("\"");
+					sb1.append("}");
+				}
+			sb1.append("]");
+		sb1.append("}");
+		this.responseJson(psmcWxService.saveDrafts(sb1.toString()),this.response());
 	}
 
 }

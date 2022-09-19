@@ -109,7 +109,10 @@ public class HttpConnectUtil {
 
             String postData = uriMapToString(paramMap);
             OutputStream out = httpConnection.getOutputStream();
-            out.write(postData.substring(1,postData.length()).getBytes());
+            if(StringUtils.isNotBlank(postData)){
+                out.write(postData.substring(1,postData.length()).getBytes());
+            }else
+                out.write(postData.getBytes());
             out.flush();
             out.close();
 
@@ -130,6 +133,10 @@ public class HttpConnectUtil {
     }
 
     public static String postJson(String targetURL, Map<String, String> paramMap) {
+       return postJson(targetURL,GsonUtil.toJsonForObject(paramMap));
+    }
+
+    public static byte[] postJsonGetFile(String targetURL, Map<String, String> paramMap) {
         HttpURLConnection httpConnection = null;
         logger.debug("http post Json 请求 url:"+targetURL);
         try {
@@ -140,6 +147,33 @@ public class HttpConnectUtil {
             httpConnection.addRequestProperty("Svc_Password", "1");
             DataOutputStream out = new DataOutputStream(httpConnection.getOutputStream());
             out.write(GsonUtil.toJsonForObject(paramMap).getBytes());
+            out.flush();
+            out.close();
+            if (httpConnection.getResponseCode() != 200) {
+                throw new RuntimeException("HTTP GET Request Failed with Error code : " + httpConnection.getResponseCode());
+            }
+
+            getHeadFieds(httpConnection);
+            return getBodyFileStreamFieds(httpConnection);
+        } catch (Exception var11) {
+            var11.printStackTrace();
+        } finally {
+            disconnect(httpConnection);
+        }
+        return null;
+    }
+
+    public static String postJson(String targetURL, String paramJson) {
+        HttpURLConnection httpConnection = null;
+        logger.debug("http post Json 请求 url:"+targetURL);
+        try {
+            httpConnection = getHttpConnection(targetURL);
+            httpConnection.setRequestMethod("POST");
+            httpConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+            httpConnection.addRequestProperty("Svc_UserName", "admin");
+            httpConnection.addRequestProperty("Svc_Password", "1");
+            DataOutputStream out = new DataOutputStream(httpConnection.getOutputStream());
+            out.write(paramJson.getBytes());
             out.flush();
             out.close();
             if (httpConnection.getResponseCode() != 200) {
@@ -158,6 +192,7 @@ public class HttpConnectUtil {
 
         return "";
     }
+
 
     public static String postXml(String targetURL, String parameter) {
         HttpURLConnection httpConnection = null;

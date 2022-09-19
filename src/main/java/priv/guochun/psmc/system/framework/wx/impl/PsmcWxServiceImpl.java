@@ -182,21 +182,21 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_upload_temp_material_url =map.get("wx_upload_persistent_material_ftw_url").toString();
+        String wx_upload_persistent_material_ftw_url =map.get("wx_upload_persistent_material_ftw_url").toString();
         if(isMsgMedia)
-            wx_upload_temp_material_url =map.get("wx_upload_persistent_material_tw_url").toString();
+             wx_upload_persistent_material_ftw_url =map.get("wx_upload_persistent_material_tw_url").toString();
 
         String access_token = getAccessToken();
-        wx_upload_temp_material_url += "?access_token="+access_token+"&type="+type+"&media="+file.getAbsolutePath();
+        wx_upload_persistent_material_ftw_url += "?access_token="+access_token+"&type="+type+"&media="+file.getAbsolutePath();
 
         Map<String, LinkedHashSet<String>> fileMap = new HashMap<String, LinkedHashSet<String>>();
         LinkedHashSet set = new LinkedHashSet();
         set.add(file.getAbsolutePath());
-        fileMap.put("file",set);
+        fileMap.put("media",set);
 
         JSONObject resultObj = null;
         try{
-            String result = HttpConnectUtil.postFile(wx_upload_temp_material_url,null,fileMap);
+            String result = HttpConnectUtil.postFile(wx_upload_persistent_material_ftw_url,null,fileMap);
             resultObj = (JSONObject)JSONObject.parse(result);
             if (resultObj != null && resultObj.get("errcode") == null) {
                 return MsgModel.buildDefaultSuccess(result);
@@ -220,7 +220,9 @@ public class PsmcWxServiceImpl implements PsmcWxService {
 
         JSONObject resultObj = null;
         try{
-            String result = HttpConnectUtil.get(wx_del_persistent_material_url,null);
+            Map<String,String> paramMap = new HashMap<String,String>();
+            paramMap.put("media_id",media_id);
+            String result = HttpConnectUtil.postJson(wx_del_persistent_material_url,paramMap);
             resultObj = (JSONObject)JSONObject.parse(result);
             if (resultObj != null && resultObj.get("errcode") == null) {
                 return MsgModel.buildDefaultSuccess(result);
@@ -232,7 +234,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
     }
 
     @Override
-    public byte[] getPersistentMedia(String media_id) {
+    public byte[] getPersistentMedia(String media_id){
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
@@ -241,8 +243,56 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         String access_token = getAccessToken();
         wx_query_persistent_material_url += "?access_token="+access_token+"&media_id="+media_id;
 
+        Map<String,String> paramMap = new HashMap<String,String>();
+        paramMap.put("media_id",media_id);
+
         try{
-            return HttpConnectUtil.getFile(wx_query_persistent_material_url,null);
+            return HttpConnectUtil.postJsonGetFile(wx_query_persistent_material_url,paramMap);
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    @Override
+    public MsgModel getPersistentMediaList(String paramJsonStr){
+        PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+        Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+        Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+        String wx_query_persistent_material_list_url =map.get("wx_query_persistent_material_list_url").toString();
+
+        String access_token = getAccessToken();
+        wx_query_persistent_material_list_url += "?access_token="+access_token;
+        JSONObject resultObj = null;
+        try{
+            String result =  HttpConnectUtil.postJson(wx_query_persistent_material_list_url,paramJsonStr);
+            resultObj = (JSONObject)JSONObject.parse(result);
+            if (resultObj != null && resultObj.get("errcode") == null) {
+                return MsgModel.buildDefaultSuccess(result);
+            }else
+                return MsgModel.buildDefaultError(resultObj.toString());
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public MsgModel saveDrafts(String paramJsonStr){
+        PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+        Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+        Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+        String wx_add_drafts_url =map.get("wx_add_drafts_url").toString();
+
+        String access_token = getAccessToken();
+        wx_add_drafts_url += "?access_token="+access_token;
+        JSONObject resultObj = null;
+        try{
+            String result =  HttpConnectUtil.postJson(wx_add_drafts_url,paramJsonStr);
+            resultObj = (JSONObject)JSONObject.parse(result);
+            if (resultObj != null && resultObj.get("errcode") == null) {
+                return MsgModel.buildDefaultSuccess(result);
+            }else
+                return MsgModel.buildDefaultError(resultObj.toString());
         }catch(Exception e){
             e.printStackTrace();
             return null;

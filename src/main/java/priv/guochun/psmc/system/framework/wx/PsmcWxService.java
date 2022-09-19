@@ -3,6 +3,7 @@ package priv.guochun.psmc.system.framework.wx;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 
 import java.io.File;
+import java.util.Map;
 
 public interface PsmcWxService {
 
@@ -67,34 +68,34 @@ public interface PsmcWxService {
 
 
     /**
-     * 上传持久图片素材
+     * 上传持久图片素材 如果isMsgMedia为true，则返回的内容为上传文件的url，如果为否，则是上传文件的media_id和url
      * @param file
      * @return
      */
     public MsgModel uploadPersistentMediaForImage(File file,boolean isMsgMedia);
 
     /**
-     * 上传持久音频素材
+     * 上传持久音频素材 如果isMsgMedia为true，则返回的内容为上传文件的url，如果为否，则是上传文件的media_id和url
      * @param file
      * @return
      */
     public MsgModel uploadPersistentMediaForVoice(File file,boolean isMsgMedia);
 
     /**
-     * 上传持久素材（视频）
+     * 上传持久素材（音频） 如果isMsgMedia为true，则返回的内容为上传文件的json串，如果为否，则是上传文件的media_id和url
      * @return
      */
     public MsgModel uploadPersistentMediaForVideo(File file,boolean isMsgMedia);
 
     /**
-     * 上传持久素材（主要用于视频与音乐格式的缩略图）
+     * 上传持久素材（主要用于视频与音乐格式的缩略图） 如果isMsgMedia为true，则返回的内容为上传文件的url，如果为否，则是上传文件的media_id和url
      * @return
      */
     public MsgModel uploadPersistentMediaForThumb(File file,boolean isMsgMedia);
 
 
     /**
-     * 删除持久素材
+     * 删除持久素材(暂时还没测)
      * @param media_id
      * @return
      */
@@ -106,4 +107,21 @@ public interface PsmcWxService {
      * @return
      */
     public byte[] getPersistentMedia(String media_id);
+
+
+    /**
+     * 获取持久素材List
+     * @return
+     */
+    public MsgModel getPersistentMediaList(String mediaType);
+
+    /**
+     * 新增草稿箱
+     * @param paramJsonStr
+     * @return
+     */
+    public MsgModel saveDrafts(String paramJsonStr);
+
+
+
 }
