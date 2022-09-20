@@ -293,11 +293,11 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_add_drafts_url =map.get("wx_get_drafts_url").toString();
+        String wx_get_drafts_url =map.get("wx_get_drafts_url").toString();
 
         String access_token = getAccessToken();
-        wx_add_drafts_url += "?access_token="+access_token;
-        return draftsCommonProcess(wx_add_drafts_url,paramJsonStr);
+        wx_get_drafts_url += "?access_token="+access_token;
+        return draftsCommonProcess(wx_get_drafts_url,paramJsonStr);
     }
 
     @Override
@@ -305,11 +305,11 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_add_drafts_url =map.get("wx_del_drafts_url").toString();
+        String wx_del_drafts_url =map.get("wx_del_drafts_url").toString();
 
         String access_token = getAccessToken();
-        wx_add_drafts_url += "?access_token="+access_token;
-        return draftsCommonProcess(wx_add_drafts_url,paramJsonStr);
+        wx_del_drafts_url += "?access_token="+access_token;
+        return draftsCommonProcess(wx_del_drafts_url,paramJsonStr);
     }
 
     @Override
@@ -317,11 +317,11 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_add_drafts_url =map.get("wx_update_drafts_url").toString();
+        String wx_update_drafts_url =map.get("wx_update_drafts_url").toString();
 
         String access_token = getAccessToken();
-        wx_add_drafts_url += "?access_token="+access_token;
-        return draftsCommonProcess(wx_add_drafts_url,paramJsonStr);
+        wx_update_drafts_url += "?access_token="+access_token;
+        return draftsCommonProcess(wx_update_drafts_url,paramJsonStr);
     }
 
     public MsgModel draftsCommonProcess(String target_url,String paramJsonStr) {
@@ -337,5 +337,29 @@ public class PsmcWxServiceImpl implements PsmcWxService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public MsgModel releaseDrafts(String paramJsonStr) {
+        PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+        Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+        Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+        String wx_publish_drafts_url =map.get("wx_publish_drafts_url").toString();
+
+        String access_token = getAccessToken();
+        wx_publish_drafts_url += "?access_token="+access_token;
+        return draftsCommonProcess(wx_publish_drafts_url,paramJsonStr);
+    }
+
+    @Override
+    public MsgModel getReleaseDraftsStatus(String paramJsonStr) {
+        PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+        Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+        Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+        String wx_query_publish_status_drafts_url =map.get("wx_query_publish_status_drafts_url").toString();
+
+        String access_token = getAccessToken();
+        wx_query_publish_status_drafts_url += "?access_token="+access_token;
+        return draftsCommonProcess(wx_query_publish_status_drafts_url,paramJsonStr);
     }
 }

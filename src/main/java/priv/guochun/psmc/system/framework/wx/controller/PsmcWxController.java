@@ -135,4 +135,23 @@ public class PsmcWxController extends MyController {
 		sb1.append("}");
 		this.responseJson(psmcWxService.updateDrafts(sb1.toString()),this.response());
 	}
+
+
+	@RequestMapping(params="method=releaseDrafts")
+	public void releaseDrafts(String media_id) throws Exception {
+		StringBuffer sb1 = new StringBuffer();
+		sb1.append("{");
+		sb1.append("\"media_id\":").append("\"").append(media_id).append("\"").append(",");
+		sb1.append("}");
+		this.responseJson(psmcWxService.releaseDrafts(sb1.toString()),this.response());
+	}
+
+	@RequestMapping(params="method=getReleaseDraftsStatus")
+	public void getReleaseDraftsStatus(String publish_id) throws Exception {
+		StringBuffer sb1 = new StringBuffer();
+		sb1.append("{");
+		sb1.append("\"publish_id\":").append("\"").append(publish_id).append("\"").append(",");
+		sb1.append("}");
+		this.responseJson(psmcWxService.getReleaseDraftsStatus(sb1.toString()),this.response());
+	}
 }

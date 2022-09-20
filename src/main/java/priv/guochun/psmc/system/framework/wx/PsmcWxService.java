@@ -141,4 +141,18 @@ public interface PsmcWxService {
      * @return
      */
     public MsgModel updateDrafts(String paramJsonStr);
+
+    /**
+     * 发布草稿
+     * @param paramJsonStr
+     * @return
+     */
+    public MsgModel releaseDrafts(String paramJsonStr);
+
+    /**
+     * 查询发布草稿的发布状态
+     * @param paramJsonStr
+     * @return
+     */
+    public MsgModel getReleaseDraftsStatus(String paramJsonStr);
 }
