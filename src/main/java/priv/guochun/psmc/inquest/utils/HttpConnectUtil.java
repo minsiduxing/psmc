@@ -183,6 +183,7 @@ public class HttpConnectUtil {
             getHeadFieds(httpConnection);
             String bufBody = getBodyFieds(httpConnection);
             String var7 = bufBody.toString();
+            logger.debug("postJson请求结果"+var7);
             return var7;
         } catch (Exception var11) {
             var11.printStackTrace();

@@ -76,7 +76,7 @@ public class PsmcWxController extends MyController {
 	public void saveDrafts() throws Exception {
 		StringBuffer sb1 = new StringBuffer();
 		sb1.append("{");
-			sb1.append("\"articles\"[");
+			sb1.append("\"articles\":[");
 				for(int i=0;i<1;i++){
 					sb1.append("{");
 						sb1.append("\"title\":").append("\"").append("title").append(i).append("\"").append(",");
@@ -84,7 +84,7 @@ public class PsmcWxController extends MyController {
 						sb1.append("\"digest\":").append("\"").append("digest").append(i).append("\"").append(",");
 						sb1.append("\"content\":").append("\"").append("content").append(i).append("\"").append(",");
 						sb1.append("\"content_source_url\":").append("\"").append("").append("\"").append(",");
-						sb1.append("\"thumb_media_id\":").append("\"").append("").append("\"").append(",");
+						sb1.append("\"thumb_media_id\":").append("\"").append("kp3Drq-j05rhWyF1_VF2TNh0TSGCbwzreOnECnQTu38J9XXEGfhsv48o_haDmfvB").append("\"").append(",");
 						sb1.append("\"need_open_comment\":").append("\"").append("0").append("\"").append(",");
 						sb1.append("\"only_fans_can_comment\":").append("\"").append("0").append("\"");
 					sb1.append("}");
@@ -94,4 +94,45 @@ public class PsmcWxController extends MyController {
 		this.responseJson(psmcWxService.saveDrafts(sb1.toString()),this.response());
 	}
 
+	@RequestMapping(params="method=delDrafts")
+	public void delDrafts(String media_id) throws Exception {
+		StringBuffer sb1 = new StringBuffer();
+		sb1.append("{");
+			sb1.append("\"media_id\":").append("\"").append(media_id).append("\"").append(",");
+		sb1.append("}");
+		this.responseJson(psmcWxService.delDrafts(sb1.toString()),this.response());
+	}
+
+	@RequestMapping(params="method=getDrafts")
+	public void getDrafts(String media_id) throws Exception {
+		StringBuffer sb1 = new StringBuffer();
+		sb1.append("{");
+		sb1.append("\"media_id\":").append("\"").append(media_id).append("\"").append(",");
+		sb1.append("}");
+		this.responseJson(psmcWxService.getDrafts(sb1.toString()),this.response());
+	}
+
+
+	@RequestMapping(params="method=updateDrafts")
+	public void updateDrafts(String media_id,String index) throws Exception {
+		StringBuffer sb1 = new StringBuffer();
+		sb1.append("{");
+			sb1.append("\"media_id\":").append("\"").append(media_id).append("\"").append(",");
+			sb1.append("\"index\":").append("\"").append(0).append("\"").append(",");
+			sb1.append("\"articles\":");
+				for(int i=0;i<1;i++){
+					sb1.append("{");
+					sb1.append("\"title\":").append("\"").append("title").append(i).append("\"").append(",");
+					sb1.append("\"author\":").append("\"").append("author").append(i).append("\"").append(",");
+					sb1.append("\"digest\":").append("\"").append("digest").append(i).append("\"").append(",");
+					sb1.append("\"content\":").append("\"").append("content").append(i).append("\"").append(",");
+					sb1.append("\"content_source_url\":").append("\"").append("").append("\"").append(",");
+					sb1.append("\"thumb_media_id\":").append("\"").append("kp3Drq-j05rhWyF1_VF2TNh0TSGCbwzreOnECnQTu38J9XXEGfhsv48o_haDmfvB").append("\"").append(",");
+					sb1.append("\"need_open_comment\":").append("\"").append("0").append("\"").append(",");
+					sb1.append("\"only_fans_can_comment\":").append("\"").append("0").append("\"");
+					sb1.append("}");
+				}
+		sb1.append("}");
+		this.responseJson(psmcWxService.updateDrafts(sb1.toString()),this.response());
+	}
 }

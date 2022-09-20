@@ -285,9 +285,49 @@ public class PsmcWxServiceImpl implements PsmcWxService {
 
         String access_token = getAccessToken();
         wx_add_drafts_url += "?access_token="+access_token;
+        return draftsCommonProcess(wx_add_drafts_url,paramJsonStr);
+    }
+
+    @Override
+    public MsgModel getDrafts(String paramJsonStr) {
+        PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+        Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+        Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+        String wx_add_drafts_url =map.get("wx_get_drafts_url").toString();
+
+        String access_token = getAccessToken();
+        wx_add_drafts_url += "?access_token="+access_token;
+        return draftsCommonProcess(wx_add_drafts_url,paramJsonStr);
+    }
+
+    @Override
+    public MsgModel delDrafts(String paramJsonStr) {
+        PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+        Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+        Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+        String wx_add_drafts_url =map.get("wx_del_drafts_url").toString();
+
+        String access_token = getAccessToken();
+        wx_add_drafts_url += "?access_token="+access_token;
+        return draftsCommonProcess(wx_add_drafts_url,paramJsonStr);
+    }
+
+    @Override
+    public MsgModel updateDrafts(String paramJsonStr) {
+        PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+        Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+        Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+        String wx_add_drafts_url =map.get("wx_update_drafts_url").toString();
+
+        String access_token = getAccessToken();
+        wx_add_drafts_url += "?access_token="+access_token;
+        return draftsCommonProcess(wx_add_drafts_url,paramJsonStr);
+    }
+
+    public MsgModel draftsCommonProcess(String target_url,String paramJsonStr) {
         JSONObject resultObj = null;
         try{
-            String result =  HttpConnectUtil.postJson(wx_add_drafts_url,paramJsonStr);
+            String result =  HttpConnectUtil.postJson(target_url,paramJsonStr);
             resultObj = (JSONObject)JSONObject.parse(result);
             if (resultObj != null && resultObj.get("errcode") == null) {
                 return MsgModel.buildDefaultSuccess(result);

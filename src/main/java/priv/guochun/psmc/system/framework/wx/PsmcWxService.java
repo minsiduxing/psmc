@@ -3,7 +3,6 @@ package priv.guochun.psmc.system.framework.wx;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 
 import java.io.File;
-import java.util.Map;
 
 public interface PsmcWxService {
 
@@ -122,6 +121,24 @@ public interface PsmcWxService {
      */
     public MsgModel saveDrafts(String paramJsonStr);
 
+    /**
+     * 获取草稿
+     * @param paramJsonStr
+     * @return
+     */
+    public MsgModel getDrafts(String paramJsonStr);
 
+    /**
+     * 删除草稿
+     * @param paramJsonStr
+     * @return
+     */
+    public MsgModel delDrafts(String paramJsonStr);
 
+    /**
+     * 修改草稿
+     * @param paramJsonStr
+     * @return
+     */
+    public MsgModel updateDrafts(String paramJsonStr);
 }
