@@ -169,7 +169,37 @@ public class PsmcWxServiceImpl implements PsmcWxService {
      * 上传持久素材（视频）
      * @return
      */
-    public MsgModel uploadPersistentMediaForVideo(File file,boolean isMsgMedia){return uploadPersistentMedia("video",file,isMsgMedia);};
+    public MsgModel uploadPersistentMediaForVideo(File file,boolean isMsgMedia){
+        PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+        Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+        Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+        String wx_upload_persistent_material_ftw_url =map.get("wx_upload_persistent_material_ftw_url").toString();
+        if(isMsgMedia)
+            wx_upload_persistent_material_ftw_url =map.get("wx_upload_persistent_material_tw_url").toString();
+
+        String access_token = getAccessToken();
+        wx_upload_persistent_material_ftw_url += "?access_token="+access_token+"&type=video&media="+file.getAbsolutePath();
+
+        Map<String, String> textMap = new HashMap<String, String>();
+        textMap.put("description","{\"title\":\"VIDEO_TITLE\",introduction\":\"INTRODUCTION\"}");
+
+        Map<String, LinkedHashSet<String>> fileMap = new HashMap<String, LinkedHashSet<String>>();
+        LinkedHashSet set = new LinkedHashSet();
+        set.add(file.getAbsolutePath());
+        fileMap.put("media",set);
+
+        JSONObject resultObj = null;
+        try{
+            String result = HttpConnectUtil.postFile(wx_upload_persistent_material_ftw_url,textMap,fileMap);
+            resultObj = (JSONObject)JSONObject.parse(result);
+            if (resultObj != null && resultObj.get("errcode") == null) {
+                return MsgModel.buildDefaultSuccess(result);
+            }else
+                return MsgModel.buildDefaultError(resultObj.toString());
+        }catch(Exception e){
+            return MsgModel.buildDefaultError(e.getMessage());
+        }
+    };
 
     /**
      * 上传持久素材（主要用于视频与音乐格式的缩略图）
@@ -223,6 +253,30 @@ public class PsmcWxServiceImpl implements PsmcWxService {
             Map<String,String> paramMap = new HashMap<String,String>();
             paramMap.put("media_id",media_id);
             String result = HttpConnectUtil.postJson(wx_del_persistent_material_url,paramMap);
+            resultObj = (JSONObject)JSONObject.parse(result);
+            if (resultObj != null && resultObj.get("errcode") == null) {
+                return MsgModel.buildDefaultSuccess(result);
+            }else
+                return MsgModel.buildDefaultError(resultObj.toString());
+        }catch(Exception e){
+            return MsgModel.buildDefaultError(e.getMessage());
+        }
+    }
+
+    @Override
+    public MsgModel getPersistentMediaForVideo(String paramJson) {
+        PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+        Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+        Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+        String wx_query_persistent_material_url =map.get("wx_query_persistent_material_url").toString();
+
+
+        String access_token = getAccessToken();
+        wx_query_persistent_material_url += "?access_token="+access_token;
+
+        JSONObject resultObj = null;
+        try{
+            String result = HttpConnectUtil.postJson(wx_query_persistent_material_url,paramJson);
             resultObj = (JSONObject)JSONObject.parse(result);
             if (resultObj != null && resultObj.get("errcode") == null) {
                 return MsgModel.buildDefaultSuccess(result);

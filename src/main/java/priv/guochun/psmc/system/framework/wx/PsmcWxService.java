@@ -107,6 +107,13 @@ public interface PsmcWxService {
      */
     public byte[] getPersistentMedia(String media_id);
 
+    /**
+     * 获取持久素材
+     * @param paramJson
+     * @return
+     */
+    public MsgModel getPersistentMediaForVideo(String paramJson);
+
 
     /**
      * 获取持久素材List

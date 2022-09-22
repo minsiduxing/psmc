@@ -31,7 +31,7 @@ public class PsmcWxController extends MyController {
 	//上传临时素材（图片）
 	@RequestMapping(params="method=uploadTemporaryMediaForImages")
 	public void uploadTemporaryMediaForImages() throws IOException{
-		MsgModel mm = psmcWxService.uploadTemporaryMediaForImage(new File("D:/2.jpg"));
+		MsgModel mm = psmcWxService.uploadTemporaryMediaForVideo(new File("D:/2.mp4"));
 		this.responseMsgModel(mm, this.response());
 	}
 	//获取临时素材
@@ -40,10 +40,22 @@ public class PsmcWxController extends MyController {
 		this.responseImage(psmcWxService.getTemporaryMedia(media_id), HttpConnectUtil.content_type_image_jpg,this.response());
 	}
 
+	//获取临时素材
+	@RequestMapping(params="method=getTemporaryMediaForVideo")
+	public void getTemporaryMediaForVideo(String media_id) throws Exception {
+		this.responseMsgModel(psmcWxService.getTemporaryMediaForVideo(media_id), this.response());
+	}
+
 	//上传永久素材（图片）
 	@RequestMapping(params="method=uploadPersistentMediaForImages")
 	public void uploadPersistentMediaForImages() throws IOException{
 		MsgModel mm = psmcWxService.uploadPersistentMediaForImage(new File("D:/2.jpg"),false);
+		this.responseMsgModel(mm, this.response());
+	}
+	//上传永久素材（视频）
+	@RequestMapping(params="method=uploadPersistentMediaForImagesForVideo")
+	public void uploadPersistentMediaForImagesForVideo() throws IOException{
+		MsgModel mm = psmcWxService.uploadPersistentMediaForVideo(new File("D:/2.mp4"),false);
 		this.responseMsgModel(mm, this.response());
 	}
 
@@ -58,6 +70,16 @@ public class PsmcWxController extends MyController {
 	@RequestMapping(params="method=getPersistentMedia")
 	public void getPersistentMedia(String media_id) throws Exception {
 		this.responseImage(psmcWxService.getPersistentMedia(media_id), HttpConnectUtil.content_type_image_jpg,this.response());
+	}
+
+	//获取永久素材
+	@RequestMapping(params="method=getPersistentMediaForVideo")
+	public void getPersistentMediaForVideo(String media_id) throws Exception {
+		StringBuffer sb1 = new StringBuffer();
+		sb1.append("{");
+		sb1.append("\"media_id\":").append("\"").append(media_id).append("\"").append(",");
+		sb1.append("}");
+		this.responseMsgModel(psmcWxService.getPersistentMediaForVideo(sb1.toString()), this.response());
 	}
 
 	@RequestMapping(params="method=queryPersistentMediaList")
