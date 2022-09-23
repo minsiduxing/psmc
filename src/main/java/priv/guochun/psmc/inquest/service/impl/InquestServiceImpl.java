@@ -64,7 +64,7 @@ public class InquestServiceImpl implements InquestService {
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
         String wx_appid =map.get("wx_appid").toString();
         String wx_secret =map.get("wx_secret").toString();
-        String url =map.get("wx_getuserphonenumber_url").toString()+"?access_token="+accessTokenService.getAccessToken(wx_appid, wx_secret);
+        String url =map.get("wx_api_domain_url").toString()+map.get("wx_getuserphonenumber_url").toString()+"?access_token="+accessTokenService.getAccessToken(wx_appid, wx_secret);
 
         queryMap.put("code", code);
         String result = HttpConnectUtil.postJson(url, queryMap);
@@ -86,7 +86,7 @@ public class InquestServiceImpl implements InquestService {
         String wx_appid =map.get("wx_appid").toString();
         String wx_secret =map.get("wx_secret").toString();
         String wx_grant_type =map.get("wx_grant_type").toString();
-        String url =map.get("wx_jscode2session_url").toString();
+        String url =map.get("wx_api_domain_url").toString()+map.get("wx_jscode2session_url").toString();
 
         queryMap.put("appid", wx_appid);
         queryMap.put("secret", wx_secret);

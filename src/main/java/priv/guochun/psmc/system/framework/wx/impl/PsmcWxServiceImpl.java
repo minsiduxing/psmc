@@ -39,7 +39,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String url =map.get("wx_getuserphonenumber_url").toString()+"?access_token="+getAccessToken();
+        String url =map.get("wx_api_domain_url").toString()+map.get("wx_getuserphonenumber_url").toString()+"?access_token="+getAccessToken();
         queryMap.put("code", code);
         String result = HttpConnectUtil.postJson(url, queryMap);
         logger.info("wx_getuserphonenumber_url参数:url="+url+" 结果result="+result);
@@ -65,7 +65,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_upload_temp_material_url =map.get("wx_upload_temp_material_url").toString();
+        String wx_upload_temp_material_url =map.get("wx_api_domain_url").toString()+map.get("wx_upload_temp_material_url").toString();
 
 
         String access_token = getAccessToken();
@@ -79,7 +79,6 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         JSONObject resultObj = null;
         try{
             String result = HttpConnectUtil.postFile(wx_upload_temp_material_url,null,fileMap);
-            logger.info("wx_upload_temp_material_url参数:url="+wx_upload_temp_material_url+" 结果result="+result);
             resultObj = (JSONObject)JSONObject.parse(result);
             if (resultObj != null && resultObj.get("errcode") == null) {
                 return MsgModel.buildDefaultSuccess(result);
@@ -114,7 +113,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_query_temp_material_url =map.get("wx_query_temp_material_url").toString();
+        String wx_query_temp_material_url =map.get("wx_api_domain_url").toString()+map.get("wx_query_temp_material_url").toString();
 
 
         String access_token = getAccessToken();
@@ -138,7 +137,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_query_temp_material_url =map.get("wx_query_temp_material_url").toString();
+        String wx_query_temp_material_url =map.get("wx_api_domain_url").toString()+map.get("wx_query_temp_material_url").toString();
 
         String access_token = getAccessToken();
         wx_query_temp_material_url += "?access_token="+access_token+"&media_id="+media_id;
@@ -176,7 +175,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         String wx_upload_persistent_material_ftw_url =map.get("wx_upload_persistent_material_ftw_url").toString();
         if(isMsgMedia)
             wx_upload_persistent_material_ftw_url =map.get("wx_upload_persistent_material_tw_url").toString();
-
+        wx_upload_persistent_material_ftw_url = map.get("wx_api_domain_url").toString()+wx_upload_persistent_material_ftw_url;
         String access_token = getAccessToken();
         wx_upload_persistent_material_ftw_url += "?access_token="+access_token+"&type=video&media="+file.getAbsolutePath();
 
@@ -215,7 +214,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         String wx_upload_persistent_material_ftw_url =map.get("wx_upload_persistent_material_ftw_url").toString();
         if(isMsgMedia)
              wx_upload_persistent_material_ftw_url =map.get("wx_upload_persistent_material_tw_url").toString();
-
+        wx_upload_persistent_material_ftw_url = map.get("wx_api_domain_url").toString()+wx_upload_persistent_material_ftw_url;
         String access_token = getAccessToken();
         wx_upload_persistent_material_ftw_url += "?access_token="+access_token+"&type="+type+"&media="+file.getAbsolutePath();
 
@@ -243,7 +242,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_del_persistent_material_url =map.get("wx_del_persistent_material_url").toString();
+        String wx_del_persistent_material_url =map.get("wx_api_domain_url").toString()+map.get("wx_del_persistent_material_url").toString();
 
         String access_token = getAccessToken();
         wx_del_persistent_material_url += "?access_token="+access_token+"&media_id="+media_id;
@@ -268,7 +267,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_query_persistent_material_url =map.get("wx_query_persistent_material_url").toString();
+        String wx_query_persistent_material_url =map.get("wx_api_domain_url").toString()+map.get("wx_query_persistent_material_url").toString();
 
 
         String access_token = getAccessToken();
@@ -292,7 +291,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_query_persistent_material_url =map.get("wx_query_persistent_material_url").toString();
+        String wx_query_persistent_material_url =map.get("wx_api_domain_url").toString()+map.get("wx_query_persistent_material_url").toString();
 
         String access_token = getAccessToken();
         wx_query_persistent_material_url += "?access_token="+access_token+"&media_id="+media_id;
@@ -312,7 +311,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_query_persistent_material_list_url =map.get("wx_query_persistent_material_list_url").toString();
+        String wx_query_persistent_material_list_url =map.get("wx_api_domain_url").toString()+map.get("wx_query_persistent_material_list_url").toString();
 
         String access_token = getAccessToken();
         wx_query_persistent_material_list_url += "?access_token="+access_token;
@@ -335,7 +334,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_add_drafts_url =map.get("wx_add_drafts_url").toString();
+        String wx_add_drafts_url =map.get("wx_api_domain_url").toString()+map.get("wx_add_drafts_url").toString();
 
         String access_token = getAccessToken();
         wx_add_drafts_url += "?access_token="+access_token;
@@ -347,7 +346,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_get_drafts_url =map.get("wx_get_drafts_url").toString();
+        String wx_get_drafts_url =map.get("wx_api_domain_url").toString()+map.get("wx_get_drafts_url").toString();
 
         String access_token = getAccessToken();
         wx_get_drafts_url += "?access_token="+access_token;
@@ -359,7 +358,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_del_drafts_url =map.get("wx_del_drafts_url").toString();
+        String wx_del_drafts_url =map.get("wx_api_domain_url").toString()+map.get("wx_del_drafts_url").toString();
 
         String access_token = getAccessToken();
         wx_del_drafts_url += "?access_token="+access_token;
@@ -371,7 +370,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_update_drafts_url =map.get("wx_update_drafts_url").toString();
+        String wx_update_drafts_url =map.get("wx_api_domain_url").toString()+map.get("wx_update_drafts_url").toString();
 
         String access_token = getAccessToken();
         wx_update_drafts_url += "?access_token="+access_token;
@@ -398,7 +397,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_publish_drafts_url =map.get("wx_publish_drafts_url").toString();
+        String wx_publish_drafts_url =map.get("wx_api_domain_url").toString()+map.get("wx_publish_drafts_url").toString();
 
         String access_token = getAccessToken();
         wx_publish_drafts_url += "?access_token="+access_token;
@@ -410,7 +409,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-        String wx_query_publish_status_drafts_url =map.get("wx_query_publish_status_drafts_url").toString();
+        String wx_query_publish_status_drafts_url =map.get("wx_api_domain_url").toString()+map.get("wx_query_publish_status_drafts_url").toString();
 
         String access_token = getAccessToken();
         wx_query_publish_status_drafts_url += "?access_token="+access_token;

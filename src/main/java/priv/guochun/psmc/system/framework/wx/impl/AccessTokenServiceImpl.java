@@ -44,7 +44,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
                 PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
                 Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
                 Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
-                String url =map.get("wx_getAccessToken_url").toString();
+                String url =map.get("wx_api_domain_url").toString()+map.get("wx_getAccessToken_url").toString();
                 Map<String, String> queryMap = new HashMap<>();
                 queryMap.put("grant_type", "client_credential");
                 queryMap.put("appid", appid);
