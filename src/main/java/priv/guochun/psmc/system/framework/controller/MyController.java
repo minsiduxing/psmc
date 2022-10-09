@@ -1,32 +1,26 @@
 package priv.guochun.psmc.system.framework.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.URL;
-import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.servlet.View;
-
 import priv.guochun.psmc.authentication.login.model.User;
+import priv.guochun.psmc.inquest.utils.HttpConnectUtil;
 import priv.guochun.psmc.system.framework.excel.CreateExcelDataFileFactory;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.myspringview.DownloadByFileView;
 import priv.guochun.psmc.system.framework.myspringview.DownloadByURLView;
 import priv.guochun.psmc.system.framework.util.GsonUtil;
 import priv.guochun.psmc.system.framework.util.ReturnModel;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.*;
+import java.net.URL;
+import java.util.List;
 
 
 public class MyController
@@ -130,11 +124,10 @@ public class MyController
 		else
 			responseFailJson(rmsg,response);
 	}
-	
+
 	/**
-	 * 返回一个包装好的json对象给前端{res:success,rmsg:rmsg}
-	 * @param rvalue 返回业务值 
-	 * @param rmsg	  返回描述
+	 * 返回一个包装好的json对象给前端
+	 * @param rmsg
 	 * @param response
 	 * @throws IOException
 	 */
@@ -143,11 +136,10 @@ public class MyController
         JSONObject jo = ReturnModel.createSuccessJSONObject(rmsg);
         this.responseJson(jo, response);
     }
-	
+
 	/**
-	 * 返回一个包装好的json对象给前端{res:fail,rvalue:rvalue,rmsg:rmsg}
-	 * @param rvalue 返回业务值 
-	 * @param rmsg	  返回描述
+	 * 返回一个包装好的json对象给前端
+	 * @param rmsg
 	 * @param response
 	 * @throws IOException
 	 */
@@ -159,9 +151,9 @@ public class MyController
 
 	public void responseMsgModel(MsgModel mm, HttpServletResponse response) throws IOException{
 		if(mm.isSuccess()) {
-			responseSuccessJson(mm.getResult().getMsg(),response);
+			responseSuccessJson(GsonUtil.toJsonForObject(mm),response);
 		}else
-			responseFailJson(mm.getResult().getMsg(),response);
+			responseFailJson(GsonUtil.toJsonForObject(mm),response);
 	}
 
 	/**
@@ -250,28 +242,33 @@ public class MyController
     }
     
     /**返回一个图片
+	 * 不建议使用，被responseImage(HttpServletResponse response,String contentType,File file)代替
      * @param response
      * @throws Exception
      */
-    protected void responseImage(HttpServletResponse response,File file) throws Exception{  
-        if(null == file){
-        	return ;
-        }
-    	response.setContentType("image/png");
-        OutputStream stream = response.getOutputStream(); 
-        FileInputStream fin = new FileInputStream(file);
-        byte[] buf=new byte[1024];  
-        int len=0;  
-        while((len=fin.read(buf))!=-1){   //将byte数据读到最多buf长度的buf数组中   
-        	stream.write(buf,0,len); 
-        }  
-        stream.flush();  
-        stream.close();  
-          
+	@Deprecated
+    protected void responseImage(HttpServletResponse response,File file) throws Exception{
+		responseImage(response, HttpConnectUtil.content_type_image_png,file);
     }
 
-	protected void responseImage(byte[] bytes,HttpServletResponse response) throws Exception{
-		response().setContentType("image/svg+xml");
+	protected void responseImage(HttpServletResponse response,String contentType,File file) throws Exception{
+		if(null == file){
+			return ;
+		}
+		response.setContentType(contentType);
+		OutputStream stream = response.getOutputStream();
+		FileInputStream fin = new FileInputStream(file);
+		byte[] buf=new byte[1024];
+		int len=0;
+		while((len=fin.read(buf))!=-1){   //将byte数据读到最多buf长度的buf数组中
+			stream.write(buf,0,len);
+		}
+		stream.flush();
+		stream.close();
+	}
+
+	protected void responseImage(byte[] bytes,String contentType,HttpServletResponse response) throws Exception{
+		response().setContentType(contentType);
 		OutputStream outputStream = response().getOutputStream();
 		outputStream.write(bytes);
 		outputStream.flush();

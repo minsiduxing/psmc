@@ -86,6 +86,7 @@ commonObj.initPaginationGrid = function(option){
 	    idField:option.idField,
 	    striped:true,
 	    ctrlSelect:true,
+		showHeader:option.showHeader,
 	    onLoadError:function(XMLHttpRequest, textStatus, errorThrown){
 	    	commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
 	    }

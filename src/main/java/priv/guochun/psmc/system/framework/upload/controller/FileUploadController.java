@@ -133,6 +133,4 @@ public class FileUploadController extends MyController {
 		}
 		super.responseJson(attachment, response);
 	}
-
-
 }
