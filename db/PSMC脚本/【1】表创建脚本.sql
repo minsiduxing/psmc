@@ -230,7 +230,7 @@ CREATE TABLE
         UPDATE
         CURRENT_TIMESTAMP COMMENT '信息录入时间',
     visit_url VARCHAR(500) COMMENT '回访页面url',
-    visit_short_url VARCHAR(50) COMMENT '回访页面短链接url',
+    visit_short_url VARCHAR(500) COMMENT '回访页面短链接url',
     notice_note VARCHAR(500) COMMENT '通知内容',
     is_enable_notice SMALLINT COMMENT '是否启动通知',
     notice_time DATETIME COMMENT '启动通知时间',
