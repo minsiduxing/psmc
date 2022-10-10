@@ -77,9 +77,9 @@ INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (52, 'recip
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (53, 'notice_image_path', 'default/notice.png', '陕测-日常通知-默认配图');
 
 delete from tab_sys_key_info where id in(54,55,56,57,58,59,60,61,62,63,64);
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (54, 'wx_getAccessToken_url', 'https://api.weixin.qq.com/cgi-bin/token', '微信getAccessToken接口地址');
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (55, 'wx_getuserphonenumber_url', 'https://api.weixin.qq.com/wxa/business/getuserphonenumber', '微信getuserphonenumber接口地址');
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (56, 'wx_jscode2session_url', 'https://api.weixin.qq.com/sns/jscode2session', '微信jscode2session接口地址');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (54, 'wx_getAccessToken_url', '/cgi-bin/token', '微信getAccessToken接口地址');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (55, 'wx_getuserphonenumber_url', '/wxa/business/getuserphonenumber', '微信getuserphonenumber接口地址');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (56, 'wx_jscode2session_url', '/sns/jscode2session', '微信jscode2session接口地址');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (57, 'wx_grant_type', 'authorization_code', '微信使用');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (58, 'default_pass', 'Aa123456', '外网注册用户缺省密码');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (59, 'default_city', '00', '外网注册用户缺省所属地');
@@ -88,3 +88,19 @@ INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (61, 'defau
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (62, 'wx_appid', 'wx591b083250978728', '微信appid');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (63, 'wx_secret', '85e9f4b443190c407e12b46e08464731', '微信secret');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (64, 'file_service_type', 'Local', '文件上传服务Local/Fastdfst');
+
+delete from tab_sys_key_info where id in(65,66,67,68,69,70,71,72,73,74,75,76,77,78);
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (65, 'wx_upload_temp_material_url', '/cgi-bin/media/upload', '微信公众号，上传临时素材url');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (66, 'wx_query_temp_material_url', '/cgi-bin/media/get', '微信公众号，查询临时素材url');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (67, 'wx_upload_persistent_material_tw_url', '/cgi-bin/media/uploadimg', '微信公众号，上传永久素材url<图文消息内>');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (68, 'wx_upload_persistent_material_ftw_url', '/cgi-bin/material/add_material', '微信公众号，上传永久素材url<非图文消息内，其他素材>');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (69, 'wx_del_persistent_material_url', '/cgi-bin/material/del_material', '微信公众号，删除永久素材');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (70, 'wx_query_persistent_material_url', '/cgi-bin/material/get_material', '微信公众号，获取永久素材');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (71, 'wx_query_persistent_material_list_url', '/cgi-bin/material/batchget_material', '微信公众号，获取永久素材List');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (72, 'wx_add_drafts_url', '/cgi-bin/draft/add', '微信公众号，新增草稿箱');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (73, 'wx_get_drafts_url', '/cgi-bin/draft/get', '微信公众号，获取草稿箱');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (74, 'wx_del_drafts_url', '/cgi-bin/draft/delete', '微信公众号，删除草稿箱');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (75, 'wx_update_drafts_url', '/cgi-bin/draft/update', '微信公众号，修改草稿箱');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (76, 'wx_publish_drafts_url', '/cgi-bin/freepublish/submit', '微信公众号，发布草稿箱');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (77, 'wx_query_publish_status_drafts_url', '/cgi-bin/freepublish/get', '微信公众号，发布状态轮训接口');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (78, 'wx_api_domain_url', 'https://api.weixin.qq.com', '微信API域名地址');
