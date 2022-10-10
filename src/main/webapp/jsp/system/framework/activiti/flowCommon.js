@@ -83,17 +83,19 @@ function successCallback(data){
 }
 
 /**
- * 基于主页面的查询条件（Accordion面板组件）动态增加一些展示面板，如流程图展示等，后续可以集成流程操作等。
- * mark：最早实现方式是在主页面弹出dialog，然后在增加流程展示、操作的ccordion，但是这种方式会导致主页面的查询条件（ccordion）组件异常，解决好多次解决不了。
- * accordionId 主界面的组件id
- * url 动态加载面板的url
+ * 打开流程图
+ * @param divId
+ * @param url
  */
-function dynamicAddAccordion(accordionId,panelName,url){
-	$("#"+accordionId).accordion('add', {
-		title:panelName,
-		closable:true,
-		animate:true,
-		cache:false,
+function openFlowchart(divId,url){
+	$('#'+divId).window({
+		maximizable:false,
+		minimizable:false,
+		collapsible:false,
+		title:'流程图',
+		width:"100%",
+		height:"95%",
+		modal:true,
 		href:url
 	});
 }

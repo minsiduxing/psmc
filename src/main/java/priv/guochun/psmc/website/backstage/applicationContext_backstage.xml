@@ -95,7 +95,7 @@
 
 	<!-- 烟草勘验 -->
 	<bean id="inquestService" class="priv.guochun.psmc.inquest.service.impl.InquestServiceImpl"/>
-	<bean id="accessTokenService" class="priv.guochun.psmc.inquest.service.impl.AccessTokenServiceImpl"/>
+	<bean id="accessTokenService" class="priv.guochun.psmc.system.framework.wx.impl.AccessTokenServiceImpl"/>
 	<bean id="tabYcInquestItemCfgService" class="priv.guochun.psmc.inquest.service.impl.TabYcInquestItemCfgServiceImpl"/>
 	<bean id="tabYcWaitQueueCfgService" class="priv.guochun.psmc.inquest.service.impl.TabYcWaitQueueCfgServiceImpl"/>
 

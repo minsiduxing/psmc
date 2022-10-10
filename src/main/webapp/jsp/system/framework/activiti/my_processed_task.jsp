@@ -31,7 +31,9 @@
  
 <table id="sologTableId" style="width:100%"></table>
 
-
+<!-- 流程图div -->
+<div id="flowchartWinDiv">
+</div>
 </body>
 <script type="text/javascript">
 var basePath = $("#basePath").val();
