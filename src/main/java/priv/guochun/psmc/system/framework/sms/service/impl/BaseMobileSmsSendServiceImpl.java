@@ -51,7 +51,8 @@ public class BaseMobileSmsSendServiceImpl implements MobileSmsSendService {
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
 		String sms_channel =map.get("sms_channel").toString();
-		if("xahbjk".equals(sms_channel)){
+        String sms_enable =map.get("sms_enable").toString();
+		if("true".equals(sms_enable) && "xahbjk".equals(sms_channel)){
             smsSendRuleSolve.setSmsSendModeSrategy(DefaultSmsModeBuildFactory.getInstance().createZhongYiSsm());
             return smsSendRuleSolve.getBalance(sendType);
         }
