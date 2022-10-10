@@ -30,7 +30,9 @@
 
 <div id="toolbarId">
 </div>
-
+<!-- 流程图div -->
+<div id="flowchartWinDiv">
+</div>
 </body>
 
 <script type="text/javascript">

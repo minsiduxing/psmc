@@ -140,11 +140,11 @@ $(document).ready(function(){
 		columns:[[   
 		          {field:'evaluate_info_uuid',title:'消费信息主键标识',checkbox:true},
 		          {field:'questionnaire_uuid',title:'问卷信息id',hidden:true},
-		          {field:'evaluate_name',title:'客户姓名',resizable:true,align:'center',sortable:true,width:$(this).width() * 0.2},
-		          {field:'evaluate_phone',title:'客户电话',resizable:true,align:'center',width:$(this).width() * 0.2},
-		          {field:'evaluate_nick_name',title:'客户昵称',align:'center',width:$(this).width() * 0.2},
-		          {field:'consumption_date',title:'消费（充值）日期',align:'center',sortable:true,width:$(this).width() * 0.2},
-		          {field:'evaluate_notice_type',title:'短信类型',align:'center',sortable:true,resizable:true,formatter:function(value, row, index){
+		          {field:'evaluate_name',title:'客户姓名',resizable:true,align:'center',sortable:true,width:$(this).width() * 0.1},
+		          {field:'evaluate_phone',title:'客户电话',resizable:true,align:'center',width:$(this).width() * 0.1},
+		          {field:'evaluate_nick_name',title:'客户昵称',align:'center',width:$(this).width() * 0.1},
+		          {field:'consumption_date',title:'消费（充值）日期',align:'center',sortable:true,width:$(this).width() * 0.15},
+		          {field:'evaluate_notice_type',title:'短信类型',align:'center',sortable:true,resizable:true,width:$(this).width() * 0.1,formatter:function(value, row, index){
 		        	  if(value=='1'){return "金额消费";}
 		        	  if(value=='2'){return "项目消费";}
 		        	  if(value=='3'){return "充值";}
@@ -172,8 +172,8 @@ $(document).ready(function(){
 		        	  else if(value=='4'){return "发送失败";}
 		        	  else{return ""; }
 		          }},
-		          {field:'evaluate_time',title:'评价时间',align:'center',sortable:true,width:$(this).width() * 0.2},
-		          {field:'caozuo', title:'操作',width:$(this).width() * 0.2,align:'center',formatter:function(value, row, index){
+		          {field:'evaluate_time',title:'评价时间',align:'center',sortable:true,width:$(this).width() * 0.1},
+		          {field:'caozuo', title:'操作',width:$(this).width() * 0.1,align:'center',formatter:function(value, row, index){
 		        	 if(row["evaluate_status"] == '4'){return '<a href="#" onclick="sendMsg(&apos;'+ row["evaluate_info_uuid"] +'&apos;);">重新发送</a>';}
 		          }}
 		         ] 

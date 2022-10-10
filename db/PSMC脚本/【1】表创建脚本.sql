@@ -206,9 +206,6 @@ create table tab_subject_config
 
 drop table if exists tab_evaluate_info;
 
-/*==============================================================*/
-/* Table: tab_evaluate_info                                     */
-/*==============================================================*/
 CREATE TABLE
     tab_evaluate_info
 (
@@ -221,7 +218,7 @@ CREATE TABLE
     consumption_amount DECIMAL COMMENT '消费金额',
     surplus_amount DECIMAL COMMENT '剩余金额',
     surplus_score INT COMMENT '剩余积分',
-    surplus_number INT COMMENT '剩余次数',
+    surplus_number VARCHAR(100),
     recharge_amount DECIMAL COMMENT '充值金额',
     consumption_item VARCHAR(100) COMMENT '消费项目',
     evaluate_notice_type SMALLINT COMMENT '通知类型(1：消费金额，2：消费项目，3：充值)',
@@ -230,21 +227,21 @@ CREATE TABLE
         UPDATE
         CURRENT_TIMESTAMP COMMENT '信息录入时间',
     visit_url VARCHAR(500) COMMENT '回访页面url',
-    visit_short_url VARCHAR(50) COMMENT '回访页面短链接url',
-    notice_note VARCHAR(500) COMMENT '通知内容',
+    visit_short_url VARCHAR(500) COMMENT '回访页面短链接url',
+    notice_note VARCHAR(500) COMMENT '通知参数',
     is_enable_notice SMALLINT COMMENT '是否启动通知',
     notice_time DATETIME COMMENT '启动通知时间',
-    evaluate_status SMALLINT COMMENT
-        '数据字典：
-1、待评价
-2、已评价
-3、无
-4、发送失败',
+    evaluate_status SMALLINT COMMENT '数据字典evaluate_status',
     effective_end_date DATETIME COMMENT '回访截止时间',
     evaluate_time DATETIME COMMENT '评价时间',
+    vaild_date DATE COMMENT '有效期',
+    vip_remark VARCHAR(100) COMMENT '专享描述',
+    butler VARCHAR(100) COMMENT '管家',
+    notice_content VARCHAR(500) COMMENT '通知内容',
+    other_remark VARCHAR(500) COMMENT '其余描述',
     PRIMARY KEY (evaluate_info_uuid)
-);
-
+)
+    ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_general_ci;
 
 
 drop table if exists tab_subject_options;
@@ -286,19 +283,6 @@ CREATE TABLE
     real_url VARCHAR(500) NOT NULL,
     PRIMARY KEY (id)
 );
-
-
-/************************************20220303sjhc增加*********************************************/
-alter table tab_evaluate_info add column vaild_date date COMMENT  '有效期';
-alter table tab_evaluate_info add column vip_remark varchar(100) COMMENT  '专享描述';
-alter table tab_evaluate_info add column butler varchar(100) COMMENT  '管家';
-ALTER TABLE tab_evaluate_info modify COLUMN notice_note varchar(500) COMMENT '通知参数';
-ALTER TABLE tab_evaluate_info add COLUMN notice_content varchar(500) COMMENT '通知内容';
-ALTER TABLE tab_evaluate_info add COLUMN other_remark varchar(500) COMMENT '其余描述';
-
-
-
-
 
 DROP TABLE IF EXISTS `tab_message_black`;
 CREATE TABLE `tab_message_black`  (

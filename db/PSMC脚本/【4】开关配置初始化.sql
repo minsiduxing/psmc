@@ -15,13 +15,13 @@ INSERT INTO tab_sys_config (sys_uuid, sys_code, sys_type, sys_url, sys_method, s
 
 delete from tab_sys_key_info;
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (1, 'sms_enable', 'true', null);
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (2, 'zhongyi_create_url', 'https://vip.veesing.com/mmsApi/create', '����Ⱥ��������ַ');
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (3, 'zhongyi_mms_send_url', 'https://vip.veesing.com/mmsApi/send', '����Ⱥ�����͵�ַ');
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (4, 'zhongyi_sms_send_url', 'https://vip.veesing.com/smsApi/group', '����Ⱥ�����õ�ַ');
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (5, 'zhongyi_sms_custom_url', 'https://vip.veesing.com/smsApi/custom', '���Ի����ŷ��͵�ַ');
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (6, 'zhongyi_mms_balance_url', 'https://vip.veesing.com/mmsApi/getBalance?', '����Ⱥ������ѯ��ַ');
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (7, 'zhongyi_sms_balance_url', 'https://vip.veesing.com/smsApi/group/getBalance?', '����Ⱥ������ѯ��ַ');
-INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (8, 'zhongyi_sms_custom_balance_url', 'https://vip.veesing.com/smsApi/custom/getBalance?', '���Ի���������ѯ��ַ');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (2, 'zhongyi_create_url', 'https://vip.veesing.com/mmsApi/create', '中昱短彩信-彩信创建接口');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (3, 'zhongyi_mms_send_url', 'https://vip.veesing.com/mmsApi/send', '中昱短彩信-发送彩信接口');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (4, 'zhongyi_sms_send_url', 'https://vip.veesing.com/smsApi/group', '中昱短彩信-短信群发发送接口');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (5, 'zhongyi_sms_custom_url', 'https://vip.veesing.com/smsApi/custom', '中昱短彩信-个性化短信发送接口');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (6, 'zhongyi_mms_balance_url', 'https://vip.veesing.com/mmsApi/getBalance?', '中昱短彩信-彩信余额查询接口');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (7, 'zhongyi_sms_balance_url', 'https://vip.veesing.com/smsApi/group/getBalance?', '中昱短彩信-短信群发余额查询接口');
+INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (8, 'zhongyi_sms_custom_balance_url', 'https://vip.veesing.com/smsApi/custom/getBalance?', '中昱短彩信-个性化短信余额查询接口');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (9, 'zhongyi_appid', '79M784I9SQMH', null);
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (10, 'zhongyi_appkey', 'YFUC24KWKBX5CTRC', null);
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (11, 'sms_channel', 'sczgyj', null);
@@ -76,7 +76,7 @@ INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (51, 'innov
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (52, 'recipes_image_path', 'default/recipes.png', '陕测-美味食谱-默认配图');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (53, 'notice_image_path', 'default/notice.png', '陕测-日常通知-默认配图');
 
-delete from tab_sys_key_info where id in(54,55,56,57,58,59,60,61,62,63);
+delete from tab_sys_key_info where id in(54,55,56,57,58,59,60,61,62,63,64);
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (54, 'wx_getAccessToken_url', 'https://api.weixin.qq.com/cgi-bin/token', '微信getAccessToken接口地址');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (55, 'wx_getuserphonenumber_url', 'https://api.weixin.qq.com/wxa/business/getuserphonenumber', '微信getuserphonenumber接口地址');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (56, 'wx_jscode2session_url', 'https://api.weixin.qq.com/sns/jscode2session', '微信jscode2session接口地址');

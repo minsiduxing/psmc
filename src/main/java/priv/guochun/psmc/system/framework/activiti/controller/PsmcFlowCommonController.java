@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import priv.guochun.psmc.inquest.utils.HttpConnectUtil;
 import priv.guochun.psmc.system.framework.activiti.core.PsmcWorkFlowContext;
 import priv.guochun.psmc.system.framework.activiti.model.FlowCommonParam;
 import priv.guochun.psmc.system.framework.controller.MyController;
@@ -156,6 +157,6 @@ public class PsmcFlowCommonController extends MyController {
 	@RequestMapping(params="method=getFlowImgByInstanceId")
 	public void getFlowImgByInstanceId(String pid) throws Exception {
 		byte[] bytes = psmcWorkFlowContext.getPsmcBaseWorkFlowService().getFlowImgByInstanceId(pid);
-		super.responseImage(bytes, response());
+		super.responseImage(bytes, HttpConnectUtil.content_type_image_svg_xml,response());
 	}
 }

@@ -24,9 +24,8 @@ $(document).ready(function(){
 				{field:'task_end_time',align:'center',title:"任务结束时间",width:$(this).width() * 0.2},
 				{field:'task_state_name',align:'center',title:"任务状态",width:$(this).width() * 0.2},
 				{field:' ',align:'center',title:"操作",width:$(this).width() * 0.2,formatter: function (value, row, index) {
-					return "<a href='javascript:void(0)' id=\""+row['tfi_uuid']+"\" onclick='dynamicAddAccordion(" +
-						"&apos;"+"queryAddDiv" +"&apos;" +
-						",&apos;"+row['flow_cn_name'] +"&apos;" +
+					return "<a href='javascript:void(0)' id=\""+row['tfi_uuid']+"\" onclick='openFlowchart(" +
+						"&apos;"+"flowchartWinDiv" +"&apos;" +
 						",&apos;" + getFlowImgByInstanceId+row['tfi_uuid'] + "&apos;" +
 						")'>流程图</a>";
 				}}

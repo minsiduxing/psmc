@@ -1,4 +1,4 @@
-package priv.guochun.psmc.inquest.service;
+package priv.guochun.psmc.system.framework.wx;
 
 /**
  * 获取accessToken
