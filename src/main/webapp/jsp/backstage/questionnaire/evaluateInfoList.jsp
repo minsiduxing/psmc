@@ -51,7 +51,7 @@
 	</g:auth>
 
 	<g:auth operateNo="<%=OperateContantsUtil.SJHC_IMPORT_EXCEL%>">
-		<c:if test="${smsBusniessType == 13}">
+		<c:if test="${smsBusniessType == 19}">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-redo" plain="true" id="upload" onclick="openUploadDialog();">导入Excel</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-excel" plain="true" onclick="openDowloadDialog();">下载模板</a>
 		</c:if>
@@ -99,7 +99,7 @@
 var infoDo = basePath+"/website/backstage/EvauateInfoController.do";
 var getInfoDataUrl = '<c:url value="'+infoDo+'"/>?method=evaluateInfoList';
 var uploadExcelUrl = '<c:url value="'+infoDo+'"/>?method=loadExcelEvaluateInfo';
-var toAddEvaluateInfoUrl = '<c:url value="'+infoDo+'"/>?method=toAddEvaluateInfo';
+var toAddEvaluateInfoUrl = '<c:url value="'+infoDo+'"/>?method=toAddEvaluateInfo&smsBusniessType=<c:out value="${smsBusniessType}"/>';
 var dowloadUrl = '<c:url value="'+infoDo+'"/>?method=downloadExcelTemplate'; 
 var sendMsgUrl = '<c:url value="'+infoDo+'"/>?method=sendMsg';
 //查看评价详情
@@ -108,7 +108,7 @@ var queryResultDetailsUrl = '<c:url value="'+questionDo+'"/>?method=queryResultD
 
 commonObj.initDictCombobox("evaluateNoticeType1","NOTICE_TYPE",null,false,true,'<c:out value="${smsBusniessType}"/>');
 commonObj.initDictCombobox("evaluateStatus","EVALUATE_STATUS",null,true,false);
-commonObj.initDictCombobox("noticeType","NOTICE_TYPE",null,true,false);
+commonObj.initDictCombobox("noticeType","NOTICE_TYPE",null,true,false,'<c:out value="${smsBusniessType}"/>');
 commonObj.initQuestionnaireCombobox("questionUuid",null,true);
 
 $("#evaluateName1").textbox({});

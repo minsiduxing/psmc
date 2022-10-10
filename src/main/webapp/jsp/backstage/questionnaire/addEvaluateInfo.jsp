@@ -128,7 +128,7 @@
 
 	
 	$(document).ready(function() {
-		commonObj.initDictCombobox("evaluateNoticeType","NOTICE_TYPE",null,true,false);
+		commonObj.initDictCombobox("evaluateNoticeType","NOTICE_TYPE",null,true,false,'<c:out value="${smsBusniessType}"/>');
 		commonObj.initQuestionnaireCombobox("questionnaireUuid",null,true);
 	});
 
