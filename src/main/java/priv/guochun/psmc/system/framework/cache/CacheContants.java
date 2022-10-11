@@ -35,5 +35,7 @@ public class CacheContants
   	//public final static String CACHE_SYSTEM_KEY_INFO ="CACHE_SYSTEM_KEY_INFO";
   	//系统类缓存对象KEY
   	public final static String CACHE_SYSTEM_KEY_INFO_KEY ="CACHE_SYSTEM_KEY_INFO_KEY";
-    
+
+    public final static String REDIS_CACHE ="redisCache";
+
 }

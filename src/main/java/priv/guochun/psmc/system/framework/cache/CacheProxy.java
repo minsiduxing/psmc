@@ -42,6 +42,8 @@ public class CacheProxy implements Cache
         ValueWrapper obj =cache.get(key);
         if(obj == null){
             psmcInitCacheTool.initCache(key);
+        }else{
+            return obj;
         }
         obj = cache.get(key);
         return obj;
@@ -53,6 +55,8 @@ public class CacheProxy implements Cache
         T obj =cache.get(key,type);
         if(obj == null){
             psmcInitCacheTool.initCache(key);
+        }else{
+            return obj;
         }
         obj = cache.get(key,type);
         return obj;

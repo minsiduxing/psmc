@@ -111,7 +111,7 @@ public class PsmcInitCacheToolImpl implements PsmcInitCacheTool
         }else if(cacheKey.equals(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY)){
         	sysKeyInfoInit();
         }else{
-            logger.warn("缓存["+cacheKey+"]没有可以进行初始化的方法!!!");
+            logger.error("缓存["+cacheKey+"]没有可以进行初始化的方法!!!");
         }
     }
     

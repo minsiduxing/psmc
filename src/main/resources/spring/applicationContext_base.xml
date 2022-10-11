@@ -14,7 +14,7 @@
 
 	<bean id="mySpringApplicationContext" class="priv.guochun.psmc.system.framework.util.MySpringApplicationContext" />
 	
-	<context:property-placeholder location="classpath:jdbc.properties" />
+	<context:property-placeholder location="classpath:*.properties" />
 
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<!-- 基本属性 url、user、password -->

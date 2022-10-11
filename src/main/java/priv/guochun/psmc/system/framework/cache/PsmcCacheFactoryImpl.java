@@ -20,7 +20,7 @@ public class PsmcCacheFactoryImpl implements PsmcCacheFactory
     
     public Cache getCacheSystem(){
         if(cacheSystem == null){
-            Cache cacheObj= getCacheByName(CacheContants.CACHE_SYSTEM);
+            Cache cacheObj= getCacheByName(CacheContants.REDIS_CACHE);
             cacheSystem = new CacheProxy(cacheObj,psmcInitCacheTool);
         }
         return cacheSystem;
@@ -28,7 +28,7 @@ public class PsmcCacheFactoryImpl implements PsmcCacheFactory
     
     public Cache getWorkFlow(){
     	 if(workflowSystem == null){
-             Cache cacheObj= getCacheByName(CacheContants.CACHE_WORKFLOW);
+             Cache cacheObj= getCacheByName(CacheContants.REDIS_CACHE);
              workflowSystem = new CacheProxy(cacheObj,psmcInitCacheTool);
          }
          return workflowSystem;
@@ -45,7 +45,7 @@ public class PsmcCacheFactoryImpl implements PsmcCacheFactory
     }
     public Cache getCacheSysKeyInfo(){
         if(cacheSysKeyInfo == null){
-            Cache cacheObj= getCacheByName(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY);
+            Cache cacheObj= getCacheByName(CacheContants.REDIS_CACHE);
             cacheSysKeyInfo = new CacheProxy(cacheObj,psmcInitCacheTool);
         }
         return cacheSysKeyInfo;
