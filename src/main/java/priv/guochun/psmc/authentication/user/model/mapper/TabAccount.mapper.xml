@@ -38,15 +38,15 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
   
 
    	<select id="getMyPageOfTabAccounts" resultType="java.util.Map" parameterType="hashmap">
-	  select a.uuid as ACC_UUID,a.ACCOUNT_NAME,a.ACCOUNT_PASS,a.IS_LOCKED,a.is_auth,a.auth_type,CASE a.IS_LOCKED  WHEN '1' THEN '是'  WHEN '2' THEN '否' END AS ISLOCKEDNAME, 
-    		b.uuid as PERSON_ID,b.PERSON_NAME,b.SEX,b.AGE,b.TELEPHONE,b.EMAIL,c.dict_name as SEXNAME,e.DICT_NAME as ACCOUNT_TYPE_NAME,
-    		d.group_code as GROUP_CODE,d.group_name as GROUP_NAME,b.id_card,b.area,
-    		CASE a.auth_type WHEN 1 THEN '身份证' ELSE '' END AS authTypeName,g.role_name as ROLE_NAME
-    		from tab_accounts a left join tab_data_dict e on a.account_type=e.dict_id and e.dict_no= #{acctype_dict_no},
-                  tab_person b left join tab_data_dict c on b.sex=c.dict_id and c.DICT_NO= #{sex_dict_no},
+	  select a.uuid as ACC_UUID,a.ACCOUNT_NAME,a.ACCOUNT_PASS,a.IS_LOCKED,a.is_auth,a.auth_type, j.DICT_NAME AS ISLOCKEDNAME, h.DICT_NAME AS AUTHTYPENAME,
+		b.uuid as PERSON_ID,b.PERSON_NAME,b.SEX,b.AGE,b.TELEPHONE,b.EMAIL,c.dict_name as SEXNAME,e.DICT_NAME as ACCOUNT_TYPE_NAME,
+    		d.group_code as GROUP_CODE,d.group_name as GROUP_NAME,b.id_card,b.area,g.role_name as ROLE_NAME
+    		from tab_accounts a left join tab_data_dict e on a.account_type=e.dict_id and e.dict_no= 'ACC_TYPE'
+				left join tab_data_dict h on a.AUTH_TYPE=h.dict_id and h.dict_no= 'PERSON_AUTH_TYPE'
+				left join tab_data_dict j on a.IS_LOCKED=j.dict_id and j.dict_no= 'IF',
+                  tab_person b left join tab_data_dict c on b.sex=c.dict_id and c.DICT_NO= 'SEX',
                   tab_group d,tab_acc_role f,tab_role g
-    		where a.uuid=b.acc_uuid  and
-    		      b.groupid=d.group_code
+    		where a.uuid=b.acc_uuid  and b.groupid=d.group_code
     		      and a.uuid=f.acc_uuid and f.role_uuid=g.uuid
     		<if test="accountName !=null and accountName !=''">
    					and a.ACCOUNT_NAME like concat(concat('%',#{accountName}),'%')

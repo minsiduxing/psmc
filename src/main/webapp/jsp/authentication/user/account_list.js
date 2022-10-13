@@ -16,6 +16,7 @@ function successCallback(data){
 	$.messager.progress("close");
 	$("#accountTableId").datagrid('reload');
 	commonObj.showResponse(data);
+	$("#editdialogDiv").dialog("close");
 }
 
 //密码md5加密

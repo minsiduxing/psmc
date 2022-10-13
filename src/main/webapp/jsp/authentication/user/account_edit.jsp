@@ -11,9 +11,10 @@
 <input type="hidden" id="uuid" name="uuid" value="<c:out value="${account.UUID}"/>"></input>
 <input type="hidden" id="personId" name="personId" value="<c:out value="${person.UUID}"/>"></input>
 <input type="hidden" id="accUuid" name="accUuid" value="<c:out value="${person.ACC_UUID}"/>"></input>
-<input type="hidden" id="accountType" name="accountType" value="<c:out value="${account.account_type}"/>"></input>
+<input type="hidden" id="accountType" name="accountType" value="<c:out value="${account.ACCOUNT_TYPE}"/>"></input>
 <input type="hidden" id="idCard" name="idCard" value="<c:out value="${person.id_card}"/>"></input>
-<input type="hidden" id="authType" name="authType" value="<c:out value="${account.auth_type}"/>"></input>
+<input type="hidden" id="authType" name="authType" value="<c:out value="${account.AUTH_TYPE}"/>"></input>
+<input type="text" id="isAuth" name="isAuth" value="<c:out value="${account.IS_AUTH}"/>"></input>
 <input type="hidden" id="area" name="area" value="<c:out value="${person.area}"/>"></input>
 <input type="hidden" id="province" name="province" value="<c:out value="${person.province}"/>"></input>
 <input type="hidden" id="city" name="city" value="<c:out value="${person.city}"/>"></input>
