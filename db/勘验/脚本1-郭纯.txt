@@ -63,11 +63,6 @@ insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02
 insert into tab_role_operate (role_uuid, operate_uuid) values ('efb74820f0564d02bb68fdf3190a6430', 'c24864b488dc4d3aac34ca5ac310b636');
 
 
-delete from TAB_DATA_DICT where DICT_NO='BELONG_TO_ZMJ';
-
-INSERT INTO TAB_DATA_DICT(ID,DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,DICT_NO,PARENT_DICT_TYPE) VALUES(1701,'1701','福建省城北鼓楼区烟草专卖局','归属专卖局',17,1,'BELONG_TO_ZMJ',NULL);
-INSERT INTO TAB_DATA_DICT(ID,DICT_ID,DICT_NAME,REMARK,DICT_TYPE,ORDERNUM,DICT_NO,PARENT_DICT_TYPE) VALUES(1702,'1702','福建省罗源县烟草专卖局','归属专卖局',17,2,'BELONG_TO_ZMJ',NULL);
-
 delete from tab_sys_key_info where id in(54,55,56,57,58,59,60,61,62,63);
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (54, 'wx_getAccessToken_url', 'https://api.weixin.qq.com/cgi-bin/token', '微信getAccessToken接口地址');
 INSERT INTO tab_sys_key_info (id, sys_key, sys_value, remark) VALUES (55, 'wx_getuserphonenumber_url', 'https://api.weixin.qq.com/wxa/business/getuserphonenumber', '微信getuserphonenumber接口地址');
