@@ -36,6 +36,9 @@ public class CacheContants
   	//系统类缓存对象KEY
   	public final static String CACHE_SYSTEM_KEY_INFO_KEY ="CACHE_SYSTEM_KEY_INFO_KEY";
 
+
+    public final static String CACHE_WX_ACCESS_TOKEN ="CACHE_WX_ACCESS_TOKEN";
+
     public final static String REDIS_CACHE ="redisCache";
 
 }

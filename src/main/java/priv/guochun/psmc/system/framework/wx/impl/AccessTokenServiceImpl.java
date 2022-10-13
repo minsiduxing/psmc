@@ -1,9 +1,11 @@
 package priv.guochun.psmc.system.framework.wx.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
+import org.springframework.cache.annotation.Cacheable;
 import priv.guochun.psmc.system.framework.wx.AccessTokenService;
 import priv.guochun.psmc.inquest.utils.HttpConnectUtil;
 import priv.guochun.psmc.system.framework.cache.CacheContants;
@@ -23,7 +25,6 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class AccessTokenServiceImpl implements AccessTokenService {
     protected static final Logger logger  = LoggerFactory.getLogger(AccessTokenServiceImpl.class);
-    protected volatile String accessToken;
     protected volatile long expiresTime;
     protected Lock accessTokenLock;
 
@@ -37,13 +38,14 @@ public class AccessTokenServiceImpl implements AccessTokenService {
      */
     @Override
     public String getAccessToken(String appid, String appSecret) {
+        String accessToken = null;
         Lock lock = this.accessTokenLock;
         lock.lock();
         try {
+            PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+            Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+            Map<String, Object> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
             if (this.isAccessTokenExpired()) {
-                PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
-                Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
-                Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
                 String url =map.get("wx_api_domain_url").toString()+map.get("wx_getAccessToken_url").toString();
                 Map<String, String> queryMap = new HashMap<>();
                 queryMap.put("grant_type", "client_credential");
@@ -53,14 +55,18 @@ public class AccessTokenServiceImpl implements AccessTokenService {
                 JSONObject resultObj = (JSONObject)JSONObject.parse(result);
 
                 if (resultObj != null && resultObj.getIntValue("errcode") == 0) {
+                    accessToken = resultObj.getString("access_token");
+                    cache.put(CacheContants.CACHE_WX_ACCESS_TOKEN,accessToken);
                     this.updateAccessToken(resultObj.getString("access_token"), resultObj.getIntValue("expires_in"));
                 }
+            }else{
+                accessToken = cache.get(CacheContants.CACHE_WX_ACCESS_TOKEN, String.class);
             }
         }
         finally {
             lock.unlock();
         }
-        return this.accessToken;
+        return accessToken;
     }
 
     /**
@@ -69,7 +75,6 @@ public class AccessTokenServiceImpl implements AccessTokenService {
      * @param expiresInSeconds
      */
     public synchronized void updateAccessToken(String accessToken, int expiresInSeconds) {
-        this.accessToken = accessToken;
         this.expiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
     }
 
