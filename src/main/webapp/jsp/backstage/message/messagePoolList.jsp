@@ -76,7 +76,10 @@ var delUrl = '<c:url value="'+infoDo+'"/>?method=deleteByMsgUuid';
 var delAllUrl = '<c:url value="'+infoDo+'"/>?method=deleteAllMsg';
 var sendAllUrl = '<c:url value="'+infoDo+'"/>?method=handSendSms';
 var updateUrl = '<c:url value="'+infoDo+'"/>?method=updateByPrimaryKey';
-$(document).ready(function(){ 
+$(document).ready(function(){
+	$("#phone").textbox({
+	});
+
 	//datagrid 初始化 
 	var messageOption = {
 		tabId:"messageTableId",
@@ -87,10 +90,10 @@ $(document).ready(function(){
 		remoteSort:true,
 		columns:[[   
 		          {field:'msg_uuid',title:'主键标识',checkbox:true},
-		          {field:'phone',title:'手机号',align:'center',sortable:true},
-		          {field:'temp_code',title:'短信模板',resizable:true,align:'center',sortable:true},    
-		          {field:'add_time',title:'新增日期',align:'center',sortable:true},
-		          {field:'caozuo', title:'操作', width:"100px",align:'center',formatter:function(value, row, index){
+		          {field:'phone',title:'手机号',align:'center',sortable:true,width:$(this).width() * 0.2},
+		          {field:'temp_code',title:'短信模板',resizable:true,align:'center',sortable:true,width:$(this).width() * 0.2},
+		          {field:'add_time',title:'新增日期',align:'center',sortable:true,width:$(this).width() * 0.2},
+		          {field:'caozuo', title:'操作',width:$(this).width() * 0.2,align:'center',formatter:function(value, row, index){
 		        	  var str = '<a href="#" onclick="del(&apos;'+ row["msg_uuid"] +'&apos;);">删除</a> | <a href="#" onclick="updateDialog(&apos;'+ row["msg_uuid"] +'&apos;);">修改</a>';
 		        	  return str;  
 			          }}

@@ -10,7 +10,7 @@
 <form id="editForm" method="POST" class="addfrom">
 
 		<ul class="addform-subcontent">
-			<li class="li-input"><label for="" class="input-label" style="width: 120px;">消费类型：</label>
+			<li class="li-input"><label for="" class="input-label" style="">消费类型：</label>
 				<!-- <select id="evaluateNoticeType" name="evaluateNoticeType" onchange="noticeTypeChange();">
 					<option value=1>消费金额</option>
 					<option value=2>消费项目</option>
@@ -18,51 +18,51 @@
 				</select> -->
 				<input id="evaluateNoticeType" name="evaluateNoticeType" ></input> 
 			</li>
-			<li class="li-input" id="active7"><label for="" class="input-label" style="width: 120px;">选择问卷：</label>
+			<li class="li-input" id="active7"><label for="" class="input-label" style="">选择问卷：</label>
 				<input class="myinput" id="questionnaireUuid" name="questionnaireUuid"></input>
 			</li>
-			<li class="li-input"><label for="" class="input-label" style="width: 120px;">客户姓名：</label>
+			<li class="li-input"><label for="" class="input-label" style="">客户姓名：</label>
 				<input class="myinput" id="evaluateName" name="evaluateName"></input>
 			</li>
-			<li class="li-input"><label for="" class="input-label" style="width: 120px;">客户昵称：</label>
+			<li class="li-input"><label for="" class="input-label" style="">客户昵称：</label>
 				<input class="myinput" id="evaluateNickName" name="evaluateNickName"></input>
 			</li> 
-			<li class="li-input"><label for="" class="input-label" style="width: 120px;">客户电话：</label>
+			<li class="li-input"><label for="" class="input-label" style="">客户电话：</label>
 				<input id="evaluatePhone" name="evaluatePhone"></input>
 			</li>
-			<li id="consumptionDateLi" class="li-input"><label for="" class="input-label" style="width: 120px;">消费（充值）时间：</label>
+			<li id="consumptionDateLi" class="li-input"><label for="" class="input-label" style="">消费（充值）时间：</label>
 				<input id="consumptionDate" name="consumptionDate"></input>
 			</li>
-			<li id="active1" class="li-input"><label for="" class="input-label" style="width: 120px;">消费金额：</label>
+			<li id="active1" class="li-input"><label for="" class="input-label" style="">消费金额：</label>
 				<input id="consumptionAmount" name="consumptionAmount"></input>
 			</li>
-			<li id="active2" class="li-input"><label for="" class="input-label" style="width: 120px;">消费项目：</label>
+			<li id="active2" class="li-input"><label for="" class="input-label" style="">消费项目：</label>
 				<input id="consumptionItem" name="consumptionItem"></input>
 			</li>
-			<li id="active3" class="li-input"><label for="" class="input-label" style="width: 120px;">充值金额：</label>
+			<li id="active3" class="li-input"><label for="" class="input-label" style="">充值金额：</label>
 				<input id="rechargeAmount" name="rechargeAmount"></input>
 			</li>
-			<li id="active8" class="li-input"><label for="" class="input-label" style="width: 120px;">赠送金额：</label>
+			<li id="active8" class="li-input"><label for="" class="input-label" style="">赠送金额：</label>
 				<input id="giveAmount" name="giveAmount"></input>
 			</li>
-			<li id="active4" class="li-input"><label for="" class="input-label" style="width: 120px;">剩余金额：</label>
+			<li id="active4" class="li-input"><label for="" class="input-label" style="">剩余金额：</label>
 				<input id="surplusAmount" name="surplusAmount"></input>
 			</li>
-			<li id="active5" class="li-input"><label for="" class="input-label" style="width: 120px;">剩余次数：</label>
+			<li id="active5" class="li-input"><label for="" class="input-label" style="">剩余次数：</label>
 				<input id="surplusNumber" name="surplusNumber"></input>
 			</li>
-			<li id="active6" class="li-input"><label for="" class="input-label" style="width: 120px;">剩余积分：</label>
+			<li id="active6" class="li-input"><label for="" class="input-label" style="">剩余积分：</label>
 				<input id="surplusScore" name="surplusScore"></input>
 			</li>
 
-			<li id="active10" class="li-input"><label for="" class="input-label" style="width: 120px;">专享：</label>
+			<li id="active10" class="li-input"><label for="" class="input-label" style="">专享：</label>
 				<input id="vipRemark" name="vipRemark"></input>
 			</li>
 
-			<li id="active11" class="li-input"><label for="" class="input-label" style="width: 120px;">管家：</label>
+			<li id="active11" class="li-input"><label for="" class="input-label" style="">管家：</label>
 				<input id="butler" name="butler"></input>
 			</li>
-			<li id="active12" class="li-input"><label for="" class="input-label" style="width: 120px;">其余描述：</label>
+			<li id="active12" class="li-input"><label for="" class="input-label" style="">其余描述：</label>
 				<input id="otherRemark" name="otherRemark"></input>
 			</li>
 		</ul>
@@ -128,7 +128,7 @@
 
 	
 	$(document).ready(function() {
-		commonObj.initDictCombobox("evaluateNoticeType","NOTICE_TYPE",null,true,false);
+		commonObj.initDictCombobox("evaluateNoticeType","NOTICE_TYPE",null,true,false,'<c:out value="${smsBusniessType}"/>');
 		commonObj.initQuestionnaireCombobox("questionnaireUuid",null,true);
 	});
 
