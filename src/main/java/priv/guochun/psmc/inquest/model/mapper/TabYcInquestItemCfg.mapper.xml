@@ -133,16 +133,17 @@
         FROM
             TAB_YC_STAGE a
         left join
-            TAB_YC_INQUEST_ITEM_CFG b on a.stage_uuid=b.STAGE_UUID
-        left join
+            TAB_YC_INQUEST_ITEM_CFG b on a.stage_uuid=b.STAGE_UUID,
+
             (
                 select group_code
                 from tab_group
                 WHERE parent_group_code = #{orgCode}
                 or group_code = #{orgCode}
-            ) d on b.org_code = d.group_code
+            ) d
         WHERE a.is_active=1
           AND b.is_active=1
+          AND b.org_code = d.group_code
         <if test="stageCode != null and stageCode != ''">
             AND a.stage_code = #{stageCode}
         </if>

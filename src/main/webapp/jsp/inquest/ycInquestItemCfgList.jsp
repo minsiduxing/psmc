@@ -64,7 +64,7 @@
     $('#questionName').textbox({
     });
 
-    commonObj.initDictCombobox("stageCode","STAGE_CODE","",false,true);
+    // commonObj.initDictCombobox("stageCode","STAGE_CODE","",false,true);
     commonObj.initDictCombobox("questionType","QUESTION_TYPE","",false,true);
 
     //----------------------------查询框初始化结束
