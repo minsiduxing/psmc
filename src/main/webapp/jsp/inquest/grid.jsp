@@ -46,14 +46,8 @@
 <script type="text/javascript">
 	var basePath = $("#basePath").val();
 
-	var getTabDataUrl = basePath+"/system/common/sysOperLogController.do";
-	getTabDataUrl ='<c:url value="'+getTabDataUrl+'"/>?method=sysOperLogList';
-
-	var girdRuleQueryUrl = basePath+"/jsp/inquest/gridRules.jsp";
-	girdRuleQueryUrl ='<c:url value="'+girdRuleQueryUrl+'"/>';
-
-	var girdRuleQueryUrl2 = basePath+"/jsp/inquest/gridRules2.jsp";
-	girdRuleQueryUrl2 ='<c:url value="'+girdRuleQueryUrl2+'"/>';
+	var getTabDataUrl = basePath+"/inquest/tabYcGridBaseinfoController.do";
+	getTabDataUrl ='<c:url value="'+getTabDataUrl+'"/>?method=selectGridInfoList';
 
 
 </script>

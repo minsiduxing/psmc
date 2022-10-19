@@ -1,0 +1,39 @@
+package priv.guochun.psmc.inquest.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import priv.guochun.psmc.inquest.service.TabYcGridBaseInfoService;
+import priv.guochun.psmc.system.framework.controller.MyController;
+import priv.guochun.psmc.system.framework.page.MyPage;
+import priv.guochun.psmc.system.util.JsonUtil;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 网格管理
+ */
+@Controller
+@RequestMapping("/inquest/tabYcGridBaseinfoController")
+public class TabYcGridBaseinfoController extends MyController {
+
+    @Autowired
+    private TabYcGridBaseInfoService tabYcGridBaseInfoService;
+
+    @RequestMapping(params="method=selectGridInfoList")
+    @ResponseBody
+    public void selectGridInfoList(MyPage myPage) throws IOException {
+        String orgCode = this.getUserBySeesion(this.request()).getGroupCode();
+        Map<String, Object> queryParams = myPage.getQueryParams();
+        if (queryParams == null){
+            queryParams = new HashMap<>();
+        }
+        queryParams.put("orgCode", orgCode);
+        myPage.setQueryParams(queryParams);
+        myPage = tabYcGridBaseInfoService.queryGridInfoList(myPage);
+        super.responseJson(JsonUtil.convertJavaBeanToJSONObject(myPage), this.response());
+    }
+}
