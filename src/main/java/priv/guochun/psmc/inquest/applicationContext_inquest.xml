@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+    xmlns:jaxrsclient="http://cxf.apache.org/jaxrs-client"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/jdbc 
+		http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/jee 
+		http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/aop   
+    	http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+    	http://cxf.apache.org/jaxws 
+        http://cxf.apache.org/schemas/jaxws.xsd
+        http://cxf.apache.org/jaxrs
+        http://cxf.apache.org/schemas/jaxrs.xsd
+        http://cxf.apache.org/jaxrs-client
+        http://cxf.apache.org/schemas/jaxrs-client.xsd"
+    	
+    	
+	default-lazy-init="false" default-autowire="byName">
+	
+
+	<!-- 烟草勘验 -->
+	<bean id="inquestService" class="priv.guochun.psmc.inquest.service.impl.InquestServiceImpl"/>
+	<bean id="accessTokenService" class="priv.guochun.psmc.system.framework.wx.impl.AccessTokenServiceImpl"/>
+	<bean id="tabYcInquestItemCfgService" class="priv.guochun.psmc.inquest.service.impl.TabYcInquestItemCfgServiceImpl"/>
+	<bean id="tabYcWaitQueueCfgService" class="priv.guochun.psmc.inquest.service.impl.TabYcWaitQueueCfgServiceImpl"/>
+
+	<!--网格管理 -->
+	<bean id="tabYcGridBaseInfoService" class="priv.guochun.psmc.inquest.service.impl.TabYcGridBaseInfoServiceImpl"/>
+	<!--测算类别 -->
+	<bean id="tabYcGridModelTypeService" class="priv.guochun.psmc.inquest.service.impl.TabYcGridModelTypeServiceImpl"/>
+	<!--测算公式 -->
+	<bean id="tabYcGridCalculationModelService" class="priv.guochun.psmc.inquest.service.impl.TabYcGridCalculationModelServiceImpl"/>
+
+</beans>

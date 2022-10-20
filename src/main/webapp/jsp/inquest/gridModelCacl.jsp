@@ -5,7 +5,7 @@
 <head>
 	<%@ include file="../../common.jsp"%>
 
-	<title>网格管理列表</title>
+	<title>网格测算公式管理列表</title>
 </head>
 <body id="body">
 
@@ -32,7 +32,7 @@
 
 <table id="sologTableId" style="width:100%"></table>
 <div id="toolbarId">
-	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">测算公式</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">配置</a>
 </div>
 
 <div id="ruleWin">
@@ -41,17 +41,13 @@
 
 
 </body>
-<script type="text/javascript" src="grid.js"></script>
+<script type="text/javascript" src="gridModelCacl.js"></script>
 
 <script type="text/javascript">
 	var basePath = $("#basePath").val();
 
-	var getTabDataUrl = basePath+"/inquest/tabYcGridBaseinfoController.do";
-	getTabDataUrl ='<c:url value="'+getTabDataUrl+'"/>?method=selectGridInfoList';
-
-	var gridCaclUrl = basePath+"/jsp/inquest/gridCacl.jsp?version="+'<%=request.getParameter("version").toString() %>';
-
-
+	var getTabDataUrl = basePath+"/inquest/tabYcGridCalculationModelController.do";
+	getTabDataUrl ='<c:url value="'+getTabDataUrl+'"/>?method=selectGridCalculationModelInfoList&version='+'<%=request.getParameter("version").toString() %>';
 
 </script>
 </html>
