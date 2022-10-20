@@ -11,16 +11,12 @@ $(document).ready(function(){
              * 可以解决表格右边空白的问题，但是没办法自适应浏览器大小，暂时不用
              * width:parseInt($(this).width()*0.3)
              */
-            {field:'GRID_UUID',align:'center',title:'唯一标示',hidden:true},
-            {field:'GRID_NAME',align:'center',title:"网格名称",width:$(this).width() * 0.2},
-            {field:'ORG_NAME',align:'center',title:"所属专卖局",width:$(this).width() * 0.2},
-            {field:'GRID_PEPOLE_COUNT',align:'center',title:"网格人口数",width:$(this).width() * 0.2},
-            {field:'PLANNING_ISSUE_CERT_TOTAL',align:'center',title:"规划办证数量",width:$(this).width() * 0.2},
-            {field:'ACTUAL_ISSUE_CERT_TOTAL',align:'center',title:"已办证数量",width:$(this).width() * 0.2},
-            {field:'IS_MAINTAIN_COORDINATE',align:'center',title:"已采集坐标",width:$(this).width() * 0.2},
-            {field:'IS_CONFIGED_RULE_NAME',align:'center',title:"已配置规则",width:$(this).width() * 0.2},
+            {field:'GRID_CMODEL_UUID',align:'center',title:'唯一标示',hidden:true},
             {field:'GRID_MTYPE_NAME',align:'center',title:"测算类别名称",width:$(this).width() * 0.2},
-            {field:'LEGAL_PROVISION_DESC',align:'left',title:"测算类别依据",width:$(this).width() * 1.5},
+            {field:'GRID_CMODEL_NAME',align:'center',title:"店面面向位置",width:$(this).width() * 0.2},
+            {field:'RULE_FORMULA',align:'left',title:"计算公式",width:$(this).width() * 0.3},
+            {field:'RULE_FORMULA_DESC',align:'left',title:"计算公式说明",width:$(this).width() * 0.5},
+            {field:'ORG_NAME',align:'center',title:"所属单位",width:$(this).width() * 0.2},
             {field:'11',align:'center',title:"操作结果",width:$(this).width() * 0.2}
         ]
         ]

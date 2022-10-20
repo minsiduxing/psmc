@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.guochun.psmc.inquest.model.TabYcGridCalculationModel">
+
+  <select id="selectGridCalculationModelInfoList" resultType="java.util.Map" parameterType="hashmap">
+    select B.GRID_MTYPE_NAME,a.GRID_CMODEL_UUID, a.GRID_CMODEL_NAME, a.MODEL_TYPE_UUID,a.RULE_TYPE, RULE_FORMULA, a.RULE_FORMULA_DESC, a.ORG_CODE, a.SORT,a.MODIFY_TIME, a.CREATOR, a.CREATE_TIME, a.IS_ACTIVE, a.VERSION,
+    c.group_name as ORG_NAME
+    from TAB_YC_GRID_CALCULATION_MODEL a,TAB_YC_GRID_MODEL_TYPE b,tab_group c
+    where a.model_type_uuid = b.grid_mtype_uuid and a.org_code = c.group_code
+    and a.is_active=1 and b.is_active=1
+    <if test="orgCode != null">
+      AND a.ORG_CODE like concat(concat(#{orgCode}),'%')
+      AND b.ORG_CODE like concat(concat(#{orgCode}),'%')
+    </if>
+    <if test="version != null">
+      AND a.VERSION = #{version}
+      AND b.VERSION = #{version}
+    </if>
+    order by a.model_type_uuid,sort asc
+  </select>
+
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.inquest.model.TabYcGridCalculationModel">
+    <id column="GRID_CMODEL_UUID" jdbcType="VARCHAR" property="gridCmodelUuid" />
+    <result column="GRID_CMODEL_NAME" jdbcType="VARCHAR" property="gridCmodelName" />
+    <result column="MODEL_TYPE_UUID" jdbcType="VARCHAR" property="modelTypeUuid" />
+    <result column="RULE_TYPE" jdbcType="VARCHAR" property="ruleType" />
+    <result column="RULE_FORMULA" jdbcType="VARCHAR" property="ruleFormula" />
+    <result column="RULE_FORMULA_DESC" jdbcType="VARCHAR" property="ruleFormulaDesc" />
+    <result column="ORG_CODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="SORT" jdbcType="INTEGER" property="sort" />
+    <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="IS_ACTIVE" jdbcType="CHAR" property="isActive" />
+    <result column="VERSION" jdbcType="VARCHAR" property="version" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    GRID_CMODEL_UUID, GRID_CMODEL_NAME, MODEL_TYPE_UUID, RULE_TYPE, RULE_FORMULA, RULE_FORMULA_DESC, 
+    ORG_CODE, SORT, MODIFY_TIME, CREATOR, CREATE_TIME, IS_ACTIVE, VERSION
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tab_yc_grid_calculation_model
+    where GRID_CMODEL_UUID = #{gridCmodelUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tab_yc_grid_calculation_model
+    where GRID_CMODEL_UUID = #{gridCmodelUuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="priv.guochun.psmc.inquest.model.TabYcGridCalculationModel">
+    insert into tab_yc_grid_calculation_model (GRID_CMODEL_UUID, GRID_CMODEL_NAME, MODEL_TYPE_UUID,
+      RULE_TYPE, RULE_FORMULA, RULE_FORMULA_DESC,
+      ORG_CODE, SORT, MODIFY_TIME,
+      CREATOR, CREATE_TIME, IS_ACTIVE,
+      VERSION)
+    values (#{gridCmodelUuid,jdbcType=VARCHAR}, #{gridCmodelName,jdbcType=VARCHAR}, #{modelTypeUuid,jdbcType=VARCHAR},
+      #{ruleType,jdbcType=VARCHAR}, #{ruleFormula,jdbcType=VARCHAR}, #{ruleFormulaDesc,jdbcType=VARCHAR},
+      #{orgCode,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP},
+      #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{isActive,jdbcType=CHAR},
+      #{version,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="priv.guochun.psmc.inquest.model.TabYcGridCalculationModel">
+    insert into tab_yc_grid_calculation_model
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gridCmodelUuid != null">
+        GRID_CMODEL_UUID,
+      </if>
+      <if test="gridCmodelName != null">
+        GRID_CMODEL_NAME,
+      </if>
+      <if test="modelTypeUuid != null">
+        MODEL_TYPE_UUID,
+      </if>
+      <if test="ruleType != null">
+        RULE_TYPE,
+      </if>
+      <if test="ruleFormula != null">
+        RULE_FORMULA,
+      </if>
+      <if test="ruleFormulaDesc != null">
+        RULE_FORMULA_DESC,
+      </if>
+      <if test="orgCode != null">
+        ORG_CODE,
+      </if>
+      <if test="sort != null">
+        SORT,
+      </if>
+      <if test="modifyTime != null">
+        MODIFY_TIME,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="isActive != null">
+        IS_ACTIVE,
+      </if>
+      <if test="version != null">
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gridCmodelUuid != null">
+        #{gridCmodelUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="gridCmodelName != null">
+        #{gridCmodelName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelTypeUuid != null">
+        #{modelTypeUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleType != null">
+        #{ruleType,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleFormula != null">
+        #{ruleFormula,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleFormulaDesc != null">
+        #{ruleFormulaDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isActive != null">
+        #{isActive,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tab_yc_grid_calculation_model
+    <set>
+      <if test="record.gridCmodelUuid != null">
+        GRID_CMODEL_UUID = #{record.gridCmodelUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gridCmodelName != null">
+        GRID_CMODEL_NAME = #{record.gridCmodelName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelTypeUuid != null">
+        MODEL_TYPE_UUID = #{record.modelTypeUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ruleType != null">
+        RULE_TYPE = #{record.ruleType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ruleFormula != null">
+        RULE_FORMULA = #{record.ruleFormula,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ruleFormulaDesc != null">
+        RULE_FORMULA_DESC = #{record.ruleFormulaDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgCode != null">
+        ORG_CODE = #{record.orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null">
+        SORT = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifyTime != null">
+        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null">
+        CREATOR = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isActive != null">
+        IS_ACTIVE = #{record.isActive,jdbcType=CHAR},
+      </if>
+      <if test="record.version != null">
+        VERSION = #{record.version,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tab_yc_grid_calculation_model
+    set GRID_CMODEL_UUID = #{record.gridCmodelUuid,jdbcType=VARCHAR},
+      GRID_CMODEL_NAME = #{record.gridCmodelName,jdbcType=VARCHAR},
+      MODEL_TYPE_UUID = #{record.modelTypeUuid,jdbcType=VARCHAR},
+      RULE_TYPE = #{record.ruleType,jdbcType=VARCHAR},
+      RULE_FORMULA = #{record.ruleFormula,jdbcType=VARCHAR},
+      RULE_FORMULA_DESC = #{record.ruleFormulaDesc,jdbcType=VARCHAR},
+      ORG_CODE = #{record.orgCode,jdbcType=VARCHAR},
+      SORT = #{record.sort,jdbcType=INTEGER},
+      MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+      CREATOR = #{record.creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      IS_ACTIVE = #{record.isActive,jdbcType=CHAR},
+      VERSION = #{record.version,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="priv.guochun.psmc.inquest.model.TabYcGridCalculationModel">
+    update tab_yc_grid_calculation_model
+    <set>
+      <if test="gridCmodelName != null">
+        GRID_CMODEL_NAME = #{gridCmodelName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelTypeUuid != null">
+        MODEL_TYPE_UUID = #{modelTypeUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleType != null">
+        RULE_TYPE = #{ruleType,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleFormula != null">
+        RULE_FORMULA = #{ruleFormula,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleFormulaDesc != null">
+        RULE_FORMULA_DESC = #{ruleFormulaDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        SORT = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isActive != null">
+        IS_ACTIVE = #{isActive,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        VERSION = #{version,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where GRID_CMODEL_UUID = #{gridCmodelUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="priv.guochun.psmc.inquest.model.TabYcGridCalculationModel">
+    update tab_yc_grid_calculation_model
+    set GRID_CMODEL_NAME = #{gridCmodelName,jdbcType=VARCHAR},
+      MODEL_TYPE_UUID = #{modelTypeUuid,jdbcType=VARCHAR},
+      RULE_TYPE = #{ruleType,jdbcType=VARCHAR},
+      RULE_FORMULA = #{ruleFormula,jdbcType=VARCHAR},
+      RULE_FORMULA_DESC = #{ruleFormulaDesc,jdbcType=VARCHAR},
+      ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+      SORT = #{sort,jdbcType=INTEGER},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      IS_ACTIVE = #{isActive,jdbcType=CHAR},
+      VERSION = #{version,jdbcType=VARCHAR}
+    where GRID_CMODEL_UUID = #{gridCmodelUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

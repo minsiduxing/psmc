@@ -12,15 +12,9 @@ $(document).ready(function(){
              * width:parseInt($(this).width()*0.3)
              */
             {field:'GRID_UUID',align:'center',title:'唯一标示',hidden:true},
-            {field:'GRID_NAME',align:'center',title:"网格名称",width:$(this).width() * 0.2},
-            {field:'ORG_NAME',align:'center',title:"所属专卖局",width:$(this).width() * 0.2},
-            {field:'GRID_PEPOLE_COUNT',align:'center',title:"网格人口数",width:$(this).width() * 0.2},
-            {field:'PLANNING_ISSUE_CERT_TOTAL',align:'center',title:"规划办证数量",width:$(this).width() * 0.2},
-            {field:'ACTUAL_ISSUE_CERT_TOTAL',align:'center',title:"已办证数量",width:$(this).width() * 0.2},
-            {field:'IS_MAINTAIN_COORDINATE',align:'center',title:"已采集坐标",width:$(this).width() * 0.2},
-            {field:'IS_CONFIGED_RULE_NAME',align:'center',title:"已配置规则",width:$(this).width() * 0.2},
             {field:'GRID_MTYPE_NAME',align:'center',title:"测算类别名称",width:$(this).width() * 0.2},
-            {field:'LEGAL_PROVISION_DESC',align:'left',title:"测算类别依据",width:$(this).width() * 1.5},
+            {field:'LEGAL_PROVISION_DESC',align:'left',title:"测算类别依据",width:$(this).width() * 1},
+            {field:'ORG_NAME',align:'center',title:"所属专卖局",width:$(this).width() * 0.2},
             {field:'11',align:'center',title:"操作结果",width:$(this).width() * 0.2}
         ]
         ]

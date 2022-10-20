@@ -36,6 +36,11 @@
 	<bean id="tabYcInquestItemCfgService" class="priv.guochun.psmc.inquest.service.impl.TabYcInquestItemCfgServiceImpl"/>
 	<bean id="tabYcWaitQueueCfgService" class="priv.guochun.psmc.inquest.service.impl.TabYcWaitQueueCfgServiceImpl"/>
 
+	<!--网格管理 -->
 	<bean id="tabYcGridBaseInfoService" class="priv.guochun.psmc.inquest.service.impl.TabYcGridBaseInfoServiceImpl"/>
+	<!--测算类别 -->
+	<bean id="tabYcGridModelTypeService" class="priv.guochun.psmc.inquest.service.impl.TabYcGridModelTypeServiceImpl"/>
+	<!--测算公式 -->
+	<bean id="tabYcGridCalculationModelService" class="priv.guochun.psmc.inquest.service.impl.TabYcGridCalculationModelServiceImpl"/>
 
 </beans>
