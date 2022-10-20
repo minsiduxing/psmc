@@ -16,6 +16,9 @@
       AND a.VERSION = #{version}
       AND b.VERSION = #{version}
     </if>
+    <if test="gridModelType != null">
+      AND a.MODEL_TYPE_UUID = #{gridModelType}
+    </if>
     order by a.model_type_uuid,sort asc
   </select>
 

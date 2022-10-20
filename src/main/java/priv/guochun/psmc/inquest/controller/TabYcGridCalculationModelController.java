@@ -24,9 +24,9 @@ public class TabYcGridCalculationModelController extends MyController {
     @Autowired
     private TabYcGridCalculationModelService tabYcGridCalculationModelService;
 
-    @RequestMapping(params="method=selectGridModelTypeInfoList")
+    @RequestMapping(params="method=selectGridCalculationModelInfoList")
     @ResponseBody
-    public void selectGridModelTypeInfoList(MyPage myPage,String version) throws IOException {
+    public void selectGridCalculationModelInfoList(MyPage myPage,String version) throws IOException {
         String orgCode = this.getUserBySeesion(this.request()).getGroupCode();
         Map<String, Object> queryParams = myPage.getQueryParams();
         if (queryParams == null){

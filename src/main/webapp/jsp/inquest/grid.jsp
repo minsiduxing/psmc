@@ -32,7 +32,7 @@
 
 <table id="sologTableId" style="width:100%"></table>
 <div id="toolbarId">
-	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">配置</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">测算公式</a>
 </div>
 
 <div id="ruleWin">
@@ -48,6 +48,9 @@
 
 	var getTabDataUrl = basePath+"/inquest/tabYcGridBaseinfoController.do";
 	getTabDataUrl ='<c:url value="'+getTabDataUrl+'"/>?method=selectGridInfoList';
+
+	var gridCaclUrl = basePath+"/jsp/inquest/gridCacl.jsp?version="+'<%=request.getParameter("version").toString() %>';
+
 
 
 </script>

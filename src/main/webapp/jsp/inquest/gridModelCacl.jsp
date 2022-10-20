@@ -47,7 +47,7 @@
 	var basePath = $("#basePath").val();
 
 	var getTabDataUrl = basePath+"/inquest/tabYcGridCalculationModelController.do";
-	getTabDataUrl ='<c:url value="'+getTabDataUrl+'"/>?method=selectGridModelTypeInfoList&version='+'<%=request.getParameter("version").toString() %>';
+	getTabDataUrl ='<c:url value="'+getTabDataUrl+'"/>?method=selectGridCalculationModelInfoList&version='+'<%=request.getParameter("version").toString() %>';
 
 </script>
 </html>
