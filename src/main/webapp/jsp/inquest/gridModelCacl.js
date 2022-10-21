@@ -14,10 +14,11 @@ $(document).ready(function(){
             {field:'GRID_CMODEL_UUID',align:'center',title:'唯一标示',hidden:true},
             {field:'GRID_MTYPE_NAME',align:'center',title:"测算类别名称",width:$(this).width() * 0.2},
             {field:'GRID_CMODEL_NAME',align:'center',title:"店面位置特征",width:$(this).width() * 0.3},
+            {field:'RULE_TYPE_NAME',align:'center',title:"计算方式",width:$(this).width() * 0.3},
+            {field:'SORT',align:'center',title:"计算顺序"},
             {field:'RULE_FORMULA',align:'left',title:"计算公式",width:$(this).width() * 0.5},
             {field:'RULE_FORMULA_DESC',align:'left',title:"计算公式说明",width:$(this).width() * 1},
             {field:'ORG_NAME',align:'center',title:"所属单位",width:$(this).width() * 0.2},
-            {field:'11',align:'center',title:"操作结果",width:$(this).width() * 0.2}
         ]
         ]
     };
