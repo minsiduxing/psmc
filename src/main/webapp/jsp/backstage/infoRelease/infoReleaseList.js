@@ -31,6 +31,9 @@ $(document).ready(function(){
 	                     if(value=='1502'){return "业务领域"; }
 	                     if(value=='1503'){return "新闻动态"; }
 	                     if(value=='1504'){return "联系我们"; }
+						 if(value=='1505'){return "欢迎页"; }
+						 if(value=='1506'){return "用户服务协议"; }
+						 if(value=='1507'){return "预判完毕告知"; }
 	                     if(value=='1601'){return "合伙人"; }
 	                     if(value=='1602'){return "专职律师"; }
 	                     if(value=='1603'){return "辅助人员"; }

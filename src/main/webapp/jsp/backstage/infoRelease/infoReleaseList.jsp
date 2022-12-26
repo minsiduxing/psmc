@@ -166,7 +166,7 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="javascript:event.preventDefault();" plain="true" id="undo" >撤销</a>
 	</g:auth>
 </c:if>
-	<c:if test="${param.oneLevelClassify=='15'}">
+	<c:if test="${param.oneLevelClassify=='15' || param.oneLevelClassify=='26'}">
 		<g:auth operateNo="<%=OperateContantsUtil.NEW_WORK_RELEASE_ADD%>">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
 		</g:auth>
