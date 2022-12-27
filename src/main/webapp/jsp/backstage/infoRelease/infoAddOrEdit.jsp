@@ -27,7 +27,7 @@
 				<td width="25%"><input id="newAutor" name="newAutor" style="width:50%;" value="${info.news_author}"/></td>
 			</tr>
 			<tr>
-				<c:if test="${oneLevelClassify == '14' || oneLevelClassify == '15' || oneLevelClassify == '16'}">
+				<c:if test="${oneLevelClassify == '14' || oneLevelClassify == '15' || oneLevelClassify == '16' || oneLevelClassify == '26'}">
 					<td class="tds">分类：</td>
 					<td width="25%"><input id="towLevelClassify" name="towLevelClassify" style="width:50%;"/></td>
 				</c:if>

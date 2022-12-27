@@ -3,10 +3,10 @@
 <mapper namespace="priv.guochun.psmc.inquest.model.TabYcGridCalculationModel">
 
   <select id="selectGridCalculationModelInfoList" resultType="java.util.Map" parameterType="hashmap">
-    select B.GRID_MTYPE_NAME,a.GRID_CMODEL_UUID, a.GRID_CMODEL_NAME, a.MODEL_TYPE_UUID,a.RULE_TYPE, RULE_FORMULA, a.RULE_FORMULA_DESC, a.ORG_CODE, a.SORT,a.MODIFY_TIME, a.CREATOR, a.CREATE_TIME, a.IS_ACTIVE, a.VERSION,
+    select B.GRID_MTYPE_NAME,a.GRID_CMODEL_UUID, a.GRID_CMODEL_NAME, a.MODEL_TYPE_UUID,a.RULE_TYPE,d.DICT_NAME as RULE_TYPE_NAME, RULE_FORMULA, a.RULE_FORMULA_DESC, a.ORG_CODE, a.SORT,a.MODIFY_TIME, a.CREATOR, a.CREATE_TIME, a.IS_ACTIVE, a.VERSION,
     c.group_name as ORG_NAME
-    from TAB_YC_GRID_CALCULATION_MODEL a,TAB_YC_GRID_MODEL_TYPE b,tab_group c
-    where a.model_type_uuid = b.grid_mtype_uuid and a.org_code = c.group_code
+    from TAB_YC_GRID_CALCULATION_MODEL a,TAB_YC_GRID_MODEL_TYPE b,tab_group c,tab_data_dict d
+    where a.model_type_uuid = b.grid_mtype_uuid and a.org_code = c.group_code and a.RULE_TYPE=d.dict_id and d.dict_no='RULE_TYPE'
     and a.is_active=1 and b.is_active=1
     <if test="orgCode != null">
       AND a.ORG_CODE like concat(concat(#{orgCode}),'%')
@@ -19,7 +19,7 @@
     <if test="gridModelType != null">
       AND a.MODEL_TYPE_UUID = #{gridModelType}
     </if>
-    order by a.model_type_uuid,sort asc
+    order by a.model_type_uuid,a.grid_cmodel_name,sort asc
   </select>
 
   <resultMap id="BaseResultMap" type="priv.guochun.psmc.inquest.model.TabYcGridCalculationModel">
