@@ -12,6 +12,9 @@
             where 1=1 AND B.IS_ACTIVE=1
             ) a,tab_data_dict b,tab_group c,tab_data_dict d where a.IS_CONFIGED_RULE=b.DICT_ID and b.DICT_NO='IF' and a.ORG_CODE=c.group_code
              and d.DICT_NO='IF' and d.DICT_ID=a.IS_MAINTAIN_COORDINATE
+        <if test="orgCode != null and orgCode !=''">
+            AND a.ORG_CODE like concat(#{orgCode},'%')
+        </if>
         <if test="gridName != null and gridName !=''">
             AND a.GRID_NAME like concat(concat('%',#{gridName}),'%')
         </if>
