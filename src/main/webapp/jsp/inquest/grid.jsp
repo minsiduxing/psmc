@@ -23,7 +23,7 @@
 					<input class="myinput" id="isMaintainCoordinate" name="isMaintainCoordinate"></input>
 				</li>
 				<li class="li-input"><label for="" class="input-label">网格测算类别：</label>
-					<input class="myinput" id="gridMtypeName" name="gridMtypeName"></input>
+					<input class="myinput" id="gridMtypeUuid" name="gridMtypeUuid"></input>
 				</li>
 			</ul>
 		</form>

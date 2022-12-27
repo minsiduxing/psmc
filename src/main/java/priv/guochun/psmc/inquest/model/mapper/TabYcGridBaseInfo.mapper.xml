@@ -7,7 +7,7 @@
             (    SELECT
             A.GRID_UUID, A.GRID_NAME, A.ORG_CODE, A.GRID_MODEL_TYPE, A.GRID_PEPOLE_COUNT, A.PLANNING_ISSUE_CERT_TOTAL,
         A.ACTUAL_ISSUE_CERT_TOTAL, (case when A.IS_MAINTAIN_COORDINATE is null then '2' else A.IS_MAINTAIN_COORDINATE end) IS_MAINTAIN_COORDINATE, A.GRID_COORDINATE,A.MODIFY_TIME, A.CREATOR,
-            A.CREATE_TIME,(CASE WHEN B.GRID_MTYPE_UUID IS NOT NULL THEN '1' ELSE '2' END) AS IS_CONFIGED_RULE,B.GRID_MTYPE_NAME,B.LEGAL_PROVISION_DESC
+            A.CREATE_TIME,(CASE WHEN B.GRID_MTYPE_UUID IS NOT NULL THEN '1' ELSE '2' END) AS IS_CONFIGED_RULE,B.GRID_MTYPE_UUID,B.GRID_MTYPE_NAME,B.LEGAL_PROVISION_DESC
             FROM TAB_YC_GRID_BASE_INFO A LEFT JOIN TAB_YC_GRID_MODEL_TYPE B ON A.GRID_MODEL_TYPE = B.GRID_MTYPE_UUID
             where 1=1 AND B.IS_ACTIVE=1
             ) a,tab_data_dict b,tab_group c,tab_data_dict d where a.IS_CONFIGED_RULE=b.DICT_ID and b.DICT_NO='IF' and a.ORG_CODE=c.group_code
@@ -23,6 +23,12 @@
         <if test="isMaintainCoordinate != null  and isMaintainCoordinate !=''">
             AND a.IS_MAINTAIN_COORDINATE = #{isMaintainCoordinate}
         </if>
+
+        <if test="gridMtypeUuid != null  and gridMtypeUuid !=''">
+            AND a.GRID_MTYPE_UUID = #{gridMtypeUuid}
+        </if>
+
+
         order by a.ORG_CODE,a.CREATE_TIME desc
     </select>
 

@@ -32,7 +32,7 @@ $(document).ready(function(){
 commonObj.initDictCombobox("isConfigEdRule","IF",null,false,true);
 commonObj.initDictCombobox("isMaintainCoordinate","IF",null,false,true);
 commonObj.initDictCombobox("GRID_MTYPE_NAME","IF",null,false,true);
-commonObj.initBusinessDictCombobox("gridMtypeName",loadGridModelTypeDictListUrl,false,true);
+commonObj.initBusinessDictCombobox("gridMtypeUuid",loadGridModelTypeDictListUrl,false,true);
 
 $('#gridName').textbox({
     iconAlign:'left'
