@@ -24,7 +24,7 @@ public class TabYcGridBaseInfoServiceImpl implements TabYcGridBaseInfoService {
         if(myPage.getQueryParams()!=null && myPage.getQueryParams().size()>0){
             condition.putAll(myPage.getQueryParams());
         }
-        myPage = baseDao.getMyPage(myPage,selectGridInfoList,null);
+        myPage = baseDao.getMyPage(myPage,selectGridInfoList,condition);
         return myPage;
     }
 }

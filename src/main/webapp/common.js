@@ -130,6 +130,35 @@ commonObj.initDictCombobox = function(id,dictNo,defaultValue,validate,isQuery,pa
 		}
 	});
 };
+/**
+ * 抓取业务的字典数据
+ * @param url
+ * @param validate
+ * @param isQuery
+ */
+commonObj.initBusinessDictCombobox = function(id,url,validate,isQuery){
+	$.ajax({
+		url: url,
+		dataType: 'json',
+		success: function(data){
+			// 修改ajax返回的值
+			if(isQuery){
+				data.unshift({'ID':'','NAME':'全部'});   //unshift方法添加到第一行，push方法添加到末尾
+			}else{
+//				if(!validate)
+				data.unshift({'ID':'','NAME':'请选择'}); //非查询，则第一行增加请选择
+			}
+			$('#'+id).combobox({
+				panelHeight:100,
+				data:data,
+				valueField:'ID',
+				textField:'NAME',
+				required:validate,
+				editable:false
+			});
+		}
+	});
+};
 
 commonObj.initPaginationGrid = function(option){
 	$('#'+option.tabId).datagrid({
