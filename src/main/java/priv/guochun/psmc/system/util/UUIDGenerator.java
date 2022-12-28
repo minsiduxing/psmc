@@ -36,9 +36,9 @@ public class UUIDGenerator {
             System.out.println("ss["+i+"]====="+ss[i]);   
         }
 
-        Map<String,String> map = new HashMap<String,String>();
-        map.put("GRID_PEOPLE_COUNT", "1999");
-        map.put("ACTUAL_ISSUE_CERT_TOTAL", "6");
+        Map<Object,Object> map = new HashMap<Object,Object>();
+//        map.put("GRID_PEOPLE_COUNT", "1999");
+//        map.put("ACTUAL_ISSUE_CERT_TOTAL", "6");
         boolean reusult = JetlUtil.execute("if(GRID_PEOPLE_COUNT<1000 || (GRID_PEOPLE_COUNT>=1000 && ACTUAL_ISSUE_CERT_TOTAL<5)){ if(GRID_PEOPLE_COUNT/200-ACTUAL_ISSUE_CERT_TOTAL>0){result=true}else{result=false} } else{ if((GRID_PEOPLE_COUNT-1000)/500-(ACTUAL_ISSUE_CERT_TOTAL-5)>0){result=true}else{result=false} }",map);
         System.out.println(reusult);
     }   
