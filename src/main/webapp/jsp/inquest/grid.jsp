@@ -13,14 +13,17 @@
 	<div title="信息查询" >
 		<form id="searchform" method="POST" class="query-form" >
 			<ul class="searchform">
-				<li class="li-input"><label for="" class="input-label">日志一级分类：</label>
-					<input class="myinput" id="log_type" name="log_type"></input>
+				<li class="li-input"><label for="" class="input-label">网格名称：</label>
+					<input class="myinput" id="gridName" name="gridName"></input>
 				</li>
-				<li class="li-input"><label for="" class="input-label">日志二级分类：</label>
-					<input class="myinput" id="log_sub_type" name="log_sub_type"></input>
+				<li class="li-input"><label for="" class="input-label">已配置规则：</label>
+					<input class="myinput" id="isConfigEdRule" name="isConfigEdRule"></input>
 				</li>
-				<li class="li-input"><label for="" class="input-label">操作人：</label>
-					<input class="myinput" id="opername" name="opername"></input>
+				<li class="li-input"><label for="" class="input-label">已采集坐标：</label>
+					<input class="myinput" id="isMaintainCoordinate" name="isMaintainCoordinate"></input>
+				</li>
+				<li class="li-input"><label for="" class="input-label">网格测算类别：</label>
+					<input class="myinput" id="gridMtypeUuid" name="gridMtypeUuid"></input>
 				</li>
 			</ul>
 		</form>
@@ -32,7 +35,7 @@
 
 <table id="sologTableId" style="width:100%"></table>
 <div id="toolbarId">
-	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">测算公式</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">查看测算公式</a>
 </div>
 
 <div id="ruleWin">
@@ -41,7 +44,6 @@
 
 
 </body>
-<script type="text/javascript" src="grid.js"></script>
 
 <script type="text/javascript">
 	var basePath = $("#basePath").val();
@@ -51,7 +53,11 @@
 
 	var gridCaclUrl = basePath+"/jsp/inquest/gridCacl.jsp?version="+'<%=request.getParameter("version").toString() %>';
 
+	var loadGridModelTypeDictListUrl = basePath+"/inquest/tabYcGridModelTypeController.do";
+	loadGridModelTypeDictListUrl ='<c:url value="'+loadGridModelTypeDictListUrl+'"/>?method=loadGridModelTypeDictList&version=<%=request.getParameter("version").toString() %>';
 
 
 </script>
+
+<script type="text/javascript" src="grid.js"></script>
 </html>

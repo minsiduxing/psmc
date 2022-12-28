@@ -14,7 +14,7 @@
 <input type="hidden" id="accountType" name="accountType" value="<c:out value="${account.ACCOUNT_TYPE}"/>"></input>
 <input type="hidden" id="idCard" name="idCard" value="<c:out value="${person.id_card}"/>"></input>
 <input type="hidden" id="authType" name="authType" value="<c:out value="${account.AUTH_TYPE}"/>"></input>
-<input type="text" id="isAuth" name="isAuth" value="<c:out value="${account.IS_AUTH}"/>"></input>
+<input type="hidden" id="isAuth" name="isAuth" value="<c:out value="${account.IS_AUTH}"/>"></input>
 <input type="hidden" id="area" name="area" value="<c:out value="${person.area}"/>"></input>
 <input type="hidden" id="province" name="province" value="<c:out value="${person.province}"/>"></input>
 <input type="hidden" id="city" name="city" value="<c:out value="${person.city}"/>"></input>
