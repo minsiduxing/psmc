@@ -27,4 +27,6 @@ public class TabYcGridCalculationModelServiceImpl implements TabYcGridCalculatio
         myPage = baseDao.getMyPage(myPage,selectGridCalculationModelInfoList,condition);
         return myPage;
     }
+
+
 }

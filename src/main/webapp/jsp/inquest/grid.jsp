@@ -36,6 +36,7 @@
 <table id="sologTableId" style="width:100%"></table>
 <div id="toolbarId">
 	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">查看测算公式</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="certCacl">测算能否办证</a>
 </div>
 
 <div id="ruleWin">
