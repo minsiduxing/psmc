@@ -40,4 +40,16 @@ public class TabYcGridCalculationModelController extends MyController {
         myPage = tabYcGridCalculationModelService.selectGridCalculationModelInfoList(myPage);
         super.responseJson(JsonUtil.convertJavaBeanToJSONObject(myPage), this.response());
     }
+
+    /**
+     * 根据网格查询对应的公示
+     * @param myPage
+     * @param version
+     * @throws IOException
+     */
+    @RequestMapping(params="method=queryGridCalcsByGirdUuid")
+    @ResponseBody
+    public void queryGridCalcsByGirdUuid(MyPage myPage,String version) throws IOException {
+
+    }
 }

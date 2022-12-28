@@ -36,4 +36,15 @@ public class TabYcGridBaseinfoController extends MyController {
         myPage = tabYcGridBaseInfoService.queryGridInfoList(myPage);
         super.responseJson(JsonUtil.convertJavaBeanToJSONObject(myPage), this.response());
     }
+
+    /**
+     * 办证测算功能
+     * @param myPage
+     * @throws IOException
+     */
+    public void handleCertCacl(MyPage myPage) throws IOException {
+        //1、查询该网格下的测算类别，根据测算类别查询测算公示，展示店面特征供申请人选择
+
+        //2、申请人选择店面特征后，后台根据选择的特征对应公式进行测算，返回测算结果
+    }
 }
