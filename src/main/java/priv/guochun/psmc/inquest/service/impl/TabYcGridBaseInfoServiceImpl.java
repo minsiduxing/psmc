@@ -27,4 +27,10 @@ public class TabYcGridBaseInfoServiceImpl implements TabYcGridBaseInfoService {
         myPage = baseDao.getMyPage(myPage,selectGridInfoList,condition);
         return myPage;
     }
+
+    public Map queryGirdInfoByGridUuid(String gridUuid){
+        Map<String,Object> condition = new HashMap<String,Object>();
+        condition.put("gridUuid",gridUuid);
+        return (Map)baseDao.queryForObject(selectGridInfoList,condition);
+    }
 }

@@ -30,7 +30,9 @@
         <if test="gridMtypeUuid != null  and gridMtypeUuid !=''">
             AND a.GRID_MTYPE_UUID = #{gridMtypeUuid}
         </if>
-
+        <if test="gridUuid != null  and gridUuid !=''">
+            AND a.GRID_UUID = #{gridUuid}
+        </if>
 
         order by a.ORG_CODE,a.CREATE_TIME desc
     </select>

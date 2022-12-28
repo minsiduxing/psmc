@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import priv.guochun.psmc.inquest.service.TabYcGridBaseInfoService;
+import priv.guochun.psmc.inquest.service.TabYcGridCalculationModelService;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.JsonUtil;
@@ -22,6 +23,8 @@ public class TabYcGridBaseinfoController extends MyController {
 
     @Autowired
     private TabYcGridBaseInfoService tabYcGridBaseInfoService;
+    @Autowired
+    private TabYcGridCalculationModelService tabYcGridCalculationModelService;
 
     @RequestMapping(params="method=selectGridInfoList")
     @ResponseBody
@@ -38,13 +41,13 @@ public class TabYcGridBaseinfoController extends MyController {
     }
 
     /**
-     * 办证测算功能
-     * @param myPage
+     * 测算网格下所有公式（是否具备办证能力，是否还有余量的意思）
+     * @param gridUuid 网格uuid
      * @throws IOException
      */
-    public void handleCertCacl(MyPage myPage) throws IOException {
-        //1、查询该网格下的测算类别，根据测算类别查询测算公示，展示店面特征供申请人选择
-
-        //2、申请人选择店面特征后，后台根据选择的特征对应公式进行测算，返回测算结果
+    @RequestMapping(params="method=gridHanleCertCacl")
+    @ResponseBody
+    public void gridHanleCertCacl(String gridUuid) throws IOException {
+        super.responseJson(tabYcGridCalculationModelService.gridHanleCertCacls(gridUuid),this.response());
     }
 }

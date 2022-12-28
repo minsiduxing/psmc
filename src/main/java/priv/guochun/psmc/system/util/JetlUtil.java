@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class JetlUtil {
 
-    public static Object execute(String resultKey,String expression, Map<String,String> params){
+    public static Object execute(String resultKey,String expression, Map<Object,Object> params){
         JexlContext jexlContext = null;
         try{
             JexlBuilder jexlBuilder = new JexlBuilder();
@@ -31,7 +31,7 @@ public class JetlUtil {
         return jexlContext != null ? jexlContext.get(resultKey) : null;
     }
 
-    public static boolean execute(String expression, Map<String,String> params) {
+    public static boolean execute(String expression, Map<Object,Object> params) {
         Object reuslt = execute("result", expression, params);
         return reuslt != null ?(Boolean)reuslt:false;
     }

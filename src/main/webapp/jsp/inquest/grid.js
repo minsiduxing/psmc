@@ -5,7 +5,7 @@ $(document).ready(function(){
         tabId:"sologTableId",
         toolbar:"toolbarId",
         showHeader:false,
-        url:getTabDataUrl,
+        url:selectGridInfoList,
         columns:[[
             /**
              * 可以解决表格右边空白的问题，但是没办法自适应浏览器大小，暂时不用
@@ -21,9 +21,10 @@ $(document).ready(function(){
             {field:'GRID_MTYPE_NAME',align:'center',title:"测算类别名称",width:$(this).width() * 0.2},
             {field:'LEGAL_PROVISION_DESC',align:'left',title:"测算类别依据",width:$(this).width() * 1.5},
             {field:'ORG_NAME',align:'center',title:"所属专卖局",width:$(this).width() * 0.2},
-            {field:'11',align:'center',title:"操作结果",width:$(this).width() * 0.2}
-        ]
-        ]
+            {field:'11',align:'center',title:"操作结果",width:$(this).width() * 0.2,formatter: function (value, row, index) {
+                    return "<a href='javascript:void(0)' onclick='gridhanleCertCacl(&apos;" + row['GRID_UUID'] + "&apos;)'>实时测算</a>";
+                }}
+        ]]
     };
     //初始化日志信息列表
     commonObj.initPaginationGrid(option);
@@ -43,7 +44,8 @@ $("#add").click(function(){
     if (rows.length == 1){
         var rowObj = eval(rows[0]);
         var gridModelType = rowObj.GRID_MODEL_TYPE;
-        var _url = gridCaclUrl+"&gridModelType="+gridModelType;
+        var gridUuid = rowObj.GRID_UUID;
+        var _url = gridCaclUrl+"&gridModelType="+gridModelType+"&gridUuid="+gridUuid;
     }else{
         commonObj.alert("请选择一条记录!","warning");
         return;
@@ -53,8 +55,7 @@ $("#add").click(function(){
         minimizable:false,
         collapsible:false,
         title:'网格测算公式',
-        width:"100%",
-        height:"100%",
+        fit:true,
         href:_url,
         modal:true,
         onBeforeClose:function (){
@@ -66,6 +67,38 @@ $("#add").click(function(){
         }
     });
 });
+
+//表单提交成功后的回调方法
+function successCallback(data){
+    $.messager.progress("close");
+    data = JSON.parse(data);
+    $.messager.show({
+        title:'测算结果',
+        msg:data.result.msg,
+        timeout:10000,
+        width:"500px",
+        height:"250px",
+        showType:'slide'
+    });
+    // commonObj.alert(data.result.msg,"info");
+}
+
+
+function gridhanleCertCacl(gridUuid){
+    $.messager.progress();
+    $.ajax({
+        type: "POST",
+        url: gridhanleCertCaclUrl,
+        data: "&gridUuid="+gridUuid,
+        success: function(data){
+            successCallback(data);
+        },
+        error:function(XMLHttpRequest, textStatus, errorThrown){
+            commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+            $.messager.progress("close");
+        }
+    });
+}
 
 
 

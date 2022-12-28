@@ -12,6 +12,8 @@ import java.io.Serializable;
  * @author wangtao
  * @date 2022/5/22
  */
+//后面不要用这个了，统一用MsgModel
+@Deprecated
 public class ResultInfo<T> implements Serializable {
 
     private T data;

@@ -19,6 +19,9 @@
     <if test="gridModelType != null">
       AND a.MODEL_TYPE_UUID = #{gridModelType}
     </if>
+    <if test="gridCmodelUuid != null">
+      AND a.GRID_CMODEL_UUID = #{gridCmodelUuid}
+    </if>
     order by a.model_type_uuid,a.grid_cmodel_name,sort asc
   </select>
 

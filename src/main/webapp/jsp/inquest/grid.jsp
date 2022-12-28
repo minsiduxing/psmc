@@ -35,8 +35,7 @@
 
 <table id="sologTableId" style="width:100%"></table>
 <div id="toolbarId">
-	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">查看测算公式</a>
-	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="certCacl">测算能否办证</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">测算公式</a>
 </div>
 
 <div id="ruleWin">
@@ -50,12 +49,14 @@
 	var basePath = $("#basePath").val();
 
 	var getTabDataUrl = basePath+"/inquest/tabYcGridBaseinfoController.do";
-	getTabDataUrl ='<c:url value="'+getTabDataUrl+'"/>?method=selectGridInfoList';
+	var selectGridInfoList ='<c:url value="'+getTabDataUrl+'"/>?method=selectGridInfoList';
 
 	var gridCaclUrl = basePath+"/jsp/inquest/gridCacl.jsp?version="+'<%=request.getParameter("version").toString() %>';
 
 	var loadGridModelTypeDictListUrl = basePath+"/inquest/tabYcGridModelTypeController.do";
 	loadGridModelTypeDictListUrl ='<c:url value="'+loadGridModelTypeDictListUrl+'"/>?method=loadGridModelTypeDictList&version=<%=request.getParameter("version").toString() %>';
+
+	var gridhanleCertCaclUrl ='<c:url value="'+getTabDataUrl+'"/>?method=gridHanleCertCacl';
 
 
 </script>
