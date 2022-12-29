@@ -25,11 +25,10 @@ $(document).ready(function(){
     //初始化日志信息列表
     commonObj.initPaginationGrid(option);
 });
+commonObj.initDictCombobox("ruleType","RULE_TYPE",null,false,true);
+commonObj.initBusinessDictCombobox("gridModelType",loadGridModelTypeDictListUrl,false,true);
 
-commonObj.initDictCombobox("log_type","LOG_TYPE",null,false,true);
-commonObj.initDictCombobox("log_sub_type","LOG_SUB_TYPE",null,false,true);
-
-$('#opername').textbox({
+$('#gridCmodelName').textbox({
     iconAlign:'left'
 });
 
