@@ -76,8 +76,8 @@ function successCallback(data){
         title:'测算结果',
         msg:data.result.msg,
         timeout:10000,
-        width:"500px",
-        height:"250px",
+        width:"600px",
+        height:"300px",
         showType:'slide'
     });
     // commonObj.alert(data.result.msg,"info");
