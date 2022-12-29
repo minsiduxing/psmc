@@ -12,6 +12,12 @@
     <if test="version != null">
       AND a.VERSION = #{version}
     </if>
+    <if test="gridMtypeName != null">
+      AND a.GRID_MTYPE_NAME like concat(concat('%',#{gridMtypeName}),'%')
+    </if>
+    <if test="legalProvisionDesc != null">
+      AND a.LEGAL_PROVISION_DESC like concat(concat('%',#{legalProvisionDesc}),'%')
+    </if>
     order by ORG_CODE,SORT desc
   </select>
 

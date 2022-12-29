@@ -8,20 +8,27 @@
     from TAB_YC_GRID_CALCULATION_MODEL a,TAB_YC_GRID_MODEL_TYPE b,tab_group c,tab_data_dict d
     where a.model_type_uuid = b.grid_mtype_uuid and a.org_code = c.group_code and a.RULE_TYPE=d.dict_id and d.dict_no='RULE_TYPE'
     and a.is_active=1 and b.is_active=1
-    <if test="orgCode != null">
+    <if test="orgCode != null and orgCode !='' ">
       AND a.ORG_CODE like concat(concat(#{orgCode}),'%')
       AND b.ORG_CODE like concat(concat(#{orgCode}),'%')
     </if>
-    <if test="version != null">
+    <if test="version != null and version !='' ">
       AND a.VERSION = #{version}
       AND b.VERSION = #{version}
     </if>
-    <if test="gridModelType != null">
+    <if test="gridModelType != null and gridModelType !='' ">
       AND a.MODEL_TYPE_UUID = #{gridModelType}
     </if>
-    <if test="gridCmodelUuid != null">
+    <if test="gridCmodelUuid != null and gridCmodelUuid !='' ">
       AND a.GRID_CMODEL_UUID = #{gridCmodelUuid}
     </if>
+    <if test="gridCmodelName != null and gridCmodelName !=''">
+      AND a.GRID_CMODEL_NAME like concat(concat('%',#{gridCmodelName}),'%')
+    </if>
+    <if test="ruleType != null and ruleType !='' ">
+      AND a.RULE_TYPE = #{ruleType}
+    </if>
+
     order by a.model_type_uuid,a.grid_cmodel_name,sort asc
   </select>
 
