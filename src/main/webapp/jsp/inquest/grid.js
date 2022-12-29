@@ -13,6 +13,7 @@ $(document).ready(function(){
              */
             {field:'GRID_UUID',align:'center',title:'唯一标示',checkbox:true},
             {field:'GRID_NAME',align:'center',title:"网格名称",width:$(this).width() * 0.2},
+            {field:'GRID_TYPE_NAME',align:'center',title:"网格类型",width:$(this).width() * 0.2},
             {field:'GRID_PEPOLE_COUNT',align:'center',title:"网格人口数",width:$(this).width() * 0.2},
             {field:'PLANNING_ISSUE_CERT_TOTAL',align:'center',title:"规划办证数量",width:$(this).width() * 0.2},
             {field:'ACTUAL_ISSUE_CERT_TOTAL',align:'center',title:"已办证数量",width:$(this).width() * 0.2},
@@ -30,6 +31,7 @@ $(document).ready(function(){
     commonObj.initPaginationGrid(option);
 });
 
+commonObj.initDictCombobox("gridType","GRID_TYPE",null,false,true);
 commonObj.initDictCombobox("isConfigEdRule","IF",null,false,true);
 commonObj.initDictCombobox("isMaintainCoordinate","IF",null,false,true);
 commonObj.initDictCombobox("GRID_MTYPE_NAME","IF",null,false,true);

@@ -16,6 +16,9 @@
 				<li class="li-input"><label for="" class="input-label">网格名称：</label>
 					<input class="myinput" id="gridName" name="gridName"></input>
 				</li>
+				<li class="li-input"><label for="" class="input-label">网格类型：</label>
+					<input class="myinput" id="gridType" name="gridType"></input>
+				</li>
 				<li class="li-input"><label for="" class="input-label">已配置规则：</label>
 					<input class="myinput" id="isConfigEdRule" name="isConfigEdRule"></input>
 				</li>
