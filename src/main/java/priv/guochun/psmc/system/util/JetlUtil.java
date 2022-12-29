@@ -27,6 +27,7 @@ public class JetlUtil {
             jexlScript.execute(jexlContext);
         }catch(Exception e){
             e.printStackTrace();
+            throw new RuntimeException("JETL表达式执行失败,错误信息："+e.getMessage());
         }
         return jexlContext != null ? jexlContext.get(resultKey) : null;
     }

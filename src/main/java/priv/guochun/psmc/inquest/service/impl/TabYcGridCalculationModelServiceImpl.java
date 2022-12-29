@@ -1,5 +1,7 @@
 package priv.guochun.psmc.inquest.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import priv.guochun.psmc.inquest.service.TabYcGridBaseInfoService;
 import priv.guochun.psmc.inquest.service.TabYcGridCalculationModelService;
@@ -7,6 +9,7 @@ import priv.guochun.psmc.system.framework.dao.BaseDao;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.JetlUtil;
+import priv.guochun.psmc.system.util.JsonUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -57,9 +60,19 @@ public class TabYcGridCalculationModelServiceImpl implements TabYcGridCalculatio
         String GRID_CMODEL_NAME = GridCmodelMap.get("GRID_CMODEL_NAME").toString();
         String  RULE_TYPE_NAME = GridCmodelMap.get("RULE_TYPE_NAME").toString();
         String expre = GridCmodelMap.get("RULE_FORMULA").toString();
-        boolean result = JetlUtil.execute(expre,GridMap);
+        JSONObject tips = JSONObject.parseObject(GridCmodelMap.get("TIPS").toString());
+        boolean result = false;
         StringBuffer sb1 = new StringBuffer();
-        String reusltDesc = result == true?"成功":"失败";
+        String reusltDesc;
+        try{
+            result = JetlUtil.execute(expre,GridMap);
+            if(result)
+                reusltDesc =tips.get("cacl_success").toString();
+            else
+                reusltDesc =tips.get("cacl_failed").toString();
+        }catch(RuntimeException e){
+            reusltDesc =tips.get("process_failed").toString();
+        }
         sb1.append("网格【"+GRID_NAME+"】").append("店面【"+GRID_CMODEL_NAME+"】").append(RULE_TYPE_NAME).append(reusltDesc);
         return sb1.toString();
     }
@@ -67,19 +80,13 @@ public class TabYcGridCalculationModelServiceImpl implements TabYcGridCalculatio
     public MsgModel gridHanleCertCacls(String gridUuid){
         StringBuffer sb1 = new StringBuffer();
         Map GridMap = tabYcGridBaseInfoService.queryGirdInfoByGridUuid(gridUuid);
-        String GRID_NAME = GridMap.get("GRID_NAME").toString();
         String GRID_MODEL_TYPE = GridMap.get("GRID_MODEL_TYPE").toString();
         List<Map> list = queryGridCalculationModelBygridModelTypeUuid(GRID_MODEL_TYPE);
         for(int i=0;i<list.size();i++){
             Map map = list.get(i);
-            String GRID_CMODEL_NAME = map.get("GRID_CMODEL_NAME").toString();
-            String  RULE_TYPE_NAME = map.get("RULE_TYPE_NAME").toString();
-            String expre = map.get("RULE_FORMULA").toString();
-            boolean result = JetlUtil.execute(expre,GridMap);
-            StringBuffer sb2 = new StringBuffer();
-            String reusltDesc = result == true?"成功":"失败";
-            sb2.append("网格【"+GRID_NAME+"】").append("店面【"+GRID_CMODEL_NAME+"】").append(RULE_TYPE_NAME).append(reusltDesc).append("</br>");
-            sb1.append(sb2);
+            String GRID_CMODEL_UUID = map.get("GRID_CMODEL_UUID").toString();
+            String result =hanleCertCacl(GRID_CMODEL_UUID,gridUuid);
+            sb1.append(result);
         }
         return MsgModel.buildDefaultSuccess(sb1.toString(),null);
     }
