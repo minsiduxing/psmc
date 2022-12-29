@@ -22,7 +22,7 @@
 				<li class="li-input"><label for="" class="input-label">已采集坐标：</label>
 					<input class="myinput" id="isMaintainCoordinate" name="isMaintainCoordinate"></input>
 				</li>
-				<li class="li-input"><label for="" class="input-label">网格测算类别：</label>
+				<li class="li-input"><label for="" class="input-label">测算类别：</label>
 					<input class="myinput" id="gridMtypeUuid" name="gridMtypeUuid"></input>
 				</li>
 			</ul>

@@ -13,14 +13,11 @@
 	<div title="信息查询" >
 		<form id="searchform" method="POST" class="query-form" >
 			<ul class="searchform">
-				<li class="li-input"><label for="" class="input-label">日志一级分类：</label>
-					<input class="myinput" id="log_type" name="log_type"></input>
+				<li class="li-input"><label for="" class="input-label">测算类别名称：</label>
+					<input class="myinput" id="gridMtypeName" name="gridMtypeName"></input>
 				</li>
-				<li class="li-input"><label for="" class="input-label">日志二级分类：</label>
-					<input class="myinput" id="log_sub_type" name="log_sub_type"></input>
-				</li>
-				<li class="li-input"><label for="" class="input-label">操作人：</label>
-					<input class="myinput" id="opername" name="opername"></input>
+				<li class="li-input"><label for="" class="input-label">测算类别依据：</label>
+					<input class="myinput" id="legalProvisionDesc" name="legalProvisionDesc"></input>
 				</li>
 			</ul>
 		</form>
