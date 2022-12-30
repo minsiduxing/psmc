@@ -43,4 +43,9 @@
 	<!--测算公式 -->
 	<bean id="tabYcGridCalculationModelService" class="priv.guochun.psmc.inquest.service.impl.TabYcGridCalculationModelServiceImpl"/>
 
+	<bean id="tabYcLicInfoService" class="priv.guochun.psmc.inquest.service.impl.TabYcLicInfoServiceImpl"/>
+	<bean id="tabYcQueueManageService" class="priv.guochun.psmc.inquest.service.impl.TabYcQueueManageServiceImpl"/>
+	<bean id="tabYcRegionCoordinateService" class="priv.guochun.psmc.inquest.service.impl.TabYcRegionCoordinateServiceImpl"/>
+
+
 </beans>

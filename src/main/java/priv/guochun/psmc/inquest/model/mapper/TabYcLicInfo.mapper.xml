@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="priv.guochun.psmc.inquest.model.TabYcLicInfo" >
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.inquest.model.TabYcLicInfo" >
+    <result column="lic_uuid" property="licUuid" jdbcType="VARCHAR" />
+    <result column="lic_no" property="licNo" jdbcType="VARCHAR" />
+    <result column="manager_name" property="managerName" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="business_addr" property="businessAddr" jdbcType="VARCHAR" />
+    <result column="credit_no" property="creditNo" jdbcType="VARCHAR" />
+    <result column="idcard_no" property="idcardNo" jdbcType="VARCHAR" />
+    <result column="lic_start_date" property="licStartDate"  />
+    <result column="lic_end_date" property="licEndDate"  />
+    <result column="lic_status" property="licStatus" jdbcType="VARCHAR" />
+    <result column="line_tel" property="lineTel" jdbcType="VARCHAR" />
+    <result column="close_decide_time" property="closeDecideTime" jdbcType="TIMESTAMP" />
+    <result column="grid_name" property="gridName" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="DECIMAL" />
+    <result column="latitude" property="latitude" jdbcType="DECIMAL" />
+    <result column="is_not_consult" property="isNotConsult" jdbcType="TINYINT" />
+    <result column="not_consult_type" property="notConsultType" jdbcType="VARCHAR" />
+    <result column="is_active" property="isActive" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="licStatusName" property="licStatusName"/>
+    <result column="notConsultTypeName" property="notConsultTypeName"/>
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    lic_uuid, lic_no, manager_name, company_name, business_addr, credit_no, idcard_no, 
+    lic_start_date, lic_end_date, lic_status, line_tel, close_decide_time, grid_name, 
+    longitude, latitude, is_not_consult, not_consult_type, is_active, create_time, creator, 
+    modify_time
+  </sql>
+
+  <select id="selectLicInfoPage" resultMap="BaseResultMap" parameterType="hashmap">
+    SELECT
+      a.*,
+      b.DICT_NAME AS licStatusName,
+      c.DICT_NAME AS notConsultTypeName
+    FROM tab_yc_lic_info a
+    LEFT JOIN tab_data_dict b ON a.lic_status = b.DICT_ID and b.DICT_NO = 'LIC_STATUS'
+    LEFT JOIN tab_data_dict c ON a.not_consult_type = c.DICT_ID and c.DICT_NO = 'NOT_CONSULT_TYPE'
+    where a.is_active = 1
+    <if test="licNo != null and licNo != ''">
+      and a.lic_no = #{licNo}
+    </if>
+    <if test="gridName != null and gridName != ''">
+      and a.grid_name = #{gridName}
+    </if>
+    <if test="licStatus != null and licStatus != ''">
+      and a.lic_status = #{licStatus}
+    </if>
+    <if test="managerName != null and managerName != ''">
+      and a.manager_name like concat('%', #{managerName}, '%')
+    </if>
+    <if test="companyName != null and companyName != ''">
+      and a.company_name like concat('%', #{companyName}, '%')
+    </if>
+    <if test="isNotConsult != null">
+      and a.is_not_consult = #{isNotConsult}
+    </if>
+  </select>
+
+  <insert id="insert" parameterType="priv.guochun.psmc.inquest.model.TabYcLicInfo" >
+    insert into tab_yc_lic_info (lic_uuid, lic_no, manager_name, 
+      company_name, business_addr, credit_no, 
+      idcard_no, lic_start_date, lic_end_date, 
+      lic_status, line_tel, close_decide_time, 
+      grid_name, longitude, latitude, 
+      is_not_consult, not_consult_type, is_active, 
+      create_time, creator, modify_time
+      )
+    values (#{licUuid,jdbcType=VARCHAR}, #{licNo,jdbcType=VARCHAR}, #{managerName,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=VARCHAR}, #{businessAddr,jdbcType=VARCHAR}, #{creditNo,jdbcType=VARCHAR}, 
+      #{idcardNo,jdbcType=VARCHAR}, #{licStartDate}, #{licEndDate},
+      #{licStatus,jdbcType=VARCHAR}, #{lineTel,jdbcType=VARCHAR}, #{closeDecideTime,jdbcType=TIMESTAMP}, 
+      #{gridName,jdbcType=VARCHAR}, #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, 
+      #{isNotConsult,jdbcType=TINYINT}, #{notConsultType,jdbcType=VARCHAR}, #{isActive,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="priv.guochun.psmc.inquest.model.TabYcLicInfo" >
+    insert into tab_yc_lic_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="licUuid != null" >
+        lic_uuid,
+      </if>
+      <if test="licNo != null" >
+        lic_no,
+      </if>
+      <if test="managerName != null" >
+        manager_name,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="businessAddr != null" >
+        business_addr,
+      </if>
+      <if test="creditNo != null" >
+        credit_no,
+      </if>
+      <if test="idcardNo != null" >
+        idcard_no,
+      </if>
+      <if test="licStartDate != null" >
+        lic_start_date,
+      </if>
+      <if test="licEndDate != null" >
+        lic_end_date,
+      </if>
+      <if test="licStatus != null" >
+        lic_status,
+      </if>
+      <if test="lineTel != null" >
+        line_tel,
+      </if>
+      <if test="closeDecideTime != null" >
+        close_decide_time,
+      </if>
+      <if test="gridName != null" >
+        grid_name,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="isNotConsult != null" >
+        is_not_consult,
+      </if>
+      <if test="notConsultType != null" >
+        not_consult_type,
+      </if>
+      <if test="isActive != null" >
+        is_active,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="licUuid != null" >
+        #{licUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="licNo != null" >
+        #{licNo,jdbcType=VARCHAR},
+      </if>
+      <if test="managerName != null" >
+        #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessAddr != null" >
+        #{businessAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="creditNo != null" >
+        #{creditNo,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardNo != null" >
+        #{idcardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="licStartDate != null" >
+        #{licStartDate},
+      </if>
+      <if test="licEndDate != null" >
+        #{licEndDate},
+      </if>
+      <if test="licStatus != null" >
+        #{licStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="lineTel != null" >
+        #{lineTel,jdbcType=VARCHAR},
+      </if>
+      <if test="closeDecideTime != null" >
+        #{closeDecideTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gridName != null" >
+        #{gridName,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="isNotConsult != null" >
+        #{isNotConsult,jdbcType=TINYINT},
+      </if>
+      <if test="notConsultType != null" >
+        #{notConsultType,jdbcType=VARCHAR},
+      </if>
+      <if test="isActive != null" >
+        #{isActive,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByIdSelective" parameterType="map" >
+    update tab_yc_lic_info
+    <set >
+      <if test="record.licNo != null" >
+        lic_no = #{record.licNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managerName != null" >
+        manager_name = #{record.managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessAddr != null" >
+        business_addr = #{record.businessAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditNo != null" >
+        credit_no = #{record.creditNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardNo != null" >
+        idcard_no = #{record.idcardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licStartDate != null" >
+        lic_start_date = #{record.licStartDate},
+      </if>
+      <if test="record.licEndDate != null" >
+        lic_end_date = #{record.licEndDate},
+      </if>
+      <if test="record.licStatus != null" >
+        lic_status = #{record.licStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lineTel != null" >
+        line_tel = #{record.lineTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.closeDecideTime != null" >
+        close_decide_time = #{record.closeDecideTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gridName != null" >
+        grid_name = #{record.gridName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitude != null" >
+        longitude = #{record.longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.latitude != null" >
+        latitude = #{record.latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isNotConsult != null" >
+        is_not_consult = #{record.isNotConsult,jdbcType=TINYINT},
+      </if>
+      <if test="record.notConsultType != null" >
+        not_consult_type = #{record.notConsultType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isActive != null" >
+        is_active = #{record.isActive,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where lic_uuid = #{record.licUuid,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateById" parameterType="map" >
+    update tab_yc_lic_info
+    set
+      lic_no = #{record.licNo,jdbcType=VARCHAR},
+      manager_name = #{record.managerName,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      business_addr = #{record.businessAddr,jdbcType=VARCHAR},
+      credit_no = #{record.creditNo,jdbcType=VARCHAR},
+      idcard_no = #{record.idcardNo,jdbcType=VARCHAR},
+      lic_start_date = #{record.licStartDate},
+      lic_end_date = #{record.licEndDate},
+      lic_status = #{record.licStatus,jdbcType=VARCHAR},
+      line_tel = #{record.lineTel,jdbcType=VARCHAR},
+      close_decide_time = #{record.closeDecideTime,jdbcType=TIMESTAMP},
+      grid_name = #{record.gridName,jdbcType=VARCHAR},
+      longitude = #{record.longitude,jdbcType=DECIMAL},
+      latitude = #{record.latitude,jdbcType=DECIMAL},
+      is_not_consult = #{record.isNotConsult,jdbcType=TINYINT},
+      not_consult_type = #{record.notConsultType,jdbcType=VARCHAR},
+      is_active = #{record.isActive,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+    where lic_uuid = #{record.licUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="priv.guochun.psmc.inquest.model.TabYcRegionCoordinate" >
+
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.inquest.model.TabYcRegionCoordinate" >
+    <result column="coord_uuid" property="coordUuid" jdbcType="VARCHAR" />
+    <result column="region_type" property="regionType" jdbcType="VARCHAR" />
+    <result column="region_name" property="regionName" jdbcType="VARCHAR" />
+    <result column="region_addr" property="regionAddr" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="DECIMAL" />
+    <result column="latitude" property="latitude" jdbcType="DECIMAL" />
+    <result column="is_active" property="isActive" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="regionTypeName" property="regionTypeName" />
+    <result column="coordinate" property="coordinate"/>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    coord_uuid, region_type, region_name, region_addr, longitude, latitude, is_active, 
+    create_time, modify_time, creator
+  </sql>
+
+  <select id="selectRegionCoordinatePage" resultMap="BaseResultMap" parameterType="hashmap">
+    SELECT a.coord_uuid,
+           a.region_type,
+           a.region_name,
+           a.region_addr,
+           a.longitude,
+           a.latitude,
+           a.is_active,
+           a.create_time,
+           a.modify_time,
+           a.creator,
+           b.DICT_NAME AS regionTypeName,
+           concat(a.longitude, ',', a.latitude) AS coordinate
+    FROM
+      tab_yc_region_coordinate a
+    inner JOIN tab_data_dict b ON a.region_type = b.DICT_ID and b.DICT_NO = 'REGION_TYPE'
+    where 1=1
+    <if test="isActive != null ">
+      and a.is_active = #{isActive}
+    </if>
+    <if test="regionType != null and regionType != ''">
+      and a.region_type = #{regionType}
+    </if>
+    <if test="coordUuid != null and coordUuid != ''">
+      and a.coord_uuid = #{coordUuid}
+    </if>
+    <if test="regionName != null and regionName != ''">
+      and a.region_name like concat('%', #{regionName}, '%')
+    </if>
+  </select>
+
+  <insert id="insert" parameterType="priv.guochun.psmc.inquest.model.TabYcRegionCoordinate" >
+    insert into tab_yc_region_coordinate (coord_uuid, region_type, region_name, 
+      region_addr, longitude, latitude, 
+      is_active, create_time, modify_time, 
+      creator)
+    values (#{coordUuid,jdbcType=VARCHAR}, #{regionType,jdbcType=VARCHAR}, #{regionName,jdbcType=VARCHAR}, 
+      #{regionAddr,jdbcType=VARCHAR}, #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, 
+      #{isActive,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="priv.guochun.psmc.inquest.model.TabYcRegionCoordinate" >
+    insert into tab_yc_region_coordinate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="coordUuid != null" >
+        coord_uuid,
+      </if>
+      <if test="regionType != null" >
+        region_type,
+      </if>
+      <if test="regionName != null" >
+        region_name,
+      </if>
+      <if test="regionAddr != null" >
+        region_addr,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="isActive != null" >
+        is_active,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="coordUuid != null" >
+        #{coordUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="regionType != null" >
+        #{regionType,jdbcType=VARCHAR},
+      </if>
+      <if test="regionName != null" >
+        #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionAddr != null" >
+        #{regionAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="isActive != null" >
+        #{isActive,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByIdSelective" parameterType="map" >
+    update tab_yc_region_coordinate
+    <set >
+      <if test="record.regionType != null" >
+        region_type = #{record.regionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regionName != null" >
+        region_name = #{record.regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regionAddr != null" >
+        region_addr = #{record.regionAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitude != null" >
+        longitude = #{record.longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.latitude != null" >
+        latitude = #{record.latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isActive != null" >
+        is_active = #{record.isActive,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where coord_uuid = #{record.coordUuid,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateById" parameterType="map" >
+    update tab_yc_region_coordinate
+    set
+      region_type = #{record.regionType,jdbcType=VARCHAR},
+      region_name = #{record.regionName,jdbcType=VARCHAR},
+      region_addr = #{record.regionAddr,jdbcType=VARCHAR},
+      longitude = #{record.longitude,jdbcType=DECIMAL},
+      latitude = #{record.latitude,jdbcType=DECIMAL},
+      is_active = #{record.isActive,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=VARCHAR}
+    where coord_uuid = #{record.coordUuid,jdbcType=VARCHAR}
+  </update>
+
+</mapper>
