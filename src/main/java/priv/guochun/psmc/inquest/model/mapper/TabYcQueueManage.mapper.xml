@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="priv.guochun.psmc.inquest.model.TabYcQueueManage" >
+
+  <resultMap id="BaseResultMap" type="priv.guochun.psmc.inquest.model.TabYcQueueManage" >
+    <result column="queue_uuid" property="queueUuid" jdbcType="VARCHAR" />
+    <result column="grid_name" property="gridName" jdbcType="VARCHAR" />
+    <result column="manager_name" property="managerName" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="credit_no" property="creditNo" jdbcType="VARCHAR" />
+    <result column="business_addr" property="businessAddr" jdbcType="VARCHAR" />
+    <result column="line_tel" property="lineTel" jdbcType="VARCHAR" />
+    <result column="is_priority" property="isPriority" jdbcType="TINYINT" />
+    <result column="priority_condition" property="priorityCondition" jdbcType="VARCHAR" />
+    <result column="apply_status" property="applyStatus" jdbcType="VARCHAR" />
+    <result column="notice_date" property="noticeDate" jdbcType="DATE" />
+    <result column="finish_type" property="finishType" jdbcType="VARCHAR" />
+    <result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="is_active" property="isActive" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="applyStatusName" property="applyStatusName"/>
+    <result column="finishTypeName" property="finishTypeName"/>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    queue_uuid, grid_name, manager_name, company_name, credit_no, business_addr, line_tel, 
+    is_priority, priority_condition, apply_status, notice_date, finish_type, finish_time, 
+    remark, is_active, create_time, creator, modify_time
+  </sql>
+
+  <select id="selectQueueManagePage" resultMap="BaseResultMap" parameterType="hashmap">
+    SELECT
+      a.*,
+      b.DICT_NAME AS applyStatusName,
+      c.DICT_NAME AS finishTypeName
+    FROM tab_yc_queue_manage a
+    LEFT JOIN tab_data_dict b ON a.apply_status = b.DICT_ID and b.DICT_NO = 'APPLY_STATUS'
+    LEFT JOIN tab_data_dict c ON a.finish_type = c.DICT_ID and c.DICT_NO = 'FINISH_TYPE'
+    where a.is_active = 1
+    <if test="isPriority != null">
+      and a.is_priority = #{isPriority}
+    </if>
+    <if test="applyStatus != null and applyStatus != ''">
+      and a.apply_status = #{applyStatus}
+    </if>
+    <if test="finishType != null and finishType != ''">
+      and a.finish_type = #{finishType}
+    </if>
+    <if test="gridName != null and gridName != ''">
+      and a.grid_name like concat('%', #{gridName}, '%')
+    </if>
+    <if test="managerName != null and managerName != ''">
+      and a.manager_name like concat('%', #{managerName}, '%')
+    </if>
+    <if test="companyName != null and companyName != ''">
+      and a.company_name like concat('%', #{companyName}, '%')
+    </if>
+    <if test="creditNo != null and creditNo != ''">
+      and a.credit_no like concat('%', #{creditNo}, '%')
+    </if>
+  </select>
+
+  <insert id="insert" parameterType="priv.guochun.psmc.inquest.model.TabYcQueueManage" >
+    insert into tab_yc_queue_manage (queue_uuid, grid_name, manager_name, 
+      company_name, credit_no, business_addr, 
+      line_tel, is_priority, priority_condition, 
+      apply_status, notice_date, finish_type, 
+      finish_time, remark, is_active, 
+      create_time, creator, modify_time
+      )
+    values (#{queueUuid,jdbcType=VARCHAR}, #{gridName,jdbcType=VARCHAR}, #{managerName,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=VARCHAR}, #{creditNo,jdbcType=VARCHAR}, #{businessAddr,jdbcType=VARCHAR}, 
+      #{lineTel,jdbcType=VARCHAR}, #{isPriority,jdbcType=TINYINT}, #{priorityCondition,jdbcType=VARCHAR}, 
+      #{applyStatus,jdbcType=VARCHAR}, #{noticeDate,jdbcType=DATE}, #{finishType,jdbcType=VARCHAR}, 
+      #{finishTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{isActive,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="priv.guochun.psmc.inquest.model.TabYcQueueManage" >
+    insert into tab_yc_queue_manage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="queueUuid != null" >
+        queue_uuid,
+      </if>
+      <if test="gridName != null" >
+        grid_name,
+      </if>
+      <if test="managerName != null" >
+        manager_name,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="creditNo != null" >
+        credit_no,
+      </if>
+      <if test="businessAddr != null" >
+        business_addr,
+      </if>
+      <if test="lineTel != null" >
+        line_tel,
+      </if>
+      <if test="isPriority != null" >
+        is_priority,
+      </if>
+      <if test="priorityCondition != null" >
+        priority_condition,
+      </if>
+      <if test="applyStatus != null" >
+        apply_status,
+      </if>
+      <if test="noticeDate != null" >
+        notice_date,
+      </if>
+      <if test="finishType != null" >
+        finish_type,
+      </if>
+      <if test="finishTime != null" >
+        finish_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="isActive != null" >
+        is_active,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="queueUuid != null" >
+        #{queueUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="gridName != null" >
+        #{gridName,jdbcType=VARCHAR},
+      </if>
+      <if test="managerName != null" >
+        #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="creditNo != null" >
+        #{creditNo,jdbcType=VARCHAR},
+      </if>
+      <if test="businessAddr != null" >
+        #{businessAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="lineTel != null" >
+        #{lineTel,jdbcType=VARCHAR},
+      </if>
+      <if test="isPriority != null" >
+        #{isPriority,jdbcType=TINYINT},
+      </if>
+      <if test="priorityCondition != null" >
+        #{priorityCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="applyStatus != null" >
+        #{applyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeDate != null" >
+        #{noticeDate,jdbcType=DATE},
+      </if>
+      <if test="finishType != null" >
+        #{finishType,jdbcType=VARCHAR},
+      </if>
+      <if test="finishTime != null" >
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isActive != null" >
+        #{isActive,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByIdSelective" parameterType="map" >
+    update tab_yc_queue_manage
+    <set >
+      <if test="record.gridName != null" >
+        grid_name = #{record.gridName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managerName != null" >
+        manager_name = #{record.managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditNo != null" >
+        credit_no = #{record.creditNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessAddr != null" >
+        business_addr = #{record.businessAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lineTel != null" >
+        line_tel = #{record.lineTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPriority != null" >
+        is_priority = #{record.isPriority,jdbcType=TINYINT},
+      </if>
+      <if test="record.priorityCondition != null" >
+        priority_condition = #{record.priorityCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyStatus != null" >
+        apply_status = #{record.applyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noticeDate != null" >
+        notice_date = #{record.noticeDate,jdbcType=DATE},
+      </if>
+      <if test="record.finishType != null" >
+        finish_type = #{record.finishType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finishTime != null" >
+        finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isActive != null" >
+        is_active = #{record.isActive,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where queue_uuid = #{record.queueUuid,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateById" parameterType="map" >
+    update tab_yc_queue_manage
+    set
+      grid_name = #{record.gridName,jdbcType=VARCHAR},
+      manager_name = #{record.managerName,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      credit_no = #{record.creditNo,jdbcType=VARCHAR},
+      business_addr = #{record.businessAddr,jdbcType=VARCHAR},
+      line_tel = #{record.lineTel,jdbcType=VARCHAR},
+      is_priority = #{record.isPriority,jdbcType=TINYINT},
+      priority_condition = #{record.priorityCondition,jdbcType=VARCHAR},
+      apply_status = #{record.applyStatus,jdbcType=VARCHAR},
+      notice_date = #{record.noticeDate,jdbcType=DATE},
+      finish_type = #{record.finishType,jdbcType=VARCHAR},
+      finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_active = #{record.isActive,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+    where queue_uuid = #{record.queueUuid,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

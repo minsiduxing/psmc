@@ -3,38 +3,39 @@
 
 <mapper namespace="priv.guochun.psmc.inquest.model.TabYcGridBaseInfo">
     <select id="selectGridInfoList" resultType="java.util.Map" parameterType="hashmap">
-        SELECT a.*,b.DICT_NAME as IS_CONFIGED_RULE_NAME,c.group_name as ORG_NAME, d.dict_name as IS_MAINTAIN_COORDINATE_NAME   FROM
+        SELECT a.*,b.DICT_NAME as IS_CONFIGED_RULE_NAME,c.group_name as ORG_NAME,
+               d.dict_name as IS_MAINTAIN_COORDINATE_NAME,e.dict_name as GRID_TYPE_NAME   FROM
             (    SELECT
-            A.GRID_UUID, A.GRID_NAME, A.ORG_CODE, A.GRID_MODEL_TYPE, A.GRID_PEPOLE_COUNT, A.PLANNING_ISSUE_CERT_TOTAL,
+            A.GRID_UUID, A.GRID_NAME,A.GRID_TYPE, A.ORG_CODE, A.GRID_MODEL_TYPE, A.GRID_PEPOLE_COUNT, A.PLANNING_ISSUE_CERT_TOTAL,
         A.ACTUAL_ISSUE_CERT_TOTAL, (case when A.IS_MAINTAIN_COORDINATE is null then '2' else A.IS_MAINTAIN_COORDINATE end) IS_MAINTAIN_COORDINATE, A.GRID_COORDINATE,A.MODIFY_TIME, A.CREATOR,
             A.CREATE_TIME,(CASE WHEN B.GRID_MTYPE_UUID IS NOT NULL THEN '1' ELSE '2' END) AS IS_CONFIGED_RULE,B.GRID_MTYPE_UUID,B.GRID_MTYPE_NAME,B.LEGAL_PROVISION_DESC
             FROM TAB_YC_GRID_BASE_INFO A LEFT JOIN TAB_YC_GRID_MODEL_TYPE B ON A.GRID_MODEL_TYPE = B.GRID_MTYPE_UUID
             where 1=1 AND B.IS_ACTIVE=1
-            ) a,tab_data_dict b,tab_group c,tab_data_dict d where a.IS_CONFIGED_RULE=b.DICT_ID and b.DICT_NO='IF' and a.ORG_CODE=c.group_code
+            ) a,tab_data_dict b,tab_group c,tab_data_dict d,tab_data_dict e
+            where a.IS_CONFIGED_RULE=b.DICT_ID and b.DICT_NO='IF' and a.ORG_CODE=c.group_code
              and d.DICT_NO='IF' and d.DICT_ID=a.IS_MAINTAIN_COORDINATE
+             and e.DICT_NO='GRID_TYPE' and e.DICT_ID=a.GRID_TYPE
         <if test="orgCode != null and orgCode !=''">
             AND a.ORG_CODE like concat(#{orgCode},'%')
         </if>
         <if test="gridName != null and gridName !=''">
             AND a.GRID_NAME like concat(concat('%',#{gridName}),'%')
         </if>
-
         <if test="isConfigEdRule != null  and isConfigEdRule !='' ">
             AND a.IS_CONFIGED_RULE = #{isConfigEdRule}
         </if>
-
         <if test="isMaintainCoordinate != null  and isMaintainCoordinate !=''">
             AND a.IS_MAINTAIN_COORDINATE = #{isMaintainCoordinate}
         </if>
-
         <if test="gridMtypeUuid != null  and gridMtypeUuid !=''">
             AND a.GRID_MTYPE_UUID = #{gridMtypeUuid}
         </if>
         <if test="gridUuid != null  and gridUuid !=''">
             AND a.GRID_UUID = #{gridUuid}
         </if>
-
+        <if test="gridType != null  and gridType !=''">
+            AND a.GRID_TYPE = #{gridType}
+        </if>
         order by a.ORG_CODE,a.CREATE_TIME desc
     </select>
-
 </mapper>
