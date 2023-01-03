@@ -1,5 +1,9 @@
 package priv.guochun.psmc.inquest.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -87,6 +91,9 @@ public class TabYcWaitQueueCfg implements Serializable {
     /**
      * 创建时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JSONField(format = "yyyy-MM-dd hh:mm:ss")
     private Date createTime;
 
     public String getCfgUuid() {
