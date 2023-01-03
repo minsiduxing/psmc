@@ -19,18 +19,21 @@ $(document).ready(function(){
             {field:'ACTUAL_ISSUE_CERT_TOTAL',align:'center',title:"已办证数量",width:$(this).width() * 0.2},
             {field:'IS_MAINTAIN_COORDINATE_NAME',align:'center',title:"已采集坐标",width:$(this).width() * 0.2,formatter: function (value, row, index) {
                     if(value == '是'){
-                    return "<img style='width:20px;height:20px' title='网格坐标' onclick='gatherCoordinate(&apos;" + row['GRID_UUID'] + "&apos;)' src='../../js/jquery-easyui-1.4.5/themes/icons/zuobiao.png'></img>";
+                    return "<img style='width:20px;height:20px' title='网格坐标' onclick='gatherCoordinate(&apos;" + row['GRID_UUID'] + "&apos;)' src='../../js/jquery-easyui-1.4.5/themes/icons/extends/zuobiao.png'></img>";
                     }else{
                         return value;
                     }
                 }},
-            {field:'IS_CONFIGED_RULE_NAME',align:'center',title:"已配置规则",width:$(this).width() * 0.2},
+            {field:'IS_CONFIGED_RULE_NAME',align:'center',title:"已配置规则",width:$(this).width() * 0.2,formatter: function (value, row, index) {
+                    if(value == '是'){
+                        return "<img style='width:15px;height:15px' title='网格测算'  src='../../js/jquery-easyui-1.4.5/themes/icons/extends/cesuan.png' onclick='gridhanleCertCacl(&apos;" + row['GRID_UUID'] + "&apos;)'></img>";
+                    }else{
+                        return value;
+                    }
+                }},
             {field:'GRID_MTYPE_NAME',align:'center',title:"测算类别名称",width:$(this).width() * 0.2},
             {field:'LEGAL_PROVISION_DESC',align:'left',title:"测算类别依据",width:$(this).width() * 1.5},
-            {field:'ORG_NAME',align:'center',title:"所属专卖局",width:$(this).width() * 0.2},
-            {field:'11',align:'center',title:"操作结果",width:$(this).width() * 0.2,formatter: function (value, row, index) {
-                    return "<a href='javascript:void(0)' onclick='gridhanleCertCacl(&apos;" + row['GRID_UUID'] + "&apos;)'>实时测算</a>";
-                }}
+            {field:'ORG_NAME',align:'center',title:"所属专卖局",width:$(this).width() * 0.2}
         ]]
     };
     //初始化日志信息列表
