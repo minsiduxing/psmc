@@ -28,4 +28,14 @@ public class TabYcWaitQueueCfgController extends MyController {
         page = tabYcWaitQueueCfgService.selectWaitQueueCfgPage(page);
         super.responseJson(JsonUtil.convertJavaBeanToJSONObject(page), this.response());
     }
+
+    /**
+     * 跳转到勘验配置界面
+     * @return
+     */
+    @RequestMapping(params="method=waitQueueCfgList")
+    public String waitQueueCfgList(){
+        return "inquest/waitQueueCfgList";
+    }
+
 }
