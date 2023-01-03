@@ -510,6 +510,7 @@
 						<goals>
 							<goal>generate</goal>
 						</goals>
+						<phase>deploy</phase>
 					</execution>
 				</executions>
 				<dependencies>
