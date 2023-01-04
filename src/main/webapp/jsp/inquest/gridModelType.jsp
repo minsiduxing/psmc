@@ -29,7 +29,9 @@
 
 <table id="sologTableId" style="width:100%"></table>
 <div id="toolbarId">
-	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">配置</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="update">修改</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="del">删除</a>
 </div>
 
 <div id="ruleWin">
