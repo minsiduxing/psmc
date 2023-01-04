@@ -1,12 +1,13 @@
 
-delete from tab_role_operate where operate_uuid in(select uuid from tab_operate where resource_uuid in('8e059c578c204fbbb29086aa72ec88f9','0b62d21d1ecd471f958d96b43471dcca','cd98d21d1ecd471f958d96b43471bbbf'));
-delete from tab_operate where resource_uuid in('8e059c578c204fbbb29086aa72ec88f9','0b62d21d1ecd471f958d96b43471dcca','cd98d21d1ecd471f958d96b43471bbbf');
-delete from tab_role_resource where resource_id in('8e059c578c204fbbb29086aa72ec88f9','0b62d21d1ecd471f958d96b43471dcca','cd98d21d1ecd471f958d96b43471bbbf');
-delete from tab_resource where uuid in('8e059c578c204fbbb29086aa72ec88f9','0b62d21d1ecd471f958d96b43471dcca','cd98d21d1ecd471f958d96b43471bbbf');
+delete from tab_role_operate where operate_uuid in(select uuid from tab_operate where resource_uuid in
+('8e059c578c204fbbb29086aa72ec88f9','0b62d21d1ecd471f958d96b43471dcca'));
+delete from tab_operate where resource_uuid in('8e059c578c204fbbb29086aa72ec88f9','0b62d21d1ecd471f958d96b43471dcca');
+delete from tab_role_resource where resource_id in('8e059c578c204fbbb29086aa72ec88f9','0b62d21d1ecd471f958d96b43471dcca');
+delete from tab_resource where uuid in('8e059c578c204fbbb29086aa72ec88f9','0b62d21d1ecd471f958d96b43471dcca');
 
 
 insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
-('8e059c578c204fbbb29086aa72ec88f9','信息发布',2,'','e51a8663876f4a3394bb194d89d96735','admin',str_to_date('2021-06-08','%Y-%m-%d %T'),'',23,1);
+('8e059c578c204fbbb29086aa72ec88f9','',2,'','e51a8663876f4a3394bb194d89d96735','admin',str_to_date('2021-06-08','%Y-%m-%d %T'),'',23,1);
 
 insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
 ('0b62d21d1ecd471f958d96b43471dcca','信息发布',3,'/website/backstage/InfoReleaseController.do?method=infoReleaseList&oneLevelClassify=26','8e059c578c204fbbb29086aa72ec88f9','admin',str_to_date('2021-06-08','%Y-%m-%d %T'),'工作发布菜单',24,1);

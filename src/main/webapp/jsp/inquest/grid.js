@@ -50,7 +50,7 @@ $('#gridName').textbox({
     iconAlign:'left'
 });
 
-$("#add").click(function(){
+$("#cacl").click(function(){
     var rows = $("#sologTableId").datagrid('getChecked');
     if (rows.length == 1){
         var rowObj = eval(rows[0]);
