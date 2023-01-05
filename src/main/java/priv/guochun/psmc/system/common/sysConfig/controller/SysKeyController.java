@@ -13,6 +13,7 @@ import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.JsonUtil;
 
 import java.io.IOException;
+import java.util.List;
 
 
 @Controller
@@ -27,12 +28,27 @@ public class SysKeyController extends MyController  {
 	 @Autowired
 	 private TabSysConfigService tabSysConfigService;
 
-
+	/**
+	 * 分页查询所有系统key
+	 * @param page
+	 * @throws IOException
+	 */
 	@RequestMapping(params="method=selectAllSysKeyInfos")
 	@ResponseBody
 	public void selectAllSysKeyInfosBusinessMethod(MyPage page) throws IOException {
 		page = tabSysKeyInfoService.selectAllSysKeyInfosBusinessMethod(page);
 		super.responseJson(JsonUtil.convertToJSONObject(page), this.response());
+	}
+
+	/**
+	 * 查询所有系统key
+	 * @throws IOException
+	 */
+	@RequestMapping(params="method=selectSysKeyInfos")
+	@ResponseBody
+	public void selectAllSysKeyInfosBusinessMethod(String sysKey) throws IOException {
+		List list = tabSysKeyInfoService.selectAllSysKeyInfos(sysKey);
+		super.responseJson(JsonUtil.convertToJSONObject(list), this.response());
 	}
 
 }
