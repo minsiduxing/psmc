@@ -19,7 +19,7 @@ $(document).ready(function(){
             {field:'ACTUAL_ISSUE_CERT_TOTAL',align:'center',title:"已办证数量",width:$(this).width() * 0.2},
             {field:'IS_MAINTAIN_COORDINATE_NAME',align:'center',title:"已采集坐标",width:$(this).width() * 0.2,formatter: function (value, row, index) {
                     if(value == '是'){
-                    return "<img style='width:20px;height:20px' title='网格坐标' onclick='gatherCoordinate(&apos;" + row['GRID_UUID'] + "&apos;)' src='../../js/jquery-easyui-1.4.5/themes/icons/extends/zuobiao.png'></img>";
+                    return "<img style='width:20px;height:20px' title='网格坐标' onclick='gatherCoordinate(&apos;" + row['GRID_UUID'] + "&apos;,&apos;" + row['GRID_COORDINATE'] + "&apos;)' src='../../js/jquery-easyui-1.4.5/themes/icons/extends/zuobiao.png'></img>";
                     }else{
                         return value;
                     }
@@ -83,7 +83,7 @@ $("#cacl").click(function(){
  * 网格坐标采集
  * @param gridUuid
  */
-function gatherCoordinate (gridUuid) {
+function gatherCoordinate (gridUuid,coordinated) {
     $('#ruleWin').window({
         maximizable: false,
         minimizable: false,
@@ -91,7 +91,7 @@ function gatherCoordinate (gridUuid) {
         title: '网格坐标采集',
         fit: true,
         //content:"<iframe scrolling='auto' frameborder='0' src='https://www.amap.com/' style='width:100%; height:100%; display:block;'></iframe>",
-        href:"http://127.0.0.1:8080/psmc/jsp/inquest/maps/selectCoordinate.jsp",
+        href:"http://127.0.0.1:8080/psmc/jsp/inquest/maps/selectCoordinate.jsp?coordinated="+encodeURI(coordinated),
         modal: true,
         onClose:function(){
         }
