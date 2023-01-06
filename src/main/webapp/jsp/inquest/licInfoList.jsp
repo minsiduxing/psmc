@@ -13,9 +13,10 @@
     <div title="信息查询" >
         <form id="searchform" method="POST" class="query-form" >
             <ul class="">
-                <%--<li class="li-input"><label for="" class="input-label">勘验阶段：</label>
-                    <input id="stageCode" name="stageCode"/>
-                </li>--%>
+
+                <li class="li-input"><label for="" class="input-label">所属专卖局：</label>
+                    <input id="orgCode" name="orgCode"  />
+                </li>
                 <li class="li-input"><label for="" class="input-label">许可证号：</label>
                     <input id="licNo" name="licNo"/>
                 </li>
@@ -36,6 +37,21 @@
 <!--data grid  -->
 <table id="licInfoList" style="width:100%"></table>
 
+<div id="toolbarId">
+    <g:auth operateNo="<%=OperateContantsUtil.INQUEST_ADD%>">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
+    </g:auth>
+    <g:auth operateNo="<%=OperateContantsUtil.INQUEST_UPDATE%>">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="edit">修改</a>
+    </g:auth>
+    <g:auth operateNo="<%=OperateContantsUtil.INQUEST_DELETE%>">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
+    </g:auth>
+    <g:auth operateNo="<%=OperateContantsUtil.INQUEST_PREVIEW%>">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-export"  plain="true" id="priview">导出</a>
+    </g:auth>
+
+</div>
 
 </body>
 </html>
@@ -45,12 +61,15 @@
     var inquestDo = basePath+"/inquest/tabYcLicInfoController.do";
     var selectLicInfoPageUrl ='<c:url value="'+inquestDo+'"/>?method=selectLicInfoPage';
 
+    var groupDo =basePath + "/authentication/tabGroupController.do";
+    var groupTreeUrl = '<c:url value="'+groupDo+'"/>?method=getGroupTree';
     //----------------------------查询框初始化开始
     $('#licNo').textbox({
     });
     $('#gridName').textbox({
     });
     commonObj.initDictCombobox("licStatus","LIC_STATUS","",false,true);
+    commonObj.initSelectTree("orgCode","orgCode",groupTreeUrl);
 
     //----------------------------查询框初始化结束
     //表单提交成功后的回调方法

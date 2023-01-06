@@ -2,16 +2,19 @@ $(document).ready(function(){
 
     var queueManageOption = {
         tabId:"queueManageList",
+        toolbar:"toolbarId",
         url:selectQueueManagePageUrl,
         columns:[[
             {field:'queueUuid',title:'主键',checkbox:true},
             {field:'createTime',title:'登记时间',resizable:true,align:'center',width:$(this).width() * 0.2},
             {field:'gridName',title:'归属网格名称',width:$(this).width() * 0.2},
+            {field:'coordinate',title:'经纬度坐标',align:'center',width:$(this).width() * 0.2},
             {field:'companyName',title:'企业名称',width:$(this).width() * 0.2},
             {field:'managerName',title:'经营者姓名',align:'center',width:$(this).width() * 0.2},
             {field:'creditNo',title:'统一社会信用代码',align:'center',width:$(this).width() * 0.2},
             {field:'businessAddr',title:'经营地址',width:$(this).width() * 0.2},
             {field:'lineTel',title:'联系电话',align:'center',width:$(this).width() * 0.2},
+            {field:'orgName',title:'所属专卖局',resizable:true,width:$(this).width() * 0.2},
             {field:'isPriority',title:'是否优先',width:$(this).width() * 0.2,align:'center',formatter: function (value, row, index) {
                     if(value == 1){
                         return "是";

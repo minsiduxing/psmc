@@ -277,5 +277,12 @@
   <select  id="getAllTabGroups" resultType="java.util.Map" parameterType="hashmap">
   	select a.uuid,a.group_code,a.group_name,b.group_code as parent_group_code,b.group_name as parent_group_name
 	from tab_group a left join tab_group b on a.parent_group_code=b.group_code order by a.ordernum asc
-  </select>  
+  </select>
+
+  <select id="getGroupTree" resultType="priv.guochun.psmc.authentication.user.model.TreeNode" parameterType="hashmap">
+    select child.group_code AS id, child.group_name AS text, child.parent_group_code AS pId
+    from tab_group child, tab_group parent
+    where find_in_set(parent.group_code, #{groupCode}) > 0
+      and child.group_code like concat(parent.group_code, '%')
+  </select>
 </mapper>

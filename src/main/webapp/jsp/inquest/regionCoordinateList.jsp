@@ -13,6 +13,9 @@
     <div title="信息查询" >
         <form id="searchform" method="POST" class="query-form" >
             <ul class="">
+                <li class="li-input" ><label for="" class="input-label">所属专卖局：</label>
+                    <input id="orgCode" name="orgCode" />
+                </li>
                 <li class="li-input"><label for="" class="input-label">区域类型：</label>
                     <input id="regionType" name="regionType"/>
                 </li>
@@ -30,6 +33,21 @@
 <!--data grid  -->
 <table id="regionCoordinateList" style="width:100%"></table>
 
+<div id="toolbarId">
+    <g:auth operateNo="<%=OperateContantsUtil.INQUEST_ADD%>">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="add">新增</a>
+    </g:auth>
+    <g:auth operateNo="<%=OperateContantsUtil.INQUEST_UPDATE%>">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="edit">修改</a>
+    </g:auth>
+    <g:auth operateNo="<%=OperateContantsUtil.INQUEST_DELETE%>">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="remove">删除</a>
+    </g:auth>
+    <g:auth operateNo="<%=OperateContantsUtil.INQUEST_PREVIEW%>">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-export"  plain="true" id="priview">导出</a>
+    </g:auth>
+
+</div>
 
 </body>
 </html>
@@ -39,12 +57,15 @@
     var inquestDo = basePath+"/inquest/tabYcRegionCoordinateController.do";
     var selectRegionCoordinatePageUrl ='<c:url value="'+inquestDo+'"/>?method=selectRegionCoordinatePage';
 
+    var groupDo =basePath + "/authentication/tabGroupController.do";
+    var groupTreeUrl = '<c:url value="'+groupDo+'"/>?method=getGroupTree';
+
     //----------------------------查询框初始化开始
     $('#regionName').textbox({
     });
 
     commonObj.initDictCombobox("regionType","REGION_TYPE","",false,true);
-
+    commonObj.initSelectTree("orgCode","orgCode",groupTreeUrl);
     //----------------------------查询框初始化结束
     //表单提交成功后的回调方法
     function successCallback(data){

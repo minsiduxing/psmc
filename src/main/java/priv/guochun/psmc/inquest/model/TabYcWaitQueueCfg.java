@@ -29,13 +29,9 @@ public class TabYcWaitQueueCfg implements Serializable {
      */
     private String orgCode;
     /**
-     * 缺省经度
+     * 缺省坐标
      */
-    private String defaultLongitude;
-    /**
-     * 缺省纬度
-     */
-    private String defaultLatitude;
+    private String defaultCoordinate;
     /**
      * 联系地址
      */
@@ -45,13 +41,9 @@ public class TabYcWaitQueueCfg implements Serializable {
      */
     private String contactTel;
     /**
-     * 联系地址经度
+     * 联系地址坐标
      */
-    private String addressLongitude;
-    /**
-     * 联系地址纬度
-     */
-    private String addressLatitude;
+    private String addressCoordinate;
     /**
      * 工作时间
      */
@@ -120,20 +112,20 @@ public class TabYcWaitQueueCfg implements Serializable {
         this.orgCode = orgCode;
     }
 
-    public String getDefaultLongitude() {
-        return defaultLongitude;
+    public String getDefaultCoordinate() {
+        return defaultCoordinate;
     }
 
-    public void setDefaultLongitude(String defaultLongitude) {
-        this.defaultLongitude = defaultLongitude;
+    public void setDefaultCoordinate(String defaultCoordinate) {
+        this.defaultCoordinate = defaultCoordinate;
     }
 
-    public String getDefaultLatitude() {
-        return defaultLatitude;
+    public String getAddressCoordinate() {
+        return addressCoordinate;
     }
 
-    public void setDefaultLatitude(String defaultLatitude) {
-        this.defaultLatitude = defaultLatitude;
+    public void setAddressCoordinate(String addressCoordinate) {
+        this.addressCoordinate = addressCoordinate;
     }
 
     public String getContactAddress() {
@@ -150,22 +142,6 @@ public class TabYcWaitQueueCfg implements Serializable {
 
     public void setContactTel(String contactTel) {
         this.contactTel = contactTel;
-    }
-
-    public String getAddressLongitude() {
-        return addressLongitude;
-    }
-
-    public void setAddressLongitude(String addressLongitude) {
-        this.addressLongitude = addressLongitude;
-    }
-
-    public String getAddressLatitude() {
-        return addressLatitude;
-    }
-
-    public void setAddressLatitude(String addressLatitude) {
-        this.addressLatitude = addressLatitude;
     }
 
     public String getWorkTime() {

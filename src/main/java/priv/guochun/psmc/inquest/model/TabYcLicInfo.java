@@ -90,14 +90,9 @@ public class TabYcLicInfo implements Serializable {
     private String gridName;
 
     /**
-     * 经度
+     * 坐标
      */
-    private BigDecimal longitude;
-
-    /**
-     * 纬度
-     */
-    private BigDecimal latitude;
+    private String coordinate;
 
     /**
      * 是否不作为参考物
@@ -108,6 +103,29 @@ public class TabYcLicInfo implements Serializable {
      * 不作为参考物类型
      */
     private String notConsultType;
+
+    /**
+     * 经济类型（个体、企业）
+     */
+    private String ecoType;
+
+    /**
+     * 所属组织编号
+     */
+    private String orgCode;
+
+    /**
+     * 所属组织名称
+     */
+    private String orgName;
+
+    /**
+     * 发证日期
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JSONField(format = "yyyy-MM-dd")
+    private Date issueDate;
 
     /**
      * 是否有效
@@ -132,6 +150,7 @@ public class TabYcLicInfo implements Serializable {
      */
     private Date modifyTime;
 
+    /************* 非持久化字段 ************/
     /**
      * 许可证状态名称
      */
@@ -140,6 +159,10 @@ public class TabYcLicInfo implements Serializable {
      * 不作为参考物类型名称
      */
     private String notConsultTypeName;
+    /**
+     * 经济类型名称
+     */
+    private String ecoTypeName;
 
     private static final long serialVersionUID = 1L;
 
@@ -247,20 +270,20 @@ public class TabYcLicInfo implements Serializable {
         this.gridName = gridName == null ? null : gridName.trim();
     }
 
-    public BigDecimal getLongitude() {
-        return longitude;
+    public String getCoordinate() {
+        return coordinate;
     }
 
-    public void setLongitude(BigDecimal longitude) {
-        this.longitude = longitude;
+    public void setCoordinate(String coordinate) {
+        this.coordinate = coordinate;
     }
 
-    public BigDecimal getLatitude() {
-        return latitude;
+    public Date getIssueDate() {
+        return issueDate;
     }
 
-    public void setLatitude(BigDecimal latitude) {
-        this.latitude = latitude;
+    public void setIssueDate(Date issueDate) {
+        this.issueDate = issueDate;
     }
 
     public Byte getIsNotConsult() {
@@ -327,35 +350,38 @@ public class TabYcLicInfo implements Serializable {
         this.notConsultTypeName = notConsultTypeName;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", licUuid=").append(licUuid);
-        sb.append(", licNo=").append(licNo);
-        sb.append(", managerName=").append(managerName);
-        sb.append(", companyName=").append(companyName);
-        sb.append(", businessAddr=").append(businessAddr);
-        sb.append(", creditNo=").append(creditNo);
-        sb.append(", idcardNo=").append(idcardNo);
-        sb.append(", licStartDate=").append(licStartDate);
-        sb.append(", licEndDate=").append(licEndDate);
-        sb.append(", licStatus=").append(licStatus);
-        sb.append(", lineTel=").append(lineTel);
-        sb.append(", closeDecideTime=").append(closeDecideTime);
-        sb.append(", gridName=").append(gridName);
-        sb.append(", longitude=").append(longitude);
-        sb.append(", latitude=").append(latitude);
-        sb.append(", isNotConsult=").append(isNotConsult);
-        sb.append(", notConsultType=").append(notConsultType);
-        sb.append(", isActive=").append(isActive);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", creator=").append(creator);
-        sb.append(", modifyTime=").append(modifyTime);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+    public String getEcoType() {
+        return ecoType;
     }
+
+    public void setEcoType(String ecoType) {
+        this.ecoType = ecoType;
+    }
+
+    public String getOrgCode() {
+        return orgCode;
+    }
+
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
+    public String getEcoTypeName() {
+        return ecoTypeName;
+    }
+
+    public void setEcoTypeName(String ecoTypeName) {
+        this.ecoTypeName = ecoTypeName;
+    }
+
+
+
 }

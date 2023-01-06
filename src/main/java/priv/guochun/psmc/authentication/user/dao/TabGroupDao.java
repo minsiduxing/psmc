@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import priv.guochun.psmc.authentication.user.model.TabGroup;
+import priv.guochun.psmc.authentication.user.model.TreeNode;
 
 public interface TabGroupDao 
 {
@@ -41,5 +42,12 @@ public interface TabGroupDao
      * @return
      */
     public List<TabGroup> getSubTabGroupsByGroupCode(String groupCode);
+
+    /**
+     * 获取组织树
+     * @param groupCode
+     * @return
+     */
+    public List<TreeNode> getGroupTree(String groupCode);
 
 }
