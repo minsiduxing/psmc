@@ -1,5 +1,6 @@
 package priv.guochun.psmc.authentication.user.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import priv.guochun.psmc.authentication.user.dao.TabGroupDao;
 import priv.guochun.psmc.authentication.user.model.TabGroup;
 import priv.guochun.psmc.authentication.user.model.TabGroupExample;
 import priv.guochun.psmc.authentication.user.model.TabGroupExample.Criteria;
+import priv.guochun.psmc.authentication.user.model.TreeNode;
 import priv.guochun.psmc.authentication.user.model.mapper.TabGroupMapper;
 
 public class TabGroupDaoImplMybatis implements TabGroupDao 
@@ -74,6 +76,13 @@ public class TabGroupDaoImplMybatis implements TabGroupDao
 		cc.andParentGroupCodeEqualTo(groupCode);
 		example.setOrderByClause(" ordernum ASC ");
 		return mapper.selectByExample(example);
+	}
+
+	@Override
+	public List<TreeNode> getGroupTree(String groupCode){
+		Map<String, String> paramMap = new HashMap<>();
+		paramMap.put("groupCode", groupCode);
+		return sqlSession.selectList("getGroupTree", paramMap);
 	}
 
 	public SqlSessionTemplate getSqlSession() {

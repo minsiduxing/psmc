@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import priv.guochun.psmc.authentication.user.model.TabGroup;
+import priv.guochun.psmc.authentication.user.model.TreeNode;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 
 public interface TabGroupService
@@ -63,6 +64,15 @@ public interface TabGroupService
      * @return
      */
     public MsgModel deleteTabGroupBusinessMethod(TabGroup tabGroup);
-    
+
+    /**
+     * @author wangt
+     * @description 获取组织机构树
+     * @create 2023/1/5 15:14
+     * @param groupCode
+     * @return List<TreeNode>
+     * @throws
+     */
+    public List<TreeNode> getGroupTree(String groupCode);
     
 }

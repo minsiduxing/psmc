@@ -15,23 +15,28 @@
     <result column="line_tel" property="lineTel" jdbcType="VARCHAR" />
     <result column="close_decide_time" property="closeDecideTime" jdbcType="TIMESTAMP" />
     <result column="grid_name" property="gridName" jdbcType="VARCHAR" />
-    <result column="longitude" property="longitude" jdbcType="DECIMAL" />
-    <result column="latitude" property="latitude" jdbcType="DECIMAL" />
+    <result column="coordinate" property="coordinate" jdbcType="VARCHAR" />
     <result column="is_not_consult" property="isNotConsult" jdbcType="TINYINT" />
     <result column="not_consult_type" property="notConsultType" jdbcType="VARCHAR" />
+    <result column="issue_date" property="issueDate"/>
+    <result column="eco_type" property="ecoType" jdbcType="VARCHAR" />
+    <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
     <result column="is_active" property="isActive" jdbcType="TINYINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="creator" property="creator" jdbcType="VARCHAR" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+
     <result column="licStatusName" property="licStatusName"/>
     <result column="notConsultTypeName" property="notConsultTypeName"/>
+    <result column="ecoTypeName" property="ecoTypeName"/>
   </resultMap>
 
 
   <sql id="Base_Column_List" >
     lic_uuid, lic_no, manager_name, company_name, business_addr, credit_no, idcard_no, 
-    lic_start_date, lic_end_date, lic_status, line_tel, close_decide_time, grid_name, 
-    longitude, latitude, is_not_consult, not_consult_type, is_active, create_time, creator, 
+    lic_start_date, lic_end_date, lic_status, line_tel, close_decide_time, grid_name, issueDate, ecoType,
+    coordinate, org_code, org_name, is_not_consult, not_consult_type, is_active, create_time, creator,
     modify_time
   </sql>
 
@@ -39,10 +44,12 @@
     SELECT
       a.*,
       b.DICT_NAME AS licStatusName,
-      c.DICT_NAME AS notConsultTypeName
+      c.DICT_NAME AS notConsultTypeName,
+      d.DICT_NAME AS ecoTypeName
     FROM tab_yc_lic_info a
     LEFT JOIN tab_data_dict b ON a.lic_status = b.DICT_ID and b.DICT_NO = 'LIC_STATUS'
     LEFT JOIN tab_data_dict c ON a.not_consult_type = c.DICT_ID and c.DICT_NO = 'NOT_CONSULT_TYPE'
+    LEFT JOIN tab_data_dict d ON a.eco_type = d.DICT_ID and d.DICT_NO = 'ECO_TYPE'
     where a.is_active = 1
     <if test="licNo != null and licNo != ''">
       and a.lic_no = #{licNo}
@@ -62,6 +69,14 @@
     <if test="isNotConsult != null">
       and a.is_not_consult = #{isNotConsult}
     </if>
+    <if test="orgCode != null and orgCode != ''">
+      and a.org_code in (
+      select DISTINCT child.group_code
+      from tab_group child, tab_group parent
+      where find_in_set(parent.group_code, #{orgCode}) > 0
+      and child.group_code like concat(parent.group_code, '%')
+      )
+    </if>
   </select>
 
   <insert id="insert" parameterType="priv.guochun.psmc.inquest.model.TabYcLicInfo" >
@@ -69,7 +84,7 @@
       company_name, business_addr, credit_no, 
       idcard_no, lic_start_date, lic_end_date, 
       lic_status, line_tel, close_decide_time, 
-      grid_name, longitude, latitude, 
+      grid_name, issueDate, ecoType, coordinate, org_code, org_name,
       is_not_consult, not_consult_type, is_active, 
       create_time, creator, modify_time
       )
@@ -77,7 +92,8 @@
       #{companyName,jdbcType=VARCHAR}, #{businessAddr,jdbcType=VARCHAR}, #{creditNo,jdbcType=VARCHAR}, 
       #{idcardNo,jdbcType=VARCHAR}, #{licStartDate}, #{licEndDate},
       #{licStatus,jdbcType=VARCHAR}, #{lineTel,jdbcType=VARCHAR}, #{closeDecideTime,jdbcType=TIMESTAMP}, 
-      #{gridName,jdbcType=VARCHAR}, #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, 
+      #{gridName,jdbcType=VARCHAR}, #{issueDate,jdbcType=TIMESTAMP}, #{ecoType,jdbcType=VARCHAR},
+      #{coordinate,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR},#{orgName,jdbcType=VARCHAR},
       #{isNotConsult,jdbcType=TINYINT}, #{notConsultType,jdbcType=VARCHAR}, #{isActive,jdbcType=TINYINT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
       )
@@ -124,11 +140,20 @@
       <if test="gridName != null" >
         grid_name,
       </if>
-      <if test="longitude != null" >
-        longitude,
+      <if test="issueDate != null" >
+        issue_date,
       </if>
-      <if test="latitude != null" >
-        latitude,
+      <if test="ecoType != null" >
+        eco_type,
+      </if>
+      <if test="coordinate != null" >
+        coordinate,
+      </if>
+      <if test="orgCode != null" >
+        org_code,
+      </if>
+      <if test="orgName != null" >
+        org_name,
       </if>
       <if test="isNotConsult != null" >
         is_not_consult,
@@ -189,11 +214,20 @@
       <if test="gridName != null" >
         #{gridName,jdbcType=VARCHAR},
       </if>
-      <if test="longitude != null" >
-        #{longitude,jdbcType=DECIMAL},
+      <if test="issueDate != null" >
+        #{issueDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="latitude != null" >
-        #{latitude,jdbcType=DECIMAL},
+      <if test="ecoType != null" >
+        #{ecoType,jdbcType=VARCHAR},
+      </if>
+      <if test="coordinate != null" >
+        #{coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
       </if>
       <if test="isNotConsult != null" >
         #{isNotConsult,jdbcType=TINYINT},
@@ -255,11 +289,20 @@
       <if test="record.gridName != null" >
         grid_name = #{record.gridName,jdbcType=VARCHAR},
       </if>
-      <if test="record.longitude != null" >
-        longitude = #{record.longitude,jdbcType=DECIMAL},
+      <if test="record.issueDate != null" >
+        issue_date = #{record.issueDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.latitude != null" >
-        latitude = #{record.latitude,jdbcType=DECIMAL},
+      <if test="record.ecoType != null" >
+        eco_type = #{record.ecoType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coordinate != null" >
+        coordinate = #{record.coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgCode != null" >
+        org_code = #{record.orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgName != null" >
+        org_Name = #{record.orgName,jdbcType=VARCHAR},
       </if>
       <if test="record.isNotConsult != null" >
         is_not_consult = #{record.isNotConsult,jdbcType=TINYINT},
@@ -298,8 +341,11 @@
       line_tel = #{record.lineTel,jdbcType=VARCHAR},
       close_decide_time = #{record.closeDecideTime,jdbcType=TIMESTAMP},
       grid_name = #{record.gridName,jdbcType=VARCHAR},
-      longitude = #{record.longitude,jdbcType=DECIMAL},
-      latitude = #{record.latitude,jdbcType=DECIMAL},
+      issue_date = #{record.issueDate,jdbcType=TIMESTAMP},
+      eco_type = #{record.ecoType,jdbcType=VARCHAR},
+      coordinate = #{record.coordinate,jdbcType=VARCHAR},
+      org_code = #{record.orgCode,jdbcType=VARCHAR},
+      org_Name = #{record.orgName,jdbcType=VARCHAR},
       is_not_consult = #{record.isNotConsult,jdbcType=TINYINT},
       not_consult_type = #{record.notConsultType,jdbcType=VARCHAR},
       is_active = #{record.isActive,jdbcType=TINYINT},

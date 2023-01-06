@@ -17,17 +17,22 @@
     <result column="finish_type" property="finishType" jdbcType="VARCHAR" />
     <result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="coordinate" property="coordinate" jdbcType="VARCHAR" />
     <result column="is_active" property="isActive" jdbcType="TINYINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="creator" property="creator" jdbcType="VARCHAR" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+
     <result column="applyStatusName" property="applyStatusName"/>
     <result column="finishTypeName" property="finishTypeName"/>
   </resultMap>
 
   <sql id="Base_Column_List" >
     queue_uuid, grid_name, manager_name, company_name, credit_no, business_addr, line_tel, 
-    is_priority, priority_condition, apply_status, notice_date, finish_type, finish_time, 
+    is_priority, priority_condition, apply_status, notice_date, finish_type, finish_time,
+    coordinate, org_code, org_name,
     remark, is_active, create_time, creator, modify_time
   </sql>
 
@@ -40,7 +45,7 @@
     LEFT JOIN tab_data_dict b ON a.apply_status = b.DICT_ID and b.DICT_NO = 'APPLY_STATUS'
     LEFT JOIN tab_data_dict c ON a.finish_type = c.DICT_ID and c.DICT_NO = 'FINISH_TYPE'
     where a.is_active = 1
-    <if test="isPriority != null">
+    <if test="isPriority != null and isPriority != ''">
       and a.is_priority = #{isPriority}
     </if>
     <if test="applyStatus != null and applyStatus != ''">
@@ -61,6 +66,14 @@
     <if test="creditNo != null and creditNo != ''">
       and a.credit_no like concat('%', #{creditNo}, '%')
     </if>
+    <if test="orgCode != null and orgCode != ''">
+      and a.org_code in (
+      select DISTINCT child.group_code
+      from tab_group child, tab_group parent
+      where find_in_set(parent.group_code, #{orgCode}) > 0
+      and child.group_code like concat(parent.group_code, '%')
+      )
+    </if>
   </select>
 
   <insert id="insert" parameterType="priv.guochun.psmc.inquest.model.TabYcQueueManage" >
@@ -68,14 +81,15 @@
       company_name, credit_no, business_addr, 
       line_tel, is_priority, priority_condition, 
       apply_status, notice_date, finish_type, 
-      finish_time, remark, is_active, 
+      finish_time, coordinate, org_code, org_name, remark, is_active,
       create_time, creator, modify_time
       )
     values (#{queueUuid,jdbcType=VARCHAR}, #{gridName,jdbcType=VARCHAR}, #{managerName,jdbcType=VARCHAR}, 
       #{companyName,jdbcType=VARCHAR}, #{creditNo,jdbcType=VARCHAR}, #{businessAddr,jdbcType=VARCHAR}, 
       #{lineTel,jdbcType=VARCHAR}, #{isPriority,jdbcType=TINYINT}, #{priorityCondition,jdbcType=VARCHAR}, 
       #{applyStatus,jdbcType=VARCHAR}, #{noticeDate,jdbcType=DATE}, #{finishType,jdbcType=VARCHAR}, 
-      #{finishTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{isActive,jdbcType=TINYINT}, 
+      #{finishTime,jdbcType=TIMESTAMP}, #{coordinate,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR},
+      #{orgName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{isActive,jdbcType=TINYINT},
       #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -120,6 +134,15 @@
       </if>
       <if test="finishTime != null" >
         finish_time,
+      </if>
+      <if test="coordinate != null" >
+        coordinate,
+      </if>
+      <if test="orgCode != null" >
+        org_code,
+      </if>
+      <if test="orgName != null" >
+        org_name,
       </if>
       <if test="remark != null" >
         remark,
@@ -176,6 +199,15 @@
       </if>
       <if test="finishTime != null" >
         #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coordinate != null" >
+        #{coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -234,6 +266,15 @@
       <if test="record.finishTime != null" >
         finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.coordinate != null" >
+        coordinate = #{record.coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgCode != null" >
+        org_code = #{record.orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgName != null" >
+        org_Name = #{record.orgName,jdbcType=VARCHAR},
+      </if>
       <if test="record.remark != null" >
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
@@ -268,6 +309,9 @@
       notice_date = #{record.noticeDate,jdbcType=DATE},
       finish_type = #{record.finishType,jdbcType=VARCHAR},
       finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      coordinate = #{record.coordinate,jdbcType=VARCHAR},
+      org_code = #{record.orgCode,jdbcType=VARCHAR},
+      org_Name = #{record.orgName,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR},
       is_active = #{record.isActive,jdbcType=TINYINT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},

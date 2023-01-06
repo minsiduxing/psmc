@@ -7,34 +7,25 @@
     <result column="region_type" property="regionType" jdbcType="VARCHAR" />
     <result column="region_name" property="regionName" jdbcType="VARCHAR" />
     <result column="region_addr" property="regionAddr" jdbcType="VARCHAR" />
-    <result column="longitude" property="longitude" jdbcType="DECIMAL" />
-    <result column="latitude" property="latitude" jdbcType="DECIMAL" />
+    <result column="coordinate" property="coordinate" jdbcType="VARCHAR" />
+    <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
     <result column="is_active" property="isActive" jdbcType="TINYINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
     <result column="creator" property="creator" jdbcType="VARCHAR" />
+
     <result column="regionTypeName" property="regionTypeName" />
-    <result column="coordinate" property="coordinate"/>
   </resultMap>
 
   <sql id="Base_Column_List" >
-    coord_uuid, region_type, region_name, region_addr, longitude, latitude, is_active, 
+    coord_uuid, region_type, region_name, region_addr, coordinate, is_active,
     create_time, modify_time, creator
   </sql>
 
   <select id="selectRegionCoordinatePage" resultMap="BaseResultMap" parameterType="hashmap">
-    SELECT a.coord_uuid,
-           a.region_type,
-           a.region_name,
-           a.region_addr,
-           a.longitude,
-           a.latitude,
-           a.is_active,
-           a.create_time,
-           a.modify_time,
-           a.creator,
-           b.DICT_NAME AS regionTypeName,
-           concat(a.longitude, ',', a.latitude) AS coordinate
+    SELECT a.*,
+           b.DICT_NAME AS regionTypeName
     FROM
       tab_yc_region_coordinate a
     inner JOIN tab_data_dict b ON a.region_type = b.DICT_ID and b.DICT_NO = 'REGION_TYPE'
@@ -51,15 +42,23 @@
     <if test="regionName != null and regionName != ''">
       and a.region_name like concat('%', #{regionName}, '%')
     </if>
+    <if test="orgCode != null and orgCode != ''">
+      and a.org_code in (
+      select DISTINCT child.group_code
+      from tab_group child, tab_group parent
+      where find_in_set(parent.group_code, #{orgCode}) > 0
+      and child.group_code like concat(parent.group_code, '%')
+      )
+    </if>
   </select>
 
   <insert id="insert" parameterType="priv.guochun.psmc.inquest.model.TabYcRegionCoordinate" >
     insert into tab_yc_region_coordinate (coord_uuid, region_type, region_name, 
-      region_addr, longitude, latitude, 
+      region_addr, coordinate, org_code, org_name,
       is_active, create_time, modify_time, 
       creator)
     values (#{coordUuid,jdbcType=VARCHAR}, #{regionType,jdbcType=VARCHAR}, #{regionName,jdbcType=VARCHAR}, 
-      #{regionAddr,jdbcType=VARCHAR}, #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, 
+      #{regionAddr,jdbcType=VARCHAR}, #{coordinate,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR},#{orgName,jdbcType=VARCHAR},
       #{isActive,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
       #{creator,jdbcType=VARCHAR})
   </insert>
@@ -79,11 +78,14 @@
       <if test="regionAddr != null" >
         region_addr,
       </if>
-      <if test="longitude != null" >
-        longitude,
+      <if test="coordinate != null" >
+        coordinate,
       </if>
-      <if test="latitude != null" >
-        latitude,
+      <if test="orgCode != null" >
+        org_code,
+      </if>
+      <if test="orgName != null" >
+        org_name,
       </if>
       <if test="isActive != null" >
         is_active,
@@ -111,11 +113,14 @@
       <if test="regionAddr != null" >
         #{regionAddr,jdbcType=VARCHAR},
       </if>
-      <if test="longitude != null" >
-        #{longitude,jdbcType=DECIMAL},
+      <if test="coordinate != null" >
+        #{coordinate,jdbcType=VARCHAR},
       </if>
-      <if test="latitude != null" >
-        #{latitude,jdbcType=DECIMAL},
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
       </if>
       <if test="isActive != null" >
         #{isActive,jdbcType=TINYINT},
@@ -144,11 +149,14 @@
       <if test="record.regionAddr != null" >
         region_addr = #{record.regionAddr,jdbcType=VARCHAR},
       </if>
-      <if test="record.longitude != null" >
-        longitude = #{record.longitude,jdbcType=DECIMAL},
+      <if test="record.coordinate != null" >
+        coordinate = #{record.coordinate,jdbcType=VARCHAR},
       </if>
-      <if test="record.latitude != null" >
-        latitude = #{record.latitude,jdbcType=DECIMAL},
+      <if test="record.orgCode != null" >
+        org_code = #{record.orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgName != null" >
+        org_Name = #{record.orgName,jdbcType=VARCHAR},
       </if>
       <if test="record.isActive != null" >
         is_active = #{record.isActive,jdbcType=TINYINT},
@@ -172,8 +180,9 @@
       region_type = #{record.regionType,jdbcType=VARCHAR},
       region_name = #{record.regionName,jdbcType=VARCHAR},
       region_addr = #{record.regionAddr,jdbcType=VARCHAR},
-      longitude = #{record.longitude,jdbcType=DECIMAL},
-      latitude = #{record.latitude,jdbcType=DECIMAL},
+      coordinate = #{record.coordinate,jdbcType=VARCHAR},
+      org_code = #{record.orgCode,jdbcType=VARCHAR},
+      org_Name = #{record.orgName,jdbcType=VARCHAR},
       is_active = #{record.isActive,jdbcType=TINYINT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},

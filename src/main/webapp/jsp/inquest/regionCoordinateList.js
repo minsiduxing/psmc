@@ -2,12 +2,14 @@ $(document).ready(function(){
 
     var regionCoordinateOption = {
         tabId:"regionCoordinateList",
+        toolbar:"toolbarId",
         url:selectRegionCoordinatePageUrl,
         columns:[[
             {field:'coordUuid',title:'主键',checkbox:true},
             {field:'regionTypeName',title:'区域类型',align:'center',width:$(this).width() * 0.2},
             {field:'regionName',title:'区域名称',width:$(this).width() * 0.2},
             {field:'coordinate',title:'经纬度坐标',align:'center',width:$(this).width() * 0.2},
+            {field:'orgName',title:'所属专卖局',resizable:true,width:$(this).width() * 0.2},
             {field:'isActive',title:'状态',width:$(this).width() * 0.2,align:'center',formatter: function (value, row, index) {
                     if(value == 1){
                         return "启用";

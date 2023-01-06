@@ -8,12 +8,10 @@
         <result property="cfgUuid" column="cfg_uuid"/>
         <result property="orgName" column="org_name"/>
         <result property="orgCode" column="org_code"/>
-        <result property="defaultLongitude" column="default_longitude"/>
-        <result property="defaultLatitude" column="default_latitude"/>
+        <result property="defaultCoordinate" column="default_coordinate"/>
         <result property="contactAddress" column="contact_address"/>
         <result property="contactTel" column="contact_tel"/>
-        <result property="addressLongitude" column="address_longitude"/>
-        <result property="addressLatitude" column="address_latitude"/>
+        <result property="addressCoordinate" column="address_coordinate"/>
         <result property="workTime" column="work_time"/>
         <result property="isFictitiousGrid" column="is_fictitious_grid"/>
         <result property="overdueDays" column="overdue_days"/>
@@ -35,10 +33,10 @@
         WHERE a.is_active=1
         <if test="orgCode != null and orgCode != ''">
             and a.org_code in (
-                select group_code
-                from tab_group
-                WHERE parent_group_code = #{orgCode}
-                or group_code = #{orgCode}
+                select DISTINCT child.group_code
+                from tab_group child, tab_group parent
+                where find_in_set(parent.group_code, #{orgCode}) > 0
+                and child.group_code like concat(parent.group_code, '%')
             )
         </if>
         ORDER BY a.sort ASC
@@ -57,11 +55,8 @@
             <if test="orgCode != null">
                 org_code,
             </if>
-            <if test="defaultLongitude != null">
-                default_longitude,
-            </if>
-            <if test="defaultLatitude != null">
-                default_latitude,
+            <if test="defaultCoordinate != null">
+                default_coordinate,
             </if>
             <if test="contactAddress != null">
                 contact_address,
@@ -69,11 +64,8 @@
             <if test="contactTel != null">
                 contact_tel,
             </if>
-            <if test="addressLongitude != null">
-                address_longitude,
-            </if>
-            <if test="addressLatitude != null">
-                address_latitude,
+            <if test="addressCoordinate != null">
+                address_coordinate,
             </if>
             <if test="workTime != null">
                 work_time,
@@ -116,11 +108,8 @@
             <if test="orgCode != null">
                 #{orgCode,jdbcType=VARCHAR},
             </if>
-            <if test="defaultLongitude != null">
-                #{defaultLongitude,jdbcType=VARCHAR},
-            </if>
-            <if test="defaultLatitude != null">
-                #{defaultLatitude,jdbcType=VARCHAR},
+            <if test="defaultCoordinate != null">
+                #{defaultCoordinate,jdbcType=VARCHAR},
             </if>
             <if test="contactAddress != null">
                 #{contactAddress,jdbcType=VARCHAR},
@@ -128,8 +117,8 @@
             <if test="contactTel != null">
                 #{contactTel,jdbcType=VARCHAR},
             </if>
-            <if test="addressLongitude != null">
-                #{addressLongitude,jdbcType=VARCHAR},
+            <if test="addressCoordinate != null">
+                #{addressCoordinate,jdbcType=VARCHAR},
             </if>
             <if test="addressLatitude != null">
                 #{addressLatitude,jdbcType=VARCHAR},
@@ -176,11 +165,8 @@
             <if test="orgCode != null">
                 org_code = #{orgCode,jdbcType=VARCHAR},
             </if>
-            <if test="defaultLongitude != null">
-                default_longitude = #{defaultLongitude,jdbcType=VARCHAR},
-            </if>
-            <if test="defaultLatitude != null">
-                default_latitude = #{defaultLatitude,jdbcType=VARCHAR},
+            <if test="defaultCoordinate != null">
+                default_coordinate = #{defaultCoordinate,jdbcType=VARCHAR},
             </if>
             <if test="contactAddress != null">
                 contact_address = #{contactAddress,jdbcType=VARCHAR},
@@ -188,11 +174,8 @@
             <if test="contactTel != null">
                 contact_tel = #{contactTel,jdbcType=VARCHAR},
             </if>
-            <if test="addressLongitude != null">
-                address_longitude = #{addressLongitude,jdbcType=VARCHAR},
-            </if>
-            <if test="addressLatitude != null">
-                address_latitude = #{addressLatitude,jdbcType=VARCHAR},
+            <if test="addressCoordinate != null">
+                address_coordinate = #{addressCoordinate,jdbcType=VARCHAR},
             </if>
             <if test="workTime != null">
                 work_time = #{workTime,jdbcType=VARCHAR},
