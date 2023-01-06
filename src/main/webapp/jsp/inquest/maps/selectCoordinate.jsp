@@ -20,30 +20,43 @@
 </div>
 <div id="container" style="width:100%;height:95%;"></div>
 <script type="text/javascript">
+	//地图对象
+	var map;
+	//网格多边形对象
+	var polygon;
+	var drawPolygon;
+	var overlays = [];
+	// 鼠标插件
+	var mouseTool;
+	var coordinated ='<%=request.getParameter("coordinated")%>';
+	var basePath = $("#basePath").val();
+	var selectAllSysKeyInfosUrl = basePath+'/system/common/sysKeyController.do?method=selectAllCacheSysKeyInfos';
+	selectAllSysKeyInfosUrl = '<c:url value="'+selectAllSysKeyInfosUrl+'"/>';
+
 	//开启关闭坐标采集
 	function enableGridDraw(obj){
-		debugger;
 		var ival = obj.value;
 		if(ival == "取消"){
 			$("#gridDraw").css("display","");
 			$("#saveGridDraw").css("display","none");
 			$("#cancelGridDraw").css("display","none");
 			//取消插件
+			mouseTool.close(true);
 			//恢复以前的多边形
 			if(polygon != null && polygon != "")
 				polygon.show();
-
-			mouseTool.close();
 		}
 		if(ival == "保存"){
 			$("#gridDraw").css("display","");
 			$("#saveGridDraw").css("display","none");
 			$("#cancelGridDraw").css("display","none");
-			if(polygon != null && polygon != "")
-				map.remove(polygon);
-
+			//取消插件
+			map.remove(mouseTool);
+			map.remove(drawPolygon);
+			map.remove(overlays);
+			overlays=[];
 		}
-		if(ival == "开启网格绘制"){
+		if(ival == "网格绘制"){
 			$("#gridDraw").css("display","none");
 			$("#saveGridDraw").css("display","");
 			$("#cancelGridDraw").css("display","");
@@ -56,23 +69,23 @@
 				//在地图中添加MouseTool插件
 				mouseTool = new AMap.MouseTool(map);
 				//用鼠标工具画多边形
-				var drawPolygon = mouseTool.polygon();
+				drawPolygon = mouseTool.polygon();
+				//鼠标菜单插件的监听事件
+				mouseTool.on('draw', function(ev) {
+					overlays.push(ev.obj);
+					// //后台保存的多边形数组格式
+					// var availableAridCoords = new Array();
+					// var gridCoords = ev.obj.getPath().split(";");
+					// for (var i=0,len=gridCoords.length; i<len; i++) {
+					// 	availableAridCoords[i] = "["+gridCoords[i]+"]";
+					// }
+					// alert(availableAridCoords);
+				});
 			});
 		}
-
-
 	}
 
 
-	//地图对象
-	var map;
-	//网格多边形对象
-	var polygon;
-	var mouseTool;
-	var coordinated ='<%=request.getParameter("coordinated")%>';
-	var basePath = $("#basePath").val();
-	var selectAllSysKeyInfosUrl = basePath+'/system/common/sysKeyController.do?method=selectAllCacheSysKeyInfos';
-	selectAllSysKeyInfosUrl = '<c:url value="'+selectAllSysKeyInfosUrl+'"/>';
 	$.ajax({
 		type: "POST",
 		url: selectAllSysKeyInfosUrl,
@@ -103,14 +116,10 @@
 					center: [108.953984,34.255958]//设置地图中心点坐标
 				});
 
-				AMap.plugin('AMap.ToolBar',function(){//异步加载插件
-					var toolbar = new AMap.ToolBar();
-					map.addControl(toolbar);
-				});
 				//多边形轮廓线的节点坐标数组
 				if(coordinated != null && coordinated !="") {
 					 polygon = new AMap.Polygon({
-						path: eval(coordinated),
+						path: eval("["+coordinated+"]"),
 						fillColor: '#808000', // 多边形填充颜色
 						strokeColor: '#808000', // 线条颜色
 						strokeStyle:'dashed',//实线虚线
@@ -129,15 +138,13 @@
 				// 绑定事件
 				map.on('click', clickHandler);
 
-				map.on('click', function(ev) {
-					// 触发事件的对象
-					var target = ev.target;
-					// 触发事件的地理坐标，AMap.LngLat 类型
-					var lnglat = ev.lnglat;
-					// 触发事件的像素坐标，AMap.Pixel 类型
-					var pixel = ev.pixel;
-					// 触发事件类型
-					var type = ev.type;
+				polygon.on('click', function(ev) {
+					//后台保存的多边形数组格式
+					// var availableAridCoords = new Array();
+					// var gridCoords = target.toString().split(";");
+					// for (var i=0,len=gridCoords.length; i<len; i++) {
+					// 	availableAridCoords[i] = "["+gridCoords[i]+"]";
+					// }
 				});
 			}).catch((e)=>{
 				console.error("jsapi加载错误提示："+e);  //加载错误提示
