@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import priv.guochun.psmc.authentication.login.model.User;
 import priv.guochun.psmc.authentication.user.model.TabGroup;
+import priv.guochun.psmc.authentication.user.model.TreeNode;
 import priv.guochun.psmc.authentication.user.service.TabGroupService;
 import priv.guochun.psmc.system.framework.cache.CacheContants;
 import priv.guochun.psmc.system.framework.cache.PsmcCacheFactory;
@@ -153,8 +154,16 @@ public class TabGroupController extends MyController {
 		
 		this.responseJson(tree, response);
 	}
-	
-	
+
+	@RequestMapping(params="method=getGroupTree")
+	@ResponseBody
+	public void getGroupTree(HttpServletRequest request,HttpServletResponse response, String groupCode) throws IOException {
+		if (StringUtils.isBlank(groupCode)){
+			groupCode = this.getUserBySeesion(this.request()).getGroupCode();
+		}
+		List<TreeNode> treeNodeList = tabGroupService.getGroupTree(groupCode);
+		this.responseJson(GsonUtil.toJsonForObject(treeNodeList), response);
+	}
 
 	public TabGroupService getTabGroupService() {
 		return tabGroupService;

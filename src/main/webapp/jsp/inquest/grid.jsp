@@ -64,6 +64,9 @@
 
 	var gridhanleCertCaclUrl ='<c:url value="'+getTabDataUrl+'"/>?method=gridHanleCertCacl';
 
+	var gridCoordChose = basePath+"/jsp/inquest/maps/selectCoordinate.jsp";
+	gridCoordChose = '<c:url value="'+gridCoordChose+'"/>';
+
 
 </script>
 

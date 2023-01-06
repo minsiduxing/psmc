@@ -2,13 +2,17 @@ package priv.guochun.psmc.authentication.user.service.impl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.util.CollectionUtils;
 import priv.guochun.psmc.authentication.user.dao.TabGroupDao;
 import priv.guochun.psmc.authentication.user.model.TabGroup;
+import priv.guochun.psmc.authentication.user.model.TreeNode;
 import priv.guochun.psmc.authentication.user.service.TabGroupService;
 import priv.guochun.psmc.authentication.user.service.TabPersonService;
 import priv.guochun.psmc.system.framework.model.MsgModel;
@@ -88,6 +92,38 @@ public class TabGroupServiceImpl implements TabGroupService
 			return MsgModel.buildDefaultSuccess(null);
 		
 			return MsgModel.buildDefaultError();
+	}
+
+	public List<TreeNode> getGroupTree(String groupCode){
+		List<TreeNode> treeNodeList = tabGroupDao.getGroupTree(groupCode);
+		if (CollectionUtils.isEmpty(treeNodeList)){
+			return null;
+		}
+		AtomicReference<String> pId = new AtomicReference<>("");
+		treeNodeList.stream()
+				.filter(node -> groupCode.equals(node.getId())).forEach(treeNode -> {
+					pId.set(treeNode.getpId());
+				});
+		return build(treeNodeList, String.valueOf(pId));
+	}
+
+	/**
+	 * @author wangt
+	 * @description 递归查询组织树
+	 * @create 2023/1/5 18:07
+	 * @param treeNodeList
+	 * @param parentId
+	 * @return List<TreeNode>
+	 * @throws
+	 */
+	private List<TreeNode> build(List<TreeNode> treeNodeList, String parentId) {
+		return treeNodeList.stream().filter(node -> parentId.equals(node.getpId())).map(node -> {
+			List<TreeNode> childList = build(treeNodeList, node.getId());
+			if (childList != null && childList.size() > 0) {
+				node.setChildren(childList);
+			}
+			return node;
+		}).collect(Collectors.toList());
 	}
 
 	public TabGroupDao getTabGroupDao() {

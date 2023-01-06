@@ -74,6 +74,22 @@ public class TabYcQueueManage implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	@JSONField(format = "yyyy-MM-dd hh:mm:ss")
 	private Date finishTime;
+
+	/**
+	 * 所属组织编号
+	 */
+	private String orgCode;
+
+	/**
+	 * 所属组织名称
+	 */
+	private String orgName;
+
+	/**
+	 * 坐标
+	 */
+	private String coordinate;
+
 	/**
 	 * 备注
 	 */
@@ -98,6 +114,8 @@ public class TabYcQueueManage implements Serializable {
 	 */
 	private Date modifyTime;
 
+
+	/************* 非持久化字段 ************/
 	/**
 	 * 申请状态名称
 	 */
@@ -265,5 +283,29 @@ public class TabYcQueueManage implements Serializable {
 
 	public void setFinishTypeName(String finishTypeName) {
 		this.finishTypeName = finishTypeName;
+	}
+
+	public String getOrgCode() {
+		return orgCode;
+	}
+
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
+	}
+
+	public String getOrgName() {
+		return orgName;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+
+	public String getCoordinate() {
+		return coordinate;
+	}
+
+	public void setCoordinate(String coordinate) {
+		this.coordinate = coordinate;
 	}
 }

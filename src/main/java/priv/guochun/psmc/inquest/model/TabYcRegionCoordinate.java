@@ -8,33 +8,70 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * @description 区域坐标维护表
+ * @author wangt
+ * @create 2023/1/6 10:38
+ */
 public class TabYcRegionCoordinate implements Serializable {
+    /**
+     * 主键标识
+     */
     private String coordUuid;
-
+    /**
+     * 区域类型
+     */
     private String regionType;
-
+    /**
+     * 区域名称
+     */
     private String regionName;
-
+    /**
+     * 区域地址
+     */
     private String regionAddr;
+    /**
+     * 经纬度坐标
+     */
+    private String coordinate;
 
-    private BigDecimal longitude;
+    /**
+     * 所属组织编号
+     */
+    private String orgCode;
 
-    private BigDecimal latitude;
-
+    /**
+     * 所属组织名称
+     */
+    private String orgName;
+    /**
+     * 是否有效
+     */
     private Byte isActive;
 
+    /**
+     * 创建时间
+     */
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @JSONField(format = "yyyy-MM-dd hh:mm:ss")
     private Date createTime;
-
+    /**
+     * 修改时间
+     */
     private Date modifyTime;
-
+    /**
+     * 创建人
+     */
     private String creator;
 
+    /************* 非持久化字段 ************/
+
+    /**
+     * 区域类型名称
+     */
     private String regionTypeName;
 
-    private String coordinate;
 
     private static final long serialVersionUID = 1L;
 
@@ -68,22 +105,6 @@ public class TabYcRegionCoordinate implements Serializable {
 
     public void setRegionAddr(String regionAddr) {
         this.regionAddr = regionAddr == null ? null : regionAddr.trim();
-    }
-
-    public BigDecimal getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(BigDecimal longitude) {
-        this.longitude = longitude;
-    }
-
-    public BigDecimal getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(BigDecimal latitude) {
-        this.latitude = latitude;
     }
 
     public Byte getIsActive() {
@@ -134,6 +155,22 @@ public class TabYcRegionCoordinate implements Serializable {
         this.coordinate = coordinate;
     }
 
+    public String getOrgCode() {
+        return orgCode;
+    }
+
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -144,8 +181,6 @@ public class TabYcRegionCoordinate implements Serializable {
         sb.append(", regionType=").append(regionType);
         sb.append(", regionName=").append(regionName);
         sb.append(", regionAddr=").append(regionAddr);
-        sb.append(", longitude=").append(longitude);
-        sb.append(", latitude=").append(latitude);
         sb.append(", isActive=").append(isActive);
         sb.append(", createTime=").append(createTime);
         sb.append(", modifyTime=").append(modifyTime);
