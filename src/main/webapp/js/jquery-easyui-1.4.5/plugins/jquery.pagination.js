@@ -262,7 +262,7 @@ $.fn.pagination.parseOptions=function(_28){
 var t=$(_28);
 return $.extend({},$.parser.parseOptions(_28,[{total:"number",pageSize:"number",pageNumber:"number",links:"number"},{loading:"boolean",showPageList:"boolean",showPageInfo:"boolean",showRefresh:"boolean"}]),{pageList:(t.attr("pageList")?eval(t.attr("pageList")):undefined)});
 };
-$.fn.pagination.defaults={total:1,pageSize:10,pageNumber:1,pageList:[10,20,30,50],loading:false,buttons:null,showPageList:true,showPageInfo:true,showRefresh:true,links:10,layout:["list","sep","first","prev","sep","manual","sep","next","last","sep","refresh","info"],onSelectPage:function(_29,_2a){
+$.fn.pagination.defaults={total:1,pageSize:10,pageNumber:1,pageList:[10,50,100,500],loading:false,buttons:null,showPageList:true,showPageInfo:true,showRefresh:true,links:10,layout:["list","sep","first","prev","sep","manual","sep","next","last","sep","refresh","info"],onSelectPage:function(_29,_2a){
 },onBeforeRefresh:function(_2b,_2c){
 },onRefresh:function(_2d,_2e){
 },onChangePageSize:function(_2f){

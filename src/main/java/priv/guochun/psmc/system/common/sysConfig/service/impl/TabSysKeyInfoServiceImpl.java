@@ -1,5 +1,6 @@
 package priv.guochun.psmc.system.common.sysConfig.service.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import priv.guochun.psmc.system.common.sysConfig.model.TabSysKeyInfo;
 import priv.guochun.psmc.system.common.sysConfig.service.TabSysKeyInfoService;
@@ -31,5 +32,10 @@ public class TabSysKeyInfoServiceImpl implements TabSysKeyInfoService {
 		return baseDao.getMyPage(page,selectSysKeyListInfo,page.getQueryParams());
 	}
 
-
+	public List selectAllSysKeyInfos(String sysKey) {
+		Map<String, Object> condition = new HashMap<String, Object>();
+		if(StringUtils.isNotBlank(sysKey))
+			condition.put("sysKey", sysKey);
+		return baseDao.queryForList(selectSysKeyListInfo,condition);
+	}
 }
