@@ -4,7 +4,7 @@
 <html>
 <head>
 	<%@ include file="../../common.jsp"%>
-
+	<%@ include file="./maps/gd_js_load.jsp"%>
 	<title>网格管理列表</title>
 </head>
 <body id="body">
@@ -46,7 +46,6 @@
 </div>
 
 <div id="ruleWin">
-	<div id="ruleAccordion"></div>
 </div>
 
 

@@ -41,14 +41,13 @@ public class SysKeyController extends MyController  {
 	}
 
 	/**
-	 * 查询所有系统key
+	 * 查询所有系统key(从缓存加载)
 	 * @throws IOException
 	 */
-	@RequestMapping(params="method=selectSysKeyInfos")
+	@RequestMapping(params="method=selectAllCacheSysKeyInfos")
 	@ResponseBody
-	public void selectAllSysKeyInfosBusinessMethod(String sysKey) throws IOException {
+	public void selectAllCacheSysKeyInfos(String sysKey) throws IOException {
 		List list = tabSysKeyInfoService.selectAllSysKeyInfos(sysKey);
 		super.responseJson(JsonUtil.convertToJSONObject(list), this.response());
 	}
-
 }

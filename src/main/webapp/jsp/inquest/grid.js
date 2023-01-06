@@ -92,7 +92,9 @@ function gatherCoordinate (gridUuid) {
         fit: true,
         //content:"<iframe scrolling='auto' frameborder='0' src='https://www.amap.com/' style='width:100%; height:100%; display:block;'></iframe>",
         href:"http://127.0.0.1:8080/psmc/jsp/inquest/maps/selectCoordinate.jsp",
-        modal: true
+        modal: true,
+        onClose:function(){
+        }
     })
 }
 
