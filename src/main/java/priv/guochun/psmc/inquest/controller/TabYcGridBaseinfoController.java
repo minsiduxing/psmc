@@ -50,4 +50,17 @@ public class TabYcGridBaseinfoController extends MyController {
     public void gridHanleCertCacl(String gridUuid) throws IOException {
         super.responseJson(tabYcGridCalculationModelService.gridHanleCertCacls(gridUuid),this.response());
     }
+
+
+    /**
+     * 修改网格对应的坐标
+     * @param gridUuid
+     * @param coordinate
+     * @throws IOException
+     */
+    @RequestMapping(params="method=updateGirdCoordnate")
+    @ResponseBody
+    public void updateGirdCoordnate(String gridUuid,String coordinate,String isMaintainCoordinate) throws IOException {
+        super.responseJson(tabYcGridBaseInfoService.updateGirdCoordnate(gridUuid,coordinate,isMaintainCoordinate),this.response());
+    }
 }

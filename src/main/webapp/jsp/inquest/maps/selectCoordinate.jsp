@@ -24,14 +24,19 @@
 	var map;
 	//网格多边形对象
 	var polygon;
-	var drawPolygon;
 	var overlays = [];
 	// 鼠标插件
 	var mouseTool;
 	var coordinated ='<%=request.getParameter("coordinated")%>';
+	if('undefined' == coordinated)
+		coordinated = '';
+	var gridUuid ='<%=request.getParameter("gridUuid")%>';
 	var basePath = $("#basePath").val();
 	var selectAllSysKeyInfosUrl = basePath+'/system/common/sysKeyController.do?method=selectAllCacheSysKeyInfos';
+	var updateGridCoodinateUrl = basePath+'/inquest/tabYcGridBaseinfoController.do?method=updateGirdCoordnate';
+
 	selectAllSysKeyInfosUrl = '<c:url value="'+selectAllSysKeyInfosUrl+'"/>';
+	updateGridCoodinateUrl = '<c:url value="'+updateGridCoodinateUrl+'"/>';
 
 	//开启关闭坐标采集
 	function enableGridDraw(obj){
@@ -42,19 +47,55 @@
 			$("#cancelGridDraw").css("display","none");
 			//取消插件
 			mouseTool.close(true);
+			map.remove(overlays);
 			//恢复以前的多边形
 			if(polygon != null && polygon != "")
 				polygon.show();
 		}
 		if(ival == "保存"){
+			if(overlays == null || overlays == ""){
+				commonObj.warn("请选择坐标!","warn");
+				return;
+			}
+			$.ajax({
+				type: "POST",
+				url: updateGridCoodinateUrl,
+				data: "isMaintainCoordinate=1&coordinate="+overlays+"&gridUuid="+gridUuid,
+				success: function(data){
+					var r = JSON.parse(data).result;
+					//取消插件
+					mouseTool.close(true);
+					if(eval(r.flag == 1)){
+						commonObj.alert(r.msg,"info");
+						map.clearMap();
+						polygon = new AMap.Polygon({
+							path: eval("["+overlays+"]"),
+							fillColor: '#808000', // 多边形填充颜色
+							strokeColor: '#808000', // 线条颜色
+							strokeStyle:'dashed',//实线虚线
+							fillOpacity:'0.1',//透明度
+						});
+						map.add(polygon);
+					}
+					else{
+						map.remove(overlays);
+						//恢复以前的多边形
+						if(polygon != null && polygon != "")
+							polygon.show();
+						commonObj.warn(r.msg,"warn");
+					}
+					overlays=[];
+					commonObj.query('sologTableId','searchform');
+				},
+				error:function(XMLHttpRequest, textStatus, errorThrown){
+					commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+				}
+			});
 			$("#gridDraw").css("display","");
 			$("#saveGridDraw").css("display","none");
 			$("#cancelGridDraw").css("display","none");
-			//取消插件
-			map.remove(mouseTool);
-			map.remove(drawPolygon);
-			map.remove(overlays);
-			overlays=[];
+
+
 		}
 		if(ival == "网格绘制"){
 			$("#gridDraw").css("display","none");
@@ -69,23 +110,21 @@
 				//在地图中添加MouseTool插件
 				mouseTool = new AMap.MouseTool(map);
 				//用鼠标工具画多边形
-				drawPolygon = mouseTool.polygon();
+				var drawPolygon = mouseTool.polygon();
 				//鼠标菜单插件的监听事件
 				mouseTool.on('draw', function(ev) {
-					overlays.push(ev.obj);
-					// //后台保存的多边形数组格式
-					// var availableAridCoords = new Array();
-					// var gridCoords = ev.obj.getPath().split(";");
-					// for (var i=0,len=gridCoords.length; i<len; i++) {
-					// 	availableAridCoords[i] = "["+gridCoords[i]+"]";
-					// }
-					// alert(availableAridCoords);
+					var paths = ev.obj.getPath();
+					for(var i=0;i<paths.length;i++){
+						overlays.push("["+paths[i].lng+","+paths[i].lat+"]");
+					}
 				});
 			});
 		}
 	}
 
-
+	/**
+	 * 入口 从配置里加载内容绘制地图
+	 */
 	$.ajax({
 		type: "POST",
 		url: selectAllSysKeyInfosUrl,
@@ -111,14 +150,14 @@
 				"key": gdkey,              // 申请好的Web端开发者Key，首次调用 load 时必填
 				"version": gdmap_jsapi_version   // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
 			}).then((AMap)=>{
-				 map = new AMap.Map('container',{
+				map = new AMap.Map('container',{
 					zoom: 10,  //设置地图显示的缩放级别
 					center: [108.953984,34.255958]//设置地图中心点坐标
 				});
 
 				//多边形轮廓线的节点坐标数组
 				if(coordinated != null && coordinated !="") {
-					 polygon = new AMap.Polygon({
+					polygon = new AMap.Polygon({
 						path: eval("["+coordinated+"]"),
 						fillColor: '#808000', // 多边形填充颜色
 						strokeColor: '#808000', // 线条颜色
@@ -137,22 +176,12 @@
 				};
 				// 绑定事件
 				map.on('click', clickHandler);
-
-				polygon.on('click', function(ev) {
-					//后台保存的多边形数组格式
-					// var availableAridCoords = new Array();
-					// var gridCoords = target.toString().split(";");
-					// for (var i=0,len=gridCoords.length; i<len; i++) {
-					// 	availableAridCoords[i] = "["+gridCoords[i]+"]";
-					// }
-				});
 			}).catch((e)=>{
 				console.error("jsapi加载错误提示："+e);  //加载错误提示
 			});
 		},
 		error:function(XMLHttpRequest, textStatus, errorThrown){
 			commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
-			$.messager.progress("close");
 		}
 	});
 </script>

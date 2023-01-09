@@ -38,4 +38,15 @@
         </if>
         order by a.ORG_CODE,a.CREATE_TIME desc
     </select>
+
+    <update id="updateGirdCoordnate">
+        update TAB_YC_GRID_BASE_INFO set
+        <if test="coordinate != null  and coordinate !=''">
+            GRID_COORDINATE = #{coordinate}
+        </if>
+        <if test="isMaintainCoordinate != null  and isMaintainCoordinate !=''">
+            ,IS_MAINTAIN_COORDINATE = #{isMaintainCoordinate}
+        </if>
+        where GRID_UUID = #{gridUuid}
+    </update>
 </mapper>

@@ -87,7 +87,7 @@ function gatherCoordinate (gridUuid,coordinated) {
         title: '网格坐标采集',
         fit: true,
         //content:"<iframe scrolling='auto' frameborder='0' src='https://www.amap.com/' style='width:100%; height:100%; display:block;'></iframe>",
-        href:gridCoordChose+"?coordinated="+encodeURI(coordinated),
+        href:gridCoordChose+"?coordinated="+encodeURI(coordinated)+"&gridUuid="+gridUuid,
         modal: true,
         onClose:function(){
         }
