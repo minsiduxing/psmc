@@ -8,6 +8,19 @@
 	<title>网格多边形坐标采集功能</title>
 </head>
 <body id="body">
+<style type="text/css">
+	.amap-sug-result { z-index: 25000; }
+
+	#panel {
+		position: absolute;
+		background-color: white;
+		max-height: 90%;
+		overflow-y: auto;
+		top: 10px;
+		right: 10px;
+		width: 280px;
+	}
+</style>
 <div style="width:100%;height:5%;margin: 5px;">
 	<div style="font-size: 5px">
 		<input id="address" name="address" style="width:30%;margin-right:1%">
@@ -17,6 +30,7 @@
 		<input id="saveGridDraw" name="saveGridDraw" onclick="enableGridDraw(this);" type="button" style="display:none;width:40px;margin-right:1%" value="保存"/>
 		<input id="cancelGridDraw" name="cancelGridDraw" onclick="enableGridDraw(this);" type="button" style="display:none;width:40px;margin-right:1%" value="取消"/>
 	</div>
+	<div id="panel"></div>
 </div>
 <div id="container" style="width:100%;height:95%;"></div>
 <script type="text/javascript">
@@ -28,7 +42,6 @@
 	selectAllSysKeyInfosUrl = '<c:url value="'+selectAllSysKeyInfosUrl+'"/>';
 	updateGridCoodinateUrl = '<c:url value="'+updateGridCoodinateUrl+'"/>';
 	queryGridByGridUuidUrl = '<c:url value="'+queryGridByGridUuidUrl+'"/>';
-
 	//地图对象
 	var map;
 	//网格多边形对象
@@ -98,6 +111,35 @@
 						};
 						// 绑定事件
 						map.on('click', clickHandler);
+
+						var autoComplete;
+						var placeSearch;
+						AMap.plugin('AMap.AutoComplete', function(){
+							var autoOptions = {
+								city: '西安',
+								input: 'address'
+							};
+							// 实例化AutoComplete
+							 autoComplete= new AMap.AutoComplete(autoOptions);
+						});
+
+						AMap.plugin(["AMap.PlaceSearch"], function() {
+							//构造地点查询类
+							 placeSearch = new AMap.PlaceSearch({
+								pageSize: 5, // 单页显示结果条数
+								pageIndex: 1, // 页码
+								city: "西安", // 兴趣点城市
+								citylimit: true,  //是否强制限制在设置的城市内搜索
+								map: map, // 展现结果的地图实例
+								panel: "panel", // 结果列表将在此容器中进行展示。
+								autoFitView: true // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
+							});
+						});
+
+						autoComplete.on('select', function(e){
+							placeSearch.search(e.poi.name);
+						})
+
 					}).catch((e)=>{
 						console.error("jsapi加载错误提示："+e);  //加载错误提示
 					});
