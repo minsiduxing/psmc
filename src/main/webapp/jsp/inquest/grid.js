@@ -29,6 +29,11 @@ $(document).ready(function(){
                 }},
             {field:'GRID_MTYPE_NAME',align:'center',title:"测算类别名称",width:$(this).width() * 0.2},
             {field:'LEGAL_PROVISION_DESC',align:'left',title:"测算类别依据",width:$(this).width() * 1.5},
+            // {field:'MAP_STYLE',align:'center',title:"色彩",width:$(this).width() * 0.2,formatter: function (value, row, index) {
+            //     console.info(JSON.parse(value));
+            //         return "<div style='widht:100%;height:100%;background-color:"+JSON.parse(value).fillColor+"'>"+JSON.parse(value).colorName+"</div>";
+            //
+            //     }},
             {field:'ORG_NAME',align:'center',title:"所属专卖局",width:$(this).width() * 0.2}
         ]]
     };
