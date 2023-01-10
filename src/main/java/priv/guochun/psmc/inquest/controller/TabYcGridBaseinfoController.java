@@ -40,6 +40,13 @@ public class TabYcGridBaseinfoController extends MyController {
         super.responseJson(JsonUtil.convertJavaBeanToJSONObject(myPage), this.response());
     }
 
+    @RequestMapping(params="method=queryGridByGridUuid")
+    @ResponseBody
+    public void queryGridByGridUuid(String gridUuid) throws IOException {
+        Map map = tabYcGridBaseInfoService.queryGirdInfoByGridUuid(gridUuid);
+        super.responseJson(JsonUtil.convertToJSONObject(map), this.response());
+    }
+
     /**
      * 测算网格下所有公式（是否具备办证能力，是否还有余量的意思）
      * @param gridUuid 网格uuid

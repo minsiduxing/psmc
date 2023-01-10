@@ -20,23 +20,103 @@
 </div>
 <div id="container" style="width:100%;height:95%;"></div>
 <script type="text/javascript">
+	var basePath = $("#basePath").val();
+	var selectAllSysKeyInfosUrl = basePath+'/system/common/sysKeyController.do?method=selectAllCacheSysKeyInfos';
+	var updateGridCoodinateUrl = basePath+'/inquest/tabYcGridBaseinfoController.do?method=updateGirdCoordnate';
+	var queryGridByGridUuidUrl = basePath+'/inquest/tabYcGridBaseinfoController.do?method=queryGridByGridUuid';
+
+	selectAllSysKeyInfosUrl = '<c:url value="'+selectAllSysKeyInfosUrl+'"/>';
+	updateGridCoodinateUrl = '<c:url value="'+updateGridCoodinateUrl+'"/>';
+	queryGridByGridUuidUrl = '<c:url value="'+queryGridByGridUuidUrl+'"/>';
+
 	//地图对象
 	var map;
 	//网格多边形对象
 	var polygon;
-	var overlays = [];
 	// 鼠标插件
 	var mouseTool;
-	var coordinated ='<%=request.getParameter("coordinated")%>';
-	if('undefined' == coordinated)
-		coordinated = '';
-	var gridUuid ='<%=request.getParameter("gridUuid")%>';
-	var basePath = $("#basePath").val();
-	var selectAllSysKeyInfosUrl = basePath+'/system/common/sysKeyController.do?method=selectAllCacheSysKeyInfos';
-	var updateGridCoodinateUrl = basePath+'/inquest/tabYcGridBaseinfoController.do?method=updateGirdCoordnate';
+	//绘制新的多边形的临时保存对象
+	var overlays = [];
 
-	selectAllSysKeyInfosUrl = '<c:url value="'+selectAllSysKeyInfosUrl+'"/>';
-	updateGridCoodinateUrl = '<c:url value="'+updateGridCoodinateUrl+'"/>';
+	var gridUuid ='<%=request.getParameter("gridUuid")%>';
+	var coordinated ='';
+	var mapStyle = '';
+	$.ajax({
+		type: "POST",
+		url: queryGridByGridUuidUrl,
+		data: "gridUuid="+gridUuid,
+		success: function(data){
+			data = JSON.parse(data);
+			coordinated = data.GRID_COORDINATE != null ? data.GRID_COORDINATE : '';
+			mapStyle = JSON.parse(data.MAP_STYLE);
+			/**
+			 * 入口 从配置里加载内容绘制地图
+			 */
+			$.ajax({
+				type: "POST",
+				url: selectAllSysKeyInfosUrl,
+				data: null,
+				success: function(data){
+					var datasjson = JSON.parse(data);
+					var syskeys = datasjson.listArray;
+					var gdkey = "";
+					var gdmap_jsapi_version = "";
+					var gdmap_market_icon = "";
+					for(var i=0,l=syskeys.length;i<l;i++){
+						if(syskeys[i].sys_key == 'gdmap_key'){
+							gdkey = syskeys[i].sys_value;
+						}
+						if(syskeys[i].sys_key == 'gdmap_jsapi_version'){
+							gdmap_jsapi_version = syskeys[i].sys_value;
+						}
+						if(syskeys[i].sys_key == 'gdmap_market_icon'){
+							gdmap_market_icon = syskeys[i].sys_value;
+						}
+						if(syskeys[i].sys_key == 'default_grid_style'){
+							default_grid_style = syskeys[i].sys_value;
+						}
+					}
+					AMapLoader.load({
+						"key": gdkey,              // 申请好的Web端开发者Key，首次调用 load 时必填
+						"version": gdmap_jsapi_version   // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
+					}).then((AMap)=>{
+						map = new AMap.Map('container',{
+							zoom: 10,  //设置地图显示的缩放级别
+							center: [108.953984,34.255958]//设置地图中心点坐标
+						});
+
+						//多边形轮廓线的节点坐标数组
+						if(coordinated != null && coordinated !="") {
+							polygon = new AMap.Polygon({
+								path: eval("["+coordinated+"]")
+							});
+							polygon.setOptions(mapStyle);
+							map.add(polygon);
+							map.setFitView(polygon);
+						}
+
+						var clickHandler = function(e) {
+							//中心点随鼠标点击移动
+							map.setCenter(new AMap.LngLat(e.lnglat.getLng(),e.lnglat.getLat()));
+						};
+						// 绑定事件
+						map.on('click', clickHandler);
+					}).catch((e)=>{
+						console.error("jsapi加载错误提示："+e);  //加载错误提示
+					});
+				},
+				error:function(XMLHttpRequest, textStatus, errorThrown){
+					commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+				}
+			});
+		},
+		error:function(XMLHttpRequest, textStatus, errorThrown){
+			commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+		}
+	});
+
+
+
 
 	//开启关闭坐标采集
 	function enableGridDraw(obj){
@@ -51,51 +131,48 @@
 			//恢复以前的多边形
 			if(polygon != null && polygon != "")
 				polygon.show();
+			overlays = [];
 		}
 		if(ival == "保存"){
-			if(overlays == null || overlays == ""){
-				commonObj.warn("请选择坐标!","warn");
+			if(overlays == null || overlays == "" || overlays == []){
+				alert("请选择坐标");
 				return;
+			}else{
+				$.ajax({
+					type: "POST",
+					url: updateGridCoodinateUrl,
+					data: "isMaintainCoordinate=1&coordinate="+overlays+"&gridUuid="+gridUuid,
+					success: function(data){
+						var r = JSON.parse(data).result;
+						//取消插件
+						mouseTool.close(true);
+						if(eval(r.flag == 1)){
+							commonObj.alert(r.msg,"info");
+							map.clearMap();
+							polygon = new AMap.Polygon({
+								path: eval("["+overlays+"]"),
+							});
+							polygon.setOptions(mapStyle);
+							map.add(polygon);
+						}
+						else{
+							map.remove(overlays);
+							//恢复以前的多边形
+							if(polygon != null && polygon != "")
+								polygon.show();
+							commonObj.warn(r.msg,"warn");
+						}
+						overlays=[];
+						commonObj.query('sologTableId','searchform');
+					},
+					error:function(XMLHttpRequest, textStatus, errorThrown){
+						commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+					}
+				});
+				$("#gridDraw").css("display","");
+				$("#saveGridDraw").css("display","none");
+				$("#cancelGridDraw").css("display","none");
 			}
-			$.ajax({
-				type: "POST",
-				url: updateGridCoodinateUrl,
-				data: "isMaintainCoordinate=1&coordinate="+overlays+"&gridUuid="+gridUuid,
-				success: function(data){
-					var r = JSON.parse(data).result;
-					//取消插件
-					mouseTool.close(true);
-					if(eval(r.flag == 1)){
-						commonObj.alert(r.msg,"info");
-						map.clearMap();
-						polygon = new AMap.Polygon({
-							path: eval("["+overlays+"]"),
-							fillColor: '#808000', // 多边形填充颜色
-							strokeColor: '#808000', // 线条颜色
-							strokeStyle:'dashed',//实线虚线
-							fillOpacity:'0.1',//透明度
-						});
-						map.add(polygon);
-					}
-					else{
-						map.remove(overlays);
-						//恢复以前的多边形
-						if(polygon != null && polygon != "")
-							polygon.show();
-						commonObj.warn(r.msg,"warn");
-					}
-					overlays=[];
-					commonObj.query('sologTableId','searchform');
-				},
-				error:function(XMLHttpRequest, textStatus, errorThrown){
-					commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
-				}
-			});
-			$("#gridDraw").css("display","");
-			$("#saveGridDraw").css("display","none");
-			$("#cancelGridDraw").css("display","none");
-
-
 		}
 		if(ival == "网格绘制"){
 			$("#gridDraw").css("display","none");
@@ -121,69 +198,6 @@
 			});
 		}
 	}
-
-	/**
-	 * 入口 从配置里加载内容绘制地图
-	 */
-	$.ajax({
-		type: "POST",
-		url: selectAllSysKeyInfosUrl,
-		data: null,
-		success: function(data){
-			var datasjson = JSON.parse(data);
-			var syskeys = datasjson.listArray;
-			var gdkey = "";
-			var gdmap_jsapi_version = "";
-			var gdmap_market_icon = "";
-			for(var i=0,l=syskeys.length;i<l;i++){
-				if(syskeys[i].sys_key == 'gdmap_key'){
-					gdkey = syskeys[i].sys_value;
-				}
-				if(syskeys[i].sys_key == 'gdmap_jsapi_version'){
-					gdmap_jsapi_version = syskeys[i].sys_value;
-				}
-				if(syskeys[i].sys_key == 'gdmap_market_icon'){
-					gdmap_market_icon = syskeys[i].sys_value;
-				}
-			}
-			AMapLoader.load({
-				"key": gdkey,              // 申请好的Web端开发者Key，首次调用 load 时必填
-				"version": gdmap_jsapi_version   // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-			}).then((AMap)=>{
-				map = new AMap.Map('container',{
-					zoom: 10,  //设置地图显示的缩放级别
-					center: [108.953984,34.255958]//设置地图中心点坐标
-				});
-
-				//多边形轮廓线的节点坐标数组
-				if(coordinated != null && coordinated !="") {
-					polygon = new AMap.Polygon({
-						path: eval("["+coordinated+"]"),
-						fillColor: '#808000', // 多边形填充颜色
-						strokeColor: '#808000', // 线条颜色
-						strokeStyle:'dashed',//实线虚线
-						fillOpacity:'0.1',//透明度
-					});
-					map.add(polygon);
-					//改为自适应展示
-					//map.setZoomAndCenter(17,eval(coordinated)[0]);
-					map.setFitView(polygon);
-				}
-
-				var clickHandler = function(e) {
-					//中心点随鼠标点击移动
-					map.setCenter(new AMap.LngLat(e.lnglat.getLng(),e.lnglat.getLat()));
-				};
-				// 绑定事件
-				map.on('click', clickHandler);
-			}).catch((e)=>{
-				console.error("jsapi加载错误提示："+e);  //加载错误提示
-			});
-		},
-		error:function(XMLHttpRequest, textStatus, errorThrown){
-			commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
-		}
-	});
 </script>
 </body>
 </html>
