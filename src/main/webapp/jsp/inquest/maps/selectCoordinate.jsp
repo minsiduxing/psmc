@@ -72,9 +72,6 @@
 						if(syskeys[i].sys_key == 'gdmap_market_icon'){
 							gdmap_market_icon = syskeys[i].sys_value;
 						}
-						if(syskeys[i].sys_key == 'default_grid_style'){
-							default_grid_style = syskeys[i].sys_value;
-						}
 					}
 					AMapLoader.load({
 						"key": gdkey,              // 申请好的Web端开发者Key，首次调用 load 时必填
