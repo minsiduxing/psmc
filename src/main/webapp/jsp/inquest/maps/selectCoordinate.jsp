@@ -143,7 +143,9 @@
 
 								var p0 = [ev.lnglat.getLng(),ev.lnglat.getLat()];
 								var inRing = AMap.GeometryUtil.isPointInRing(p0, eval("["+coordinated+"]"));
-								console.info("inRing2:"+inRing);
+								//[108.949174,34.257559],[108.949376,34.257348],[108.949166,34.257969]
+								var inLine = AMap.GeometryUtil.isPointOnSegment(p0, [108.949174,34.257559],[108.949376,34.257348], 0);
+								console.info("inRing:"+inRing+" inLine"+inLine);
 
 								// 创建 infoWindow 实例
 								var infoWindow = new AMap.InfoWindow({
@@ -164,7 +166,9 @@
 							map.setCenter(new AMap.LngLat(e.lnglat.getLng(),e.lnglat.getLat()));
 							var p0 = [e.lnglat.getLng(),e.lnglat.getLat()];
 							var inRing = AMap.GeometryUtil.isPointInRing(p0, eval("["+coordinated+"]"));
-							console.info("inRing:"+inRing);
+							//[108.949174,34.257559],[108.949376,34.257348],[108.949166,34.257969]
+							var inLine = AMap.GeometryUtil.isPointOnSegment(p0, [108.949174,34.257559],[108.949376,34.257348], 0);
+							console.info("inRing:"+inRing+" inLine"+inLine);
 						};
 						// 绑定事件
 						map.on('click', clickHandler);
