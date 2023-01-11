@@ -33,7 +33,7 @@
 	</div>
 	<div id="panel"></div>
 </div>
-<div id="container" style="width:100%;height:95%;"></div>
+<div id="container" style="width:100%;height:92%;"></div>
 <script type="text/javascript">
 	var basePath = $("#basePath").val();
 	var selectAllSysKeyInfosUrl = basePath+'/system/common/sysKeyController.do?method=selectAllCacheSysKeyInfos';
@@ -55,6 +55,11 @@
 	var gridUuid ='<%=request.getParameter("gridUuid")%>';
 	var coordinated ='';
 	var mapStyle = '';
+
+	var gdkey = "";
+	var gdmap_jsapi_version = "";
+	var gdmap_init_info;
+
 	$.ajax({
 		type: "POST",
 		url: queryGridByGridUuidUrl,
@@ -73,9 +78,7 @@
 				success: function(data){
 					var datasjson = JSON.parse(data);
 					var syskeys = datasjson.listArray;
-					var gdkey = "";
-					var gdmap_jsapi_version = "";
-					var gdmap_market_icon = "";
+
 					for(var i=0,l=syskeys.length;i<l;i++){
 						if(syskeys[i].sys_key == 'gdmap_key'){
 							gdkey = syskeys[i].sys_value;
@@ -83,19 +86,42 @@
 						if(syskeys[i].sys_key == 'gdmap_jsapi_version'){
 							gdmap_jsapi_version = syskeys[i].sys_value;
 						}
-						if(syskeys[i].sys_key == 'gdmap_market_icon'){
-							gdmap_market_icon = syskeys[i].sys_value;
+						if(syskeys[i].sys_key == 'gdmap_init_info'){
+							gdmap_init_info = JSON.parse(syskeys[i].sys_value);
 						}
 					}
+					var map_d_init = eval(gdmap_init_info.default_init);
 					AMapLoader.load({
 						"key": gdkey,              // 申请好的Web端开发者Key，首次调用 load 时必填
 						"version": gdmap_jsapi_version   // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
 					}).then((AMap)=>{
-						map = new AMap.Map('container',{
-							zoom: 10,  //设置地图显示的缩放级别
-							center: [108.953984,34.255958]//设置地图中心点坐标
-						});
+						map = new AMap.Map('container', ({
+									zoom:map_d_init.zoom,
+									center:JSON.parse(map_d_init.center)
+								})
+						);
+						AMap.plugin([
+							'AMap.ToolBar',
+							'AMap.Scale',
+							'AMap.HawkEye',
+							'AMap.MapType',
+							'AMap.Geolocation',
+						], function(){
+							// 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
+							map.addControl(new AMap.ToolBar());
 
+							// 在图面添加比例尺控件，展示地图在当前层级和纬度下的比例尺
+							map.addControl(new AMap.Scale());
+							//
+							// // 在图面添加鹰眼控件，在地图右下角显示地图的缩略图
+							// map.addControl(new AMap.HawkEye({isOpen:true}));
+
+							// 在图面添加类别切换控件，实现默认图层与卫星图、实施交通图层之间切换的控制
+							map.addControl(new AMap.MapType());
+
+							// // 在图面添加定位控件，用来获取和展示用户主机所在的经纬度位置
+							// map.addControl(new AMap.Geolocation());
+						});
 						//多边形轮廓线的节点坐标数组
 						if(coordinated != null && coordinated !="") {
 							polygon = new AMap.Polygon({
@@ -114,6 +140,11 @@
 								var pixel = ev.pixel;
 								// 触发事件类型
 								var type = ev.type;
+
+								var p0 = [ev.lnglat.getLng(),ev.lnglat.getLat()];
+								var inRing = AMap.GeometryUtil.isPointInRing(p0, eval("["+coordinated+"]"));
+								console.info("inRing2:"+inRing);
+
 								// 创建 infoWindow 实例
 								var infoWindow = new AMap.InfoWindow({
 									content: "<p>网格名称:"+gridData.GRID_NAME+"</p>" +
@@ -131,6 +162,9 @@
 						var clickHandler = function(e) {
 							//中心点随鼠标点击移动
 							map.setCenter(new AMap.LngLat(e.lnglat.getLng(),e.lnglat.getLat()));
+							var p0 = [e.lnglat.getLng(),e.lnglat.getLat()];
+							var inRing = AMap.GeometryUtil.isPointInRing(p0, eval("["+coordinated+"]"));
+							console.info("inRing:"+inRing);
 						};
 						// 绑定事件
 						map.on('click', clickHandler);
@@ -139,7 +173,7 @@
 						// var placeSearch;
 						// AMap.plugin('AMap.AutoComplete', function(){
 						// 	var autoOptions = {
-						// 		city: '西安',
+						// 		city: gdmap_init_info.default_city,
 						// 		input: 'address'
 						// 	};
 						// 	// 实例化AutoComplete
@@ -151,7 +185,7 @@
 						// 	 placeSearch = new AMap.PlaceSearch({
 						// 		pageSize: 5, // 单页显示结果条数
 						// 		pageIndex: 1, // 页码
-						// 		city: "西安", // 兴趣点城市
+						// 		city: "gdmap_init_info.default_city, // 兴趣点城市
 						// 		citylimit: true,  //是否强制限制在设置的城市内搜索
 						// 		map: map, // 展现结果的地图实例
 						// 		panel: "panel", // 结果列表将在此容器中进行展示。
@@ -186,7 +220,7 @@
 			placeSearch = new AMap.PlaceSearch({
 				pageSize: 10, // 单页显示结果条数
 				pageIndex: 1, // 页码
-				city: "西安", // 兴趣点城市
+				city: gdmap_init_info.default_city, // 兴趣点城市
 				citylimit: true,  //是否强制限制在设置的城市内搜索
 				map: map, // 展现结果的地图实例
 				panel: "panel", // 结果列表将在此容器中进行展示。
