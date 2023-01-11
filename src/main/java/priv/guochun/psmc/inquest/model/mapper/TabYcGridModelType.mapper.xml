@@ -3,7 +3,7 @@
 <mapper namespace="priv.guochun.psmc.inquest.model.TabYcGridModelType">
 
   <select id="selectGridModelTypeInfoList" resultType="java.util.Map" parameterType="hashmap">
-    SELECT a.GRID_MTYPE_UUID, a.GRID_MTYPE_NAME, a.LEGAL_PROVISION_DESC, a.ORG_CODE, a.SORT, a.MODIFY_TIME, a.CREATOR, a.CREATE_TIME, a.IS_ACTIVE, a.VERSION,
+    SELECT a.GRID_MTYPE_UUID, a.GRID_MTYPE_NAME, a.LEGAL_PROVISION_DESC,a.MAP_STYLE, a.ORG_CODE, a.SORT, a.MODIFY_TIME, a.CREATOR, a.CREATE_TIME, a.IS_ACTIVE, a.VERSION,
            b.group_name as ORG_NAME
     FROM tab_yc_grid_model_type a,tab_group b where a.is_active=1 and a.org_code = b.group_code
     <if test="orgCode != null">

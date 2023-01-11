@@ -14,6 +14,11 @@ $(document).ready(function(){
             {field:'GRID_UUID',align:'center',title:'唯一标示',hidden:true},
             {field:'GRID_MTYPE_NAME',align:'center',title:"测算类别名称",width:$(this).width() * 0.2},
             {field:'LEGAL_PROVISION_DESC',align:'left',title:"测算类别依据",width:$(this).width() * 1.1},
+            {field:'MAP_STYLE',align:'center',title:"色彩",width:$(this).width() * 0.1,formatter: function (value, row, index) {
+                var  jv = JSON.parse(value);
+                    return "<div style='widht:100%;height:100%;border-color:"+jv.fillColor+";border:"+jv.strokeStyle+";background-color:"+jv.strokeColor+"'>"+jv.colorName+"</div>";
+
+                }},
             {field:'ORG_NAME',align:'center',title:"所属专卖局",width:$(this).width() * 0.2}
         ]
         ]
