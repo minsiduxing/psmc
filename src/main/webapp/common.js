@@ -371,7 +371,28 @@ commonObj.isAuth = function(operateNo){
 	});
 	return auth;
 };
-
+/**
+ * 公共方法，发起同步ajax请求获取数据
+ * @param url
+ * @param data
+ * @returns {any}
+ */
+commonObj.postAjax = function(url,data){
+	var result;
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: data,
+		async: false,
+		success: function(data) {
+			result = data;
+		},
+		error:function(XMLHttpRequest, textStatus, errorThrown){
+			commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+		}
+	});
+	return result;
+};
 
 $.ajaxSetup({ 
      complete:function(XMLHttpRequest,textStatus){   

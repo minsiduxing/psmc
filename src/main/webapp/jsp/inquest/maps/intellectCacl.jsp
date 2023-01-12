@@ -23,7 +23,7 @@
 </style>
 <div style="width:100%;height:5%;margin: 5px;">
 	<div style="font-size: 5px">
-		<input id="address" name="address" style="width:30%;margin-right:1%">
+		经营地址：<input id="address" name="address" style="width:30%;margin-right:1%">
 		<input id="search" name="search" onclick="search();" type="button" style="width:70px;margin-right:1%" value="地址搜索"/>
 		<input id="cacl" name="cacl" onclick="search();" type="button" style="width:70px;margin-right:1%" value="智能测算"/>
 	</div>
@@ -48,33 +48,30 @@
 	/**
 	 * 入口 从配置里加载内容绘制地图
 	 */
-	$.ajax({
-		type: "POST",
-		url: selectAllSysKeyInfosUrl,
-		data: null,
-		success: function(data) {
+			var data = commonObj.postAjax(selectAllSysKeyInfosUrl,null);
 			var datasjson = JSON.parse(data);
 			var syskeys = datasjson.listArray;
-
-			for(var i=0,l=syskeys.length;i<l;i++){
-				if(syskeys[i].sys_key == 'gdmap_key'){
-					gdkey = syskeys[i].sys_value;
+			for(var i =0;i<syskeys.length;i++){
+				var syskeyobj = syskeys[i];
+				if(syskeyobj.sys_key == 'gdmap_key'){
+					gdkey = syskeyobj.sys_value;
 				}
-				if(syskeys[i].sys_key == 'gdmap_jsapi_version'){
-					gdmap_jsapi_version = syskeys[i].sys_value;
+				if(syskeyobj.sys_key == 'gdmap_jsapi_version'){
+					gdmap_jsapi_version = syskeyobj.sys_value;
 				}
-				if(syskeys[i].sys_key == 'gdmap_init_info'){
-					gdmap_init_info = JSON.parse(syskeys[i].sys_value);
+				if(syskeyobj.sys_key == 'gdmap_init_info'){
+					gdmap_init_info = JSON.parse(syskeyobj.sys_value);
 				}
 			}
 			var map_d_init = eval(gdmap_init_info.default_init);
+
 			AMapLoader.load({
 				"key": gdkey,              // 申请好的Web端开发者Key，首次调用 load 时必填
 				"version": gdmap_jsapi_version   // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-			}).then((AMap)=>{
+			}).then((AMap)=> {
 				map = new AMap.Map('container', ({
-							zoom:map_d_init.zoom,
-							center:JSON.parse(map_d_init.center)
+							zoom: map_d_init.zoom,
+							center: JSON.parse(map_d_init.center)
 						})
 				);
 				AMap.plugin([
@@ -83,7 +80,7 @@
 					'AMap.HawkEye',
 					'AMap.MapType',
 					'AMap.Geolocation',
-				], function(){
+				], function () {
 					// 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
 					map.addControl(new AMap.ToolBar());
 					// 在图面添加比例尺控件，展示地图在当前层级和纬度下的比例尺
@@ -98,41 +95,27 @@
 					// // 在图面添加定位控件，用来获取和展示用户主机所在的经纬度位置
 					// map.addControl(new AMap.Geolocation());
 				});
-				var clickHandler = function(e) {
-					if(coverGroups != [] && coverGroups.length>0){
-						map.remove(coverGroups);
-						coverGroups=[];
-					}
-					dynamicLoadCovers("["+e.lnglat.getLng()+","+e.lnglat.getLat()+"]");
+				var clickHandler = function (e) {
+					dynamicLoadCovers("[" + e.lnglat.getLng() + "," + e.lnglat.getLat() + "]");
 					//中心点随鼠标点击移动
-					map.setCenter(new AMap.LngLat(e.lnglat.getLng(),e.lnglat.getLat()));
+					map.setCenter(new AMap.LngLat(e.lnglat.getLng(), e.lnglat.getLat()));
 				};
 				// 绑定事件
 				map.on('click', clickHandler);
 
 				//初始化网格添加物
-				$.ajax({
-					type: "POST",
-					url: queryAllGirdUrl,
-					data: null,
-					success: function (data) {
-						gridDatas = JSON.parse(data).listArray;
-						dynamicLoadCovers(map_d_init.center);
-					}, error: function (XMLHttpRequest, textStatus, errorThrown) {
-						commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
-					}
-				})
-			}).catch((e)=>{
-				console.error("jsapi加载错误提示："+e);  //加载错误提示
+				var data = commonObj.postAjax(queryAllGirdUrl, null);
+				gridDatas = JSON.parse(data).listArray;
+				dynamicLoadCovers(map_d_init.center);
 			});
-		},
-		error:function(XMLHttpRequest, textStatus, errorThrown){
-			commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
-		}
-	});
+
 
 	/*动态加载覆盖物*/
 	function dynamicLoadCovers(centerCoordinate){
+		if (coverGroups != [] && coverGroups.length > 0) {
+			map.remove(coverGroups);
+			coverGroups = [];
+		}
 		for (var i = 0; i < gridDatas.length; i++) {
 			var gridData = eval(gridDatas[i]);
 			//计算坐标点和网格的地面距离
@@ -159,6 +142,7 @@
 		}
 	}
 
+	//网格覆盖物事件
 	function polygonClickFunc(ev,gridData){
 		// 触发事件的对象
 		var target = ev.target;
