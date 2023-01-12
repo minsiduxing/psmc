@@ -142,9 +142,11 @@
 			/*<=100米的话纳入展示的覆盖物范围内*/
 			if(parseInt(dis)<=1000){
 				var polygon = new AMap.Polygon({
-					path: eval("["+gridData.GRID_COORDINATE+"]")
+					path: eval("["+gridData.GRID_COORDINATE+"]"),
+					extData:gridData
 				});
 				polygon.setOptions(JSON.parse(gridData.MAP_STYLE));
+				polygon.on('click', polygonClickFunc);
 				coverGroups.push(polygon);
 			}
 		}
@@ -155,8 +157,32 @@
 			map.add(coverGroups);
 			map.setFitView();
 		}
-
 	}
+
+	function polygonClickFunc(ev,gridData){
+		// 触发事件的对象
+		var target = ev.target;
+		// 触发事件的地理坐标，AMap.LngLat 类型
+		var lnglat = ev.lnglat;
+		// 触发事件的像素坐标，AMap.Pixel 类型
+		var pixel = ev.pixel;
+		// 触发事件类型
+		var type = ev.type;
+
+		var p0 = [ev.lnglat.getLng(),ev.lnglat.getLat()];
+		// 创建 infoWindow 实例
+		var gridDataTemp = target.getExtData();
+		var infoWindow = new AMap.InfoWindow({
+			content: "<p>网格名称:"+gridDataTemp.GRID_NAME+"</p>" +
+					"<p>网格人口总数:"+gridDataTemp.GRID_PEPOLE_COUNT+",规划办证数量:"+gridDataTemp.PLANNING_ISSUE_CERT_TOTAL+",已办证数量："+gridDataTemp.PLANNING_ISSUE_CERT_TOTAL+"</p>" +
+					"<p></p>" +
+					"<p>测算类别依据:</p>" +
+					"<p>"+gridDataTemp.LEGAL_PROVISION_DESC+"</p>"
+		});
+		// 打开信息窗体
+		infoWindow.open(map,eval('['+lnglat+']'));
+	}
+
 	/*简单版搜索功能*/
 	function search(){
 		var address = $("#address").val();
