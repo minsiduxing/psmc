@@ -7,6 +7,7 @@ import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -35,6 +36,10 @@ public class TabYcGridBaseInfoServiceImpl implements TabYcGridBaseInfoService {
         Map<String,Object> condition = new HashMap<String,Object>();
         condition.put("gridUuid",gridUuid);
         return (Map)baseDao.queryForObject(selectGridInfoList,condition);
+    }
+
+    public List<Map> queryAllGirdInfo(){
+        return (List<Map>)baseDao.queryForList(selectGridInfoList,null);
     }
 
     public MsgModel updateGirdCoordnate(String gridUuid, String coordinate, String isMaintainCoordinate){

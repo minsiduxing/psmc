@@ -12,6 +12,7 @@ import priv.guochun.psmc.system.util.JsonUtil;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,6 +46,13 @@ public class TabYcGridBaseinfoController extends MyController {
     public void queryGridByGridUuid(String gridUuid) throws IOException {
         Map map = tabYcGridBaseInfoService.queryGirdInfoByGridUuid(gridUuid);
         super.responseJson(JsonUtil.convertToJSONObject(map), this.response());
+    }
+
+    @RequestMapping(params="method=queryAllGird")
+    @ResponseBody
+    public void queryAllGird() throws IOException {
+        List list = tabYcGridBaseInfoService.queryAllGirdInfo();
+        super.responseJson(JsonUtil.convertToJSONObject(list), this.response());
     }
 
     /**

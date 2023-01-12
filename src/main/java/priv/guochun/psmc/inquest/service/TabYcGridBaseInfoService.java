@@ -3,6 +3,7 @@ package priv.guochun.psmc.inquest.service;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,6 +20,8 @@ public interface TabYcGridBaseInfoService {
     MyPage queryGridInfoList(MyPage myPage);
 
     Map queryGirdInfoByGridUuid(String gridUuid);
+
+    List<Map> queryAllGirdInfo();
 
     /**
      * 修改网格对应坐标
