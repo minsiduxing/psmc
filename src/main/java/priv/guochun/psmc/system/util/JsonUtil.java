@@ -43,7 +43,7 @@ public class JsonUtil {
 	 * @param list
 	 * @return
 	 */
-	public static JSONArray convertToJSONArray( List<Map<?,?>> list ){
+	public static JSONArray convertToJSONArray(List<Map<?,?>> list ){
 	    JSONArray jsonArray = new JSONArray();
 		if(list == null || list.size()<=0)
 			return jsonArray;
@@ -61,7 +61,18 @@ public class JsonUtil {
     	}
 		return jsonArray;
 	}
-	
+	public static JSONArray convertListObjToJSONArray(List<Object> list){
+		JSONArray jsonArray = new JSONArray();
+		if(list == null || list.size()<=0)
+			return jsonArray;
+
+		for(int i=0;i<list.size();i++){
+			Object obj =  list.get(i);
+			String jo = com.alibaba.fastjson.JSONObject.toJSONString(obj);
+			jsonArray.put(jo);
+		}
+		return jsonArray;
+	}
 	/**
 	 * 将一个map 转换成JSONObject返回
 	 * @param map

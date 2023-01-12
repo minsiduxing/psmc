@@ -6,6 +6,7 @@ import priv.guochun.psmc.system.framework.dao.BaseDao;
 import priv.guochun.psmc.system.framework.page.MyPage;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,5 +27,9 @@ public class TabYcRegionCoordinateServiceImpl implements TabYcRegionCoordinateSe
             condition.putAll(page.getQueryParams());
         }
         return baseDao.getMyPage(page, "selectRegionCoordinatePage", condition);
+    }
+
+    public List queryAllRegionCoordinateInfo(Map<String, Object> queryParams){
+        return baseDao.queryForList("selectRegionCoordinatePage", queryParams);
     }
 }

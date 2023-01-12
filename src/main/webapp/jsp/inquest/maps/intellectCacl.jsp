@@ -35,19 +35,31 @@
 	var basePath = $("#basePath").val();
 	var selectAllSysKeyInfosUrl = basePath+'/system/common/sysKeyController.do?method=selectAllCacheSysKeyInfos';
 	var queryAllGirdUrl = basePath+'/inquest/tabYcGridBaseinfoController.do?method=queryAllGird';
+	var queryAllregionCoordUrl = basePath+'/inquest/tabYcRegionCoordinateController.do?method=queryAllregionCoordinate';
 
 	selectAllSysKeyInfosUrl = '<c:url value="'+selectAllSysKeyInfosUrl+'"/>';
 	queryAllGirdUrl = '<c:url value="'+queryAllGirdUrl+'"/>';
+	queryAllregionCoordUrl = '<c:url value="'+queryAllregionCoordUrl+'"/>';
 	//地图对象
 	var map;
-	var gdkey = "";
-	var gdmap_jsapi_version = "";
-	var gdmap_init_info;
+	var gdkey = '';
+	var gdmap_jsapi_version = '';
+	var gdmap_init_info = '';
+	var gdmap_cacl_param = '';
+	//网格总量
 	var gridDatas;
+	//中小学总量
+	var regionCoordinateDatas;
+
+	//覆盖物数组
 	var coverGroups = [];
+	//经营地址
+	var businessAddress = '';
+
 	/**
 	 * 入口 从配置里加载内容绘制地图
 	 */
+			var version = "<%=request.getParameter("version")%>";
 			var data = commonObj.postAjax(selectAllSysKeyInfosUrl,null);
 			var datasjson = JSON.parse(data);
 			var syskeys = datasjson.listArray;
@@ -61,6 +73,9 @@
 				}
 				if(syskeyobj.sys_key == 'gdmap_init_info'){
 					gdmap_init_info = JSON.parse(syskeyobj.sys_value);
+				}
+				if(syskeyobj.sys_key == 'gdmap_cacl_param'){
+					gdmap_cacl_param = JSON.parse(syskeyobj.sys_value);
 				}
 			}
 			var map_d_init = eval(gdmap_init_info.default_init);
@@ -102,19 +117,27 @@
 				};
 				// 绑定事件
 				map.on('click', clickHandler);
-
 				//初始化网格添加物
-				var data = commonObj.postAjax(queryAllGirdUrl, null);
-				gridDatas = JSON.parse(data).listArray;
+				var gdata = commonObj.postAjax(queryAllGirdUrl, "version="+version);
+				gridDatas = JSON.parse(gdata).listArray;
+
+				var rdata = commonObj.postAjax(queryAllregionCoordUrl, null);
+				regionCoordinateDatas = eval(rdata);
+
 				dynamicLoadCovers(map_d_init.center);
 			});
 
 
 	/*动态加载覆盖物*/
 	function dynamicLoadCovers(centerCoordinate){
+		// debugger;
 		if (coverGroups != [] && coverGroups.length > 0) {
 			map.remove(coverGroups);
 			coverGroups = [];
+		}
+
+		if(businessAddress != null && businessAddress !=''){
+			map.remove(businessAddress);
 		}
 		for (var i = 0; i < gridDatas.length; i++) {
 			var gridData = eval(gridDatas[i]);
@@ -122,8 +145,7 @@
 			var dis = AMap.GeometryUtil.distanceToSegment(eval(centerCoordinate),eval("["+gridData.GRID_COORDINATE+"]"));
 			gridData.DIS = dis;
 			gridDatas[i] = gridData;
-			/*<=100米的话纳入展示的覆盖物范围内*/
-			if(parseInt(dis)<=1000){
+			if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
 				var polygon = new AMap.Polygon({
 					path: eval("["+gridData.GRID_COORDINATE+"]"),
 					extData:gridData
@@ -133,17 +155,36 @@
 				coverGroups.push(polygon);
 			}
 		}
-		console.info(gridDatas);
+		// console.info(regionCoordinateDatas);
+		for (var i = 0; i < regionCoordinateDatas.length; i++) {
+			var regioncData = JSON.parse(regionCoordinateDatas[i]);
+			//计算坐标点和网格的地面距离
+			var dis = AMap.GeometryUtil.distance(eval(centerCoordinate),eval("["+regioncData.coordinate+"]"));
+			regioncData.DIS = dis;
+			regionCoordinateDatas[i] = JSON.stringify(regioncData);
+			/*展示原点<=x米范围内覆盖物*/
+			if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
+				var marker = new AMap.Marker({
+					position: eval("["+regioncData.coordinate+"]"),
+					title: regioncData.regionName
+				});
+				coverGroups.push(marker);
+			}
+		}
 
-		if(coverGroups == [] || coverGroups.length == 0){
-		}else{
+		if(coverGroups != [] && coverGroups.length != 0){
 			map.add(coverGroups);
 			map.setFitView();
 		}
+		businessAddress = new AMap.Marker({
+			position: eval(centerCoordinate),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+			title: '经营地址'
+		});
+		map.add(businessAddress);
 	}
 
 	//网格覆盖物事件
-	function polygonClickFunc(ev,gridData){
+	function polygonClickFunc(ev){
 		// 触发事件的对象
 		var target = ev.target;
 		// 触发事件的地理坐标，AMap.LngLat 类型
@@ -165,6 +206,8 @@
 		});
 		// 打开信息窗体
 		infoWindow.open(map,eval('['+lnglat+']'));
+
+		dynamicLoadCovers(p0);
 	}
 
 	/*简单版搜索功能*/
