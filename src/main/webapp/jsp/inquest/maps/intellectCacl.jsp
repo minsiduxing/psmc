@@ -117,18 +117,20 @@
 				};
 				// 绑定事件
 				map.on('click', clickHandler);
-				//初始化网格添加物
+				//初始化网格
 				var gdata = commonObj.postAjax(queryAllGirdUrl, "version="+version);
 				gridDatas = JSON.parse(gdata).listArray;
-
+				//初始化特殊区域
 				var rdata = commonObj.postAjax(queryAllregionCoordUrl, null);
 				regionCoordinateDatas = eval(rdata);
+				//初始化零售户
 
+				//动态加载覆盖物（网格、特殊区域、零售户）
 				dynamicLoadCovers(map_d_init.center);
 			});
 
 
-	/*动态加载覆盖物*/
+	/*动态加载覆盖物（网格、特殊区域、零售户）*/
 	function dynamicLoadCovers(centerCoordinate){
 		// debugger;
 		if (coverGroups != [] && coverGroups.length > 0) {
