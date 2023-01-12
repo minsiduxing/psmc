@@ -1,5 +1,6 @@
 package priv.guochun.psmc.inquest.controller;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,11 @@ import priv.guochun.psmc.inquest.service.TabYcRegionCoordinateService;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.JsonUtil;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/inquest/tabYcRegionCoordinateController")
@@ -35,5 +41,23 @@ public class TabYcRegionCoordinateController extends MyController {
     @RequestMapping(params="method=regionCoordinateList")
     public String regionCoordinateList(){
         return "inquest/regionCoordinateList";
+    }
+
+    /**
+     * 分单位查询所有的区域坐标
+     * @throws IOException
+     */
+    @RequestMapping(params="method=queryAllregionCoordinate")
+    @ResponseBody
+    public void queryAllregionCoordinate() throws IOException {
+        String orgCode = this.getUserBySeesion(this.request()).getGroupCode();
+        Map<String, Object> queryParams = new HashMap<String, Object>();
+        if(StringUtils.isBlank(orgCode)){
+            throw new RuntimeException("参数异常!");
+        }{
+            queryParams.put("orgCode", orgCode);
+        }
+        List list = tabYcRegionCoordinateService.queryAllRegionCoordinateInfo(queryParams);
+        super.responseJson(JsonUtil.convertListObjToJSONArray(list), this.response());
     }
 }

@@ -21,7 +21,7 @@ public interface TabYcGridBaseInfoService {
 
     Map queryGirdInfoByGridUuid(String gridUuid);
 
-    List<Map> queryAllGirdInfo();
+    List<Map> queryAllGirdInfo(Map<String, Object> queryParams);
 
     /**
      * 修改网格对应坐标

@@ -38,8 +38,8 @@ public class TabYcGridBaseInfoServiceImpl implements TabYcGridBaseInfoService {
         return (Map)baseDao.queryForObject(selectGridInfoList,condition);
     }
 
-    public List<Map> queryAllGirdInfo(){
-        return (List<Map>)baseDao.queryForList(selectGridInfoList,null);
+    public List<Map> queryAllGirdInfo(Map<String, Object> queryParams){
+        return (List<Map>)baseDao.queryForList(selectGridInfoList,queryParams);
     }
 
     public MsgModel updateGirdCoordnate(String gridUuid, String coordinate, String isMaintainCoordinate){

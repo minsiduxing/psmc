@@ -1,11 +1,13 @@
 package priv.guochun.psmc.inquest.controller;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import priv.guochun.psmc.inquest.service.TabYcGridBaseInfoService;
 import priv.guochun.psmc.inquest.service.TabYcGridCalculationModelService;
+import priv.guochun.psmc.inquest.service.TabYcRegionCoordinateService;
 import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.JsonUtil;
@@ -50,8 +52,17 @@ public class TabYcGridBaseinfoController extends MyController {
 
     @RequestMapping(params="method=queryAllGird")
     @ResponseBody
-    public void queryAllGird() throws IOException {
-        List list = tabYcGridBaseInfoService.queryAllGirdInfo();
+    public void queryAllGird(String version) throws IOException {
+        String orgCode = this.getUserBySeesion(this.request()).getGroupCode();
+        Map<String, Object> queryParams = new HashMap<String, Object>();
+        if(StringUtils.isBlank(version) || StringUtils.isBlank(orgCode)){
+            throw new RuntimeException("参数异常!");
+        }{
+            queryParams.put("orgCode", orgCode);
+            queryParams.put("version", version);
+        }
+
+        List list = tabYcGridBaseInfoService.queryAllGirdInfo(queryParams);
         super.responseJson(JsonUtil.convertToJSONObject(list), this.response());
     }
 

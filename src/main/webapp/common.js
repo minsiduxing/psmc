@@ -324,7 +324,8 @@ commonObj.alert = function(msg,icon,CallbachFunc){
 /**
  * 错误统一捕获处理
  */
-commonObj.showError = function(XMLHttpRequest, textStatus, errorThrown){	
+commonObj.showError = function(XMLHttpRequest, textStatus, errorThrown){
+	debugger;
 	var status  = XMLHttpRequest.status;
 	var sessionstatus=XMLHttpRequest.getResponseHeader("sessionstatus");
     if(sessionstatus=='timeout'){ 
@@ -371,7 +372,40 @@ commonObj.isAuth = function(operateNo){
 	});
 	return auth;
 };
-
+/**
+ * 公共方法，发起同步ajax请求获取数据
+ * @param url
+ * @param data
+ * @returns {any}
+ */
+commonObj.postAjax = function(url,data){
+	var result;
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: data,
+		async: false,
+		success: function(data) {
+			try{
+				var dt = JSON.parse(data);
+				if(dt.res == "fail"){
+					commonObj.alert(dt.rmsg,"warning");
+				}else{
+					result = data;
+				}
+			}catch(err){
+				console.error(err.toString());
+				commonObj.alert("系统错误,请联系管理员!","error");
+			}
+			result = data;
+		},
+		error:function(XMLHttpRequest, textStatus, errorThrown){
+			debugger;
+			commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+		}
+	});
+	return result;
+};
 
 $.ajaxSetup({ 
      complete:function(XMLHttpRequest,textStatus){   
