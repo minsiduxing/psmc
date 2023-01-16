@@ -33,7 +33,7 @@ public class HttpConnectUtil {
 
 
 
-    public static String get(String targetURL, Map<String, String> paramMap) {
+    public static String get(String targetURL, Map<String, ?> paramMap) {
         HttpURLConnection httpConnection = null;
 
         String var6;
@@ -453,7 +453,7 @@ public class HttpConnectUtil {
         }
     }
 
-    private static String uriMapToString(Map<String, String> paramMap) {
+    private static String uriMapToString(Map<String, ?> paramMap) {
         StringBuffer postedData = new StringBuffer();
         if(paramMap != null){
             Set<String> set = paramMap.keySet();

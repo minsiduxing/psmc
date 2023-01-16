@@ -407,6 +407,7 @@ commonObj.postAjax = function(url,data){
 	return result;
 };
 
+
 $.ajaxSetup({ 
      complete:function(XMLHttpRequest,textStatus){   
         var sessionstatus=XMLHttpRequest.getResponseHeader("sessionstatus"); //通过XMLHttpRequest取得响应头,sessionstatus， 
