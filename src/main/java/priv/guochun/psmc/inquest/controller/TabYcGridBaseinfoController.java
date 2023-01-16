@@ -74,7 +74,7 @@ public class TabYcGridBaseinfoController extends MyController {
     @RequestMapping(params="method=gridHanleCertCacl")
     @ResponseBody
     public void gridHanleCertCacl(String gridUuid) throws IOException {
-        super.responseJson(tabYcGridCalculationModelService.gridHanleCertCacls(gridUuid),this.response());
+        super.responseJson(tabYcGridCalculationModelService.gridHanleCertCacls(gridUuid,null),this.response());
     }
 
 

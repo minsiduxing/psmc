@@ -38,12 +38,12 @@ public interface TabYcGridCalculationModelService {
      * @param gridCmodelUuid
      * @param gridUuid
      */
-    public MsgModel gridHanleCertCacl(String gridCmodelUuid, String gridUuid);
+    public MsgModel gridHanleCertCacl(String gridCmodelUuid, String gridUuid,Map<String,Object> param);
 
     /**
      * 测算某网格下的所有公式计算结果
      * @param gridUuid
      */
-    public MsgModel  gridHanleCertCacls(String gridUuid);
+    public MsgModel  gridHanleCertCacls(String gridUuid,Map<String,Object> param);
 
 }

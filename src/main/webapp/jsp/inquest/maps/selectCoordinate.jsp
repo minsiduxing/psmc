@@ -81,7 +81,7 @@
 
 					for(var i=0,l=syskeys.length;i<l;i++){
 						if(syskeys[i].sys_key == 'gdmap_key'){
-							gdkey = syskeys[i].sys_value;
+							gdkey = JSON.parse(syskeys[i].sys_value);
 						}
 						if(syskeys[i].sys_key == 'gdmap_jsapi_version'){
 							gdmap_jsapi_version = syskeys[i].sys_value;
@@ -92,7 +92,7 @@
 					}
 					var map_d_init = eval(gdmap_init_info.default_init);
 					AMapLoader.load({
-						"key": gdkey,              // 申请好的Web端开发者Key，首次调用 load 时必填
+						"key": gdkey.jsapi,              // 申请好的Web端开发者Key，首次调用 load 时必填
 						"version": gdmap_jsapi_version   // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
 					}).then((AMap)=>{
 						map = new AMap.Map('container', ({
