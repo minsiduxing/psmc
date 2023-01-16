@@ -64,23 +64,26 @@ public class TabYcGridCalculationModelServiceImpl implements TabYcGridCalculatio
         String GRID_CMODEL_NAME = GridCmodelMap.get("GRID_CMODEL_NAME").toString();
         String RULE_TYPE_NAME = GridCmodelMap.get("RULE_TYPE_NAME").toString();
         String RULE_TYPE = GridCmodelMap.get("RULE_TYPE").toString();
-        MsgModel mm = gdWebApiService.walking(param);
-        if(mm.isSuccess()){
-            JSONObject routes = ((JSONObject)mm.getData()).getJSONObject("route");
-            JSONArray paths = routes.getJSONArray("paths");
-            String distance = paths.getJSONObject(0).getString("distance");
-            if("4".equals(RULE_TYPE)){
-                GridMap.put("distanceZXX",distance);
+        if("4".equals(RULE_TYPE) || "5".equals(RULE_TYPE) || "2".equals(RULE_TYPE)){
+            MsgModel mm = gdWebApiService.walking(param);
+            if(mm.isSuccess()){
+                JSONObject routes = ((JSONObject)mm.getData()).getJSONObject("route");
+                JSONArray paths = routes.getJSONArray("paths");
+                String distance = paths.getJSONObject(0).getString("distance");
+                if("4".equals(RULE_TYPE)){
+                    GridMap.put("distanceZXX",distance);
+                }
+                if("5".equals(RULE_TYPE)){
+                    GridMap.put("distanceYEY",distance);
+                }
+                if("2".equals(RULE_TYPE)){
+                    GridMap.put("distanceLSH",distance);
+                }
+            }else{
+                return "高德服务异常walking"+((JSONObject)mm.getData()).getString("info");
             }
-            if("5".equals(RULE_TYPE)){
-                GridMap.put("distanceYEY",distance);
-            }
-            if("2".equals(RULE_TYPE)){
-                GridMap.put("distanceLSH",distance);
-            }
-        }else{
-            return "高德服务异常walking"+((JSONObject)mm.getData()).getString("info");
         }
+
         String expre = GridCmodelMap.get("RULE_FORMULA").toString();
         JSONObject tips = JSONObject.parseObject(GridCmodelMap.get("TIPS").toString());
         boolean result = false;

@@ -238,15 +238,16 @@
 				//门店特征
 				var features = loadFeaturesHtmlContent(gridCaclModelList);
 
-				$.messager.confirm('您的门店特征',features, function(r){
+				$.messager.confirm('您的门店特征：',features, function(r){
 					if (r){
 						var gridCmNo = $("#featureInp").val();
+						// debugger;
 						var newgridCaclModelList = loadNewCmodelListByFeatures(gridCmNo,gridCaclModelList);
 						//分别执行公式进行测算
+						var rresult = "";
 						for(var z=0;z<newgridCaclModelList.length;z++){
-							var rdata;
+							var rdata = null;
 							var newgridCaclMode = newgridCaclModelList[z];
-							debugger;
 							var ruleType = newgridCaclMode.RULE_TYPE;
 							if(4 == ruleType || 5 == ruleType){
 								rdata = disCacl(newgridCaclMode);
@@ -254,11 +255,14 @@
 							if(1 == ruleType || 3 == ruleType){
 								rdata = totalAndVolumeCacl(newgridCaclMode);
 							}
-							debugger;
-							console.info(rdata);
-							rdata = JSON.parse(rdata);
-							commonObj.alert(rdata.result.msg,"info");
+							 // debugger;
+							if(rdata !=null){
+								console.info(rdata);
+								rdata = JSON.parse(rdata);
+								rresult +="</br>"+rdata.result.msg;
+							}
 						}
+						commonObj.alert(rresult,"info");
 					}
 				});
 			}

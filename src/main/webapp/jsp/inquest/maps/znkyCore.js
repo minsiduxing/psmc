@@ -1,5 +1,5 @@
 /**
- * 测距(中小学距离测算)
+ * 测距(中小学&&幼儿园)
  * @param newgridCaclMode
  */
 function disCacl(newgridCaclMode){
@@ -22,7 +22,7 @@ function disCacl(newgridCaclMode){
 }
 
 /**
- * 最近零售户测距（todo)
+ * 测距(最近零售户)
  * @param newgridCaclMode
  */
 function disCaclLSH(newgridCaclMode){
