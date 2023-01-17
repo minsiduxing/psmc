@@ -7,6 +7,7 @@
 	<title>智能测算</title>
 </head>
 <body id="body">
+<div id="win"></div>
 <%@ include file="./gd_js_load.jsp"%>
 <style type="text/css">
 	.amap-sug-result { z-index: 25000; }
@@ -36,6 +37,8 @@
 	var selectAllSysKeyInfosUrl = basePath+'/system/common/sysKeyController.do?method=selectAllCacheSysKeyInfos';
 	var queryAllGirdUrl = basePath+'/inquest/tabYcGridBaseinfoController.do?method=queryAllGird';
 	var queryAllregionCoordUrl = basePath+'/inquest/tabYcRegionCoordinateController.do?method=queryAllregionCoordinate';
+	var queryMySelfUnitLicInfosUrl = basePath+'/inquest/tabYcLicInfoController.do?method=queryMySelfUnitLicInfos';
+
 
 	var selectGridCalculationModelInfoListBymodelTypeUuidUrl = basePath+'/inquest/tabYcGridCalculationModelController.do?method=selectGridCalculationModelInfoListBymodelTypeUuid';
 	var gridCmodelHanleCertCaclUrl = basePath+'/inquest/tabYcGridCalculationModelController.do?method=gridCmodelHanleCertCacl';
@@ -45,6 +48,9 @@
 	queryAllregionCoordUrl = '<c:url value="'+queryAllregionCoordUrl+'"/>';
 	selectGridCalculationModelInfoListBymodelTypeUuidUrl = '<c:url value="'+selectGridCalculationModelInfoListBymodelTypeUuidUrl+'"/>';
 	gridCmodelHanleCertCaclUrl = '<c:url value="'+gridCmodelHanleCertCaclUrl+'"/>';
+	var queryMySelfUnitLicInfosUrl = '<c:url value="'+queryMySelfUnitLicInfosUrl+'"/>';
+
+
 
 	//地图对象
 	var map;
@@ -52,10 +58,14 @@
 	var gdmap_jsapi_version = '';
 	var gdmap_init_info = '';
 	var gdmap_cacl_param = '';
+	var gdmap_icon = '';
+
 	//网格总量
 	var gridDatas;
 	//中小学总量
 	var regionCoordinateDatas;
+	//零售户总量
+	var licDatas;
 	//覆盖物数组
 	var coverGroups = [];
 	//经营地址
@@ -86,6 +96,10 @@
 				if(syskeyobj.sys_key == 'gdmap_cacl_param'){
 					gdmap_cacl_param = JSON.parse(syskeyobj.sys_value);
 				}
+				if(syskeyobj.sys_key == 'gdmap_icon'){
+					gdmap_icon = JSON.parse(syskeyobj.sys_value);
+				}
+
 			}
 			var map_d_init = eval(gdmap_init_info.default_init);
 
@@ -130,6 +144,8 @@
 				var rdata = commonObj.postAjax(queryAllregionCoordUrl, null);
 				regionCoordinateDatas = eval(rdata);
 				//初始化零售户
+				var ldata = commonObj.postAjax(queryMySelfUnitLicInfosUrl, null);
+				licDatas = eval(ldata);
 
 				//动态加载覆盖物（网格、特殊区域、零售户）
 				dynamicLoadCovers(map_d_init.center);
@@ -142,42 +158,12 @@
 			map.remove(coverGroups);
 			coverGroups = [];
 		}
-
 		if(businessAddress != null && businessAddress !=''){
 			map.remove(businessAddress);
 		}
-		for (var i = 0; i < gridDatas.length; i++) {
-			var gridData = eval(gridDatas[i]);
-			//计算坐标点和网格的地面距离
-			var dis = AMap.GeometryUtil.distanceToSegment(eval(centerCoordinate),eval("["+gridData.GRID_COORDINATE+"]"));
-			gridData.DIS = dis;
-			gridDatas[i] = gridData;
-			if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
-				var polygon = new AMap.Polygon({
-					path: eval("["+gridData.GRID_COORDINATE+"]"),
-					extData:gridData
-				});
-				polygon.setOptions(JSON.parse(gridData.MAP_STYLE));
-				polygon.on('click', polygonClickFunc);
-				coverGroups.push(polygon);
-			}
-		}
-		// console.info(regionCoordinateDatas);
-		for (var i = 0; i < regionCoordinateDatas.length; i++) {
-			var regioncData = JSON.parse(regionCoordinateDatas[i]);
-			//计算坐标点和网格的地面距离
-			var dis = AMap.GeometryUtil.distance(eval(centerCoordinate),eval("["+regioncData.coordinate+"]"));
-			regioncData.DIS = dis;
-			regionCoordinateDatas[i] = JSON.stringify(regioncData);
-			/*展示原点<=x米范围内覆盖物*/
-			if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
-				var marker = new AMap.Marker({
-					position: eval("["+regioncData.coordinate+"]"),
-					title: regioncData.regionName
-				});
-				coverGroups.push(marker);
-			}
-		}
+		lshCoverView(centerCoordinate);
+		regionCoverView(centerCoordinate);
+		gridCoverView(centerCoordinate);
 
 		if(coverGroups != [] && coverGroups.length != 0){
 			map.add(coverGroups);
@@ -189,8 +175,10 @@
 		map.add(businessAddress);
 		map.setFitView();
 
+		//初始化选择的点位所归属的网格信息，如果没有 后续要提醒进行虚拟网格选择
 		isPointInRing(centerCoordinate);
 	}
+
 
 	//网格覆盖物事件
 	function polygonClickFunc(ev){
@@ -219,6 +207,9 @@
 		dynamicLoadCovers(p0);
 	}
 
+
+
+
 	/**
 	 * 测算总入口
 	 */
@@ -226,9 +217,8 @@
 		if(choosedGrid != null && choosedGrid != ''){
 		}else{
 			commonObj.alert("您的经营地址所在地暂无网格归属,请确认是否属于如下网格：","info");
-			choosedGrid = '';
+			return;
 		}
-
 		$.messager.confirm('消息', "归属网格"+choosedGrid.GRID_NAME+"</br>您已在地图上选择并正确标记了经营地址的坐标位置?", function(r){
 			if (r){
 				//获取该网格类型对应的所有计算公式
@@ -237,34 +227,45 @@
 
 				//门店特征
 				var features = loadFeaturesHtmlContent(gridCaclModelList);
-
-				$.messager.confirm('您的门店特征：',features, function(r){
-					if (r){
-						var gridCmNo = $("#featureInp").val();
-						// debugger;
-						var newgridCaclModelList = loadNewCmodelListByFeatures(gridCmNo,gridCaclModelList);
-						//分别执行公式进行测算
-						var rresult = "";
-						for(var z=0;z<newgridCaclModelList.length;z++){
-							var rdata = null;
-							var newgridCaclMode = newgridCaclModelList[z];
-							var ruleType = newgridCaclMode.RULE_TYPE;
-							if(4 == ruleType || 5 == ruleType){
-								rdata = disCacl(newgridCaclMode);
-							}
-							if(1 == ruleType || 3 == ruleType){
-								rdata = totalAndVolumeCacl(newgridCaclMode);
-							}
-							 // debugger;
-							if(rdata !=null){
-								console.info(rdata);
-								rdata = JSON.parse(rdata);
-								rresult +="</br>"+rdata.result.msg;
-							}
-						}
-						commonObj.alert(rresult,"info");
+				$('#win').window({
+					width:600,
+					height:400,
+					modal:true,
+					title:'请选择您的门店特征',
+					content:features,
+					onClose:function(){
+						
 					}
 				});
+				return;
+				$.messager.progress();
+				var gridCmNo = $("#featureInp").val();
+				// debugger;
+				var newgridCaclModelList = loadNewCmodelListByFeatures(gridCmNo,gridCaclModelList);
+				//分别执行公式进行测算
+				var rresult = "";
+				for(var z=0;z<newgridCaclModelList.length;z++){
+					var rdata = null;
+					var newgridCaclMode = newgridCaclModelList[z];
+					var ruleType = newgridCaclMode.RULE_TYPE;
+					if(4 == ruleType || 5 == ruleType){
+						rdata = disCacl(newgridCaclMode);
+					}
+					if(2 == ruleType ){
+						rdata = disCaclLSH(newgridCaclMode);
+					}
+					if(1 == ruleType || 3 == ruleType){
+						rdata = totalAndVolumeCacl(newgridCaclMode);
+					}
+					// debugger;
+					if(rdata !=null){
+						console.info(rdata);
+						rdata = JSON.parse(rdata);
+						rresult +="</br>"+rdata.result.msg;
+					}
+				}
+				commonObj.alert(rresult);
+				$.messager.progress("close");
 			}
 		});
 	}

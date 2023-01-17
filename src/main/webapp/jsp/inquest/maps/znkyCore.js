@@ -26,7 +26,13 @@ function disCacl(newgridCaclMode){
  * @param newgridCaclMode
  */
 function disCaclLSH(newgridCaclMode){
-
+    var ruleType = newgridCaclMode.RULE_TYPE;
+    for(var x=0;x<licDatas.length;x++){
+        var licData = JSON.parse(licDatas[x]);
+        var param = '&gridCmodelUuid='+newgridCaclMode.GRID_CMODEL_UUID+'&gridUuid='+choosedGrid.GRID_UUID+'&origin='+businessAddress.getPosition()+"&destination="+licData.coordinate;
+        var caclRel = commonObj.postAjax(gridCmodelHanleCertCaclUrl, param);
+        return caclRel;
+    }
 }
 
 /**
@@ -152,4 +158,79 @@ function isPointInRing(centerCoordinate){
     }
     if(!isExists)
         choosedGrid='';
+}
+
+/**
+ * 最近零售户撒点展示
+ * 测算原点到所有能加载到的零售户的地面距离 并进行判断，符合条件的展示
+ * @param centerCoordinate
+ */
+function lshCoverView(centerCoordinate){
+    for (var i = 0; i < licDatas.length; i++) {
+        var licData = licDatas[i];
+        if(typeof(licData) != 'object'){
+            licData = JSON.parse(licData);
+        }
+        //计算坐标点和网格的地面距离
+        var dis = AMap.GeometryUtil.distance(eval(centerCoordinate),eval("["+licData.coordinate+"]"));
+        licData.DIS = dis;
+        licDatas[i] = JSON.stringify(licData);
+        /*展示原点<=x米范围内覆盖物*/
+        if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
+            var marker = new AMap.Marker({
+                position: eval("["+licData.coordinate+"]"),
+                title: licData.managerName+"["+licData.licNo+"]"
+                // icon:gdmap_icon.default_lsh
+            });
+            coverGroups.push(marker);
+        }
+    }
+}
+
+
+/**
+ * 最近区域（中小学、幼儿园）的撒点展示
+ * 测算原点到所有能加载到的中小学、幼儿园的地面距离 并进行判断，符合条件的展示
+ * @param centerCoordinate
+ */
+function regionCoverView(centerCoordinate){
+    for (var i = 0; i < regionCoordinateDatas.length; i++) {
+        var regioncData = JSON.parse(regionCoordinateDatas[i]);
+        //计算坐标点和网格的地面距离
+        var dis = AMap.GeometryUtil.distance(eval(centerCoordinate),eval("["+regioncData.coordinate+"]"));
+        regioncData.DIS = dis;
+        regionCoordinateDatas[i] = JSON.stringify(regioncData);
+        /*展示原点<=x米范围内覆盖物*/
+        if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
+            var marker = new AMap.Marker({
+                position: eval("["+regioncData.coordinate+"]"),
+                title: regioncData.regionName
+            });
+            coverGroups.push(marker);
+        }
+    }
+}
+
+/**
+ * 最近网格的撒点展示
+ * 测算原点到所有能加载到的网格的地面距离 并进行判断，符合条件的展示
+ * @param centerCoordinate
+ */
+function gridCoverView(centerCoordinate){
+    for (var i = 0; i < gridDatas.length; i++) {
+        var gridData = eval(gridDatas[i]);
+        //计算坐标点和网格的地面距离
+        var dis = AMap.GeometryUtil.distanceToSegment(eval(centerCoordinate),eval("["+gridData.GRID_COORDINATE+"]"));
+        gridData.DIS = dis;
+        gridDatas[i] = gridData;
+        if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
+            var polygon = new AMap.Polygon({
+                path: eval("["+gridData.GRID_COORDINATE+"]"),
+                extData:gridData
+            });
+            polygon.setOptions(JSON.parse(gridData.MAP_STYLE));
+            polygon.on('click', polygonClickFunc);
+            coverGroups.push(polygon);
+        }
+    }
 }

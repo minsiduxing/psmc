@@ -70,14 +70,8 @@ public class TabYcGridCalculationModelServiceImpl implements TabYcGridCalculatio
                 JSONObject routes = ((JSONObject)mm.getData()).getJSONObject("route");
                 JSONArray paths = routes.getJSONArray("paths");
                 String distance = paths.getJSONObject(0).getString("distance");
-                if("4".equals(RULE_TYPE)){
-                    GridMap.put("distanceZXX",distance);
-                }
-                if("5".equals(RULE_TYPE)){
-                    GridMap.put("distanceYEY",distance);
-                }
-                if("2".equals(RULE_TYPE)){
-                    GridMap.put("distanceLSH",distance);
+                if("4".equals(RULE_TYPE) || "5".equals(RULE_TYPE) || "2".equals(RULE_TYPE)){
+                    GridMap.put("distance",distance);
                 }
             }else{
                 return "高德服务异常walking"+((JSONObject)mm.getData()).getString("info");
@@ -98,7 +92,8 @@ public class TabYcGridCalculationModelServiceImpl implements TabYcGridCalculatio
         }catch(RuntimeException e){
             reusltDesc =tips.get("process_failed").toString();
         }
-        sb1.append("网格【"+GRID_NAME+"】").append("店面【"+GRID_CMODEL_NAME+"】").append(RULE_TYPE_NAME).append(reusltDesc);
+//        sb1.append("网格【"+GRID_NAME+"】").append("店面【"+GRID_CMODEL_NAME+"】").append(RULE_TYPE_NAME).append(reusltDesc);
+        sb1.append(RULE_TYPE_NAME).append(":").append(reusltDesc);
         return sb1.toString();
     }
 
