@@ -11,6 +11,7 @@ import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.JetlUtil;
 
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,14 +89,14 @@ public class TabYcGridCalculationModelServiceImpl implements TabYcGridCalculatio
             result = JetlUtil.execute(expre,GridMap);
             if(result){
                 reusltDesc =tips.get("cacl_success").toString();
-                rr = MsgModel.buildDefaultSuccess(String.format(reusltDesc,resultParam[0]),null);
+                rr = MsgModel.buildDefaultSuccess(MessageFormat.format(reusltDesc,resultParam),null);
             } else{
                 reusltDesc =tips.get("process_failed").toString();
-                rr = MsgModel.buildDefaultError(String.format(reusltDesc,resultParam[0]),null);
+                rr = MsgModel.buildDefaultError(MessageFormat.format(reusltDesc,resultParam),null);
             }
         }catch(RuntimeException e){
             reusltDesc =RULE_TYPE_NAME+"测算异常:"+e.toString();
-            rr = MsgModel.buildDefaultError(String.format(reusltDesc,resultParam[0]),null);
+            rr = MsgModel.buildDefaultError(MessageFormat.format(reusltDesc,resultParam),null);
         }
         return rr;
     }

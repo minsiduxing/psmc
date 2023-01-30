@@ -279,14 +279,14 @@ function caclAndView(gridCmNo,gridCaclModelList){
         rresult += "</br><h3>系统测算您当前所选的经营地址不符合办证条件!</h3>";
     }else{
         if(!zlcsResult)
-            rresult += "</br><h3>系统测算您当前所选的经营地址总体符合办证条件,但由于经营地址所选网格容量已满,您可向当地烟草专卖局申请排队办理。待网格内有余量时工作人员会及时通知您进行办理!</h3>";
+            rresult += "</br><h3>系统测算您当前所选的经营地址总体符合办证条件,但由于经营地址所在网格容量已满无办证指标,您可向当地烟草专卖局申请排队办理。待网格内有余量时工作人员会及时通知您进行办理!</h3>";
         else
             rresult +="</br><h3>系统测算您当前所选的经营地址总体符合办证条件,您可进行烟草零售许可证申请!</h3>";
     }
     $('#calceResultViewDiv').window({
         title:"测算结果",
-        width:700,
-        height:200,
+        width:750,
+        height:250,
         modal:true,
         content:rresult,
         minimizable:false,
