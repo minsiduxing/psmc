@@ -51,11 +51,12 @@ public class TabYcGridCalculationModelServiceImpl implements TabYcGridCalculatio
         return (List<Map>)baseDao.queryForList(selectGridCalculationModelInfoList,condition);
     }
     public MsgModel gridHanleCertCacl(String gridCmodelUuid, String gridUuid,Map<String,Object> param){
-        String result = hanleCertCacl(gridCmodelUuid,gridUuid,param);
-        return MsgModel.buildDefaultSuccess(result,null);
+        return hanleCertCacl(gridCmodelUuid,gridUuid,param);
     }
 
-    private String hanleCertCacl(String gridCmodelUuid,String gridUuid,Map<String,Object> param){
+    private MsgModel hanleCertCacl(String gridCmodelUuid,String gridUuid,Map<String,Object> param){
+        String[] resultParam = new String[1];
+        MsgModel rr;
         Map GridMap = tabYcGridBaseInfoService.queryGirdInfoByGridUuid(gridUuid);
         if(param !=null)
             GridMap.putAll(param);
@@ -72,12 +73,12 @@ public class TabYcGridCalculationModelServiceImpl implements TabYcGridCalculatio
                 String distance = paths.getJSONObject(0).getString("distance");
                 if("4".equals(RULE_TYPE) || "5".equals(RULE_TYPE) || "2".equals(RULE_TYPE)){
                     GridMap.put("distance",distance);
+                    resultParam[0] = distance;
                 }
             }else{
-                return "高德服务异常walking"+((JSONObject)mm.getData()).getString("info");
+                return mm;
             }
         }
-
         String expre = GridCmodelMap.get("RULE_FORMULA").toString();
         JSONObject tips = JSONObject.parseObject(GridCmodelMap.get("TIPS").toString());
         boolean result = false;
@@ -85,16 +86,18 @@ public class TabYcGridCalculationModelServiceImpl implements TabYcGridCalculatio
         String reusltDesc;
         try{
             result = JetlUtil.execute(expre,GridMap);
-            if(result)
+            if(result){
                 reusltDesc =tips.get("cacl_success").toString();
-            else
-                reusltDesc =tips.get("cacl_failed").toString();
+                rr = MsgModel.buildDefaultSuccess(String.format(reusltDesc,resultParam[0]),null);
+            } else{
+                reusltDesc =tips.get("process_failed").toString();
+                rr = MsgModel.buildDefaultError(String.format(reusltDesc,resultParam[0]),null);
+            }
         }catch(RuntimeException e){
-            reusltDesc =tips.get("process_failed").toString();
+            reusltDesc =RULE_TYPE_NAME+"测算异常:"+e.toString();
+            rr = MsgModel.buildDefaultError(String.format(reusltDesc,resultParam[0]),null);
         }
-//        sb1.append("网格【"+GRID_NAME+"】").append("店面【"+GRID_CMODEL_NAME+"】").append(RULE_TYPE_NAME).append(reusltDesc);
-        sb1.append(RULE_TYPE_NAME).append(":").append(reusltDesc);
-        return sb1.toString();
+        return rr;
     }
 
     public MsgModel gridHanleCertCacls(String gridUuid,Map<String, Object> param){
@@ -105,8 +108,7 @@ public class TabYcGridCalculationModelServiceImpl implements TabYcGridCalculatio
         for(int i=0;i<list.size();i++){
             Map map = list.get(i);
             String GRID_CMODEL_UUID = map.get("GRID_CMODEL_UUID").toString();
-            String result =hanleCertCacl(GRID_CMODEL_UUID,gridUuid,param);
-            sb1.append(result);
+            sb1.append(hanleCertCacl(GRID_CMODEL_UUID,gridUuid,param).getResult().getMsg());
         }
         return MsgModel.buildDefaultSuccess(sb1.toString(),null);
     }

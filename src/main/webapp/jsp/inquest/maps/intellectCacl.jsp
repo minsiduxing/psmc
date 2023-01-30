@@ -7,7 +7,10 @@
 	<title>智能测算</title>
 </head>
 <body id="body">
-<div id="win"></div>
+<div id="win">
+
+	<div id="calceResultViewDiv"></div>
+</div>
 <%@ include file="./gd_js_load.jsp"%>
 <style type="text/css">
 	.amap-sug-result { z-index: 25000; }
@@ -28,6 +31,7 @@
 		<input id="search" name="search" onclick="search();" type="button" style="width:70px;margin-right:1%" value="地址搜索"/>
 		<input id="cacl" name="cacl" onclick="caclFun();" type="button" style="width:70px;margin-right:1%" value="开始测算"/>
 	</div>
+
 	<div id="panel"></div>
 </div>
 <div id="container" style="width:100%;height:450px;"></div>
@@ -72,6 +76,8 @@
 	var businessAddress = '';
 	//已选择网格
 	var choosedGrid;
+	//某网格的所有计算公式
+	var gridCaclModelList;
 </script>
 <script src="./znkyCore.js"></script>
 <script>
@@ -223,49 +229,21 @@
 			if (r){
 				//获取该网格类型对应的所有计算公式
 				var gridCaclModelList = JSON.parse(commonObj.postAjax(selectGridCalculationModelInfoListBymodelTypeUuidUrl, "modelTypeUuid="+choosedGrid.GRID_MTYPE_UUID));
+				if(gridCaclModelList.length == 0){
+					commonObj.alert("该网格不具备测算服务能力,请咨询系统管理员!","warning");
+					return;
+				}
+				debugger;
 				//console.info("该网格类型对应的所有计算公式:"+gridCaclModelList);
-
+				var gridCmNo = "";
 				//门店特征
-				var features = loadFeaturesHtmlContent(gridCaclModelList);
-				$('#win').window({
-					width:600,
-					height:400,
-					modal:true,
-					title:'请选择您的门店特征',
-					content:features,
-					onClose:function(){
-						
+				var features = loadFeatures(gridCaclModelList);
+				var featuresHtml = loadFeaturesHtmlContent(features);
+				$.messager.confirm('消息', "请选择您的店面特征："+featuresHtml, function(r) {
+					if (r) {
+						caclAndView(gridCmNo,gridCaclModelList);
 					}
 				});
-				return;
-				$.messager.progress();
-				var gridCmNo = $("#featureInp").val();
-				// debugger;
-				var newgridCaclModelList = loadNewCmodelListByFeatures(gridCmNo,gridCaclModelList);
-				//分别执行公式进行测算
-				var rresult = "";
-				for(var z=0;z<newgridCaclModelList.length;z++){
-					var rdata = null;
-					var newgridCaclMode = newgridCaclModelList[z];
-					var ruleType = newgridCaclMode.RULE_TYPE;
-					if(4 == ruleType || 5 == ruleType){
-						rdata = disCacl(newgridCaclMode);
-					}
-					if(2 == ruleType ){
-						rdata = disCaclLSH(newgridCaclMode);
-					}
-					if(1 == ruleType || 3 == ruleType){
-						rdata = totalAndVolumeCacl(newgridCaclMode);
-					}
-					// debugger;
-					if(rdata !=null){
-						console.info(rdata);
-						rdata = JSON.parse(rdata);
-						rresult +="</br>"+rdata.result.msg;
-					}
-				}
-				commonObj.alert(rresult);
-				$.messager.progress("close");
 			}
 		});
 	}

@@ -54,7 +54,7 @@ function totalAndVolumeCacl(newgridCaclMode){
  * @param gridCmNo 特征NO
  * @param gridCaclModelList 已加载的网格模型
  */
-function loadNewCmodelListByFeatures (gridCmNo,gridCaclModelList){
+function loadNewCmodelListBygridCmNo (gridCmNo,gridCaclModelList){
     var newCmodelList = [];
     for(var i =0;i<gridCaclModelList.length;i++){
         var gridCaclModel = gridCaclModelList[i];
@@ -70,7 +70,7 @@ function loadNewCmodelListByFeatures (gridCmNo,gridCaclModelList){
  * 获取某个类型下的所有门店特征
  * @param gridCaclModelList
  */
-function loadFeaturesHtmlContent (gridCaclModelList){
+function loadFeatures (gridCaclModelList){
     var features = [];
     for(var i =0;i<gridCaclModelList.length;i++){
         var gridCaclModel = gridCaclModelList[i];
@@ -91,9 +91,10 @@ function loadFeaturesHtmlContent (gridCaclModelList){
             features.push(temp);
         }
     }
+    return features;
+}
 
-    //门店特征的html展示
-
+function loadFeaturesHtmlContent (features){
     var featuresSelHtml="<select id='featureInp' name='featureInp'>"
     for(var x = 0;x<features.length;x++){
         var feature = features[x];
@@ -102,6 +103,8 @@ function loadFeaturesHtmlContent (gridCaclModelList){
     featuresSelHtml+="</select>";
     return featuresSelHtml;
 }
+
+
 
 /*简单版搜索功能*/
 function search(){
@@ -233,4 +236,62 @@ function gridCoverView(centerCoordinate){
             coverGroups.push(polygon);
         }
     }
+}
+
+
+function caclAndView(gridCmNo,gridCaclModelList){
+    debugger;
+    var zlcsResult = true;
+    var allResult = true;
+    gridCmNo = $("#featureInp").val();
+    var newgridCaclModelList = loadNewCmodelListBygridCmNo(gridCmNo,gridCaclModelList);
+    //分别执行公式进行测算
+    var rresult = "";
+    for(var z=0;z<newgridCaclModelList.length;z++){
+        var rdata = null;
+        var newgridCaclMode = newgridCaclModelList[z];
+        var ruleType = newgridCaclMode.RULE_TYPE;
+        if(4 == ruleType || 5 == ruleType){
+            rdata = disCacl(newgridCaclMode);
+        }
+        if(2 == ruleType ){
+            rdata = disCaclLSH(newgridCaclMode);
+        }
+        if(1 == ruleType){
+            rdata = totalAndVolumeCacl(newgridCaclMode);
+        }
+        if(3 == ruleType){
+            rdata = totalAndVolumeCacl(newgridCaclMode);
+        }
+        if(rdata !=null){
+            rdata = JSON.parse(rdata);
+            console.info(rdata);
+            if(rdata.result.flag != 1 && 1 == ruleType){
+                zlcsResult = false;
+            }
+            if(rdata.result.flag != 1 && 1 != ruleType){
+                allResult = false;
+            }
+            rresult +="</br>"+rdata.result.msg;
+        }
+    }
+    if(!allResult){
+        rresult += "</br><h3>系统测算您当前所选的经营地址不符合办证条件!</h3>";
+    }else{
+        if(!zlcsResult)
+            rresult += "</br><h3>系统测算您当前所选的经营地址总体符合办证条件,但由于经营地址所选网格容量已满,您可向当地烟草专卖局申请排队办理。待网格内有余量时工作人员会及时通知您进行办理!</h3>";
+        else
+            rresult +="</br><h3>系统测算您当前所选的经营地址总体符合办证条件,您可进行烟草零售许可证申请!</h3>";
+    }
+    $('#calceResultViewDiv').window({
+        title:"测算结果",
+        width:700,
+        height:200,
+        modal:true,
+        content:rresult,
+        minimizable:false,
+        maximizable:false,
+        closable:true,
+        collapsible:false
+    });
 }
