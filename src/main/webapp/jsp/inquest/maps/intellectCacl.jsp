@@ -43,9 +43,11 @@
 	var queryAllregionCoordUrl = basePath+'/inquest/tabYcRegionCoordinateController.do?method=queryAllregionCoordinate';
 	var queryMySelfUnitLicInfosUrl = basePath+'/inquest/tabYcLicInfoController.do?method=queryMySelfUnitLicInfos';
 
-
 	var selectGridCalculationModelInfoListBymodelTypeUuidUrl = basePath+'/inquest/tabYcGridCalculationModelController.do?method=selectGridCalculationModelInfoListBymodelTypeUuid';
 	var gridCmodelHanleCertCaclUrl = basePath+'/inquest/tabYcGridCalculationModelController.do?method=gridCmodelHanleCertCacl';
+
+	var gdDistancesUrl = basePath+'/system/gdWebServiceController.do?method=distances&type=3';
+
 
 	selectAllSysKeyInfosUrl = '<c:url value="'+selectAllSysKeyInfosUrl+'"/>';
 	queryAllGirdUrl = '<c:url value="'+queryAllGirdUrl+'"/>';
@@ -61,7 +63,6 @@
 	var gdkey = '';
 	var gdmap_jsapi_version = '';
 	var gdmap_init_info = '';
-	var gdmap_cacl_param = '';
 	var gdmap_icon = '';
 
 	//网格总量
@@ -98,9 +99,6 @@
 				}
 				if(syskeyobj.sys_key == 'gdmap_init_info'){
 					gdmap_init_info = JSON.parse(syskeyobj.sys_value);
-				}
-				if(syskeyobj.sys_key == 'gdmap_cacl_param'){
-					gdmap_cacl_param = JSON.parse(syskeyobj.sys_value);
 				}
 				if(syskeyobj.sys_key == 'gdmap_icon'){
 					gdmap_icon = JSON.parse(syskeyobj.sys_value);
@@ -225,7 +223,7 @@
 			commonObj.alert("您的经营地址所在地暂无网格归属,请确认是否属于如下网格：","info");
 			return;
 		}
-		$.messager.confirm('消息', "归属网格"+choosedGrid.GRID_NAME+"</br>您已在地图上选择并正确标记了经营地址的坐标位置?", function(r){
+		$.messager.confirm('消息', "您已在地图上选择并正确标记了经营地址的坐标位置?归属网格:"+choosedGrid.GRID_NAME, function(r){
 			if (r){
 				//获取该网格类型对应的所有计算公式
 				var gridCaclModelList = JSON.parse(commonObj.postAjax(selectGridCalculationModelInfoListBymodelTypeUuidUrl, "modelTypeUuid="+choosedGrid.GRID_MTYPE_UUID));
@@ -233,13 +231,12 @@
 					commonObj.alert("该网格不具备测算服务能力,请咨询系统管理员!","warning");
 					return;
 				}
-				debugger;
 				//console.info("该网格类型对应的所有计算公式:"+gridCaclModelList);
 				var gridCmNo = "";
 				//门店特征
 				var features = loadFeatures(gridCaclModelList);
 				var featuresHtml = loadFeaturesHtmlContent(features);
-				$.messager.confirm('消息', "请选择您的店面特征："+featuresHtml, function(r) {
+				$.messager.confirm('消息', "店面特征:"+featuresHtml, function(r) {
 					if (r) {
 						caclAndView(gridCmNo,gridCaclModelList);
 					}

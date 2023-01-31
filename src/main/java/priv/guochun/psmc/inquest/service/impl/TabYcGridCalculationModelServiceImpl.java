@@ -10,6 +10,7 @@ import priv.guochun.psmc.system.framework.gd.GdWebApiService;
 import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.JetlUtil;
+import priv.guochun.psmc.system.util.MyStringUtil;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -56,7 +57,6 @@ public class TabYcGridCalculationModelServiceImpl implements TabYcGridCalculatio
     }
 
     private MsgModel hanleCertCacl(String gridCmodelUuid,String gridUuid,Map<String,Object> param){
-        String[] resultParam = new String[1];
         MsgModel rr;
         Map GridMap = tabYcGridBaseInfoService.queryGirdInfoByGridUuid(gridUuid);
         if(param !=null)
@@ -66,20 +66,20 @@ public class TabYcGridCalculationModelServiceImpl implements TabYcGridCalculatio
         String GRID_CMODEL_NAME = GridCmodelMap.get("GRID_CMODEL_NAME").toString();
         String RULE_TYPE_NAME = GridCmodelMap.get("RULE_TYPE_NAME").toString();
         String RULE_TYPE = GridCmodelMap.get("RULE_TYPE").toString();
-        if("4".equals(RULE_TYPE) || "5".equals(RULE_TYPE) || "2".equals(RULE_TYPE)){
-            MsgModel mm = gdWebApiService.walking(param);
-            if(mm.isSuccess()){
-                JSONObject routes = ((JSONObject)mm.getData()).getJSONObject("route");
-                JSONArray paths = routes.getJSONArray("paths");
-                String distance = paths.getJSONObject(0).getString("distance");
-                if("4".equals(RULE_TYPE) || "5".equals(RULE_TYPE) || "2".equals(RULE_TYPE)){
-                    GridMap.put("distance",distance);
-                    resultParam[0] = distance;
-                }
-            }else{
-                return mm;
-            }
-        }
+//        if("4".equals(RULE_TYPE) || "5".equals(RULE_TYPE) || "2".equals(RULE_TYPE)){
+//            MsgModel mm = gdWebApiService.walking(param);
+//            if(mm.isSuccess()){
+//                JSONObject routes = ((JSONObject)mm.getData()).getJSONObject("route");
+//                JSONArray paths = routes.getJSONArray("paths");
+//                String distance = paths.getJSONObject(0).getString("distance");
+//                if("4".equals(RULE_TYPE) || "5".equals(RULE_TYPE) || "2".equals(RULE_TYPE)){
+//                    GridMap.put("distance",distance);
+//                    resultParam[0] = distance;
+//                }
+//            }else{
+//                return mm;
+//            }
+//        }
         String expre = GridCmodelMap.get("RULE_FORMULA").toString();
         JSONObject tips = JSONObject.parseObject(GridCmodelMap.get("TIPS").toString());
         boolean result = false;
@@ -89,14 +89,14 @@ public class TabYcGridCalculationModelServiceImpl implements TabYcGridCalculatio
             result = JetlUtil.execute(expre,GridMap);
             if(result){
                 reusltDesc =tips.get("cacl_success").toString();
-                rr = MsgModel.buildDefaultSuccess(MessageFormat.format(reusltDesc,resultParam),null);
+                rr = MsgModel.buildDefaultSuccess(MyStringUtil.stringFormat(reusltDesc,GridMap),null);
             } else{
                 reusltDesc =tips.get("process_failed").toString();
-                rr = MsgModel.buildDefaultError(MessageFormat.format(reusltDesc,resultParam),null);
+                rr = MsgModel.buildDefaultError(MyStringUtil.stringFormat(reusltDesc,GridMap),null);
             }
         }catch(RuntimeException e){
             reusltDesc =RULE_TYPE_NAME+"测算异常:"+e.toString();
-            rr = MsgModel.buildDefaultError(MessageFormat.format(reusltDesc,resultParam),null);
+            rr = MsgModel.buildDefaultError(MyStringUtil.stringFormat(reusltDesc,GridMap),null);
         }
         return rr;
     }

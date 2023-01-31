@@ -11,14 +11,53 @@ function disCacl(newgridCaclMode){
     if(5 == ruleType){
          tszbType=1801;
     }
+        var rc ="";
+        var  testObj = [];
+        // 找出需要检测步行距离的对象纳入testObj
         for(var x=0;x<regionCoordinateDatas.length;x++){
             var regionC = JSON.parse(regionCoordinateDatas[x]);
-            if(tszbType == regionC.regionType){
-                var param = '&gridCmodelUuid='+newgridCaclMode.GRID_CMODEL_UUID+'&gridUuid='+choosedGrid.GRID_UUID+'&origin='+businessAddress.getPosition()+"&destination="+regionC.coordinate;
-                var caclRel = commonObj.postAjax(gridCmodelHanleCertCaclUrl, param);
-                return caclRel;
+            if(tszbType == regionC.regionType && regionC.DIS <= gdmap_init_info.origin_to_grid_dis){
+                    rc +=regionC.coordinate;
+                if(regionCoordinateDatas.length -1 >x){
+                    rc = rc+"|";
+                }
+                testObj.push(regionCoordinateDatas[x]);
             }
         }
+        //批量进行距离测量
+        var gdata = commonObj.postAjax(gdDistancesUrl, "destination="+businessAddress.getPosition()+"&origins="+rc);
+        //找出最近的点位
+        var minObj = findMinDistanceInfo(gdata);
+        var targetRegion = JSON.parse(testObj[minObj.origin_id-1]);
+        //针对最近点位进行测算
+        var param = '&gridCmodelUuid='+newgridCaclMode.GRID_CMODEL_UUID+'&gridUuid='+choosedGrid.GRID_UUID+'&origin='+businessAddress.getPosition()+"&destination="+targetRegion.coordinate+"&targetName="+targetRegion.regionName+"&distance="+minObj.distance;
+        var caclRel = commonObj.postAjax(gridCmodelHanleCertCaclUrl, param);
+        return caclRel;
+}
+
+/**
+ * 根据高德多点位测算结果查出最近距离的结果对象
+ * @param gdata
+ * @returns {*}
+ */
+function findMinDistanceInfo(gdata){
+    console.info("调用高德检测距离距离结果："+gdata);
+    gdata = JSON.parse(gdata);
+    var minDis;
+    var minObj;
+    if('success' == gdata.res){
+        var results = JSON.parse(gdata.rmsg).data.results;
+        for(var i = 0;i<results.length;i++){
+           if(undefined == minDis){
+               minDis = results[i].distance;
+               minObj = results[i];
+           } else if(parseInt(results[i].distance) < parseInt(minDis)){
+               minDis = results[i].distance;
+               minObj = results[i];
+           }
+        }
+        return minObj;
+    }
 }
 
 /**
@@ -26,13 +65,30 @@ function disCacl(newgridCaclMode){
  * @param newgridCaclMode
  */
 function disCaclLSH(newgridCaclMode){
-    var ruleType = newgridCaclMode.RULE_TYPE;
+    debugger;
+    var rc ="";
+    var  testObj = [];
+    // 找出需要检测步行距离的对象纳入testObj
     for(var x=0;x<licDatas.length;x++){
         var licData = JSON.parse(licDatas[x]);
-        var param = '&gridCmodelUuid='+newgridCaclMode.GRID_CMODEL_UUID+'&gridUuid='+choosedGrid.GRID_UUID+'&origin='+businessAddress.getPosition()+"&destination="+licData.coordinate;
-        var caclRel = commonObj.postAjax(gridCmodelHanleCertCaclUrl, param);
-        return caclRel;
+        if(licData.DIS <= gdmap_init_info.origin_to_grid_dis){
+            rc +=licData.coordinate;
+            if(licDatas.length -1 >x){
+                rc = rc+"|";
+            }
+            testObj.push(licDatas[x]);
+        }
     }
+    //批量进行距离测量
+    var gdata = commonObj.postAjax(gdDistancesUrl, "destination="+businessAddress.getPosition()+"&origins="+rc);
+    //找出最近的点位
+    var minObj = findMinDistanceInfo(gdata);
+    var targetRegion = JSON.parse(testObj[minObj.origin_id-1]);
+    console.info("最新目标对象："+JSON.stringify(targetRegion));
+    //针对最近点位进行测算
+    var param = '&gridCmodelUuid='+newgridCaclMode.GRID_CMODEL_UUID+'&gridUuid='+choosedGrid.GRID_UUID+'&origin='+businessAddress.getPosition()+"&destination="+targetRegion.coordinate+"&targetName="+targetRegion.companyName+"&distance="+minObj.distance;
+    var caclRel = commonObj.postAjax(gridCmodelHanleCertCaclUrl, param);
+    return caclRel;
 }
 
 /**
@@ -95,7 +151,7 @@ function loadFeatures (gridCaclModelList){
 }
 
 function loadFeaturesHtmlContent (features){
-    var featuresSelHtml="<select id='featureInp' name='featureInp'>"
+    var featuresSelHtml="<select id='featureInp' name='featureInp' style='font-size:12px'>"
     for(var x = 0;x<features.length;x++){
         var feature = features[x];
         featuresSelHtml += "<option value='"+feature[0]+"'>"+feature[1]+"</option>";
@@ -169,21 +225,27 @@ function isPointInRing(centerCoordinate){
  * @param centerCoordinate
  */
 function lshCoverView(centerCoordinate){
+    var iconyUrl = gdmap_icon.zclsh;
     for (var i = 0; i < licDatas.length; i++) {
         var licData = licDatas[i];
         if(typeof(licData) != 'object'){
             licData = JSON.parse(licData);
         }
+        debugger;
         //计算坐标点和网格的地面距离
         var dis = AMap.GeometryUtil.distance(eval(centerCoordinate),eval("["+licData.coordinate+"]"));
         licData.DIS = dis;
         licDatas[i] = JSON.stringify(licData);
         /*展示原点<=x米范围内覆盖物*/
-        if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
+        if(parseInt(dis)<=gdmap_init_info.origin_to_grid_dis){
             var marker = new AMap.Marker({
                 position: eval("["+licData.coordinate+"]"),
-                title: licData.managerName+"["+licData.licNo+"]"
-                // icon:gdmap_icon.default_lsh
+                title: licData.companyName+"["+licData.licNo+"]",
+                icon: new AMap.Icon({
+                    image: iconyUrl,
+                    size: new AMap.Size(22, 30),  //图标所处区域大小
+                    imageSize: new AMap.Size(22, 30) //图标大小
+                }),
             });
             coverGroups.push(marker);
         }
@@ -197,6 +259,7 @@ function lshCoverView(centerCoordinate){
  * @param centerCoordinate
  */
 function regionCoverView(centerCoordinate){
+    var origins = "";
     for (var i = 0; i < regionCoordinateDatas.length; i++) {
         var regioncData = JSON.parse(regionCoordinateDatas[i]);
         //计算坐标点和网格的地面距离
@@ -204,10 +267,19 @@ function regionCoverView(centerCoordinate){
         regioncData.DIS = dis;
         regionCoordinateDatas[i] = JSON.stringify(regioncData);
         /*展示原点<=x米范围内覆盖物*/
-        if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
+        if(parseInt(dis)<=gdmap_init_info.origin_to_grid_dis){
+            var iconyUrl = gdmap_icon.yry;
+            if(1802 == regioncData.regionType)
+                iconyUrl = gdmap_icon.xx;
+
             var marker = new AMap.Marker({
                 position: eval("["+regioncData.coordinate+"]"),
-                title: regioncData.regionName
+                title: regioncData.regionName,
+                icon:  new AMap.Icon({
+                    image: iconyUrl,
+                    size: new AMap.Size(23, 30),  //图标所处区域大小
+                    imageSize: new AMap.Size(23, 30) //图标大小
+                }),
             });
             coverGroups.push(marker);
         }
@@ -226,7 +298,7 @@ function gridCoverView(centerCoordinate){
         var dis = AMap.GeometryUtil.distanceToSegment(eval(centerCoordinate),eval("["+gridData.GRID_COORDINATE+"]"));
         gridData.DIS = dis;
         gridDatas[i] = gridData;
-        if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
+        if(parseInt(dis)<=gdmap_init_info.origin_to_grid_dis){
             var polygon = new AMap.Polygon({
                 path: eval("["+gridData.GRID_COORDINATE+"]"),
                 extData:gridData
