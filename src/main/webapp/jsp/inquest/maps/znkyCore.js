@@ -225,11 +225,13 @@ function isPointInRing(centerCoordinate){
  * @param centerCoordinate
  */
 function lshCoverView(centerCoordinate){
+    var iconyUrl = gdmap_icon.zclsh;
     for (var i = 0; i < licDatas.length; i++) {
         var licData = licDatas[i];
         if(typeof(licData) != 'object'){
             licData = JSON.parse(licData);
         }
+        debugger;
         //计算坐标点和网格的地面距离
         var dis = AMap.GeometryUtil.distance(eval(centerCoordinate),eval("["+licData.coordinate+"]"));
         licData.DIS = dis;
@@ -238,8 +240,12 @@ function lshCoverView(centerCoordinate){
         if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
             var marker = new AMap.Marker({
                 position: eval("["+licData.coordinate+"]"),
-                title: licData.managerName+"["+licData.licNo+"]"
-                // icon:gdmap_icon.default_lsh
+                title: licData.companyName+"["+licData.licNo+"]",
+                icon: new AMap.Icon({
+                    image: iconyUrl,
+                    size: new AMap.Size(22, 30),  //图标所处区域大小
+                    imageSize: new AMap.Size(22, 30) //图标大小
+                }),
             });
             coverGroups.push(marker);
         }
@@ -262,9 +268,18 @@ function regionCoverView(centerCoordinate){
         regionCoordinateDatas[i] = JSON.stringify(regioncData);
         /*展示原点<=x米范围内覆盖物*/
         if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
+            var iconyUrl = gdmap_icon.yry;
+            if(1802 == regioncData.regionType)
+                iconyUrl = gdmap_icon.xx;
+
             var marker = new AMap.Marker({
                 position: eval("["+regioncData.coordinate+"]"),
-                title: regioncData.regionName
+                title: regioncData.regionName,
+                icon:  new AMap.Icon({
+                    image: iconyUrl,
+                    size: new AMap.Size(23, 30),  //图标所处区域大小
+                    imageSize: new AMap.Size(23, 30) //图标大小
+                }),
             });
             coverGroups.push(marker);
         }
