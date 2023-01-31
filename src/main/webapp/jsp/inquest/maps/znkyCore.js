@@ -16,7 +16,7 @@ function disCacl(newgridCaclMode){
         // 找出需要检测步行距离的对象纳入testObj
         for(var x=0;x<regionCoordinateDatas.length;x++){
             var regionC = JSON.parse(regionCoordinateDatas[x]);
-            if(tszbType == regionC.regionType && regionC.DIS <= gdmap_cacl_param.origin_to_grid_dis){
+            if(tszbType == regionC.regionType && regionC.DIS <= gdmap_init_info.origin_to_grid_dis){
                     rc +=regionC.coordinate;
                 if(regionCoordinateDatas.length -1 >x){
                     rc = rc+"|";
@@ -71,7 +71,7 @@ function disCaclLSH(newgridCaclMode){
     // 找出需要检测步行距离的对象纳入testObj
     for(var x=0;x<licDatas.length;x++){
         var licData = JSON.parse(licDatas[x]);
-        if(licData.DIS <= gdmap_cacl_param.origin_to_grid_dis){
+        if(licData.DIS <= gdmap_init_info.origin_to_grid_dis){
             rc +=licData.coordinate;
             if(licDatas.length -1 >x){
                 rc = rc+"|";
@@ -237,7 +237,7 @@ function lshCoverView(centerCoordinate){
         licData.DIS = dis;
         licDatas[i] = JSON.stringify(licData);
         /*展示原点<=x米范围内覆盖物*/
-        if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
+        if(parseInt(dis)<=gdmap_init_info.origin_to_grid_dis){
             var marker = new AMap.Marker({
                 position: eval("["+licData.coordinate+"]"),
                 title: licData.companyName+"["+licData.licNo+"]",
@@ -267,7 +267,7 @@ function regionCoverView(centerCoordinate){
         regioncData.DIS = dis;
         regionCoordinateDatas[i] = JSON.stringify(regioncData);
         /*展示原点<=x米范围内覆盖物*/
-        if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
+        if(parseInt(dis)<=gdmap_init_info.origin_to_grid_dis){
             var iconyUrl = gdmap_icon.yry;
             if(1802 == regioncData.regionType)
                 iconyUrl = gdmap_icon.xx;
@@ -298,7 +298,7 @@ function gridCoverView(centerCoordinate){
         var dis = AMap.GeometryUtil.distanceToSegment(eval(centerCoordinate),eval("["+gridData.GRID_COORDINATE+"]"));
         gridData.DIS = dis;
         gridDatas[i] = gridData;
-        if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
+        if(parseInt(dis)<=gdmap_init_info.origin_to_grid_dis){
             var polygon = new AMap.Polygon({
                 path: eval("["+gridData.GRID_COORDINATE+"]"),
                 extData:gridData

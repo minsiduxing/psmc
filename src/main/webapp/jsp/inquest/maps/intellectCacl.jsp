@@ -63,7 +63,6 @@
 	var gdkey = '';
 	var gdmap_jsapi_version = '';
 	var gdmap_init_info = '';
-	var gdmap_cacl_param = '';
 	var gdmap_icon = '';
 
 	//网格总量
@@ -100,9 +99,6 @@
 				}
 				if(syskeyobj.sys_key == 'gdmap_init_info'){
 					gdmap_init_info = JSON.parse(syskeyobj.sys_value);
-				}
-				if(syskeyobj.sys_key == 'gdmap_cacl_param'){
-					gdmap_cacl_param = JSON.parse(syskeyobj.sys_value);
 				}
 				if(syskeyobj.sys_key == 'gdmap_icon'){
 					gdmap_icon = JSON.parse(syskeyobj.sys_value);
