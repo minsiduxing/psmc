@@ -51,7 +51,7 @@ function findMinDistanceInfo(gdata){
            if(undefined == minDis){
                minDis = results[i].distance;
                minObj = results[i];
-           } else if(results[i].distance < minDis){
+           } else if(parseInt(results[i].distance) < parseInt(minDis)){
                minDis = results[i].distance;
                minObj = results[i];
            }
