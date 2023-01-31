@@ -23,6 +23,10 @@ public class GdWebApiServiceImpl implements GdWebApiService {
      */
     public MsgModel walking(Map<String,Object> param){
         MsgModel mm;
+        if(param == null || param.get("origin") == null || "origin".equals(param.get("")) || param.get("destination") == null || "".equals(param.get("destination"))){
+            mm = MsgModel.buildDefaultError("高德服务必须参数缺失!");
+            return mm;
+        }
         PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
         Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
         Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
@@ -34,7 +38,7 @@ public class GdWebApiServiceImpl implements GdWebApiService {
         if (resultObj != null && resultObj.getIntValue("status") == 1) {
              mm = MsgModel.buildDefaultSuccess(resultObj);
         }else{
-             mm = MsgModel.buildDefaultError(resultObj.getString("info"));
+             mm = MsgModel.buildDefaultError("高德服务异常："+resultObj.getString("info"));
         }
         return mm;
     }

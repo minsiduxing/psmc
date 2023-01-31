@@ -26,7 +26,13 @@ function disCacl(newgridCaclMode){
  * @param newgridCaclMode
  */
 function disCaclLSH(newgridCaclMode){
-
+    var ruleType = newgridCaclMode.RULE_TYPE;
+    for(var x=0;x<licDatas.length;x++){
+        var licData = JSON.parse(licDatas[x]);
+        var param = '&gridCmodelUuid='+newgridCaclMode.GRID_CMODEL_UUID+'&gridUuid='+choosedGrid.GRID_UUID+'&origin='+businessAddress.getPosition()+"&destination="+licData.coordinate;
+        var caclRel = commonObj.postAjax(gridCmodelHanleCertCaclUrl, param);
+        return caclRel;
+    }
 }
 
 /**
@@ -48,7 +54,7 @@ function totalAndVolumeCacl(newgridCaclMode){
  * @param gridCmNo 特征NO
  * @param gridCaclModelList 已加载的网格模型
  */
-function loadNewCmodelListByFeatures (gridCmNo,gridCaclModelList){
+function loadNewCmodelListBygridCmNo (gridCmNo,gridCaclModelList){
     var newCmodelList = [];
     for(var i =0;i<gridCaclModelList.length;i++){
         var gridCaclModel = gridCaclModelList[i];
@@ -64,7 +70,7 @@ function loadNewCmodelListByFeatures (gridCmNo,gridCaclModelList){
  * 获取某个类型下的所有门店特征
  * @param gridCaclModelList
  */
-function loadFeaturesHtmlContent (gridCaclModelList){
+function loadFeatures (gridCaclModelList){
     var features = [];
     for(var i =0;i<gridCaclModelList.length;i++){
         var gridCaclModel = gridCaclModelList[i];
@@ -85,9 +91,10 @@ function loadFeaturesHtmlContent (gridCaclModelList){
             features.push(temp);
         }
     }
+    return features;
+}
 
-    //门店特征的html展示
-
+function loadFeaturesHtmlContent (features){
     var featuresSelHtml="<select id='featureInp' name='featureInp'>"
     for(var x = 0;x<features.length;x++){
         var feature = features[x];
@@ -96,6 +103,8 @@ function loadFeaturesHtmlContent (gridCaclModelList){
     featuresSelHtml+="</select>";
     return featuresSelHtml;
 }
+
+
 
 /*简单版搜索功能*/
 function search(){
@@ -152,4 +161,137 @@ function isPointInRing(centerCoordinate){
     }
     if(!isExists)
         choosedGrid='';
+}
+
+/**
+ * 最近零售户撒点展示
+ * 测算原点到所有能加载到的零售户的地面距离 并进行判断，符合条件的展示
+ * @param centerCoordinate
+ */
+function lshCoverView(centerCoordinate){
+    for (var i = 0; i < licDatas.length; i++) {
+        var licData = licDatas[i];
+        if(typeof(licData) != 'object'){
+            licData = JSON.parse(licData);
+        }
+        //计算坐标点和网格的地面距离
+        var dis = AMap.GeometryUtil.distance(eval(centerCoordinate),eval("["+licData.coordinate+"]"));
+        licData.DIS = dis;
+        licDatas[i] = JSON.stringify(licData);
+        /*展示原点<=x米范围内覆盖物*/
+        if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
+            var marker = new AMap.Marker({
+                position: eval("["+licData.coordinate+"]"),
+                title: licData.managerName+"["+licData.licNo+"]"
+                // icon:gdmap_icon.default_lsh
+            });
+            coverGroups.push(marker);
+        }
+    }
+}
+
+
+/**
+ * 最近区域（中小学、幼儿园）的撒点展示
+ * 测算原点到所有能加载到的中小学、幼儿园的地面距离 并进行判断，符合条件的展示
+ * @param centerCoordinate
+ */
+function regionCoverView(centerCoordinate){
+    for (var i = 0; i < regionCoordinateDatas.length; i++) {
+        var regioncData = JSON.parse(regionCoordinateDatas[i]);
+        //计算坐标点和网格的地面距离
+        var dis = AMap.GeometryUtil.distance(eval(centerCoordinate),eval("["+regioncData.coordinate+"]"));
+        regioncData.DIS = dis;
+        regionCoordinateDatas[i] = JSON.stringify(regioncData);
+        /*展示原点<=x米范围内覆盖物*/
+        if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
+            var marker = new AMap.Marker({
+                position: eval("["+regioncData.coordinate+"]"),
+                title: regioncData.regionName
+            });
+            coverGroups.push(marker);
+        }
+    }
+}
+
+/**
+ * 最近网格的撒点展示
+ * 测算原点到所有能加载到的网格的地面距离 并进行判断，符合条件的展示
+ * @param centerCoordinate
+ */
+function gridCoverView(centerCoordinate){
+    for (var i = 0; i < gridDatas.length; i++) {
+        var gridData = eval(gridDatas[i]);
+        //计算坐标点和网格的地面距离
+        var dis = AMap.GeometryUtil.distanceToSegment(eval(centerCoordinate),eval("["+gridData.GRID_COORDINATE+"]"));
+        gridData.DIS = dis;
+        gridDatas[i] = gridData;
+        if(parseInt(dis)<=gdmap_cacl_param.origin_to_grid_dis){
+            var polygon = new AMap.Polygon({
+                path: eval("["+gridData.GRID_COORDINATE+"]"),
+                extData:gridData
+            });
+            polygon.setOptions(JSON.parse(gridData.MAP_STYLE));
+            polygon.on('click', polygonClickFunc);
+            coverGroups.push(polygon);
+        }
+    }
+}
+
+
+function caclAndView(gridCmNo,gridCaclModelList){
+    debugger;
+    var zlcsResult = true;
+    var allResult = true;
+    gridCmNo = $("#featureInp").val();
+    var newgridCaclModelList = loadNewCmodelListBygridCmNo(gridCmNo,gridCaclModelList);
+    //分别执行公式进行测算
+    var rresult = "";
+    for(var z=0;z<newgridCaclModelList.length;z++){
+        var rdata = null;
+        var newgridCaclMode = newgridCaclModelList[z];
+        var ruleType = newgridCaclMode.RULE_TYPE;
+        if(4 == ruleType || 5 == ruleType){
+            rdata = disCacl(newgridCaclMode);
+        }
+        if(2 == ruleType ){
+            rdata = disCaclLSH(newgridCaclMode);
+        }
+        if(1 == ruleType){
+            rdata = totalAndVolumeCacl(newgridCaclMode);
+        }
+        if(3 == ruleType){
+            rdata = totalAndVolumeCacl(newgridCaclMode);
+        }
+        if(rdata !=null){
+            rdata = JSON.parse(rdata);
+            console.info(rdata);
+            if(rdata.result.flag != 1 && 1 == ruleType){
+                zlcsResult = false;
+            }
+            if(rdata.result.flag != 1 && 1 != ruleType){
+                allResult = false;
+            }
+            rresult +="</br>"+rdata.result.msg;
+        }
+    }
+    if(!allResult){
+        rresult += "</br><h3>系统测算您当前所选的经营地址不符合办证条件!</h3>";
+    }else{
+        if(!zlcsResult)
+            rresult += "</br><h3>系统测算您当前所选的经营地址总体符合办证条件,但由于经营地址所在网格容量已满无办证指标,您可向当地烟草专卖局申请排队办理。待网格内有余量时工作人员会及时通知您进行办理!</h3>";
+        else
+            rresult +="</br><h3>系统测算您当前所选的经营地址总体符合办证条件,您可进行烟草零售许可证申请!</h3>";
+    }
+    $('#calceResultViewDiv').window({
+        title:"测算结果",
+        width:750,
+        height:250,
+        modal:true,
+        content:rresult,
+        minimizable:false,
+        maximizable:false,
+        closable:true,
+        collapsible:false
+    });
 }

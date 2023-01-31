@@ -77,6 +77,9 @@
       and child.group_code like concat(parent.group_code, '%')
       )
     </if>
+    <if test="mySelfOrgCode != null and mySelfOrgCode != ''">
+      and a.org_code =#{mySelfOrgCode}
+    </if>
   </select>
 
   <insert id="insert" parameterType="priv.guochun.psmc.inquest.model.TabYcLicInfo" >

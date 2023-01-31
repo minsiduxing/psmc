@@ -62,6 +62,13 @@ public class MsgModel implements java.io.Serializable {
 		obj.result=temp;
 		return obj;
 	}
+	public static MsgModel buildDefaultError(String msg,Object data){
+		MsgModel obj = new MsgModel();
+		MobileReturnModel temp = new MobileReturnModel(error,msg);
+		obj.result=temp;
+		obj.data = data;
+		return obj;
+	}
 
 	public boolean isSuccess(){
 		if(result != null && result.flag == success)

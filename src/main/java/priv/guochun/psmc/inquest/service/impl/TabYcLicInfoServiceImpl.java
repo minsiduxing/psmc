@@ -6,6 +6,7 @@ import priv.guochun.psmc.system.framework.dao.BaseDao;
 import priv.guochun.psmc.system.framework.page.MyPage;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,4 +28,9 @@ public class TabYcLicInfoServiceImpl implements TabYcLicInfoService {
         }
         return baseDao.getMyPage(page, "selectLicInfoPage", condition);
     }
+
+    public List queryLicInfos(Map<String,Object> param) {
+        return (List<Map>)baseDao.queryForList("selectLicInfoPage",param);
+    }
+
 }
