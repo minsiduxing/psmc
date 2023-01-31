@@ -13,4 +13,11 @@ public interface GdWebApiService {
      * @return
      */
     public MsgModel walking(Map<String,Object> param);
+
+    /**
+     * 高德距离测量服务
+     * @param param
+     * @return
+     */
+    public MsgModel distances(Map<String,Object> param);
 }

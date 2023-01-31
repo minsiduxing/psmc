@@ -42,4 +42,26 @@ public class GdWebApiServiceImpl implements GdWebApiService {
         }
         return mm;
     }
+
+    public MsgModel distances(Map<String,Object> param){
+        MsgModel mm;
+        if(param == null || param.get("origins") == null || "origins".equals(param.get("")) || param.get("destination") == null || "".equals(param.get("destination"))){
+            mm = MsgModel.buildDefaultError("高德服务必须参数缺失!");
+            return mm;
+        }
+        PsmcCacheFactory psmcCacheFactory = (PsmcCacheFactory) MySpringApplicationContext.getObject("psmcCacheFactory");
+        Cache cache = psmcCacheFactory.getCacheSysKeyInfo();
+        Map<String, String> map = cache.get(CacheContants.CACHE_SYSTEM_KEY_INFO_KEY, Map.class);
+        String url =map.get("gdmap_distance_webapi_url").toString();
+        JSONObject gdmap_key =JSONObject.parseObject(map.get("gdmap_key").toString());
+        param.put("key", gdmap_key.getString("webapi"));
+        String result = HttpConnectUtil.get(url,  param);
+        JSONObject resultObj = (JSONObject)JSONObject.parse(result);
+        if (resultObj != null && resultObj.getIntValue("status") == 1) {
+            mm = MsgModel.buildDefaultSuccess(resultObj);
+        }else{
+            mm = MsgModel.buildDefaultError("高德服务异常："+resultObj.getString("info"));
+        }
+        return mm;
+    }
 }
