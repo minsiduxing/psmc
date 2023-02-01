@@ -27,6 +27,7 @@
 </style>
 <div style="width:100%;height:5%;margin: 5px;">
 	<div style="font-size: 5px">
+		所属专卖局：<input id="orgCode" name="orgCode"/>
 		经营地址：<input id="searchAddress" name="searchAddress" style="width:30%;margin-right:1%">
 		<input id="search" name="search" onclick="search();" type="button" style="width:70px;margin-right:1%" value="地址搜索"/>
 		<input id="cacl" name="cacl" onclick="caclFun();" type="button" style="width:70px;margin-right:1%" value="开始测算"/>
@@ -37,6 +38,39 @@
 <div id="container" style="width:100%;height:450px;"></div>
 
 <script type="text/javascript">
+
+	/**
+	 * 初始化查询参数
+	 */
+	function initQueryParam(){
+		var groupDo =basePath + "/authentication/tabGroupController.do";
+		var groupTreeUrl = '<c:url value="'+groupDo+'"/>?method=getGroupTree';
+		var option = {};
+		option.url = groupTreeUrl;
+		option.onSelect  = function orgChange(node){
+			var orgInfo = JSON.parse(commonObj.postAjax(queryaitQueueCfgUrl, "onlyOrgCode="+node.id));
+			var data = JSON.parse(orgInfo.rmsg).data;
+			if(data != null){
+				debugger;
+				$('#searchAddress').textbox('setValue','');
+				if(undefined != placeSearchObj && null != placeSearchObj)placeSearchObj.clear();
+
+				var dc = JSON.parse(data.defaultCoordinate); gdmap_init_info = dc;
+				var di = dc.default_init;
+				//重置中心点与视图级别
+				map.setCenter(JSON.parse(di.center),true,2000);
+				map.setZoom(di.zoom,true,2000);
+				//动态加载覆盖物（网格、特殊区域、零售户）
+				dynamicLoadCovers(di.center);
+			}else{
+				commonObj.alert("配置缺失,请联系系统管理员!","warning");
+			}
+
+		}
+		commonObj.initRadioTree("orgCode","orgCode",option);
+		$('#searchAddress').textbox({});
+	}
+
 	var basePath = $("#basePath").val();
 	var selectAllSysKeyInfosUrl = basePath+'/system/common/sysKeyController.do?method=selectAllCacheSysKeyInfos';
 	var queryAllGirdUrl = basePath+'/inquest/tabYcGridBaseinfoController.do?method=queryAllGird';
@@ -45,8 +79,8 @@
 
 	var selectGridCalculationModelInfoListBymodelTypeUuidUrl = basePath+'/inquest/tabYcGridCalculationModelController.do?method=selectGridCalculationModelInfoListBymodelTypeUuid';
 	var gridCmodelHanleCertCaclUrl = basePath+'/inquest/tabYcGridCalculationModelController.do?method=gridCmodelHanleCertCacl';
-
 	var gdDistancesUrl = basePath+'/system/gdWebServiceController.do?method=distances&type=3';
+	var queryaitQueueCfgUrl = basePath+'/inquest/tabYcWaitQueueCfgController.do?method=queryaitQueueCfg';
 
 
 	selectAllSysKeyInfosUrl = '<c:url value="'+selectAllSysKeyInfosUrl+'"/>';
@@ -54,11 +88,10 @@
 	queryAllregionCoordUrl = '<c:url value="'+queryAllregionCoordUrl+'"/>';
 	selectGridCalculationModelInfoListBymodelTypeUuidUrl = '<c:url value="'+selectGridCalculationModelInfoListBymodelTypeUuidUrl+'"/>';
 	gridCmodelHanleCertCaclUrl = '<c:url value="'+gridCmodelHanleCertCaclUrl+'"/>';
-	var queryMySelfUnitLicInfosUrl = '<c:url value="'+queryMySelfUnitLicInfosUrl+'"/>';
+	queryMySelfUnitLicInfosUrl = '<c:url value="'+queryMySelfUnitLicInfosUrl+'"/>';
+	queryaitQueueCfgUrl = '<c:url value="'+queryaitQueueCfgUrl+'"/>';
 
-
-
-	//地图对象
+	//定义变量
 	var map;
 	var gdkey = '';
 	var gdmap_jsapi_version = '';
@@ -73,12 +106,17 @@
 	var licDatas;
 	//覆盖物数组
 	var coverGroups = [];
-	//经营地址
+	//拟申请经营地址
 	var businessAddress = '';
 	//已选择网格
 	var choosedGrid;
 	//某网格的所有计算公式
 	var gridCaclModelList;
+	//搜索对象
+	var placeSearchObj;
+	//初始化查询参数
+	initQueryParam();
+
 </script>
 <script src="./znkyCore.js"></script>
 <script>
@@ -103,7 +141,6 @@
 				if(syskeyobj.sys_key == 'gdmap_icon'){
 					gdmap_icon = JSON.parse(syskeyobj.sys_value);
 				}
-
 			}
 			var map_d_init = eval(gdmap_init_info.default_init);
 
@@ -165,16 +202,20 @@
 		if(businessAddress != null && businessAddress !=''){
 			map.remove(businessAddress);
 		}
+		//零售户展示
 		lshCoverView(centerCoordinate);
+		//中小学幼儿园展示
 		regionCoverView(centerCoordinate);
+		//网格展示
 		gridCoverView(centerCoordinate);
 
 		if(coverGroups != [] && coverGroups.length != 0){
 			map.add(coverGroups);
 		}
+		//拟申请经营地址
 		businessAddress = new AMap.Marker({
 			position: eval(centerCoordinate),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
-			title: '经营地址'
+			title: '拟申请经营地址'
 		});
 		map.add(businessAddress);
 		map.setFitView();
@@ -211,9 +252,6 @@
 		dynamicLoadCovers(p0);
 	}
 
-
-
-
 	/**
 	 * 测算总入口
 	 */
@@ -244,6 +282,7 @@
 			}
 		});
 	}
+
 </script>
 </body>
 </html>

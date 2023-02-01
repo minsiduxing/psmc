@@ -57,6 +57,8 @@
     //----------------------------查询框初始化开始
 
     commonObj.initSelectTree("orgCode","orgCode",groupTreeUrl);
+    $('#companyName').textbox({
+    });
     //----------------------------查询框初始化结束
     //表单提交成功后的回调方法
     function successCallback(data){

@@ -24,11 +24,13 @@ function disCacl(newgridCaclMode){
                 testObj.push(regionCoordinateDatas[x]);
             }
         }
+        console.info("最近中小学、幼儿园批量测距对象："+JSON.stringify(testObj));
         //批量进行距离测量
         var gdata = commonObj.postAjax(gdDistancesUrl, "destination="+businessAddress.getPosition()+"&origins="+rc);
         //找出最近的点位
         var minObj = findMinDistanceInfo(gdata);
         var targetRegion = JSON.parse(testObj[minObj.origin_id-1]);
+        console.info("找出最近目标对象："+JSON.stringify(targetRegion));
         //针对最近点位进行测算
         var param = '&gridCmodelUuid='+newgridCaclMode.GRID_CMODEL_UUID+'&gridUuid='+choosedGrid.GRID_UUID+'&origin='+businessAddress.getPosition()+"&destination="+targetRegion.coordinate+"&targetName="+targetRegion.regionName+"&distance="+minObj.distance;
         var caclRel = commonObj.postAjax(gridCmodelHanleCertCaclUrl, param);
@@ -41,7 +43,7 @@ function disCacl(newgridCaclMode){
  * @returns {*}
  */
 function findMinDistanceInfo(gdata){
-    console.info("调用高德检测距离距离结果："+gdata);
+    console.info("调用高德检测距离结果："+gdata);
     gdata = JSON.parse(gdata);
     var minDis;
     var minObj;
@@ -65,7 +67,6 @@ function findMinDistanceInfo(gdata){
  * @param newgridCaclMode
  */
 function disCaclLSH(newgridCaclMode){
-    debugger;
     var rc ="";
     var  testObj = [];
     // 找出需要检测步行距离的对象纳入testObj
@@ -79,12 +80,13 @@ function disCaclLSH(newgridCaclMode){
             testObj.push(licDatas[x]);
         }
     }
+    console.info("最近零售户批量测距对象："+JSON.stringify(testObj));
     //批量进行距离测量
     var gdata = commonObj.postAjax(gdDistancesUrl, "destination="+businessAddress.getPosition()+"&origins="+rc);
     //找出最近的点位
     var minObj = findMinDistanceInfo(gdata);
     var targetRegion = JSON.parse(testObj[minObj.origin_id-1]);
-    console.info("最新目标对象："+JSON.stringify(targetRegion));
+    console.info("最近目标对象："+JSON.stringify(targetRegion));
     //针对最近点位进行测算
     var param = '&gridCmodelUuid='+newgridCaclMode.GRID_CMODEL_UUID+'&gridUuid='+choosedGrid.GRID_UUID+'&origin='+businessAddress.getPosition()+"&destination="+targetRegion.coordinate+"&targetName="+targetRegion.companyName+"&distance="+minObj.distance;
     var caclRel = commonObj.postAjax(gridCmodelHanleCertCaclUrl, param);
@@ -160,11 +162,11 @@ function loadFeaturesHtmlContent (features){
     return featuresSelHtml;
 }
 
-
-
 /*简单版搜索功能*/
 function search(){
-    var searchAddress = $("#searchAddress").val();
+    var searchAddress = $('#searchAddress').textbox('getValue');
+    if("" == searchAddress || null == searchAddress)
+        commonObj.alert("请输入经营地址名称或直接在地图上选点!","info");
     AMap.plugin(["AMap.PlaceSearch"], function() {
         //构造地点查询类
         placeSearch = new AMap.PlaceSearch({
@@ -176,6 +178,7 @@ function search(){
             panel: "panel", // 结果列表将在此容器中进行展示。
             autoFitView: true // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
         });
+        placeSearchObj = placeSearch;
     });
     //增加poi搜索结果坐标点点击、列表点击事件
     placeSearch.on("markerClick",placeSearchMarkerClickFun);
@@ -195,7 +198,7 @@ function placeSearchMarkerClickFun(ev){
         lnglat = "["+lng+","+lat+"]";
     }
     placeSearch.clear();
-    $("#searchAddress").val("");
+    $('#searchAddress').textbox('setValue','');
     dynamicLoadCovers(lnglat);
 }
 
@@ -231,7 +234,6 @@ function lshCoverView(centerCoordinate){
         if(typeof(licData) != 'object'){
             licData = JSON.parse(licData);
         }
-        debugger;
         //计算坐标点和网格的地面距离
         var dis = AMap.GeometryUtil.distance(eval(centerCoordinate),eval("["+licData.coordinate+"]"));
         licData.DIS = dis;
@@ -310,9 +312,12 @@ function gridCoverView(centerCoordinate){
     }
 }
 
-
+/**
+ * 测算和展示
+ * @param gridCmNo 店面特征
+ * @param gridCaclModelList 测算公式
+ */
 function caclAndView(gridCmNo,gridCaclModelList){
-    debugger;
     var zlcsResult = true;
     var allResult = true;
     gridCmNo = $("#featureInp").val();
@@ -351,10 +356,13 @@ function caclAndView(gridCmNo,gridCaclModelList){
         rresult += "</br><h3>系统测算您当前所选的经营地址不符合办证条件!</h3>";
     }else{
         if(!zlcsResult)
-            rresult += "</br><h3>系统测算您当前所选的经营地址总体符合办证条件,但由于经营地址所在网格容量已满无办证指标,您可向当地烟草专卖局申请排队办理。待网格内有余量时工作人员会及时通知您进行办理!</h3>";
+            rresult += "</br><h3>系统测算您当前所选的经营地址总体符合办证条件,但由于经营地址所在网格容量已满无办证指标," +
+                "您可向当地烟草专卖局申请排队办理。待网格内有余量时工作人员会及时通知您进行办理!</h3>" +
+                "<div style='text-align:right,width:100%'><a id=\"btn\" href=\"#\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-man'\">申请排队</a></div>";
         else
             rresult +="</br><h3>系统测算您当前所选的经营地址总体符合办证条件,您可进行烟草零售许可证申请!</h3>";
     }
+
     $('#calceResultViewDiv').window({
         title:"测算结果",
         width:750,

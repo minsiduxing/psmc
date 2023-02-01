@@ -479,28 +479,21 @@ commonObj.initSelectTree = function(id, name, url){
 	$("#"+ id).combotree({
 		url: url,
 		multiple: true,
+		lines:true,
+		checkbox:true,
 		onCheck:function(node, checked){//选中复选框时触发
 			// 设置选中的值
 			var selectedValues = $("#"+ id).combobox("getValues").join(",");
 			$("input[name='"+id+"']").val(selectedValues);
-		},
-		onSelect: function (node) {
-			/**
-			 * 当选中该节点时展开该节点，同时关闭其他节点
-			 */
-			if (node.state == "closed") {
-				$(this).tree('expand', node.target);
-			}
-			else {
-				var isLeaf = $(this).tree('isLeaf', node.target);
-				if (!isLeaf) {
-					$(this).tree("collapse", node.target);
-				}
-			}
-		},
-		onLoadSuccess: function (node) {
-			$(".tree-icon,.tree-file").removeClass("tree-icon tree-file");
-			$(".tree-icon,.tree-folder").removeClass("tree-icon tree-folder tree-folder-open tree-folder-closed");
 		}
+	});
+}
+
+commonObj.initRadioTree = function(id, name,option){
+	$("#"+ id).combotree({
+		url: option.url,
+		multiple: false,
+		lines:true,
+		onSelect:option.onSelect
 	});
 }
