@@ -66,22 +66,17 @@ public class TabYcGridCalculationModelServiceImpl implements TabYcGridCalculatio
         String GRID_CMODEL_NAME = GridCmodelMap.get("GRID_CMODEL_NAME").toString();
         String RULE_TYPE_NAME = GridCmodelMap.get("RULE_TYPE_NAME").toString();
         String RULE_TYPE = GridCmodelMap.get("RULE_TYPE").toString();
-//        if("4".equals(RULE_TYPE) || "5".equals(RULE_TYPE) || "2".equals(RULE_TYPE)){
-//            MsgModel mm = gdWebApiService.walking(param);
-//            if(mm.isSuccess()){
-//                JSONObject routes = ((JSONObject)mm.getData()).getJSONObject("route");
-//                JSONArray paths = routes.getJSONArray("paths");
-//                String distance = paths.getJSONObject(0).getString("distance");
-//                if("4".equals(RULE_TYPE) || "5".equals(RULE_TYPE) || "2".equals(RULE_TYPE)){
-//                    GridMap.put("distance",distance);
-//                    resultParam[0] = distance;
-//                }
-//            }else{
-//                return mm;
-//            }
-//        }
+
         String expre = GridCmodelMap.get("RULE_FORMULA").toString();
         JSONObject tips = JSONObject.parseObject(GridCmodelMap.get("TIPS").toString());
+
+        //兼容距离测算时申请地点无中小学、幼儿园、零售户的处理
+        if("4".equals(RULE_TYPE) || "5".equals(RULE_TYPE) || "2".equals(RULE_TYPE)){
+            String destination = param.get("destination") != null?param.get("destination").toString():"";
+            if("无".equals(destination)){
+                return MsgModel.buildDefaultSuccess(MyStringUtil.stringFormat(tips.get("nothingTips").toString(),GridMap),null);
+            }
+        }
         boolean result = false;
         StringBuffer sb1 = new StringBuffer();
         String reusltDesc;

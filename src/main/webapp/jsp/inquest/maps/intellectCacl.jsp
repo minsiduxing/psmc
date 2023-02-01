@@ -51,7 +51,6 @@
 			var orgInfo = JSON.parse(commonObj.postAjax(queryaitQueueCfgUrl, "onlyOrgCode="+node.id));
 			var data = JSON.parse(orgInfo.rmsg).data;
 			if(data != null){
-				debugger;
 				$('#searchAddress').textbox('setValue','');
 				if(undefined != placeSearchObj && null != placeSearchObj)placeSearchObj.clear();
 
@@ -218,10 +217,11 @@
 			title: '拟申请经营地址'
 		});
 		map.add(businessAddress);
-		map.setFitView();
 
 		//初始化选择的点位所归属的网格信息，如果没有 后续要提醒进行虚拟网格选择
-		isPointInRing(centerCoordinate);
+		var isPointInRingVal = isPointInRing(centerCoordinate);
+		if(!isPointInRingVal)
+			map.setFitView();
 	}
 
 

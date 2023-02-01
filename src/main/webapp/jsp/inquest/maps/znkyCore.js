@@ -81,14 +81,20 @@ function disCaclLSH(newgridCaclMode){
         }
     }
     console.info("最近零售户批量测距对象："+JSON.stringify(testObj));
-    //批量进行距离测量
-    var gdata = commonObj.postAjax(gdDistancesUrl, "destination="+businessAddress.getPosition()+"&origins="+rc);
-    //找出最近的点位
-    var minObj = findMinDistanceInfo(gdata);
-    var targetRegion = JSON.parse(testObj[minObj.origin_id-1]);
-    console.info("最近目标对象："+JSON.stringify(targetRegion));
-    //针对最近点位进行测算
-    var param = '&gridCmodelUuid='+newgridCaclMode.GRID_CMODEL_UUID+'&gridUuid='+choosedGrid.GRID_UUID+'&origin='+businessAddress.getPosition()+"&destination="+targetRegion.coordinate+"&targetName="+targetRegion.companyName+"&distance="+minObj.distance;
+
+    var param = "";
+    if(testObj.length<=0){
+        var param = '&gridCmodelUuid='+newgridCaclMode.GRID_CMODEL_UUID+'&gridUuid='+choosedGrid.GRID_UUID+'&destination=无&nearDis='+gdmap_init_info.origin_to_grid_dis;
+    }else{
+        //批量进行距离测量
+        var gdata = commonObj.postAjax(gdDistancesUrl, "destination="+businessAddress.getPosition()+"&origins="+rc);
+        //找出最近的点位
+        var minObj = findMinDistanceInfo(gdata);
+        var targetRegion = JSON.parse(testObj[minObj.origin_id-1]);
+        console.info("最近目标对象："+JSON.stringify(targetRegion));
+        //针对最近点位进行测算
+        var param = '&gridCmodelUuid='+newgridCaclMode.GRID_CMODEL_UUID+'&gridUuid='+choosedGrid.GRID_UUID+'&origin='+businessAddress.getPosition()+"&destination="+targetRegion.coordinate+"&targetName="+targetRegion.companyName+"&distance="+minObj.distance;
+    }
     var caclRel = commonObj.postAjax(gridCmodelHanleCertCaclUrl, param);
     return caclRel;
 }
@@ -220,6 +226,7 @@ function isPointInRing(centerCoordinate){
     }
     if(!isExists)
         choosedGrid='';
+    return isExists;
 }
 
 /**
@@ -245,8 +252,8 @@ function lshCoverView(centerCoordinate){
                 title: licData.companyName+"["+licData.licNo+"]",
                 icon: new AMap.Icon({
                     image: iconyUrl,
-                    size: new AMap.Size(22, 30),  //图标所处区域大小
-                    imageSize: new AMap.Size(22, 30) //图标大小
+                    size: new AMap.Size(20, 30),  //图标所处区域大小
+                    imageSize: new AMap.Size(20, 30) //图标大小
                 }),
             });
             coverGroups.push(marker);
@@ -279,8 +286,8 @@ function regionCoverView(centerCoordinate){
                 title: regioncData.regionName,
                 icon:  new AMap.Icon({
                     image: iconyUrl,
-                    size: new AMap.Size(23, 30),  //图标所处区域大小
-                    imageSize: new AMap.Size(23, 30) //图标大小
+                    size: new AMap.Size(20, 30),  //图标所处区域大小
+                    imageSize: new AMap.Size(20, 30) //图标大小
                 }),
             });
             coverGroups.push(marker);
@@ -353,14 +360,14 @@ function caclAndView(gridCmNo,gridCaclModelList){
         }
     }
     if(!allResult){
-        rresult += "</br><h3>系统测算您当前所选的经营地址不符合办证条件!</h3>";
+        rresult += "</br><h3>系统测算您当前拟申请经营地址不符合办证条件!</h3>";
     }else{
         if(!zlcsResult)
-            rresult += "</br><h3>系统测算您当前所选的经营地址总体符合办证条件,但由于经营地址所在网格容量已满无办证指标," +
+            rresult += "</br><h3>系统初步测算您当前拟申请经营地址初步符合办证条件,但由于经营地址所在网格容量已满无办证指标," +
                 "您可向当地烟草专卖局申请排队办理。待网格内有余量时工作人员会及时通知您进行办理!</h3>" +
                 "<div style='text-align:right,width:100%'><a id=\"btn\" href=\"#\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-man'\">申请排队</a></div>";
         else
-            rresult +="</br><h3>系统测算您当前所选的经营地址总体符合办证条件,您可进行烟草零售许可证申请!</h3>";
+            rresult +="</br><h3>系统初步测算您当前拟申请经营地址初步符合办证条件,您可进行烟草零售许可证申请,申请结果以工作人员实地勘验核查后结果为准!</h3>";
     }
 
     $('#calceResultViewDiv').window({
