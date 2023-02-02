@@ -494,6 +494,7 @@ commonObj.initRadioTree = function(id, name,option){
 		url: option.url,
 		multiple: false,
 		lines:true,
+		animate:true,
 		onSelect:option.onSelect
 	});
 }

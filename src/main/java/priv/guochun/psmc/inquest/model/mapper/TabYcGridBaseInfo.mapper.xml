@@ -18,6 +18,9 @@
         <if test="orgCode != null and orgCode !=''">
             AND a.ORG_CODE like concat(#{orgCode},'%')
         </if>
+        <if test="onlyOrgCode != null and onlyOrgCode !=''">
+            AND a.ORG_CODE =#{onlyOrgCode}
+        </if>
         <if test="gridName != null and gridName !=''">
             AND a.GRID_NAME like concat(concat('%',#{gridName}),'%')
         </if>

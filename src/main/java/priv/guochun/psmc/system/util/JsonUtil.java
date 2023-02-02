@@ -20,7 +20,7 @@ public class JsonUtil {
 	
 	public static JSONObject convertToJSONObject( List<Map<?,?>> list ){
 		if(list == null || list.size()<=0)
-			return null;
+			return new JSONObject();
 		JSONArray jsonArray = new JSONArray();
 		for(int i=0;i<list.size();i++){
     		Map map =  list.get(i);

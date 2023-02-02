@@ -214,18 +214,20 @@ function placeSearchMarkerClickFun(ev){
  */
 function isPointInRing(centerCoordinate){
     var isExists = false;
-    for(var i=0;i<gridDatas.length;i++){
-        var gridData = gridDatas[i];
-        //计算坐标属于哪个网格
-        var inRing  = AMap.GeometryUtil.isPointInRing(eval(centerCoordinate),eval("["+gridData.GRID_COORDINATE+"]"));
-        if(inRing == true){
-            isExists = true;
-            choosedGrid = gridData;
-            break;
+    if(undefined != gridDatas){
+        for(var i=0;i<gridDatas.length;i++){
+            var gridData = gridDatas[i];
+            //计算坐标属于哪个网格
+            var inRing  = AMap.GeometryUtil.isPointInRing(eval(centerCoordinate),eval("["+gridData.GRID_COORDINATE+"]"));
+            if(inRing == true){
+                isExists = true;
+                choosedGrid = gridData;
+                break;
+            }
         }
+        if(!isExists)
+            choosedGrid='';
     }
-    if(!isExists)
-        choosedGrid='';
     return isExists;
 }
 
@@ -301,20 +303,22 @@ function regionCoverView(centerCoordinate){
  * @param centerCoordinate
  */
 function gridCoverView(centerCoordinate){
-    for (var i = 0; i < gridDatas.length; i++) {
-        var gridData = eval(gridDatas[i]);
-        //计算坐标点和网格的地面距离
-        var dis = AMap.GeometryUtil.distanceToSegment(eval(centerCoordinate),eval("["+gridData.GRID_COORDINATE+"]"));
-        gridData.DIS = dis;
-        gridDatas[i] = gridData;
-        if(parseInt(dis)<=gdmap_init_info.origin_to_grid_dis){
-            var polygon = new AMap.Polygon({
-                path: eval("["+gridData.GRID_COORDINATE+"]"),
-                extData:gridData
-            });
-            polygon.setOptions(JSON.parse(gridData.MAP_STYLE));
-            polygon.on('click', polygonClickFunc);
-            coverGroups.push(polygon);
+    if(undefined != gridDatas){
+        for (var i = 0; i < gridDatas.length; i++) {
+            var gridData = eval(gridDatas[i]);
+            //计算坐标点和网格的地面距离
+            var dis = AMap.GeometryUtil.distanceToSegment(eval(centerCoordinate),eval("["+gridData.GRID_COORDINATE+"]"));
+            gridData.DIS = dis;
+            gridDatas[i] = gridData;
+            if(parseInt(dis)<=gdmap_init_info.origin_to_grid_dis){
+                var polygon = new AMap.Polygon({
+                    path: eval("["+gridData.GRID_COORDINATE+"]"),
+                    extData:gridData
+                });
+                polygon.setOptions(JSON.parse(gridData.MAP_STYLE));
+                polygon.on('click', polygonClickFunc);
+                coverGroups.push(polygon);
+            }
         }
     }
 }
@@ -327,7 +331,6 @@ function gridCoverView(centerCoordinate){
 function caclAndView(gridCmNo,gridCaclModelList){
     var zlcsResult = true;
     var allResult = true;
-    gridCmNo = $("#featureInp").val();
     var newgridCaclModelList = loadNewCmodelListBygridCmNo(gridCmNo,gridCaclModelList);
     //分别执行公式进行测算
     var rresult = "";
@@ -360,16 +363,15 @@ function caclAndView(gridCmNo,gridCaclModelList){
         }
     }
     if(!allResult){
-        rresult += "</br><h3>系统测算您当前拟申请经营地址不符合办证条件!</h3>";
+        rresult += "</br><h3>系统测算您当前拟申请经营地址不符合办证条件。</h3>";
     }else{
         if(!zlcsResult)
-            rresult += "</br><h3>系统初步测算您当前拟申请经营地址初步符合办证条件,但由于经营地址所在网格容量已满无办证指标," +
-                "您可向当地烟草专卖局申请排队办理。待网格内有余量时工作人员会及时通知您进行办理!</h3>" +
+            rresult += "</br><h3>系统测算您当前拟申请经营地址初步符合办证条件，但由于经营地址所在网格容量已满无办证指标，" +
+                "您可向当地烟草专卖局申请排队办理。待网格内有余量时工作人员会及时通知您进行办理。办理结果以工作人员实地勘验核查后为准。</h3>" +
                 "<div style='text-align:right,width:100%'><a id=\"btn\" href=\"#\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-man'\">申请排队</a></div>";
         else
-            rresult +="</br><h3>系统初步测算您当前拟申请经营地址初步符合办证条件,您可进行烟草零售许可证申请,申请结果以工作人员实地勘验核查后结果为准!</h3>";
+            rresult +="</br><h3>系统测算您当前拟申请经营地址初步符合办证条件，您可进行烟草零售许可证申请，申请结果以工作人员实地勘验核查后为准。</h3>";
     }
-
     $('#calceResultViewDiv').window({
         title:"测算结果",
         width:750,

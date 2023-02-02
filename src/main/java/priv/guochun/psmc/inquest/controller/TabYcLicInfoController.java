@@ -40,10 +40,9 @@ public class TabYcLicInfoController extends MyController {
     @RequestMapping(params="method=queryMySelfUnitLicInfos")
     @ResponseBody
     public void queryMySelfUnitLicInfos(@RequestParam Map<String,Object> param) throws Exception{
-        String orgCode = this.getUserBySeesion(this.request()).getGroupCode();
-        if(param == null)
-            param = new HashMap<String,Object>();
-            param.put("mySelfOrgCode",orgCode);
+        if(param != null && param.get("onlyOrgCode") == null){
+            param.put("onlyOrgCode",this.getUserBySeesion(this.request()).getGroupCode());
+        }
         super.responseJson(tabYcLicInfoService.queryLicInfos(param),this.response());
     }
 

@@ -7,10 +7,13 @@
 	<title>智能测算</title>
 </head>
 <body id="body">
-<div id="win">
+	<!-- 店面特征提醒窗口 -->
+	<div id="win"></div>
 
+	<!-- 测算结果展示div -->
 	<div id="calceResultViewDiv"></div>
-</div>
+
+
 <%@ include file="./gd_js_load.jsp"%>
 <style type="text/css">
 	.amap-sug-result { z-index: 25000; }
@@ -47,21 +50,45 @@
 		var groupTreeUrl = '<c:url value="'+groupDo+'"/>?method=getGroupTree';
 		var option = {};
 		option.url = groupTreeUrl;
+		option.onBeforeSelect  = function orgChange(node){
+			debugger;
+			$.messager.progress();
+			return true;
+		},
 		option.onSelect  = function orgChange(node){
 			var orgInfo = JSON.parse(commonObj.postAjax(queryaitQueueCfgUrl, "onlyOrgCode="+node.id));
-			var data = JSON.parse(orgInfo.rmsg).data;
-			if(data != null){
+			selectedOrgInfo = JSON.parse(orgInfo.rmsg).data;
+			// debugger;
+			if(selectedOrgInfo != null){
 				$('#searchAddress').textbox('setValue','');
 				if(undefined != placeSearchObj && null != placeSearchObj)placeSearchObj.clear();
 
-				var dc = JSON.parse(data.defaultCoordinate); gdmap_init_info = dc;
+				var dc = JSON.parse(selectedOrgInfo.defaultCoordinate); gdmap_init_info = dc;
 				var di = dc.default_init;
 				//重置中心点与视图级别
 				map.setCenter(JSON.parse(di.center),true,2000);
 				map.setZoom(di.zoom,true,2000);
+
+				//初始化网格
+				var queryAllGirdParam = "version="+version+"&onlyOrgCode="+selectedOrgInfo.orgCode;
+				var gdata = commonObj.postAjax(queryAllGirdUrl, queryAllGirdParam);
+				gridDatas = JSON.parse(gdata).listArray;
+
+				//初始化中小学 幼儿园
+				var rdata = commonObj.postAjax(queryAllregionCoordUrl, "&onlyOrgCode="+selectedOrgInfo.orgCode);
+				regionCoordinateDatas = eval(rdata);
+
+				//初始化零售户
+				var ldata = commonObj.postAjax(queryMySelfUnitLicInfosUrl, "&onlyOrgCode="+selectedOrgInfo.orgCode);
+				licDatas = eval(ldata);
+
+				$.messager.progress("close");
+
 				//动态加载覆盖物（网格、特殊区域、零售户）
 				dynamicLoadCovers(di.center);
+
 			}else{
+				$.messager.progress("close");
 				commonObj.alert("配置缺失,请联系系统管理员!","warning");
 			}
 
@@ -113,6 +140,8 @@
 	var gridCaclModelList;
 	//搜索对象
 	var placeSearchObj;
+
+	var selectedOrgInfo;
 	//初始化查询参数
 	initQueryParam();
 
@@ -251,7 +280,6 @@
 
 		dynamicLoadCovers(p0);
 	}
-
 	/**
 	 * 测算总入口
 	 */
@@ -262,11 +290,11 @@
 			return;
 		}
 		$.messager.confirm('消息', "您已在地图上选择并正确标记了经营地址的坐标位置?归属网格:"+choosedGrid.GRID_NAME, function(r){
-			if (r){
+			if (r) {
 				//获取该网格类型对应的所有计算公式
-				var gridCaclModelList = JSON.parse(commonObj.postAjax(selectGridCalculationModelInfoListBymodelTypeUuidUrl, "modelTypeUuid="+choosedGrid.GRID_MTYPE_UUID));
-				if(gridCaclModelList.length == 0){
-					commonObj.alert("该网格不具备测算服务能力,请咨询系统管理员!","warning");
+				var gridCaclModelList = JSON.parse(commonObj.postAjax(selectGridCalculationModelInfoListBymodelTypeUuidUrl, "modelTypeUuid=" + choosedGrid.GRID_MTYPE_UUID));
+				if (gridCaclModelList.length == 0) {
+					commonObj.alert("该网格不具备测算服务能力,请咨询系统管理员!", "warning");
 					return;
 				}
 				//console.info("该网格类型对应的所有计算公式:"+gridCaclModelList);
@@ -274,14 +302,33 @@
 				//门店特征
 				var features = loadFeatures(gridCaclModelList);
 				var featuresHtml = loadFeaturesHtmlContent(features);
-				$.messager.confirm('消息', "店面特征:"+featuresHtml, function(r) {
+				//
+				// $('#win').window({
+				// 	width:600,
+				// 	height:400,
+				// 	modal:true,
+				// 	title:"信息确认"+featuresHtml
+				// });
+
+				$.messager.confirm('消息', "店面特征:" + featuresHtml, function (r) {
 					if (r) {
-						caclAndView(gridCmNo,gridCaclModelList);
+						gridCmNo = $("#featureInp").val();
+						$.messager.progress({"z-index": 19008});
+						$("body").find(".messager-window").css({
+							"z-index": "19008"
+						});
+						$("body").find(".window-shadow").css({
+							"z-index": "19007"
+						});
+						caclAndView(gridCmNo, gridCaclModelList);
+						$.messager.progress("close");
 					}
 				});
 			}
 		});
 	}
+
+
 
 </script>
 </body>

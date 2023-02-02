@@ -50,6 +50,9 @@
       and child.group_code like concat(parent.group_code, '%')
       )
     </if>
+    <if test="onlyOrgCode != null and onlyOrgCode != ''">
+      and a.org_code = #{onlyOrgCode}
+    </if>
   </select>
 
   <insert id="insert" parameterType="priv.guochun.psmc.inquest.model.TabYcRegionCoordinate" >

@@ -50,15 +50,22 @@ public class TabYcGridBaseinfoController extends MyController {
         super.responseJson(JsonUtil.convertToJSONObject(map), this.response());
     }
 
+    /**
+     * 根据版本和专卖局code查询网格，只查询本单位（不含下级单位）
+     * @param version
+     * @param onlyOrgCode
+     * @throws IOException
+     */
     @RequestMapping(params="method=queryAllGird")
     @ResponseBody
-    public void queryAllGird(String version) throws IOException {
-        String orgCode = this.getUserBySeesion(this.request()).getGroupCode();
+    public void queryAllGird(String version,String onlyOrgCode) throws IOException {
         Map<String, Object> queryParams = new HashMap<String, Object>();
-        if(StringUtils.isBlank(version) || StringUtils.isBlank(orgCode)){
+        if(StringUtils.isBlank(version)){
             throw new RuntimeException("参数异常!");
         }{
-            queryParams.put("orgCode", orgCode);
+            if(StringUtils.isBlank(onlyOrgCode))
+                onlyOrgCode = this.getUserBySeesion(this.request()).getGroupCode();
+            queryParams.put("onlyOrgCode", onlyOrgCode);
             queryParams.put("version", version);
         }
 
