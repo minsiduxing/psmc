@@ -309,21 +309,18 @@
 				// 	modal:true,
 				// 	title:"信息确认"+featuresHtml
 				// });
+				if(features.length ==1){
+					gridCmNo = features[0][0];
+					caclAndView(gridCmNo, gridCaclModelList);
 
-				$.messager.confirm('消息', "店面特征:" + featuresHtml, function (r) {
-					if (r) {
-						gridCmNo = $("#featureInp").val();
-						$.messager.progress({"z-index": 19008});
-						$("body").find(".messager-window").css({
-							"z-index": "19008"
-						});
-						$("body").find(".window-shadow").css({
-							"z-index": "19007"
-						});
-						caclAndView(gridCmNo, gridCaclModelList);
-						$.messager.progress("close");
-					}
-				});
+				}else{
+					$.messager.confirm('消息', "店面特征:" + featuresHtml, function (r) {
+						if (r) {
+							gridCmNo = $("#featureInp").val();
+							caclAndView(gridCmNo, gridCaclModelList);
+						}
+					});
+				}
 			}
 		});
 	}
