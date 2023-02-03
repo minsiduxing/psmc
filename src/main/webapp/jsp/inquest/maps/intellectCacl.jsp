@@ -130,8 +130,12 @@
 	var regionCoordinateDatas;
 	//零售户总量
 	var licDatas;
+
 	//覆盖物数组
 	var coverGroups = [];
+	var targetLinecoverGroups = [];
+
+
 	//拟申请经营地址
 	var businessAddress = '';
 	//已选择网格
@@ -144,6 +148,14 @@
 	var selectedOrgInfo;
 	//初始化查询参数
 	initQueryParam();
+
+	//定义选点坐标变化后的处理
+	var clickHandler = function (e) {
+		//动态加载覆盖物（网格、特殊区域、零售户）
+		dynamicLoadCovers("[" + e.lnglat.getLng() + "," + e.lnglat.getLat() + "]");
+		//中心点随鼠标点击移动
+		map.setCenter(new AMap.LngLat(e.lnglat.getLng(), e.lnglat.getLat()));
+	};
 
 </script>
 <script src="./znkyCore.js"></script>
@@ -196,12 +208,7 @@
 					map.addControl(new AMap.MapType());
 				});
 
-				var clickHandler = function (e) {
-					//动态加载覆盖物（网格、特殊区域、零售户）
-					dynamicLoadCovers("[" + e.lnglat.getLng() + "," + e.lnglat.getLat() + "]");
-					//中心点随鼠标点击移动
-					map.setCenter(new AMap.LngLat(e.lnglat.getLng(), e.lnglat.getLat()));
-				};
+
 				// 绑定事件
 				map.on('click', clickHandler);
 
@@ -227,9 +234,14 @@
 			map.remove(coverGroups);
 			coverGroups = [];
 		}
+
+		if(targetLinecoverGroups.length>0)
+			map.remove(targetLinecoverGroups);
+
 		if(businessAddress != null && businessAddress !=''){
 			map.remove(businessAddress);
 		}
+
 		//零售户展示
 		lshCoverView(centerCoordinate);
 		//中小学幼儿园展示
@@ -243,8 +255,10 @@
 		//拟申请经营地址
 		businessAddress = new AMap.Marker({
 			position: eval(centerCoordinate),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
-			title: '拟申请经营地址'
+			title: '拟申请经营地址',
+			draggable: true
 		});
+		businessAddress.on('dragend', clickHandler);
 		map.add(businessAddress);
 
 		//初始化选择的点位所归属的网格信息，如果没有 后续要提醒进行虚拟网格选择
@@ -284,6 +298,8 @@
 	 * 测算总入口
 	 */
 	function caclFun(){
+		if(targetLinecoverGroups.length>0)
+			map.remove(targetLinecoverGroups);
 		if(choosedGrid != null && choosedGrid != ''){
 		}else{
 			commonObj.alert("您的经营地址所在地暂无网格归属,请确认是否属于如下网格：","info");
@@ -312,12 +328,15 @@
 				if(features.length ==1){
 					gridCmNo = features[0][0];
 					caclAndView(gridCmNo, gridCaclModelList);
-
+					if(targetLinecoverGroups.length>0)
+						map.clear(targetLinecoverGroups);
 				}else{
 					$.messager.confirm('消息', "店面特征:" + featuresHtml, function (r) {
 						if (r) {
 							gridCmNo = $("#featureInp").val();
 							caclAndView(gridCmNo, gridCaclModelList);
+							if(targetLinecoverGroups.length>0)
+								map.add(targetLinecoverGroups);
 						}
 					});
 				}
