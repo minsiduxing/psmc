@@ -291,6 +291,7 @@ function lshCoverView(centerCoordinate){
                     size: new AMap.Size(20, 30),  //图标所处区域大小
                     imageSize: new AMap.Size(20, 30) //图标大小
                 }),
+                anchor:'center'
             });
             coverGroups.push(marker);
         }
@@ -325,6 +326,7 @@ function regionCoverView(centerCoordinate){
                     size: new AMap.Size(20, 30),  //图标所处区域大小
                     imageSize: new AMap.Size(20, 30) //图标大小
                 }),
+                anchor:'center'
             });
             coverGroups.push(marker);
         }
