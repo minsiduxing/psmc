@@ -49,14 +49,11 @@ public class TabYcRegionCoordinateController extends MyController {
      */
     @RequestMapping(params="method=queryAllregionCoordinate")
     @ResponseBody
-    public void queryAllregionCoordinate() throws IOException {
-        String orgCode = this.getUserBySeesion(this.request()).getGroupCode();
+    public void queryAllregionCoordinate(String onlyOrgCode) throws IOException {
         Map<String, Object> queryParams = new HashMap<String, Object>();
-        if(StringUtils.isBlank(orgCode)){
-            throw new RuntimeException("参数异常!");
-        }{
-            queryParams.put("orgCode", orgCode);
-        }
+        if(onlyOrgCode == null)
+            onlyOrgCode = this.getUserBySeesion(this.request()).getGroupCode();
+        queryParams.put("onlyOrgCode", onlyOrgCode);
         List list = tabYcRegionCoordinateService.queryAllRegionCoordinateInfo(queryParams);
         super.responseJson(JsonUtil.convertListObjToJSONArray(list), this.response());
     }

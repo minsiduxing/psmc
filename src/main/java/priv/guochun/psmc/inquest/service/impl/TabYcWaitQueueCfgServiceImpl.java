@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import priv.guochun.psmc.inquest.model.TabYcWaitQueueCfg;
 import priv.guochun.psmc.inquest.service.TabYcWaitQueueCfgService;
 import priv.guochun.psmc.system.framework.dao.BaseDao;
+import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 
 import java.util.HashMap;
@@ -31,5 +32,10 @@ public class TabYcWaitQueueCfgServiceImpl implements TabYcWaitQueueCfgService {
             condition.putAll(page.getQueryParams());
         }
         return baseDao.getMyPage(page, "selectWaitQueueCfgList", condition);
+    }
+    @Override
+    public MsgModel queryWaitQueueCfg(Map<String,Object> param){
+        TabYcWaitQueueCfg m = (TabYcWaitQueueCfg)baseDao.queryForObject("selectWaitQueueCfgList", param);
+        return MsgModel.buildDefaultSuccess(m);
     }
 }

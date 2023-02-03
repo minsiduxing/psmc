@@ -77,8 +77,8 @@
       and child.group_code like concat(parent.group_code, '%')
       )
     </if>
-    <if test="mySelfOrgCode != null and mySelfOrgCode != ''">
-      and a.org_code =#{mySelfOrgCode}
+    <if test="onlyOrgCode != null and onlyOrgCode != ''">
+      and a.org_code =#{onlyOrgCode}
     </if>
   </select>
 
