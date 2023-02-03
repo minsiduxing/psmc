@@ -31,9 +31,26 @@ function disCacl(newgridCaclMode){
         var minObj = findMinDistanceInfo(gdata);
         var targetRegion = JSON.parse(testObj[minObj.origin_id-1]);
         console.info("找出最近目标对象："+JSON.stringify(targetRegion));
+        var trobj = targetRegion.coordinate.split(",")
+         var path = [
+             new AMap.LngLat(businessAddress.getPosition().lng,businessAddress.getPosition().lat),
+             new AMap.LngLat(trobj[0],trobj[1])
+        ]
+
+        var aa = new AMap.Polyline({
+            path: path,
+            showDir:true,
+            lineCap:'square',
+            strokeWeight:10
+        });
+    targetLinecoverGroups.push(aa);
+
         //针对最近点位进行测算
         var param = '&gridCmodelUuid='+newgridCaclMode.GRID_CMODEL_UUID+'&gridUuid='+choosedGrid.GRID_UUID+'&origin='+businessAddress.getPosition()+"&destination="+targetRegion.coordinate+"&targetName="+targetRegion.regionName+"&distance="+minObj.distance;
         var caclRel = commonObj.postAjax(gridCmodelHanleCertCaclUrl, param);
+
+        debugger;
+
         return caclRel;
 }
 
@@ -92,6 +109,23 @@ function disCaclLSH(newgridCaclMode){
         var minObj = findMinDistanceInfo(gdata);
         var targetRegion = JSON.parse(testObj[minObj.origin_id-1]);
         console.info("最近目标对象："+JSON.stringify(targetRegion));
+
+        var trobj = targetRegion.coordinate.split(",")
+        var path = [
+            new AMap.LngLat(businessAddress.getPosition().lng,businessAddress.getPosition().lat),
+            new AMap.LngLat(trobj[0],trobj[1])
+        ]
+
+        var aa = new AMap.Polyline({
+            path: path,
+            showDir:true,
+            lineCap:'round',
+            lineJoin:"miter",
+            strokeWeight:10
+        });
+        targetLinecoverGroups.push(aa);
+
+
         //针对最近点位进行测算
         var param = '&gridCmodelUuid='+newgridCaclMode.GRID_CMODEL_UUID+'&gridUuid='+choosedGrid.GRID_UUID+'&origin='+businessAddress.getPosition()+"&destination="+targetRegion.coordinate+"&targetName="+targetRegion.companyName+"&distance="+minObj.distance;
     }
@@ -372,15 +406,25 @@ function caclAndView(gridCmNo,gridCaclModelList){
         else
             rresult +="</br><h3>系统测算您当前拟申请经营地址初步符合办证条件，您可进行烟草零售许可证申请，申请结果以工作人员实地勘验核查后为准。</h3>";
     }
-    $('#calceResultViewDiv').window({
-        title:"测算结果",
-        width:750,
-        height:250,
-        modal:true,
-        content:rresult,
-        minimizable:false,
-        maximizable:false,
-        closable:true,
-        collapsible:false
+
+    $.messager.show({
+        title:'测算结果',
+        msg:rresult,
+        width:650,
+        height:350,
+        timeout:0,
+        showType:'slide'
     });
+
+    // $('#calceResultViewDiv').window({
+    //     title:"测算结果",
+    //     width:750,
+    //     height:250,
+    //     modal:true,
+    //     content:rresult,
+    //     minimizable:false,
+    //     maximizable:false,
+    //     closable:true,
+    //     collapsible:false
+    // });
 }

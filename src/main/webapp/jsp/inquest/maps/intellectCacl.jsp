@@ -130,8 +130,12 @@
 	var regionCoordinateDatas;
 	//零售户总量
 	var licDatas;
+
 	//覆盖物数组
 	var coverGroups = [];
+	var targetLinecoverGroups = [];
+
+
 	//拟申请经营地址
 	var businessAddress = '';
 	//已选择网格
@@ -230,9 +234,14 @@
 			map.remove(coverGroups);
 			coverGroups = [];
 		}
+
+		if(targetLinecoverGroups.length>0)
+			map.remove(targetLinecoverGroups);
+
 		if(businessAddress != null && businessAddress !=''){
 			map.remove(businessAddress);
 		}
+
 		//零售户展示
 		lshCoverView(centerCoordinate);
 		//中小学幼儿园展示
@@ -289,6 +298,8 @@
 	 * 测算总入口
 	 */
 	function caclFun(){
+		if(targetLinecoverGroups.length>0)
+			map.remove(targetLinecoverGroups);
 		if(choosedGrid != null && choosedGrid != ''){
 		}else{
 			commonObj.alert("您的经营地址所在地暂无网格归属,请确认是否属于如下网格：","info");
@@ -317,12 +328,15 @@
 				if(features.length ==1){
 					gridCmNo = features[0][0];
 					caclAndView(gridCmNo, gridCaclModelList);
-
+					if(targetLinecoverGroups.length>0)
+						map.clear(targetLinecoverGroups);
 				}else{
 					$.messager.confirm('消息', "店面特征:" + featuresHtml, function (r) {
 						if (r) {
 							gridCmNo = $("#featureInp").val();
 							caclAndView(gridCmNo, gridCaclModelList);
+							if(targetLinecoverGroups.length>0)
+								map.add(targetLinecoverGroups);
 						}
 					});
 				}
