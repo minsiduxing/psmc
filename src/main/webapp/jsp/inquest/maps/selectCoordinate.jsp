@@ -26,7 +26,9 @@
 	<div style="font-size: 5px">
 		<input id="address" name="address" style="width:30%;margin-right:1%">
 		<input id="addrLocation" name="addrLocation" onclick="search();" type="button" style="width:70px;margin-right:1%" value="地址搜索"/>
-		<input id="gridDraw" name="gridDraw" onclick="enableGridDraw(this);" type="button" style="width:70px;margin-right:1%" value="网格绘制"/>
+		<input id="gridDraw" name="gridDraw" onclick="enableGridDraw(this);" type="button" style="width:70px;margin-right:1%" value="新建网格"/>
+		<input id="gridEdit" name="gridEdit" onclick="enableGridDraw(this);" type="button" style="width:70px;margin-right:1%" value="编辑网格"/>
+		<input id="gridEditClose" name="gridEditClose" onclick="enableGridDraw(this);" type="button" style="width:70px;margin-right:1%;display: none" value="编辑完成"/>
 
 		<input id="saveGridDraw" name="saveGridDraw" onclick="enableGridDraw(this);" type="button" style="display:none;width:40px;margin-right:1%" value="保存"/>
 		<input id="cancelGridDraw" name="cancelGridDraw" onclick="enableGridDraw(this);" type="button" style="display:none;width:40px;margin-right:1%" value="取消"/>
@@ -60,6 +62,8 @@
 	var gdmap_jsapi_version = "";
 	var gdmap_init_info;
 
+	//网格编辑器
+	var polylineEditor;
 	$.ajax({
 		type: "POST",
 		url: queryGridByGridUuidUrl,
@@ -239,6 +243,7 @@
 		var ival = obj.value;
 		if(ival == "取消"){
 			$("#gridDraw").css("display","");
+			$("#gridEdit").css("display","");
 			$("#saveGridDraw").css("display","none");
 			$("#cancelGridDraw").css("display","none");
 			//取消插件
@@ -308,12 +313,59 @@
 					}
 				});
 				$("#gridDraw").css("display","");
+				$("#gridEdit").css("display","");
 				$("#saveGridDraw").css("display","none");
 				$("#cancelGridDraw").css("display","none");
 			}
 		}
-		if(ival == "网格绘制"){
+		if(ival == "编辑网格"){
 			$("#gridDraw").css("display","none");
+			$("#gridEdit").css("display","none");
+			$("#saveGridDraw").css("display","none");
+			$("#cancelGridDraw").css("display","none");
+			$("#gridEditClose").css("display","");
+			map.plugin(["AMap.PolylineEditor"],function(){
+				// 实例化多边形编辑器，传入地图实例和要进行编辑的多边形实例
+				polylineEditor = new AMap.PolylineEditor(map, polygon);
+				// 开启编辑模式
+				polylineEditor.open();
+			});
+		}
+		if(ival == "编辑完成"){
+			$("#gridDraw").css("display","");
+			$("#gridEdit").css("display","");
+			$("#gridEditClose").css("display","none");
+			polylineEditor.close();
+			var paths = polygon.getPath();
+			for(var i=0;i<paths.length;i++){
+				overlays.push("["+paths[i].lng+","+paths[i].lat+"]");
+			}
+
+			$.ajax({
+				type: "POST",
+				url: updateGridCoodinateUrl,
+				data: "isMaintainCoordinate=1&coordinate="+overlays+"&gridUuid="+gridUuid,
+				success: function(data){
+					var r = JSON.parse(data).result;
+					//取消插件
+					if(eval(r.flag == 1)){
+						commonObj.alert(r.msg,"info");
+					}
+					commonObj.query('sologTableId','searchform');
+				},
+				error:function(XMLHttpRequest, textStatus, errorThrown){
+					commonObj.showError(XMLHttpRequest, textStatus, errorThrown);
+				}
+			});
+
+			$("#gridDraw").css("display","");
+			$("#saveGridDraw").css("display","none");
+			$("#cancelGridDraw").css("display","none");
+		}
+
+		if(ival == "新建网格"){
+			$("#gridDraw").css("display","none");
+			$("#gridEdit").css("display","none");
 			$("#saveGridDraw").css("display","");
 			$("#cancelGridDraw").css("display","");
 			//取消插件

@@ -145,6 +145,14 @@
 	//初始化查询参数
 	initQueryParam();
 
+	//定义选点坐标变化后的处理
+	var clickHandler = function (e) {
+		//动态加载覆盖物（网格、特殊区域、零售户）
+		dynamicLoadCovers("[" + e.lnglat.getLng() + "," + e.lnglat.getLat() + "]");
+		//中心点随鼠标点击移动
+		map.setCenter(new AMap.LngLat(e.lnglat.getLng(), e.lnglat.getLat()));
+	};
+
 </script>
 <script src="./znkyCore.js"></script>
 <script>
@@ -196,12 +204,7 @@
 					map.addControl(new AMap.MapType());
 				});
 
-				var clickHandler = function (e) {
-					//动态加载覆盖物（网格、特殊区域、零售户）
-					dynamicLoadCovers("[" + e.lnglat.getLng() + "," + e.lnglat.getLat() + "]");
-					//中心点随鼠标点击移动
-					map.setCenter(new AMap.LngLat(e.lnglat.getLng(), e.lnglat.getLat()));
-				};
+
 				// 绑定事件
 				map.on('click', clickHandler);
 
@@ -243,8 +246,10 @@
 		//拟申请经营地址
 		businessAddress = new AMap.Marker({
 			position: eval(centerCoordinate),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
-			title: '拟申请经营地址'
+			title: '拟申请经营地址',
+			draggable: true
 		});
+		businessAddress.on('dragend', clickHandler);
 		map.add(businessAddress);
 
 		//初始化选择的点位所归属的网格信息，如果没有 后续要提醒进行虚拟网格选择
