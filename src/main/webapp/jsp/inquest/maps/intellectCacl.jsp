@@ -256,7 +256,8 @@
 		businessAddress = new AMap.Marker({
 			position: eval(centerCoordinate),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
 			title: '拟申请经营地址',
-			draggable: true
+			draggable: true,
+			anchor:'center'
 		});
 		businessAddress.on('dragend', clickHandler);
 		map.add(businessAddress);
