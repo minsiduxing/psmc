@@ -275,7 +275,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
 
         JSONObject resultObj = null;
         try{
-            String result = HttpConnectUtil.postJson(wx_query_persistent_material_url,paramJson);
+            String result = HttpConnectUtil.postJson(wx_query_persistent_material_url,paramJson,null);
             resultObj = (JSONObject)JSONObject.parse(result);
             if (resultObj != null && resultObj.get("errcode") == null) {
                 return MsgModel.buildDefaultSuccess(result);
@@ -317,7 +317,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
         wx_query_persistent_material_list_url += "?access_token="+access_token;
         JSONObject resultObj = null;
         try{
-            String result =  HttpConnectUtil.postJson(wx_query_persistent_material_list_url,paramJsonStr);
+            String result =  HttpConnectUtil.postJson(wx_query_persistent_material_list_url,paramJsonStr,null);
             resultObj = (JSONObject)JSONObject.parse(result);
             if (resultObj != null && resultObj.get("errcode") == null) {
                 return MsgModel.buildDefaultSuccess(result);
@@ -380,7 +380,7 @@ public class PsmcWxServiceImpl implements PsmcWxService {
     public MsgModel draftsCommonProcess(String target_url,String paramJsonStr) {
         JSONObject resultObj = null;
         try{
-            String result =  HttpConnectUtil.postJson(target_url,paramJsonStr);
+            String result =  HttpConnectUtil.postJson(target_url,paramJsonStr,null);
             resultObj = (JSONObject)JSONObject.parse(result);
             if (resultObj != null && resultObj.get("errcode") == null) {
                 return MsgModel.buildDefaultSuccess(result);

@@ -71,3 +71,8 @@ insert into tab_resource (uuid, resource_name, resource_type, resource_url, pare
 ('920c3970ab194d5a9e76198020bfd484','测算公式管理',3,'/jsp/inquest/gridModelCacl.jsp?version=v1.0','f55580fa321b4d34a172628d5825c4dc','admin',str_to_date('2021-06-08','%Y-%m-%d %T'),'',34,1);
 
 insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '920c3970ab194d5a9e76198020bfd484');
+
+insert into tab_resource (uuid, resource_name, resource_type, resource_url, parent_resource_uuid, creator_name, create_time, remark,ordernum,is_view) values
+('8f28ac56c8974351bf2102a55528ab89','openAi测试',3,'/jsp/system/openai/test.jsp','f55580fa321b4d34a172628d5825c4dc','admin',str_to_date('2021-06-08','%Y-%m-%d %T'),'',33,1);
+
+insert into tab_role_resource (role_id, resource_id) values ('efb74820f0564d02bb68fdf3190a6430', '8f28ac56c8974351bf2102a55528ab89');

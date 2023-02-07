@@ -28,6 +28,7 @@
 		width: 280px;
 	}
 </style>
+	<!-- 查询栏 -->
 <div style="width:100%;height:5%;margin: 5px;">
 	<div style="font-size: 5px">
 		所属专卖局：<input id="orgCode" name="orgCode"/>
@@ -38,7 +39,8 @@
 
 	<div id="panel"></div>
 </div>
-<div id="container" style="width:100%;height:450px;"></div>
+	<!-- 高德容器div -->
+	<div id="container" style="width:100%;height:450px;"></div>
 
 <script type="text/javascript">
 
