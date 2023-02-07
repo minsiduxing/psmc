@@ -18,15 +18,15 @@ public class PsmcChatGPTAiServiceImpl implements PsmcAiService {
     public MsgModel testAiService(){
         MsgModel mm = null;
         Map<String, String> header = new HashMap<String, String>();
-        header.put("AUthorization","Bearer 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");
+        header.put("AUthorization","Bearer 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");
         header.put("Content-Type","application/json; charset=UTF-8");
         String url ="https://api.openai.com/v1/completions";
         PsmcChatGPTAiServiceImpl gpt = new PsmcChatGPTAiServiceImpl();
         JSONObject data = new JSONObject();
         data.put("model","text-davinci-003");
-        data.put("prompt","埃隆马斯克你认识吗");
+        data.put("prompt","张艺谋的电影作品你了解多少呢");
         data.put("n",1);
-        data.put("max_tokens",20);
+        data.put("max_tokens",2048);
         data.put("top_p",1); //，0.1意味着只考虑包含最高10%概率质量的内容
         data.put("temperature",0);
         try{
@@ -96,9 +96,9 @@ public class PsmcChatGPTAiServiceImpl implements PsmcAiService {
         PsmcChatGPTAiServiceImpl gpt = new PsmcChatGPTAiServiceImpl();
         JSONObject data = new JSONObject();
         data.put("model","text-davinci-003");
-        data.put("prompt","请你评价一下克里斯托弗诺兰的盗梦空间");
+        data.put("prompt","张艺谋的电影作品你了解多少呢");
         data.put("n",1);
-        data.put("max_tokens",20);
+        data.put("max_tokens",2048);
         data.put("top_p",1); //，0.1意味着只考虑包含最高10%概率质量的内容
 //        data.put("stream",Boolean.TRUE);
         data.put("temperature",0);
