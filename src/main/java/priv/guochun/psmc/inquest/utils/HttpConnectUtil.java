@@ -255,13 +255,13 @@ public class HttpConnectUtil {
             httpConnection = getHttpConnection(targetURL);
             httpConnection.setRequestMethod("POST");
             httpConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-            httpConnection.addRequestProperty("Svc_UserName", "admin");
-            httpConnection.addRequestProperty("Svc_Password", "1");
+//            httpConnection.addRequestProperty("Svc_UserName", "admin");
+//            httpConnection.addRequestProperty("Svc_Password", "1");
             if(header !=null) {
                 Iterator iter = header.keySet().iterator();
                 if(iter.hasNext()){
                     String var = iter.next().toString();
-                    httpConnection.setRequestProperty(var, header.get(var).toString());
+                    httpConnection.addRequestProperty(var, header.get(var).toString());
                 }
             }
             DataOutputStream out = new DataOutputStream(httpConnection.getOutputStream());

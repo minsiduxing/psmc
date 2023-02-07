@@ -6,7 +6,7 @@ import priv.guochun.psmc.system.framework.model.MsgModel;
 public interface PsmcAiService {
 
 
-    public MsgModel testAiService();
+    public MsgModel testAiService(JSONObject data);
 
 
     public MsgModel completions(JSONObject param);

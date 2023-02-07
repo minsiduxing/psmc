@@ -38,7 +38,7 @@
 					debugger;
 					var dt = JSON.parse(data);
 					if(dt.res == "fail"){
-						commonObj.alert(JSON.parse(JSON.parse(dt.rmsg).result).msg,"warning");
+						commonObj.alert(JSON.parse(dt.rmsg).result.msg,"warning");
 					}else{
 						$("#qaViewDiv").prepend("Human："+i+","+sendValue+"</br>");
 						$('#askContent').textbox("setValue","");
@@ -49,7 +49,6 @@
 					console.error(err.toString());
 					commonObj.alert("系统错误,请联系管理员!","error");
 				}
-				result = data;
 			},
 			error:function(XMLHttpRequest, textStatus, errorThrown){
 				$.messager.progress("close");
