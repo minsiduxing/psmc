@@ -20,17 +20,17 @@
 	aiChatUrl = '<c:url value="'+aiChatUrl+'"/>';
 	var i=0;
 	function send(){
+		$.messager.progress();
 		var sendValue = $('#askContent').textbox("getValue");
 		if(sendValue == null || sendValue == ""){
 			commonObj.alert("请输出你的提问","warning");
 			return;
 		}
 
-		$.messager.progress();
 		$.ajax({
 			type: "POST",
 			url: aiChatUrl,
-			data: "text="+sendValue,
+			data: "&text="+sendValue,
 			async: false,
 			success: function(data) {
 				$.messager.progress("close");

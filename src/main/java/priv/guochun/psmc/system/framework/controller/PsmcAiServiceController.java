@@ -28,7 +28,7 @@ public class PsmcAiServiceController extends MyController {
         data.put("model","text-davinci-003");
         data.put("prompt",text);
         data.put("n",1);
-        data.put("max_tokens",20);
+        data.put("max_tokens",2048);
         data.put("top_p",1); //，0.1意味着只考虑包含最高10%概率质量的内容
         data.put("temperature",0);
         super.responseMsgModel(psmcAiService.completions(data),response());
