@@ -42,12 +42,12 @@ public class HttpConnectUtil {
             if (targetURL.indexOf(str) == -1) {
                 targetURL = targetURL + str;
             }
-
             targetURL = targetURL + uriMapToString(paramMap);
             logger.debug("http get请求 url:"+targetURL);
             httpConnection = getHttpConnection(targetURL);
             httpConnection.setRequestMethod("GET");
             httpConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            httpConnection.setRequestProperty("Authorization","Bearer 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");
             if (httpConnection.getResponseCode() != 200) {
                 throw new RuntimeException("HTTP GET Request Failed with Error code : " + httpConnection.getResponseCode());
             }
@@ -64,6 +64,43 @@ public class HttpConnectUtil {
         return var6;
     }
 
+
+    public static String get(String targetURL, Map<String, ?> paramMap,Map<String, ?> header) {
+        HttpURLConnection httpConnection = null;
+
+        String var6;
+        try {
+//            String str = "?";
+//            if (targetURL.indexOf(str) == -1) {
+//                targetURL = targetURL + str;
+//            }
+            targetURL = targetURL + uriMapToString(paramMap);
+            logger.debug("http get请求 url:"+targetURL);
+            httpConnection = getHttpConnection(targetURL);
+            httpConnection.setRequestMethod("GET");
+
+            if(header !=null) {
+                Iterator iter = header.keySet().iterator();
+                if(iter.hasNext()){
+                    String var = iter.next().toString();
+                    httpConnection.setRequestProperty(var, header.get(var).toString());
+                }
+            }
+            if (httpConnection.getResponseCode() != 200) {
+                throw new RuntimeException("HTTP GET Request Failed with Error code : " + httpConnection.getResponseCode());
+            }
+
+            String bufBody = getBodyFieds(httpConnection);
+            var6 = bufBody;
+        } catch (Exception var10) {
+            var10.printStackTrace();
+            return "";
+        } finally {
+            disconnect(httpConnection);
+        }
+
+        return var6;
+    }
 
     public static byte[] getFile(String targetURL, Map<String, String> paramMap) {
         HttpURLConnection httpConnection = null;
@@ -92,6 +129,52 @@ public class HttpConnectUtil {
         }
     }
 
+    public static String post(String targetURL, Map<String, String> paramMap,Map<String, String> header) {
+        HttpURLConnection httpConnection = null;
+
+        String var6;
+        try {
+            String str = "?";
+            if (targetURL.indexOf(str) == -1) {
+                targetURL = targetURL + str;
+            }
+            targetURL = targetURL + uriMapToString(paramMap);
+            logger.debug("http post请求 url:"+targetURL);
+            httpConnection = getHttpConnection(targetURL);
+            httpConnection.setRequestMethod("POST");
+
+            if(header !=null) {
+                Iterator iter = header.keySet().iterator();
+                if(iter.hasNext()){
+                    String var = iter.next().toString();
+                    httpConnection.setRequestProperty(var, header.get(var).toString());
+                }
+            }
+            String postData = uriMapToString(paramMap);
+            OutputStream out = httpConnection.getOutputStream();
+            if(StringUtils.isNotBlank(postData)){
+                out.write(postData.substring(1,postData.length()).getBytes());
+            }else
+                out.write(postData.getBytes());
+            out.flush();
+            out.close();
+
+            if (httpConnection.getResponseCode() != 200) {
+                throw new RuntimeException("HTTP POST Request Failed with Error code : " + httpConnection.getResponseCode());
+            }
+
+            String bufBody = getBodyFieds(httpConnection);
+            var6 = bufBody;
+        } catch (Exception var10) {
+            var10.printStackTrace();
+            return "";
+        } finally {
+            disconnect(httpConnection);
+        }
+
+        return var6;
+    }
+
     public static String post(String targetURL, Map<String, String> paramMap) {
         HttpURLConnection httpConnection = null;
 
@@ -106,7 +189,6 @@ public class HttpConnectUtil {
             httpConnection = getHttpConnection(targetURL);
             httpConnection.setRequestMethod("POST");
             httpConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-
             String postData = uriMapToString(paramMap);
             OutputStream out = httpConnection.getOutputStream();
             if(StringUtils.isNotBlank(postData)){
@@ -133,9 +215,12 @@ public class HttpConnectUtil {
     }
 
     public static String postJson(String targetURL, Map<String, String> paramMap) {
-       return postJson(targetURL,GsonUtil.toJsonForObject(paramMap));
+       return postJson(targetURL,GsonUtil.toJsonForObject(paramMap),null);
     }
 
+    public static String postJson(String targetURL, Map<String, String> paramMap,Map<String, String> header) {
+        return postJson(targetURL,GsonUtil.toJsonForObject(paramMap),header);
+    }
     public static byte[] postJsonGetFile(String targetURL, Map<String, String> paramMap) {
         HttpURLConnection httpConnection = null;
         logger.debug("http post Json 请求 url:"+targetURL);
@@ -163,7 +248,7 @@ public class HttpConnectUtil {
         return null;
     }
 
-    public static String postJson(String targetURL, String paramJson) {
+    public static String postJson(String targetURL, String paramJson,Map<String, String> header) {
         HttpURLConnection httpConnection = null;
         logger.debug("http post Json 请求 url:"+targetURL);
         try {
@@ -172,12 +257,19 @@ public class HttpConnectUtil {
             httpConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
             httpConnection.addRequestProperty("Svc_UserName", "admin");
             httpConnection.addRequestProperty("Svc_Password", "1");
+            if(header !=null) {
+                Iterator iter = header.keySet().iterator();
+                if(iter.hasNext()){
+                    String var = iter.next().toString();
+                    httpConnection.setRequestProperty(var, header.get(var).toString());
+                }
+            }
             DataOutputStream out = new DataOutputStream(httpConnection.getOutputStream());
             out.write(paramJson.getBytes());
             out.flush();
             out.close();
             if (httpConnection.getResponseCode() != 200) {
-                throw new RuntimeException("HTTP GET Request Failed with Error code : " + httpConnection.getResponseCode());
+                throw new RuntimeException("postJson Request Failed with Error code : " + httpConnection.getResponseCode());
             }
 
             getHeadFieds(httpConnection);
