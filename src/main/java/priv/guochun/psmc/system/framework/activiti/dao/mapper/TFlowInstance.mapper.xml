@@ -435,9 +435,17 @@
       1 = 1
       and a.tfi_uuid=b.PROC_INST_ID_
       and b.CLAIM_TIME_ is null
-      and c.type_='candidate'
-      <!-- 候选类型 可以是人、组、角色 b.ASSIGNEE_指的是委派或者流程图就设置b.ASSIGNEE_，此方法有缺陷，如果是-->
-      and (c.USER_ID_ = #{account_id} or c.GROUP_ID_ = #{group_id} or c.GROUP_ID_ = #{role_id} or b.ASSIGNEE_= #{account_id})
+      and (
+          (
+            c.type_='candidate'
+            <!-- 候选类型 可以是人、组、角色 b.ASSIGNEE_指的是委派或者流程图就设置b.ASSIGNEE_，此方法有缺陷，如果是-->and (c.USER_ID_ = #{account_id} or
+            c.GROUP_ID_ = #{group_id} or c.GROUP_ID_ = #{role_id} or b.ASSIGNEE_= #{account_id})
+          )
+          or
+          (
+            b.ASSIGNEE_= #{account_id}
+          )
+      )
       <if test="tfi_uuid != null and tfi_uuid != ''">
         and a.tfi_uuid = #{tfi_uuid}
       </if>
