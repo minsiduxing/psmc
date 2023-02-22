@@ -33,4 +33,9 @@ public class FlowContans {
 	public final static String FLOW_TEST_ONE_FLOW_APPROVAL = "approval" ;
 	public final static String FLOW_TEST_ONE_FLOW_APPROVAL_VARS_GROUP_DIRECTOR = "group_director" ;
 	/*******************************************TEST_ONE_FLOW流程相关end*****************************************************************************/
+
+
+	public final static String FLOW_CXXMGL_USERTASK1 = "usertask1" ;
+	public final static String FLOW_CXXMGL_USERTASK2 = "usertask2" ;
+
 }

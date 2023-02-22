@@ -26,4 +26,7 @@
 	<bean id="tFlowInstanceService" class="priv.guochun.psmc.system.framework.activiti.service.impl.TFlowInstanceServiceImpl" />
 	<!-- psmc基础工作流服务(开放给业务使用） -->
 	<bean id="psmcBaseWorkFlowService" class="priv.guochun.psmc.system.framework.activiti.service.impl.PsmcBaseWorkFlowServiceImpl" />
+
+	<bean id="multiInstanceCompleteTask" class="priv.guochun.psmc.system.framework.activiti.core.listener.MultiInstanceCompleteTask" />
+
 </beans>

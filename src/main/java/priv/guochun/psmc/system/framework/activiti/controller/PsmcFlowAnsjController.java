@@ -39,9 +39,10 @@ public class PsmcFlowAnsjController extends MyController {
 	 */
 	@RequestMapping(params="method=submitTask")
 	public void submitTask(FlowCommonParam flowCommonParam) throws IOException{
-		flowCommonParam.getVariables().put("paFzrList", flowCommonParam.getVariablesList());
+		//flowCommonParam.getVariables().put("paFzrList", flowCommonParam.getVariablesList());
 		if("end".equals(request().getParameter("isEnd")!=null?request().getParameter("isEnd").toString():"")){
 			flowCommonParam.getVariables().put("paZq", "1");
+			flowCommonParam.getVariables().put("paZjl", "admin");
 		}
 		MsgModel mm = psmcWorkFlowContext.getPsmcBaseWorkFlowService().completeTask(flowCommonParam.getTaskId(),flowCommonParam.getVariables(),flowCommonParam.getTransientVariables());
 		this.responseMsgModel(mm, this.response());
