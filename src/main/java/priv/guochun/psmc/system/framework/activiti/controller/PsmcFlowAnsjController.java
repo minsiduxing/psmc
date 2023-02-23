@@ -39,11 +39,75 @@ public class PsmcFlowAnsjController extends MyController {
 	 */
 	@RequestMapping(params="method=submitTask")
 	public void submitTask(FlowCommonParam flowCommonParam) throws IOException{
-		//flowCommonParam.getVariables().put("paFzrList", flowCommonParam.getVariablesList());
-		if("end".equals(request().getParameter("isEnd")!=null?request().getParameter("isEnd").toString():"")){
-			flowCommonParam.getVariables().put("paZq", "1");
-			flowCommonParam.getVariables().put("paZjl", "admin");
+		if("pa".equals(request().getParameter("taskName").toString())){
+			String currStep = request().getParameter("currStep").toString();
+			if("1".equals(currStep)){
+				flowCommonParam.getVariables().put("step", "qaJbrTask"); // qaJbrTask流程图要改成qaFzrTask
+				flowCommonParam.getVariables().put("paFzrList", flowCommonParam.getVariablesList());
+			}
+			if("2".equals(currStep)){
+				flowCommonParam.getVariables().put("step", "qaZgTask");
+				flowCommonParam.getVariables().put("paZgList", flowCommonParam.getVariablesList());
+			}
+			if("3".equals(currStep)){
+				flowCommonParam.getVariables().put("step", "qaZgjlTask");
+				flowCommonParam.getVariables().put("paZgjlList", flowCommonParam.getVariablesList());
+			}
+			if("4".equals(currStep)){
+				flowCommonParam.getVariables().put("step", "nextTask");
+				flowCommonParam.getVariables().put("fgsJbr", "fgsJbr");
+			}
+			flowCommonParam.getVariables().put("pass", false);
 		}
+
+		if("fgs".equals(request().getParameter("taskName").toString())){
+			String currStep = request().getParameter("currStep").toString();
+			if("1".equals(currStep)){
+				flowCommonParam.getVariables().put("step", "fgsFzrTask");
+				flowCommonParam.getVariables().put("paFzrList", flowCommonParam.getVariablesList());
+			}
+			if("2".equals(currStep)){
+				flowCommonParam.getVariables().put("step", "fgsZgTask");
+				flowCommonParam.getVariables().put("paZgList", flowCommonParam.getVariablesList());
+			}
+			if("3".equals(currStep)){
+				flowCommonParam.getVariables().put("step", "fgsZgjlTask");
+				flowCommonParam.getVariables().put("paZgjlList", flowCommonParam.getVariablesList());
+			}
+			if("4".equals(currStep)){
+				flowCommonParam.getVariables().put("step", "nextTask");
+				flowCommonParam.getVariables().put("gcjJbr", "gcjJbr");
+			}
+			if("5".equals(currStep)){
+				flowCommonParam.getVariables().put("step", "prevTask");
+			}
+			flowCommonParam.getVariables().put("pass", true);
+		}
+
+		if("gcj".equals(request().getParameter("taskName").toString())){
+			String currStep = request().getParameter("currStep").toString();
+			if("1".equals(currStep)){
+				flowCommonParam.getVariables().put("step", "gcjFzrTask");
+				flowCommonParam.getVariables().put("paFzrList", flowCommonParam.getVariablesList());
+			}
+			if("2".equals(currStep)){
+				flowCommonParam.getVariables().put("step", "gcjZgTask");
+				flowCommonParam.getVariables().put("paZgList", flowCommonParam.getVariablesList());
+			}
+			if("3".equals(currStep)){
+				flowCommonParam.getVariables().put("step", "gcjZgjlTask");
+				flowCommonParam.getVariables().put("paZgjlList", flowCommonParam.getVariablesList());
+			}
+			if("4".equals(currStep)){
+				flowCommonParam.getVariables().put("step", "endTask");
+			}
+			if("5".equals(currStep)){
+				flowCommonParam.getVariables().put("step", "prevTask");
+			}
+			flowCommonParam.getVariables().put("pass", true);
+		}
+
+
 		MsgModel mm = psmcWorkFlowContext.getPsmcBaseWorkFlowService().completeTask(flowCommonParam.getTaskId(),flowCommonParam.getVariables(),flowCommonParam.getTransientVariables());
 		this.responseMsgModel(mm, this.response());
 	}
