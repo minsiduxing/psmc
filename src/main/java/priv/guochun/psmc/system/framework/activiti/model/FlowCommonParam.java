@@ -1,5 +1,8 @@
 package priv.guochun.psmc.system.framework.activiti.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,10 +15,12 @@ public class FlowCommonParam {
     String  taskId;
 
     //流程变量对象
-    Map<String, Object> variables;
+    Map<String, Object> variables = new HashMap<String, Object>();
+
+    List<Object> variablesList = new ArrayList<Object>();
 
     //流程变量对象（瞬态变量）目前没用
-    Map<String, Object> transientVariables;
+    Map<String, Object> transientVariables = new HashMap<String, Object>();;
 
     public String getTaskId() {
         return taskId;
@@ -47,5 +52,13 @@ public class FlowCommonParam {
 
     public void setPid(String pid) {
         this.pid = pid;
+    }
+
+    public List<Object> getVariablesList() {
+        return variablesList;
+    }
+
+    public void setVariablesList(List<Object> variablesList) {
+        this.variablesList = variablesList;
     }
 }
