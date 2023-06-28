@@ -74,7 +74,7 @@
       and child.group_code like concat(parent.group_code, '%')
       )
     </if>
-    order by a.org_code,a.is_priority,b.ORDERNUM,a.grid_name,a.create_time asc
+    order by a.org_code,a.is_priority,b.ORDERNUM,a.create_time asc
   </select>
 
   <insert id="insert" parameterType="priv.guochun.psmc.inquest.model.TabYcQueueManage" >
