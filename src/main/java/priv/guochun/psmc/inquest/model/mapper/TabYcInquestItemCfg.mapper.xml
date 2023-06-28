@@ -39,6 +39,7 @@
         <result property="displayVidio" column="display_vidio"/>
         <result property="sort" column="sort"/>
         <result property="orgCode" column="org_code"/>
+        <result property="orgName" column="org_name"/>
         <result property="releationItemUuid" column="releation_item_uuid"/>
         <result property="isNegative" column="is_negative"/>
         <result property="stageCode" column="stage_code"/>
@@ -49,10 +50,14 @@
         <result property="nextStageUuid" column="next_stage_uuid"/>
         <result property="parentId" column="parent_id"/>
         <result property="createTime" column="CREATE_TIME"/>
+        <result property="unrestrictedType" column="unrestricted_type"/>
+        <result property="proveMaterialType" column="prove_material_type"/>
         <collection property="optionCfgList" ofType="priv.guochun.psmc.inquest.model.TabYcInquestOptionCfg">
             <result property="optionContent" column="OPTION_CONTENT"/>
             <result property="optionValue" column="OPTION_VALUE"/>
         </collection>
+
+
     </resultMap>
 
     <select id="findInquestItemList" resultMap="inquestItemCfgVOMap" parameterType="priv.guochun.psmc.inquest.model.vo.TabYcInquestItemCfgVO">
@@ -114,6 +119,7 @@
 
     <select id="selectItemCfgList" resultMap="inquestItemCfgVOMap" parameterType="hashmap">
         SELECT
+            c.group_name as org_name,
             a.stage_uuid,
             a.stage_name,
             a.stage_code,
@@ -129,11 +135,14 @@
             b.display_vidio,
             b.releation_item_uuid,
             b.org_code,
-            date_format(b.CREATE_TIME, '%Y-%m-%d %H:%i:%S') as CREATE_TIME
+            date_format(b.CREATE_TIME, '%Y-%m-%d %H:%i:%S') as CREATE_TIME,
+            b.unrestricted_type,
+            b.prove_material_type
         FROM
             TAB_YC_STAGE a
         left join
-            TAB_YC_INQUEST_ITEM_CFG b on a.stage_uuid=b.STAGE_UUID,
+            TAB_YC_INQUEST_ITEM_CFG b on a.stage_uuid=b.STAGE_UUID
+        left join tab_group c on a.org_code = c.group_code,
 
             (
                 select group_code
@@ -141,6 +150,7 @@
                 WHERE parent_group_code = #{orgCode}
                 or group_code = #{orgCode}
             ) d
+
         WHERE a.is_active=1
           AND b.is_active=1
           AND b.org_code = d.group_code
@@ -154,7 +164,7 @@
             AND b.QUESTION_NAME = CONCAT('%', #{questionName},'%')
         </if>
         ORDER BY
-        a.sort, b.sort ASC
+        a.org_code,b.org_code,a.sort, b.sort ASC
     </select>
 
     <select id="getInquestItemById" resultMap="inquestItemCfgVOMap">
