@@ -10,12 +10,13 @@ $(document).ready(function(){
              * width:parseInt($(this).width()*0.3)
              */
             {field:'itemUuid',title:'题目主键',checkbox:true},
+            {field:'orgName',title:'所属专卖局',resizable:true,align:'center',width:$(this).width() * 0.3},
             {field:'stageName',title:'阶段名称',resizable:true,align:'center',width:$(this).width() * 0.2},
-            {field:'questionType',title:'题目类型',align:'center',width:$(this).width() * 0.2,formatter: function (value, row, index) {
+            {field:'questionType',title:'条件类型',align:'center',width:$(this).width() * 0.2,formatter: function (value, row, index) {
                     if(value=='1'){return "单选"; }
                     if(value=='2'){return "多选"; }
                 }},
-            {field:'questionName',title:'题目名称',halign:'center',width:"60%"},
+            {field:'questionName',title:'题目名称',halign:'center',width:"50%"},
             // {field:'isAffectedBsg',title:'是否受特殊群体影响',width:$(this).width() * 0.2,align:'center',formatter: function (value, row, index) {
             //         if(value){
             //             return "是";
@@ -23,14 +24,21 @@ $(document).ready(function(){
             //             return "否";
             //         }
             //     }},
-            {field:'isAffectedJlcl',title:'是否距离测算',width:$(this).width() * 0.2,align:'center',formatter: function (value, row, index) {
+            {field:'isAffectedBsg',title:'特殊群体条件',width:$(this).width() * 0.2,align:'center',formatter: function (value, row, index) {
                     if(value){
                         return "是";
                     }else{
                         return "否";
                     }
                 }},
-            {field:'isAffectedBhdcs',title:'是否饱和度测算',width:$(this).width() * 0.2,align:'center',formatter: function (value, row, index) {
+            {field:'unrestrictedType',title:'不受布局限制条件',width:$(this).width() * 0.3,align:'center',formatter: function (value, row, index) {
+                    if(value){
+                        return value;
+                    }else{
+                        return "否";
+                    }
+                }},
+            {field:'proveMaterialType',title:'启用证明材料',width:$(this).width() * 0.2,align:'center',formatter: function (value, row, index) {
                     if(value){
                         return "是";
                     }else{

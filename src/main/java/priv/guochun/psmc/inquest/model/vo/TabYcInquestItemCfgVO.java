@@ -68,6 +68,8 @@ public class TabYcInquestItemCfgVO implements Serializable {
      * 所属专卖局code
      */
     private String orgCode;
+
+    private String orgName;
     /**
      * 关联题目id
      */
@@ -127,6 +129,17 @@ public class TabYcInquestItemCfgVO implements Serializable {
     private String videoName;
 
     private String attachmentUuids;
+
+    /**
+     * 不受布局限制类型
+     */
+    private String unrestrictedType;
+
+    /**
+     * 是否涉及证明材料
+     */
+    private String proveMaterialType;
+
 
     public String getItemUuid() {
         return itemUuid;
@@ -350,5 +363,29 @@ public class TabYcInquestItemCfgVO implements Serializable {
 
     public void setAttachmentUuids(String attachmentUuids) {
         this.attachmentUuids = attachmentUuids;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
+    public String getUnrestrictedType() {
+        return unrestrictedType;
+    }
+
+    public void setUnrestrictedType(String unrestrictedType) {
+        this.unrestrictedType = unrestrictedType;
+    }
+
+    public String getProveMaterialType() {
+        return proveMaterialType;
+    }
+
+    public void setProveMaterialType(String proveMaterialType) {
+        this.proveMaterialType = proveMaterialType;
     }
 }
