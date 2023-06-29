@@ -10,8 +10,7 @@ $(document).ready(function(){
              * width:parseInt($(this).width()*0.3)
              */
             {field:'itemUuid',title:'题目主键',checkbox:true},
-            {field:'orgName',title:'所属专卖局',resizable:true,align:'center',width:$(this).width() * 0.3},
-            {field:'stageName',title:'阶段名称',resizable:true,align:'center',width:$(this).width() * 0.2},
+            {field:'stageName',title:'阶段名称',resizable:true,align:'center',width:$(this).width() * 0.3},
             {field:'questionType',title:'条件类型',align:'center',width:$(this).width() * 0.2,formatter: function (value, row, index) {
                     if(value=='1'){return "单选"; }
                     if(value=='2'){return "多选"; }
@@ -33,18 +32,19 @@ $(document).ready(function(){
                 }},
             {field:'unrestrictedType',title:'不受布局限制条件',width:$(this).width() * 0.3,align:'center',formatter: function (value, row, index) {
                     if(value){
-                        return value;
+                        return "是"+value;
                     }else{
                         return "否";
                     }
                 }},
             {field:'proveMaterialType',title:'启用证明材料',width:$(this).width() * 0.2,align:'center',formatter: function (value, row, index) {
                     if(value){
-                        return "是";
+                        return "是"+value;
                     }else{
                         return "否";
                     }
                 }},
+            {field:'orgName',title:'所属专卖局',resizable:true,align:'center',width:$(this).width() * 0.3},
             // {field:'displayAtlas',title:'配图地址',align:'center',width:$(this).width() * 0.2},
             // {field:'displayVidio',title:'视频地址',align:'center',width:$(this).width() * 0.2},
             //{field:'createTime',title:'创建时间',align:'center',width:$(this).width() * 0.2,align:'center'}
