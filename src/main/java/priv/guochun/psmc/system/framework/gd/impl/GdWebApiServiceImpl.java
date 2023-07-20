@@ -45,7 +45,7 @@ public class GdWebApiServiceImpl implements GdWebApiService {
 
     public MsgModel distances(Map<String,Object> param){
         MsgModel mm;
-        if(param == null || param.get("origins") == null || "origins".equals(param.get("")) || param.get("destination") == null || "".equals(param.get("destination"))){
+        if(param == null || param.get("origins") == null || "".equals(param.get("origins")) || param.get("destination") == null || "".equals(param.get("destination"))){
             mm = MsgModel.buildDefaultError("高德服务必须参数缺失!");
             return mm;
         }
