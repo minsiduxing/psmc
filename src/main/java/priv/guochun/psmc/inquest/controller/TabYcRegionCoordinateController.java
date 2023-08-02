@@ -30,6 +30,13 @@ public class TabYcRegionCoordinateController extends MyController {
     @RequestMapping(params="method=selectRegionCoordinatePage")
     @ResponseBody
     public void selectRegionCoordinatePage(MyPage page) throws Exception{
+        String orgCode = this.getUserBySeesion(this.request()).getGroupCode();
+        Map<String, Object> queryParams = page.getQueryParams();
+        if (queryParams == null || queryParams.get("orgCode") == null){
+            queryParams = new HashMap<>();
+            queryParams.put("orgCode", orgCode);
+            page.setQueryParams(queryParams);
+        }
         page = tabYcRegionCoordinateService.selectRegionCoordinatePage(page);
         super.responseJson(JsonUtil.convertJavaBeanToJSONObject(page), this.response());
     }

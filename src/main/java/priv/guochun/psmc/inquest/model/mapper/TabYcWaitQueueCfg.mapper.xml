@@ -27,9 +27,11 @@
 
     <select id="selectWaitQueueCfgList" resultMap="waitQueueCfgMap" parameterType="hashmap">
         SELECT
-            a.*
+        a.cfg_uuid, a.org_code, a.default_coordinate, a.contact_address, a.contact_tel, a.address_coordinate, a.work_time, a.is_fictitious_grid, a.overdue_days, a.is_closed_retain, a.closed_retain_days, a.qrcode_path,
+        a.sort, a.is_active, a.creator, a.create_time,b.group_name as org_name
         FROM
             tab_yc_wait_queue_cfg a
+        LEFT JOIN tab_group b ON a.org_code =b.group_code
         WHERE a.is_active=1
         <if test="orgCode != null and orgCode != ''">
             and a.org_code in (

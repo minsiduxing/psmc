@@ -42,7 +42,8 @@
 
   <select id="selectLicInfoPage" resultMap="BaseResultMap" parameterType="hashmap">
     SELECT
-      a.*,
+    a.lic_uuid, a.lic_no, a.manager_name, a.company_name, a.business_addr, a.credit_no, a.idcard_no, a.lic_start_date, a.lic_end_date, a.lic_status, a.line_tel, a.close_decide_time, a.grid_name, a.issue_date, a.eco_type, a.org_code, a.coordinate, a.is_not_consult, a.not_consult_type, a.is_active, a.create_time, a.creator, a.modify_time,
+      e.group_name as org_name,
       b.DICT_NAME AS licStatusName,
       c.DICT_NAME AS notConsultTypeName,
       d.DICT_NAME AS ecoTypeName
@@ -50,6 +51,7 @@
     LEFT JOIN tab_data_dict b ON a.lic_status = b.DICT_ID and b.DICT_NO = 'LIC_STATUS'
     LEFT JOIN tab_data_dict c ON a.not_consult_type = c.DICT_ID and c.DICT_NO = 'NOT_CONSULT_TYPE'
     LEFT JOIN tab_data_dict d ON a.eco_type = d.DICT_ID and d.DICT_NO = 'ECO_TYPE'
+    LEFT JOIN tab_group e ON a.org_code =e.group_code
     where a.is_active = 1
     <if test="licNo != null and licNo != ''">
       and a.lic_no = #{licNo}

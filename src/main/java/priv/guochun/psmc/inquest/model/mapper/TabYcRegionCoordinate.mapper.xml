@@ -24,11 +24,12 @@
   </sql>
 
   <select id="selectRegionCoordinatePage" resultMap="BaseResultMap" parameterType="hashmap">
-    SELECT a.*,
-           b.DICT_NAME AS regionTypeName
+    SELECT a.coord_uuid, a.region_type, a.region_name, a.region_addr, a.org_code, a.coordinate, a.is_active, a.create_time, a.modify_time, a.creator,
+           b.DICT_NAME AS regionTypeName,c.group_name as org_name
     FROM
       tab_yc_region_coordinate a
     inner JOIN tab_data_dict b ON a.region_type = b.DICT_ID and b.DICT_NO = 'REGION_TYPE'
+    LEFT JOIN tab_group c ON a.org_code =c.group_code
     where 1=1
     <if test="isActive != null ">
       and a.is_active = #{isActive}

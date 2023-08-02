@@ -38,12 +38,14 @@
 
   <select id="selectQueueManagePage" resultMap="BaseResultMap" parameterType="hashmap">
     SELECT
-      a.*,
+    a.queue_uuid, a.grid_name, a.manager_name, a.company_name, a.credit_no, a.business_addr, a.line_tel, a.is_priority, a.priority_condition, a.apply_status, a.notice_date, a.finish_type, a.finish_time, a.org_code, a.coordinate, a.remark, a.is_active, a.create_time, a.creator, a.modify_time,
+      d.group_name as org_name,
       b.DICT_NAME AS applyStatusName,
       c.DICT_NAME AS finishTypeName
     FROM tab_yc_queue_manage a
     LEFT JOIN tab_data_dict b ON a.apply_status = b.DICT_ID and b.DICT_NO = 'APPLY_STATUS'
     LEFT JOIN tab_data_dict c ON a.finish_type = c.DICT_ID and c.DICT_NO = 'FINISH_TYPE'
+    LEFT JOIN tab_group d ON a.org_code =d.group_code
     where a.is_active = 1
     <if test="isPriority != null and isPriority != ''">
       and a.is_priority = #{isPriority}
