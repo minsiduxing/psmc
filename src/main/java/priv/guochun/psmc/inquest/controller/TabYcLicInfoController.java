@@ -29,6 +29,13 @@ public class TabYcLicInfoController extends MyController {
     @RequestMapping(params="method=selectLicInfoPage")
     @ResponseBody
     public void selectLicInfoPage(MyPage page) throws Exception{
+        String orgCode = this.getUserBySeesion(this.request()).getGroupCode();
+        Map<String, Object> queryParams = page.getQueryParams();
+        if (queryParams == null || queryParams.get("orgCode") == null){
+            queryParams = new HashMap<>();
+            queryParams.put("orgCode", orgCode);
+            page.setQueryParams(queryParams);
+        }
         page = tabYcLicInfoService.selectLicInfoPage(page);
         super.responseJson(JsonUtil.convertJavaBeanToJSONObject(page), this.response());
     }

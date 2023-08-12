@@ -9,6 +9,9 @@ import priv.guochun.psmc.system.framework.controller.MyController;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.JsonUtil;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/inquest/tabYcQueueManageController")
 public class TabYcQueueManageController extends MyController {
@@ -24,6 +27,14 @@ public class TabYcQueueManageController extends MyController {
     @RequestMapping(params="method=selectQueueManagePage")
     @ResponseBody
     public void selectQueueManagePage(MyPage page) throws Exception{
+        String orgCode = this.getUserBySeesion(this.request()).getGroupCode();
+        Map<String, Object> queryParams = page.getQueryParams();
+        if (queryParams == null || queryParams.get("orgCode") == null){
+            queryParams = new HashMap<>();
+            queryParams.put("orgCode", orgCode);
+            page.setQueryParams(queryParams);
+        }
+
         page = tabYcQueueManageService.selectQueueManagePage(page);
         super.responseJson(JsonUtil.convertJavaBeanToJSONObject(page), this.response());
     }

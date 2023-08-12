@@ -11,6 +11,7 @@ import priv.guochun.psmc.system.framework.model.MsgModel;
 import priv.guochun.psmc.system.framework.page.MyPage;
 import priv.guochun.psmc.system.util.JsonUtil;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -29,6 +30,13 @@ public class TabYcWaitQueueCfgController extends MyController {
     @RequestMapping(params="method=selectWaitQueueCfgPage")
     @ResponseBody
     public void selectWaitQueueCfgPage(MyPage page) throws Exception{
+        String orgCode = this.getUserBySeesion(this.request()).getGroupCode();
+        Map<String, Object> queryParams = page.getQueryParams();
+        if (queryParams == null || queryParams.get("orgCode") == null){
+            queryParams = new HashMap<>();
+            queryParams.put("orgCode", orgCode);
+            page.setQueryParams(queryParams);
+        }
         page = tabYcWaitQueueCfgService.selectWaitQueueCfgPage(page);
         super.responseJson(JsonUtil.convertJavaBeanToJSONObject(page), this.response());
     }
